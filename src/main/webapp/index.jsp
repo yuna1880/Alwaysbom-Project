@@ -8,6 +8,9 @@
     <h1><%= "Hello World!" %>
     </h1>
     <br/>
-    <a href="hello-servlet">Hello Servlet</a>
+    <a href="goFaq">어디로 갈지 이동 자주 묻는 질문입니다</a>
+    <a href="">어디로 갈지 이동</a>
+    <a href="">어디로 갈지 이동</a>
+    <a href="">어디로 갈지 이동</a>
 </body>
 </html>
