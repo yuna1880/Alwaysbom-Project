@@ -35,7 +35,5 @@
         });
     }
 </script>
-</script>
-
 </body>
 </html>
