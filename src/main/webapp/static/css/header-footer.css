@@ -21,16 +21,16 @@ header a {
 }
 .login-bar a {
     text-decoration: none;
-    color: #4D4D4D;
+    color: #656565;
 }
 .login-bar ul {
     display: flex;
     justify-content: flex-end;
     list-style: none;
+    color: #808080;
 }
 .login-bar li {
     padding: 0 0.7em;
-    margin-left: 0.8em;
 }
 .point-text {
     color: #7DAF3B;
@@ -42,7 +42,7 @@ header a {
     justify-content: space-between;
     width: 1280px;
     height: 105px;
-    font-size: 20px;
+    font-size: 19px;
 }
 .menu-bar a:hover {
     color: #7DAF3B;
@@ -53,6 +53,9 @@ header a {
     height: 67px;
     background-color: #e6dbb9;
     transform: translateY(19px);
+}
+.logo:hover {
+    cursor: pointer;
 }
 .menu-wrap {
     display: flex;
@@ -70,7 +73,7 @@ header a {
 }
 .menu-svg {
     width: auto;
-    height: 35px;
+    height: 32px;
 }
 .ml-1 {
     margin-left: 1em;
@@ -84,19 +87,19 @@ header a {
     transition: all 0.3s;
 }
 #under-bar1 {
-    width: 100px;
+    width: 90px;
     transform: translate(0, -15px);
 }
 #under-bar2 {
-    width: 55px;
+    width: 50px;
     transform: translate(0, -15px);
 }
 #under-bar3 {
-    width: 100px;
+    width: 95px;
     transform: translate(3px, -15px);
 }
 #under-bar4 {
-    width: 55px;
+    width: 50px;
     transform: translate(0, -15px);
 }
 .submenu {

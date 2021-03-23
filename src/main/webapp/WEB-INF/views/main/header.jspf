@@ -2,20 +2,19 @@
 <div class="d-flex justify-content-center">
     <div class="login-bar">
         <ul>
-            <li><a href="#">오늘의 꽃</a></li>
+            <li><a href="#">오늘의 꽃은?</a></li>
+            <li>|</li>
             <li><a href="#">로그인</a></li>
-            <li><a href="#">
-                회원가입
-                <span class="point-text">(1000포인트 지급!)</span>
-            </a></li>
+            <li>|</li>
+            <li><a href="#">회원가입<span class="point-text">(1000포인트 지급!)</span></a></li>
         </ul>
     </div>
 </div>
 <header>
     <div class="d-flex justify-content-center">
         <div class="menu-bar d-flex">
-            <div class="logo d-flex justify-content-center align-items-center">
-                새늘봄 로고
+            <div class="logo d-flex justify-content-center align-items-center" onclick="location.href='/'">
+                새늘봄 홈
             </div>
             <ul class="menu-wrap">
                 <li class="menu">
