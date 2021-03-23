@@ -49,9 +49,6 @@
             </ul>
             <div>
                 <ul id="faqList">
-                    <li>
-
-                    </li>
 
                 </ul>
 
