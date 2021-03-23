@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class FlowerController {
 
     @GetMapping("/flower")
-    public String flower() {
+    public String getList() {
         return "flower/list";
+    }
+
+    @GetMapping("/flower/detail")
+    public String getOne() {
+        return "flower/detail";
     }
 }
