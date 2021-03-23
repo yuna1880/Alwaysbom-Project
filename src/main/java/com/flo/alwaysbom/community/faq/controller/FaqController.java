@@ -1,6 +1,6 @@
-package com.flo.alwaysbom.front.community.faq.controller;
+package com.flo.alwaysbom.community.faq.controller;
 
-import com.flo.alwaysbom.front.community.faq.service.FaqService;
+import com.flo.alwaysbom.community.faq.service.FaqService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
