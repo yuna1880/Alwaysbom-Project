@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(function (){
-            var category = {}
+            let category = {}
             category["category"]=$("#FAQ").attr('id');
 
             $.ajax({
@@ -40,10 +40,10 @@
     <div>
         <h2>자주 묻는 질문</h2>
         <div>
-            <ul class="nav justify-content-around">
+            <ul class="nav justify-content-around faqBox">
                 <c:forEach var="category" items="${category}">
                 <li class="nav-item-3" id="${category}">
-                    <a class="nav-link" href="">${category}</a>
+                    <a class="nav-link" href="#" onclick="goFaqList(${category})">${category}</a>
                 </li>
                 </c:forEach>
             </ul>
@@ -57,29 +57,34 @@
     </div>
 
 </body>
-</html>
-
 <script>
-/*
-    function goList(faqType){
 
-        var param = {};
-        param.data.Type = faqType;
-        param.data
-
-            $.ajax({
-                url : 'gogoFaq',
-                type : 'POST',
-                dataType : "json",
-                data : param,
-                success : function(data){
-                    console.log(data);
-                }
-            });*/
-        /*            $.each(returnValue, function(index, obj){
-                        alert(this.idx);
-                    });*/
-
-    // }
+    function goFaqList(faqType) {
+        console.log(faqType);
+        // let faqBox = $(".faqBox").next();
+        let category = {}
+        // category["category"]=faqBox.attr('id');
+        category["category"]=faqType.attr('id');
+        console.log(faqType);
+        // console.log(faqBox.attr("id"));
+        $.ajax({
+            url : '/gogoFaq',
+            type : 'POST',
+            dataType : "json",
+            data : category,
+            success : function(data){
+                console.log(data);
+                let dispHtml = "<li>"
+                $.each(data, function(){
+                    dispHtml += "<p>" + this.question + "</p>";
+                    dispHtml += "<p>" + this.answer + "</p>";
+                    dispHtml += "</li>";
+                });
+                $("#faqList").html(dispHtml);
+            }
+        });
+    }
 
 </script>
+</html>
+
