@@ -1,4 +1,4 @@
-package com.flo.alwaysbom.front.community.faq.dao;
+package com.flo.alwaysbom.community.faq.dao;
 
 
 import org.mybatis.spring.SqlSessionTemplate;

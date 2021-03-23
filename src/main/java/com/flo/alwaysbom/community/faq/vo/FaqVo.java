@@ -1,4 +1,4 @@
-package com.flo.alwaysbom.front.community.faq.vo;
+package com.flo.alwaysbom.community.faq.vo;
 
 import lombok.*;
 
