@@ -19,17 +19,17 @@ public class BackFclassController {
     private final BranchService branchService;
     private final ServletContext context;
 
-    @GetMapping("/fclass/detail")
+    @GetMapping("/admin/fclass/detail")
     public String goDetail(int branchIdx, int fclassIdx ) {
 
         return "b_detail";
     }
-    @GetMapping("/fclass/branch")
+    @GetMapping("/admin/fclass/branch")
     public String goBranch() {
         return "b_branch";
     }
 
-    @GetMapping("/fclass/list")
+    @GetMapping("/admin/fclass/list")
     public String goList() {
         return "b_classList";
     }
