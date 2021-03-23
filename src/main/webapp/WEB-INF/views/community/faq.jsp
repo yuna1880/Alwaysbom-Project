@@ -43,16 +43,17 @@
             <ul class="nav justify-content-around faqBox">
                 <c:forEach var="category" items="${category}">
                 <li class="nav-item-3" id="${category}">
-                    <a class="nav-link" href="#" onclick="goFaqList(${category})">${category}</a>
+                    <a class="nav-link" id="${category}" href="#" onclick="goFaqList(this)">${category}</a>
                 </li>
                 </c:forEach>
             </ul>
             <div>
                 <ul id="faqList">
-
                 </ul>
-
             </div>
+        </div>
+        <div>
+            <a href="#" class="btn">1:1 문의하기</a><%--로그인 처리--%>
         </div>
     </div>
 
@@ -60,13 +61,9 @@
 <script>
 
     function goFaqList(faqType) {
-        console.log(faqType);
-        // let faqBox = $(".faqBox").next();
         let category = {}
-        // category["category"]=faqBox.attr('id');
-        category["category"]=faqType.attr('id');
-        console.log(faqType);
-        // console.log(faqBox.attr("id"));
+        category["category"]=faqType.getAttribute("id");
+        console.log(faqType.getAttribute("id"));
         $.ajax({
             url : '/gogoFaq',
             type : 'POST',
