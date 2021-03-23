@@ -24,6 +24,22 @@ public class BackFclassController {
     private final FclassService fclassService;
     private final FileHandler fileHandler;
 
+    @GetMapping("/admin/fclass/addClass")
+    public String goAddClass() {
+        return "fclass/b_addClass";
+    }
+
+    @PostMapping("/admin/fclass/addClass")
+    public String addClass(FclassVo vo, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
+        vo.setImage1(fileHandler.uploadFile(file1, null, "/fclass/class"));
+        vo.setImage2(fileHandler.uploadFile(file2, null, "/fclass/class"));
+        vo.setImage3(fileHandler.uploadFile(file3, null, "/fclass/class"));
+        vo.setCount(1);
+        fclassService.addClass(vo);
+        return "redirect:/admin/fclass/classList";
+    }
+
+
     @GetMapping("/admin/fclass/classList")
     public String goFclassList(Model model) {
         List<FclassVo> classList = fclassService.findAll();
