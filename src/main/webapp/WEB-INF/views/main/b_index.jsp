@@ -120,7 +120,7 @@
                 <ul class="image-ul">
                     <c:forEach var="image" begin="1" end="6" items="${images}" varStatus="status">
                     <li class="image-ul-item">
-                        <c:if test="${status.current < 6}">
+                        <c:if test="${status.count < 6}">
                         <div class="image-box">
                             <img src="" alt="사진">
                             <div class="right-top-buttons">
@@ -129,7 +129,7 @@
                             </div>
                         </div>
                         </c:if>
-                        <c:if test="${status.current == 6}">
+                        <c:if test="${status.count == 6}">
                         <div class="add-box">
                             <i class="fa fa-plus my-icon"></i>
                             <span>이미지 추가</span>

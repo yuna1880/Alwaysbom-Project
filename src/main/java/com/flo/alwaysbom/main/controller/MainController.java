@@ -14,14 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainController {
 
-    private final MainService mainService;
-    private final FileHandler fileHandler;
-
     @GetMapping("/")
-    public String main(Model model) {
-        List<MainVo> images = mainService.findImages();
-
-        model.addAttribute("images", images);
+    public String main() {
         return "main/index";
     }
 }
