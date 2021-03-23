@@ -1,6 +1,5 @@
 package com.flo.alwaysbom.community.faq.dao;
 
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
