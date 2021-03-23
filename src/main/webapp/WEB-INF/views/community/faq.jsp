@@ -11,22 +11,30 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(function (){
-            let category = $("#FAQ").attr('id');
+            var category = {}
+            category["category"]=$("#FAQ").attr('id');
 
             $.ajax({
-                url : 'gogoFaq',
+                url : '/gogoFaq',
                 type : 'POST',
                 dataType : "json",
                 data : category,
                 success : function(data){
-        /*            $.each(returnValue, function(index, obj){
-                        alert(this.idx);
-                    });*/
+                    console.log(data);
+                    let dispHtml = "<li>"
+                   $.each(data, function(){
+                       dispHtml += "<p>" + this.question + "</p>";
+                       dispHtml += "<p>" + this.answer + "</p>";
+                       dispHtml += "</li>";
+                   });
+                    $("#faqList").html(dispHtml);
                 }
             });
         });
     </script>
 </head>
+
+
 <body>
 
     <div>
@@ -38,30 +46,43 @@
                     <a class="nav-link" href="">${category}</a>
                 </li>
                 </c:forEach>
-                <%--<li class="nav-item-3">
-                    <a class="nav-link" href="#">상품</a>
-                </li>
-                <li class="nav-item-3">
-                    <a class="nav-link" href="#">주문.결제</a>
-                </li>
-                <li class="nav-item-3">
-                    <a class="nav-link" href="#">정기구독</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">배송</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">취소/환불</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">클래스</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">기타</a>
-                </li>--%>
             </ul>
+            <div>
+                <ul id="faqList">
+                    <li>
+
+                    </li>
+
+                </ul>
+
+            </div>
         </div>
     </div>
 
 </body>
 </html>
+
+<script>
+/*
+    function goList(faqType){
+
+        var param = {};
+        param.data.Type = faqType;
+        param.data
+
+            $.ajax({
+                url : 'gogoFaq',
+                type : 'POST',
+                dataType : "json",
+                data : param,
+                success : function(data){
+                    console.log(data);
+                }
+            });*/
+        /*            $.each(returnValue, function(index, obj){
+                        alert(this.idx);
+                    });*/
+
+    // }
+
+</script>

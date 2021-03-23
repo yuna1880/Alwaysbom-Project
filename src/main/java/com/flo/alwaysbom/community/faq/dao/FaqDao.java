@@ -21,3 +21,26 @@ public class FaqDao {
         return sqlSessionTemplate.selectList("faq.faqlist", vo);
     }
 }
+
+
+/*
+    Map<> abc = op~~~data
+
+    BooleanBuilder boolean = new BooleanBuilder();
+
+    // 프론트 검색값 가져오기
+    Optional<String> faqType = ~~~~~("jsp 쓴id)
+
+
+    // DB 구분값 == 검색
+    String value = ~~trim.uppercase
+    if(!Strings.isNullable(faqType.get()){
+        boolean()
+    }
+
+    // 로직
+
+
+
+
+ */

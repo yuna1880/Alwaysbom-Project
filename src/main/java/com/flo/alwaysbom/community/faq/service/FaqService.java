@@ -19,6 +19,7 @@ public class FaqService {
     }
 
     public List<FaqVo> faqlist(FaqVo vo) {
+        System.out.println(vo.getCategory());
         return faqDao.faqList(vo);
     }
 }
