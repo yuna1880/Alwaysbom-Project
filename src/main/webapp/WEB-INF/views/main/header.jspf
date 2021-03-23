@@ -22,7 +22,7 @@
                     <div class="under-bar" id="under-bar1"></div>
                 </li>
                 <li class="menu ms-3">
-                    <a href="#">꽃다발</a>
+                    <a href="/flower">꽃다발</a>
                     <div class="under-bar" id="under-bar2"></div>
                 </li>
                 <li class="menu ms-3">
@@ -30,7 +30,7 @@
                     <div class="under-bar" id="under-bar3"></div>
                 </li>
                 <li class="menu ms-3">
-                    <a href="#">소품샵</a>
+                    <a href="/product">소품샵</a>
                     <div class="under-bar" id="under-bar4"></div>
                 </li>
                 <li class="menu ms-3 me-4">
