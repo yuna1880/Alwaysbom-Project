@@ -93,6 +93,11 @@
             color: #BBBBBB;
         }
 
+        .my-box {
+            width: 100%;
+            height: 100px;
+        }
+
         .my-icon {
             font-size: 24pt;
         }
@@ -118,24 +123,24 @@
             </div>
             <div class="form-content">
                 <ul class="image-ul">
-                    <c:forEach var="image" begin="1" end="6" items="${images}" varStatus="status">
+                    <c:forEach var="index" begin="0" end="5" varStatus="status">
                     <li class="image-ul-item">
-                        <c:if test="${status.count < 6}">
-                        <div class="image-box">
-                            <img src="" alt="사진">
-                            <div class="right-top-buttons">
-                                <button type="button" class="btn btn-light btn-sm">연결페이지</button>
-                                <button type="button" class="btn btn-light btn-sm">삭제</button>
+                        <div class="btn btn-outline-secondary d-flex rounded-3 my-box
+                                    flex-column align-items-center justify-content-center" onclick="this.children.file.click()">
+                            <div class="${images[index] ? "d-none" : ""}">
+                                <img src="" alt="사진">
+                                <div class="right-top-buttons">
+                                    <button type="button" class="btn btn-light btn-sm">연결페이지</button>
+                                    <button type="button" class="btn btn-light btn-sm">삭제</button>
+                                </div>
+                            </div>
+                            <div class="${images[index] ? "" : "d-none"}">
+                                <i class="fa fa-plus my-icon"></i>
+                                <span>이미지 추가</span>
+                                <input type="file" class="d-none" name="file" onchange="changeImage(this, ${status.index + 1})">
                             </div>
                         </div>
-                        </c:if>
-                        <c:if test="${status.count == 6}">
-                        <div class="add-box">
-                            <i class="fa fa-plus my-icon"></i>
-                            <span>이미지 추가</span>
-                        </div>
-                        </c:if>
-                        <span class="b6">${status.current}</span>
+                        <span class="b6">${status.count}</span>
                     </li>
                     </c:forEach>
                 </ul>
@@ -191,5 +196,21 @@
     </form>
 </div>
 <%@ include file="footer.jspf"%>
+
+<script>
+    function changeImage(file, current) {
+        let fileReader = new FileReader();
+        let img = document.querySelector(".image-ul-item:nth-child(" + current + ") img");
+        console.log(img);
+
+        fileReader.onload = function (e) {
+            img.setAttribute("src", e.target.result.toString());
+            img.classList.remove("d-none");
+        }
+
+        fileReader.readAsDataURL(file.files[0])
+        console.log(current);
+    }
+</script>
 </body>
 </html>
