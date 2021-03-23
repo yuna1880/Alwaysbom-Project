@@ -3,12 +3,24 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>타이틀임다</title>
+    <title>시작페이지(메인)</title>
     <%@ include file="import.jspf"%>
 </head>
 <body>
 <%@ include file="header.jspf" %>
-<h1>Main 일단 담영이만 건드리세요</h1>
+    <div class="d-flex justify-content-center">
+        <div id="container">
+            <h1>Main</h1>
+            <h1>담영 열작업중!!!!</h1>
+            메인 컨테이너입니다. (width: 1280px)<br>
+            모두들 이 가로 사이즈에 맞게 작업해주세요.
+            <br><br>
+            메뉴 네비게이션 바 a 태그 href 에 각자 자기 페이지 컨트롤러 주소를 입력하세요!
+            <hr>
+            백오피스 페이지 링크는 푸터에 있습니다.
+        </div>
+    </div>
+
 <%@ include file="footer.jspf"%>
 </body>
 </html>
