@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -17,20 +18,17 @@ import java.util.List;
 public class FaqController {
     private final FaqService service;
 
-    @GetMapping("goFaq")
+    @GetMapping("/goFaq")
     public String goFaq(FaqVo vo, Model model) {
         List<String> cateList = service.faqCategory();
         model.addAttribute("category", cateList);
         return "community/faq";
     }
 
-    @PostMapping("gogoFaq")
-    public List<FaqVo> gogoFaq(FaqVo vo, String category){
-        System.out.println(vo.getCategory() + "가지나?" + category);
+    @PostMapping("/gogoFaq")
+    @ResponseBody
+    public List<FaqVo> gogoFaq(FaqVo vo){
         List<FaqVo> faqlist = service.faqlist(vo);
-        for (FaqVo vo1 : faqlist) {
-            System.out.println(vo1.getCategory()+ "dddddddddddddddddddddddddddd");
-        }
         return faqlist;
     }
 }
