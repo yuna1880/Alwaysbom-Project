@@ -28,6 +28,7 @@ public class FaqController {
     @PostMapping("/gogoFaq")
     @ResponseBody
     public List<FaqVo> gogoFaq(FaqVo vo){
+        System.out.println(vo.getCategory());
         List<FaqVo> faqlist = service.faqlist(vo);
         return faqlist;
     }
