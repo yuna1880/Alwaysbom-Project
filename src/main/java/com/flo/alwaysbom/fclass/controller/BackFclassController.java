@@ -1,7 +1,9 @@
 package com.flo.alwaysbom.fclass.controller;
 
 import com.flo.alwaysbom.fclass.service.BranchService;
+import com.flo.alwaysbom.fclass.service.FclassService;
 import com.flo.alwaysbom.fclass.vo.BranchVo;
+import com.flo.alwaysbom.fclass.vo.FclassVo;
 import com.flo.alwaysbom.util.FileHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BackFclassController {
     private final BranchService branchService;
+    private final FclassService fclassService;
     private final FileHandler fileHandler;
+
+    @GetMapping("/admin/fclass/classList")
+    public String goFclassList(Model model) {
+        List<FclassVo> classList = fclassService.findAll();
+        List<BranchVo> branchList = branchService.findAll();
+        model.addAttribute("classList", classList);
+        model.addAttribute("branchList", branchList);
+        return "fclass/b_classList";
+    }
 
     @GetMapping("admin/fclass/detail")
     public String goDetail(int branchIdx, int fclassIdx ) {
@@ -31,12 +43,6 @@ public class BackFclassController {
         List<BranchVo> list = branchService.findAll();
         model.addAttribute("list", list);
         return "fclass/b_branch";
-    }
-
-    @GetMapping("admin/fclass/classList")
-    public String goClassList(Model model) {
-
-        return "fclass/b_classList";
     }
 
     @PostMapping("admin/fclass/api/addBranch")

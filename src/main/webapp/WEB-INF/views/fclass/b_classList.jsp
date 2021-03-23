@@ -9,24 +9,26 @@
 <div>
     <p>지점</p>
     <ul>
-        <li>서초점BranchVo.name</li>
-        <li>구로점BranchVo.name</li>
+    <c:forEach var="branch" items="${branchList}">
+        <li>${branch.name}</li>
+    </c:forEach>
     </ul>
     <button type="button"><a href="/admin/fclass/branch">지점관리</a></button>
+    <c:forEach var="fclass" items="${classList}">
     <div>
         <ul>
             <li class="list-wrap">
                 <div>
-                    <a><img src="/static/upload/1.jpg" alt="꽃" class="image"></a>
-                    FclassVo.image1
+                    <a><img src="/static/upload/fclass/class/${fclass.image1}" alt="꽃" class="image" width="350px"></a>
                 </div>
-                <div>코스이름FclassVo.name</div>
-                <div>할인율FclassVo.discountRate</div>
-                <div>가격FclassVo.price</div>
-                <div>지점명FclassVo.name</div>
+                <div>${fclass.name}</div>
+                <div>${fclass.discountRate}</div>
+                <div>${fclass.price}</div>
+                <div>${fclass.category}</div>
             </li>
         </ul>
     </div>
+    </c:forEach>
 </div>
 <a href="/admin/fclass/detail">디테일로</a>
 
