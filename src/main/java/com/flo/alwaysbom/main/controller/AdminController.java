@@ -12,10 +12,17 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class MainController {
+public class AdminController {
 
-    @GetMapping("/")
-    public String main() {
-        return "main/index";
+    private final MainService mainService;
+    private final FileHandler fileHandler;
+
+    @GetMapping("/admin/main")
+    public String main(Model model) {
+        List<MainVo> images = mainService.findImages();
+
+        model.addAttribute("images", images);
+
+        return "main/b_index";
     }
 }

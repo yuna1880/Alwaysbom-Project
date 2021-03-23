@@ -1,5 +1,7 @@
 package com.flo.alwaysbom.util;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -7,10 +9,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+@Component
+@RequiredArgsConstructor
 public class FileHandler {
 
-    public static String uploadFile
-            (ServletContext context, MultipartFile file, String dbName, String uploadFolder) throws IOException {
+    private final ServletContext context;
+
+    public String uploadFile(MultipartFile file, String dbName, String uploadFolder) throws IOException {
         if (!file.isEmpty()) {
             String oriName = file.getOriginalFilename();
             int dotIndex = oriName.lastIndexOf("."); //adf..sf.d.sdafdfd.jpg
