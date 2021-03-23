@@ -24,6 +24,9 @@ header a {
     text-decoration: none;
     color: #656565;
 }
+.login-bar a:hover {
+    color: #333333;
+}
 .login-bar ul {
     display: flex;
     justify-content: flex-end;
