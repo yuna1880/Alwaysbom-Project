@@ -8,15 +8,15 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class FclassVo {
-    public int idx;
+    public Integer idx;
     public String category;
     public String name;
     public String subheader;
-    public int price;
-    public int discountRate;
+    public Integer price;
+    public Integer discountRate;
     public String image1;
     public String image2;
     public String image3;
     public String content;
-    public int count;
+    public Integer count;
 }
