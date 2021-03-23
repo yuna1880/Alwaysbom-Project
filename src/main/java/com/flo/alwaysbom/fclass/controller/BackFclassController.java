@@ -17,7 +17,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class BackFclassController {
     private final BranchService branchService;
-    private final ServletContext context;
+    private final FileHandler fileHandler;
 
     @GetMapping("admin/fclass/detail")
     public String goDetail(int branchIdx, int fclassIdx ) {
@@ -37,7 +37,7 @@ public class BackFclassController {
     @PostMapping("/fclass/api/addbranch")
     @ResponseBody
     public BranchVo addBranch(BranchVo vo, MultipartFile file) throws IOException {
-        vo.setMapImage(FileHandler.uploadFile(context, file, null, "fclass/branch"));
+        vo.setMapImage(fileHandler.uploadFile(file, null, "fclass/branch"));
         branchService.addBranch(vo);
         return vo;
     }

@@ -118,7 +118,7 @@
             </div>
             <div class="form-content">
                 <ul class="image-ul">
-                    <c:forEach var="image" begin="1" end="6" varStatus="status">
+                    <c:forEach var="image" begin="1" end="6" items="${images}" varStatus="status">
                     <li class="image-ul-item">
                         <c:if test="${status.current < 6}">
                         <div class="image-box">
