@@ -4186,7 +4186,7 @@ cloud-upload-alt:
   search:
     terms:
       - cloud-upload
-      - import
+      - import.jspf
       - save
       - upload
   styles:
@@ -7340,7 +7340,7 @@ file-upload:
   search:
     terms:
       - document
-      - import
+      - import.jspf
       - page
       - save
   styles:
@@ -20030,7 +20030,7 @@ upload:
   search:
     terms:
       - hard drive
-      - import
+      - import.jspf
       - publish
   styles:
     - solid

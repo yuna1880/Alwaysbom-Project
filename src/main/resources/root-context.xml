@@ -12,7 +12,7 @@
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
         <property name="url" value="jdbc:oracle:thin:@192.168.0.100:1521:xe"/>
-        <property name="username" value="BOM"/>
+        <property name="username" value="bom"/>
         <property name="password" value="bompw"/>
     </bean>
 
