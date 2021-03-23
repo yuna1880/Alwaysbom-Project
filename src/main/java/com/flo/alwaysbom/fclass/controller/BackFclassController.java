@@ -26,6 +26,7 @@ public class BackFclassController {
 
         return "fclass/b_detail";
     }
+
     @GetMapping("admin/fclass/branch")
     public String goBranch(Model model) {
         List<BranchVo> list = branchService.findAll();
