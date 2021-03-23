@@ -125,16 +125,16 @@
                 <ul class="image-ul">
                     <c:forEach var="index" begin="0" end="5" varStatus="status">
                     <li class="image-ul-item">
-                        <div class="btn btn-outline-secondary d-flex rounded-3 my-box
-                                    flex-column align-items-center justify-content-center" onclick="this.children.file.click()">
-                            <div class="${images[index] ? "d-none" : ""}">
-                                <img src="" alt="사진">
+                        <div class="btn btn-outline-secondary my-box">
+                            <div class="${empty images[index] ? "d-none" : ""} exist w-100 h-100 position-relative">
+                                <img src="" alt="사진" width="100%" height="100%">
                                 <div class="right-top-buttons">
                                     <button type="button" class="btn btn-light btn-sm">연결페이지</button>
                                     <button type="button" class="btn btn-light btn-sm">삭제</button>
                                 </div>
                             </div>
-                            <div class="${images[index] ? "" : "d-none"}">
+                            <div class="${empty images[index] ? "" : "d-none"} empty w-100 h-100 d-flex flex-column align-items-center justify-content-center"
+                                 onclick="this.children.file.click()">
                                 <i class="fa fa-plus my-icon"></i>
                                 <span>이미지 추가</span>
                                 <input type="file" class="d-none" name="file" onchange="changeImage(this, ${status.index + 1})">
@@ -200,12 +200,22 @@
 <script>
     function changeImage(file, current) {
         let fileReader = new FileReader();
-        let img = document.querySelector(".image-ul-item:nth-child(" + current + ") img");
-        console.log(img);
+        let box = document.querySelector(".image-ul-item:nth-child(" + current + ") .my-box");
+        console.log(box);
+
 
         fileReader.onload = function (e) {
+            let img = box.querySelector("img");
             img.setAttribute("src", e.target.result.toString());
-            img.classList.remove("d-none");
+
+            let exist = box.querySelector(".exist");
+            exist.classList.remove("d-none");
+
+            let empty = box.querySelector(".empty");
+            empty.classList.add("d-none");
+
+            box.classList.remove("btn");
+            box.classList.remove("btn-outline-secondary");
         }
 
         fileReader.readAsDataURL(file.files[0])
