@@ -11,8 +11,8 @@ public class MemberController {
         return "member/join";
     }
 
-    @GetMapping("/emailJoin")
-    public String emailJoin() {
-        return "member/memberJoinEmail";
+    @GetMapping("/memberJoin")
+    public String memberJoin() {
+        return "member/memberJoin";
     }
 }
