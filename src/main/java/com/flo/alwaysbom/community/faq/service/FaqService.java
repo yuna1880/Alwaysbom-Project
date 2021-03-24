@@ -19,7 +19,14 @@ public class FaqService {
     }
 
     public List<FaqVo> faqlist(FaqVo vo) {
-        System.out.println(vo.getCategory());
         return faqDao.faqList(vo);
+    }
+
+    public void faqDelete(Integer idx) {
+        faqDao.faqDelete(idx);
+    }
+
+    public void faqFaqDelete(FaqVo vo) {
+        faqDao.daqUpdate(vo);
     }
 }
