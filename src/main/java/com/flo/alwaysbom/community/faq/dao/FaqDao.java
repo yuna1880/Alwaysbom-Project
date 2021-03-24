@@ -20,6 +20,14 @@ public class FaqDao {
     public List<FaqVo> faqList(FaqVo vo) {
         return sqlSessionTemplate.selectList("faq.faqlist", vo);
     }
+
+    public void faqDelete(Integer idx) {
+        sqlSessionTemplate.delete("faq.faqDelete", idx);
+    }
+
+    public void daqUpdate(FaqVo vo) {
+        sqlSessionTemplate.update("faq.faqUpdate", vo);
+    }
 }
 
 

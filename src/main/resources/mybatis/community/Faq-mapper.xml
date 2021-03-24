@@ -16,6 +16,9 @@
         WHERE CATEGORY = #{category}
     </select>
 
+    <delete id="faqDelete" parameterType="int">
+        DELETE FROM FAQ WHERE IDX = #{idx}
+    </delete>
 <!--    <insert id="addHome" parameterType="com.chicken.kyochon.vo.HomeVo">
         INSERT INTO HOME(name, age, filename)
         VALUES (#{name}, #{age}, #{filename})
