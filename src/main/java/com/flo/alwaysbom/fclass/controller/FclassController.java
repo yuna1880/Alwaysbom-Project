@@ -11,14 +11,14 @@ public class FclassController {
 
     private final FclassService service;
 
-    @GetMapping("/fclass/detail")
+    @GetMapping("/fclass/classDetail")
     public String goDetail() {
 
-        return "b_detail";
+        return "fclass/b_detail";
     }
 
-    @GetMapping("/fclass/list")
+    @GetMapping("/fclass/classList")
     public String goList() {
-        return "b_classList";
+        return "fclass/b_classList";
     }
 }
