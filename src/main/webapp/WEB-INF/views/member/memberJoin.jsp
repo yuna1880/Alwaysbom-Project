@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>이메일로 회원가입</title>
+    <title>회원가입</title>
     <%@ include file="../main/import.jspf"%>
     <link href="<c:url value="/static/css/member/memberJoinEmailStyle.css" />" rel="stylesheet" >
 </head>
