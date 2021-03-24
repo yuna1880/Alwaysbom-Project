@@ -13,4 +13,9 @@ public class BackFlowerController {
         return "flower/b_management";
     }
 
+    @GetMapping("/admin/flower_insert")
+    public String goInsert() {
+        return "flower/b_insert";
+    }
+
 }

@@ -14,6 +14,6 @@
     }
     #container {
         width: 1280px;
-        background-color: #f6ebde; /* 임시 배경 음영. 나중에 지울 것 */
+        background-color: #ececec; /* 임시 배경 음영. 나중에 지울 것 */
     }
 </style>
