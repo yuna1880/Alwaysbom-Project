@@ -27,7 +27,7 @@
                     </ul>
                 </li>
                 <li class="menu ms-3">
-                    <a href="/flower">매출 분석</a>
+                    <a href="#">매출 분석</a>
                     <ul class="submenu">
                         <li><a href="#">정기구독</a></li>
                         <li class="mb-2"><a href="#">매출 통계</a></li>
@@ -42,7 +42,7 @@
                     </ul>
                 </li>
                 <li class="menu ms-3">
-                    <a href="/product">클래스 관리</a>
+                    <a href="#">클래스 관리</a>
                     <ul class="submenu">
                         <li><a href="#">일정 관리</a></li>
                         <li class="mb-2"><a href="#">클래스</a></li>
@@ -59,7 +59,7 @@
                 </li>
                 <li class="menu-icon ms-5">
                     <a href="#">
-                        <img src="/static/icons/user-dark.svg" class="menu-svg" alt="user" title="관리자페이지">
+                        <img src="/static/icons/user-dark.svg" class="menu-svg" alt="user" title="관리자 페이지">
                     </a>
                 </li>
             </ul>

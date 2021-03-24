@@ -21,20 +21,13 @@
                 <div class="btn-circle d-flex justify-content-center align-items-center">
                     배너 등록/수정
                 </div>
-                <div class="btn-circle d-flex justify-content-center align-items-center">
+                <div class="btn-circle d-flex justify-content-center align-items-center" onclick="location.href='/admin/flower_insert'">
                     상품 등록
                 </div>
                 <div class="btn-circle d-flex justify-content-center align-items-center">
                     상품 조회/수정/삭제
                 </div>
             </div>
-            <div class="d-flex justify-content-center">
-            </div>
-            <div class="d-flex justify-content-center">
-            </div>
-
-
-
         </div>
     </div>
 
