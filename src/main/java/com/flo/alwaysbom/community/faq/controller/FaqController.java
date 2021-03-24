@@ -18,7 +18,7 @@ import java.util.List;
 public class FaqController {
     private final FaqService service;
 
-    @GetMapping("/goFaq")
+    @GetMapping("/community/goFaq")
     public String goFaq(FaqVo vo, Model model) {
         List<String> cateList = service.faqCategory();
         model.addAttribute("category", cateList);
