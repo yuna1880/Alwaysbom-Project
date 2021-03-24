@@ -62,13 +62,6 @@
             align-items: center;
         }
 
-        .image-box {
-            width: 100%;
-            height: 100px;
-            background-color: #DDDDDD;
-            position: relative;
-        }
-
         .right-top-buttons {
             position: absolute;
             right: 10px;
@@ -78,19 +71,6 @@
 
         .b6 {
             color: #bbbbbb;
-        }
-
-        .add-box {
-            width: 100%;
-            height: 100px;
-            background-color: white;
-            border: 2px solid #DDDDDD;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #BBBBBB;
         }
 
         .my-box {
@@ -129,8 +109,9 @@
                             <div class="${empty images[index] ? "d-none" : ""} exist w-100 h-100 position-relative">
                                 <img src="" alt="사진" width="100%" height="100%">
                                 <div class="right-top-buttons">
-                                    <button type="button" class="btn btn-light btn-sm">연결페이지</button>
-                                    <button type="button" class="btn btn-light btn-sm">삭제</button>
+                                    <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#myModal" onclick="loadData(${})">연결페이지</button>
+                                    <input type="hidden" name="link">
+                                    <button type="button" class="btn btn-light btn-sm" onclick="deleteImage(${status.index + 1})">삭제</button>
                                 </div>
                             </div>
                             <div class="${empty images[index] ? "" : "d-none"} empty w-100 h-100 d-flex flex-column align-items-center justify-content-center"
@@ -153,19 +134,19 @@
             </div>
             <div class="form-content d-flex align-items-center">
                 <div class="p-10px">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="r1">
+                    <input class="form-check-input" type="radio" name="orderStandard" id="r1" checked>
                     <label class="form-check-label" for="r1">
                         누적 판매량이 높은 순
                     </label>
                 </div>
                 <div class="p-10px">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="r2" checked>
+                    <input class="form-check-input" type="radio" name="orderStandard" id="r2">
                     <label class="form-check-label" for="r2">
                         최근 한 달간 판매량이 높은 순
                     </label>
                 </div>
                 <div class="p-10px">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="r3" checked>
+                    <input class="form-check-input" type="radio" name="orderStandard" id="r3">
                     <label class="form-check-label" for="r3">
                         최신 등록 순
                     </label>
@@ -195,9 +176,60 @@
         <button type="button" class="btn btn-secondary gap-2 col-4 mt-3 align-self-center text-white">변경사항 저장</button>
     </form>
 </div>
+
+<div class="modal fade" id="myModal" data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">해당 이미지 클릭시 이동할 메뉴 페이지 지정</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="link" id="ra1" value="/subs/" checked>
+                    <label class="form-check-label" for="ra1">꽃 정기구독</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="link" id="ra2" value="/flower/">
+                    <label class="form-check-label" for="ra2">꽃다발</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="link" id="ra3" value="/">
+                    <label class="form-check-label" for="ra3">main</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
 <%@ include file="footer.jspf"%>
 
 <script>
+    function deleteImage(current) {
+        let box = document.querySelector(".image-ul-item:nth-child(" + current + ") .my-box");
+        let file = box.querySelector("input[type='file']");
+        file.value = "";
+
+        let img = box.querySelector("img");
+        img.removeAttribute("src");
+
+        let exist = box.querySelector(".exist");
+        exist.classList.add("d-none");
+
+        let empty = box.querySelector(".empty");
+        empty.classList.remove("d-none");
+
+        box.classList.add("btn");
+        box.classList.add("btn-outline-secondary");
+
+    }
+
     function changeImage(file, current) {
         let fileReader = new FileReader();
         let box = document.querySelector(".image-ul-item:nth-child(" + current + ") .my-box");
