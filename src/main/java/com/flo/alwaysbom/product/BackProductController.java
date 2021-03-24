@@ -6,15 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class ProductController {
+public class BackProductController {
 
-    @GetMapping("/product")
-    public String product() {
-        return "/product/list";
-    }
-
-    @GetMapping("/product/detail")
-    public String getOne() {
-        return "/product/detail";
+    @GetMapping("/admin/product")
+    public String getIndex() {
+        return "product/b_management";
     }
 }

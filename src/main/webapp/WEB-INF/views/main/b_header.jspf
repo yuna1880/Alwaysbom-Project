@@ -1,0 +1,70 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<div class="d-flex justify-content-center">
+    <div class="login-bar">
+        <ul>
+<%--            <li><a href="#">오늘의 꽃은?</a></li>--%>
+<%--            <li>|</li>--%>
+            <li><a href="#">로그인</a></li>
+            <li>|</li>
+            <li><a href="/">고객화면으로 이동</a></li>
+        </ul>
+    </div>
+</div>
+<header>
+    <div class="d-flex justify-content-center">
+        <div class="menu-bar d-flex">
+            <div class="logo d-flex justify-content-center align-items-center" onclick="location.href='/admin/main'">
+                관리자 홈
+            </div>
+            <ul class="menu-wrap">
+                <li class="menu">
+                    <a href="#">회원 관리</a>
+                    <ul class="submenu">
+                        <li><a href="#">쿠폰</a></li>
+                        <li><a href="#">더미텍스트</a></li>
+                        <li><a href="#">더미텍스트</a></li>
+                        <li class="mb-2"><a href="#">더미텍스트</a></li>
+                    </ul>
+                </li>
+                <li class="menu ms-3">
+                    <a href="/flower">매출 분석</a>
+                    <ul class="submenu">
+                        <li><a href="#">정기구독</a></li>
+                        <li class="mb-2"><a href="#">매출 통계</a></li>
+                    </ul>
+                </li>
+                <li class="menu ms-3">
+                    <a href="#">상품 관리</a>
+                    <ul class="submenu">
+                        <li><a href="#">꽃 정기구독</a></li>
+                        <li><a href="/admin/flower">꽃다발</a></li>
+                        <li class="mb-2"><a href="/admin/product">소품샵</a></li>
+                    </ul>
+                </li>
+                <li class="menu ms-3">
+                    <a href="/product">클래스 관리</a>
+                    <ul class="submenu">
+                        <li><a href="#">일정 관리</a></li>
+                        <li class="mb-2"><a href="#">클래스</a></li>
+                    </ul>
+                </li>
+                <li class="menu ms-3 me-4">
+                    <a href="#">커뮤니티</a>
+                    <ul class="submenu">
+                        <li><a href="#">이벤트</a></li>
+                        <li><a href="#">리뷰게시판</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li class="mb-2"><a href="#">1:1문의</a></li>
+                    </ul>
+                </li>
+                <li class="menu-icon ms-5">
+                    <a href="#">
+                        <img src="/static/icons/user-dark.svg" class="menu-svg" alt="user" title="관리자페이지">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+
