@@ -18,18 +18,37 @@
                 body: new URLSearchParams(category)
             };
 
-            let response = await fetch("/gogoFaq", options);
+            let response = await fetch("/community/api/gogoFaq", options);
             let result = await response.json();
             console.log(result);
 
-            let dispHtml = ""
+            let dispHtml = "";
             for (let data of result) {
-                dispHtml += "<li>";
-                dispHtml += "<p>" + data.question + "</p>";
-                dispHtml += "<p>" + data.answer + "</p>";
-                dispHtml += "</li>";
+                dispHtml += '<div class="accordion-item">';
+                dispHtml += '<h3 class="accordion-header" id="flushHead'+ data.idx +'">';
+                dispHtml += '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flushColl'+ data.idx +'" aria-expanded="false" aria-controls="flushColl'+ data.idx +'">';
+                dispHtml += data.question;
+                dispHtml += '</button>';
+                dispHtml += '</h3>'
+                dispHtml += ' <div id="flushColl'+ data.idx +'" class="accordion-collapse collapse" aria-labelledby="flushHead'+ data.idx +'" data-bs-parent="#accordionFlushExample">';
+                dispHtml += '<div class="accordion-body">';
+                dispHtml += data.answer;
+                dispHtml += "</div>";
+                dispHtml += "</div>";
+                dispHtml += "</div>";
+                // dispHtml += '<ul class="dropdown-menu">';
+                // dispHtml += "<li>";
+                // dispHtml += data.answer;
+                // dispHtml += "</li>";
+                // dispHtml += "</ul>";
+                // dispHtml += "</div>";
+
+                // dispHtml += "<li>";
+                // dispHtml += "<p>" + data.question + "</p>";
+                // dispHtml += "<p>" + data.answer + "</p>";
+                // dispHtml += "</li>";
             }
-            document.querySelector("#faqList").innerHTML = dispHtml;
+            document.querySelector("#accordionFlushExample").innerHTML = dispHtml;
 
             /*
             $.ajax({
@@ -60,8 +79,9 @@
 
 
 <body>
-
-    <div>
+<%@ include file="../main/header.jspf" %>
+<div class="d-flex justify-content-center">
+    <div id="container">
         <h2>자주 묻는 질문</h2>
         <div>
             <ul class="nav justify-content-around faqBox">
@@ -72,22 +92,23 @@
                     </li>
                 </c:forEach>
             </ul>
+            <%--            <div>
+                            <ul id="faqList">
+                            </ul>
+                        </div>--%>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+
+            </div>
             <div>
-                <ul id="faqList">
-                </ul>
+                <a href="#" class="btn">1:1 문의하기</a><%--로그인 처리--%>
             </div>
         </div>
-        <div>
-            <a href="#" class="btn">1:1 문의하기</a><%--로그인 처리--%>
-        </div>
     </div>
+</div>
+
+<%@ include file="../main/footer.jspf"%>
 </body>
 <script>
-let obj = {
-    a : 'hi',
-    b : 'hello'
-}
-
 // JSON.stringify(obj)  =>  {"a":"hi", "b":,"hello"}
 // new URLSearchParams(obj) => a=hi&b=hello
 
