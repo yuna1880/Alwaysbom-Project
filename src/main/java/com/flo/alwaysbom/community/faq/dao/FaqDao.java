@@ -39,8 +39,4 @@ public class FaqDao {
     }
 
     // 로직
-
-
-
-
  */
