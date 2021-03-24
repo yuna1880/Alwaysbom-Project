@@ -4,8 +4,8 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>타이틀임다</title>
-    <%@ include file="import.jspf"%>
+    <title>백 오피스 메인</title>
+    <%@ include file="b_import.jspf"%>
     <style>
         #container {
             width: 1280px;
@@ -113,7 +113,7 @@
     </style>
 </head>
 <body>
-<%@ include file="header.jspf" %>
+<%@ include file="b_header.jspf" %>
 <div id="container">
     <h2>메인 페이지 관리</h2>
     <form enctype="multipart/form-data" class="form d-flex flex-column align-items-center">
@@ -195,7 +195,7 @@
         <button type="button" class="btn btn-secondary gap-2 col-4 mt-3 align-self-center text-white">변경사항 저장</button>
     </form>
 </div>
-<%@ include file="footer.jspf"%>
+<%@ include file="b_footer.jspf"%>
 
 <script>
     function changeImage(file, current) {

@@ -4,7 +4,7 @@ header {
     top: -2px;
     z-index: 10;
     background-color: #ffffff;
-    border-bottom: 1px solid #7DAF3B;
+    border-bottom: 1px solid #333333;
 }
 header a {
     text-decoration: none;
@@ -49,13 +49,13 @@ header a {
     font-size: 19px;
 }
 .menu-bar a:hover {
-    color: #7DAF3B;
+    color: #000000;
     transition: all 0.3s;
 }
 .logo {
     width: 155px;
     height: 67px;
-    background-color: #e6dbb9;
+    background-color: #808080;
     transform: translateY(19px);
 }
 .logo:hover {
@@ -82,30 +82,30 @@ header a {
 .ml-1 {
     margin-left: 1em;
 }
-.under-bar {
-    border-top: 3px solid #7DAF3B;
-    position: absolute;
-    pointer-events: none;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s;
-}
-#under-bar1 {
-    width: 90px;
-    transform: translate(0, -15px);
-}
-#under-bar2 {
-    width: 50px;
-    transform: translate(0, -15px);
-}
-#under-bar3 {
-    width: 95px;
-    transform: translate(3px, -15px);
-}
-#under-bar4 {
-    width: 50px;
-    transform: translate(0, -15px);
-}
+/*.under-bar {*/
+/*    border-top: 3px solid #4D4D4D;*/
+/*    position: absolute;*/
+/*    pointer-events: none;*/
+/*    opacity: 0;*/
+/*    pointer-events: none;*/
+/*    transition: all 0.3s;*/
+/*}*/
+/*#under-bar1 {*/
+/*    width: 75px;*/
+/*    transform: translate(0, -15px);*/
+/*}*/
+/*#under-bar2 {*/
+/*    width: 75px;*/
+/*    transform: translate(0, -15px);*/
+/*}*/
+/*#under-bar3 {*/
+/*    width: 75px;*/
+/*    transform: translate(2px, -15px);*/
+/*}*/
+/*#under-bar4 {*/
+/*    width: 95px;*/
+/*    transform: translate(0, -15px);*/
+/*}*/
 .submenu {
     display: flex;
     flex-direction: column;
@@ -116,9 +116,9 @@ header a {
     padding-left: 20px;
     width: 130px;
     background-color: #fff;
-    border-top: 3px solid #7DAF3B;
+    border-top: 3px solid #4D4D4D;
     left: 50%;
-    transform: translate(-55px, -15px);
+    transform: translate(-62px, -15px);
     opacity: 0; /* 0으로 바꾸기! */
     pointer-events: none;
     transition: all 0.3s;
@@ -128,11 +128,12 @@ header a {
     line-height: 3em;
 }
 .submenu a {
-    color: #666666;
+    color: #808080;
     font-size: 17px;
 }
 .submenu a:hover {
-    color: #7DAF3B;
+    color: #222222;
+    font-weight: 500;
 }
 .menu:hover .submenu {
     opacity: 1;
