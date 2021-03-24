@@ -1,0 +1,75 @@
+.wrap.renewal_3rd .wrap_inner .wrap_box.is_top_banner .header {
+    height: 88px;
+}
+.wrap.renewal_3rd .wrap_inner .wrap_box .header {
+    position: relative;
+    top: initial;
+    left: initial;
+}
+.header {
+    width: 100%;
+    background: #fff;
+    z-index: 9000;
+}
+.header {
+    transition: top .5s;
+}
+article, aside, footer, header, nav, section {
+    display: block;
+}
+* {
+    box-sizing: border-box;
+}
+body, button, input, select, table, textarea {
+    font-size: 12px;
+    line-height: 16px;
+    font-family: 'Noto Sans KR',sans-serif,NanumGothic,'나눔고딕',Dotum,'돋움',Helvetica,"Apple SD Gothic Neo";
+}
+body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+    letter-spacing: -.5px;
+    outline-width: 1px;
+}
+html {
+    -webkit-text-size-adjust: 100%;
+}
+.wrap.renewal_3rd .wrap_inner .wrap_box .header:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: #f4f4f4;
+}
+#top_banner {
+    background-color: #80aa00;
+}
+.top_banner.show {
+    display: block;
+}
+.top_banner {
+    height: 36px;
+    background: #ffc847;
+}
+* {
+    box-sizing: border-box;
+}
+body, button, input, select, table, textarea {
+    font-size: 12px;
+    line-height: 16px;
+    font-family: 'Noto Sans KR',sans-serif,NanumGothic,'나눔고딕',Dotum,'돋움',Helvetica,"Apple SD Gothic Neo";
+}
+body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+    letter-spacing: -.5px;
+    outline-width: 1px;
+}
+html {
+    -webkit-text-size-adjust: 100%;
+}
+.top_banner .inner {
+    height: 100%;
+}
