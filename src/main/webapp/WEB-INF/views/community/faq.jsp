@@ -41,7 +41,8 @@
         <h2>자주 묻는 질문</h2>
         <div>
             <ul class="nav justify-content-around faqBox">
-                <c:forEach var="category" items="${category}">
+                <c:forEach var="category" items="${category}"
+                >
                 <li class="nav-item-3" id="${category}">
                     <a class="nav-link" id="${category}" href="#" onclick="goFaqList(this)">${category}</a>
                 </li>
@@ -56,7 +57,6 @@
             <a href="#" class="btn">1:1 문의하기</a><%--로그인 처리--%>
         </div>
     </div>
-
 </body>
 <script>
 
