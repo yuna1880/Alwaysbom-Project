@@ -12,4 +12,5 @@ public interface CartService {
 
     List<CartVo> findCartsByMember(String memberId);
 
+    List<CartVo> findByIdxArray(Integer[] idx);
 }

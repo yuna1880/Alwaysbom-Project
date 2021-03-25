@@ -38,4 +38,9 @@ public class CartServiceImpl implements CartService {
     public List<CartVo> findCartsByMember(String memberId) {
         return cartDao.findCartsByMember(memberId);
     }
+
+    @Override
+    public List<CartVo> findByIdxArray(Integer[] idx) {
+        return cartDao.findByIdxArray(idx);
+    }
 }

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -24,5 +25,9 @@ public class CartDao {
 
     public List<CartVo> findCartsByMember(String memberId) {
         return sqlSessionTemplate.selectList("cart.findCartsByMember", memberId);
+    }
+
+    public List<CartVo> findByIdxArray(Integer[] idxArr) {
+        return sqlSessionTemplate.selectList("cart.findByIdxArray", Arrays.asList(idxArr));
     }
 }
