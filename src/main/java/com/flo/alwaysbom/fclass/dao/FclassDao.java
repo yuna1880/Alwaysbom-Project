@@ -19,8 +19,9 @@ public class FclassDao {
     }
 
     public int updateFclass(FclassVo vo) {
+        System.out.println("Dao : vo = " + vo);
         sqlSessionTemplate.update("fclass.updateFclass", vo);
-        return vo.idx;
+        return vo.getIdx();
     }
     public int deleteFclass(int idx) {
         sqlSessionTemplate.delete("fclass.deleteFclass", idx);
