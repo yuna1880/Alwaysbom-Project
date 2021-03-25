@@ -24,7 +24,7 @@ body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend,
     margin: 0;
     padding: 0;
     letter-spacing: -.5px;
-    outline-width: 1px;
+    outline-width: 0px;
 }
 html {
     line-height: 1.15;
@@ -152,11 +152,9 @@ a:-webkit-any-link {
 form {
     display: block;
 }
-fieldset, img {
-    border: 0;
-}
 fieldset {
     padding: .35em .75em .625em;
+    border: 1px solid white;
 }
 fieldset {
     display: block;
@@ -167,10 +165,6 @@ fieldset {
     padding-inline-end: 0.75em;
     padding-block-end: 0.625em;
     min-inline-size: min-content;
-    border-width: 2px;
-    border-style: groove;
-    border-color: threedface;
-    border-image: initial;
 }
 button, input {
     border-radius: 0;
@@ -187,7 +181,6 @@ input[type="hidden" i] {
     padding: initial;
     border: initial;
 }
-user agent stylesheet
 input {
     -webkit-writing-mode: horizontal-tb !important;
     text-rendering: auto;
@@ -310,7 +303,7 @@ body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend,
     margin: 0;
     padding: 0;
     letter-spacing: -.5px;
-    outline-width: 1px;
+    outline-width: 0px;
 }
 input {
     overflow: visible;
@@ -386,7 +379,6 @@ label {
 }
 .join_us_box .inbox .inner+.row_agree {
     padding-top: 35px;
-    border-top: #f7f7f7 10px solid;
 }
 .join_us_box .row_agree {
     padding: 0 0px;
@@ -405,7 +397,7 @@ ol, ul {
 body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {
     margin: 0;
     letter-spacing: -.5px;
-    outline-width: 1px;
+    outline-width: 0px;
 }
 ul {
     display: block;
@@ -552,6 +544,7 @@ ul {
     font-size: 16px;
     line-height: 48px;
     font-weight: 300;
+    text-align: center;
     letter-spacing: -.24px;
     color: #787878;
 }
@@ -571,5 +564,5 @@ fieldset {
 ul {
     margin: 0;
     letter-spacing: -.5px;
-    outline-width: 1px;
+    outline-width: 0px;
 }

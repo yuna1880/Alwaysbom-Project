@@ -25,7 +25,7 @@
                     <div class="join_us_box">
                         <div class="inbox">
                             <form method="post" id="register-form" accept-charset="UTF-8" autocomplete="off">
-                                <fieldset>
+                                <div>
                                     <input type="hidden" name="csrfmiddlewaretoken" value="fwykk4yM17LQZ3Q5cdgWRnNSSyf2syC41KLcj6n191fRboahbnqgc2n9mEKsdQ8X">
                                     <div class="inner">
                                         <div class="row">
@@ -201,7 +201,7 @@
                                             <input type="button" class="btn_submit" value="회원가입">
                                         </div>
                                     </div>
-                                </fieldset>
+                                </div>
                             </form>
                         </div>
                     </div>
