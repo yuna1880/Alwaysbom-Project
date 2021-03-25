@@ -471,16 +471,16 @@ h2 {
     height: 24px;
     background-position: -450px -306px;
 }
-.wrap.renewal_3rd .wrap_inner .wrap_box.is_top_banner .contents .content_header.is_fixed_header {
-    top: 36px;
-}
-.wrap.renewal_3rd .wrap_inner .wrap_box .contents .content_header.is_fixed_header {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 9001;
-}
+/*.wrap.renewal_3rd .wrap_inner .wrap_box.is_top_banner .contents .content_header.is_fixed_header {*/
+/*    top: 36px;*/
+/*}*/
+/*.wrap.renewal_3rd .wrap_inner .wrap_box .contents .content_header.is_fixed_header {*/
+/*    display: block;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    z-index: 10;*/
+/*}*/
 .wrap.renewal_3rd .wrap_inner .wrap_box .contents .content_header.is_fixed_header .page_title {
     height: 101px;
     border-bottom: none;
