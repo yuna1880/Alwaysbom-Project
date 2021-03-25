@@ -10,4 +10,9 @@ import lombok.*;
 public class MainVo {
     private Integer imageNum;
     private String imageName;
+    private String link;
+    private String orderStandard;
+    private Integer fclassIdxBig;
+    private Integer fclassIdxSmall;
+
 }

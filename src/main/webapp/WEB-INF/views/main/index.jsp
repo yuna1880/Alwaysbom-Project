@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <title>시작페이지(메인)</title>
     <%@ include file="import.jspf"%>
+    <link rel="stylesheet" href="static/css/main.css">
 </head>
 <body>
-<%@ include file="header.jspf" %>
+<%@ include file="header.jspf"%>
+    <div class="main-img d-flex justify-content-center align-items-center">
+        메인 이미지
+    </div>
     <div class="d-flex justify-content-center">
         <div id="container">
             <h1>Main</h1>
