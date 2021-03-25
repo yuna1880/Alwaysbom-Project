@@ -43,6 +43,13 @@
                 <label class="btn btn-outline-primary" for="btnradio2">플로리스트</label>
             </div>
 
+                <c:forEach var="branch" items="${branchList}" varStatus="status">
+                    <div class="form-check d-flex">
+                        <input class="form-check-input" type="checkbox" value="${branch.idx}"
+                               name="branches" id="cb${status.index}" ${classInfo.branchList.contains(branch) ? 'checked' : ''}>
+                        <label class="form-check-label" for="cb${status.index}">${branch.name}</label>
+                    </div>
+                </c:forEach>
 
             <div class="form-floating mb-4">
                 <input type="text" name="name" class="form-control" id="name" placeholder="name"

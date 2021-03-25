@@ -29,20 +29,9 @@
 
     <resultMap id="fclassMap" type="com.flo.alwaysbom.fclass.vo.FclassVo" autoMapping="true">
         <id property="idx" column="IDX"/>
-<!--        <result property="idx" column="IDX"/>-->
-<!--        <result property="category" column="CATEGORY"/>-->
-<!--        <result property="name" column="NAME"/>-->
-<!--        <result property="subheader" column="SUBHEADER"/>-->
-<!--        <result property="price" column="PRICE"/>-->
-<!--        <result property="discountRate" column="DISCOUNT_RATE"/>-->
-<!--        <result property="image1" column="IMAGE1"/>-->
-<!--        <result property="image2" column="IMAGE2"/>-->
-<!--        <result property="image3" column="IMAGE3"/>-->
-<!--        <result property="content" column="CONTENT"/>-->
-<!--        <result property="count" column="COUNT"/>-->
-
-        <collection property="branchIdxList" column="IDX" ofType="com.flo.alwaysbom.fclass.vo.BranchVo" select="findConnectedBranchList"/>
+        <collection property="branchList" column="IDX" ofType="com.flo.alwaysbom.fclass.vo.BranchVo" select="findConnectedBranchList"/>
     </resultMap>
+
     <select id="findConnectedBranchList" resultType="com.flo.alwaysbom.fclass.vo.BranchVo" parameterType="int">
         SELECT B.* from BRANCH B inner join FCB on B.IDX = FCB.BRANCH_IDX
         where FCB.FCLASS_IDX = #{idx}
