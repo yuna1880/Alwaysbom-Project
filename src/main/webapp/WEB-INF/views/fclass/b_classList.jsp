@@ -81,6 +81,11 @@
                             <div>${fclass.discountRate}</div>
                             <div>${fclass.price}</div>
                             <div>${fclass.category}</div>
+                            <ul class="list-group list-group-horizontal">
+                                <c:forEach var="bvo" items="${fclass.branchIdxList}">
+                                    <li class="list-group-item" style="color: ${bvo.color}; border: 1px solid ${bvo.color}">${bvo.name}</li>
+                                </c:forEach>
+                            </ul>
                         </li>
                     </c:if>
                 </c:forEach>
