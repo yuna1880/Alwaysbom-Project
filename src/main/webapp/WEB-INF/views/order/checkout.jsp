@@ -1,16 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: yuna
-  Date: 24/03/2021
-  Time: 5:50 pm
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<head>
+    <title>새늘봄 - checkout</title>
+    <link rel="stylesheet" href="/static/css/order/orderstyle.css">
+    <%@ include file="../main/import.jspf"%>
+</head>
+<body>
+<%@ include file="../main/header.jspf" %>
+배송지 입력 페이지
+
+<%@ include file="../main/footer.jspf"%>
+</body>
 </html>
