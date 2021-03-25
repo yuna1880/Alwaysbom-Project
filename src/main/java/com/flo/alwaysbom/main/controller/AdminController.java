@@ -27,4 +27,5 @@ public class AdminController {
 
         return "main/b_index";
     }
+
 }

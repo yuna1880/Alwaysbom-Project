@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>fclass mainView</title>
-    <%@ include file="../main/import.jspf" %>
+    <%@ include file="../main/b_import.jspf" %>
     <style>
         header {
             z-index: 10;
@@ -37,7 +37,7 @@
     </style>
 </head>
 <body>
-<%@ include file="../main/header.jspf" %>
+<%@ include file="../main/b_header.jspf" %>
 <div id="container" class="d-flex mx-auto">
     <div class="col-2 d-flex justify-content-center">
         <div class="branch-li p-4 d-flex flex-column align-items-center">
@@ -124,6 +124,6 @@
         </div>
     </div>
 </div>
-<%@ include file="../main/footer.jspf" %>
+<%@ include file="../main/b_footer.jspf" %>
 </body>
 </html>

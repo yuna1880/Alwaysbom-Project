@@ -1,4 +1,4 @@
-package com.flo.alwaysbom.product;
+package com.flo.alwaysbom.product.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

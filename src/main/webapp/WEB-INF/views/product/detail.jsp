@@ -9,10 +9,8 @@
 </head>
 <body>
     <%@ include file="../main/header.jspf"%>
-    <div class="d-flex justify-content-center">
-        <div id="container">
-            <h1>소품샵 상세페이지</h1>
-        </div>
+    <div id="container" class="mx-auto">
+        <h1>소품샵 상세페이지</h1>
     </div>
 
     <%@ include file="../main/footer.jspf"%>
