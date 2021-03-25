@@ -2,11 +2,10 @@
 <html>
 <head>
     <title>클래스 추가</title>
-    <link href="dist/css/bootstrap-colorpicker.css" rel="stylesheet">
-    <%@ include file="../main/import.jspf"%>
+    <%@ include file="../main/b_import.jspf"%>
 </head>
 <body>
-    <%@ include file="../main/header.jspf"%>
+    <%@ include file="../main/b_header.jspf"%>
     <form id="container" class="mx-auto p-5" action="/admin/fclass/addClass" method="post" enctype="multipart/form-data">
         <div class="h5 text-secondary mb-4">클래스 추가</div>
         <div class="d-flex mb-4">
@@ -85,7 +84,7 @@
     </form>
 
 
-    <%@ include file="../main/footer.jspf"%>
+    <%@ include file="../main/b_footer.jspf"%>
 <script>
     function preview(file, id) {
         let img = document.querySelector("#" + id);
