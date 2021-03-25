@@ -6,11 +6,11 @@
         |자주 묻는 질문</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@ include file="../main/import.jspf" %>
+    <%@ include file="../main/b_import.jspf" %>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-<%@ include file="../main/header.jspf" %>
+<%@ include file="../main/b_header.jspf" %>
 <div class="d-flex justify-content-center">
     <div id="container">
         <h2>자주 묻는 질문 입력</h2>
@@ -54,7 +54,7 @@
     </div>
 </div>
 
-<%@ include file="../main/footer.jspf"%>
+<%@ include file="../main/b_footer.jspf"%>
 </body>
 <script>
     function faqUpload(form) {

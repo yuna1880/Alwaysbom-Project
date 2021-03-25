@@ -60,7 +60,7 @@
                         <ul class="dropdown-menu" aria-labelledby="community">
                             <li><a class="dropdown-item" href="#">이벤트</a></li>
                             <li><a class="dropdown-item" href="#">리뷰</a></li>
-                            <li><a class="dropdown-item" href="#">FAQ</a></li>
+                            <li><a class="dropdown-item" href="/adnin/community/goFaq">FAQ</a></li>
                             <li><a class="dropdown-item" href="#">1:1 문의</a></li>
                         </ul>
                     </li>

@@ -54,7 +54,6 @@ public class BackFaqController {
     @PostMapping("/admin/faq/api/update")
     @ResponseBody
     public boolean adminFaqUpdate(FaqVo vo){
-        System.out.println(vo + "444444444442ewqeqweqweqweqw");
         service.faqUpdate(vo);
         return true;
     }
