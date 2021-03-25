@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>클래스 추가</title>
-    <link href="dist/css/bootstrap-colorpicker.css" rel="stylesheet">
     <%@ include file="../main/import.jspf"%>
 </head>
 <body>

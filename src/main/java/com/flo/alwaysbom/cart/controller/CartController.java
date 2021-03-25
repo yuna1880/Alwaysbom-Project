@@ -19,6 +19,7 @@ public class CartController {
     public String getCart(Model model, String memberId) {
         List<CartVo> list = cartService.findCartsByMember(memberId);
 
-        return "djdjdiajfidshfuasfdaf";
+        model.addAttribute("list", list);
+        return "cart/list";
     }
 }
