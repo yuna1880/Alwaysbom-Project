@@ -2,21 +2,25 @@ package com.flo.alwaysbom.fclass.vo;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class FclassVo {
-    public Integer idx;
-    public String category;
-    public String name;
-    public String subheader;
-    public Integer price;
-    public Integer discountRate;
-    public String image1;
-    public String image2;
-    public String image3;
-    public String content;
-    public Integer count;
+    private Integer idx;
+    private String category;
+    private String name;
+    private String subheader;
+    private Integer price;
+    private Integer discountRate;
+    private String image1;
+    private String image2;
+    private String image3;
+    private String content;
+    private Integer count;
+
+    private List<Integer> branchIdxList;
 }
