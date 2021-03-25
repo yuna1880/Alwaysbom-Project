@@ -1,24 +1,13 @@
-/*--- header ---*/
-/*header {*/
-/*    position: sticky;*/
-/*    top: -2px;*/
-/*    z-index: 10;*/
-/*    background-color: #ffffff;*/
-/*    border-bottom: 1px solid #333333;*/
-/*}*/
-/*header a {*/
-/*    text-decoration: none;*/
-/*    color: #222222;*/
-/*}*/
-
 /* 로그인 바 */
 .login-bar {
     width: 1280px;
-    height: 70px;
+    min-width: 1280px;
+
+    height: 40px;
     /*border: 2px solid yellowgreen;*/
     background-color: #ffffff;
-    font-size: 16px;
-    line-height: 67px;
+    font-size: 15px;
+    line-height: 42px;
 }
 .login-bar a {
     text-decoration: none;
@@ -36,17 +25,14 @@
 .login-bar li {
     padding: 0 0.7em;
 }
-.point-text {
-    color: #7DAF3B;
-    font-weight: 500;
-}
+
 
 /* 메뉴 바 */
 .menu-bar {
     justify-content: space-between;
     width: 1280px;
-    height: 105px;
-    font-size: 19px;
+    height: 72px;
+    font-size: 18px;
 }
 .menu-bar a:hover {
     color: #000000;
@@ -56,7 +42,7 @@
     width: 155px;
     height: 67px;
     background-color: #808080;
-    transform: translateY(19px);
+    transform: translateY(2px);
 }
 .logo:hover {
     cursor: pointer;
@@ -65,7 +51,7 @@
     display: flex;
     justify-content: flex-end;
     list-style: none;
-    line-height: 95px;
+    line-height: 79px;
 }
 .menu {
     padding: 0.3em 0.8em;
@@ -77,35 +63,11 @@
 }
 .menu-svg {
     width: auto;
-    height: 32px;
+    height: 30px;
 }
 .ml-1 {
     margin-left: 1em;
 }
-/*.under-bar {*/
-/*    border-top: 3px solid #4D4D4D;*/
-/*    position: absolute;*/
-/*    pointer-events: none;*/
-/*    opacity: 0;*/
-/*    pointer-events: none;*/
-/*    transition: all 0.3s;*/
-/*}*/
-/*#under-bar1 {*/
-/*    width: 75px;*/
-/*    transform: translate(0, -15px);*/
-/*}*/
-/*#under-bar2 {*/
-/*    width: 75px;*/
-/*    transform: translate(0, -15px);*/
-/*}*/
-/*#under-bar3 {*/
-/*    width: 75px;*/
-/*    transform: translate(2px, -15px);*/
-/*}*/
-/*#under-bar4 {*/
-/*    width: 95px;*/
-/*    transform: translate(0, -15px);*/
-/*}*/
 .submenu {
     display: flex;
     flex-direction: column;
@@ -119,8 +81,7 @@
     border-top: 3px solid #4D4D4D;
     left: 50%;
     transform: translate(-62px, -15px);
-    opacity: 0; /* 0으로 바꾸기! */
-    pointer-events: none;
+    opacity: 0;
     transition: all 0.3s;
     box-shadow: 0 0.2em 5px #cccccc;
 }
