@@ -1,15 +1,15 @@
 /*--- header ---*/
-header {
-    position: sticky;
-    top: -2px;
-    z-index: 10;
-    background-color: #ffffff;
-    border-bottom: 1px solid #333333;
-}
-header a {
-    text-decoration: none;
-    color: #222222;
-}
+/*header {*/
+/*    position: sticky;*/
+/*    top: -2px;*/
+/*    z-index: 10;*/
+/*    background-color: #ffffff;*/
+/*    border-bottom: 1px solid #333333;*/
+/*}*/
+/*header a {*/
+/*    text-decoration: none;*/
+/*    color: #222222;*/
+/*}*/
 
 /* 로그인 바 */
 .login-bar {
