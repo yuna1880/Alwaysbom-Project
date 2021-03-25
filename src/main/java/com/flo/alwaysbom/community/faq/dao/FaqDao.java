@@ -28,6 +28,18 @@ public class FaqDao {
     public void daqUpdate(FaqVo vo) {
         sqlSessionTemplate.update("faq.faqUpdate", vo);
     }
+
+    public void faqInsert(FaqVo vo) {
+        sqlSessionTemplate.insert("faq.faqInsert", vo);
+    }
+
+    public FaqVo faqSelectOne(Integer idx) {
+        return sqlSessionTemplate.selectOne("faq.faqOne", idx);
+    }
+
+    public void faqUpdate(FaqVo vo) {
+        sqlSessionTemplate.update("faq.faqUpdate", vo);
+    }
 }
 
 

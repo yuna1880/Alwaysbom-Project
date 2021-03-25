@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -38,10 +39,34 @@ public class BackFaqController {
         return true;
     }
 
-    @PostMapping("/admin/faq/api/Update")
+    @PostMapping("/admin/faq/Update")
+    public String adminFaqUpdate(Integer idx, FaqVo vo){
+        return "redirect:/admin/faq/write?idx=" + idx;
+    }
+
+    @PostMapping("/admin/faq/api/insert")
+    @ResponseBody
+    public boolean adminFaqInsert(FaqVo vo){
+        service.faqInsert(vo);
+        return true;
+    }
+
+    @PostMapping("/admin/faq/api/update")
     @ResponseBody
     public boolean adminFaqUpdate(FaqVo vo){
-        service.faqFaqDelete(vo);
+        System.out.println(vo + "444444444442ewqeqweqweqweqw");
+        service.faqUpdate(vo);
         return true;
+    }
+
+    @GetMapping("/admin/faq/write")
+    public String adminFaqWrite(Model model, Integer idx, FaqVo vo){
+        List<String> cateList = service.faqCategory();
+        if(idx != null) {
+            vo = service.faqSelectOne(idx);
+        }
+        model.addAttribute("category", cateList);
+        model.addAttribute("vo", vo);
+        return "community/b_faqWrite";
     }
 }

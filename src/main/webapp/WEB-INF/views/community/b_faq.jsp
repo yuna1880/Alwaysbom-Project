@@ -75,7 +75,7 @@
                             onclick="goDelete(this.form)">삭제
                     </button>
                     <button type="button" class="btn btn-outline-danger"
-                            onclick="goInsert()">추가
+                            onclick="goWrite()">추가
                     </button>
                 </div>
             </form>
@@ -89,6 +89,7 @@
 // JSON.stringify(obj)  =>  {"a":"hi", "b":,"hello"}
 // new URLSearchParams(obj) => a=hi&b=hello
 function goDelete(form) {
+
     let formData = $("form").serialize();
     $.ajax({
         url: '/admin/faq/api/Delete',
@@ -99,6 +100,14 @@ function goDelete(form) {
             location.href="/adnin/community/goFaq";
         }
     });
+}
+
+function goWrite() {
+    location.href="/admin/faq/write"
+}
+function goUpdate(form) {
+    form.action="/admin/faq/Update";
+    form.submit();
 }
 
 
