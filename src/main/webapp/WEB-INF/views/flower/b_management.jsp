@@ -9,26 +9,32 @@
 </head>
 <body>
     <%@ include file="../main/b_header.jspf"%>
-    <div class="d-flex justify-content-center">
-        <div id="container">
-            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/admin/main">관리자 Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">꽃다발 관리</li>
-                </ol>
-            </nav>
-            <div class="d-flex justify-content-center">
-                <div class="btn-circle d-flex justify-content-center align-items-center">
-                    배너 등록/수정
-                </div>
-                <div class="btn-circle d-flex justify-content-center align-items-center" onclick="location.href='/admin/flower_insert'">
-                    상품 등록
-                </div>
-                <div class="btn-circle d-flex justify-content-center align-items-center">
-                    상품 조회/수정/삭제
-                </div>
+    <div id="container" class="mx-auto p-3">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb fs-6 mb-xxl-5">
+                <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
+                <li class="breadcrumb-item active" aria-current="page">꽃다발 관리</li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-center">
+            <div class="btn-circle d-flex justify-content-center align-items-center">
+                배너 등록/수정
+            </div>
+            <div class="btn-circle d-flex justify-content-center align-items-center"
+            onclick="location.href='/admin/flower_insert'">
+                상품 등록
+            </div>
+            <div class="btn-circle d-flex justify-content-center align-items-center">
+                상품 조회/수정/삭제
             </div>
         </div>
+        <div class="d-flex justify-content-center">
+        </div>
+        <div class="d-flex justify-content-center">
+        </div>
+
+
+
     </div>
 
     <%@ include file="../main/b_footer.jspf"%>

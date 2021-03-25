@@ -6,20 +6,15 @@ header {
     background-color: #ffffff;
     border-bottom: 1px solid #7DAF3B;
 }
-header a {
-    text-decoration: none;
-    color: #222222;
-}
 
 /* 로그인 바 */
 .login-bar {
     min-width: 1280px;
     width: 1280px;
     height: 40px;
-    /*border: 2px solid yellowgreen;*/
-    background-color: #ffffff;
     font-size: 15px;
     line-height: 42px;
+    /*border: 2px solid yellowgreen;*/
 }
 .login-bar a {
     text-decoration: none;
@@ -29,8 +24,6 @@ header a {
     color: #333333;
 }
 .login-bar ul {
-    display: flex;
-    justify-content: flex-end;
     list-style: none;
     color: #808080;
 }
@@ -44,12 +37,14 @@ header a {
 
 /* 메뉴 바 */
 .menu-bar {
-    justify-content: space-between;
     min-width: 1280px;
     width: 1280px;
     height: 72px;
     font-size: 18px;
-    /*border: 1px solid red;*/
+}
+.menu-bar a {
+    text-decoration: none;
+    color: #222222;
 }
 .menu-bar a:hover {
     color: #7DAF3B;
@@ -65,8 +60,6 @@ header a {
     cursor: pointer;
 }
 .menu-wrap {
-    display: flex;
-    justify-content: flex-end;
     list-style: none;
     line-height: 79px;
 }
@@ -81,9 +74,6 @@ header a {
 .menu-svg {
     width: auto;
     height: 30px;
-}
-.ml-1 {
-    margin-left: 1em;
 }
 .under-bar {
     border-top: 3px solid #7DAF3B;
@@ -109,22 +99,20 @@ header a {
     transform: translate(0, -15px);
 }
 .submenu {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    list-style: none;
-    position: absolute;
+    width: 130px;
     margin: 0;
     padding-left: 20px;
-    width: 130px;
+    list-style: none;
+    position: absolute;
     background-color: #fff;
+    border: 1px solid #979e97;
     border-top: 3px solid #7DAF3B;
     left: 50%;
     transform: translate(-55px, -15px);
     opacity: 0;
-    /*pointer-events: none;*/
     transition: all 0.3s;
-    box-shadow: 0 0.2em 5px #cccccc;
+    /*pointer-events: none;*/
+    /*box-shadow: 0 0.2em 5px #cccccc;*/
 }
 .submenu li {
     line-height: 3em;
@@ -145,8 +133,6 @@ header a {
     opacity: 1;
     pointer-events: auto;
 }
-
-
 
 
 

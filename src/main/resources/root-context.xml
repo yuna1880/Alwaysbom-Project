@@ -15,7 +15,7 @@
         <property name="username" value="bom"/>
         <property name="password" value="bompw"/>
     </bean>
-
+    <!--192.168.0.100-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="configuration">

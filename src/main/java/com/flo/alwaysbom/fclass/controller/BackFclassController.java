@@ -1,9 +1,13 @@
 package com.flo.alwaysbom.fclass.controller;
 
 import com.flo.alwaysbom.fclass.service.BranchService;
+import com.flo.alwaysbom.fclass.service.FclassService;
 import com.flo.alwaysbom.fclass.vo.BranchVo;
+import com.flo.alwaysbom.fclass.vo.FclassVo;
 import com.flo.alwaysbom.util.FileHandler;
 import lombok.RequiredArgsConstructor;
+import org.mybatis.logging.Logger;
+import org.mybatis.logging.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +23,53 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BackFclassController {
     private final BranchService branchService;
+    private final FclassService fclassService;
     private final FileHandler fileHandler;
+    private static final Logger logger = LoggerFactory.getLogger(BackFclassController.class);
+    private ServletContext context;
+
+    @GetMapping("/admin/fclass/addClass")
+    public String goAddClass() {
+        return "fclass/b_addClass";
+    }
+
+    @PostMapping("/admin/fclass/addClass")
+    public String addClass(FclassVo vo, List<MultipartFile> file) throws IOException {
+        vo.setImage1(fileHandler.uploadFile(file.get(0), null, "/fclass/class"));
+        vo.setImage2(fileHandler.uploadFile(file.get(1), null, "/fclass/class"));
+        vo.setImage3(fileHandler.uploadFile(file.get(2), null, "/fclass/class"));
+        fclassService.addClass(vo);
+        return "redirect:/admin/fclass/classList";
+    }
+
+    @PostMapping("/admin/fclass/updateClass")
+    public String updateClass(FclassVo vo, List<MultipartFile> file) throws IOException {
+        System.out.println("vo = " + vo);
+        vo.setImage1(fileHandler.uploadFile(file.get(0), vo.getImage1(), "/fclass/class"));
+        vo.setImage2(fileHandler.uploadFile(file.get(1), vo.getImage2(), "/fclass/class"));
+        vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "/fclass/class"));
+        fclassService.updateFclass(vo);
+        return "redirect:/admin/fclass/classList";
+    }
+
+    @PostMapping("/admin/fclass/deleteClass")
+    public String deleteClass(Integer idx) {
+        fclassService.deleteFclass(idx);
+        return "redirect:/admin/fclass/classList";
+    }
+
+    @GetMapping("/admin/fclass/classList")
+    public String goFclassList(Model model) {
+        List<FclassVo> classList = fclassService.findAll();
+        List<BranchVo> branchList = branchService.findAll();
+        model.addAttribute("classList", classList);
+        model.addAttribute("branchList", branchList);
+        return "fclass/b_classList";
+    }
 
     @GetMapping("admin/fclass/detail")
-    public String goDetail(int branchIdx, int fclassIdx ) {
-
+    public String goDetail(Model model, int idx) {
+        model.addAttribute("classInfo", fclassService.findByIdx(idx));
         return "fclass/b_detail";
     }
 
@@ -32,12 +78,6 @@ public class BackFclassController {
         List<BranchVo> list = branchService.findAll();
         model.addAttribute("list", list);
         return "fclass/b_branch";
-    }
-
-    @GetMapping("admin/fclass/classList")
-    public String goClassList(Model model) {
-
-        return "fclass/b_classList";
     }
 
     @PostMapping("admin/fclass/api/addBranch")

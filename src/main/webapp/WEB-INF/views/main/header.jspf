@@ -2,7 +2,7 @@
 <header>
     <div class="d-flex justify-content-center">
         <div class="login-bar">
-            <ul>
+            <ul class="d-flex justify-content-end">
                 <li><a href="#">오늘의 꽃은?</a></li>
                 <li>|</li>
                 <li><a href="#">로그인</a></li>
@@ -12,11 +12,11 @@
         </div>
     </div>
     <div class="d-flex justify-content-center">
-        <div class="menu-bar d-flex">
+        <div class="menu-bar d-flex justify-content-between">
             <div class="logo d-flex justify-content-center align-items-center" onclick="location.href='/'">
                 새늘봄 홈
             </div>
-            <ul class="menu-wrap">
+            <ul class="menu-wrap d-flex justify-content-end">
                 <li class="menu">
                     <a href="#">꽃 정기구독</a>
                     <div class="under-bar" id="under-bar1"></div>
@@ -26,7 +26,7 @@
                     <div class="under-bar" id="under-bar2"></div>
                 </li>
                 <li class="menu ms-3">
-                    <a href="#">플라워클래스</a>
+                    <a href="/fclass/classList">플라워클래스</a>
                     <div class="under-bar" id="under-bar3"></div>
                 </li>
                 <li class="menu ms-3">
@@ -35,7 +35,7 @@
                 </li>
                 <li class="menu ms-3 me-4">
                     <a href="#">커뮤니티</a>
-                    <ul class="submenu">
+                    <ul class="submenu d-flex flex-column justify-content-center">
                         <li><a href="#">이벤트</a></li>
                         <li><a href="/community/goReview">리뷰게시판</a></li>
                         <li><a href="/community/goFaq">FAQ</a></li>
