@@ -29,4 +29,16 @@ public class FaqService {
     public void faqFaqDelete(FaqVo vo) {
         faqDao.daqUpdate(vo);
     }
+
+    public void faqInsert(FaqVo vo) {
+        faqDao.faqInsert(vo);
+    }
+
+    public FaqVo faqSelectOne(Integer idx) {
+        return faqDao.faqSelectOne(idx);
+    }
+
+    public void faqUpdate(FaqVo vo) {
+        faqDao.faqUpdate(vo);
+    }
 }
