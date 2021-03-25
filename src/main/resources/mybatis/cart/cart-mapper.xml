@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cart">
+    <resultMap id="CartVo" type="com.flo.alwaysbom.cart.vo.CartVo">
+        <result property="idx" column="IDX"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="subsIdx" column="SUBS_IDX"/>
+        <result property="flowerIdx" column="FLOWER_IDX"/>
+        <result property="productIdx" column="PRODUCT_IDX"/>
+        <result property="quantity" column="QUANTITY"/>
+        <result property="subsMonth" column="SUBS_MONTH"/>
+        <result property="subsStartDate" column="SUBS_START_DATE"/>
+        <result property="letter" column="LETTER"/>
+
+        <collection property="choices" ofType="com.flo.alwaysbom.choice.vo.ChoiceVo" column="IDX"
+                    select="choice.getChoiceById"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="CartVo">
+        SELECT * FROM CART
+        order by IDX desc
+    </select>
+
+    <insert id="insertCart" parameterType="com.flo.alwaysbom.cart.vo.CartVo">
+        Insert INTO CART(IDX, MEMBER_ID, CATEGORY, SUBS_IDX, FLOWER_IDX, PRODUCT_IDX, QUANTITY, SUBS_MONTH, SUBS_START_DATE, LETTER)
+        VALUES (null, #{memberId}, #{category}, #{subsIdx}, #{flowerIdx}, #{productIdx}, #{quantity}, #{subsMonth}, #{subsStartDate}, #{letter})
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT CART_SEQ.currval from DUAL
+        </selectKey>
+    </insert>
+
+</mapper>
