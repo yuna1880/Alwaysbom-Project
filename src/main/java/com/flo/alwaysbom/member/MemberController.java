@@ -20,4 +20,19 @@ public class MemberController {
     public String memberLogin() {
         return "member/login";
     }
+
+    @GetMapping("/findId")
+    public String findId() {
+        return "member/findId";
+    }
+
+    @GetMapping("/foundId")
+    public String foundId() {
+        return "member/foundId";
+    }
+
+    @GetMapping("/findPwd")
+    public String findPwd() {
+        return "member/findPassword";
+    }
 }

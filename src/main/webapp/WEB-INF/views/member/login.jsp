@@ -12,7 +12,7 @@
         <div id="container">
             <section class="contents" id="contents" tabindex="0">
                 <div id="root" data-app="login">
-                    <header class="content_header is_fixed_header">
+                    <header class="content_header">
                         <h2 class="page_title">로그인</h2>
                         <span id="goto_path_next_page" style="display: none;"></span>
                         <a href="#" class="page_back"><img src="<c:url value="/static/image/backimg.jpg"/>" width="24px;" height="24px;" style="margin: 0px 20px 20px 20px;" />
@@ -31,18 +31,13 @@
                                         <input type="hidden" name="csrfmiddlewaretoken" value="4Jo40kgJEICmLsn1yLNS1D1uLg2foCxgLLCSGDsgOEtkWtJGv6ix9hunfFqvVzOS">
                                         <input type="email" name="email" class="ipt" id="id_email" placeholder="아이디(이메일)" value>
                                         <input type="password" name="password" class="ipt" placeholder="비밀번호">
-                                        <div class="row">
-                                            <label class="condition_true" for="">
-                                                <span>로그인 상태 유지</span>
-                                            </label>
-                                        </div>
                                         <button type="submit" class="login">로그인</button>
                                     </fieldset>
                                 </form>
                             </div>
                             <div class="login_additional_link">
                                 <p class="blind">로그인에 불편을 느낀다면,</p>
-                                <a href="" class="link user find_id">아이디 찾기</a>
+                                <a href="findId" class="link user find_id">아이디 찾기</a>
                                 <a href="" class="link user find_pass">비밀번호 찾기</a>
                                 <nav class="other">
                                     <p class="sns">SNS계정으로 간편 로그인</p>
