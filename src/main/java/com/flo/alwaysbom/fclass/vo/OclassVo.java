@@ -10,22 +10,22 @@ import java.sql.Date;
 @NoArgsConstructor
 @ToString
 public class OclassVo {
-    public int idx;
-    public String memberId;
-    public int regCount;
-    public String payType;
-    public String payTotal;
-    public java.sql.Date payDate;
-    public int discountGrade;
-    public int discountPoint;
-    public String fclassName;
-    public String branchName;
-    public String branchAddr;
-    public String fclassImage;
-    public Date scheduleDate;
-    public String scheduleStartTime;
-    public String scheduleEndTime;
-    public int fclassCount;
-    public String status;
-    public int reviewCheck;
+    private Integer idx;
+    private String memberId;
+    private Integer regCount;
+    private String payType;
+    private String payTotal;
+    private Date payDate;
+    private Integer discountGrade;
+    private Integer discountPoint;
+    private String fclassName;
+    private String branchName;
+    private String branchAddr;
+    private String fclassImage;
+    private Date scheduleDate;
+    private String scheduleStartTime;
+    private String scheduleEndTime;
+    private Integer fclassCount;
+    private String status;
+    private Integer reviewCheck;
 }
