@@ -9,9 +9,9 @@
 </head>
 <body>
     <%@ include file="../main/b_header.jspf"%>
-    <div id="container" class="mx-auto">
+    <div id="container" class="mx-auto p-3">
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
+            <ol class="breadcrumb fs-6 mb-xxl-5">
                 <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
                 <li class="breadcrumb-item active" aria-current="page">꽃다발 관리</li>
             </ol>
