@@ -1,20 +1,20 @@
-nav {
+#bread-nav {
     display: flex;
     font-size: 18px;
     margin-top: 20px;
 }
-nav a {
+#bread-nav a {
     color: #4D4D4D;
     text-decoration: none;
 }
-nav a:hover {
+#bread-nav a:hover {
     text-decoration: underline;
     color: #4D4D4D;
 }
-nav > ol {
-    background-color: #86b7fe;
-    padding: 1em;
-    border-radius: 5px;
+#bread-nav > ol {
+    background-color: #dcdcdc;
+    padding: 0.3em 0.8em;
+    border-radius: 10px;
 }
 .description {
     color: #f13e5f;
@@ -28,7 +28,7 @@ nav > ol {
 }
 .img-card a {
     z-index: 4;
-    opacity: 0.5;
+    opacity: 0.8;
 }
 .imgs img {
     width: 350px;
