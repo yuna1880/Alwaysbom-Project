@@ -8,9 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class BranchVo {
-    public Integer idx;
-    public String name;
-    public String color;
-    public String addr;
-    public String mapImage;
+    private Integer idx;
+    private String name;
+    private String color;
+    private String addr;
+    private String mapImage;
 }
