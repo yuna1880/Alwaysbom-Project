@@ -1,13 +1,30 @@
-subtitle {
-    border-bottom: 1px solid #808080;
+nav {
+    font-size: 18px;
+    margin-top: 20px;
+}
+nav a {
+    color: #4D4D4D;
+    text-decoration: none;
+}
+nav a:hover {
+    text-decoration: underline;
+    color: #4D4D4D;
+}
+.description {
+    color: #f13e5f;
+    font-size: 16px;
+    margin-left: 20px;
 }
 .img-card {
     width: 350px;
     height: 350px;
-    z-index: 4;
-    opacity: 0.4;
+    margin-left: 1em;
 }
-imgs img {
+.img-card a {
+    z-index: 4;
+    opacity: 0.5;
+}
+.imgs img {
     width: 350px;
     height: auto;
 }
