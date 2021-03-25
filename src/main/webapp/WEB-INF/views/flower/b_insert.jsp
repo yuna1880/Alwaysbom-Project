@@ -10,7 +10,7 @@
 <body>
     <%@ include file="../main/b_header.jspf"%>
     <div id="container" class="mx-auto p-3">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb mb-xxl-5">
                 <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
                 <li class="breadcrumb-item"><a href="/admin/flower">꽃다발 관리</a></li>
@@ -27,8 +27,8 @@
             </div>
             <div class="imgs d-flex justify-content-center">
                 <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
-                    <a href="#"
-                       class="w-100 h-100 btn btn-outline-dark d-flex flex-column align-items-center justify-content-center">
+                    <a href="#" class="w-100 h-100 btn btn-outline-dark
+                                       d-flex flex-column align-items-center justify-content-center">
                         <i class="fa fa-plus h1"></i>
                         <div>대표 이미지(필수)</div>
                     </a>
@@ -36,8 +36,8 @@
                     <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img1">
                 </li>
                 <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
-                    <a href="#"
-                       class="w-100 h-100 btn btn-outline-dark d-flex flex-column align-items-center justify-content-center">
+                    <a href="#" class="w-100 h-100 btn btn-outline-dark
+                                       d-flex flex-column align-items-center justify-content-center">
                         <i class="fa fa-plus h1"></i>
                         <div>서브 이미지(선택)</div>
                     </a>
@@ -45,8 +45,8 @@
                     <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img2">
                 </li>
                 <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
-                    <a href="#"
-                       class="w-100 h-100 btn btn-outline-dark d-flex flex-column align-items-center justify-content-center">
+                    <a href="#" class="w-100 h-100 btn btn-outline-dark
+                                       d-flex flex-column align-items-center justify-content-center">
                         <i class="fa fa-plus h1"></i>
                         <div>서브 이미지(선택)</div>
                     </a>
@@ -61,6 +61,11 @@
 
             <div class="fs-5 p-1 mb-3 mt-5 d-block border-bottom border-secondary">
                 3. 상품 상세페이지 등록
+            </div>
+
+            <div class="d-flex justify-content-center my-lg-5">
+                <input type="button" value="등록하기" class="btn btn-lg btn-dark py-lg-3 px-lg-5" onclick="insert(this.form)">
+                <input type="button" value="이전으로" class="btn btn-lg btn-secondary py-lg-3 px-lg-5 ms-3" onclick="history.back()">
             </div>
         </form>
     </div>  <!-- container 닫기 -->
@@ -78,5 +83,7 @@
         }
         reader.readAsDataURL(file.files[0]);
     }
+
+
 </script>
 </html>

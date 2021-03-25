@@ -1,20 +1,23 @@
 #container {
     padding-bottom: 10em;
 }
-nav {
+#bread-nav {
+    display: flex;
+    font-size: 18px;
     margin-top: 20px;
 }
-.breadcrumb-item {
-    font-size: 18px;
+#bread-nav a {
     color: #4D4D4D;
-    margin-bottom: 4em;
-}
-.breadcrumb-item a {
     text-decoration: none;
+}
+#bread-nav a:hover {
+    text-decoration: underline;
     color: #4D4D4D;
 }
-.breadcrumb-item a:hover {
-    text-decoration: underline;
+#bread-nav > ol {
+    background-color: #dcdcdc;
+    padding: 0.3em 0.8em;
+    border-radius: 10px;
 }
 .btn-circle {
     width: 300px;
