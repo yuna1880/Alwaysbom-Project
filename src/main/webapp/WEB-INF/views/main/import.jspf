@@ -14,7 +14,6 @@
     }
     #container {
         width: 1280px;
-        height: 3000px; /* 임시로 크기 준 것 */
-        background-color: #f6ebde;
+        background-color: #f6ebde; /* 임시 배경 음영. 나중에 지울 것 */
     }
 </style>
