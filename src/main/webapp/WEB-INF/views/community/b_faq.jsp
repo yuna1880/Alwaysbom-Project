@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <%@ include file="../main/import.jspf" %>
+    <%@ include file="../main/b_import.jspf" %>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         async function goFaqList(faqType) {
@@ -53,7 +53,7 @@
 
 
 <body>
-<%@ include file="../main/header.jspf" %>
+<%@ include file="../main/b_header.jspf" %>
 <div class="d-flex justify-content-center">
     <div id="container">
         <h2>자주 묻는 질문</h2>
@@ -83,12 +83,16 @@
     </div>
 </div>
 
-<%@ include file="../main/footer.jspf"%>
+<%@ include file="../main/b_footer.jspf"%>
 </body>
 <script>
 // JSON.stringify(obj)  =>  {"a":"hi", "b":,"hello"}
 // new URLSearchParams(obj) => a=hi&b=hello
 function goDelete(form) {
+    if($(':radio[name="idx"]:checked').length < 1){
+        alert('카테고리를 선택해주세요');
+        return;
+    }
 
     let formData = $("form").serialize();
     $.ajax({
@@ -106,6 +110,10 @@ function goWrite() {
     location.href="/admin/faq/write"
 }
 function goUpdate(form) {
+    if($(':radio[name="idx"]:checked').length < 1){
+        alert('카테고리를 선택해주세요');
+        return;
+    }
     form.action="/admin/faq/Update";
     form.submit();
 }
