@@ -17,8 +17,8 @@ public class FclassService {
         return dao.addClass(vo);
     }
 
-    public int updateFclass(FclassVo vo) {
-        return dao.updateFclass(vo);
+    public int updateFclass(FclassVo vo, Integer[] branches) {
+        return dao.updateFclass(vo, branches);
     }
     public int deleteFclass(int idx) {
         return dao.deleteFclass(idx);

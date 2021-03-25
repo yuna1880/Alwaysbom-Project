@@ -43,12 +43,13 @@ public class BackFclassController {
     }
 
     @PostMapping("/admin/fclass/updateClass")
-    public String updateClass(FclassVo vo, List<MultipartFile> file) throws IOException {
+    public String updateClass(FclassVo vo, Integer[] branches, List<MultipartFile> file) throws IOException {
         System.out.println("vo = " + vo);
         vo.setImage1(fileHandler.uploadFile(file.get(0), vo.getImage1(), "/fclass/class"));
         vo.setImage2(fileHandler.uploadFile(file.get(1), vo.getImage2(), "/fclass/class"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "/fclass/class"));
-        fclassService.updateFclass(vo);
+        fclassService.updateFclass(vo, branches);
+
         return "redirect:/admin/fclass/classList";
     }
 
@@ -70,8 +71,10 @@ public class BackFclassController {
     @GetMapping("admin/fclass/detail")
     public String goDetail(Model model, int idx) {
         model.addAttribute("classInfo", fclassService.findByIdx(idx));
+        model.addAttribute("branchList", branchService.findAll());
         return "fclass/b_detail";
     }
+
 
     @GetMapping("admin/fclass/branch")
     public String goBranch(Model model) {

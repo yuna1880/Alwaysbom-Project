@@ -18,10 +18,16 @@ public class FclassDao {
         return vo;
     }
 
-    public int updateFclass(FclassVo vo) {
+    public int updateFclass(FclassVo vo, Integer[] branches) {
         System.out.println("Dao : vo = " + vo);
         sqlSessionTemplate.update("fclass.updateFclass", vo);
-        return vo.getIdx();
+
+        // FCB 테이블에서 현재 fclass에 해당하는 행을 다 지운다
+        // delete from fcb where fclass_idx = #{idx} <- fclass vo에 있는 idx
+
+        // FCB 테이블에 branches 들을 insert한다다
+
+       return vo.getIdx();
     }
     public int deleteFclass(int idx) {
         sqlSessionTemplate.delete("fclass.deleteFclass", idx);
