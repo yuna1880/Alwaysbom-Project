@@ -33,4 +33,10 @@
         </selectKey>
     </insert>
 
+    <select id="findCartsByMember" parameterMap="string" resultMap="CartVo">
+        SELECT * FROM CART
+        where MEMBER_ID = #{memberId}
+        order by IDX desc
+    </select>
+
 </mapper>

@@ -33,4 +33,9 @@ public class CartServiceImpl implements CartService {
         choiceService.addChoices(cartVo.getIdx(), productIds);
         return cartVo.getIdx();
     }
+
+    @Override
+    public List<CartVo> findCartsByMember(String memberId) {
+        return cartDao.findCartsByMember(memberId);
+    }
 }

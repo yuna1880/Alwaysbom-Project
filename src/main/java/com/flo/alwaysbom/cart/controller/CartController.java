@@ -16,8 +16,8 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("/cart/list")
-    public String getCart(Model model) {
-        List<CartVo> cartService.findCartsByMember();
+    public String getCart(Model model, String memberId) {
+        List<CartVo> list = cartService.findCartsByMember(memberId);
 
         return "djdjdiajfidshfuasfdaf";
     }

@@ -21,4 +21,8 @@ public class CartDao {
         sqlSessionTemplate.insert("cart.insertCart", cartVo);
         return cartVo.getIdx();
     }
+
+    public List<CartVo> findCartsByMember(String memberId) {
+        return sqlSessionTemplate.selectList("cart.findCartsByMember", memberId);
+    }
 }
