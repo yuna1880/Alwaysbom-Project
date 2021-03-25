@@ -106,7 +106,7 @@
                     <c:forEach var="index" begin="0" end="5" varStatus="status">
                     <li class="image-ul-item">
                         <div class="btn btn-outline-secondary my-box">
-                            <div class="${empty images[index] ? "d-none" : ""} exist w-100 h-100 position-relative">
+                            <%--<div class="${empty images ? "d-none" : ""} exist w-100 h-100 position-relative">
                                 <img src="" alt="사진" width="100%" height="100%">
                                 <div class="right-top-buttons">
                                     <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#myModal" onclick="loadData(${})">연결페이지</button>
@@ -114,12 +114,12 @@
                                     <button type="button" class="btn btn-light btn-sm" onclick="deleteImage(${status.index + 1})">삭제</button>
                                 </div>
                             </div>
-                            <div class="${empty images[index] ? "" : "d-none"} empty w-100 h-100 d-flex flex-column align-items-center justify-content-center"
+                            <div class="${empty images ? "" : "d-none"} empty w-100 h-100 d-flex flex-column align-items-center justify-content-center"
                                  onclick="this.children.file.click()">
                                 <i class="fa fa-plus my-icon"></i>
                                 <span>이미지 추가</span>
                                 <input type="file" class="d-none" name="file" onchange="changeImage(this, ${status.index + 1})">
-                            </div>
+                            </div>--%>
                         </div>
                         <span class="b6">${status.count}</span>
                     </li>
