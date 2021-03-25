@@ -1,3 +1,6 @@
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,7 +18,9 @@
 </script>
 <body>
 <%@ include file="../main/header.jspf" %>
+
     <div class="container">
+        <!-- 헤더 -->
         <div class="checkout_wrap">
             <div class="navi" tabindex="-1">
                 <ol class="process">
@@ -32,7 +37,17 @@
                         <h4 class="tit">메시지카드</h4>
                     </div><br>
                 </div>
+
+
+
+
+                <form action="/checkOut" method="post">
+
+                <!-- letter 옵션 추가시, 그 개수만큼 생성해준다. -->
+                <%-- <c:forEach var="cart" items="${cartList}">
+                <c:if test="${cart.letter > 0}"> --%>
                 <div id="letterbox-wrapper">
+                    <input type="hidden" name="cartIdx" value="${cart.idx}">
                     <div id="letter_product" class="letterbox">
                         <input type="hidden" name="letter_product_" value="">
                         <div class="letter">
@@ -66,24 +81,26 @@
                                 </div>
                                 <div class="preview_letter">
                                     <textarea id="preview" class="text" readonly></textarea>
-                                    <span class="noti">
-                                                * 실제 편지지 모습입니다. 최대 8줄까지만 인쇄됩니다.
-                                    </span>
+                                    <span class="noti">* 실제 편지지 모습입니다. 최대 8줄까지만 인쇄됩니다.</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+<%--</c:if>
+</c:forEach>--%>
 
-            <!-- 버튼 -->
-            <div class="float-end">
-                <button type="button" class="btn btn-outline-secondary btn-lg">이전 화면으로</button>
-                <button type="button" class="btn btn btn-secondary btn-lg">다음 단계로</button>
-            </div>
-            <br>
-        </div>
-    </div>
+</div>
+<!-- 버튼 -->
+<div class="float-end">
+<button type="button" class="btn btn-outline-secondary btn-lg"
+        onclick="javascript:location.href='goLetter?idx=${cart.idx}'">이전 화면으로</button>
+<button type="submit" class="btn btn btn-secondary btn-lg">다음 단계로</button>
+</div>
+</form>
+<br>
+</div>
+</div>
 <%@ include file="../main/footer.jspf"%>
 </body>
 </html>
