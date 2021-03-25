@@ -21,6 +21,7 @@ public class CartController {
     @GetMapping("/cart/list")
     public String getCart(Model model, String memberId) {
         List<CartVo> list = cartService.findCartsByMember(memberId);
+        System.out.println("list = " + list);
 
         model.addAttribute("list", list);
         return "cart/list";
