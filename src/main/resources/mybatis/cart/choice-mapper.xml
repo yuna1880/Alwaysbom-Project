@@ -10,10 +10,10 @@
         WHERE CART_IDX = #{cartIdx}
     </select>
     
-<!--    <update id="addChoice" parameterType="map">
+    <update id="addChoice" parameterType="map">
         <foreach collection="productIds" item="productId" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
-            INTO CHOICE
+            INTO CHOICE VALUES(NULL, #{productId}, #{idx})
         </foreach>
-    </update>-->
+    </update>
 
 </mapper>
