@@ -87,7 +87,6 @@ header a {
     position: absolute;
     pointer-events: none;
     opacity: 0;
-    pointer-events: none;
     transition: all 0.3s;
 }
 #under-bar1 {
