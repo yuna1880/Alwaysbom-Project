@@ -1,4 +1,5 @@
 nav {
+    display: flex;
     font-size: 18px;
     margin-top: 20px;
 }
@@ -9,6 +10,11 @@ nav a {
 nav a:hover {
     text-decoration: underline;
     color: #4D4D4D;
+}
+nav > ol {
+    background-color: #86b7fe;
+    padding: 1em;
+    border-radius: 5px;
 }
 .description {
     color: #f13e5f;
