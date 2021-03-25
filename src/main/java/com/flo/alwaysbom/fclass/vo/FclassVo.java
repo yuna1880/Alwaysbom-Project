@@ -22,5 +22,5 @@ public class FclassVo {
     private String content;
     private Integer count;
 
-    private List<Integer> branchIdxList;
+    private List<BranchVo> branchIdxList;
 }
