@@ -1,4 +1,4 @@
-package com.flo.alwaysbom.flower;
+package com.flo.alwaysbom.flower.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
