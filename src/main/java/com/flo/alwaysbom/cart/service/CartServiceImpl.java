@@ -26,8 +26,10 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Integer addCart(CartVo cartVo, List<Integer> productIds) {
+    public Integer addCart(CartVo cartVo, Integer[] productIds) {
+        System.out.println("productIds = " + productIds);
         cartDao.addCart(cartVo);
+        System.out.println("cartVo = " + cartVo);
         choiceService.addChoices(cartVo.getIdx(), productIds);
         return cartVo.getIdx();
     }
