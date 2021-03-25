@@ -13,7 +13,7 @@
         <div id="container">
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/admin/main">관리자 Home</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
                     <li class="breadcrumb-item active" aria-current="page">소품샵 관리</li>
                 </ol>
             </nav>
