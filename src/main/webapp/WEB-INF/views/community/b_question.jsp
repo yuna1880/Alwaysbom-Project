@@ -19,7 +19,7 @@
 <%@ include file="../main/b_header.jspf" %>
 <div class="d-flex justify-content-center">
     <div id="container">
-        <h2>1:1 다이다이</h2>
+        <h2>1:1 관리자 문의 게시판 입니다.</h2>
         <div>
             <form method="post">
                 <div class="row row-cols-4">
