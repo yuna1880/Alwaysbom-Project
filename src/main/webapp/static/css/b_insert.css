@@ -17,20 +17,29 @@
     border-radius: 10px;
 }
 .description {
-    color: #f13e5f;
     font-size: 16px;
     margin-left: 20px;
 }
 .img-card {
     width: 350px;
     height: 350px;
-    margin-left: 1em;
+    margin-left: 20px;
 }
 .img-card a {
     z-index: 4;
-    opacity: 0.8;
+    opacity: 0.5;
+}
+.imgs {
+    margin-bottom: 100px;
 }
 .imgs img {
     width: 350px;
     height: auto;
 }
+.inputs-wrap {
+    width: 1090px
+}
+/*.f-input {*/
+/*    height: 100px;*/
+/*    border: 1px solid #4D4D4D;*/
+/*}*/
