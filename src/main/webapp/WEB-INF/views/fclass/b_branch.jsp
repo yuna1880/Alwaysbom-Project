@@ -69,7 +69,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="formGroupExampleInput2" class="form-label">지점컬러</label>
-                            <input type="text" name="color" value="${branch.color}" class="form-control"
+                            <input type="text" name="color" value="${branch.color}" class="form-control" onchange="changeBg(this)"
                                    id="formGroupExampleInput2" placeholder="Another input placeholder"  style="background-color: ${branch.color}">
                         </div>
                         <div class="mb-3">
