@@ -1,18 +1,21 @@
 package com.flo.alwaysbom.member;
 
-import javax.inject.inject;
-
-import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.flo.alwaysbom.member.MemberVO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{
 
-    @Inject SqlSession sql;
+    private final SqlSessionTemplate sessionTemplate;
+
+    @Autowired
+    public MemberDAOImpl(SqlSessionTemplate sessionTemplate) {
+        this.sessionTemplate = sessionTemplate;
+    }
 
     public void register(MemberVO vo) throws Exception {
-        sql.insert("memberMapper.register", vo);
+        sessionTemplate.insert("memberMapper.register", vo);
     }
 }
