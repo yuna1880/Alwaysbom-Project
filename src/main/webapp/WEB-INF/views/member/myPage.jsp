@@ -48,7 +48,7 @@
                         </a>
                     </li>
                     <li class="item ">
-                        <a href="" class="dp1">
+                        <a href="/community/goFaq" class="dp1">
                             <span>자주 묻는 질문</span>
                         </a>
                     </li>
