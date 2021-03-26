@@ -34,17 +34,19 @@
 
             fetch("/test/letter3", {
                 method: 'post',
+                //json타입으로 변경
                 body: JSON.stringify(datas),
                 headers: {
+                    //json 타입을 사용할거라는 표시.
                     'Content-Type': 'application/json'
                 }
-            }).then(function (response) {
+            }).then(function (response) { //성공했을때 !
                 response.text().then(function (result) {
                     document.body.innerHTML = result;
                     console.log(result);
                 });
 
-            }).catch(function (err) {
+            }).catch(function (err) { //실패했을때 !
                 alert("실패입니다 : " + err);
             })
         }
