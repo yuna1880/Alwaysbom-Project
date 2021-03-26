@@ -20,7 +20,6 @@
         document.getElementById('input_info').style.display = 'none';
         document.getElementById('sender_input').style.display = 'block';
     }
-
     //다음 주소 API
     data = {
         userSelectedType : '',
@@ -68,7 +67,6 @@
             }
         }).open();
     }
-
     function selectAddress() {
         let postCode = document.getElementById('fined-name').value
         let addr = document.getElementById('fined-address').value
@@ -79,19 +77,30 @@
 
         document.getElementById('closed-button').click();
     }
-
 </script>
 <body>
 <%@ include file="../main/header.jspf" %>
-
 <div class="container">
-<div class="step" id="inputAddress">
-    <div class="infomation_box">
-        <div class="checkout_address_input">
-            <p class="noti">거의 다 왔어요, 이제 주소만 적어주세요 :-)</p>
-            <div class="address_tabs role_tabs">
+    <!-- 헤더 -->
+    <div class="checkout_wrap">
+    <div class="navi" tabindex="-1">
+        <ol class="process">
+            <div class="step"><span class="order"><b>1</b><span class="desc">편지 추가</span></span></div>
+            <div class="step current"><span class="order"><b>2</b><span class="desc">주소 입력</span></span></div>
+            <div class="step"><span class="order"><b>3</b><span class="desc">결제</span></span></div>
+        </ol>
+    </div>
+
+< <form action="/order/payment" method="post">
+    <div class="checkout_content">
+        <div class="step" id="inputAddress">
+            <div class="infomation_box">
+                <div class="checkout_address_input">
+                    <p class="noti">거의 다 왔어요, 이제 주소만 적어주세요 :-)</p>
+                    <div class="address_tabs role_tabs">
 
     <!-- 배송지 라디오 버튼 -->
+
     <div class="check_row_method" id="check_row_method">
         <div class="row" style="width: 630px;">
             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -224,8 +233,6 @@
                     </tr>
                 </tbody>
             </table>
-
-
             <!-- 주의사항-->
             <span class="unknow_txt modify_0724">
                 <span class="l"><i>*</i><b>익명으로 보내기를 선택할 경우, 주의할 것이 있어요.</b>
@@ -238,8 +245,7 @@
             </span>
         </div>
 
-        <!-------------------------------------받는분이----------------------------------------------------------------------->
-
+        <!-------------------------------------받는분이 입력하는 란----------------------------------------------------------------------->
 
         <div class="role_tabpanel" tabindex="-1" role="tabpanel" id="sender_input"
              aria-labelledby="tabpanel_address_to">
@@ -287,10 +293,8 @@
                                         </div>
                                         <span class="d">-</span>
                                         <div>
-                                            <input type="text" maxlength="4"
-                                                   class="form-control form-control-small"
-                                                   id="receiving_phone3_gift"
-                                                   name="receiving_phone3_gift" value="1880" autocomplete="off">
+                                            <input type="text" maxlength="4" class="form-control form-control-small"
+                                                   id="receiving_phone3_gift" name="receiving_phone3_gift" value="1880" autocomplete="off">
                                         </div>
                                 </span>
                             </span>
@@ -307,6 +311,15 @@
     </div>
     </div>
     </div>
+        <div class="complete">
+            <button type="submit" class="info_btn next" id="purchase_submit">
+                <span>결제하기</span>
+            </button>
+            <button type="button" class="info_btn back" onclick="history.back()"><span>이전 단계로</span></button></div>
+        <br><br><br>
+    </div>
+    </form>
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -347,13 +360,8 @@
             </div>
         </div>
     </div>
-    <br><br><br><br><br><br><br>
+></div>
 </div>
-
-
-
-
-
 <%@ include file="../main/footer.jspf"%>
 </body>
 </html>

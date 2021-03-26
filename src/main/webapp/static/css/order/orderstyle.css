@@ -1,6 +1,22 @@
 @charset "UTF-8";
 
+
+/* 3/26 */
+
+.modal-body {
+    padding-left: 100px;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.recept_money {
+    margin-top: 20px;
+}
+
 /* 3/25 */
+
 #receiving_phone3,
 #receiving_phone3_gift
 {
@@ -2191,8 +2207,9 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
 @media (min-width:1024px) {
     .checkout_address_input {
-        padding: 0 35px;
-        border-top: #dedede 1px solid
+        padding: 0 0 20px 310px;
+        border-top: #dedede 1px solid;
+        border-bottom: #dedede 1px solid;
     }
 
     .checkout_address_input .noti {
