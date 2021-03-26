@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>꽃다발 상품 등록</title>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="../static/css/b_insert.css">
+    <link rel="stylesheet" href="../static/css/item/b_insert.css">
     <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
