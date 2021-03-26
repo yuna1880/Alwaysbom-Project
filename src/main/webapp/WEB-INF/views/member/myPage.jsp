@@ -14,11 +14,11 @@
                     <strong class="th">회원 등급</strong>
                     <span class="td">WHITE</span>
                 </span>
-                <span class="row">
+                <span class="row" ::before>
                     <strong class="th">포인트</strong>
                     <span class="td">1000</span>
                 </span>
-                <span class="row">
+                <span class="row" ::before>
                     <strong class="th">보유 쿠폰</strong>
                     <span class="td">0장</span>
                 </span>
@@ -53,7 +53,7 @@
                         </a>
                     </li>
                     <li class="item ">
-                        <a href="" class="dp1">
+                        <a href="/question/create" class="dp1">
                             <span>1:1 문의</span>
                         </a>
                     </li>
@@ -92,8 +92,8 @@
                     <span class="name">이다솜</span>
                     님, 오늘도 꽃 같은 날이에요-
                 </h4>
-                <div>
-                    <img src="/image/flower/flower1.jpg">
+                <div class="calendar_ui">
+                    <img src="../image/flower/flower1.jpg">
                 </div>
             </div>
         </div>
