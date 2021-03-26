@@ -1,6 +1,9 @@
 package com.flo.alwaysbom.cart.vo;
 
 import com.flo.alwaysbom.choice.vo.ChoiceVo;
+import com.flo.alwaysbom.flower.vo.FlowerVo;
+import com.flo.alwaysbom.product.vo.ProductVo;
+import com.flo.alwaysbom.subs.vo.SubsVo;
 import lombok.*;
 
 import java.sql.Date;
@@ -24,5 +27,8 @@ public class CartVo {
     private int letter;
 
     // 관련 데이터
+    private SubsVo subsVo;
+    private FlowerVo flowerVo;
+    private ProductVo productVo;
     private List<ChoiceVo> choices;
 }
