@@ -9,7 +9,7 @@
 </head>
 <body>
     <%@ include file="../main/b_header.jspf"%>
-    <div id="container" class="mx-auto p-3">
+    <div id="container" class="mx-auto">
         <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb mb-xxl-5">
                 <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
@@ -20,7 +20,8 @@
             <div class="btn-circle d-flex justify-content-center align-items-center">
                 배너 등록/수정
             </div>
-            <div class="btn-circle d-flex justify-content-center align-items-center">
+            <div class="btn-circle d-flex justify-content-center align-items-center"
+                 onclick="location.href='/admin/productInsert'">
                 상품 등록
             </div>
             <div class="btn-circle d-flex justify-content-center align-items-center">

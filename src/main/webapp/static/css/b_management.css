@@ -1,10 +1,11 @@
 #container {
-    padding-bottom: 10em;
+    padding: 1em 1em 300px 1em;
 }
 #bread-nav {
     display: flex;
     font-size: 18px;
-    margin-top: 20px;
+    padding-top: 20px;
+    margin-bottom: 100px;
 }
 #bread-nav a {
     color: #4D4D4D;
