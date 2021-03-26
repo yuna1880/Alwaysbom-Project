@@ -20,6 +20,7 @@ public class FclassService {
     public int updateFclass(FclassVo vo, Integer[] branches) {
         return dao.updateFclass(vo, branches);
     }
+
     public int deleteFclass(int idx) {
         return dao.deleteFclass(idx);
     }
@@ -31,5 +32,9 @@ public class FclassService {
     public List<FclassVo> findAll(){
         List<FclassVo> list = dao.findAll();
         return list;
+    }
+
+    public List<FclassVo> findClassByCategory(String category) {
+        return dao.findClassByCategory(category);
     }
 }

@@ -1,11 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <html>
 <head>
     <title>클래스 추가</title>
-    <%@ include file="../main/import.jspf"%>
+    <%@ include file="../main/b_import.jspf"%>
 </head>
 <body>
-    <%@ include file="../main/header.jspf"%>
+    <%@ include file="../main/b_header.jspf"%>
     <form id="container" class="mx-auto p-5" action="/admin/fclass/addClass" method="post" enctype="multipart/form-data">
         <div class="h5 text-secondary mb-4">클래스 추가</div>
         <div class="d-flex mb-4">
@@ -21,29 +22,35 @@
                     <input type="radio" class="btn-check" name="category" value="플로리스트" id="btnradio2" autocomplete="off">
                     <label class="btn btn-outline-primary" for="btnradio2">플로리스트</label>
                 </div>
-
+                    <c:forEach var="branch" items="${branchList}" varStatus="status">
+                        <div class="form-check d-flex flex-wrap ">
+                            <input class="form-check-input" type="checkbox" value="${branch.idx}"
+                                   name="branches" id="cb${status.index}">
+                            <label class="form-check-label" for="cb${status.index}">${branch.name}</label>
+                        </div>
+                    </c:forEach>
 
                 <div class="form-floating mb-4">
                     <input type="text" name="name" class="form-control" id="name" placeholder="name">
-                    <label for="name">클래스명</label>
+                    <label for="name">class name</label>
                 </div>
                 <div class="form-floating mb-4">
                     <input type="text" name="subheader" class="form-control" id="subheader" placeholder="subheader">
-                    <label for="subheader">부가설명</label>
+                    <label for="subheader">subHeader</label>
                 </div>
                 <div class="form-floating mb-4">
                     <input type="text" name="price" class="form-control" id="price" placeholder="price">
-                    <label for="price">클래스 가격</label>
+                    <label for="price">price</label>
                 </div>
                 <div class="form-floating mb-4">
                     <input type="text" name="discountRate" class="form-control" id="discountRate"
                            placeholder="discountRate">
-                    <label for="discountRate">할인율</label>
+                    <label for="discountRate">discount rate</label>
                 </div>
                 <div class="form-floating">
                     <input type="text" name="count" class="form-control" id="count"
                            placeholder="count">
-                    <label for="count">클래스 횟수</label>
+                    <label for="count">count</label>
                 </div>
             </div>
             <!-- 파일 -->
@@ -84,7 +91,7 @@
     </form>
 
 
-    <%@ include file="../main/footer.jspf"%>
+    <%@ include file="../main/b_footer.jspf"%>
 <script>
     function preview(file, id) {
         let img = document.querySelector("#" + id);

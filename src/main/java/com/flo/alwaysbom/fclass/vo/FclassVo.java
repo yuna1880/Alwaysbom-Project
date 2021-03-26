@@ -23,4 +23,8 @@ public class FclassVo {
     private Integer count;
 
     private List<BranchVo> branchList;
+
+    public Integer getFinalPrice(){
+        return (int)(price * (1 - discountRate / 100.0));
+    }
 }

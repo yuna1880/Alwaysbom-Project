@@ -1,12 +1,26 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>fclass mainView</title>
-    <%@ include file="../main/import.jspf" %>
+    <%@ include file="../main/b_import.jspf" %>
     <style>
         header {
             z-index: 10;
+        }
+
+        .scheduleBox {
+            padding: 10px;
+            margin: 60px 0;
+            border-radius: 3px;
+            background-color: #0c4128;
+            color: white;
+            text-decoration: none;
+        }
+        .scheduleBox:hover {
+            background-color: #0f5132;
+            color: white;
         }
 
         .btnColor {
@@ -34,13 +48,23 @@
             transition-duration: 0.2s;
             transform: scale(1.1);
         }
+        .red {
+            color: red;
+        }
+        .branch-box {
+            border-radius: 12px;
+            width: 60px;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
-<%@ include file="../main/header.jspf" %>
+<%@ include file="../main/b_header.jspf" %>
 <div id="container" class="d-flex mx-auto">
     <div class="col-2 d-flex justify-content-center">
         <div class="branch-li p-4 d-flex flex-column align-items-center">
+            <a href="/admin/fclass/selectClass" class="scheduleBox">클래스 일정관리</a>
             <table class="table">
                 <thead>
                 <tr>
@@ -77,13 +101,17 @@
                                     </div>
                                 </a>
                             </div>
-                            <div>${fclass.name}</div>
-                            <div>${fclass.discountRate}</div>
-                            <div>${fclass.price}</div>
-                            <div>${fclass.category}</div>
-                            <ul class="list-group list-group-horizontal border-0">
+                            <div class="fw-bold mb-2">${fclass.name}</div>
+                            <div class="mb-2">
+                                <span class="red">(${fclass.discountRate}%)</span>
+                                <span class="text-decoration-line-through text-secondary">
+                                    <fmt:formatNumber value="${fclass.price}" pattern="#,###"/>원</span>
+                                <span><fmt:formatNumber value="${fclass.finalPrice}" pattern="#,###"/>원</span>
+                            </div>
+<%--                            <div>${fclass.category}</div>--%>
+                            <ul class="border-0 d-flex m-0 p-0">
                                 <c:forEach var="bvo" items="${fclass.branchList}">
-                                    <li class="list-group-item" style="color: ${bvo.color}; border: 1px solid ${bvo.color}">${bvo.name}</li>
+                                    <li class="branch-box list-unstyled p-1 me-1 fw-bold"  style="color: ${bvo.color}; border: 2px solid ${bvo.color}; font-size: 0.75rem;">${bvo.name}</li>
                                 </c:forEach>
                             </ul>
                         </li>
@@ -112,10 +140,19 @@
                                     </div>
                                 </a>
                             </div>
-                            <div>${fclass.name}</div>
-                            <div>${fclass.discountRate}</div>
-                            <div>${fclass.price}</div>
-                            <div>${fclass.category}</div>
+                            <div class="fw-bold mb-2">${fclass.name}</div>
+                            <div class="mb-2">
+                                <span class="red">(${fclass.discountRate}%)</span>
+                                <span class="text-decoration-line-through text-secondary">
+                                    <fmt:formatNumber value="${fclass.price}" pattern="#,###"/>원</span>
+                                <span><fmt:formatNumber value="${fclass.finalPrice}" pattern="#,###"/>원</span>
+                            </div>
+<%--                            <div>${fclass.category}</div>--%>
+                            <ul class="border-0 d-flex m-0 p-0">
+                                <c:forEach var="bvo" items="${fclass.branchList}">
+                                    <li class="branch-box list-unstyled p-1 me-1 fw-bold"  style="color: ${bvo.color}; border: 2px solid ${bvo.color}; font-size: 0.75rem;">${bvo.name}</li>
+                                </c:forEach>
+                            </ul>
                         </li>
                     </c:if>
                 </c:forEach>
@@ -129,6 +166,6 @@
         </div>
     </div>
 </div>
-<%@ include file="../main/footer.jspf" %>
+<%@ include file="../main/b_footer.jspf" %>
 </body>
 </html>

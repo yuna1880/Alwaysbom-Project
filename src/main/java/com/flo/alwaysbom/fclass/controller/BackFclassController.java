@@ -29,7 +29,8 @@ public class BackFclassController {
     private ServletContext context;
 
     @GetMapping("/admin/fclass/addClass")
-    public String goAddClass() {
+    public String goAddClass(Model model) {
+        model.addAttribute("branchList", branchService.findAll());
         return "fclass/b_addClass";
     }
 
@@ -81,6 +82,31 @@ public class BackFclassController {
         List<BranchVo> list = branchService.findAll();
         model.addAttribute("list", list);
         return "fclass/b_branch";
+    }
+
+    @GetMapping("admin/fclass/selectClass")
+    public String goSelectClass() {
+        return "fclass/b_selectClass";
+    }
+
+    @GetMapping("admin/fclass/manageSchedule")
+    public String goManageSchedule(String category, Integer classIdx, Integer branchIdx, Model model) {
+        model.addAttribute("category", category);
+        model.addAttribute("classIdx", classIdx);
+        model.addAttribute("branchIdx", branchIdx);
+        return "fclass/b_manageSchedule";
+    }
+
+    @GetMapping("admin/fclass/api/findClassByCategory")
+    @ResponseBody
+    public List<FclassVo> findClassByCategory(String category) {
+        return fclassService.findClassByCategory(category);
+    }
+
+    @GetMapping("admin/fclass/api/findBranchByClassIdx")
+    @ResponseBody
+    public List<BranchVo> findBranchByClassIdx(Integer classIdx) {
+        return branchService.findBranchByClassIdx(classIdx);
     }
 
     @PostMapping("admin/fclass/api/addBranch")
