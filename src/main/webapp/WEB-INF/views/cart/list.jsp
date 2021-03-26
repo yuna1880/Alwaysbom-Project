@@ -48,11 +48,12 @@
                                        value="${cart.idx}" onchange="checkAll()">
                             </div>
                             <div class="col-6 d-flex">
-                                <div class="card-img">
-                                    <img src="/static/upload/${path}" alt="사진">
+                                <div class="card-img w-25 overflow-hidden">
+                                    <img src="/static/upload/${path}" alt="사진" class="w-100">
                                 </div>
-                                <div class="bg-info d-flex flex-column">
+                                <div class="bg-transparent w-75 d-flex flex-column align-items-baseline">
                                     <span>${target.name}</span>
+                                    <span>${target.discountRate}</span>
                                 </div>
                             </div>
                             <div class="col-3">추가상품</div>
