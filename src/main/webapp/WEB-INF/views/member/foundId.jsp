@@ -1,18 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>아이디찾기 완료</title>
     <%@ include file="../main/import.jspf"%>
-    <link href="<c:url value="/static/css/member/findId.css" />" rel="stylesheet" >
+    <link href="/static/css/member/findId.css" rel="stylesheet">
 </head>
 <body>
-<%@ include file="../main/header.jspf" %>
-<div class="d-flex justify-content-center">
-    <div id="container">
+    <%@ include file="../main/header.jspf" %>
+    <div id="container" class="mx-auto">
         <section class="contents" id="contents" tabindex="0">
             <div id="root" data-app="login">
-                <header class="content_header">
+                <header class="content_header" style="position: static;">
                     <h2 class="page_title">아이디 찾기</h2>
                     <span id="goto_path_next_page" style="display: none;">account/login</span>
                     <a href="#" class="page_back">
@@ -39,7 +37,7 @@
                                     </div>
                                     <a href="memberLogin" class="login"><button type="button" class="login">로그인</button></a>
                                     <div class="login_additional_link">
-                                        <a href="" class="link user find_pass">비밀번호 찾기</a>
+                                        <a href="/findPwd" class="link user find_pass">비밀번호 찾기</a>
                                     </div>
                                 </fieldset>
                             </form>
@@ -57,6 +55,5 @@
         </section>
         <%@ include file="../main/footer.jspf"%>
     </div>
-</div>
 </body>
 </html>
