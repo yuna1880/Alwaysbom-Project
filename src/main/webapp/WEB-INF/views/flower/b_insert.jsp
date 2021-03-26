@@ -19,9 +19,9 @@
         </nav>
 
         <form method="post">
-            <div class="fs-5 p-1 mb-3 mt-5 d-block border-bottom border-secondary">
+            <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
                 1. 상품 이미지 등록
-                <span class="description">
+                <span class="description text-danger">
                     * 상품 사진은 가능하다면 고화질의 정방형 이미지로 올려주십시오.
                 </span>
             </div>
@@ -55,11 +55,91 @@
                 </li>
             </div>
 
-            <div class="fs-5 p-1 mb-3 mt-5 d-block border-bottom border-secondary">
+            <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
                 2. 주요 정보
             </div>
 
-            <div class="fs-5 p-1 mb-3 mt-5 d-block border-bottom border-secondary">
+
+
+
+
+            <div class="inputs-wrap mx-auto">
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating my-2 f-input">
+                            <input type="text" class="form-control" id="flowerName" placeholder="상품명 입력">
+                            <label for="flowerName">상품명 (한글 50자 미만)</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating my-2 f-input">
+                            <input type="text" class="form-control" id="flowerSubheader" placeholder="한줄 설명">
+                            <label for="flowerSubheader">한줄 설명 (한글 100자 미만)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating my-2 f-input">
+                            <select class="form-select" id="flowerSize" aria-label="flowerSize">
+                                <option selected>Size Options</option>
+                                <option value="1">S</option>
+                                <option value="2">M</option>
+                                <option value="3">L</option>
+                                <option value="4">XL</option>
+                            </select>
+                            <label for="flowerSize">꽃다발 사이즈</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating my-2 f-input">
+                            <input type="text" class="form-control text-end" id="flowerPrice" placeholder="가격"
+                                onchange="calculate()">
+                            <label for="flowerSubheader">상품 가격</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3">
+<%--                    <div class="col-md-4 d-flex align-items-center">--%>
+<%--                        <input type="checkbox" class="btn-check" id="freeDelivery" autocomplete="off">--%>
+<%--                        <label class="btn btn px-4 py-2 me-2 btn-outline-dark me-2" for="freeDelivery">무료배송</label><br>--%>
+<%--                        <input type="checkbox" class="btn-check" id="discount" autocomplete="on" onclick="checkDiscount()">--%>
+<%--                        <label class="btn btn px-4 py-2 btn-outline-dark" for="discount">할인 적용하기</label><br>--%>
+<%--                    </div>--%>
+                    <div class="col-md-4 d-flex align-items-center">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="freeDelivery" value="option1"
+                                   onclick="changeBg(this)">
+                            <label class="form-check-label" for="freeDelivery">무료배송</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="discount" value="option2"
+                                   onclick="checkDiscount(), changeBg(this)">
+                            <label class="form-check-label" for="discount">할인 적용하기</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-floating my-2">
+                            <input type="number" max="50" class="form-control" disabled id="discountRate" placeholder="할인율"
+                                onchange="calculate()">
+                            <label for="discountRate">할인율 (숫자만 입력)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating my-2">
+                            <input type="text" class="form-control text-end" disabled readonly id="newPrice" placeholder="할인 적용가">
+                            <label for="newPrice">할인 적용가</label>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div> <!-- inputs-wrap 닫기 -->
+
+
+
+            <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
                 3. 상품 상세페이지 등록
             </div>
 
@@ -84,6 +164,48 @@
         reader.readAsDataURL(file.files[0]);
     }
 
+    function calculate() {
+        let price = document.querySelector("#flowerPrice").value;
+        let dRate = document.querySelector("#discountRate").value;
+        let dPrice;
+
+        if (dRate == null) {
+            dPrice = null;
+        } else {
+            if (price == null || price.trim() == "") {
+                dPrice = "상품 가격을 입력해주세요";
+            }
+            else {
+                dPrice = Math.floor((100 - Number(dRate)) * 0.01 * Number(price)) + " 원";
+                console.log("dPrice : " + dPrice);
+            }
+        }
+        document.querySelector("#newPrice").value = dPrice;
+    }
+
+    function checkDiscount() {
+        let dBtn = document.querySelector("#discount");
+        let dRate = document.querySelector("#discountRate");
+        let dPrice = document.querySelector("#newPrice");
+
+        if (dBtn.checked == true) {
+            dRate.toggleAttribute("disabled", false);
+            dPrice.toggleAttribute("disabled", false);
+        } else {
+           dRate.toggleAttribute("disabled", true);
+           dPrice.toggleAttribute("disabled", true);
+           dRate.value = null;
+           calculate();
+        }
+    }
+
+    function changeBg(chkBox) {
+        if (chkBox.checked) {
+            chkBox.classList.add("bg-dark");
+        } else {
+            chkBox.classList.remove("bg-dark");
+        }
+    }
 
 </script>
 </html>
