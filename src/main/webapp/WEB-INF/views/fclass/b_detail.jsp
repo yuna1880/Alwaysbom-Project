@@ -54,27 +54,27 @@
             <div class="form-floating mb-4">
                 <input type="text" name="name" class="form-control" id="name" placeholder="name"
                        value="${classInfo.name}">
-                <label for="name">${classInfo.name}</label>
+                <label for="name">class name</label>
             </div>
             <div class="form-floating mb-4">
                 <input type="text" name="subheader" class="form-control" id="subheader" placeholder="subheader"
                        value="${classInfo.subheader}">
-                <label for="subheader">${classInfo.subheader}</label>
+                <label for="subheader">class subheader</label>
             </div>
             <div class="form-floating mb-4">
                 <input type="text" name="price" class="form-control" id="price" placeholder="price"
                        value="${classInfo.price}">
-                <label for="price">${classInfo.price}</label>
+                <label for="price">price</label>
             </div>
             <div class="form-floating mb-4">
                 <input type="text" name="discountRate" class="form-control" id="discountRate"
                        placeholder="discountRate" value="${classInfo.discountRate}">
-                <label for="discountRate">${classInfo.discountRate}</label>
+                <label for="discountRate">discountRate</label>
             </div>
             <div class="form-floating">
                 <input type="text" name="count" class="form-control" id="count"
                        placeholder="count" value="${classInfo.count}">
-                <label for="count">${classInfo.count}</label>
+                <label for="count">class count</label>
             </div>
         </div>
         <!-- 파일 -->
