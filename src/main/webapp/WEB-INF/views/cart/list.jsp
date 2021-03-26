@@ -18,39 +18,47 @@
                     <div class="col-1">
                         <input type="checkbox" class="form-check-input p-3 rounded-circle bg-warning border-warning" aria-label="allCheck" id="allBtn" onchange="applyAll(this)">
                     </div>
-                    <div class="col-6">상품정보</div>
-                    <div class="col-3">추가상품</div>
-                    <div class="col-2">합계 금액</div>
+                    <div class="col-6 d-flex justify-content-center align-items-center"><span>상품정보</span></div>
+                    <div class="col-3 d-flex justify-content-center align-items-center"><span>추가상품</span></div>
+                    <div class="col-2 d-flex justify-content-center align-items-center"><span>합계 금액</span></div>
                 </li>
                 <c:forEach var="cart" items="${list}">
-                    <li class="list-group-item bg-white text-primary d-flex text-center">
-                        <div class="col-1">
-                            <input type="checkbox" class="form-check-input p-3 rounded-circle cart-check bg-warning border-warning" aria-label="checkbox" name="idx"
-                                   value="${cart.idx}" onchange="checkAll()">
-                        </div>
-                        <div class="col-6 d-flex">
-                            <div class="card-img">
-                                <!-- 카테고리에 따라서 이미지 찾는 경로가 달라짐-->
-                                <c:choose>
-                                    <c:when test="${cart.category eq '꽃다발'}">
-                                        <c:set var="path" value="${cart.flowerVo.image1}"/>
-                                    </c:when>
-                                    <c:when test="${cart.category eq '정기구독'}">
-                                        <c:set var="path" value="${cart.subsVo.image1}"/>
-                                    </c:when>
-                                    <c:when test="${cart.category eq '소품샵'}">
-                                        <c:set var="path" value="${cart.productVo.image1}"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="path" value="default.jpg"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <img src="/static/upload/${path}" alt="사진">
+                    <c:choose>
+                        <c:when test="${cart.category eq '꽃다발'}">
+                            <c:set var="path" value="${cart.flowerVo.image1}"/>
+                            <c:set var="target" value="${cart.flowerVo}"/>
+                        </c:when>
+                        <c:when test="${cart.category eq '정기구독'}">
+                            <c:set var="path" value="${cart.subsVo.image1}"/>
+                            <c:set var="target" value="${cart.subsVo}"/>
+                        </c:when>
+                        <c:when test="${cart.category eq '소품샵'}">
+                            <c:set var="path" value="${cart.productVo.image1}"/>
+                            <c:set var="target" value="${cart.productVo}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="path" value="default.jpg"/>
+                            <c:remove var="target"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:if test="${not empty target}">
+                        <li class="list-group-item bg-white text-primary d-flex text-center">
+                            <div class="col-1">
+                                <input type="checkbox" class="form-check-input p-3 rounded-circle cart-check bg-warning border-warning" aria-label="checkbox" name="idx"
+                                       value="${cart.idx}" onchange="checkAll()">
                             </div>
-                        </div>
-                        <div class="col-3">추가상품</div>
-                        <div class="col-2">합계 금액</div>
-                    </li>
+                            <div class="col-6 d-flex">
+                                <div class="card-img">
+                                    <img src="/static/upload/${path}" alt="사진">
+                                </div>
+                                <div class="bg-info d-flex flex-column">
+                                    <span>${target.name}</span>
+                                </div>
+                            </div>
+                            <div class="col-3">추가상품</div>
+                            <div class="col-2">합계 금액</div>
+                        </li>
+                </c:if>
                 </c:forEach>
             </ul>
             <button type="submit" class="btn btn-primary btn-lg">전송테스트</button>
