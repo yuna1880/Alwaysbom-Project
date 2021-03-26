@@ -6,6 +6,7 @@
         |자주 묻는 질문</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <%@ include file="../main/import.jspf" %>
     <script>
         async function goFaqList(faqType) {
@@ -30,7 +31,7 @@
                 dispHtml += data.question;
                 dispHtml += '</button>';
                 dispHtml += '</h3>'
-                dispHtml += ' <div id="flushColl'+ data.idx +'" class="accordion-collapse collapse" aria-labelledby="flushHead'+ data.idx +'" data-bs-parent="#accordionFlushExample">';
+                dispHtml += '<div id="flushColl'+ data.idx +'" class="accordion-collapse collapse" aria-labelledby="flushHead'+ data.idx +'" data-bs-parent="#accordionFlushExample">';
                 dispHtml += '<div class="accordion-body">';
                 dispHtml += data.answer;
                 dispHtml += "</div>";
@@ -85,8 +86,7 @@
         <h2>자주 묻는 질문</h2>
         <div>
             <ul class="nav justify-content-around faqBox">
-                <c:forEach var="category" items="${category}"
-                >
+                <c:forEach var="category" items="${category}">
                     <li class="nav-item-3" id="${category}">
                         <a class="nav-link" id="${category}" href="#" onclick="goFaqList(this)">${category}</a>
                     </li>

@@ -7,6 +7,26 @@
 </head>
 <body>
     <%@ include file="../main/header.jspf" %>
+    <div id="container" class="mx-auto d-flex flex-column h-100">
+        <div class="bg-info h-25 d-flex">
+            <div class="col-4 bg-warning d-flex justify-content-center align-items-center">
+                <span>회원 등급</span>
+                <span>WHITE</span>
+            </div>
+            <div class="col-4 bg-primary d-flex justify-content-center align-items-center">
+                <span>포인트</span>
+                <span>1000</span>
+            </div>
+            <div class="col-4 bg-danger d-flex justify-content-center align-items-center">
+                <span>보유 쿠폰</span>
+                <span>0장</span>
+            </div>
+        </div>
+        <div class="bg-secondary h-75">
+
+        </div>
+
+    </div>
     <div id="container" class="mx-auto">
         <div class="my_header">
             <p class="grade">
@@ -14,11 +34,11 @@
                     <strong class="th">회원 등급</strong>
                     <span class="td">WHITE</span>
                 </span>
-                <span class="row">
+                <span class="row" ::before>
                     <strong class="th">포인트</strong>
                     <span class="td">1000</span>
                 </span>
-                <span class="row">
+                <span class="row" ::before>
                     <strong class="th">보유 쿠폰</strong>
                     <span class="td">0장</span>
                 </span>
@@ -48,12 +68,12 @@
                         </a>
                     </li>
                     <li class="item ">
-                        <a href="" class="dp1">
+                        <a href="/community/goFaq" class="dp1">
                             <span>자주 묻는 질문</span>
                         </a>
                     </li>
                     <li class="item ">
-                        <a href="" class="dp1">
+                        <a href="/question/create" class="dp1">
                             <span>1:1 문의</span>
                         </a>
                     </li>
@@ -91,13 +111,13 @@
                 <h4 class="hello">
                     <span class="name">이다솜</span>
                     님, 오늘도 꽃 같은 날이에요-
+                    <div>
+                        <img src="static/image/flower_mypage.jpg" alt="메인페이지 꽃 사진">
+                    </div>
                 </h4>
-                <div>
-                    <img src="/image/flower/flower1.jpg">
-                </div>
             </div>
         </div>
-        <%@ include file="../main/footer.jspf"%>
     </div>
+    <%@ include file="../main/footer.jspf"%>
 </body>
 </html>

@@ -17,4 +17,6 @@ public class SubsVo {
     private String image2;
     private String image3;
     private String content;
+
+    private Integer discountRate;
 }
