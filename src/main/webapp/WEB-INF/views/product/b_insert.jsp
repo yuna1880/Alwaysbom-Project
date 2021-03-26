@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>꽃다발 상품 등록</title>
+    <title>소품샵 상품 등록</title>
     <%@ include file="../main/b_import.jspf"%>
     <link rel="stylesheet" href="../static/css/b_insert.css">
     <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
@@ -14,7 +14,7 @@
         <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb mb-xxl-5">
                 <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
-                <li class="breadcrumb-item"><a href="/admin/flower">꽃다발 관리</a></li>
+                <li class="breadcrumb-item"><a href="/admin/product">소품샵 관리</a></li>
                 <li class="breadcrumb-item active" aria-current="page">상품 등록</li>
             </ol>
         </nav>
@@ -81,13 +81,14 @@
                     <div class="col-md">
                         <div class="form-floating my-2">
                             <select class="form-select" id="flowerSize" aria-label="flowerSize">
-                                <option selected>Size Options</option>
+                                <option selected>화병인 경우만 선택</option>
                                 <option value="1">S</option>
                                 <option value="2">M</option>
                                 <option value="3">L</option>
                                 <option value="4">XL</option>
+                                <option value="5">선택하지 않음</option>
                             </select>
-                            <label for="flowerSize">꽃다발 사이즈</label>
+                            <label for="flowerSize">어울리는 꽃다발 사이즈</label>
                         </div>
                     </div>
                     <div class="col-md">

@@ -1,3 +1,6 @@
+#container {
+    padding: 1em 1em 100px 1em;
+}
 #bread-nav {
     display: flex;
     font-size: 18px;
@@ -45,5 +48,4 @@
 }
 .text-editor-wrap {
     width: 1090px;
-    margin-bottom: 50px;
 }

@@ -13,7 +13,7 @@ public class BackFlowerController {
         return "flower/b_management";
     }
 
-    @GetMapping("/admin/flower_insert")
+    @GetMapping("/admin/flowerInsert")
     public String goInsert() {
         return "flower/b_insert";
     }
