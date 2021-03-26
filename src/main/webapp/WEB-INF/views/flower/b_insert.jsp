@@ -6,6 +6,7 @@
     <title>꽃다발 상품 등록</title>
     <%@ include file="../main/b_import.jspf"%>
     <link rel="stylesheet" href="../static/css/b_insert.css">
+    <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
     <%@ include file="../main/b_header.jspf"%>
@@ -18,6 +19,7 @@
             </ol>
         </nav>
 
+        <!-- 1. 상품 이미지 등록 (이미지 3개 파일 업로드) -->
         <form method="post">
             <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
                 1. 상품 이미지 등록
@@ -55,24 +57,21 @@
                 </li>
             </div>
 
+
+            <!-- 2. 주요 정보 기입용 input 태그들 -->
             <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
                 2. 주요 정보
             </div>
-
-
-
-
-
             <div class="inputs-wrap mx-auto">
                 <div class="row g-2">
                     <div class="col-md">
-                        <div class="form-floating my-2 f-input">
+                        <div class="form-floating my-2">
                             <input type="text" class="form-control" id="flowerName" placeholder="상품명 입력">
                             <label for="flowerName">상품명 (한글 50자 미만)</label>
                         </div>
                     </div>
                     <div class="col-md">
-                        <div class="form-floating my-2 f-input">
+                        <div class="form-floating my-2">
                             <input type="text" class="form-control" id="flowerSubheader" placeholder="한줄 설명">
                             <label for="flowerSubheader">한줄 설명 (한글 100자 미만)</label>
                         </div>
@@ -80,7 +79,7 @@
                 </div>
                 <div class="row g-2">
                     <div class="col-md">
-                        <div class="form-floating my-2 f-input">
+                        <div class="form-floating my-2">
                             <select class="form-select" id="flowerSize" aria-label="flowerSize">
                                 <option selected>Size Options</option>
                                 <option value="1">S</option>
@@ -92,7 +91,7 @@
                         </div>
                     </div>
                     <div class="col-md">
-                        <div class="form-floating my-2 f-input">
+                        <div class="form-floating my-2">
                             <input type="text" class="form-control text-end" id="flowerPrice" placeholder="가격"
                                 onchange="calculate()">
                             <label for="flowerSubheader">상품 가격</label>
@@ -100,6 +99,7 @@
                     </div>
                 </div>
                 <div class="row g-3">
+<%--                    버튼 스타일의 체크박스 --%>
 <%--                    <div class="col-md-4 d-flex align-items-center">--%>
 <%--                        <input type="checkbox" class="btn-check" id="freeDelivery" autocomplete="off">--%>
 <%--                        <label class="btn btn px-4 py-2 me-2 btn-outline-dark me-2" for="freeDelivery">무료배송</label><br>--%>
@@ -133,14 +133,18 @@
                         </div>
                     </div>
                 </div>
-
-
             </div> <!-- inputs-wrap 닫기 -->
 
 
-
+            <!-- 3. 상품 상세페이지 등록 (텍스트 에디터) -->
             <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
-                3. 상품 상세페이지 등록
+                3. 상세 정보
+            </div>
+            <div class="text-editor-wrap d-flex justify-content-center mx-auto">
+                <div class="col-12 mb-4">
+                    <label class="form-label description text-danger" for="content">* 상품에 대한 상세한 정보와 이미지를 등록해주세요</label>
+                    <textarea name="content" id="content" style="height: 1000px;"></textarea>
+                </div>
             </div>
 
             <div class="d-flex justify-content-center my-lg-5">
@@ -151,7 +155,6 @@
     </div>  <!-- container 닫기 -->
 
     <%@ include file="../main/b_footer.jspf"%>
-</body>
 <script>
     function preview(file, id) {
         let img = document.querySelector("#" + id);
@@ -208,4 +211,6 @@
     }
 
 </script>
+<script src="/static/js/imageUploader.js"></script>
+</body>
 </html>
