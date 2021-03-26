@@ -35,6 +35,7 @@ public class CartController {
         }
         return "";
     }
+
     @GetMapping("/cart/order2")
     public String order2(Integer[] idx) {
         System.out.println("idx = " + Arrays.toString(idx));
