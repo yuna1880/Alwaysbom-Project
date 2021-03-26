@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="schedule">
+    <insert id="addSchedule" parameterType="com.flo.alwaysbom.fclass.vo.ScheduleVo">
+        INSERT INTO SCHEDULE
+        VALUES (NULL, #{branchIdx}, #{fclassIdx}, #{sdate}, #{smonth},
+                #{sday}, #{startTime}, #{endTime}, #{totalCount}, #{regCount})
+    <selectKey keyProperty="idx" resultType="int" order="AFTER">
+        SELECT SCHEDULE_SEQ.currval FROM DUAL
+    </selectKey>
+    </insert>
+
+</mapper>
