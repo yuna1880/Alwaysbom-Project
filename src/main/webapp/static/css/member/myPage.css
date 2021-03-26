@@ -100,28 +100,28 @@ html {
     margin-top: 30px;
 }
 .my_navigation_wrap {
-    padding: 0;
-    margin-top: 0;
-    border: #eee 1px solid;
-}
-.my_navigation_wrap {
     position: relative;
-    padding: 0;
+    padding-top: 200px;
     margin-top: 10px;
+}
+ol, ul {
+    list-style: none;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
 }
 .my_navigation_wrap .my_navigation {
     position: relative;
     margin: 0;
     padding-top: 110px;
     padding-bottom: 75px;
-}
-ol, ul {
-    list-style: none;
+    padding-right: 0px;
 }
 .my_navigation_wrap .my_navigation .item {
     width: 100%;
-    padding: 0;
-    margin-top: 0;
 }
 .my_navigation_wrap .my_navigation .item {
     float: left;
@@ -131,8 +131,6 @@ li {
     text-align: -webkit-match-parent;
 }
 .my_navigation_wrap .my_navigation .item .dp1 {
-    height: 34px;
-    padding: 0 0 0 0px;
     border: none;
     font-size: 18px;
     line-height: 30px;
@@ -146,22 +144,6 @@ a {
 }
 a {
     background-color: transparent;
-}
-.my_navigation_wrap .my_navigation .item+.item {
-    margin-top: 0;
-}
-.my_navigation_wrap .my_navigation {
-    position: relative;
-    margin: 0;
-    padding-top: 110px;
-    padding-bottom: 75px;
-    width: 200px;
-}
-.my_navigation_wrap {
-    position: relative;
-    padding: 0;
-    margin-top: 0;
-    border: #eee 1px solid;
 }
 .my_contents .cont_left {
     display: block;
@@ -181,11 +163,10 @@ a {
 }
 .my_anniversary .hello {
     padding: 24px 0 24px;
-    padding-left: 60px;
-    border-bottom: #eee 1px solid;
-    font-size: 26px;
+    padding-left: 0px;
+    font-size: 30px;
     line-height: 32px;
-    text-align: left;
+    text-align: center;
     font-weight: 300;
     color: #626262;
 }
@@ -214,4 +195,7 @@ h4 {
     margin: 0;
     float: left;
     position: relative;
+}
+#faq_my {
+    padding-top: 100px;
 }
