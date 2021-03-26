@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <html>
 <head>
-    <title>클래스 일정 등록</title>
+    <title>클래스 수업 지점 선택</title>
     <%@ include file="../main/b_import.jspf"%>
 </head>
 <body>

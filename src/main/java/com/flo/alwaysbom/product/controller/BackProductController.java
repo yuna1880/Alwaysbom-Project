@@ -12,4 +12,9 @@ public class BackProductController {
     public String getIndex() {
         return "product/b_management";
     }
+
+    @GetMapping("/admin/productInsert")
+    public String goInsert() {
+        return "product/b_insert";
+    }
 }

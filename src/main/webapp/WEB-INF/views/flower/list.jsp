@@ -3,7 +3,7 @@
 <head>
     <title>꽃다발</title>
     <%@ include file="../main/import.jspf"%>
-    <link rel="stylesheet" href="static/css/flower.css">
+    <link rel="stylesheet" href="static/css/item/flower.css">
 </head>
 <body>
     <%@ include file="../main/header.jspf" %>

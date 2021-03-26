@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class BackFlowerController {
 
     @GetMapping("/admin/flower")
-    public String getIndex() {
+    public String goIndex() {
         return "flower/b_management";
     }
 
-    @GetMapping("/admin/flower_insert")
+    @GetMapping("/admin/flowerInsert")
     public String goInsert() {
         return "flower/b_insert";
     }
+
+
 
 }
