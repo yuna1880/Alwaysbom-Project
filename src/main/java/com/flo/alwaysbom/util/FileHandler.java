@@ -25,7 +25,7 @@ public class FileHandler {
 
                 File folder = new File("static/upload", uploadFolder);
                 String folderPath = context.getRealPath(folder.getPath());
-
+                System.out.println(folderPath);
                 //폴더가 있는지 체크
                 File f = new File(folderPath);
                 if (!f.exists()) {

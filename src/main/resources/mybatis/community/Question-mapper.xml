@@ -5,8 +5,11 @@
 <mapper namespace="question">
 
     <insert id="addque" parameterType="com.flo.alwaysbom.community.question.vo.QuestionVo">
-        INSERT INTO MYQ(NAME, CONTENT, IMAGE, MEMBER_ID, EMAIL_SEND, ANSWER)
-        VALUES (#{name}, #{content}, #{image}, "motherfathergnetle", #{emailSend}, #{answer})
+        INSERT INTO MYQ
+        VALUES (NULL, #{name}, #{content}, #{image}, 'mother', #{emailSend}, #{answer})
     </insert>
 
+    <select id="allQuestion" resultType="com.flo.alwaysbom.community.question.vo.QuestionVo">
+        SELECT * FROM MYQ
+    </select>
 </mapper>
