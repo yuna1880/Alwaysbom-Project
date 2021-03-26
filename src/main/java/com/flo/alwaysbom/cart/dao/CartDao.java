@@ -28,6 +28,7 @@ public class CartDao {
     }
 
     public List<CartVo> findByIdxArray(Integer[] idxArr) {
+        System.out.println("CartDao.findByIdxArray");
         return sqlSessionTemplate.selectList("cart.findByIdxArray", Arrays.asList(idxArr));
     }
 }
