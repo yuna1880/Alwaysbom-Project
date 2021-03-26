@@ -1,8 +1,177 @@
 @charset "UTF-8";
 
+
+/* 3/26 */
+
+.modal-body {
+    padding-left: 100px;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.recept_money {
+    margin-top: 20px;
+}
+
+/* 3/25 */
+
+#receiving_phone3,
+#receiving_phone3_gift
+{
+    margin-left: 0px;
+}
+
+
+.saved_address {
+    margin-bottom: 10px;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.total_color {
+    color: #246c6a;
+    font-size: 20px;
+}
+
+.list-group {
+    border-radius: 0;
+    margin: 20px 0 40px 0;
+    width: 550px;
+}
+
+.btn-outline-primary {
+    color: #343a40;
+    border-color: #343a40;
+    height: 70px;
+    padding-top: 20px;
+    border-radius: 0;
+
+}
+
+#btnradio1,
+#btnradio2,
+#btnradio3,
+#btnradio4 {
+    color: #343a40;
+    border-color: #343a40;
+    height: 70px;
+    padding-top: 20px;
+}
+
+.btn-check:active+.btn-outline-primary,
+.btn-check:checked+.btn-outline-primary,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:hover {
+    color: white;
+    background-color: #3a3a3a;
+    border: #3a3a3a 1px solid;
+}
+
+
+.btn-check:active+.btn-outline-primary,
+.btn-check:checked+.btn-outline-primary,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:active {
+    color: white;
+    background-color: #3a3a3a;
+    border: #3a3a3a 1px solid;
+}
+
+.btn-check:active+.btn-outline-primary,
+.btn-check:checked+.btn-outline-primary,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:hover {
+    color: white;
+    background-color: #3a3a3a;
+    border: #3a3a3a 1px solid;
+}
+.form-control {
+    margin-left: 10px;
+}
+
+
+
+
 /* 추가한 스타일 */
 
+.address_input_table {
+    max-width: 594px;
+}
 
+h4.tit {
+    font-weight: 300;
+}
+
+.color_red {
+    color: rgb(202, 39, 73); font-weight: 300;
+}
+
+.good {
+    display: flex;
+    align-items: center;
+}
+
+.good .detail {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.select_letter_select_tag {
+    border: #626262 1px solid;
+}
+
+.form-check-label {
+    color: #626262;
+}
+.input_letter_wrap write {
+    display: block;
+}
+
+.letter_press {
+    outline: none;
+}
+
+.float-end {
+    padding: 40px;
+}
+
+button .btn btn-outline-secondary {
+    font-size: 10px;
+}
+
+span.unknow_noti {
+    width: 100%;
+    padding-left: 0px;
+}
+
+.save_delivery {
+    vertical-align: 0px;
+    margin-left: 0px;"
+}
+
+.photo {
+    width: 160px; height: 130px;
+}
+
+.image_size {
+    width: 160px; height: 130px;
+    border: 1px solid #dedede;
+    float: left;
+}
+
+
+
+
+
+/* 기존 꾸까 스타일 */
 
 .address_input_table {
     max-width: 594px;
@@ -556,10 +725,6 @@ span.unknow_noti {
     margin-top: 43px
 }
 
-.checkout_content .complete.width_my {
-    zoom: -1
-}
-
 .checkout_content .complete.width_my:after {
     content: '';
     display: block;
@@ -665,11 +830,11 @@ span.unknow_noti {
 
     .checkout_content .summery {
         margin-top: 30px;
-        padding: 0 35px
+        padding: 0 35px;
     }
 
     .checkout_content .summery .row {
-        text-align: right
+        text-align: right;
     }
 
     .checkout_content .summery .row .label {
@@ -678,7 +843,7 @@ span.unknow_noti {
         font-size: 20px;
         line-height: 40px;
         text-align: left;
-        border-bottom: #dedede 1px solid
+        border-bottom: #dedede 1px solid;
     }
 
     .checkout_content .summery .row .val {
@@ -689,41 +854,41 @@ span.unknow_noti {
         font-size: 26px;
         line-height: 40px;
         color: #3a3a3a;
-        border-bottom: #dedede 1px solid
+        border-bottom: #dedede 1px solid;
     }
 
     .checkout_content .summery .row.total {
         padding-top: 10px;
-        border-top: #eee 1px solid
+        border-top: #eee 1px solid;
     }
 
     .checkout_content .summery.summery_class {
         margin-top: 30px;
         padding-top: 0;
-        border-top: none
+        border-top: none;
     }
 
     .checkout_content .summery_ty2 {
         float: right;
         width: 490px;
         margin-top: 30px;
-        margin-right: 35px
+        margin-right: 35px;
     }
 
     .checkout_content .summery_ty2+.complete {
         clear: both;
         margin-top: 0;
         padding-top: 60px;
-        border-top: none
+        border-top: none;
     }
 
     .checkout_content .summery_ty2 .row+.row {
-        margin-top: 16px
+        margin-top: 16px;
     }
 
     .checkout_content .summery_ty2 .row .label {
         font-size: 20px;
-        line-height: 32px
+        line-height: 32px;
     }
 
     .checkout_content .summery_ty2 .row .val {
@@ -731,16 +896,16 @@ span.unknow_noti {
         margin-right: 4px;
         font-size: 26px;
         line-height: 32px;
-        color: #3a3a3a
+        color: #3a3a3a;
     }
 
     .checkout_content .summery_ty2 .row.total {
         padding: 16px 0;
-        border-top: #dedede 1px solid
+        border-top: #dedede 1px solid;
     }
 
     .checkout_content .regist_form_wrap {
-        padding: 15px 20px
+        padding: 15px 20px;
     }
 
     .checkout_content .regist_form_wrap+.complete {
@@ -815,7 +980,6 @@ span.unknow_noti {
         margin-top: 30px;
         padding: 0 10px;
         text-align: right;
-        zoom: -1
     }
 
     .checkout_content .complete:after {
@@ -909,7 +1073,6 @@ span.unknow_noti {
 
 .infomation_box .checkout_cartlist .cartlist_wrap .item {
     margin-top: 25px;
-    zoom: -1
 }
 
 .infomation_box .checkout_cartlist .cartlist_wrap .item:after {
@@ -929,7 +1092,6 @@ span.unknow_noti {
 .infomation_box .checkout_cartlist .cartlist_wrap .delivery_date,
 .infomation_box .checkout_cartlist .cartlist_wrap .delivery_title {
     border-top: #626262 1px solid;
-    zoom: -1
 }
 
 .infomation_box .checkout_cartlist .cartlist_wrap .delivery_date:after,
@@ -1063,7 +1225,7 @@ span.unknow_noti {
         font-size: 20px
     }
 
-    .infomation_box .checkout_cartlist.del_charge .head>span.product {
+    .infomation_box .checkout_cartlist.del_charge .head > span.product {
         width: 52%;
         max-width: 620px
     }
@@ -1076,7 +1238,7 @@ span.unknow_noti {
         width: 22.5%
     }
 
-    .infomation_box .checkout_cartlist.checkout_classlist .head>span.product {
+    .infomation_box .checkout_cartlist.checkout_classlist .head > span.product {
         width: 71%;
         max-width: 845px
     }
@@ -1098,7 +1260,7 @@ span.unknow_noti {
         width: 17%
     }
 
-    .infomation_box .checkout_cartlist.checkout_del_none .head>span.delete {
+    .infomation_box .checkout_cartlist.checkout_del_none .head > span.delete {
         width: 26%;
         max-width: 298px
     }
@@ -1142,7 +1304,7 @@ span.unknow_noti {
         border-top: #626262 1px solid
     }
 
-    .infomation_box .checkout_cartlist .head>span {
+    .infomation_box .checkout_cartlist .head > span {
         display: block;
         float: left;
         min-height: 15px;
@@ -1153,27 +1315,27 @@ span.unknow_noti {
         text-align: center
     }
 
-    .infomation_box .checkout_cartlist .head>span.delivery {
+    .infomation_box .checkout_cartlist .head > span.delivery {
         width: 13%;
         max-width: 275px
     }
 
-    .infomation_box .checkout_cartlist .head>span.product {
+    .infomation_box .checkout_cartlist .head > span.product {
         width: 47%;
         max-width: 560px
     }
 
-    .infomation_box .checkout_cartlist .head>span.price {
+    .infomation_box .checkout_cartlist .head > span.price {
         width: 15%;
         max-width: 191px
     }
 
-    .infomation_box .checkout_cartlist .head>span.charge {
+    .infomation_box .checkout_cartlist .head > span.charge {
         width: 13%;
         max-width: 151px
     }
 
-    .infomation_box .checkout_cartlist .head>span.delete {
+    .infomation_box .checkout_cartlist .head > span.delete {
         width: 13%;
         max-width: 147px
     }
@@ -1194,7 +1356,7 @@ span.unknow_noti {
         border-top: #dedede 1px solid
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .item+.item {
+    .infomation_box .checkout_cartlist .cartlist_wrap .item + .item {
         border-top: #dedede 1px solid
     }
 
@@ -1224,7 +1386,7 @@ span.unknow_noti {
         text-align: center
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_date .val>br {
+    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_date .val > br {
         display: block
     }
 
@@ -1256,13 +1418,13 @@ span.unknow_noti {
         margin-left: 0
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val+.label+.val {
+    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val + .label + .val {
         margin-top: 4px;
         font-size: 14px;
         color: #246c6a
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val+.label+.val:before {
+    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val + .label + .val:before {
         content: '추가';
         display: inline-block;
         margin-right: 3px
@@ -1278,7 +1440,6 @@ span.unknow_noti {
     .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .row {
         position: relative;
         width: 100%;
-        zoom: -1
     }
 
     .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .row:after {
@@ -1287,11 +1448,11 @@ span.unknow_noti {
         clear: both
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .row+.row {
+    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .row + .row {
         margin-top: 40px
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .row+.row:before {
+    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .row + .row:before {
         content: '';
         position: absolute;
         top: -20px;
@@ -1381,13 +1542,12 @@ span.unknow_noti {
 }
 
 .checkout_letter_add {
-    border-top: #626262 1px solid
+    border-top: #626262 1px solid;
 }
 
 .checkout_letter_add .head {
     height: 44px;
     padding: 0 18px;
-    zoom: -1
 }
 
 .checkout_letter_add .head:after {
@@ -1451,7 +1611,7 @@ span.unknow_noti {
     display: inline-block;
     vertical-align: top;
     margin-right: 8px;
-    background-image: url(../img/sprite/base.png);
+    /*background-image: url(../img/sprite/base.png);*/
     background-size: 576px 552px;
     width: 15px;
     height: 15px;
@@ -1465,7 +1625,7 @@ span.unknow_noti {
 
 .checkout_letter_add .role_select_checked .role_item.selected>label:before,
 .checkout_letter_add .role_select_radio .role_item.selected>label:before {
-    background-image: url(../img/sprite/base.png);
+    /*background-image: url(../img/sprite/base.png);*/
     background-size: 576px 552px;
     width: 15px;
     height: 15px;
@@ -1493,7 +1653,6 @@ span.unknow_noti {
     }
 
     .checkout_letter_add .head .select_radio {
-
         text-align: left;
     }
 
@@ -1516,7 +1675,7 @@ span.unknow_noti {
     .checkout_letter_add .role_select_checked .role_item>label:before,
     .checkout_letter_add .role_select_radio .role_item>label:before {
         margin-right: 8px;
-        background-image: url(../img/sprite/base.png);
+        /*background-image: url(../img/sprite/base.png);*/
         background-position: -1126px -598px;
         width: 16px;
         height: 16px;
@@ -1525,7 +1684,7 @@ span.unknow_noti {
 
     .checkout_letter_add .role_select_checked .role_item.selected>label:before,
     .checkout_letter_add .role_select_radio .role_item.selected>label:before {
-        background-image: url(../img/sprite/base.png);
+        /*background-image: url(../img/sprite/base.png);*/
         background-position: -1126px -572px;
         width: 16px;
         height: 16px;
@@ -1658,7 +1817,7 @@ span.unknow_noti {
     right: 0;
     bottom: 0;
     z-index: 1;
-    background: url(../img/common/opc_black_0.png) 0 0 repeat
+    /*background: url(../img/common/opc_black_0.png) 0 0 repeat*/
 }
 
 .checkout_letter_add .letterbox .letter .preview_letter .noti {
@@ -1732,7 +1891,7 @@ span.unknow_noti {
         right: 8px;
         display: block;
         z-index: 0;
-        background-image: url();
+        /*background-image: url();*/
         background-position: -1126px -714px;
         width: 14px;
         height: 14px;
@@ -1757,10 +1916,6 @@ span.unknow_noti {
         padding: 0 70px 0 10px;
         background: 0 0;
         font-size: 14px
-    }
-
-    .checkout_letter_add .letterbox .letter .input_letter_wrap {
-        zoom: -1
     }
 
     .checkout_letter_add .letterbox .letter .input_letter_wrap:after {
@@ -1870,7 +2025,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
 .checkout_address_input .address_tabs .address_tab {
     display: block;
-    zoom: -1
 }
 
 .checkout_address_input .address_tabs .address_tab:after {
@@ -1894,10 +2048,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     border: #626262 1px solid;
     color: #fff;
     background: #363636
-}
-
-.checkout_address_input .address_tabs .address_tab .role_tab:first-of-type {
-    zoom: -1
 }
 
 .checkout_address_input .address_tabs .address_tab .role_tab:first-of-type:after {
@@ -2030,7 +2180,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 .checkout_address_input .unknow_txt.modify_0724.co_red .l>i {
     position: static;
     display: inline-block;
-    background-image: url(../img/sprite/base.png);
+    /*background-image: url(../img/sprite/base.png);*/
     background-size: 576px 552px;
     width: 27px;
     height: 17px;
@@ -2057,8 +2207,9 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
 @media (min-width:1024px) {
     .checkout_address_input {
-        padding: 0 35px;
-        border-top: #dedede 1px solid
+        padding: 0 0 20px 310px;
+        border-top: #dedede 1px solid;
+        border-bottom: #dedede 1px solid;
     }
 
     .checkout_address_input .noti {
@@ -2081,7 +2232,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
         background: #363636
     }
 
-    .checkout_address_input .address_tabs .address_tab .role_tab:first-of-type .btn>span {
+    .checkout_address_input .address_tabs .address_tab .role_tab:first-of-type .btn > span {
         height: 42px;
         margin: 0 5px;
         padding-top: 11px;
@@ -2094,7 +2245,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
         cursor: pointer
     }
 
-    .checkout_address_input .address_tabs .address_tab .role_click>span {
+    .checkout_address_input .address_tabs .address_tab .role_click > span {
         height: 42px;
         margin: 0 5px;
         padding-top: 11px;
@@ -2111,7 +2262,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
         outline: 0
     }
 
-    .checkout_address_input+.complete {
+    .checkout_address_input + .complete {
         padding-top: 25px;
         border-top: #dedede 1px solid
     }
@@ -2127,7 +2278,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
         line-height: 24px
     }
 
-    .checkout_address_input .unknow_txt .l>b {
+    .checkout_address_input .unknow_txt .l > b {
         font-size: 16px;
         line-height: 30px
     }
@@ -2149,7 +2300,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
         font-size: 13px
     }
 
-    .checkout_address_input .unknow_txt.modify_0724 .l>b {
+    .checkout_address_input .unknow_txt.modify_0724 .l > b {
         margin-top: 5px;
         font-size: 14px
     }
@@ -2163,17 +2314,17 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
         font-size: 14px
     }
 
-    .checkout_address_input .unknow_txt.modify_0724.co_red .l>i {
+    .checkout_address_input .unknow_txt.modify_0724.co_red .l > i {
         margin-left: 5px;
         vertical-align: -4px
     }
 
-    .checkout_address_input .unknow_txt.modify_0724.co_red .l>b {
+    .checkout_address_input .unknow_txt.modify_0724.co_red .l > b {
         color: #bc5050;
         font-size: 17px
     }
 
-    .checkout_address_input .unknow_txt.modify_0724.co_red .l>span {
+    .checkout_address_input .unknow_txt.modify_0724.co_red .l > span {
         padding-top: 0;
         padding-left: 33px
     }
@@ -2240,11 +2391,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     position: relative
 }
 
-.address_input_table .detail.with_certi .with_certi_inner {
-    width: 100%;
-    zoom: -1
-}
-
 .address_input_table .detail.with_certi .with_certi_inner:after {
     content: '';
     display: block;
@@ -2285,7 +2431,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
 .address_input_table .detail .td {
     overflow: hidden;
-    zoom: -1
 }
 
 .address_input_table .detail .td:after {
@@ -2312,7 +2457,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     position: relative;
     display: block;
     padding-right: 80px;
-    zoom: -1
 }
 
 .address_input_table .detail .ceti_confirm .ipt_box:after {
@@ -2352,7 +2496,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 .address_input_table .detail .td_phone {
     display: block;
     overflow: hidden;
-    zoom: -1
 }
 
 .address_input_table .detail .td_phone:after {
@@ -2374,7 +2517,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 .address_input_table .detail .td_card {
     display: block;
     overflow: hidden;
-    zoom: -1
 }
 
 .address_input_table .detail .td_card:after {
@@ -2396,7 +2538,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 .address_input_table .detail .td_coupon {
     display: block;
     overflow: hidden;
-    zoom: -1
 }
 
 .address_input_table .detail .td_coupon:after {
@@ -2417,7 +2558,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 .address_input_table .detail .td_savings {
     display: block;
     overflow: hidden;
-    zoom: -1
 }
 
 .address_input_table .detail .td_savings:after {
@@ -2436,7 +2576,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 .address_input_table .detail .td_unknown {
     display: block;
     overflow: hidden;
-    zoom: -1
 }
 
 .address_input_table .detail .td_unknown:after {
@@ -2667,7 +2806,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     .address_input_table .detail.with_certi .with_certi_inner {
         width: 100%;
         padding-right: 120px;
-        zoom: -1
     }
 
     .address_input_table .detail.with_certi .with_certi_inner:after {
@@ -2724,7 +2862,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     .address_input_table .detail input[type=text],
     .address_input_table .detail select {
         height: 28px;
-        margin-top: 16px;
+        margin: 16px 0 0 0;
         font-size: 16px;
         line-height: 26px;
         color: #626262
@@ -2747,7 +2885,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
     .address_input_table .detail select {
         padding-right: 30px;
-        background: url(../img/common/select_arr_bg.png) right center no-repeat;
+        background: url(/static/image/oitem/select_arr_bg.png) right center no-repeat;
         background-color: #fff
     }
 
@@ -2894,7 +3032,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
 .checkout_finals .check_row {
     padding: 0 8px;
-    zoom: -1
 }
 
 .checkout_finals .check_row:after {
@@ -2921,7 +3058,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     padding: 0 8px;
     margin-bottom: 8px;
     border-bottom: #bfbfbf 1px solid;
-    zoom: -1
 }
 
 .checkout_finals .check_unknow:after {
@@ -2960,7 +3096,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
 .checkout_finals .check_row_table .row {
     padding: 0;
-    zoom: -1
 }
 
 .checkout_finals .check_row_table .row:after {
@@ -2991,10 +3126,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     line-height: 21px;
     font-weight: 400;
     color: #626262
-}
-
-.checkout_finals .check_row_table .val {
-    zoom: -1
 }
 
 .checkout_finals .check_row_table .val:after {
@@ -3050,7 +3181,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
 .checkout_finals .check_row_total .row {
     padding: 0;
-    zoom: -1
 }
 
 .checkout_finals .check_row_total .row:after {
@@ -3066,10 +3196,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     line-height: 21px;
     font-weight: 600;
     color: #626262
-}
-
-.checkout_finals .check_row_total .val {
-    zoom: -1
 }
 
 .checkout_finals .check_row_total .val:after {
@@ -3118,7 +3244,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
 .checkout_finals .check_row_method .row {
     padding: 0;
-    zoom: -1
 }
 
 .checkout_finals .check_row_method .row:after {
@@ -3134,10 +3259,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     line-height: 21px;
     font-weight: 400;
     color: #626262
-}
-
-.checkout_finals .check_row_method .val {
-    zoom: -1
 }
 
 .checkout_finals .check_row_method .val:after {
@@ -3217,7 +3338,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
     .checkout_finals .check_row_table .row {
         padding: 0;
-        zoom: -1
     }
 
     .checkout_finals .check_row_table .row:after {
@@ -3272,10 +3392,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
         line-height: 26px
     }
 
-    .checkout_finals .check_row_total .val {
-        zoom: -1
-    }
-
     .checkout_finals .check_row_total .val:after {
         content: '';
         display: block;
@@ -3310,7 +3426,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
     .checkout_finals .check_row_method .label {
         width: 350px;
-        padding-left: 50px;
+        padding: 20px 0px 20px 10px;
         font-size: 16px;
         line-height: 26px;
         font-weight: 500
@@ -3369,7 +3485,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     border: #bfbfbf 1px solid;
     border-top: none;
     border-right: none;
-    zoom: -1
 }
 
 .check_row_method .checkout_method .method_radios:after {
@@ -3868,7 +3983,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
         background: #eee;
         line-height: 32px;
         font-size: 22px;
-        font-weight: 400px
+        font-weight: bold;
     }
 
     .gift_confirm_wrap .my_order_detail .detail_section .detail_content {
@@ -4274,10 +4389,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     background: #f7f7f7
 }
 
-.checkout_kukka_payment .personal_info .row {
-    zoom: -1
-}
-
 .checkout_kukka_payment .personal_info .row:after {
     content: '';
     display: block;
@@ -4371,7 +4482,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
 .checkout_kukka_payment .possible_teamflesh .team_txt>span:before {
     content: '';
-    background-image: url(../img/sprite/kukka.png);
+    /*background-image: url(../img/sprite/kukka.png);*/
     background-size: 626px 422.5px;
     width: 13px;
     height: 13px;
@@ -4413,7 +4524,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
 .checkout_kukka_payment .teamflesh_info .noti>strong:before {
     content: '';
-    background-image: url(../img/sprite/kukka.png);
+    /*background-image: url(../img/sprite/kukka.png);*/
     background-size: 626px 422.5px;
     width: 13px;
     height: 13px;
@@ -4475,9 +4586,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     padding-top: 20px
 }
 
-.checkout_kukka_payment .teamflesh_info .row_tbl .team_row {
-    zoom: -1
-}
 
 .checkout_kukka_payment .teamflesh_info .row_tbl .team_row:after {
     content: '';
@@ -4634,10 +4742,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     margin-top: 15px
 }
 
-.checkout_kukka_payment .checkout_final .row {
-    zoom: -1
-}
-
 .checkout_kukka_payment .checkout_final .row:after {
     content: '';
     display: block;
@@ -4740,10 +4844,6 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
         padding-top: 20px
     }
 
-    .checkout_kukka_payment .personal_info .row {
-        zoom: -1
-    }
-
     .checkout_kukka_payment .personal_info .row:after {
         content: '';
         display: block;
@@ -4832,7 +4932,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     }
 
     .checkout_kukka_payment .possible_teamflesh .team_txt>span:before {
-        background-image: url(../img/sprite/kukka.png);
+        /*background-image: url(../img/sprite/kukka.png);*/
         background-position: -196px -817px;
         width: 17px;
         height: 17px;
@@ -4869,7 +4969,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     }
 
     .checkout_kukka_payment .teamflesh_info .noti>strong:before {
-        background-image: url(../img/sprite/kukka.png);
+        /*background-image: url(../img/sprite/kukka.png);*/
         background-position: -249px -817px;
         width: 15px;
         height: 15px;
@@ -5326,7 +5426,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     position: absolute;
     top: 2px;
     left: 0;
-    background-image: url(../img/sprite/kukka.png);
+    /*background-image: url(../img/sprite/kukka.png);*/
     background-size: 626px 422.5px;
     width: 13px;
     height: 13px;
@@ -5577,7 +5677,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
     .checkout_kukka_complete .checkout_next .class_note>strong:before {
         top: 5px;
-        background-image: url(../img/sprite/kukka.png);
+        /*background-image: url(../img/sprite/kukka.png);*/
         background-position: -274px -817px;
         width: 15px;
         height: 15px;
