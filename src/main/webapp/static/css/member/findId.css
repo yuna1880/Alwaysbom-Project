@@ -32,39 +32,33 @@ html {
     display: block;
     left: 0;
 }
-.content_header {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 60px;
-    width: 100%;
-}
 .wrap.renewal_3rd .wrap_inner .wrap_box .contents .page_title {
     height: auto;
     border-bottom: none;
 }
 .content_header .page_title {
-    padding: 40px 0;
-    font-size: 30px;
-    line-height: 45px;
-    font-weight: 500;
-    letter-spacing: -.6px;
-    color: #333;
-}
-.content_header .page_title {
     width: 100%;
+    height: 52px;
+    padding: 13px 32px 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    border-bottom: #ececec 1px solid;
+    font-size: 18px;
+    line-height: 27px;
+    font-weight: 500;
+    letter-spacing: -.27px;
+    color: #222;
     text-align: center;
 }
 h2 {
     display: block;
-    margin: 0;
-    outline-width: 1px;
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
+    margin: 0;
+    outline-width: 0px;
 }
 element.style {
     display: none;
@@ -98,6 +92,8 @@ a:-webkit-any-link {
 }
 .login_box {
     position: relative;
+    padding-top: 110px;
+    padding-bottom: 110px;
 }
 .login_box .inner {
     padding: 0 0 100px;
