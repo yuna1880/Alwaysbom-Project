@@ -3,7 +3,7 @@
 <head>
     <title>소품샵</title>
     <%@ include file="../main/import.jspf"%>
-    <link rel="stylesheet" href="static/css/product.css">
+    <link rel="stylesheet" href="static/css/item/product.css">
 </head>
 <body>
     <%@ include file="../main/header.jspf" %>
