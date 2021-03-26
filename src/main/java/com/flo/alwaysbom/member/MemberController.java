@@ -35,4 +35,14 @@ public class MemberController {
     public String findPwd() {
         return "member/findPassword";
     }
+
+    @GetMapping("/foundPwd")
+    public String foundPwd() {
+        return "member/foundPassword";
+    }
+
+    @GetMapping("/myPage")
+    public String myPage() {
+        return "member/myPage";
+    }
 }

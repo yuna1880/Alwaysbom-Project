@@ -1,20 +1,13 @@
-#container {
-    padding-bottom: 10em;
+subtitle {
+    border-bottom: 1px solid #808080;
 }
-.breadcrumb-item {
-    font-size: 19px;
-    color: #4D4D4D;
-    padding-top: 1em;
-    margin-bottom: 4em;
+.img-card {
+    width: 350px;
+    height: 350px;
+    z-index: 4;
+    opacity: 0.4;
 }
-.breadcrumb-item a {
-    text-decoration: none;
-    color: #4D4D4D;
-}
-.breadcrumb-item a:hover {
-    text-decoration: underline;
-}
-.insert-subtitle {
-    font-size: 27px;
-    color: #333333;
+imgs img {
+    width: 350px;
+    height: auto;
 }

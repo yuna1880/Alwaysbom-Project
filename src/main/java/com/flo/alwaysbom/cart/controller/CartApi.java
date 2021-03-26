@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
 @RestController
@@ -22,7 +26,7 @@ public class CartApi {
     }
 
     @PostMapping("/api/cart/add")
-    public Integer addCart(CartVo cartVo, List<Integer> productIds) {
+    public Integer addCart(CartVo cartVo, Integer[] productIds) {
         cartService.addCart(cartVo, productIds);
         System.out.println("cartVo = " + cartVo);
         return cartVo.getIdx();
