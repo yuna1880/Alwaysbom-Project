@@ -43,7 +43,8 @@
                 <c:if test="${cart.letter > 0}">
                 <form action="/checkOut" method="post">
                     <div id="letterbox-wrapper">
-                        <input type="hidden" name="cartIdx" value="${cart.idx}">
+                        <input type="hidden" name="cart_idx" value="${cart.idx}">
+
                         <div id="letter_product" class="letterbox">
                             <div class="letter">
                                 <div class="select_letter">

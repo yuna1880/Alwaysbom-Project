@@ -91,7 +91,7 @@
         </ol>
     </div>
 
-< <form action="/order/payment" method="post">
+<form action="/order/payment" method="post">
     <div class="checkout_content">
         <div class="step" id="inputAddress">
             <div class="infomation_box">
@@ -360,7 +360,7 @@
             </div>
         </div>
     </div>
-></div>
+</div>
 </div>
 <%@ include file="../main/footer.jspf"%>
 </body>

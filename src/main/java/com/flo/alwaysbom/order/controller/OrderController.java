@@ -32,7 +32,7 @@ public class OrderController {
         return "order/letter";
     }
 
-    //배송지입력 페이지 -> 결제확인지 페이지
+    //배송지입력 페이지 -> 결제확인 페이지
     @PostMapping("/order/payment")
     public String goPayment() {
         return "order/payment";

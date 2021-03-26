@@ -2862,7 +2862,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     .address_input_table .detail input[type=text],
     .address_input_table .detail select {
         height: 28px;
-        margin-top: 16px;
+        margin: 16px 0 0 0;
         font-size: 16px;
         line-height: 26px;
         color: #626262
@@ -2885,7 +2885,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
     .address_input_table .detail select {
         padding-right: 30px;
-        /*background: url(../img/common/select_arr_bg.png) right center no-repeat;*/
+        background: url(/static/image/oitem/select_arr_bg.png) right center no-repeat;
         background-color: #fff
     }
 
@@ -3426,7 +3426,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
     .checkout_finals .check_row_method .label {
         width: 350px;
-        padding-left: 50px;
+        padding: 20px 0px 20px 10px;
         font-size: 16px;
         line-height: 26px;
         font-weight: 500
