@@ -6,6 +6,28 @@
     <link rel="stylesheet" href="/static/css/order/orderstyle.css">
 </head>
 <script>
+    window.onload = function () {
+        creditCard();
+    }
+        //신용카드
+        function creditCard () {
+            document.getElementById('credit_card_input').style.display = 'none';
+            document.getElementById('mootong').style.display = 'none';
+        }
+        //신용카드 직접입력
+        function creditCardInput() {
+            document.getElementById('credit_card_input').style.display = 'block';
+            document.getElementById('mootong').style.display = 'none';
+        }
+        //무통장입금
+        function mootong() {
+            document.getElementById('credit_card_input').style.display = 'none';
+            document.getElementById('mootong').style.display = 'block';
+        }
+        function kakaoPay() {
+            document.getElementById('credit_card_input').style.display = 'none';
+            document.getElementById('mootong').style.display = 'none';
+    }
 
 </script>
 <body>
@@ -164,27 +186,26 @@
                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                     <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
                                            autocomplete="off" checked>
-                                    <label class="btn btn-outline-primary id="btn-text" " for=" btnradio1">신용카드
-                                    </label>
+                                    <label class="btn btn-outline-primary" for="btnradio1" onclick="creditCard()">신용카드</label>
+
                                     <input type="radio" class="btn-check" name="btnradio" id="btnradio2"
                                            autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="btnradio2">신용카드(직접입력)
-                                    </label>
+                                    <label class="btn btn-outline-primary" for="btnradio2" onclick="creditCardInput()">신용카드(직접입력)</label>
+
                                     <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
                                            autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="btnradio3">무통장입금
-                                    </label>
+                                    <label class="btn btn-outline-primary" for="btnradio3" onclick="mootong()">무통장입금</label>
+
                                     <input type="radio" class="btn-check" name="btnradio" id="btnradio4"
                                            autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="btnradio4">카카오페이
-                                    </label>
+                                    <label class="btn btn-outline-primary" for="btnradio4" onclick="kakaoPay()">카카오페이</label>
                                 </div>
                             </div>
 
                             <!-- 결제 정보 입력창 -->
 
                             <!-- 신용카드 -->
-                            <div class="checkout_method_card" style="border-top: none; display: block;">
+                            <div class="checkout_method_card" id="credit_card_input" style="border-top: none;">
                                 <div class="more">* 신용카드 정보를 직접 입력하여 간편하게 결제하실 수 있습니다. <br>* 꾸까에서는 절대 카드 정보를 직접 저장하지
                                     않습니다. <br>* 나이스 정보통신의 결제 기능을 사용합니다. <br>* 기명 법인카드의 경우, 소유하신 분의 주민등록번호 앞자리를
                                     입력해주세요. <br>* 무기명 법인카드의 경우, 사업자 등록번호를 입력해 주세요.</div>
@@ -289,7 +310,7 @@
 
 
                             <!-- 무통장 입금 -->
-                            <div id="mootong" class="checkout_method_more" style="display: block;">
+                            <div id="mootong" class="checkout_method_more">
                                 <div class="more">입금자명 <input type="text" name="pre-mootong-name"
                                                               id="pre-mootong-name" value=""> 미기재시 주문자명으로 자동 반영</div>
                                 <div class="noti">* 주문 후 72시간동안 미 입금시 자동 주문 취소됩니다.</div>
@@ -318,6 +339,7 @@
                         <span>이전 단계로</span></button>
                     </div>
                 </div>
+                </form>
             </div>
 
         </div>
