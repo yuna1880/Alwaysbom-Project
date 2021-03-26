@@ -5,6 +5,8 @@ import com.flo.alwaysbom.community.question.vo.QuestionVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class QuestionServise {
@@ -12,5 +14,9 @@ public class QuestionServise {
 
     public void addQuestion(QuestionVo vo) {
         dao.addQuestion(vo);
+    }
+
+    public List<QuestionVo> userQuestion() {
+        return dao.userQuestion();
     }
 }

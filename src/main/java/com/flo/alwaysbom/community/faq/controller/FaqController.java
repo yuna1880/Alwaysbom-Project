@@ -25,7 +25,7 @@ public class FaqController {
         return "community/faq";
     }
 
-    @PostMapping("community/api/gogoFaq")
+    @PostMapping("/community/api/gogoFaq")
     @ResponseBody
     public List<FaqVo> gogoFaq(FaqVo vo){
         System.out.println(vo.getCategory());

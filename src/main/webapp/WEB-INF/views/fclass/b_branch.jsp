@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <div class="file-wrap">
-                        <img src="/static/upload/fclass/branch/${branch.mapImage}" width="300px" class="imageBox">
+                        <img src="../static/upload/fclass/branch/${branch.mapImage}" width="300px" class="imageBox">
                         <input type="hidden" name="mapImage" value="${branch.mapImage}">
                         <input type="file" name="file" class="bmap" onchange="preview(this)"/>
                         <div>
