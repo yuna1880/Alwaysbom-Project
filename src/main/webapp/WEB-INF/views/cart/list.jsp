@@ -7,6 +7,11 @@
     <meta charset="UTF-8">
     <title>새늘봄 / 장바구니</title>
     <%@ include file="../main/import.jspf"%>
+    <style>
+        .height-100 {
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
     <%@ include file="../main/header.jspf"%>
@@ -43,20 +48,22 @@
                     </c:otherwise>
                 </c:choose>
                 <c:if test="${not empty target}">
-                <li class="list-group-item bg-white d-flex text-center">
+                <li class="list-group-item bg-white d-flex text-center height-100">
                     <div class="col-1">
                         <input type="checkbox" class="form-check-input p-3 rounded-circle cart-check bg-warning border-warning" aria-label="checkbox" name="idx"
                                value="${cart.idx}" onchange="checkAll()" checked>
                     </div>
                     <div class="col-6 d-flex">
                         <div class="card-img w-25 overflow-hidden">
-                            <img src="/static/upload/${path}" alt="사진" class="w-100">
+                            <img src="/static/upload/${path}" alt="사진" class="h-100">
                         </div>
                         <div class="bg-transparent w-75 d-flex flex-column align-items-baseline">
                             <span>${target.name}</span>
                             <div>
+                                <c:if test="${target.discountRate ne 0}">
                                 <span class="text-danger">${target.discountRate}</span>
                                 <span class="text-decoration-line-through"><fmt:formatNumber value="${target.price}" pattern="#,###원"/></span>
+                                </c:if>
                                 <span><fmt:formatNumber value="${target.finalPrice}" pattern="#,###원"/></span>
                             </div>
                         </div>
