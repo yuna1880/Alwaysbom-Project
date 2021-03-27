@@ -31,5 +31,21 @@ public class CartVo {
     private FlowerVo flowerVo;
     private ProductVo productVo;
     private List<ChoiceVo> choices;
-    private List<ProductVo> options;
+    
+    //비즈니스 로직
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        if ("정기구독".equals(category)) {
+            totalPrice += subsVo.getFinalPrice();
+        } else if ("플라워".equals(category)) {
+            totalPrice += flowerVo.getFinalPrice();
+        } else if ("소품샵".equals(category)) {
+            totalPrice += productVo.getFinalPrice();
+        }
+
+        for (ChoiceVo choice : choices) {
+            totalPrice += choice.getProductVo().getFinalPrice() * choice.getQuantity();
+        }
+        return totalPrice;
+    }
 }

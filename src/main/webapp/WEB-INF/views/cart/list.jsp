@@ -73,7 +73,7 @@
                             <span>${choice.productVo.name} * ${choice.quantity}</span>
                         </c:forEach>
                     </div>
-                    <div class="col-2">합계 금액</div>
+                    <div class="col-2"><fmt:formatNumber value="${cart.totalPrice}" pattern="#,###원"/></div>
                 </li>
                 </c:if>
                 </c:forEach>
