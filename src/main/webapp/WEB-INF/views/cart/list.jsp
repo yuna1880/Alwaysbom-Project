@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <!DOCTYPE HTML>
 <html>
@@ -16,7 +17,7 @@
             <ul id="basket" class="list-group list-group-flush w-100">
                 <li class="list-group-item bg-dark text-white d-flex text-center">
                     <div class="col-1">
-                        <input type="checkbox" class="form-check-input p-3 rounded-circle bg-warning border-warning" aria-label="allCheck" id="allBtn" onchange="applyAll(this)">
+                        <input type="checkbox" class="form-check-input p-3 rounded-circle bg-warning border-warning" aria-label="allCheck" id="allBtn" onchange="applyAll(this)" checked>
                     </div>
                     <div class="col-6 d-flex justify-content-center align-items-center"><span>상품정보</span></div>
                     <div class="col-3 d-flex justify-content-center align-items-center"><span>추가상품</span></div>
@@ -42,10 +43,10 @@
                     </c:otherwise>
                 </c:choose>
                 <c:if test="${not empty target}">
-                <li class="list-group-item bg-white text-primary d-flex text-center">
+                <li class="list-group-item bg-white d-flex text-center">
                     <div class="col-1">
                         <input type="checkbox" class="form-check-input p-3 rounded-circle cart-check bg-warning border-warning" aria-label="checkbox" name="idx"
-                               value="${cart.idx}" onchange="checkAll()">
+                               value="${cart.idx}" onchange="checkAll()" checked>
                     </div>
                     <div class="col-6 d-flex">
                         <div class="card-img w-25 overflow-hidden">
@@ -53,11 +54,18 @@
                         </div>
                         <div class="bg-transparent w-75 d-flex flex-column align-items-baseline">
                             <span>${target.name}</span>
-                            <span>${target.discountRate}</span>
-                            <span>${target.price}</span>
+                            <div>
+                                <span class="text-danger">${target.discountRate}</span>
+                                <span class="text-decoration-line-through"><fmt:formatNumber value="${target.price}" pattern="#,###원"/></span>
+                                <span><fmt:formatNumber value="${target.finalPrice}" pattern="#,###원"/></span>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-3">추가상품</div>
+                    <div class="col-3 d-flex flex-column">
+                        <c:forEach var="choice" items="${cart.choices}">
+                            <span>${choice.productVo.name} * ${choice.quantity}</span>
+                        </c:forEach>
+                    </div>
                     <div class="col-2">합계 금액</div>
                 </li>
                 </c:if>
