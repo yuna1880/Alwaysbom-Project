@@ -19,56 +19,15 @@
             <span class="fs-2 fw-bold">클래스 조회</span>
         </div>
         <div class="h-100 w-100 d-flex flex-column align-items-center">
+            <div>
             <label class="form-label">
-                <input type="text" placeholder="조회하실 클래스의 날짜를 선택해주세요" id="dataForm" class="dateselect form-floating p-4" required="required"/>
+                <input type="text" placeholder="조회하실 클래스의 날짜를 선택해주세요" id="dataForm" class="dateselect form-floating p-4" onclick="checkValidDate()" required="required"/>
             </label>
-            <table class="table table-hover">
-                <thead class="table-dark">
-                <tr>
-                    <th scope="col" class="col-1">No</th>
-                    <th scope="col" class="col-3">클래스 수강일</th>
-                    <th scope="col" class="col-2">시작시간</th>
-                    <th scope="col" class="col-2">종료시간</th>
-                    <th scope="col" class="col-2">수강정원</th>
-                    <th scope="col" class="col-2">등록인원</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-
-                </tr>
-                </tbody>
+            <button type="button" class="btn btn-dark" onclick="searchSchedule()">검색</button>
+            </div>
+            <table class="table table-hover" id="scheduleTable" disabled>
+                <thead class="table-dark" id="scheduleThead"></thead>
+                <tbody id="scheduleTbody" class="overflow-auto"></tbody>
             </table>
         </div>
     </div>
@@ -90,6 +49,49 @@
 </div>
 <%@ include file="../main/b_footer.jspf" %>
 <script type="text/javascript">
+    async function searchSchedule() {
+        let sdate = document.querySelector("#dataForm");
+        let data = {
+            fclassIdx: ${fclass.idx},
+            branchIdx: ${branch.idx},
+            sdate: sdate.value
+        };
+
+        let option = {
+            method: "post",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        };
+        let response = await fetch("/admin/fclass/api/searchSchedule", option);
+        let result = await response.json();
+        console.log(result);
+
+        let scheduleThead = document.querySelector("#scheduleThead");
+        scheduleThead.innerHTML = '<tr><th scope="col" class="col-1">No</th>'
+                                + '<th scope="col" class="col-3">클래스 수강일</th>'
+                                + '<th scope="col" class="col-2">시작시간</th>'
+                                + '<th scope="col" class="col-2">종료시간</th>'
+                                + '<th scope="col" class="col-2">수강정원</th>'
+                                + '<th scope="col" class="col-2">등록인원</th>'
+                                + '</tr>'
+
+        let tbody = document.querySelector("#scheduleTbody");
+        tbody.innerHTML = "";
+        result.forEach(function (schedule, index) {
+            let tr = document.createElement("tr");
+            tr.innerHTML = '<th scope="row">' + (index + 1) + '</th>';
+            // tr.innerHTML += '<td>' + new Date(schedule.sdate).toLocaleDateString() + '</td>'
+            tr.innerHTML += '<td>' + schedule.smonth + '월 ' + schedule.sday + '일' + '</td>'
+            tr.innerHTML += '<td>' + schedule.startTime + '</td>'
+            tr.innerHTML += '<td>' + schedule.endTime + '</td>'
+            tr.innerHTML += '<td>' + schedule.totalCount + '</td>'
+            tr.innerHTML += '<td>' + schedule.regCount + '</td>';
+            tbody.appendChild(tr);
+        })
+    }
+
     async function addSchedule() {
         let classDate = document.querySelector("#classDate");
         let startTime = document.querySelector("#startTime");
@@ -98,7 +100,7 @@
         let data = {
             branchIdx: ${branch.idx},
             fclassIdx: ${fclass.idx},
-            sdate: classDate.value,
+            sday: classDate.value,
             startTime: startTime.value,
             endTime: endTime.value,
             totalCount: capacity.value
@@ -114,12 +116,75 @@
 
         let response = await fetch("/admin/fclass/api/addSchedule", option);
         console.log(response);
+        response.json().then((result) => {
+            console.log(result);
+            alert("클래스 일정이 추가되었습니다")
+            // location.href = "/admin/fclass/manageSchedule?classIdx=" + result.fclassIdx + "&branchIdx=" + result.branchIdx;
+        }).catch(() => alert("클래스 일정 추가에 실패했습니다"));
+    }
+
+    async function checkValidDate() {
+        console.log("야 호출되냐?");
+        let dataForm = document.querySelector("#dataForm");
+
+        let disabledArrayInit = [];
+
+        let today = new Date().getTime();
+        for(let i = 0; i < 60; i++) {
+            let date = new Date(today + 1000 * 60 * 60 * 24 * i);
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            month = month < 10 ? '0' + month : month;
+            day = day < 10 ? '0' + day : day;
+
+            let dateString = year + "-" + month + "-" + day;
+            disabledArrayInit.push(dateString);
+        }
+
+        let data = {
+            branchIdx: ${branch.idx},
+            fclassIdx: ${fclass.idx}
+        };
+
+        let option = {
+            method: "post",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        };
+
+        let response = await fetch("/admin/fclass/api/searchSchedule", option);
         let result = await response.json();
         console.log(result);
 
+        for (let scheduleVo of result) {
+            let sdate = new Date(scheduleVo.sdate);
+            let year = sdate.getFullYear();
+            let month = sdate.getMonth() + 1;
+            let day = sdate.getDate();
+            month = month < 10 ? '0' + month : month;
+            day = day < 10 ? '0' + day : day;
 
+            let sdateString = year + "-" + month + "-" + day;
+
+            let number = disabledArrayInit.indexOf(sdateString);
+            disabledArrayInit.splice(number, 1);
+        }
+
+
+        // //fetch 했다 치고
+        // let fetchResult = ['2021-03-29', '2021-03-30'];
+        // for (let enabledDate of fetchResult) {
+        //     let number = disabledArrayInit.indexOf(enabledDate);
+        //     disabledArrayInit.splice(number, 1);
+        // }
+
+        $('.dateselect').datepicker("setDatesDisabled",disabledArrayInit);
 
     }
+
     $(function () {
         let $datepicker = $('.dateselect').datepicker({
             format: 'yyyy-mm-dd',
@@ -133,6 +198,8 @@
             // multidate: 3,
             // datesDisabled: ['03/29/2021']
         });
+
+        $datepicker.languate = 'en';
     });
 
     function filterKey(event, filter) {
@@ -140,7 +207,7 @@
             var sKey = String.fromCharCode(event.keyCode);
             var re = new RegExp(filter);
             if (!re.test(sKey)) event.returnValue = false;
-        }
+        };
     }
 
 </script>
