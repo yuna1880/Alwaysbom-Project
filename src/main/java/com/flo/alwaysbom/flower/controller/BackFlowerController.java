@@ -22,12 +22,12 @@ public class BackFlowerController {
 
     @GetMapping("/admin/flower")
     public String goIndex() {
-        return "b_flowerManager";
+        return "flower/b_flowerManager";
     }
 
-    @GetMapping("/admin/flower/insertForm")
+    @GetMapping("/admin/flowerAddForm")
     public String goInsertForm() {
-        return "b_addForm";
+        return "flower/b_addForm";
     }
 
     @PostMapping("/admin/addFlower")
@@ -41,9 +41,11 @@ public class BackFlowerController {
 
     @GetMapping("/admin/flowerList")
     public String findAll(Model model) {
+        System.out.println("findAll() 실행");
         List<FlowerVo> list = backFlowerService.findAll();
+        System.out.println("list : " + list);
         model.addAttribute("list", list);
-        return "flower/b_list";
+        return "flower/b_flowerList";
     }
 
 }

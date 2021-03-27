@@ -20,7 +20,7 @@
         </nav>
 
         <!-- 1. 상품 이미지 등록 (이미지 3개 파일 업로드) -->
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
                 1. 상품 이미지 등록
                 <span class="description text-danger">
@@ -66,13 +66,13 @@
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-floating my-2">
-                            <input type="text" class="form-control" id="flowerName" placeholder="상품명 입력">
+                            <input type="text" name="name" class="form-control" id="flowerName" placeholder="상품명 입력">
                             <label for="flowerName">상품명 (한글 50자 미만)</label>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-floating my-2">
-                            <input type="text" class="form-control" id="flowerSubheader" placeholder="한줄 설명">
+                            <input type="text" name="subheader" class="form-control" id="flowerSubheader" placeholder="한줄 설명">
                             <label for="flowerSubheader">한줄 설명 (한글 100자 미만)</label>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-floating my-2">
-                            <select class="form-select" id="flowerSize" aria-label="flowerSize">
+                            <select name="fsize" class="form-select" id="flowerSize" aria-label="flowerSize">
                                 <option selected>Size Options</option>
                                 <option value="1">S</option>
                                 <option value="2">M</option>
@@ -92,8 +92,8 @@
                     </div>
                     <div class="col-md">
                         <div class="form-floating my-2">
-                            <input type="text" class="form-control text-end" id="flowerPrice" placeholder="가격"
-                                onchange="calculate()">
+                            <input type="text" name="price" class="form-control text-end"
+                                   id="flowerPrice" placeholder="가격" onchange="calculate()">
                             <label for="flowerSubheader">상품 가격</label>
                         </div>
                     </div>
@@ -108,28 +108,30 @@
 <%--                    </div>--%>
                     <div class="col-md-4 d-flex align-items-center">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="freeDelivery" value="option1"
+                            <input class="form-check-input" type="checkbox" name="freeDelivery"
+                                   id="freeDelivery" value="1"
                                    onclick="changeBg(this)">
                             <label class="form-check-label" for="freeDelivery">무료배송</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="discount" value="option2"
-                                   onclick="checkDiscount(), changeBg(this)">
+                            <input class="form-check-input" type="checkbox" id="discount"
+                                   onclick="enableDiscountRateInput(); changeBg(this)">
                             <label class="form-check-label" for="discount">할인 적용하기</label>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-floating my-2">
-                            <input type="number" max="50" class="form-control" disabled id="discountRate" placeholder="할인율"
-                                onchange="calculate()">
+                            <input type="number" max="50" class="form-control" name="discountRate"
+                                   id="discountRate" placeholder="할인율" onchange="calculate()" disabled>
                             <label for="discountRate">할인율 (숫자만 입력)</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating my-2">
-                            <input type="text" class="form-control text-end" disabled readonly id="newPrice" placeholder="할인 적용가">
-                            <label for="newPrice">할인 적용가</label>
+                            <input type="text" class="form-control text-end"
+                                   id="finalPrice" placeholder="할인 적용가" disabled readonly>
+                            <label for="finalPrice">할인 적용가</label>
                         </div>
                     </div>
                 </div>
@@ -142,14 +144,18 @@
             </div>
             <div class="text-editor-wrap d-flex justify-content-center mx-auto">
                 <div class="col-12">
-                    <label class="form-label description text-danger" for="content">* 고객의 이해를 돕기 위해 상품 상세정보와 이미지를 함께 등록해주세요</label>
-                    <textarea name="content" id="content" style="height: 1000px;"></textarea>
+                    <label class="form-label description text-danger" for="content">
+                        * 고객의 이해를 돕기 위해 상품 상세정보와 이미지를 함께 등록해주세요
+                    </label>
+                    <textarea name="content" id="content"></textarea>
                 </div>
             </div>
 
             <div class="d-flex justify-content-center my-lg-5">
-                <input type="button" value="등록하기" class="btn btn-lg btn-dark py-lg-3 px-lg-5" onclick="insert(this.form)">
-                <input type="button" value="이전으로" class="btn btn-lg btn-secondary py-lg-3 px-lg-5 ms-3" onclick="history.back()">
+                <input type="button" value="등록하기" class="btn btn-lg btn-dark py-lg-3 px-lg-5"
+                       onclick="addFlower(this.form)">
+                <input type="button" value="이전으로" class="btn btn-lg btn-secondary py-lg-3 px-lg-5 ms-3"
+                       onclick="history.back()">
             </div>
         </form>
     </div>  <!-- container 닫기 -->
@@ -157,6 +163,7 @@
     <%@ include file="../main/b_footer.jspf"%>
 
 <script>
+    /* 업로드한 이미지 미리보기 */
     function preview(file, id) {
         let img = document.querySelector("#" + id);
 
@@ -168,47 +175,57 @@
         reader.readAsDataURL(file.files[0]);
     }
 
+    /* 할인율에 따라 최종가격 정하는 함수. (아직 수정단계입니다) */
     function calculate() {
         let price = document.querySelector("#flowerPrice").value;
-        let dRate = document.querySelector("#discountRate").value;
-        let dPrice;
+        let discountRate = document.querySelector("#discountRate").value;
+        let finalPrice;
 
-        if (dRate == null) {
-            dPrice = null;
+        if (!discountRate) {
+            finalPrice = "";
         } else {
-            if (price == null || price.trim() == "") {
-                dPrice = "상품 가격을 입력해주세요";
+            if (price == null || price.trim() === "") {
+                finalPrice = "상품 가격을 입력해주세요";
             }
+            /*-- 추후 price 칸에 숫자만 입력할 수 있도록 조건 처리해야 함 --*/
             else {
-                dPrice = Math.floor((100 - Number(dRate)) * 0.01 * Number(price)) + " 원";
-                console.log("dPrice : " + dPrice);
+                finalPrice = Math.floor((100 - Number(discountRate)) * 0.01 * Number(price)) + " 원";
+                console.log("finalPrice : " + finalPrice);
             }
         }
-        document.querySelector("#newPrice").value = dPrice;
+        document.querySelector("#finalPrice").value = finalPrice;
     }
 
-    function checkDiscount() {
+    /* 할인적용 체크박스 누르면 할인율 입력가능하게 변경 */
+    function enableDiscountRateInput() {
         let dBtn = document.querySelector("#discount");
         let dRate = document.querySelector("#discountRate");
-        let dPrice = document.querySelector("#newPrice");
+        let dPrice = document.querySelector("#finalPrice");
 
-        if (dBtn.checked == true) {
+        if (dBtn.checked) {
             dRate.toggleAttribute("disabled", false);
             dPrice.toggleAttribute("disabled", false);
         } else {
            dRate.toggleAttribute("disabled", true);
            dPrice.toggleAttribute("disabled", true);
-           dRate.value = null;
+           dRate.value = "";
            calculate();
         }
     }
 
+    /* 체크박스 체크시 네모박스 bg 컬러 변경 */
     function changeBg(chkBox) {
         if (chkBox.checked) {
             chkBox.classList.add("bg-dark");
         } else {
             chkBox.classList.remove("bg-dark");
         }
+    }
+
+    /* 폼데이터 전송후 창 이동 */
+    function addFlower(frm) {
+        frm.action = "/admin/addFlower";
+        frm.submit();
     }
 
 </script>
