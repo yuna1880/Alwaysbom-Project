@@ -94,7 +94,7 @@ public class BackFclassController {
     }
 
     @GetMapping("admin/fclass/manageSchedule")
-    public String goManageSchedule(String category, Integer classIdx, Integer branchIdx, Model model) {
+    public String goManageSchedule(Integer classIdx, Integer branchIdx, Model model) {
         FclassVo fclassVo = fclassService.findByIdx(classIdx);
         BranchVo branchVo = branchService.findByIdx(branchIdx);
 
@@ -141,8 +141,23 @@ public class BackFclassController {
 
     @PostMapping("/admin/fclass/api/addSchedule")
     @ResponseBody   // @ResponseBody -> java타입을 json문자열로 변환해서 반환한다 !
-    public ScheduleVo addSchedule(@RequestBody ScheduleVo scheduleVo) { //@RequestBody -> json문자열로 들어오는거를 java객체로 변환해서 받는다 !
+    public ScheduleVo addSchedule(@RequestBody ScheduleVo scheduleVo, Model model) { //@RequestBody -> json문자열로 들어오는거를 java객체로 변환해서 받는다 !
         System.out.println("scheduleVo = " + scheduleVo);
+        model.addAttribute("schedule", scheduleVo);
         return scheduleService.addSchedule(scheduleVo);
     }
+
+    @PostMapping("/admin/fclass/api/searchSchedule")
+    @ResponseBody
+    public List<ScheduleVo> searchSchedule(@RequestBody ScheduleVo vo) {
+        System.out.println("vo = " + vo);
+        return scheduleService.searchSchedule(vo);
+    }
+
+    @PostMapping("/admin/fclass/api/deleteScheduleByIdx")
+    @ResponseBody
+    public boolean deleteSchedule(Integer idx) {
+        return scheduleService.deleteSchedule(idx);
+    }
+
 }
