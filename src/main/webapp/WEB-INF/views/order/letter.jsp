@@ -15,6 +15,11 @@
 
          document.getElementById('letter_press_cnt_').innerHTML = letter.length;
     }
+
+    function submitForm() {
+
+
+    }
 </script>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -38,10 +43,10 @@
                     </div><br>
                 </div>
 
+                <form action="/checkOut" method="post">
                 <!-- letter 옵션 추가시, 그 개수만큼 생성해준다. -->
                 <c:forEach var="cart" items="${cartList}">
                 <c:if test="${cart.letter > 0}">
-                <form action="/checkOut" method="post">
                     <div id="letterbox-wrapper">
                         <input type="hidden" name="cart_idx" value="${cart.idx}">
 
@@ -90,7 +95,7 @@
                         <div class="float-end">
                             <button type="button" class="btn btn-outline-secondary btn-lg"
                                     onclick="history.back()">이전 화면으로</button>
-                            <button type="submit" class="btn btn btn-secondary btn-lg">다음 단계로</button>
+                            <button type="submit" class="btn btn btn-secondary btn-lg" onclick="submitForm()">다음 단계로</button>
                         </div>
                         </form>
                         <br>
