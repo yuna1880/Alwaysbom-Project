@@ -66,35 +66,35 @@
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-floating my-2">
-                            <input type="text" name="name" class="form-control" id="flowerName" placeholder="상품명 입력">
-                            <label for="flowerName">상품명 (한글 50자 미만)</label>
+                            <input type="text" name="name" class="form-control" id="itemName" placeholder="상품명 입력">
+                            <label for="itemName">상품명 (한글 50자 미만)</label>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-floating my-2">
-                            <input type="text" name="subheader" class="form-control" id="flowerSubheader" placeholder="한줄 설명">
-                            <label for="flowerSubheader">한줄 설명 (한글 100자 미만)</label>
+                            <input type="text" name="subheader" class="form-control" id="itemSubheader" placeholder="한줄 설명">
+                            <label for="itemSubheader">한줄 설명 (한글 100자 미만)</label>
                         </div>
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-floating my-2">
-                            <select name="fsize" class="form-select" id="flowerSize" aria-label="flowerSize">
+                            <select name="fsize" class="form-select" id="itemSize" aria-label="itemSize">
                                 <option selected>Size Options</option>
                                 <option value="S">S</option>
                                 <option value="M">M</option>
                                 <option value="L">L</option>
                                 <option value="XL">XL</option>
                             </select>
-                            <label for="flowerSize">꽃다발 사이즈</label>
+                            <label for="itemSize">꽃다발 사이즈</label>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-floating my-2">
                             <input type="text" name="price" class="form-control text-end"
-                                   id="flowerPrice" placeholder="가격" onchange="calculate()">
-                            <label for="flowerSubheader">상품 가격</label>
+                                   id="itemPrice" placeholder="가격" onchange="calculate()">
+                            <label for="itemSubheader">상품 가격</label>
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
 
             <div class="d-flex justify-content-center my-lg-5">
                 <input type="button" value="등록하기" class="btn btn-lg btn-dark py-lg-3 px-lg-5"
-                       onclick="addFlower(this.form)">
+                       onclick="goInsert(this.form)">
                 <input type="button" value="이전으로" class="btn btn-lg btn-secondary py-lg-3 px-lg-5 ms-3"
                        onclick="history.back()">
             </div>
@@ -170,7 +170,7 @@
 
     /* 할인율에 따라 최종가격 정하는 함수. (아직 수정단계입니다) */
     function calculate() {
-        let priceVal = document.querySelector("#flowerPrice").value;
+        let priceVal = document.querySelector("#itemPrice").value;
         let discountRateVal = document.querySelector("#discountRate").value;
         let finalPrice = document.querySelector("#finalPrice");
         let finalPriceVal;
@@ -220,7 +220,7 @@
     }
 
     /* 폼데이터 전송후 창 이동 */
-    function addFlower(frm) {
+    function goInsert(frm) {
         frm.action = "/admin/addFlower";
         frm.submit();
     }

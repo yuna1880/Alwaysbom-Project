@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>소품샵 상품 등록</title>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="../static/css/item/b_insert.css">
+    <link rel="stylesheet" href="/static/css/item/b_addForm.css">
     <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
@@ -20,10 +20,10 @@
         </nav>
 
         <!-- 1. 상품 이미지 등록 (이미지 3개 파일 업로드) -->
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
                 1. 상품 이미지 등록
-                <span class="description text-danger">
+                <span class="description text-danger ms-2">
                     * 상품 사진은 가능하다면 고화질의 정방형 이미지로 올려주십시오.
                 </span>
             </div>
@@ -66,71 +66,65 @@
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-floating my-2">
-                            <input type="text" class="form-control" id="flowerName" placeholder="상품명 입력">
-                            <label for="flowerName">상품명 (한글 50자 미만)</label>
+                            <input type="text" name="name" class="form-control" id="itemName" placeholder="상품명 입력">
+                            <label for="itemName">상품명 (한글 50자 미만)</label>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-floating my-2">
-                            <input type="text" class="form-control" id="flowerSubheader" placeholder="한줄 설명">
-                            <label for="flowerSubheader">한줄 설명 (한글 100자 미만)</label>
+                            <input type="text" name="subheader" class="form-control" id="itemSubheader" placeholder="한줄 설명">
+                            <label for="itemSubheader">한줄 설명 (한글 100자 미만)</label>
                         </div>
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-floating my-2">
-                            <select class="form-select" id="flowerSize" aria-label="flowerSize">
+                            <select name="fsize" class="form-select" id="itemSize" aria-label="itemSize">
                                 <option selected>화병인 경우만 선택</option>
-                                <option value="1">S</option>
-                                <option value="2">M</option>
-                                <option value="3">L</option>
-                                <option value="4">XL</option>
-                                <option value="5">선택하지 않음</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
                             </select>
-                            <label for="flowerSize">어울리는 꽃다발 사이즈</label>
+                            <label for="itemSize">어울리는 꽃다발 사이즈</label>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-floating my-2">
-                            <input type="text" class="form-control text-end" id="flowerPrice" placeholder="가격"
-                                onchange="calculate()">
-                            <label for="flowerSubheader">상품 가격</label>
+                            <input type="text" name="price" class="form-control text-end"
+                                   id="itemPrice" placeholder="가격" onchange="calculate()">
+                            <label for="itemSubheader">상품 가격</label>
                         </div>
                     </div>
                 </div>
                 <div class="row g-3">
-<%--                    버튼 스타일의 체크박스 --%>
-<%--                    <div class="col-md-4 d-flex align-items-center">--%>
-<%--                        <input type="checkbox" class="btn-check" id="freeDelivery" autocomplete="off">--%>
-<%--                        <label class="btn btn px-4 py-2 me-2 btn-outline-dark me-2" for="freeDelivery">무료배송</label><br>--%>
-<%--                        <input type="checkbox" class="btn-check" id="discount" autocomplete="on" onclick="checkDiscount()">--%>
-<%--                        <label class="btn btn px-4 py-2 btn-outline-dark" for="discount">할인 적용하기</label><br>--%>
-<%--                    </div>--%>
                     <div class="col-md-4 d-flex align-items-center">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="freeDelivery" value="option1"
+                            <input class="form-check-input" type="checkbox" name="freeDelivery"
+                                   id="freeDelivery" value="1"
                                    onclick="changeBg(this)">
                             <label class="form-check-label" for="freeDelivery">무료배송</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="discount" value="option2"
-                                   onclick="checkDiscount(), changeBg(this)">
+                            <input class="form-check-input" type="checkbox" id="discount"
+                                   onclick="enableDiscountRateInput(this); changeBg(this)">
                             <label class="form-check-label" for="discount">할인 적용하기</label>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-floating my-2">
-                            <input type="number" max="50" class="form-control" disabled id="discountRate" placeholder="할인율"
-                                onchange="calculate()">
+                            <input type="number" max="50" class="form-control" name="discountRate"
+                                   id="discountRate" placeholder="할인율" onchange="calculate()" disabled>
                             <label for="discountRate">할인율 (숫자만 입력)</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating my-2">
-                            <input type="text" class="form-control text-end" disabled readonly id="newPrice" placeholder="할인 적용가">
-                            <label for="newPrice">할인 적용가</label>
+                            <input type="text" class="form-control text-end"
+                                   id="finalPrice" placeholder="할인 적용가" disabled readonly>
+                            <label for="finalPrice">할인 적용가</label>
                         </div>
                     </div>
                 </div>
@@ -143,75 +137,94 @@
             </div>
             <div class="text-editor-wrap d-flex justify-content-center mx-auto">
                 <div class="col-12">
-                    <label class="form-label description text-danger" for="content">* 고객의 이해를 돕기 위해 상품 상세정보와 이미지를 함께 등록해주세요</label>
-                    <textarea name="content" id="content" style="height: 1000px;"></textarea>
+                    <label class="form-label description text-danger" for="content">
+                        * 고객의 이해를 돕기 위해 상품 상세정보와 이미지를 함께 등록해주세요
+                    </label>
+                    <textarea name="content" id="content"></textarea>
                 </div>
             </div>
 
             <div class="d-flex justify-content-center my-lg-5">
-                <input type="button" value="등록하기" class="btn btn-lg btn-dark py-lg-3 px-lg-5" onclick="insert(this.form)">
-                <input type="button" value="이전으로" class="btn btn-lg btn-secondary py-lg-3 px-lg-5 ms-3" onclick="history.back()">
+                <input type="button" value="등록하기" class="btn btn-lg btn-dark py-lg-3 px-lg-5"
+                       onclick="goInsert(this.form)">
+                <input type="button" value="이전으로" class="btn btn-lg btn-secondary py-lg-3 px-lg-5 ms-3"
+                       onclick="history.back()">
             </div>
         </form>
     </div>  <!-- container 닫기 -->
 
     <%@ include file="../main/b_footer.jspf"%>
-<script>
-    function preview(file, id) {
-        let img = document.querySelector("#" + id);
 
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            img.setAttribute("src", e.target.result.toString());
-            img.classList.remove("d-none");
-        }
-        reader.readAsDataURL(file.files[0]);
-    }
+    <script>
+        /* 업로드한 이미지 미리보기 */
+        function preview(file, id) {
+            let img = document.querySelector("#" + id);
 
-    function calculate() {
-        let price = document.querySelector("#flowerPrice").value;
-        let dRate = document.querySelector("#discountRate").value;
-        let dPrice;
-
-        if (dRate == null) {
-            dPrice = null;
-        } else {
-            if (price == null || price.trim() == "") {
-                dPrice = "상품 가격을 입력해주세요";
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                img.setAttribute("src", e.target.result.toString());
+                img.classList.remove("d-none");
             }
-            else {
-                dPrice = Math.floor((100 - Number(dRate)) * 0.01 * Number(price)) + " 원";
-                console.log("dPrice : " + dPrice);
+            reader.readAsDataURL(file.files[0]);
+        }
+
+        /* 할인율에 따라 최종가격 정하는 함수. (아직 수정단계입니다) */
+        function calculate() {
+            let priceVal = document.querySelector("#itemPrice").value;
+            let discountRateVal = document.querySelector("#discountRate").value;
+            let finalPrice = document.querySelector("#finalPrice");
+            let finalPriceVal;
+
+            if (!discountRateVal) {
+                finalPriceVal = "";
+            } else {
+                if (priceVal == null || priceVal.trim() === "") {
+                    finalPriceVal = "상품 가격을 입력해주세요";
+                    finalPrice.classList.add("text-danger", "description");
+                }
+                /*-- 추후 price 칸에 숫자만 입력할 수 있도록 조건 처리해야 함 --*/
+                else {
+                    finalPrice.classList.remove("text-danger", "description");
+                    finalPriceVal =
+                        Math.floor((100 - Number(discountRateVal)) * 0.01 * Number(priceVal)) + " 원";
+                    console.log("finalPriceVal : " + finalPriceVal);
+                }
+            }
+            finalPrice.value = finalPriceVal;
+        }
+
+        /* 할인적용 체크박스 누르면 할인율 입력가능하게 변경 */
+        function enableDiscountRateInput(chkBox) {
+            let discountRate = document.querySelector("#discountRate");
+            let finalPrice = document.querySelector("#finalPrice");
+
+            if (chkBox.checked) {
+                discountRate.toggleAttribute("disabled", false);
+                finalPrice.toggleAttribute("disabled", false);
+            } else {
+                discountRate.toggleAttribute("disabled", true);
+                finalPrice.toggleAttribute("disabled", true);
+                discountRate.value = null;
+                finalPrice.value = null;
+                calculate();
             }
         }
-        document.querySelector("#newPrice").value = dPrice;
-    }
 
-    function checkDiscount() {
-        let dBtn = document.querySelector("#discount");
-        let dRate = document.querySelector("#discountRate");
-        let dPrice = document.querySelector("#newPrice");
-
-        if (dBtn.checked == true) {
-            dRate.toggleAttribute("disabled", false);
-            dPrice.toggleAttribute("disabled", false);
-        } else {
-           dRate.toggleAttribute("disabled", true);
-           dPrice.toggleAttribute("disabled", true);
-           dRate.value = null;
-           calculate();
+        /* 체크박스 체크시 네모박스 bg 컬러 변경 */
+        function changeBg(chkBox) {
+            if (chkBox.checked) {
+                chkBox.classList.add("bg-dark");
+            } else {
+                chkBox.classList.remove("bg-dark");
+            }
         }
-    }
 
-    function changeBg(chkBox) {
-        if (chkBox.checked) {
-            chkBox.classList.add("bg-dark");
-        } else {
-            chkBox.classList.remove("bg-dark");
+        /* 폼데이터 전송후 창 이동 */
+        function goInsert(frm) {
+            frm.action = "/admin/addProduct";
+            frm.submit();
         }
-    }
-
-</script>
-<script src="/static/js/imageUploader.js"></script>
+    </script>
+    <script src="/static/js/imageUploader.js"></script>
 </body>
 </html>
