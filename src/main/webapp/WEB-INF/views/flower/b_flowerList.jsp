@@ -1,14 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
-<%@ taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE HTML>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>꽃다발 상품 조회</title>
     <%@ include file="../main/b_import.jspf"%>
     <link rel="stylesheet" href="/static/css/item/b_addForm.css">
     <link rel="stylesheet" href="/static/css/item/flower.css">
-    <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
     <%@ include file="../main/b_header.jspf"%>
@@ -21,20 +18,23 @@
             </ol>
         </nav>
 
-        <c:forEach var="flowerVo" items="${list}">
         <div class="row row-cols-4">
+            <c:forEach var="flowerVo" items="${list}">
+            <c:if test="${not empty flowerVo}">
             <div class="col f-col">
                 <a href="#">
-                    <img src="static/upload/flower/${flowerVo.image1}" class="f-col-img" alt="꽃다발 썸네일">
+                    <img src="/static/upload/${flowerVo.image1}" class="f-col-img" alt="꽃다발 썸네일">
                 </a>
                 <div class="f-col-text">
                     <div class="subheader">${flowerVo.subheader}</div>
                     <div class="flower-name">
                         <a href="#">${flowerVo.name}</a></div>
                     <div>
+                        <c:if test="${not empty flowerVo.discountRate && flowerVo.discountRate > 0}">
                         <span class="discount-rate">${flowerVo.discountRate}%</span>
-                        <span class="old-price">${flowerVo.price}원 ></span>
-                        <span class="new-price">${flowerVo.finalPrice}원</span>
+                        <span class="original-price">${flowerVo.price}원 ></span>
+                        </c:if>
+                        <span class="final-price">${flowerVo.finalPrice}원</span>
                     </div>
                     <div class="last-line">
                         <span class="badge rounded-pill bg-warning size-unit">${flowerVo.fsize}</span>
@@ -45,8 +45,9 @@
                     </div>
                 </div>
             </div>
+            </c:if>
+            </c:forEach>
         </div>
-        </c:forEach>
     </div>
 
 
