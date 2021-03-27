@@ -31,4 +31,5 @@ public class CartVo {
     private FlowerVo flowerVo;
     private ProductVo productVo;
     private List<ChoiceVo> choices;
+    private List<ProductVo> options;
 }

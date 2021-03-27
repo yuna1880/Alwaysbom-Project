@@ -13,7 +13,12 @@
         <association property="flowerVo" column="FLOWER_IDX" javaType="com.flo.alwaysbom.flower.vo.FlowerVo" select="findFlowerByIdx"/>
         <association property="productVo" column="PRODUCT_IDX" javaType="com.flo.alwaysbom.product.vo.ProductVo" select="findProductByIdx"/>
         <collection property="choices" column="IDX" ofType="com.flo.alwaysbom.choice.vo.ChoiceVo" select="choice.getChoiceById"/>
+        <collection property="options" column="IDX" ofType="com.flo.alwaysbom.product.vo.ProductVo" select="findOptions"/>
     </resultMap>
+
+    <select id="findOptions" parameterType="int" resultType="com.flo.alwaysbom.product.vo.ProductVo">
+        SELECT * FROM PRODUCT P INNER JOIN CHOICE C ON P.IDX = C.PRODUCT_IDX WHERE C.CART_IDX = #{idx}
+    </select>
 
     <select id="findProductByIdx" parameterType="int" resultType="com.flo.alwaysbom.product.vo.ProductVo">
         SELECT * FROM PRODUCT WHERE IDX = #{idx}

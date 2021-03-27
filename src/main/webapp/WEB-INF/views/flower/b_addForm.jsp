@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <!DOCTYPE HTML>
-<html lang="ko">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>꽃다발 상품 등록</title>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="../static/css/item/b_insert.css">
+    <link rel="stylesheet" href="/static/css/item/b_addForm.css">
     <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
@@ -155,6 +155,7 @@
     </div>  <!-- container 닫기 -->
 
     <%@ include file="../main/b_footer.jspf"%>
+
 <script>
     function preview(file, id) {
         let img = document.querySelector("#" + id);
