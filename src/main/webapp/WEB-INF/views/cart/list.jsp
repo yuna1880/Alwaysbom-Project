@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <!DOCTYPE HTML>
 <html>
@@ -6,6 +7,11 @@
     <meta charset="UTF-8">
     <title>새늘봄 / 장바구니</title>
     <%@ include file="../main/import.jspf"%>
+    <style>
+        .height-100 {
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
     <%@ include file="../main/header.jspf"%>
@@ -42,22 +48,31 @@
                     </c:otherwise>
                 </c:choose>
                 <c:if test="${not empty target}">
-                <li class="list-group-item bg-white text-primary d-flex text-center">
+                <li class="list-group-item bg-white d-flex text-center height-100">
                     <div class="col-1">
                         <input type="checkbox" class="form-check-input p-3 rounded-circle cart-check bg-warning border-warning" aria-label="checkbox" name="idx"
                                value="${cart.idx}" onchange="checkAll()">
                     </div>
                     <div class="col-6 d-flex">
                         <div class="card-img w-25 overflow-hidden">
-                            <img src="/static/upload/${path}" alt="사진" class="w-100">
+                            <img src="/static/upload/${path}" alt="사진" class="h-100">
                         </div>
                         <div class="bg-transparent w-75 d-flex flex-column align-items-baseline">
                             <span>${target.name}</span>
-                            <span>${target.discountRate}</span>
-                            <span>${target.price}</span>
+                            <div>
+                                <c:if test="${target.discountRate ne 0}">
+                                <span class="text-danger">${target.discountRate}</span>
+                                <span class="text-decoration-line-through"><fmt:formatNumber value="${target.price}" pattern="#,###원"/></span>
+                                </c:if>
+                                <span><fmt:formatNumber value="${target.finalPrice}" pattern="#,###원"/></span>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-3">추가상품</div>
+                    <div class="col-3">
+                        <c:forEach var="product" items="${cart.options}">
+                            <div>${product.name}</div>
+                        </c:forEach>
+                    </div>
                     <div class="col-2">합계 금액</div>
                 </li>
                 </c:if>

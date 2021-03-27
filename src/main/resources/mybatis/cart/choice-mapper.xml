@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="choice">
-
     <select id="getChoiceById" resultType="com.flo.alwaysbom.choice.vo.ChoiceVo">
         SELECT * from CHOICE
         WHERE CART_IDX = #{cartIdx}
