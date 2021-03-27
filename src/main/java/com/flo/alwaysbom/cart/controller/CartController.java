@@ -22,8 +22,6 @@ public class CartController {
             memberId = "test";
         }
         List<CartVo> list = cartService.findCartsByMember(memberId);
-        System.out.println("list = " + list);
-
         model.addAttribute("list", list);
         return "cart/list";
     }

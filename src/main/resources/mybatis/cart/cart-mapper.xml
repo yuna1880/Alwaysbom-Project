@@ -15,6 +15,10 @@
         <collection property="choices" column="IDX" ofType="com.flo.alwaysbom.choice.vo.ChoiceVo" select="choice.getChoiceById"/>
     </resultMap>
 
+    <select id="findOptions" parameterType="int" resultType="com.flo.alwaysbom.product.vo.ProductVo">
+        SELECT * FROM PRODUCT P INNER JOIN CHOICE C ON P.IDX = C.PRODUCT_IDX WHERE C.CART_IDX = #{idx}
+    </select>
+
     <select id="findProductByIdx" parameterType="int" resultType="com.flo.alwaysbom.product.vo.ProductVo">
         SELECT * FROM PRODUCT WHERE IDX = #{idx}
     </select>
