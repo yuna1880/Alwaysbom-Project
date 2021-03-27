@@ -23,7 +23,7 @@
         <form method="post" enctype="multipart/form-data">
             <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
                 1. 상품 이미지 등록
-                <span class="description text-danger">
+                <span class="description text-danger ms-2">
                     * 상품 사진은 가능하다면 고화질의 정방형 이미지로 올려주십시오.
                 </span>
             </div>
@@ -82,10 +82,10 @@
                         <div class="form-floating my-2">
                             <select name="fsize" class="form-select" id="flowerSize" aria-label="flowerSize">
                                 <option selected>Size Options</option>
-                                <option value="1">S</option>
-                                <option value="2">M</option>
-                                <option value="3">L</option>
-                                <option value="4">XL</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
                             </select>
                             <label for="flowerSize">꽃다발 사이즈</label>
                         </div>
@@ -99,13 +99,6 @@
                     </div>
                 </div>
                 <div class="row g-3">
-<%--                    버튼 스타일의 체크박스 --%>
-<%--                    <div class="col-md-4 d-flex align-items-center">--%>
-<%--                        <input type="checkbox" class="btn-check" id="freeDelivery" autocomplete="off">--%>
-<%--                        <label class="btn btn px-4 py-2 me-2 btn-outline-dark me-2" for="freeDelivery">무료배송</label><br>--%>
-<%--                        <input type="checkbox" class="btn-check" id="discount" autocomplete="on" onclick="checkDiscount()">--%>
-<%--                        <label class="btn btn px-4 py-2 btn-outline-dark" for="discount">할인 적용하기</label><br>--%>
-<%--                    </div>--%>
                     <div class="col-md-4 d-flex align-items-center">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="freeDelivery"
@@ -115,7 +108,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" id="discount"
-                                   onclick="enableDiscountRateInput(); changeBg(this)">
+                                   onclick="enableDiscountRateInput(this); changeBg(this)">
                             <label class="form-check-label" for="discount">할인 적용하기</label>
                         </div>
                     </div>
@@ -177,39 +170,43 @@
 
     /* 할인율에 따라 최종가격 정하는 함수. (아직 수정단계입니다) */
     function calculate() {
-        let price = document.querySelector("#flowerPrice").value;
-        let discountRate = document.querySelector("#discountRate").value;
-        let finalPrice;
+        let priceVal = document.querySelector("#flowerPrice").value;
+        let discountRateVal = document.querySelector("#discountRate").value;
+        let finalPrice = document.querySelector("#finalPrice");
+        let finalPriceVal;
 
-        if (!discountRate) {
-            finalPrice = "";
+        if (!discountRateVal) {
+            finalPriceVal = "";
         } else {
-            if (price == null || price.trim() === "") {
-                finalPrice = "상품 가격을 입력해주세요";
+            if (priceVal == null || priceVal.trim() === "") {
+                finalPriceVal = "상품 가격을 입력해주세요";
+                finalPrice.classList.add("text-danger", "description");
             }
             /*-- 추후 price 칸에 숫자만 입력할 수 있도록 조건 처리해야 함 --*/
             else {
-                finalPrice = Math.floor((100 - Number(discountRate)) * 0.01 * Number(price)) + " 원";
-                console.log("finalPrice : " + finalPrice);
+                finalPrice.classList.remove("text-danger", "description");
+                finalPriceVal =
+                    Math.floor((100 - Number(discountRateVal)) * 0.01 * Number(priceVal)) + " 원";
+                console.log("finalPriceVal : " + finalPriceVal);
             }
         }
-        document.querySelector("#finalPrice").value = finalPrice;
+        finalPrice.value = finalPriceVal;
     }
 
     /* 할인적용 체크박스 누르면 할인율 입력가능하게 변경 */
-    function enableDiscountRateInput() {
-        let dBtn = document.querySelector("#discount");
-        let dRate = document.querySelector("#discountRate");
-        let dPrice = document.querySelector("#finalPrice");
+    function enableDiscountRateInput(chkBox) {
+        let discountRate = document.querySelector("#discountRate");
+        let finalPrice = document.querySelector("#finalPrice");
 
-        if (dBtn.checked) {
-            dRate.toggleAttribute("disabled", false);
-            dPrice.toggleAttribute("disabled", false);
+        if (chkBox.checked) {
+            discountRate.toggleAttribute("disabled", false);
+            finalPrice.toggleAttribute("disabled", false);
         } else {
-           dRate.toggleAttribute("disabled", true);
-           dPrice.toggleAttribute("disabled", true);
-           dRate.value = "";
-           calculate();
+            discountRate.toggleAttribute("disabled", true);
+            finalPrice.toggleAttribute("disabled", true);
+            discountRate.value = null;
+            finalPrice.value = null;
+            calculate();
         }
     }
 
@@ -227,7 +224,6 @@
         frm.action = "/admin/addFlower";
         frm.submit();
     }
-
 </script>
 <script src="/static/js/imageUploader.js"></script>
 </body>
