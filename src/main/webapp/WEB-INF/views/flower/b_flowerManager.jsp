@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <!DOCTYPE HTML>
-<html lang="ko">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>꽃다발 관리 인덱스</title>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="../static/css/item/b_management.css">
+    <link rel="stylesheet" href="../static/css/item/b_itemManager.css">
 </head>
 <body>
     <%@ include file="../main/b_header.jspf"%>
@@ -21,7 +21,7 @@
                 배너 등록/수정
             </div>
             <div class="btn-circle d-flex justify-content-center align-items-center"
-                 onclick="location.href='/admin/flowerInsert'">
+                 onclick="location.href='/admin/flower/insertForm'">
                 상품 등록
             </div>
             <div class="btn-circle d-flex justify-content-center align-items-center">
@@ -38,5 +38,6 @@
     </div>
 
     <%@ include file="../main/b_footer.jspf"%>
+
 </body>
 </html>
