@@ -12,7 +12,6 @@ public class FlowerVo {
     private String name;
     private String subheader;
     private Integer price;
-    private Integer newPrice;
     private String fsize;
     private Integer discountRate;
     private String image1;
@@ -23,6 +22,7 @@ public class FlowerVo {
     private int freeDelivery;
 
     /* 핵심 비즈니스 로직 */
+
     // 무료배송 여부 메세지 출력
     public String getFreeDeliveryMessage() {
         if (freeDelivery == 0) {
@@ -30,5 +30,10 @@ public class FlowerVo {
         } else {
             return "무료배송";
         }
+    }
+
+    // 최종 금액 출력
+    public Integer getFinalPrice() {
+        return (int)(price * (1 - discountRate / 100.0));
     }
 }
