@@ -20,4 +20,10 @@ public class FlowerVo {
     private String content;
     private String delStatus;
     private int freeDelivery;
+
+    /* 핵심 비즈니스 로직 */
+    // 최종 금액 출력
+    public Integer getFinalPrice(){
+        return (int)(price * (1 - discountRate / 100.0));
+    }
 }
