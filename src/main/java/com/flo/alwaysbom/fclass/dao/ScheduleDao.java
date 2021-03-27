@@ -24,4 +24,8 @@ public class ScheduleDao {
         System.out.println("scheduleVos = " + scheduleVos);
         return scheduleVos;
     }
+
+    public boolean deleteSchedule(Integer idx) {
+        return sqlSessionTemplate.delete("schedule.deleteSchedule", idx) > 0;
+    }
 }

@@ -25,7 +25,7 @@
             </label>
             <button type="button" class="btn btn-dark" onclick="searchSchedule()">검색</button>
             </div>
-            <table class="table table-hover" id="scheduleTable" disabled>
+            <table class="table table-hover" id="scheduleTable" style="font-size: 0.9rem;">
                 <thead class="table-dark" id="scheduleThead"></thead>
                 <tbody id="scheduleTbody" class="overflow-auto"></tbody>
             </table>
@@ -47,8 +47,61 @@
         </div>
     </div>
 </div>
+<div class="modal fade" aria-hidden="true" id="modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">경고!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>정말 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" id="removeBtn" data-bs-dismiss="modal" onclick="removeSchedule(this)">삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
 <%@ include file="../main/b_footer.jspf" %>
 <script type="text/javascript">
+    let modal = document.querySelector("#modal");
+    let removeBtn = document.querySelector("#removeBtn");
+
+    modal.addEventListener("show.bs.modal", function (e) {
+        let idx = e.relatedTarget.getAttribute("data-idx");
+        removeBtn.setAttribute("data-idx", idx);
+    });
+
+    async function removeSchedule(btn) {
+        let idx = btn.getAttribute("data-idx");
+
+        let data = {
+            idx: idx
+        };
+
+        let option = {
+            method: 'post',
+            body: new URLSearchParams(data)
+        };
+
+        let response = await fetch("/admin/fclass/api/deleteScheduleByIdx", option);
+        let result = await response.json();
+        console.log(result);
+        if(result) {
+            let tr = document.querySelector("tr[data-idx='" + idx + "']");
+            tr.remove();
+            let numList = document.querySelectorAll("#scheduleTbody tr th span");
+            numList.forEach(function (num, index) {
+                num.textContent = (index + 1).toString();
+            });
+            alert("일정이 삭제되었습니다.");
+        } else {
+            alert("일정 삭제에 실패했습니다");
+        }
+    }
+
     async function searchSchedule() {
         let sdate = document.querySelector("#dataForm");
         let data = {
@@ -69,27 +122,59 @@
         console.log(result);
 
         let scheduleThead = document.querySelector("#scheduleThead");
-        scheduleThead.innerHTML = '<tr><th scope="col" class="col-1">No</th>'
-                                + '<th scope="col" class="col-3">클래스 수강일</th>'
+        scheduleThead.innerHTML = '<tr>'
+                                + '<th scope="col" class="col-1">'
+                                  + '<div class="d-flex justify-content-end position-relative">'
+                                    + '<input class="form-check-input position-absolute start-0" type="checkbox" id="checkAll" onclick="checkAll(this)">'
+                                    + '<span>No</span>'
+                                  + '</div>'
+                                + '</th>'
+                                + '<th scope="col" class="col-2">클래스 수강일</th>'
                                 + '<th scope="col" class="col-2">시작시간</th>'
                                 + '<th scope="col" class="col-2">종료시간</th>'
                                 + '<th scope="col" class="col-2">수강정원</th>'
                                 + '<th scope="col" class="col-2">등록인원</th>'
+                                + '<th class="col-1">삭제</th>'
                                 + '</tr>'
 
         let tbody = document.querySelector("#scheduleTbody");
         tbody.innerHTML = "";
         result.forEach(function (schedule, index) {
             let tr = document.createElement("tr");
-            tr.innerHTML = '<th scope="row">' + (index + 1) + '</th>';
+            tr.setAttribute("data-idx", schedule.idx);
+            tr.innerHTML = '<th>'
+                           + '<div class="d-flex justify-content-end position-relative">'
+                            + '<input class="form-check-input position-absolute start-0 each-check" type="checkbox" id="check" onclick="checkStatus()">'
+                            + '<span>'+ (index + 1) +'</span>'
+                           + '</div>'
+                         + '</th>'
             // tr.innerHTML += '<td>' + new Date(schedule.sdate).toLocaleDateString() + '</td>'
             tr.innerHTML += '<td>' + schedule.smonth + '월 ' + schedule.sday + '일' + '</td>'
             tr.innerHTML += '<td>' + schedule.startTime + '</td>'
             tr.innerHTML += '<td>' + schedule.endTime + '</td>'
             tr.innerHTML += '<td>' + schedule.totalCount + '</td>'
-            tr.innerHTML += '<td>' + schedule.regCount + '</td>';
+            tr.innerHTML += '<td>' + schedule.regCount + '</td>'
+            tr.innerHTML += '<td><button data-idx="' + schedule.idx + '" class="btn btn-danger p-0 px-2" data-bs-toggle="modal" data-bs-target="#modal">삭제</button></td>';
             tbody.appendChild(tr);
         })
+    }
+
+    function checkAll(allBtn) {
+        let checkList = document.querySelectorAll(".each-check");
+        for (let checkBox of checkList) {
+            checkBox.checked = allBtn.checked;
+        }
+    }
+
+    function checkStatus() {
+        let allBtn = document.querySelector("#checkAll");
+
+        let status = true;
+        let checkList = document.querySelectorAll(".each-check");
+        for (let checkBox of checkList) {
+            status = status && checkBox.checked;
+        }
+        allBtn.checked = status;
     }
 
     async function addSchedule() {
