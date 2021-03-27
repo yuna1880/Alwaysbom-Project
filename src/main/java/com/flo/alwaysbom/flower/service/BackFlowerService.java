@@ -18,6 +18,7 @@ public class BackFlowerService {
     }
 
     public List<FlowerVo> findAll() {
+        System.out.println("BackFlowerService.findAll() 실행");
         return dao.findAll();
     }
 }

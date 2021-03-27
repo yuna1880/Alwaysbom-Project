@@ -19,6 +19,6 @@
     <select id="findAll" resultType="com.flo.alwaysbom.flower.vo.FlowerVo">
         SELECT  *
         FROM    FLOWER
-        WHERE   DEL_STATUS IS NULL;
+        WHERE   DEL_STATUS IS NULL
     </select>
 </mapper>
