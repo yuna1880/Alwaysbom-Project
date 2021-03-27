@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>letter View입니다</h1>
+    <hr>
     <div>
     <c:forEach var="letter" items="${list}">
         <div><p>${letter.idx}</p>
