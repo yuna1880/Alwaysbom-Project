@@ -1,19 +1,14 @@
 package com.flo.alwaysbom.flower.service;
 
-import com.flo.alwaysbom.flower.dao.FlowerDao;
 import com.flo.alwaysbom.flower.vo.FlowerVo;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@Service
-@RequiredArgsConstructor
-public class FlowerService {
+public interface FlowerService {
 
-    private final FlowerDao dao;
+    List<FlowerVo> findAll();
 
-    public List<FlowerVo> findAll() {
-        return dao.findAll();
-    }
+    Optional<FlowerVo> findByIdx(Integer idx);
+
 }

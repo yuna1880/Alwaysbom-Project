@@ -17,8 +17,16 @@
 
     <!-- (R) 관리자가 상품 전체 조회하기 -->
     <select id="findAll" resultType="com.flo.alwaysbom.flower.vo.FlowerVo">
+        SELECT      *
+        FROM        FLOWER
+        WHERE       DEL_STATUS IS NULL
+        ORDER BY    IDX DESC
+    </select>
+
+    <!-- (R) 고객이 상품 상세정보 조회하기 -->
+    <select id="findByIdx" parameterType="Integer" resultType="com.flo.alwaysbom.flower.vo.FlowerVo">
         SELECT  *
         FROM    FLOWER
-        WHERE   DEL_STATUS IS NULL
+        WHERE   DEL_STATUS IS NULL AND IDX = #{idx}
     </select>
 </mapper>

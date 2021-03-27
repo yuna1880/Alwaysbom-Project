@@ -19,10 +19,10 @@
             <c:forEach var="flowerVo" items="${list}">
             <c:if test="${not empty flowerVo}">
             <div class="col f-col">
-                <a href="/flower/detail"><img src="static/upload/${flowerVo.image1}" class="f-col-img" alt="꽃다발 썸네일"></a>
+                <a href="/flower/${flowerVo.idx}"><img src="static/upload/${flowerVo.image1}" class="f-col-img" alt="꽃다발 썸네일"></a>
                 <div class="f-col-text">
                     <div class="subheader">${flowerVo.subheader}</div>
-                    <div class="flower-name"><a href="/flower/detail">${flowerVo.name}</a></div>
+                    <div class="flower-name"><a href="/flower/${flowerVo.idx}">${flowerVo.name}</a></div>
                     <div>
                         <c:if test="${not empty flowerVo.discountRate && flowerVo.discountRate > 0}">
                         <span class="discount-rate">${flowerVo.discountRate}%</span>
