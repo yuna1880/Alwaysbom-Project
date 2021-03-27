@@ -21,9 +21,8 @@
         ORDER BY SDATE
     </select>
 
-    <select id="getSchedule" parameterType="hashmap" resultType="hashmap">
-        SELECT SDATE FROM SCHEDULE
-        WHERE
-    </select>
+    <delete id="deleteSchedule" parameterType="int">
+        DELETE FROM BOM.SCHEDULE WHERE IDX = #{idx}
+    </delete>
 
 </mapper>

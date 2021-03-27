@@ -154,8 +154,10 @@ public class BackFclassController {
         return scheduleService.searchSchedule(vo);
     }
 
-    @GetMapping("/admin/fclass/api/getSchedule")
-    public Object getSchedule(Object array) {
-        return null;
+    @PostMapping("/admin/fclass/api/deleteScheduleByIdx")
+    @ResponseBody
+    public boolean deleteSchedule(Integer idx) {
+        return scheduleService.deleteSchedule(idx);
     }
+
 }

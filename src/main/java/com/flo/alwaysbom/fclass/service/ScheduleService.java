@@ -19,4 +19,8 @@ public class ScheduleService {
     public List<ScheduleVo> searchSchedule(ScheduleVo vo) {
         return scheduleDao.searchSchedule(vo);
     }
+
+    public boolean deleteSchedule(Integer idx) {
+        return scheduleDao.deleteSchedule(idx);
+    }
 }
