@@ -54,4 +54,9 @@
               </foreach>
         ORDER BY IDX DESC
     </select>
+
+    <select id="findByIdx" parameterType="int" resultMap="CartVo">
+        SELECT * FROM CART
+        WHERE IDX = #{idx}
+    </select>
 </mapper>
