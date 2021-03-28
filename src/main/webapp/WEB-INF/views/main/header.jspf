@@ -6,7 +6,7 @@
             <li>|</li>
             <li><a href="/memberLogin">로그인</a></li>
             <li>|</li>
-            <li><a href="/goMemberJoin">회원가입<span class="point-text">(1000포인트 지급!)</span></a></li>
+            <li><a href="/goMemberJoin">회원가입<span class="point-color fw-bold">(1000포인트 지급!)</span></a></li>
         </ul>
     </div>
 </div>
@@ -18,23 +18,23 @@
             </div>
             <ul class="h-menu-wrap d-flex justify-content-end my-auto">
                 <li class="h-menu">
-                    <a href="#">꽃 정기구독</a>
+                    <a href="#" id="subs">꽃 정기구독</a>
                     <div class="under-bar" id="under-bar1"></div>
                 </li>
                 <li class="h-menu ms-3">
-                    <a href="/flower">꽃다발</a>
+                    <a href="/flower" id="flower">꽃다발</a>
                     <div class="under-bar" id="under-bar2"></div>
                 </li>
                 <li class="h-menu ms-3">
-                    <a href="/fclass/classList">플라워클래스</a>
+                    <a href="/fclass/classList" id="fclass">플라워클래스</a>
                     <div class="under-bar" id="under-bar3"></div>
                 </li>
                 <li class="h-menu ms-3">
-                    <a href="/product">소품샵</a>
+                    <a href="/product" id="product">소품샵</a>
                     <div class="under-bar" id="under-bar4"></div>
                 </li>
                 <li class="h-menu ms-3 me-4">
-                    <a href="#">커뮤니티</a>
+                    <a href="#" id="community">커뮤니티</a>
                     <ul class="h-submenu d-flex flex-column justify-content-center">
                         <li><a href="#">이벤트</a></li>
                         <li><a href="/community/goReview">리뷰게시판</a></li>
@@ -44,17 +44,18 @@
                 </li>
                 <li class="h-menu-icon ms-5">
                     <a href="#">
-                        <img src="/static/icons/user.svg" class="h-menu-svg" alt="user" title="마이페이지" onclick="location.href='/myPage'">
+                        <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"
+                             title="마이페이지" onclick="location.href='/myPage'">
                     </a>
                 </li>
                 <li class="h-menu-icon">
                     <a href="#">
-                        <img src="/static/icons/cart.svg" class="h-menu-svg" alt="cart" title="장바구니">
+                        <img src="/static/icons/cart.svg" class="h-menu-svg" alt="cart"
+                             title="장바구니" onclick="location.href='/cart/list'">
                     </a>
                 </li>
             </ul>
         </div>
     </div>
 </header>
-
 

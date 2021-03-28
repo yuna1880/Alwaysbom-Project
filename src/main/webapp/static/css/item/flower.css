@@ -1,9 +1,10 @@
+/*--- 꽃다발 리스트 ---*/
 .banner-img {
     width: 100vw;
     height: 300px;
     background-color: #afe5d2;
 }
-.height130 {
+.align-by {
     height: 130px;
     font-size: 18px;
     color: #404040;
@@ -30,6 +31,10 @@
 .f-col-text {
     padding-left: 0.3em;
 }
+.scale-up:hover {
+    transform: scale(1.05);
+    transition-duration: 0.5s;
+}
 .subheader {
     padding-top: 0.3em;
     line-height: 2em;
@@ -48,6 +53,9 @@
 .flower-name a:hover {
     color: #333333;
     text-decoration: underline;
+}
+.price-wrap {
+    padding: 0.4em 0 0.2em 0;
 }
 .discount-rate {
     padding-right: 0.3em;

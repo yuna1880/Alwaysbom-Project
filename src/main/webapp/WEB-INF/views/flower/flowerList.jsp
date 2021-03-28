@@ -12,18 +12,25 @@
         꽃다발 배너 이미지
     </div>
     <div id="container" class="mx-auto">
-        <div class="height130 pe-2 d-flex justify-content-end align-items-center">
+        <!-- 정렬 순서 (추후 매출통계와 연계) -->
+        <div class="align-by pe-2 d-flex justify-content-end align-items-center">
             추천순 <i class="fas fa-chevron-down p-3"></i>
         </div>
+
+        <!-- 상품 썸네일 리스트 -->
         <div class="row row-cols-4">
             <c:forEach var="flowerVo" items="${list}">
             <c:if test="${not empty flowerVo}">
             <div class="col f-col">
-                <a href="/flower/${flowerVo.idx}"><img src="static/upload/${flowerVo.image1}" class="f-col-img" alt="꽃다발 썸네일"></a>
+                <div class="overflow-hidden">
+                    <a href="/flower/${flowerVo.idx}">
+                        <img src="static/upload/${flowerVo.image1}" class="f-col-img scale-up" alt="꽃다발 썸네일">
+                    </a>
+                </div>
                 <div class="f-col-text">
                     <div class="subheader">${flowerVo.subheader}</div>
                     <div class="flower-name"><a href="/flower/${flowerVo.idx}">${flowerVo.name}</a></div>
-                    <div>
+                    <div class="price-wrap">
                         <c:if test="${not empty flowerVo.discountRate && flowerVo.discountRate > 0}">
                         <span class="discount-rate">${flowerVo.discountRate}%</span>
                         <span class="original-price">${flowerVo.price}원 ></span>
@@ -33,9 +40,7 @@
                     <div class="last-line">
                         <span class="badge rounded-pill bg-warning size-unit">${flowerVo.fsize}</span>
                         <span class="f-col-size">size</span>
-                        <c:if test="${flowerVo.freeDelivery > 0}">
                         <span class="badge rounded-pill bg-secondary delivery-unit">${flowerVo.freeDeliveryMessage}</span>
-                        </c:if>
                     </div>
                 </div>
             </div>
@@ -45,5 +50,18 @@
     </div>
 
     <%@ include file="../main/footer.jspf" %>
+
+    <script>
+        let headerMenuColumns = document.getElementsByClassName("h-menu");
+        let underBars = document.getElementsByClassName("under-bar");
+        for (let i = 0; i < headerMenuColumns.length; i++) {
+            headerMenuColumns[i].firstElementChild.classList.remove("menu-active");
+        }
+        for (let i = 0; i < underBars.length; i++) {
+            underBars[i].classList.remove("menu-active");
+        }
+        document.querySelector("#flower").classList.add("menu-active");
+        document.querySelector("#under-bar2").classList.add("menu-active");
+    </script>
 </body>
 </html>
