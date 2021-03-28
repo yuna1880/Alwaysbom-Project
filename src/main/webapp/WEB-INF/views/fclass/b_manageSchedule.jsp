@@ -11,7 +11,7 @@
 <div id="container" class="mx-auto d-flex h-100 p-4">
     <div class="col-8 h-100 d-flex flex-column border-warning border-end px-4">
         <div class="w-100 d-flex justify-content-center align-items-center p-3 position-relative">
-            <div class="position-absolute top-0 start-0 bg-dark text-white rounded-3 p-2">
+            <div class="position-absolute top-0 start-0 bg-secondary text-white rounded-3 px-3">
                 <span>${fclass.category}</span> /
                 <span>${fclass.name}</span> /
                 <span>${branch.name}</span>
@@ -36,7 +36,7 @@
             <span class="fs-2 fw-bold">수강등록</span>
         </div>
         <div class="h-100 w-100 d-flex flex-column align-items-center">
-            <div><input type="text" placeholder="등록할 수강일을 선택해주세요" id="classDate" class="dateselect form-floating p-2 mb-2 dataForm2" required="required" aria-label="수강일"/></div>
+            <div><input type="text" placeholder="등록할 수강일을 선택해주세요" id="classDate" class="dateselect form-floating p-2 mb-2 dataForm2" onclick="enableAll()" required="required" aria-label="수강일"/></div>
             <div class="mb-2"><input type="time" id="startTime" class="dataForm2 form-floating p-2" placeholder="시작시간" value="10:00" required="required" aria-label="시작시간"/></div>
             <div class="mb-2"><input type="time" id="endTime" class="dataForm2 form-floating p-2" placeholder="종료시간" value="20:00" required="required" aria-label="종료시간"/></div>
             <div class="mb-2"><input type="text" id="capacity" class="dataForm2 form-floating p-2" placeholder="수강정원" pattern="[0-9]+" onkeyup="this.reportValidity()" required="required" aria-label="수강정원"/></div>
@@ -64,6 +64,36 @@
         </div>
     </div>
 </div>
+<!--수정하기 모달 -->
+<div class="modal fade" aria-hidden="true" id="modal2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <form id="updateForm" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">클래스일정 수정</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <input type="text" placeholder="등록할 수강일을 선택해주세요" class="dateselect form-floating p-2 mb-2 dataForm2" name="sdate" required="required" aria-label="수강일"/>
+                </div>
+                <div class="mb-2">
+                    <input type="time" placeholder="시작시간" class="dataForm2 form-floating p-2" name="startTime" required="required" aria-label="시작시간"/>
+                </div>
+                <div class="mb-2">
+                    <input type="time" placeholder="종료시간" class="dataForm2 form-floating p-2" name="endTime" required="required" aria-label="종료시간"/>
+                </div>
+                <div class="mb-2">
+                    <input type="text" placeholder="수강정원" class="dataForm2 form-floating p-2" name="totalCount" pattern="[0-9]+" onkeyup="this.reportValidity()" required="required" aria-label="수강정원"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="idx">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="updateSchedule(this.form)">수정</button>
+            </div>
+        </form>
+    </div>
+</div>
 <%@ include file="../main/b_footer.jspf" %>
 <script type="text/javascript">
     let modal = document.querySelector("#modal");
@@ -73,6 +103,10 @@
         let idx = e.relatedTarget.getAttribute("data-idx");
         removeBtn.setAttribute("data-idx", idx);
     });
+
+    function enableAll() {
+        $('.dateselect').datepicker("setDatesDisabled", []);
+    }
 
     async function removeSchedule(btn) {
         let idx = btn.getAttribute("data-idx");
@@ -102,6 +136,31 @@
         }
     }
 
+    async function updateSchedule(form) {
+        let formData = new FormData(form);
+
+        let option = {
+            method: "post",
+            body: formData
+        }
+        let response = await fetch("/admin/fclass/api/updateSchedule", option);
+        let result = await response.json();
+        console.log(result);
+
+        //기존의 tr에 있던 태그를 가져왔다
+        let tr = document.querySelector("#scheduleTbody tr[data-idx='" + form.idx.value + "']"); // #scheduleTbody 의 자식 중에 tr[data-idx="1"]
+        let sdate = tr.querySelector('[data-hana="sdate"]');
+        let startTime = tr.querySelector('[data-hana="startTime"]');
+        let endTime = tr.querySelector('[data-hana="endTime"]');
+        let totalCount = tr.querySelector('[data-hana="totalCount"]');
+
+        //기존의 tr에 있던 태그의 값을 result의 값으로 수정(덮어쓰기)
+        sdate.textContent = result.smonth + "월 " + result.sday + "일";
+        startTime.textContent = result.startTime;
+        endTime.textContent = result.endTime;
+        totalCount.textContent = result.totalCount;
+    }
+
     async function searchSchedule() {
         let sdate = document.querySelector("#dataForm");
         let data = {
@@ -110,6 +169,8 @@
             sdate: sdate.value
         };
 
+        console.log(data);
+
         let option = {
             method: "post",
             body: JSON.stringify(data),
@@ -117,6 +178,7 @@
                 "Content-Type": "application/json;charset=UTF-8"
             }
         };
+
         let response = await fetch("/admin/fclass/api/searchSchedule", option);
         let result = await response.json();
         console.log(result);
@@ -139,9 +201,23 @@
 
         let tbody = document.querySelector("#scheduleTbody");
         tbody.innerHTML = "";
+
+        let form = document.querySelector("#updateForm");
         result.forEach(function (schedule, index) {
             let tr = document.createElement("tr");
+            tr.setAttribute("role", "button");
             tr.setAttribute("data-idx", schedule.idx);
+            tr.setAttribute("data-bs-toggle", "modal");
+            tr.setAttribute("data-bs-target", "#modal2");
+            tr.onclick = function () {
+                $('.dateselect').datepicker("setDate", new Date(schedule.sdate));
+                form.sdate.value = dateToString(schedule.sdate);
+                form.startTime.value = schedule.startTime;
+                form.endTime.value = schedule.endTime;
+                form.totalCount.value = schedule.totalCount;
+                form.idx.value = schedule.idx;
+            }
+
             tr.innerHTML = '<th>'
                            + '<div class="d-flex justify-content-end position-relative">'
                             + '<input class="form-check-input position-absolute start-0 each-check" type="checkbox" id="check" onclick="checkStatus()">'
@@ -149,15 +225,16 @@
                            + '</div>'
                          + '</th>'
             // tr.innerHTML += '<td>' + new Date(schedule.sdate).toLocaleDateString() + '</td>'
-            tr.innerHTML += '<td>' + schedule.smonth + '월 ' + schedule.sday + '일' + '</td>'
-            tr.innerHTML += '<td>' + schedule.startTime + '</td>'
-            tr.innerHTML += '<td>' + schedule.endTime + '</td>'
-            tr.innerHTML += '<td>' + schedule.totalCount + '</td>'
-            tr.innerHTML += '<td>' + schedule.regCount + '</td>'
+            tr.innerHTML += '<td class="fw-bold" data-hana="sdate">' + schedule.smonth + '월 ' + schedule.sday + '일' + '</td>'
+            tr.innerHTML += '<td class="fw-bold" data-hana="startTime">' + schedule.startTime + '</td>'
+            tr.innerHTML += '<td class="fw-bold" data-hana="endTime">' + schedule.endTime + '</td>'
+            tr.innerHTML += '<td class="fw-bold" data-hana="totalCount">' + schedule.totalCount + '</td>'
+            tr.innerHTML += '<td class="fw-bold" data-hana="regCount">' + schedule.regCount + '</td>'
             tr.innerHTML += '<td><button data-idx="' + schedule.idx + '" class="btn btn-danger p-0 px-2" data-bs-toggle="modal" data-bs-target="#modal">삭제</button></td>';
             tbody.appendChild(tr);
         })
     }
+
 
     function checkAll(allBtn) {
         let checkList = document.querySelectorAll(".each-check");
@@ -185,7 +262,7 @@
         let data = {
             branchIdx: ${branch.idx},
             fclassIdx: ${fclass.idx},
-            sday: classDate.value,
+            sdate: classDate.value,
             startTime: startTime.value,
             endTime: endTime.value,
             totalCount: capacity.value
@@ -208,22 +285,25 @@
         }).catch(() => alert("클래스 일정 추가에 실패했습니다"));
     }
 
+    function dateToString(dateString) {
+        let date = new Date(dateString);
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day;
+
+        return year + "-" + month + "-" + day;
+    }
+
     async function checkValidDate() {
-        console.log("야 호출되냐?");
-        let dataForm = document.querySelector("#dataForm");
 
         let disabledArrayInit = [];
 
         let today = new Date().getTime();
         for(let i = 0; i < 60; i++) {
-            let date = new Date(today + 1000 * 60 * 60 * 24 * i);
-            let year = date.getFullYear();
-            let month = date.getMonth() + 1;
-            let day = date.getDate();
-            month = month < 10 ? '0' + month : month;
-            day = day < 10 ? '0' + day : day;
-
-            let dateString = year + "-" + month + "-" + day;
+            // let date = new Date(today + 1000 * 60 * 60 * 24 * i);
+            let dateString = dateToString(today + 1000 * 60 * 60 * 24 * i);
             disabledArrayInit.push(dateString);
         }
 
@@ -245,33 +325,19 @@
         console.log(result);
 
         for (let scheduleVo of result) {
-            let sdate = new Date(scheduleVo.sdate);
-            let year = sdate.getFullYear();
-            let month = sdate.getMonth() + 1;
-            let day = sdate.getDate();
-            month = month < 10 ? '0' + month : month;
-            day = day < 10 ? '0' + day : day;
-
-            let sdateString = year + "-" + month + "-" + day;
+            // let sdate = new Date(scheduleVo.sdate);
+            let sdateString = dateToString(scheduleVo.sdate);
 
             let number = disabledArrayInit.indexOf(sdateString);
             disabledArrayInit.splice(number, 1);
         }
-
-
-        // //fetch 했다 치고
-        // let fetchResult = ['2021-03-29', '2021-03-30'];
-        // for (let enabledDate of fetchResult) {
-        //     let number = disabledArrayInit.indexOf(enabledDate);
-        //     disabledArrayInit.splice(number, 1);
-        // }
 
         $('.dateselect').datepicker("setDatesDisabled",disabledArrayInit);
 
     }
 
     $(function () {
-        let $datepicker = $('.dateselect').datepicker({
+        $('.dateselect').datepicker({
             format: 'yyyy-mm-dd',
             showOtherMonths: false,
             startDate: 'noBefore',
@@ -280,20 +346,8 @@
             todayHighlight: true,
             title: '새늘봄 클래스 일정을 선택해주세요',
             language: 'ko'
-            // multidate: 3,
-            // datesDisabled: ['03/29/2021']
         });
-
-        $datepicker.languate = 'en';
     });
-
-    function filterKey(event, filter) {
-        if (filter) {
-            var sKey = String.fromCharCode(event.keyCode);
-            var re = new RegExp(filter);
-            if (!re.test(sKey)) event.returnValue = false;
-        };
-    }
 
 </script>
 
