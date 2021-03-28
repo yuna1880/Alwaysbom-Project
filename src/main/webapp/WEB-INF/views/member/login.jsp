@@ -60,7 +60,7 @@
                                     </a>
                                 </div>
                                 <p class="blind">아직 회원이 아니신가요?</p>
-                                <a href="memberJoin" class="link join">회원가입</a>
+                                <a href="/goMemberJoin" class="btn btn-primary">회원가입</a>
                                 <p class="let_join">
                                     지금 회원가입 하시면
                                     <b>1,000p</b>
@@ -73,6 +73,7 @@
             </div>
         </section>
     </div>
+    </script>
     <%@ include file="../main/footer.jspf"%>
 </body>
 </html>
