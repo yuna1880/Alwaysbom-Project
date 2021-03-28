@@ -9,11 +9,12 @@ header {
 
 /* 로그인 바 */
 .login-bar {
+    top: 0;
     min-width: 1280px;
     width: 1280px;
     height: 40px;
-    font-size: 15px;
-    line-height: 42px;
+    font-size: 14px;
+    line-height: 40px;
     /*border: 2px solid yellowgreen;*/
 }
 .login-bar a {
@@ -39,8 +40,8 @@ header {
 .h-menu-bar {
     min-width: 1280px;
     width: 1280px;
-    height: 72px;
-    font-size: 18px;
+    height: 78px;
+    font-size: 17px;
     /*border: 1px solid greenyellow;*/
 }
 .h-menu-bar a {
@@ -67,18 +68,21 @@ header {
 .h-menu {
     /*border: 1px solid red;*/
     margin-top: 10px;
-    padding: 1em 0.8em 0.8em 0.8em;
+    padding: 1em 0.8em 1.2em 0.8em;
     position: relative;
     z-index : 1;
+}
+.h-menu:last-child {
+    padding-right: 3em;
 }
 .h-menu-icon {
     /*border: 1px solid red;*/
     margin-top: 10px;
-    padding: 1em 0.8em 0.3em 0.5em;
+    padding: 0.8em 0.8em 0.5em 0.5em;
 }
 .h-menu-svg {
     width: auto;
-    height: 30px;
+    height: 27px;
 }
 .under-bar {
     border-top: 3px solid #7DAF3B;
@@ -86,10 +90,10 @@ header {
     pointer-events: none;
     opacity: 0;
     transition: all 0.3s;
-    transform: translate(0, 14px);
+    transform: translate(0, 22px);
 }
 #under-bar1 {
-    width: 90px;
+    width: 87px;
 }
 #under-bar2 {
     width: 50px;
@@ -110,7 +114,7 @@ header {
     border: 1px solid #979e97;
     border-top: 3px solid #7DAF3B;
     left: 50%;
-    transform: translate(-55px, 14px);
+    transform: translate(-55px, 22px);
     opacity: 0;
     transition: all 0.3s;
     pointer-events: none;
