@@ -4,9 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="orders-mapper">
 
-<insert id="insertOrder" parameterType="com.flo.alwaysbom.order.vo.OrderVo">
+
+    <select id="findDelivery" parameterType="com.flo.alwaysbom.member.MemberVO" resultType="com.flo.alwaysbom.order.vo.DeliveryInfoVo">
+        SELECT RECEIVER_NAME, RECEIVER_PHONE, RECEIVER_ZIPCODE, RECEIVER_ADDR_BASE,
+               RECEIVER_ADDR_DETAIL, RECEIVER_ADDR_EXTRA
+        FROM DELIVERY_INFO
+        WHERE MEMBER_ID = #{id}
+    </select>
+
+    <insert id="insertOrder" parameterType="com.flo.alwaysbom.order.vo.OrderVo">
 
 
-</insert>
+    </insert>
+
+
 
 </mapper>

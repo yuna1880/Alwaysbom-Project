@@ -58,9 +58,6 @@
             form.submit();
         }
 
-
-
-
         //참고
         function request() {
             let letters = document.querySelectorAll(".letter");
