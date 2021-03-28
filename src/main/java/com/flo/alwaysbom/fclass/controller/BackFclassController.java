@@ -154,7 +154,7 @@ public class BackFclassController {
 
     @PostMapping("/admin/fclass/api/deleteScheduleByIdx")
     @ResponseBody
-    public boolean deleteSchedule(Integer idx) {
+    public boolean deleteSchedule(@RequestBody List<Integer> idx) {
         return scheduleService.deleteSchedule(idx);
     }
 

@@ -21,7 +21,7 @@
         <div class="h-100 w-100 d-flex flex-column align-items-center">
             <div>
             <label class="form-label">
-                <input type="text" placeholder="조회하실 클래스의 날짜를 선택해주세요" id="dataForm" class="dateselect form-floating p-4" onclick="checkValidDate()" required="required"/>
+                <input type="text" placeholder="조회하실 클래스의 날짜를 선택해주세요" id="dataForm" class="select-datepicker form-floating p-4" onclick="checkValidDate()" required="required"/>
             </label>
             <button type="button" class="btn btn-dark" onclick="searchSchedule()">검색</button>
             </div>
@@ -36,7 +36,7 @@
             <span class="fs-2 fw-bold">수강등록</span>
         </div>
         <div class="h-100 w-100 d-flex flex-column align-items-center">
-            <div><input type="text" placeholder="등록할 수강일을 선택해주세요" id="classDate" class="dateselect form-floating p-2 mb-2 dataForm2" onclick="enableAll()" required="required" aria-label="수강일"/></div>
+            <div><input type="text" placeholder="등록할 수강일을 선택해주세요" id="classDate" class="register-datepicker form-floating p-2 mb-2 dataForm2" required="required" aria-label="수강일"/></div>
             <div class="mb-2"><input type="time" id="startTime" class="dataForm2 form-floating p-2" placeholder="시작시간" value="10:00" required="required" aria-label="시작시간"/></div>
             <div class="mb-2"><input type="time" id="endTime" class="dataForm2 form-floating p-2" placeholder="종료시간" value="20:00" required="required" aria-label="종료시간"/></div>
             <div class="mb-2"><input type="text" id="capacity" class="dataForm2 form-floating p-2" placeholder="수강정원" pattern="[0-9]+" onkeyup="this.reportValidity()" required="required" aria-label="수강정원"/></div>
@@ -74,7 +74,7 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <input type="text" placeholder="등록할 수강일을 선택해주세요" class="dateselect form-floating p-2 mb-2 dataForm2" name="sdate" required="required" aria-label="수강일"/>
+                    <input type="text" placeholder="수정할 수강일을 선택해주세요" class="update-datepicker form-floating p-2 mb-2 dataForm2" name="sdate" required="required" aria-label="수강일"/>
                 </div>
                 <div class="mb-2">
                     <input type="time" placeholder="시작시간" class="dataForm2 form-floating p-2" name="startTime" required="required" aria-label="시작시간"/>
@@ -104,28 +104,35 @@
         removeBtn.setAttribute("data-idx", idx);
     });
 
-    function enableAll() {
-        $('.dateselect').datepicker("setDatesDisabled", []);
-    }
-
     async function removeSchedule(btn) {
-        let idx = btn.getAttribute("data-idx");
+        let idxArray;
 
-        let data = {
-            idx: idx
-        };
+        if (btn) { // btn 이 있으면(undefined가 아니면) btn의 idx를 1개짜리 배열로 만들어서 ajax 처리
+            idxArray = [btn.getAttribute("data-idx")];
+
+        } else { // btn 이 없으면(undefined) 체크된 리스트의 idx를 배열로 만들어서 ajax 처리
+            let arr = [...document.querySelectorAll(".each-check:checked")];
+            idxArray = arr.map(function (tag) {
+                return tag.parentElement.parentElement.getAttribute("data-idx");
+            });
+        }
 
         let option = {
             method: 'post',
-            body: new URLSearchParams(data)
+            body: JSON.stringify(idxArray),
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
         };
 
         let response = await fetch("/admin/fclass/api/deleteScheduleByIdx", option);
         let result = await response.json();
-        console.log(result);
+        // 여기 응답받고 리스트 삭제하는 부분은 내일 합시다//////////////////////////////////////////////////////
         if(result) {
-            let tr = document.querySelector("tr[data-idx='" + idx + "']");
-            tr.remove();
+            for (let idx of idxArray) {
+                let tr = document.querySelector("tr[data-idx='" + idx + "']");
+                tr.remove();
+            }
             let numList = document.querySelectorAll("#scheduleTbody tr th span");
             numList.forEach(function (num, index) {
                 num.textContent = (index + 1).toString();
@@ -145,7 +152,6 @@
         }
         let response = await fetch("/admin/fclass/api/updateSchedule", option);
         let result = await response.json();
-        console.log(result);
 
         //기존의 tr에 있던 태그를 가져왔다
         let tr = document.querySelector("#scheduleTbody tr[data-idx='" + form.idx.value + "']"); // #scheduleTbody 의 자식 중에 tr[data-idx="1"]
@@ -185,18 +191,25 @@
 
         let scheduleThead = document.querySelector("#scheduleThead");
         scheduleThead.innerHTML = '<tr>'
-                                + '<th scope="col" class="col-1">'
-                                  + '<div class="d-flex justify-content-end position-relative">'
-                                    + '<input class="form-check-input position-absolute start-0" type="checkbox" id="checkAll" onclick="checkAll(this)">'
-                                    + '<span>No</span>'
-                                  + '</div>'
+                                // + '<th scope="col" class="col-1 p-0">'
+                                //   + '<div class="d-flex justify-content-end align-items-center position-relative">'
+                                //     + '<input class="form-check-input position-absolute" style="left: 8px;" type="checkbox" id="checkAll" onclick="checkAll()">'
+                                //     + '<button class="btn text-white">삭제</button>'
+                                //   + '</div>'
+                                // + '</th>'
+
+                                + '<th scope="col" style="flex: 0 0 auto; width: 4.16667%; vertical-align: middle">'
+                                    + '<input class="form-check-input" type="checkbox" id="checkAll" onclick="checkAll(this)">'
                                 + '</th>'
-                                + '<th scope="col" class="col-2">클래스 수강일</th>'
+                                + '<th scope="col" class="bg-danger" style="flex: 0 0 auto; width: 6.33333%; padding: 0; vertical-align:middle;">'
+                                    + '<button class="btn btn-danger text-white p-1 fw-bold" style="font-size:14.3333px" onclick="removeSchedule()">삭제</button>'
+                                + '</th>'
+                                + '<th scope="col" style="width: 14.5%;">클래스 수강일</th>'
                                 + '<th scope="col" class="col-2">시작시간</th>'
                                 + '<th scope="col" class="col-2">종료시간</th>'
                                 + '<th scope="col" class="col-2">수강정원</th>'
                                 + '<th scope="col" class="col-2">등록인원</th>'
-                                + '<th class="col-1">삭제</th>'
+                                + '<th class="col-1"></th>'
                                 + '</tr>'
 
         let tbody = document.querySelector("#scheduleTbody");
@@ -207,30 +220,41 @@
             let tr = document.createElement("tr");
             tr.setAttribute("role", "button");
             tr.setAttribute("data-idx", schedule.idx);
-            tr.setAttribute("data-bs-toggle", "modal");
+            // 체크박스의 event.stopPropagation()을 사용하기 위해서 자동으로 뜨는걸 막고, onclick 이벤트에서 toggle함.
+            // tr.setAttribute("data-bs-toggle", "modal");
             tr.setAttribute("data-bs-target", "#modal2");
             tr.onclick = function () {
-                $('.dateselect').datepicker("setDate", new Date(schedule.sdate));
+                $('.update-datepicker').datepicker("setDate", new Date(schedule.sdate));
                 form.sdate.value = dateToString(schedule.sdate);
                 form.startTime.value = schedule.startTime;
                 form.endTime.value = schedule.endTime;
                 form.totalCount.value = schedule.totalCount;
                 form.idx.value = schedule.idx;
+
+                let myModal = new bootstrap.Modal(document.querySelector("#modal2"), {
+                    keyboard: false
+                });
+                myModal.toggle();
             }
 
-            tr.innerHTML = '<th>'
-                           + '<div class="d-flex justify-content-end position-relative">'
-                            + '<input class="form-check-input position-absolute start-0 each-check" type="checkbox" id="check" onclick="checkStatus()">'
-                            + '<span>'+ (index + 1) +'</span>'
-                           + '</div>'
+            tr.innerHTML = '<th class="border-end bg-light" style="flex: 0 0 auto; width: 4.16667%; vertical-align: middle">'
+                            + '<input class="form-check-input each-check" type="checkbox" id="check">'
                          + '</th>'
+                         + '<td style="flex: 0 0 auto; width: 6.33333%; padding: 0; vertical-align:middle;">'
+                            + '<span>'+ (index + 1) +'</span>'
+                         + '</td>'
             // tr.innerHTML += '<td>' + new Date(schedule.sdate).toLocaleDateString() + '</td>'
-            tr.innerHTML += '<td class="fw-bold" data-hana="sdate">' + schedule.smonth + '월 ' + schedule.sday + '일' + '</td>'
+            tr.innerHTML += '<td class="fw-bold" data-hana="sdate" style="width: 14.5%;">' + schedule.smonth + '월 ' + schedule.sday + '일' + '</td>'
             tr.innerHTML += '<td class="fw-bold" data-hana="startTime">' + schedule.startTime + '</td>'
             tr.innerHTML += '<td class="fw-bold" data-hana="endTime">' + schedule.endTime + '</td>'
             tr.innerHTML += '<td class="fw-bold" data-hana="totalCount">' + schedule.totalCount + '</td>'
             tr.innerHTML += '<td class="fw-bold" data-hana="regCount">' + schedule.regCount + '</td>'
             tr.innerHTML += '<td><button data-idx="' + schedule.idx + '" class="btn btn-danger p-0 px-2" data-bs-toggle="modal" data-bs-target="#modal">삭제</button></td>';
+            tr.querySelector("th input[type='checkbox']").addEventListener("click", checkStatus);
+            tr.querySelector("th").addEventListener("click", function(event) {
+                tr.querySelector("th input[type='checkbox']").click();
+                event.stopPropagation();
+            });
             tbody.appendChild(tr);
         })
     }
@@ -243,7 +267,9 @@
         }
     }
 
-    function checkStatus() {
+    function checkStatus(event) {
+        event.stopPropagation();
+
         let allBtn = document.querySelector("#checkAll");
 
         let status = true;
@@ -277,9 +303,7 @@
         };
 
         let response = await fetch("/admin/fclass/api/addSchedule", option);
-        console.log(response);
         response.json().then((result) => {
-            console.log(result);
             alert("클래스 일정이 추가되었습니다")
             // location.href = "/admin/fclass/manageSchedule?classIdx=" + result.fclassIdx + "&branchIdx=" + result.branchIdx;
         }).catch(() => alert("클래스 일정 추가에 실패했습니다"));
@@ -297,7 +321,6 @@
     }
 
     async function checkValidDate() {
-
         let disabledArrayInit = [];
 
         let today = new Date().getTime();
@@ -332,12 +355,34 @@
             disabledArrayInit.splice(number, 1);
         }
 
-        $('.dateselect').datepicker("setDatesDisabled",disabledArrayInit);
+        $('.select-datepicker').datepicker("setDatesDisabled",disabledArrayInit);
 
     }
 
     $(function () {
-        $('.dateselect').datepicker({
+        $('.select-datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            showOtherMonths: false,
+            startDate: 'noBefore',
+            endDate: '+60d',
+            setDate: 'today',
+            todayHighlight: true,
+            title: '새늘봄 클래스 일정을 선택해주세요',
+            language: 'ko'
+        });
+
+        $('.register-datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            showOtherMonths: false,
+            startDate: 'noBefore',
+            endDate: '+60d',
+            setDate: 'today',
+            todayHighlight: true,
+            title: '새늘봄 클래스 일정을 선택해주세요',
+            language: 'ko'
+        });
+
+        $('.update-datepicker').datepicker({
             format: 'yyyy-mm-dd',
             showOtherMonths: false,
             startDate: 'noBefore',
