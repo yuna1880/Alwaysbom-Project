@@ -21,7 +21,7 @@ public class ScheduleDao {
         return sqlSessionTemplate.selectList("schedule.searchSchedule", vo);
     }
 
-    public boolean deleteSchedule(Integer idx) {
+    public boolean deleteSchedule(List<Integer> idx) {
         return sqlSessionTemplate.delete("schedule.deleteSchedule", idx) > 0;
     }
 

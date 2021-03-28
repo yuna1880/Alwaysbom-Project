@@ -20,7 +20,10 @@ public class ScheduleService {
         return scheduleDao.searchSchedule(vo);
     }
 
-    public boolean deleteSchedule(Integer idx) {
+    public boolean deleteSchedule(List<Integer> idx) {
+        if (idx == null || idx.size() == 0) {
+            throw new IllegalArgumentException("idx 배열이 비어있습니다");
+        }
         return scheduleDao.deleteSchedule(idx);
     }
 
