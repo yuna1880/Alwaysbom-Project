@@ -49,6 +49,11 @@ public class MemberController {
         return "member/myPage";
     }
 
+    @GetMapping("/myPage_faq_main")
+    public String myPage_faq_main() {
+        return "member/myPage_faq_main";
+    }
+
     @Autowired
     private MemberService memberService;
 
