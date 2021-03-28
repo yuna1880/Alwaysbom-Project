@@ -7,8 +7,8 @@
 <body>
 <%@ include file="../main/b_header.jspf"%>
 <form id="container" class="mx-auto" method="get" action="/admin/fclass/manageSchedule">
-    <div class="h-50 d-flex justify-content-between">
-        <div class="col-4 bg-info d-flex justify-content-center align-items-center p-5">
+    <div class="h-50 d-flex justify-content-between bg-success">
+        <div class="col-4 d-flex justify-content-center align-items-center p-5">
             <select class="form-select form-select-lg lh-lg" aria-label="select"
                     id="category" name="category" onchange="findByCategory(this.value)">
                 <option selected disabled>카테고리를 선택해주세요</option>
@@ -16,7 +16,7 @@
                 <option value="플로리스트">플로리스트</option>
             </select>
         </div>
-        <div class="col-4 bg-primary d-flex justify-content-center align-items-center p-5">
+        <div class="col-4 d-flex justify-content-center align-items-center p-5 bg-success">
             <select class="form-select form-select-lg lh-lg" aria-label="select" disabled
                     id="classIdx" name="classIdx" onchange="findByClassIdx(this.value)">
                 <option selected>클래스를 선택해주세요</option>
@@ -24,7 +24,7 @@
                 <option value="플로리스트">플로리스트</option>
             </select>
         </div>
-        <div class="col-4 bg-warning d-flex justify-content-center align-items-center p-5">
+        <div class="col-4 d-flex justify-content-center align-items-center p-5 bg-success">
             <select class="form-select form-select-lg lh-lg" aria-label="select" disabled
                     id="branchIdx" name="branchIdx" onchange="enableNextBtn()">
                 <option selected>지점을 선택해주세요</option>
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="h-50 d-flex justify-content-end">
-        <div class="col-4 bg-secondary d-flex justify-content-center align-items-baseline p-5">
+        <div class="col-4 d-flex justify-content-center align-items-baseline p-5">
             <button id="nextBtn" type="submit" class="btn btn-dark btn-lg" disabled>다음으로</button>
         </div>
     </div>

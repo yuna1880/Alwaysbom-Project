@@ -23,4 +23,8 @@ public class ScheduleService {
     public boolean deleteSchedule(Integer idx) {
         return scheduleDao.deleteSchedule(idx);
     }
+
+    public ScheduleVo updateSchedule(ScheduleVo vo) {
+        return scheduleDao.updateSchedule(vo);
+    }
 }
