@@ -1,5 +1,8 @@
 .main-img {
     width: 100vw;
-    height: 500px;
     background-color: #7DAF3B;
+}
+.main-img img {
+    width: 100vw;
+    height: auto;
 }

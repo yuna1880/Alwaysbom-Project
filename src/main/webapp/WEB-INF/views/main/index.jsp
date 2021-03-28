@@ -10,7 +10,7 @@
 <body>
 <%@ include file="header.jspf"%>
     <div class="main-img d-flex justify-content-center align-items-center">
-        메인 이미지
+        <img src="static/image/main/main_sample.jpg" alt="메인이미지 샘플">
     </div>
     <div id="container" class="mx-auto">
         <h1>Main</h1>
@@ -24,5 +24,22 @@
     </div>
 
 <%@ include file="footer.jspf"%>
+<script>
+    let stickyHeader = document.querySelector(#menu)
+</script>
+<%--$(function(){--%>
+<%--var shrinkHeader = 300;--%>
+<%--$(window).scroll(function(){--%>
+<%--var scroll = getCurrentScroll();--%>
+<%--if(scroll >= shrinkHeader){--%>
+<%--$('.header').addClass('shrink');--%>
+<%--}else{--%>
+<%--$('.header').removeClass('shrink');--%>
+<%--}--%>
+<%--});--%>
+<%--function getCurrentScroll(){--%>
+<%--return window.pageYOffset || document.documentElement.scrollTop;--%>
+<%--}--%>
+<%--});--%>
 </body>
 </html>

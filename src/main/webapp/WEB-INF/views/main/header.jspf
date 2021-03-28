@@ -1,16 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
-<header>
-    <div class="d-flex justify-content-center">
-        <div class="login-bar">
-            <ul class="d-flex justify-content-end">
-                <li><a href="#" class="text-decoration-none">오늘의 꽃은?</a></li>
-                <li>|</li>
-                <li><a href="/memberLogin">로그인</a></li>
-                <li>|</li>
-                <li><a href="/goMemberJoin">회원가입<span class="point-text">(1000포인트 지급!)</span></a></li>
-            </ul>
-        </div>
+<div class="d-flex justify-content-center">
+    <div class="login-bar">
+        <ul class="d-flex justify-content-end">
+            <li><a href="#" class="text-decoration-none">오늘의 꽃은?</a></li>
+            <li>|</li>
+            <li><a href="/memberLogin">로그인</a></li>
+            <li>|</li>
+            <li><a href="/goMemberJoin">회원가입<span class="point-text">(1000포인트 지급!)</span></a></li>
+        </ul>
     </div>
+</div>
+<header>
     <div class="d-flex justify-content-center">
         <div class="h-menu-bar d-flex justify-content-between align-items-center">
             <div class="logo d-flex justify-content-center align-items-center" onclick="location.href='/'">
