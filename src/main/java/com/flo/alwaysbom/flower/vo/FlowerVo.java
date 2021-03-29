@@ -27,7 +27,11 @@ public class FlowerVo {
     // 무료배송 여부 메세지 출력
     public String getFreeDeliveryMessage() {
         if (freeDelivery == 0) {
-            return "";
+            if (getFinalPrice() >= 30000) {
+                return "무료배송";
+            } else {
+                return "";
+            }
         } else {
             return "무료배송";
         }
