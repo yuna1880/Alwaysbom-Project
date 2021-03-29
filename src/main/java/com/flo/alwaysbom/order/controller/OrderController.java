@@ -3,7 +3,7 @@ package com.flo.alwaysbom.order.controller;
 import com.flo.alwaysbom.cart.service.CartService;
 import com.flo.alwaysbom.cart.vo.CartVo;
 import com.flo.alwaysbom.cart.vo.Letter;
-import com.flo.alwaysbom.member.MemberVO;
+import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.dao.OrderDao;
 import com.flo.alwaysbom.order.service.OrderService;
 import com.flo.alwaysbom.order.vo.DeliveryInfoVo;
