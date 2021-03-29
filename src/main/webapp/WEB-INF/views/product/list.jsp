@@ -279,5 +279,18 @@
     </div> <!-- #container 닫음 -->
 
     <%@ include file="../main/footer.jspf" %>
+
+    <script>
+        let headerMenuColumns = document.getElementsByClassName("h-menu");
+        let underBars = document.getElementsByClassName("under-bar");
+        for (let i = 0; i < headerMenuColumns.length; i++) {
+            headerMenuColumns[i].firstElementChild.classList.remove("menu-active");
+        }
+        for (let i = 0; i < underBars.length; i++) {
+            underBars[i].classList.remove("menu-active");
+        }
+        document.querySelector("#product").classList.add("menu-active");
+        document.querySelector("#under-bar4").classList.add("menu-active");
+    </script>
 </body>
 </html>

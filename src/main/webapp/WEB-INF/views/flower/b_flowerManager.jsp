@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>꽃다발 관리 인덱스</title>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="../static/css/item/b_itemManager.css">
+    <link rel="stylesheet" href="/static/css/item/b_itemManager.css">
 </head>
 <body>
     <%@ include file="../main/b_header.jspf"%>
@@ -17,24 +17,19 @@
             </ol>
         </nav>
         <div class="d-flex justify-content-center">
-            <div class="btn-circle d-flex justify-content-center align-items-center">
+            <div class="btn-circle d-flex justify-content-center align-items-center"
+                 onclick="location.href='#'">
                 배너 등록/수정
             </div>
             <div class="btn-circle d-flex justify-content-center align-items-center"
-                 onclick="location.href='/admin/flower/insertForm'">
+                 onclick="location.href='/admin/flowerAddForm'">
                 상품 등록
             </div>
-            <div class="btn-circle d-flex justify-content-center align-items-center">
+            <div class="btn-circle d-flex justify-content-center align-items-center"
+                 onclick="location.href='/admin/flowerList'">
                 상품 조회/수정/삭제
             </div>
         </div>
-        <div class="d-flex justify-content-center">
-        </div>
-        <div class="d-flex justify-content-center">
-        </div>
-
-
-
     </div>
 
     <%@ include file="../main/b_footer.jspf"%>

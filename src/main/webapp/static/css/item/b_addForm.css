@@ -4,7 +4,7 @@
 #bread-nav {
     display: flex;
     font-size: 18px;
-    margin-top: 20px;
+    padding-top: 20px;
 }
 #bread-nav a {
     color: #4D4D4D;
@@ -21,7 +21,6 @@
 }
 .description {
     font-size: 16px;
-    margin-left: 20px;
 }
 .img-card {
     width: 350px;
