@@ -30,14 +30,39 @@
                 </div>
                 <ul class="nav row table">
                     <c:forEach var="quList" items="${questlist}">
-                    <li class="list ">
+                        <li class="list ">
                         <div class="row row-cols-4">
                             <span class="text-center">${quList.idx}</span>
                             <span class="text-center">작성일</span>
                             <span class="text-center">${quList.name}</span>
                             <span class="text-center">${quList.content}</span>
                         </div>
-                        <img src="/static/upload/community/question/${quList.image}">
+                        <div>
+                            <div>
+                                <img src="/static/upload/community/question/${quList.image}">
+                            </div>
+                            <div>
+                                내용내용내용내용내용질문내용
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <div class="row row-cols-4">
+                                    <span class="text-center">답변 번호</span>
+                                    <span class="text-center">작성일</span>
+                                    <span class="text-center">답변ㅇㅇㅇㅇ</span>
+                                    <span class="text-center"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <div>
+                                        답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </li>
                 </c:forEach>
                 </ul>
