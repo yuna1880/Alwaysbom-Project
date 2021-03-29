@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>소품샵 관리 인덱스</title>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="../static/css/item/b_management.css">
+    <link rel="stylesheet" href="/static/css/item/b_itemManager.css">
 </head>
 <body>
     <%@ include file="../main/b_header.jspf"%>
@@ -21,10 +21,11 @@
                 배너 등록/수정
             </div>
             <div class="btn-circle d-flex justify-content-center align-items-center"
-                 onclick="location.href='/admin/productInsert'">
+                 onclick="location.href='/admin/productAddForm'">
                 상품 등록
             </div>
-            <div class="btn-circle d-flex justify-content-center align-items-center">
+            <div class="btn-circle d-flex justify-content-center align-items-center"
+                 onclick="location.href='/admin/productList'">
                 상품 조회/수정/삭제
             </div>
         </div>

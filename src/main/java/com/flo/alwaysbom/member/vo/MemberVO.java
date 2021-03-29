@@ -1,4 +1,4 @@
-package com.flo.alwaysbom.member;
+package com.flo.alwaysbom.member.vo;
 
 import lombok.*;
 

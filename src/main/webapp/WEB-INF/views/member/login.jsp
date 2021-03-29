@@ -10,6 +10,11 @@
         Kakao.isInitialized();
 
         function kakaoLogin() {
+            Kakao.Auth.authorize({
+                redirectUri: '{https://localhost:8070/WEB-INF/views/member/join.jsp}'
+            });
+            //토큰 받아오기
+            Kakao.Auth.setAccessToken(ACCESS_TOKEN);
             Kakao.Auth.login({
                 scope:'profile, account_email, gender, birthday',
                 success: function (authObj) {
@@ -18,9 +23,32 @@
                         success: res => {
                             const kakao_account = res.kakao_account;
                             console.log(kakao_account);
+                        },
+                        fail: function(error) {
+                            console.log(error);
                         }
                     });
                 }
+            });
+        }
+        function kakaoLogout() {
+            //로그아웃
+            if (!Kakao.Auth.getAccessToken()) {
+                console.log('Not logged in.');
+                return;
+            }
+            Kakao.Auth.logout(function () {
+                console.log(Kakao.Auth.getAccessToken());
+            });
+            //연결 끊기
+            Kakao.API.request({
+                url: '/v1/user/unlink',
+                success: function(response) {
+                    console.log(response);
+                },
+                fail: function(error) {
+                    console.log(error);
+                },
             });
         }
     </script>
@@ -60,7 +88,7 @@
                                     </a>
                                 </div>
                                 <p class="blind">아직 회원이 아니신가요?</p>
-                                <a href="memberJoin" class="link join">회원가입</a>
+                                <a href="/goMemberJoin" class="btn btn-primary">회원가입</a>
                                 <p class="let_join">
                                     지금 회원가입 하시면
                                     <b>1,000p</b>
@@ -73,6 +101,7 @@
             </div>
         </section>
     </div>
+    </script>
     <%@ include file="../main/footer.jspf"%>
 </body>
 </html>

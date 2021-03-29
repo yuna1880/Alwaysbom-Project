@@ -19,6 +19,7 @@ public class BackFlowerDao {
     }
 
     public List<FlowerVo> findAll() {
+        System.out.println("BackFlowerDao.findAll() 실행");
         return sqlSessionTemplate.selectList("FLOWER.findAll");
     }
 
