@@ -1,8 +1,6 @@
 package com.flo.alwaysbom.member.dao;
 
-import com.flo.alwaysbom.member.dao.MemberDAO;
 import com.flo.alwaysbom.member.vo.MemberVO;
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,10 +9,10 @@ import org.springframework.stereotype.Repository;
 public class MemberDAOImpl implements MemberDAO {
 
     @Autowired
-    private SqlSession session;
+    private SqlSessionTemplate session;
 
     @Override
     public void insertMember(MemberVO memberVO) {
-        session.insert("insertMember",memberVO);
+        session.insert("member.insertMember",memberVO);
     }
 }

@@ -10,6 +10,11 @@
         Kakao.isInitialized();
 
         function kakaoLogin() {
+            Kakao.Auth.authorize({
+                redirectUri: '{https://localhost:8070/WEB-INF/views/member/join.jsp}'
+            });
+            //토큰 받아오기
+            Kakao.Auth.setAccessToken(ACCESS_TOKEN);
             Kakao.Auth.login({
                 scope:'profile, account_email, gender, birthday',
                 success: function (authObj) {
@@ -28,12 +33,8 @@
                     });
                 }
             });
-            Kakao.Auth.authorize({
-                redirectUri: '{https://localhost:8070/WEB-INF/views/member/member_join.jsp}'
-            });
-            //토큰 받아오기
-            Kakao.Auth.setAccessToken(ACCESS_TOKEN);
         }
+<<<<<<< HEAD
         // function kakaoLogout() {
         //     //로그아웃
         //     if (!Kakao.Auth.getAccessToken()) {
@@ -54,6 +55,28 @@
         //         },
         //     });
         // }
+=======
+        function kakaoLogout() {
+            //로그아웃
+            if (!Kakao.Auth.getAccessToken()) {
+                console.log('Not logged in.');
+                return;
+            }
+            Kakao.Auth.logout(function () {
+                console.log(Kakao.Auth.getAccessToken());
+            });
+            //연결 끊기
+            Kakao.API.request({
+                url: '/v1/user/unlink',
+                success: function(response) {
+                    console.log(response);
+                },
+                fail: function(error) {
+                    console.log(error);
+                },
+            });
+        }
+>>>>>>> 6c3f74425c7042ac1063968604a12ab84b896f99
     </script>
 </head>
 <body>

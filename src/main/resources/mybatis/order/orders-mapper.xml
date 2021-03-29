@@ -5,7 +5,7 @@
 <mapper namespace="orders-mapper">
 
 
-    <select id="findDelivery" parameterType="com.flo.alwaysbom.member.MemberVO" resultType="com.flo.alwaysbom.order.vo.DeliveryInfoVo">
+    <select id="findDelivery" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultType="com.flo.alwaysbom.order.vo.DeliveryInfoVo">
         SELECT RECEIVER_NAME, RECEIVER_PHONE, RECEIVER_ZIPCODE, RECEIVER_ADDR_BASE,
                RECEIVER_ADDR_DETAIL, RECEIVER_ADDR_EXTRA
         FROM DELIVERY_INFO
