@@ -38,7 +38,8 @@
     </select>
 
     <select id="findByIdx" parameterType="int" resultMap="fclassMap">
-        SELECT * FROM FCLASS WHERE IDX = #{idx}
+        SELECT * FROM FCLASS
+        WHERE IDX = #{idx}
     </select>
 
     <select id="findAll" resultMap="fclassMap">
