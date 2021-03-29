@@ -70,7 +70,10 @@
                     </div>
                     <div class="col-3 d-flex flex-column">
                         <c:forEach var="choice" items="${cart.choices}">
-                            <span>${choice.productVo.name} * ${choice.quantity}</span>
+                            <div>
+                                <span>${choice.productVo.name} * ${choice.quantity}</span>
+                                <span><fmt:formatNumber value="${choice.productVo.finalPrice}" pattern="(#,###원)"/></span>
+                            </div>
                         </c:forEach>
                     </div>
                     <div class="col-2"><fmt:formatNumber value="${cart.totalPrice}" pattern="#,###원"/></div>
