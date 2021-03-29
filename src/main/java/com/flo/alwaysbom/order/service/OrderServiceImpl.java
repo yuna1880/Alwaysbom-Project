@@ -47,4 +47,9 @@ public class OrderServiceImpl implements OrderService {
     public DeliveryInfoVo findAddress(MemberVO vo) {
         return orderdao.findAddress(vo);
     }
+
+    @Override
+    public int getPoint(MemberVO mvo) {
+        return orderdao.getPoint(mvo);
+    }
 }

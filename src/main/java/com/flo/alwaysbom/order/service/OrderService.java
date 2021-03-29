@@ -14,11 +14,10 @@ public interface OrderService {
     void deleteOrder(OrderVo vo);
     OrderVo getOrder(OrderVo vo);
 
-    //letter는 cart -> letter 라서 cartService에서..
-    //void getLetter(OrderVo vo);
-
     List<OrderVo> getOrderList();
     List<OrderVo> getOrderList(OrderVo vo);
 
     DeliveryInfoVo findAddress(MemberVO vo);
+
+    int getPoint(MemberVO mvo);
 }

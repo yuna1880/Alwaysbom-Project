@@ -16,8 +16,12 @@
                     url: "/order/findAddress",
                     type: "post",
                     success: function (data) {
-                        alert("여기여기" + data);
                         document.getElementById('findAddr').click();
+                        document.getElementById('find-name').value = data.receiverName;
+                        document.getElementById('find-zipcode').value = data.receiverZipcode;
+                        document.getElementById('find-address').value = data.receiverAddrBase;
+                        document.getElementById('find-address-details').value = data.receiverAddrDetail;
+                        document.getElementById('find-address-extra').value = data.receiverAddrExtra;
                     },
                     error: function () {
                         alert("실패!!!!");
@@ -78,128 +82,94 @@
 
                                     <!-- 주소입력창 -->
                                     <div class="role_tabpanel opened" tabindex="0" role="tabpanel" id="input_info">
-                                        <table class="address_input_table">
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="detail">
-                                                        <c:forEach var="letter" items="${letter}">
-                                                            <input type="hidden" name="idx" value="${letter.idx}">
-                                                            <input type="hidden" name="name" value="${letter.name}">
-                                                            <input type="hidden" name="letterContent" value="${letter.content}">
-                                                        </c:forEach>
-                                                        <span class="th">수령인 이름</span>
-                                                        <div class="td">
-                                                            <input maxlength="255" id="receiving_name" name="receiverName" type="text" value="유나" autocomplete="off">
-                                                        </div>
+                                        <div class="address_input_table">
+                                            <div class="detail">
+                                                <c:forEach var="letter" items="${letter}">
+                                                    <input type="hidden" name="idx" value="${letter.idx}">
+                                                    <input type="hidden" name="name" value="${letter.name}">
+                                                    <input type="hidden" name="letterContent" value="${letter.content}">
+                                                </c:forEach>
+                                                <span class="th">수령인 이름</span>
+                                                <div class="td">
+                                                    <input maxlength="255" id="receiving_name" name="receiverName" type="text" value="유나" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="detail">
+                                                <span class="th">수령인 연락처</span>
+                                                <div class="td_phone">
+                                                    <div>
+                                                        <select id="receiving_phone1" name="receiver_phone1">
+                                                            <option value="010">010</option>
+                                                            <option value="011">011</option>
+                                                            <option value="016">016</option>
+                                                            <option value="017">017</option>
+                                                            <option value="018">018</option>
+                                                            <option value="019">019</option>
+                                                        </select>
                                                     </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="detail">
-                                                        <span class="th">수령인 연락처</span>
-                                                        <div class="td_phone">
-                                                            <div>
-                                                                <select id="receiving_phone1" name="receiver_phone1">
-                                                                    <option value="010">010</option>
-                                                                    <option value="011">011</option>
-                                                                    <option value="016">016</option>
-                                                                    <option value="017">017</option>
-                                                                    <option value="018">018</option>
-                                                                    <option value="019">019</option>
-                                                                </select>
-                                                            </div>
-                                                            <span class="d">-</span>
-                                                            <div>
-                                                                <input type="phone" maxlength="4" id="receiving_phone2" name="receiver_phone2" value="5847" autocomplete="off">
-                                                            </div>
-                                                            <span class="d">-</span>
-                                                            <div>
-                                                                <input type="phone" maxlength="4" class="form-control form-control-small" id="receiving_phone3" name="receiver_phone3" value="1880" autocomplete="off">
-                                                                <input type="hidden" id="receiver_phone" name="receiverPhone">
-                                                            </div>
-                                                        </div>
+                                                    <span class="d">-</span>
+                                                    <div>
+                                                        <input type="phone" maxlength="4" id="receiving_phone2" name="receiver_phone2" value="" autocomplete="off">
                                                     </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="detail">
-                                                        <span class="th">우편번호</span>
-                                                        <div class="td">
-                                                            <div class="find_address">
-                                                                <input type="text" maxlength="128" class="find" id="receiving_postcode" autocomplete="off" name="receiverZipcode" placeholder="주소 검색" readonly="" value="" onclick="showPostcode()">
-                                                                <span class="empty"></span>
-                                                                <button type="button" class="btn btn-light btn-sm" onclick="showPostcode()">찾기</button>
-                                                                <%--                                                                        <button type="button" class="btn btn-outline-secondary">찾기</button>--%>
-                                                            </div>
-                                                        </div>
+                                                    <span class="d">-</span>
+                                                    <div>
+                                                        <input type="phone" maxlength="4" class="form-control form-control-small" id="receiving_phone3" name="receiver_phone3" value="" autocomplete="off">
+                                                        <input type="hidden" id="receiver_phone" name="receiverPhone">
                                                     </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="detail">
-                                                        <span class="th">주소</span>
-                                                        <span class="td">
-                                                                    <input type="text" maxlength="255" id="receiving_address_1" autocomplete="off" name="receiverAddrBase" readonly="" value="">
-                                                                </span>
+                                                </div>
+                                            </div>
+                                            <div class="detail">
+                                                <span class="th">우편번호</span>
+                                                <div class="td">
+                                                    <div class="find_address">
+                                                        <input type="text" maxlength="128" class="find" id="receiving_postcode" autocomplete="off" name="receiverZipcode" placeholder="주소 검색" readonly="" value="" onclick="showPostcode()">
+                                                        <span class="empty"></span>
+                                                        <button type="button" class="btn btn-light btn-sm" onclick="showPostcode()">찾기</button>
+                                                        <%--  <button type="button" class="btn btn-outline-secondary">찾기</button> --%>
                                                     </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="detail">
-                                                        <span class="th">상세주소</span>
-                                                        <span class="td">
-                                                                    <input type="text" maxlength="255" id="receiving_address_2" autocomplete="off" name="receiverAddrDetail" value="">
-                                                                </span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="detail">
-                                                        <span class="th">참고주소</span>
-                                                        <span class="td">
-                                                                    <input type="text" maxlength="255" id="receiving_address_3" autocomplete="off" name="receiverAddrExtra" value="">
-                                                                </span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="detail">
-                                                        <span class="th">발신인</span>
-                                                        <span class="td_unknown"><input type="text" maxlength="64" autocomplete="off" id="sender_name" name="senderName" value="Yuna">
-                                                                    <span class="unknow_noti">
-                                                                        <input type="checkbox" name="sender_unknown" id="sender_unknown" class="lb_unknow_name_new" onchange="unknownName()" on>
-                                                                        <label for="sender_unknown">익명으로 보내기</label>
-                                                                    </span>
-                                                                </span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="detail">
-                                                        <span class="th">배송지 저장</span>
-                                                        <span class="td_unknown">
-                                                                    <span class="unknow_noti2">
-                                                                        <label class="save_delivery">
-                                                                            <input type="radio" class="save_address" name="save_address" value="저장하기" onclick="saveAddress()">저장하기
-                                                                        </label>
-                                                                        <label>
-                                                                            <input type="radio" class="save_address no" name="save_address" value="저장안함" checked>저장안함
-                                                                        </label>
-                                                                    </span>
-                                                                </span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                                </div>
+                                            </div>
+                                            <div class="detail">
+                                                <span class="th">주소</span>
+                                                <span class="td">
+                                                    <input type="text" maxlength="255" id="receiving_address_1" autocomplete="off" name="receiverAddrBase" readonly="" value="">
+                                                </span>
+                                            </div>
+                                            <div class="detail">
+                                                <span class="th">상세주소</span>
+                                                <span class="td">
+                                                    <input type="text" maxlength="255" id="receiving_address_2" autocomplete="off" name="receiverAddrDetail" value="">
+                                                </span>
+                                            </div>
+                                            <div class="detail">
+                                                <span class="th">참고주소</span>
+                                                <span class="td">
+                                                    <input type="text" maxlength="255" id="receiving_address_3" autocomplete="off" name="receiverAddrExtra" value="">
+                                                </span>
+                                            </div>
+                                            <div class="detail">
+                                                <span class="th">발신인</span>
+                                                <span class="td_unknown"><input type="text" maxlength="64" autocomplete="off" id="sender_name" name="senderName" value="Yuna">
+                                                    <span class="unknow_noti">
+                                                        <input type="checkbox" name="sender_unknown" id="sender_unknown" class="lb_unknow_name_new" onchange="unknownName()">
+                                                        <label for="sender_unknown">익명으로 보내기</label>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="detail">
+                                                <span class="th">배송지 저장</span>
+                                                <span class="td_unknown">
+                                                    <span class="unknow_noti2">
+                                                        <label class="save_delivery">
+                                                            <input type="radio" class="save_address" name="save_address" value="저장하기" onclick="saveAddress()">저장하기
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" class="save_address no" name="save_address" value="저장안함" checked>저장안함
+                                                        </label>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
                                         <!-- 주의사항-->
                                         <span class="unknow_txt modify_0724">
                                                 <span class="l"><i>*</i><b>익명으로 보내기를 선택할 경우, 주의할 것이 있어요.</b>
@@ -319,35 +289,43 @@
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">배송지 목록</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="exampleModalLabel">최근 배송지</h5>
+                        <button type="button" id="close-button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <table class="address_input_table">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="detail">
-                                        <span class="th">수령인 이름</span>
-                                        <span class="td">
-                                                    <input name="receiving_name" id="fined-name" type="text" value="권유나" readonly>
-                                                </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="detail">
-                                        <span class="th">주소</span>
-                                        <span class="td">
-                                                    <input type="text" class="saved_address" id="fined-address" name="receiving_address" value="서울특별시 서초구 서초대로55길 82 비트캠프 2층 202호" readonly>
-                                                    <button type="button" class="btn btn-dark btn-sm" onclick="selectAddress()">선택</button>
-                                                </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <div class="address_input_table">
+                            <div class="detail">
+                                <span class="th">수령인 이름</span>
+                                <span class="td">
+                                    <input name="receiving_name" id="find-name" type="text" readonly>
+                                </span>
+                            </div>
+                            <div class="detail">
+                                <span class="th">우편번호</span>
+                                <span class="td">
+                                    <input type="text" class="saved_address" id="find-zipcode" name="receiving_zipcode" readonly>
+                                </span>
+                            </div>
+                            <div class="detail">
+                                <span class="th">주소</span>
+                                <span class="td">
+                                    <input type="text" class="saved_address" id="find-address" name="receiving_address" readonly>
+                                </span>
+                            </div>
+                            <div class="detail">
+                                <span class="th">상세주소</span>
+                                <span class="td">
+                                    <input type="text" class="saved_address" id="find-address-details" name="receiving_address_detail" readonly>
+                                </span>
+                            </div>
+                            <div class="detail">
+                                <span class="th">참고주소</span>
+                                <span class="td">
+                                    <input type="text" class="saved_address" id="find-address-extra" name="receiving_address_extra" readonly>
+                                    <button type="button" class="btn btn-dark btn-sm" onclick="selectAddress()">선택</button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="closed-button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -429,19 +407,25 @@
         }).open();
     }
     function selectAddress() {
-        let postCode = document.getElementById('fined-name').value
-        let addr = document.getElementById('fined-address').value
-        //우편번호 input에 넣어주기
-        document.getElementById('receiving_postcode').value = postCode;
+        let name = document.getElementById('find-name').value;
+        let zip = document.getElementById('find-zipcode').value;
+        let addr = document.getElementById('find-address').value;
+        let addrDeatil = document.getElementById('find-address-details').value;
+        let addrExtra = document.getElementById('find-address-extra').value;
+
+        document.getElementById('receiving_name').value = name;
+        document.getElementById('receiving_postcode').value = zip;
         document.getElementById('receiving_address_1').value = addr;
-        document.getElementById('closed-button').click();
+        document.getElementById('receiving_address_2').value = addrDeatil;
+        document.getElementById('receiving_address_3').value = addrExtra;
+        document.getElementById('close-button').click();
+
     }
     function submitForm(frm) {
-        //핸드폰번호 합치기
-        let f = document.frm;
-        let phone = f.receiver_phone1.value + f.receiver_phone2.value + f.receiver_phone3.value;
-        f.receiver_phone = phone;
-        alert("번호 : " + phone);
+         let f = document.frm;
+         let phone = f.receiver_phone1.value + '-' + f.receiver_phone2.value + '-' + f.receiver_phone3.value;
+         document.getElementById('receiver_phone').value = phone;
+        alert("합친번호 : " + phone);
         //컨트롤러 이동
         f.action = "/order/payment";
         f.submit();

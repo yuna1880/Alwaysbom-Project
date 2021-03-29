@@ -25,4 +25,7 @@ public class OrderDao {
         return sqlSessionTemplate.selectOne("orders-mapper.findDelivery",vo);
     }
 
+    public int getPoint(MemberVO mvo) {
+        return sqlSessionTemplate.selectOne("orders-mapper.getPoint",mvo);
+    }
 }

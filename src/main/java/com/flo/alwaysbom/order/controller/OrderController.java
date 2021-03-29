@@ -28,7 +28,6 @@ public class OrderController {
     private final CartService cartService;
     private final OrderDao orderDao;
 
-
     //장바구니에 담긴 내용들 가지고 (세션에 저장) -> 편지
     @GetMapping("/order/getLetter")
     public String goLetter(Integer[] idx, HttpSession session) {
@@ -41,11 +40,19 @@ public class OrderController {
 
     //배송지입력 페이지 -> 결제전 확인 페이지
     @PostMapping("/order/payment")
-    public String goPayment(OrderVo vo, OitemVo ovo) {
-
+    public String goPayment(OrderVo vo, OitemVo ovo, MemberVO mvo, Model model) {
         System.out.println("orderVo = " + vo);
         System.out.println("oItemVo = " + ovo);
+        mvo.setId("yuna1880");
+        System.out.println("MemverVo = " + mvo);
         //System.out.println("letterList = " + list);
+
+        //해당 id 회원 포인트 찾기
+        int point = orderService.getPoint(mvo);
+
+        model.addAttribute("point",point);
+        model.addAttribute("vo", vo);
+        model.addAttribute("ovo", vo);
 
         return "order/payment";
     }
