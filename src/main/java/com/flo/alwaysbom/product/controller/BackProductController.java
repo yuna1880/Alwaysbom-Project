@@ -10,6 +10,11 @@ public class BackProductController {
 
     @GetMapping("/admin/product")
     public String getIndex() {
-        return "product/b_management";
+        return "product/b_productManager";
+    }
+
+    @GetMapping("/admin/productAddForm")
+    public String goInsert() {
+        return "product/b_addForm";
     }
 }

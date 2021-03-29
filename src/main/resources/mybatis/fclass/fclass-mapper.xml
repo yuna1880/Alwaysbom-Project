@@ -27,12 +27,35 @@
         WHERE IDX = #{idx}
     </delete>
 
-    <select id="findByIdx" parameterType="int" resultType="com.flo.alwaysbom.fclass.vo.FclassVo">
+    <resultMap id="fclassMap" type="com.flo.alwaysbom.fclass.vo.FclassVo" autoMapping="true">
+        <id property="idx" column="IDX"/>
+        <collection property="branchList" column="IDX" ofType="com.flo.alwaysbom.fclass.vo.BranchVo" select="findConnectedBranchList"/>
+    </resultMap>
+
+    <select id="findConnectedBranchList" resultType="com.flo.alwaysbom.fclass.vo.BranchVo" parameterType="int">
+        SELECT B.* from BRANCH B inner join FCB on B.IDX = FCB.BRANCH_IDX
+        where FCB.FCLASS_IDX = #{idx}
+    </select>
+
+    <select id="findByIdx" parameterType="int" resultMap="fclassMap">
         SELECT * FROM FCLASS WHERE IDX = #{idx}
     </select>
 
-    <select id="findAll" resultType="com.flo.alwaysbom.fclass.vo.FclassVo">
+    <select id="findAll" resultMap="fclassMap">
         SELECT * FROM FCLASS ORDER BY IDX
     </select>
 
+    <delete id="deleteClassBranch" parameterType="int">
+        DELETE FROM FCB WHERE FCLASS_IDX = #{idx}
+    </delete>
+
+    <insert id="insertClassBranch" parameterType="map">
+        INSERT INTO FCB VALUES (#{idx}, #{branch})
+    </insert>
+
+    <select id="findClassByCategory" parameterType="string" resultMap="fclassMap">
+        SELECT * FROM FCLASS
+        WHERE CATEGORY = #{category}
+        ORDER BY IDX
+    </select>
 </mapper>

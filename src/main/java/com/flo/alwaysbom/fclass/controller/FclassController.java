@@ -30,6 +30,7 @@ public class FclassController {
     public String goList(Model model) {
         List<FclassVo> classList = fclassService.findAll();
         List<BranchVo> branchList = branchService.findAll();
+        System.out.println("classList = " + classList);
         model.addAttribute("classList", classList);
         model.addAttribute("branchList", branchList);
         return "fclass/b_classList";
