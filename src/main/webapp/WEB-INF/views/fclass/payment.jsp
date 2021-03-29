@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
@@ -32,16 +32,20 @@
     }
 
     function usePoint() {
-        let point = document.querySelector("#input_my_point");
-        let point2 = document.querySelector("#pointHere");
-        if (point.value != "" || point.value.length > 0) {
-            point2.innerHTML = '-' + point.value + ' 원';
+        const inputPointEl = document.querySelector("#input_my_point");
+        const discountPointEl = document.querySelector("#pointHere");
+        const finalPriceEl = document.querySelector("#finalPrice");
+        let originalPrice = finalPriceEl.getAttribute("data-original-price");
+        let discountPoint;
 
-            //point2.innerHTML = <fmt:formatNumber value="'-' + point.value + ' 원'" pattern="#,###"/>;
+        if (inputPointEl.value !== "" || inputPointEl.value.length > 0) {
+            discountPoint = inputPointEl.value;
         } else {
-            //point2.innerHTML = <fmt:formatNumber value="'-' + 0 + ' 원'" pattern="#,###"/>;
-            point2.innerHTML = '-' + 0 + ' 원';
+            discountPoint = 0;
         }
+        discountPointEl.textContent = '-' + discountPoint + ' 원';
+        let finalPrice = originalPrice - discountPoint;
+        finalPriceEl.textContent = finalPrice.toLocaleString('ko-KR') + " 원";
     }
 
     function compareWithPoint(point) {
@@ -103,17 +107,17 @@
                                                                         <div><span class="name">[ ${branchVo.name} ]</span>
                                                                         <span class="name">${fclassVo.category}_${fclassVo.name}</span></div>
                                                                         <div class="option">
-                                                                            <span class="l"><span class="label"><i>수강인원 : </i>${scheduleVo.regCount}</span></span><!--????????상세에서 값 가져와야함. -->
+                                                                            <span class="l"><span class="label"><i>수강인원 : </i>${regCount}</span></span>
+                                                                            <!--????????상세에서 값 가져와야함. -->
                                                                         </div>
                                                                         <div class="option">
                                                                             <span class="l"><span class="label"><i>수강시간 : </i>${scheduleVo.startTime}</span></span>
                                                                         </div>
-                                                                </span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="list_good_price">
-                                                                <span class="price fw-bold"><span>69,300원</span></span><!--????????가격넣는거 인풋 추가하기 -->
+                                                                <span class="price fw-bold"><span><fmt:formatNumber value="${fclassVo.price}" pattern="#,###"/> 원</span></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -130,7 +134,7 @@
                                         <td><span class="detail"><span class="th fw-bold">적립금</span>
                                     <span class="td_savings">
                                         <input type="number" min="0" name="point" id="input_my_point"
-                                               placeholder="0" autocomplete="off" onkeyup="compareWithPoint(this)"><!--여기서 넣는값이 사용할 포인트가 될것임 이게 밑에도 적용되야함 -->
+                                               value="0" autocomplete="off" onkeyup="compareWithPoint(this)" onchange="compareWithPoint(this)"><!--여기서 넣는값이 사용할 포인트가 될것임 이게 밑에도 적용되야함 -->
                                         <button type="button" class="btns add"
                                                 data-checkout_price="69300" onclick="usePoint()">적용</button><!--???????? -->
                                         <span class="text">* 사용 가능 포인트:  <fmt:formatNumber value="${memberVo.point}" pattern="#,###"/></span>
@@ -142,6 +146,7 @@
                                 </table>
 
                                 <div class="check_row_table">
+                                    <ul>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             포인트할인<span id="pointHere">-<fmt:formatNumber value="0" pattern="#,###"/> 원</span> <!--이거 위에인풋에 넣은값 넣어주고 결제버튼 눌리면 회원포인트에서 마이너스 해줘야함 -->
                                         </li>
@@ -151,7 +156,7 @@
                                         <li class="list-group-item d-flex justify-content-between align-items-center"
                                             id="total_color">
                                             <strong class="total_color">총 결제금액</strong>
-                                            <strong class="total_color">69,300 원</strong><!--???????? -->
+                                            <strong class="total_color" id="finalPrice" data-original-price="${fclassVo.price * regCount}"><fmt:formatNumber value="${fclassVo.price * regCount}" pattern="#,### 원"/></strong>
                                         </li>
                                     </ul>
                                 </div>
@@ -192,12 +197,12 @@
                                             <caption class="blind"></caption>
                                             <tbody>
                                             <tr>
-                                                <td><span class="detail add_200721"><span class="th">카드 번호</span><span
-                                                        class="td_card">
-                                                                <div class="card_number" style="width: 24%;"><input
-                                                                        maxlength="4" name="card_num_1" id="card_num_1"
-                                                                        type="text" data-type="card_number" data-index="0"
-                                                                        autocomplete="off" value=""></div><span class="d"
+                                                <td><span class="detail add_200721"><span class="th">카드 번호</span>
+                                                    <span class="td_card">
+                                                        <div class="card_number" style="width: 24%;">
+                                                            <input maxlength="4" name="card_num_1" id="card_num_1" type="text"
+                                                                   data-type="card_number" data-index="0" autocomplete="off" value="">
+                                                        </div><span class="d"
                                                                                                                 style="width: 2%;">-</span>
                                                                 <div class="card_number" style="width: 23%;"><input
                                                                         maxlength="4" name="card_num_2" id="card_num_2"
