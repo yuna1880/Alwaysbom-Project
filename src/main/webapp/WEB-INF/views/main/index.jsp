@@ -9,8 +9,8 @@
 </head>
 <body>
 <%@ include file="header.jspf"%>
-    <div class="main-img d-flex justify-content-center align-items-center">
-        메인 이미지
+    <div class="d-flex justify-content-center align-items-center">
+        <img src="static/image/main/main_sample.jpg" alt="메인이미지 샘플" class="main-img">
     </div>
     <div id="container" class="mx-auto">
         <h1>Main</h1>
