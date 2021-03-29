@@ -3,7 +3,7 @@
     <div class="footer-container">
         footer입니다.
         <div>
-            <a href="admin/main">백오피스 바로가기</a>
+            <a href="/admin/main">백오피스 바로가기</a>
         </div>
     </div>
 </footer>
