@@ -18,11 +18,40 @@
                         success: res => {
                             const kakao_account = res.kakao_account;
                             console.log(kakao_account);
+                        },
+                        fail: function(error) {
+                            console.log(error);
                         }
                     });
                 }
             });
+            Kakao.Auth.authorize({
+                redirectUri: '{https://localhost:8070/WEB-INF/views/member/member_join.jsp}'
+            });
+            //토큰 받아오기
+            Kakao.Auth.setAccessToken(ACCESS_TOKEN);
         }
+        function kakaoLogout() {
+            //로그아웃
+            if (!Kakao.Auth.getAccessToken()) {
+                console.log('Not logged in.');
+                return;
+            }
+            Kakao.Auth.logout(function () {
+                console.log(Kakao.Auth.getAccessToken());
+            });
+            //연결 끊기
+            Kakao.API.request({
+                url: '/v1/user/unlink',
+                success: function(response) {
+                    console.log(response);
+                },
+                fail: function(error) {
+                    console.log(error);
+                },
+            });
+        }
+
     </script>
 </head>
 <body>
