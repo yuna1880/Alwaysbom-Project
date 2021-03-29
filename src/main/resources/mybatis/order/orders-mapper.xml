@@ -11,6 +11,10 @@
         WHERE MEMBER_ID = #{id}
     </select>
 
+    <select id="getPoint" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultType="int">
+        SELECT POINT FROM MEMBER WHERE ID = #{id}
+    </select>
+
     <insert id="insertOrder" parameterType="com.flo.alwaysbom.order.vo.OrderVo">
 
 

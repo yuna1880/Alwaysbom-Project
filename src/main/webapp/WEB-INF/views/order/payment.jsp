@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>새늘봄 - checkout</title>
@@ -27,7 +29,25 @@
         function kakaoPay() {
             document.getElementById('credit_card_input').style.display = 'none';
             document.getElementById('mootong').style.display = 'none';
-    }
+        }
+
+        function Point() {
+            let availablePoint = document.getElementById('available_point').value;
+            let inputPoint = document.getElementById('input_my_point').value;
+
+            alert(availablePoint);
+            alert(inputPoint);
+
+            if (inputPoint <= availablePoint) {
+                document.getElementById('discountPointNum').innerText = inputPoint;
+                document.getElementById('discountPoint').value = inputPoint;
+            } else {
+                alert("사용가능한 포인트는" + avaliablePoint + "원 입니다.");
+            }
+
+        }
+
+
 
 </script>
 <body>
@@ -60,46 +80,52 @@
                             <div class="cartlist_wrap">
                                 <div id="cartlist_wrapper_final">
                                     <div id="cartlist_wrapper" class="cartlist_wrap">
-                                        <div class="item">
-                                            <h4 class="delivery_date">
-                                                <span class="label">수령일</span><span class="val">2021-03-27</span></h4>
-                                            <h5 class="delivery_title"><span class="label">상품명</span>
-                                                <span class="val">폴인로즈 에디션</span></h5>
-                                            <div class="delivery_goods">
-                                                <div class="row">
-                                                    <div class="list_good_checkout">
-                                                        <div class="good">
-                                                            <div class="photo">
-                                                                <a href="#" class="img" title="폴인로즈 에디션">
-                                                                    <!-- <img src="images/0_1.png" class="rounded float-start" alt="..."> -->
-                                                                    <img src="/static/image/oitem/0_1.png" class="image_size">
-                                                                </a>
-                                                            </div>
-                                                            <div class="detail">
-                                                                <span class="content_category"></span>
-                                                                <span class="name">폴인로즈 에디션</span>
-                                                                <div class="option">
-                                                                    <span class="l"><span class="label"><i>수량 : </i>1</span></span>
+
+
+                                            <!-- 담은 수만큼 생성 -->
+                                            <c:forEach var="order" items="${OrderList}">
+                                            <div class="item">
+                                                <h4 class="delivery_date">
+                                                    <span class="label">수령일</span>
+                                                    <span class="val">2021-03-27</span>
+                                                </h4>
+                                                <h5 class="delivery_title"><span class="label">상품명</span>
+                                                    <span class="val">${order.subsVo.name}</span>
+                                                </h5>
+                                                <div class="delivery_goods">
+                                                    <div class="row">
+                                                        <div class="list_good_checkout">
+                                                            <div class="good">
+                                                                <div class="photo">
+                                                                    <a href="#" class="img" title="">
+                                                                        <img src="${order.subsVo.image1}" class="image_size">
+                                                                    </a>
                                                                 </div>
-                                                                <div class="option">
-                                                                    <span class="l"><span class="label"><i></i>편지 추가</span></span>
+                                                                <div class="detail">
+                                                                    <span class="content_category"></span>
+                                                                    <span class="name">${order.subsVo.name}</span>
+                                                                    <div class="option">
+                                                                        <span class="l"><span class="label"><i>수량 : </i>${order.quantity}</span></span>
+                                                                    </div>
+                                                                    <div class="option">
+                                                                        <c:if test="${order.letter eq 1}">
+                                                                        <span class="l"><span class="label"><i></i>편지 추가</span></span>
+                                                                        </c:if>
+                                                                    </div>
+                                                                    <div class="option">
+                                                                        <span class="l"><span class="label"><i></i><span>화이트 화병[1]</span></span></span>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="option">
-                                                                    <span class="l"><span class="label"><i></i><span>화이트 화병[1]</span></span></span>
-                                                                </div>
-                                                                <span class="price">
-                                                                    <span class="label">가격</span>
-                                                                    <span class="val">69,300원</span>
-                                                                </span>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="list_good_price">
-                                                        <span class="price"><span>69,300원</span></span>
+                                                        <div class="list_good_price">
+                                                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${order.subsVo.price}" var="commaPrice"/>
+                                                            <span class="price"><span>${commaPrice}</span></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                             </div>
@@ -112,16 +138,23 @@
                             <tbody>
                             <tr>
                                 <td><span class="detail"><span class="th">수령인 이름</span><span class="td">
-                                    <input readonly type="text" value="권유나"></span></span></td>
-                            </tr>
+                                    <input readonly type="text" value="${vo.receiverName}"></span></span></td>
+                                </tr>
                             <tr>
                                 <td><span class="detail"><span class="th">수령인 연락처</span><span class="td">
-                                    <input readonly type="text" value="010-5847-1880"></span></span></td>
-                            </tr>
+                                    <input readonly type="text" value="${vo.receiverPhone}"></span></span></td>
+                                </tr>
                             </tbody>
                         </table>
 
-                        <div class="check_unknow"><span class="label">익명처리여부</span><span class="val">실명배송</span>
+                        <div class="check_unknow">
+                            <span class="label">익명처리여부</span>
+                            <c:if test="${empty vo.senderName}">
+                                <span class="val">익명배송</span>
+                            </c:if>
+                            <c:if test="${not empty vo.senderName}">
+                                <span class="val">실명배송</span>
+                            </c:if>
                         </div>
 
                         <!-- 쿠폰, 적립금 -->
@@ -140,11 +173,12 @@
                             <tr>
                                 <td><span class="detail"><span class="th">적립금</span>
                                     <span class="td_savings">
-                                        <input type="number" min="0" name="point" id="input_my_point"
-                                               placeholder="0" autocomplete="off">
-                                        <button type="button" class="btns add"
-                                                data-checkout_price="69300">적용</button>
-                                        <span class="text">* 사용 가능 포인트: 0</span>
+                                        <input type="number" value="" min="0" name="point" id="input_my_point" placeholder="0" autocomplete="off">
+                                        <button type="button" class="btns add" onclick="Point()">적용</button>
+                                        <span class="text">* 사용 가능 포인트:
+                                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${point}" var="commaPrice"/>
+                                            ${commaPrice}원</span>
+                                        <input type="hidden" id="available_point" value="${point}"/>
                                     </span>
                                     </span>
                                 </td>
@@ -157,22 +191,22 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     상품<span>69,300 원</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <li name="payDelivery" class="list-group-item d-flex justify-content-between align-items-center">
                                     배송비<span>-0 원</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     쿠폰할인<span>-0 원</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    포인트할인<span>-0 원</span>
+                                <li name="discountPoint" id="discountPoint" class="list-group-item d-flex justify-content-between align-items-center">
+                                    포인트할인<span>-<i id="discountPointNum">0</i> 원</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <li name="discountGrade" class="list-group-item d-flex justify-content-between align-items-center">
                                     등급할인<span>-0 원</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center"
                                     id="total_color">
                                     <strong class="total_color">총 결제금액</strong>
-                                    <strong class="total_color">69,300 원</strong>
+                                    <strong class="total_color" name="payTotal">69,300 원</strong>
                                 </li>
                             </ul>
                         </div>
@@ -184,19 +218,19 @@
                                 <b class="total"></b></span></div>
                             <div class="row" style="width: 700px;">
                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
+                                    <input type="radio" class="btn-check" name="payType" id="btnradio1" value="신용카드"
                                            autocomplete="off" checked>
                                     <label class="btn btn-outline-primary" for="btnradio1" onclick="creditCard()">신용카드</label>
 
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2"
+                                    <input type="radio" class="btn-check" name="payType" id="btnradio2" value="신용카드"
                                            autocomplete="off">
                                     <label class="btn btn-outline-primary" for="btnradio2" onclick="creditCardInput()">신용카드(직접입력)</label>
 
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
+                                    <input type="radio" class="btn-check" name="payType" id="btnradio3" value="무통장입금"
                                            autocomplete="off">
                                     <label class="btn btn-outline-primary" for="btnradio3" onclick="mootong()">무통장입금</label>
 
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio4"
+                                    <input type="radio" class="btn-check" name="payType" id="btnradio4" value="카카오페이"
                                            autocomplete="off">
                                     <label class="btn btn-outline-primary" for="btnradio4" onclick="kakaoPay()">카카오페이</label>
                                 </div>
@@ -213,8 +247,7 @@
                                     <caption class="blind"></caption>
                                     <tbody>
                                     <tr>
-                                        <td><span class="detail add_200721"><span class="th">카드 번호</span><span
-                                                class="td_card">
+                                        <td><span class="detail add_200721"><span class="th">카드 번호</span><span class="td_card">
                                                                 <div class="card_number" style="width: 24%;"><input
                                                                         maxlength="4" name="card_num_1" id="card_num_1"
                                                                         type="text" data-type="card_number" data-index="0"

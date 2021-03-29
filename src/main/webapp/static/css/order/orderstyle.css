@@ -119,6 +119,7 @@ h4.tit {
 }
 
 .good .detail {
+    margin-left: 70px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -2885,7 +2886,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
     .address_input_table .detail select {
         padding-right: 30px;
-        background: url(/static/image/oitem/select_arr_bg.png) right center no-repeat;
+        /*background: url(/static/image/oitem/select_arr_bg.png) right center no-repeat;*/
         background-color: #fff
     }
 
