@@ -49,4 +49,14 @@ public class CartServiceImpl implements CartService {
     public Optional<CartVo> findById(Integer idx) {
         return cartDao.findByIdx(idx);
     }
+
+    @Override
+    public CartVo updateQuantity(CartVo cartItem) {
+        if (cartDao.updateQuantity(cartItem)) {
+            return cartDao.findByIdx(cartItem.getIdx())
+                    .orElseThrow(() -> new IllegalStateException("Cart 조회에 실패했습니다. idx를 확인해주세요"));
+        } else {
+            throw new IllegalStateException("Cart 수량 업데이트에 실패했습니다.");
+        }
+    }
 }
