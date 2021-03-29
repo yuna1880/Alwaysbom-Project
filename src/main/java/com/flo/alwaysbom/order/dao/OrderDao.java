@@ -1,6 +1,6 @@
 package com.flo.alwaysbom.order.dao;
 
-import com.flo.alwaysbom.member.MemberVO;
+import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.vo.DeliveryInfoVo;
 import com.flo.alwaysbom.order.vo.OrderVo;
 import lombok.RequiredArgsConstructor;
