@@ -51,7 +51,7 @@
         let branch = document.querySelector("#branchIdx");
         let nextBtn = document.querySelector("#nextBtn");
 
-        selectElement.innerHTML = "";
+        selectElement.innerHTML = "";selectElement.innerHTML = "";
         let defaultOption = document.createElement("option");
         defaultOption.setAttribute("selected", "true");
         defaultOption.setAttribute("disabled", "true");

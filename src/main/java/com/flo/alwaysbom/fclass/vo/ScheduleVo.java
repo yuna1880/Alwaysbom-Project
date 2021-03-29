@@ -14,18 +14,26 @@ public class ScheduleVo {
     private int branchIdx;
     private int fclassIdx;
     private Date sdate;
-    private int smonth;
-    private int sday;
+    private Integer smonth;
+    private Integer sday;
     private String startTime;
     private String endTime;
     private int totalCount;
     private int regCount;
 
-    public int getSmonth() {
-        return sdate.toLocalDate().getMonth().getValue();
+    public Integer getSmonth() {
+        if (sdate != null) {
+            return sdate.toLocalDate().getMonth().getValue();
+        } else {
+            return null;
+        }
     }
 
-    public int getSday() {
-        return sdate.toLocalDate().getDayOfMonth();
+    public Integer getSday() {
+        if (sdate != null) {
+            return sdate.toLocalDate().getDayOfMonth();
+        } else {
+            return null;
+        }
     }
 }
