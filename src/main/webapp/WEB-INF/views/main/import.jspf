@@ -13,7 +13,7 @@
         font-family: "Noto Sans KR", sans-serif !important;
     }
     #container {
-        width: 1280px;
-        background-color: #f6ebde; /* 임시 배경 음영. 나중에 지울 것 */
+        width: 1280px !important;
+        background-color: #f3f1eb; /* 임시 배경 음영. 나중에 지울 것 */
     }
 </style>

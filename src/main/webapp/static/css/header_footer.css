@@ -9,11 +9,12 @@ header {
 
 /* 로그인 바 */
 .login-bar {
+    top: 0;
     min-width: 1280px;
     width: 1280px;
     height: 40px;
-    font-size: 15px;
-    line-height: 42px;
+    font-size: 14px;
+    line-height: 40px;
     /*border: 2px solid yellowgreen;*/
 }
 .login-bar a {
@@ -30,17 +31,16 @@ header {
 .login-bar li {
     padding: 0 0.6em;
 }
-.point-text {
+.point-color {
     color: #7DAF3B;
-    font-weight: 500;
 }
 
 /* 메뉴 바 */
 .h-menu-bar {
     min-width: 1280px;
     width: 1280px;
-    height: 72px;
-    font-size: 18px;
+    height: 79px;
+    font-size: 17px;
     /*border: 1px solid greenyellow;*/
 }
 .h-menu-bar a {
@@ -67,38 +67,41 @@ header {
 .h-menu {
     /*border: 1px solid red;*/
     margin-top: 10px;
-    padding: 1em 0.8em 0.8em 0.8em;
+    padding: 1em 1em 1.2em 1em;
     position: relative;
     z-index : 1;
+}
+.h-menu:last-child {
+    padding-right: 3em;
 }
 .h-menu-icon {
     /*border: 1px solid red;*/
     margin-top: 10px;
-    padding: 1em 0.8em 0.3em 0.5em;
+    padding: 0.8em 0.8em 0.5em 0.5em;
 }
 .h-menu-svg {
     width: auto;
-    height: 30px;
+    height: 27px;
 }
 .under-bar {
-    border-top: 3px solid #7DAF3B;
+    border-top: 4px solid #7DAF3B;
     position: absolute;
     pointer-events: none;
     opacity: 0;
     transition: all 0.3s;
-    transform: translate(0, 14px);
+    transform: translate(0, 10px);
 }
 #under-bar1 {
-    width: 90px;
+    width: 84px;
 }
 #under-bar2 {
-    width: 50px;
+    width: 46px;
 }
 #under-bar3 {
-    width: 95px;
+    width: 90px;
 }
 #under-bar4 {
-    width: 50px;
+    width: 46px;
 }
 .h-submenu {
     width: 130px;
@@ -108,9 +111,9 @@ header {
     position: absolute;
     background-color: #fff;
     border: 1px solid #979e97;
-    border-top: 3px solid #7DAF3B;
+    border-top: 4px solid #7DAF3B;
     left: 50%;
-    transform: translate(-55px, 14px);
+    transform: translate(-55px, 10px);
     opacity: 0;
     transition: all 0.3s;
     pointer-events: none;
@@ -136,6 +139,13 @@ header {
     pointer-events: auto;
 }
 
+/* 헤더 메뉴에 active 표시 */
+.menu-active {
+    opacity: 1;
+    pointer-events: auto;
+    color: #7DAF3B !important;
+    font-weight: 500;
+}
 
 
 /*--- footer ---*/
