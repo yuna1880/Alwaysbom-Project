@@ -5,9 +5,7 @@ import com.flo.alwaysbom.cart.vo.CartVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,9 +18,10 @@ public class CartController {
 
     @GetMapping("/cart/list")
     public String getCart(Model model, String memberId) {
+        if (memberId == null) {
+            memberId = "test";
+        }
         List<CartVo> list = cartService.findCartsByMember(memberId);
-        System.out.println("list = " + list);
-
         model.addAttribute("list", list);
         return "cart/list";
     }
@@ -36,6 +35,7 @@ public class CartController {
         }
         return "";
     }
+
     @GetMapping("/cart/order2")
     public String order2(Integer[] idx) {
         System.out.println("idx = " + Arrays.toString(idx));
@@ -43,5 +43,12 @@ public class CartController {
         System.out.println("list = " + list);
 
         return "";
+    }
+
+    @GetMapping("/cart/{idx}")
+    @ResponseBody
+    public CartVo findCartByIdx(@PathVariable("idx") Integer idx) {
+        return cartService.findById(idx)
+                .orElseThrow(() -> new IllegalStateException("해당 Id가 존재하지 않습니다"));
     }
 }

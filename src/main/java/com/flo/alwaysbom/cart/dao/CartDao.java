@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -28,6 +29,11 @@ public class CartDao {
     }
 
     public List<CartVo> findByIdxArray(Integer[] idxArr) {
+        System.out.println("CartDao.findByIdxArray");
         return sqlSessionTemplate.selectList("cart.findByIdxArray", Arrays.asList(idxArr));
+    }
+
+    public Optional<CartVo> findByIdx(Integer idx) {
+        return Optional.ofNullable(sqlSessionTemplate.selectOne("cart.findByIdx", idx));
     }
 }

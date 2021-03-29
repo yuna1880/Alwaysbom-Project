@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,5 +43,10 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartVo> findByIdxArray(Integer[] idx) {
         return cartDao.findByIdxArray(idx);
+    }
+
+    @Override
+    public Optional<CartVo> findById(Integer idx) {
+        return cartDao.findByIdx(idx);
     }
 }

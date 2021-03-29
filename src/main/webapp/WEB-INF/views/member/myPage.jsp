@@ -2,102 +2,102 @@
 <html>
 <head>
     <title>마이페이지</title>
-    <%@ include file="../main/import.jspf"%>
-    <link href="/static/css/member/myPage.css" rel="stylesheet">
+    <%@ include file="../main/import.jspf" %>
+    <style>
+        .h-5 {
+            height: 5% !important;
+        }
+
+        .h-10 {
+            height: 10% !important;
+        }
+
+        .h-85 {
+            height: 85% !important;
+        }
+
+        .bg-pink {
+            background-color: #f56c62;
+        }
+    </style>
 </head>
 <body>
-    <%@ include file="../main/header.jspf" %>
-    <div id="container" class="mx-auto">
-        <div class="my_header">
-            <p class="grade">
-                <span class="row">
-                    <strong class="th">회원 등급</strong>
-                    <span class="td">WHITE</span>
-                </span>
-                <span class="row">
-                    <strong class="th">포인트</strong>
-                    <span class="td">1000</span>
-                </span>
-                <span class="row">
-                    <strong class="th">보유 쿠폰</strong>
-                    <span class="td">0장</span>
-                </span>
-            </p>
+<%@ include file="../main/header.jspf" %>
+<div id="container" class="mx-auto d-flex flex-column h-100 user-select-none">
+    <div class="h-10 d-flex bg-pink text-white p-3">
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center position-relative p-2">
+            <span class="position-absolute top-0 align-self-baseline">회원 등급</span>
+            <span class="h4">WHITE</span>
         </div>
-        <div class="alert_wrap">
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center position-relative p-2
+                    border-secondary border border-bottom-0 border-top-0">
+            <span class="position-absolute top-0 align-self-baseline">포인트</span>
+            <span class="h4">1000</span>
+        </div>
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center position-relative p-2">
+            <span class="position-absolute top-0 align-self-baseline">보유 쿠폰</span>
+            <span class="h4">0장</span>
+        </div>
+    </div>
+    <div class="d-flex h-5">
+        <div class="col-2"></div>
+        <div class="col-10 d-flex justify-content-center px-3 pt-4">
+            <span class="h3 col-11 d-flex justify-content-start text-secondary">
+                <span class="name">이다솜</span>
+                님, 오늘도 꽃 같은 날이에요-
+            </span>
+            <div class="col-1"></div>
 
         </div>
-        <!-- left -->
-        <div class="cont_left">
-            <!-- My navigation -->
-            <div class="my_navigation_wrap">
-                <ul class="my_navigation">
-                    <li class="item ">
-                        <a href="" class="dp1">
-                            <span>주문 내역</span>
-                        </a>
-                    </li>
-                    <li class="item ">
-                        <a href="" class="dp1">
-                            <span>정기 구독</span>
-                        </a>
-                    </li>
-                    <li class="item ">
-                        <a href="" class="dp1">
-                            <span>수강 내역</span>
-                        </a>
-                    </li>
-                    <li class="item ">
-                        <a href="/community/goFaq" class="dp1">
-                            <span>자주 묻는 질문</span>
-                        </a>
-                    </li>
-                    <li class="item ">
-                        <a href="" class="dp1">
-                            <span>1:1 문의</span>
-                        </a>
-                    </li>
-                    <li class="item ">
-                        <a href="" class="dp1">
-                            <span>상품 후기</span>
-                        </a>
-                    </li>
-                    <li class="item ">
-                        <a href="" class="dp1">
-                            <span>회원 등급</span>
-                        </a>
-                    </li>
-                    <li class="item ">
-                        <a href="" class="dp1">
-                            <span>포인트</span>
-                        </a>
-                    </li>
-                    <li class="item ">
-                        <a href="" class="dp1">
-                            <span>회원 정보 관리</span>
-                        </a>
-                    </li>
-                    <li class="item ">
-                        <a href="" class="dp1">
-                            <span>회원 탈퇴</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- right -->
-        <div class="cont_right">
-            <div class="my_anniversary">
-                <h4 class="hello">
-                    <span class="name">이다솜</span>
-                    님, 오늘도 꽃 같은 날이에요-
-                </h4>
-                <div>
-                    <img src="/image/flower/flower1.jpg">
-                </div>
-            </div>
-        </div>
-        <%@ include file="../main/footer.jspf"%>
     </div>
+    <div class="h-85 d-flex">
+        <div class="col-2 border-warning d-flex flex-column p-4 ps-5">
+            <ul class="d-flex flex-column list-unstyled fs-6 list-group m-0">
+                <li class="list-group-item list-group-item-white">
+                    <a href="" class="link-secondary">주문 내역</a>
+                </li>
+                <li class="list-group-item list-group-item-white">
+                    <a href="" class="link-secondary">정기 구독</a>
+                </li>
+                <li class="list-group-item list-group-item-white">
+                    <a href="" class="link-secondary">수강 내역</a>
+                </li>
+                <li>
+                    <hr>
+                </li>
+                <li class="list-group-item list-group-item-white">
+                    <a href="/community/goFaq" class="link-secondary">자주 묻는 질문</a>
+                </li>
+                <li class="list-group-item list-group-item-white">
+                    <a href="/question/create" class="link-secondary">1:1 문의</a>
+                </li>
+                <li class="list-group-item list-group-item-white">
+                    <a href="" class="link-secondary">상품 후기</a>
+                </li>
+                <li>
+                    <hr>
+                </li>
+                <li class="list-group-item list-group-item-white">
+                    <a href="" class="link-secondary">회원 등급</a>
+                </li>
+                <li class="list-group-item list-group-item-white">
+                    <a href="" class="link-secondary">포인트</a>
+                </li>
+                <li class="list-group-item list-group-item-white">
+                    <a href="" class="link-secondary">회원 정보 관리</a>
+                </li>
+                <li class="list-group-item list-group-item-white">
+                    <a href="" class="link-secondary">회원 탈퇴</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-10 border-info d-flex justify-content-center p-4">
+            <div class="col-12">
+                <img src="/static/image/mypageMain_flower.jpg" alt="메인페이지 꽃 사진" class="w-100">
+            </div>
+        </div>
+    </div>
+</div>
+<%@ include file="../main/footer.jspf" %>
 </body>
 </html>
