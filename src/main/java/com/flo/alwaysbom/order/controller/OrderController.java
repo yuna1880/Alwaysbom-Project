@@ -51,12 +51,15 @@ public class OrderController {
 
     //배송지 찾기
     @PostMapping("/order/findAddress")
-    public void findAddress(MemberVO vo) {
+    @ResponseBody
+    public DeliveryInfoVo findAddress(MemberVO vo) {
         System.out.println("findAddress()");
         vo.setId("yuna1880");
         System.out.println("vo : " + vo);
-        DeliveryInfoVo data = orderService.findAddress(vo);
-        System.out.println("data : " + data);
+        DeliveryInfoVo dvo = orderService.findAddress(vo);
+        System.out.println("값 : " + dvo);
+        return dvo;
+        // {memberid : yuna1880}
     }
 
 }

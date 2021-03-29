@@ -18,5 +18,13 @@ public class SubsVo {
     private String image3;
     private String content;
 
-    private Integer discountRate;
+    /* 핵심 비즈니스 로직 */
+    // 최종 금액 출력
+    public int getDiscountRate() {
+        return 0;
+    }
+
+    public Integer getFinalPrice(){
+        return (int)(price * (1 - 0 / 100.0));
+    }
 }
