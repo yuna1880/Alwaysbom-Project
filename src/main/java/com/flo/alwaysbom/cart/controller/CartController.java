@@ -26,9 +26,10 @@ public class CartController {
 
     @GetMapping("/cart/list")
     public String getCart(Model model, String memberId) {
+        if (memberId == null) {
+            memberId = "test";
+        }
         List<CartVo> list = cartService.findCartsByMember(memberId);
-        System.out.println("list = " + list);
-
         model.addAttribute("list", list);
         return "cart/list";
     }
@@ -51,6 +52,7 @@ public class CartController {
 
         return "";
     }
+
 
     @GetMapping("/test/letter")
     public void testLetter(Integer[] idx, String[] name, String[] content) {
@@ -114,4 +116,11 @@ public class CartController {
 
     //@RequestBody : 들어오는 json 문자열을 java객체로 변환.
     //@ResponseBody : 리턴되는 자바 객체를 json문자열로 변환.
+    @GetMapping("/cart/{idx}")
+    @ResponseBody
+    public CartVo findCartByIdx(@PathVariable("idx") Integer idx) {
+        return cartService.findById(idx)
+                .orElseThrow(() -> new IllegalStateException("해당 Id가 존재하지 않습니다"));
+    }
+
 }
