@@ -63,4 +63,8 @@
         SELECT * FROM CART
         WHERE IDX = #{idx}
     </select>
+
+    <update id="updateQuantity" parameterType="com.flo.alwaysbom.cart.vo.CartVo">
+        update CART set QUANTITY = #{quantity} where idx = #{idx}
+    </update>
 </mapper>

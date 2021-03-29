@@ -74,12 +74,12 @@
                         <div class="col-9">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="letterOptions"
-                                       id="withLetter" value="option1" checked onclick="checkRadioBtn()">
+                                       id="withLetter" value="option1" checked onclick="checkRadioBtn(1)">
                                 <label class="form-check-label text-dark fw500" for="withLetter">추가할게요.(+2,500원)</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="letterOptions"
-                                       id="withoutLetter" value="option2" onclick="checkRadioBtn()">
+                                       id="withoutLetter" value="option2" onclick="checkRadioBtn(0)">
                                 <label class="form-check-label" for="withoutLetter">추가하지 않을게요.</label>
                             </div>
                         </div>
@@ -100,12 +100,12 @@
                     <span class="fw500">상품가격</span>
                     <span class="fw500">${flowerVo.finalPrice}원</span>
                 </div>
-                <!-- 편지추가 알림 -->
+                <!-- 편지추가 price box -->
                 <div id="addLetter" class="p-3 mx-2 mb-3 price-box">
                     <div class="d-flex justify-content-between pb-1">
                         <span class="fw500">추가상품 : 편지추가</span>
                         <button type="button" class="btn-close btn-close-style" aria-label="Close"
-                                onclick=""></button>
+                                onclick="closeLetter(this)"></button>
                     </div>
                     <div class="d-flex justify-content-end">
                         <span class="fw500">2,500원</span>
@@ -146,20 +146,17 @@
     document.querySelector("#flower").classList.add("menu-active");
     document.querySelector("#under-bar2").classList.add("menu-active");
 
-    function checkRadioBtn() {
+    function checkRadioBtn(statusNum) {
         let letterOptions = document.getElementsByName("letterOptions");
 
-        if (letterOptions[0].checked) {
+        if (statusNum === 1) {
+            letterOptions[1].nextElementSibling.classList.remove("text-dark", "fw500");
             letterOptions[0].nextElementSibling.classList.add("text-dark", "fw500");
-        }
-
-
-        for (let i = 0; i < letterOptions.length; i++) {
-            if (letterOptions[i].checked) {
-                letterOptions[i].nextElementSibling.classList.add("text-dark", "fw500");
-            } else {
-                letterOptions[i].nextElementSibling.classList.remove("text-dark", "fw500");
-            }
+            document.querySelector("#addLetter").classList.remove("d-none");
+        } else {
+            letterOptions[0].nextElementSibling.classList.remove("text-dark", "fw500");
+            letterOptions[1].nextElementSibling.classList.add("text-dark", "fw500");
+            document.querySelector("#addLetter").classList.add("d-none");
         }
     }
 
@@ -175,6 +172,12 @@
         if (qNum > 1) {
             quantity.innerText = qNum - 1;
         }
+    }
+
+    function closeLetter() {
+        document.querySelector("#addLetter").classList.add("d-none");
+        document.querySelector("#withoutLetter").checked = true;
+        checkRadioBtn(0);
     }
 
     <%--

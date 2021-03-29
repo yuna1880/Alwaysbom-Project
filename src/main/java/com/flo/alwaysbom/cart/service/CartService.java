@@ -16,4 +16,6 @@ public interface CartService {
     List<CartVo> findByIdxArray(Integer[] idx);
 
     Optional<CartVo> findById(Integer idx);
+
+    CartVo updateQuantity(CartVo cartItem);
 }
