@@ -10,11 +10,6 @@
         Kakao.isInitialized();
 
         function kakaoLogin() {
-            Kakao.Auth.authorize({
-                redirectUri: '{https://localhost:8070/WEB-INF/views/member/join.jsp}'
-            });
-            //토큰 받아오기
-            Kakao.Auth.setAccessToken(ACCESS_TOKEN);
             Kakao.Auth.login({
                 scope:'profile, account_email, gender, birthday',
                 success: function (authObj) {
@@ -24,16 +19,17 @@
                             const kakao_account = res.kakao_account;
                             console.log(kakao_account);
 
-                            var id = kakao_account.email;
-                            var name = kakao_account.profile.nickname;
-                            var gender = kakao_account.gender;
+                            var kakao_id = kakao_account.email;
+                            var kakao_name = kakao_account.profile.nickname;
+                            var kakao_gender = kakao_account.gender;
 
-                            window.location.href="http://localhost:8070/member_join"
+                            window.location.href="http://localhost:8070/member_join?kakao_id=" + kakao_id + "&kakao_name=" + kakao_name +"&kakao_gender=" + kakao_gender;
                         }
                     });
                 }
             });
         }
+    </script>
         // function kakaoLogout() {
         //     //로그아웃
         //     if (!Kakao.Auth.getAccessToken()) {
@@ -54,7 +50,6 @@
         //         },
         //     });
         // }
-    </script>
 </head>
 <body>
     <%@ include file="../main/header.jspf" %>
@@ -82,16 +77,16 @@
                             <a href="findPwd" class="link user find_pass">비밀번호 찾기</a>
                             <nav class="other">
                                 <p class="sns">SNS계정으로 간편 로그인</p>
-                                <form action="/member_join">
                                 <div class="socials">
-                                    <a href="javascript:kakaoLogin();" class="link social kakao">
-                                        <span class="blind">Kakao 로그인</span>
-                                    </a>
-                                    <a href="" class="link social naver">
-                                        <span class="blind">Naver 로그인</span>
-                                    </a>
+                                    <form action="/member_join">
+                                        <a href="javascript:kakaoLogin();" class="link social kakao">
+                                            <span class="blind">Kakao 로그인</span>
+                                        </a>
+                                        <a href="" class="link social naver">
+                                            <span class="blind">Naver 로그인</span>
+                                        </a>
+                                    </form>
                                 </div>
-                                </form>
                                 <p class="blind">아직 회원이 아니신가요?</p>
                                 <a href="/goMemberJoin" class="btn btn-primary">회원가입</a>
                                 <p class="let_join">
