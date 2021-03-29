@@ -59,4 +59,9 @@
         WHERE CATEGORY = #{category}
         ORDER BY IDX
     </select>
+
+    <insert id="addFcb" parameterType="map">
+        INSERT INTO FCB
+        VALUES (#{fclassIdx}, #{branchIdx})
+    </insert>
 </mapper>

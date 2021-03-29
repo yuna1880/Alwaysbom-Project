@@ -6,7 +6,7 @@ import com.flo.alwaysbom.fclass.service.ScheduleService;
 import com.flo.alwaysbom.fclass.vo.BranchVo;
 import com.flo.alwaysbom.fclass.vo.FclassVo;
 import com.flo.alwaysbom.fclass.vo.ScheduleVo;
-import com.flo.alwaysbom.member.MemberVO;
+import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.util.FileHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

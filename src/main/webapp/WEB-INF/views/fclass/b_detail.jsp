@@ -85,7 +85,7 @@
                     <%--                        <label class="input-group-text" for="file1">File 1</label>--%>
                     <input type="hidden" name="image1" value="${classInfo.image1}">
                 </div>
-                <img src="/static/upload/fclass/class/${classInfo.image1}" alt="사진" class="card-img-bottom" id="img1">
+                <img src="/static/upload/${classInfo.image1}" alt="사진" class="card-img-bottom" id="img1">
             </div>
             <div class="card col-4">
                 <div class="card-header mb-3">
@@ -93,7 +93,7 @@
                     <%--                        <label class="input-group-text" for="file2">File 2</label>--%>
                     <input type="hidden" name="image2" value="${classInfo.image2}">
                 </div>
-                <img src="/static/upload/fclass/class/${classInfo.image2}" alt="사진" class="card-img-bottom" id="img2">
+                <img src="/static/upload/${classInfo.image2}" alt="사진" class="card-img-bottom" id="img2">
             </div>
             <div class="card col-4">
                 <div class="card-header mb-3">
@@ -101,7 +101,7 @@
                     <%--                        <label class="input-group-text" for="file3">File 3</label>--%>
                     <input type="hidden" name="image3" value="${classInfo.image3}">
                 </div>
-                <img src="/static/upload/fclass/class/${classInfo.image3}" alt="사진" class="card-img-bottom" id="img3">
+                <img src="/static/upload/${classInfo.image3}" alt="사진" class="card-img-bottom" id="img3">
             </div>
         </div>
     </div>
