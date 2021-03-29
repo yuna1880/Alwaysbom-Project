@@ -51,7 +51,7 @@
     color: #808080;
     font-weight: 300;
 }
-.flower-name {
+.item-name {
     line-height: 1.8em;
     font-size: 28px;
     font-weight: 600;
@@ -103,7 +103,12 @@
     font-size: 15px;
     color: #808080;
 }
-.item-price {
+.price-box {
     background-color: #d4d4d4;
-    border-radius: 20px;
+    border-radius: 18px;
+}
+.btn-close-style {
+    border: 1px solid #585858;
+    width: 14px;
+    height: 14px;
 }
