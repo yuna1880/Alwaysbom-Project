@@ -9,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 public class OsubsVo {
     private Integer idx;
-    private Integer oitem_idx;
+    private Integer oitemIdx;
     private String month;
-    private String delivery_date;
-    private String delivery_status;
+    private String deliveryDate;
+    private String deliveryStatus;
 }
