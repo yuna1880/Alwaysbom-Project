@@ -37,7 +37,7 @@ public class CartVo {
         int totalPrice = 0;
         if ("정기구독".equals(category)) {
             totalPrice += subsVo.getFinalPrice();
-        } else if ("플라워".equals(category)) {
+        } else if ("꽃다발".equals(category)) {
             totalPrice += flowerVo.getFinalPrice();
         } else if ("소품샵".equals(category)) {
             totalPrice += productVo.getFinalPrice();
