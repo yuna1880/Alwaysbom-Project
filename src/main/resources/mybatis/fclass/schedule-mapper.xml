@@ -12,4 +12,17 @@
     </selectKey>
     </insert>
 
+    <select id="searchSchedule" parameterType="com.flo.alwaysbom.fclass.vo.ScheduleVo" resultType="com.flo.alwaysbom.fclass.vo.ScheduleVo">
+        SELECT * FROM SCHEDULE
+        WHERE FCLASS_IDX = #{fclassIdx} AND BRANCH_IDX = #{branchIdx} AND SDATE >= SYSDATE
+          <if test="sdate != null">
+              AND SDATE = #{sdate}
+          </if>
+        ORDER BY SDATE
+    </select>
+
+    <delete id="deleteSchedule" parameterType="int">
+        DELETE FROM BOM.SCHEDULE WHERE IDX = #{idx}
+    </delete>
+
 </mapper>

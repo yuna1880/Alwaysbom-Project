@@ -22,28 +22,30 @@ public class BackFlowerController {
 
     @GetMapping("/admin/flower")
     public String goIndex() {
-        return "b_flowerManager";
+        return "flower/b_flowerManager";
     }
 
-    @GetMapping("/admin/flower/insertForm")
+    @GetMapping("/admin/flowerAddForm")
     public String goInsertForm() {
-        return "b_addForm";
+        return "flower/b_addForm";
     }
 
     @PostMapping("/admin/addFlower")
     public String addFlower(FlowerVo vo, List<MultipartFile> file) throws IOException {
-        vo.setImage1(fileHandler.uploadFile(file.get(0), null, "/flower"));
-        vo.setImage2(fileHandler.uploadFile(file.get(1), null, "/flower"));
-        vo.setImage3(fileHandler.uploadFile(file.get(2), null, "/flower"));
+        vo.setImage1(fileHandler.uploadFile(file.get(0), null, "flower"));
+        vo.setImage2(fileHandler.uploadFile(file.get(1), null, "flower"));
+        vo.setImage3(fileHandler.uploadFile(file.get(2), null, "flower"));
+        System.out.println("vo = " + vo);
         backFlowerService.addFlower(vo);
         return "redirect:/admin/flowerList";
     }
 
     @GetMapping("/admin/flowerList")
     public String findAll(Model model) {
+        System.out.println("findAll() 실행");
         List<FlowerVo> list = backFlowerService.findAll();
         model.addAttribute("list", list);
-        return "flower/b_list";
+        return "flower/b_flowerList";
     }
 
 }

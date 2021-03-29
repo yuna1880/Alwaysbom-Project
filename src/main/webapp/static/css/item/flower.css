@@ -55,14 +55,14 @@
     font-weight: 700;
     color: #5CA865;
 }
-.old-price {
+.original-price {
     font-size: 16px;
     font-weight: 300;
     color: #707070;
     text-decoration: line-through;
+    padding-right: 0.3em;
 }
-.new-price {
-    padding-left: 0.3em;
+.final-price {
     font-size: 16px;
     font-weight: 500;
     color: #333333;
