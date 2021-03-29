@@ -41,7 +41,7 @@
             <!-- 주문 정보 -->
             <div class="order-info d-flex flex-column">
                 <span class="subheader">${flowerVo.subheader}</span>
-                <span class="flower-name">${flowerVo.name}</span>
+                <span class="item-name">${flowerVo.name}</span>
                 <div class="d-flex justify-content-start align-items-center">
                     <c:if test="${not empty flowerVo.discountRate && flowerVo.discountRate > 0}">
                     <span class="discount-rate text-danger pe-2">${flowerVo.discountRate}%</span>
@@ -50,7 +50,7 @@
                     <span class="final-price">${flowerVo.finalPrice}원</span>
                 </div>
                 <div class="fd-announcement d-flex justify-content-start py-3 my-3">
-                    3만원 이상 구매시, <span class="point-color fw-bold ps-1">무료배송!</span>
+                    3만원 이상 구매시, <span class="point-color fw500 ps-1">무료배송!</span>
                 </div>
                 <div class="inputs-wrap">
                     <div class="row">
@@ -96,19 +96,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-between p-3 mx-3 mb-3 item-price">
+                <div class="d-flex justify-content-between p-3 mx-2 mb-3 price-box">
                     <span class="fw500">상품가격</span>
-                    <span>${flowerVo.finalPrice}원</span>
+                    <span class="fw500">${flowerVo.finalPrice}원</span>
+                </div>
+                <!-- 편지추가 알림 -->
+                <div id="addLetter" class="p-3 mx-2 mb-3 price-box">
+                    <div class="d-flex justify-content-between pb-1">
+                        <span class="fw500">추가상품 : 편지추가</span>
+                        <button type="button" class="btn-close btn-close-style" aria-label="Close"
+                                onclick=""></button>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <span class="fw500">2,500원</span>
+                    </div>
                 </div>
 
                 <c:if test="${not empty flowerVo.freeDeliveryMessage}">
-                <div class="d-flex justify-content-end mb-1 me-3">
-                    <span class="badge rounded-pill item-price text-dark fw500">
+                <div class="d-flex justify-content-end mb-1 me-2">
+                    <span class="badge rounded-pill price-box text-dark fw500">
                         ${flowerVo.freeDeliveryMessage}
                     </span>
                 </div>
                 </c:if>
-                <div class="d-flex justify-content-end align-items-baseline me-3">
+                <div class="d-flex justify-content-end align-items-baseline me-2">
                     <span class="me-3">총 주문금액</span>
                     <span class="fw-bold fs-6">19,900원</span>
                 </div>
@@ -137,6 +148,12 @@
 
     function checkRadioBtn() {
         let letterOptions = document.getElementsByName("letterOptions");
+
+        if (letterOptions[0].checked) {
+            letterOptions[0].nextElementSibling.classList.add("text-dark", "fw500");
+        }
+
+
         for (let i = 0; i < letterOptions.length; i++) {
             if (letterOptions[i].checked) {
                 letterOptions[i].nextElementSibling.classList.add("text-dark", "fw500");
