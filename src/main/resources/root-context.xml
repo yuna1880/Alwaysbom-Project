@@ -8,12 +8,14 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <context:property-placeholder location="classpath:application.properties" ignore-resource-not-found="true" ignore-unresolvable="true"/>
+
     <!-- 스프링 마이바티스 연동 설정 !! -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-        <property name="username" value="bom"/>
-        <property name="password" value="bompw"/>
+        <property name="driverClassName" value="${spring.dataSource.driverClassName:oracle.jdbc.OracleDriver}"/>
+        <property name="url" value="${spring.dataSource.url:jdbc:oracle:thin:@localhost:1521:xe}"/>
+        <property name="username" value="${spring.dataSource.username:bom}"/>
+        <property name="password" value="${spring.dataSource.password:bompw}"/>
     </bean>
     <!--192.168.0.100-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
