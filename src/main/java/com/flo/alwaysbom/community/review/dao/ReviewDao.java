@@ -13,6 +13,6 @@ public class ReviewDao {
     private final SqlSessionTemplate sqlSessionTemplate;
 
     public List<ReviewVo> allBestReview() {
-        return sqlSessionTemplate.selectList("review.dd");
+        return sqlSessionTemplate.selectList("review.allBestReview");
     }
 }
