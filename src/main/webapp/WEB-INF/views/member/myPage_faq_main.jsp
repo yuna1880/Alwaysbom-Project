@@ -61,8 +61,6 @@
     <div class="d-flex h-5">
         <div class="col-2"></div>
         <div class="col-10 d-flex justify-content-center px-5 pt-4">
-
-
         </div>
     </div>
     <div class="h-85 d-flex">
@@ -96,7 +94,7 @@
                     <hr>
                 </li>
                 <li class="list-group-item">
-                    <a href="" class="link-secondary">회원 등급</a>
+                    <a href="/member_grade" class="link-secondary">회원 등급</a>
                 </li>
                 <li class="list-group-item">
                     <a href="" class="link-secondary">포인트</a>
