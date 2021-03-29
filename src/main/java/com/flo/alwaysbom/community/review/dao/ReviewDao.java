@@ -20,4 +20,12 @@ public class ReviewDao {
         }
         return list;
     }
+
+    public List<ReviewDto> allReview(String category) {
+        List<ReviewDto> list = sqlSessionTemplate.selectList("review.allReview", category);
+        for (ReviewDto vo: list) {
+            vo.setRegDate(vo.getRegDate().substring(0,10));
+        }
+        return list;
+    }
 }

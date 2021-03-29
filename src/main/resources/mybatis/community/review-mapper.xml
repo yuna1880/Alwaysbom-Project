@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
-
     <select id="allBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
         SELECT *
         FROM (
@@ -11,6 +10,21 @@
         FROM REVIEW I
         )
         WHERE RN BETWEEN 1 and 10
+    </select>
+<!--    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">-->
+<!--        SELECT *-->
+<!--        FROM REVIEW-->
+<!--        ORDER BY REG_DATE DESC-->
+<!--    </select>-->
+    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
+        SELECT *
+        FROM REVIEW
+        <where>
+            <if test="category != null">
+                CATEGORY = #{category}
+            </if>
+        </where>
+        ORDER BY REG_DATE DESC
     </select>
 <!--    <insert id="addHome" parameterType="com.chicken.kyochon.vo.HomeVo">
         INSERT INTO HOME(name, age, filename)

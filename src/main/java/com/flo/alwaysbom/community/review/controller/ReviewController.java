@@ -20,7 +20,6 @@ public class ReviewController {
     @GetMapping("/community/goReview")
     public String goReview(Model model){
         List<ReviewDto> bestRList = service.allBestReview();
-        System.out.println(bestRList);
         model.addAttribute("bestRList", bestRList);
         return "community/review";
     }
@@ -34,8 +33,13 @@ public class ReviewController {
 
     @PostMapping("/community/api/category/goAllReview")
     @ResponseBody
-    public String goAllReview(Model model, String category, Integer page){
+    public List<ReviewDto> goAllReview(Model model, String category, Integer page){
+        List<ReviewDto> bestRList;
         System.out.println(category + "제발 나와주세요");
-        return "";
+//        if(category == null || category.equals("")){
+            bestRList = service.allReview(category);
+            model.addAttribute("bestRList", bestRList);
+//        }
+        return bestRList;
     }
 }
