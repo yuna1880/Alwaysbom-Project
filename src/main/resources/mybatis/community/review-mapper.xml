@@ -7,11 +7,10 @@
     <select id="allBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
         SELECT *
         FROM (
-        SELECT ROW_NUMBER() over (ORDER BY INQ_NUM DESC) as RN, I.*
+        SELECT ROW_NUMBER() over (ORDER BY STAR DESC) as RN, I.*
         FROM REVIEW I
         )
-        WHERE RN BETWEEN #{startRow} and #{endRow}
-
+        WHERE RN BETWEEN 1 and 10
     </select>
 <!--    <insert id="addHome" parameterType="com.chicken.kyochon.vo.HomeVo">
         INSERT INTO HOME(name, age, filename)
