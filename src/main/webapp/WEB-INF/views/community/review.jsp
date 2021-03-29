@@ -185,14 +185,14 @@
 <script>
     function goAllList(paramType) {
         let dataParam = {
-            'category': paramType
-        }
+            category : paramType
+        };
         $.ajax({
             url: '/community/api/category/goAllReview',
-            type: 'POST',
+            type: 'post',
             dataType: "json",
             data: dataParam,
-            success: function (data) {
+            success: function (result) {
                 alert("제발 나와라요~~~~~~~~~~")
             }
         });

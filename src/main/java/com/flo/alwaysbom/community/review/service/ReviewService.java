@@ -16,4 +16,8 @@ public class ReviewService {
     public List<ReviewDto> allBestReview() {
         return reviewDao.allBestReview();
     }
+
+    public List<ReviewDto> allReview(String category) {
+        return reviewDao.allReview(category);
+    }
 }
