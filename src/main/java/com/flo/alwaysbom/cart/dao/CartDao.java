@@ -36,4 +36,8 @@ public class CartDao {
     public Optional<CartVo> findByIdx(Integer idx) {
         return Optional.ofNullable(sqlSessionTemplate.selectOne("cart.findByIdx", idx));
     }
+
+    public boolean updateQuantity(CartVo cartItem) {
+        return sqlSessionTemplate.update("cart.updateQuantity", cartItem) > 0;
+    }
 }
