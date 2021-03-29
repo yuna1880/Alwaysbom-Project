@@ -9,10 +9,10 @@
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
-
         //배송지목록 찾기 -> 모달
         $(function(){
             $("#btnradio2").on("click",function(){
+
                 alert("btnradio2클릭!");
                 $.ajax({
                     url : "/order/findAddress",
@@ -27,7 +27,6 @@
                 });
             });
         });
-
     </script>
 </head>
 <body>
@@ -81,9 +80,9 @@
                         <td>
                             <span class="detail">
                                 <c:forEach var="letter" items="${letter}">
-                                <input type="hidden" name="idx" value="${letter.idx}">
-                                <input type="hidden" name="name" value="${letter.name}">
-                                <input type="hidden" name="letterContent" value="${letter.content}">
+                                    <input type="hidden" name="idx" value="${letter.idx}">
+                                    <input type="hidden" name="name" value="${letter.name}">
+                                    <input type="hidden" name="letterContent" value="${letter.content}">
                                 </c:forEach>
                                 <span class="th">수령인 이름</span>
                                 <span class="td"><input maxlength="255" id="receiving_name" name="receiverName" type="text" value="유나" autocomplete="off"></span>
@@ -294,7 +293,7 @@
                         <tr>
                             <td><span class="detail"><span class="th">수령인 이름</span>
                                 <span class="td">
-                                    <input name="receiving_name" id="fined-name" type="text" value="권유나" readonly>
+                                    <input name="receiving_name" id="fined-name" type="text" value="${receiverName}" readonly>
                                 </span>
                             </span>
                             </td>
@@ -303,7 +302,7 @@
                             <td>
                                 <span class="detail"><span class="th">주소</span>
                                     <span class="td">
-                                    <input type="text" class="saved_address" id="fined-address" name="receiving_address" value="서울특별시 서초구 서초대로55길 82 비트캠프 2층 202호" readonly>
+                                    <input type="text" class="saved_address" id="fined-address" name="receiving_address" value="${receiverAddrBase}" readonly>
                                         <button type="button" class="btn btn-dark btn-sm" onclick="selectAddress()">선택</button>
                                     </span>
 
