@@ -1,4 +1,6 @@
-package com.flo.alwaysbom.member;
+package com.flo.alwaysbom.member.vo;
+
+import org.apache.ibatis.type.Alias;
 
 import java.util.Date;
 
@@ -65,7 +67,7 @@ public class MemberVO {
                 "id='" + id + '\'' +
                 ", pw='" + pw + '\'' +
                 ", name='" + name + '\'' +
-                ", birth=" + birth +
+                ", birth=" + birth + '\'' +
                 ", gender='" + gender + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';

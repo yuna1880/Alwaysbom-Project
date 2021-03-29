@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>마이페이지</title>
+    <title>1:1문의</title>
     <%@ include file="../main/import.jspf" %>
     <style>
         .h-5 {
@@ -44,7 +44,9 @@
         <div class="col-10 d-flex justify-content-center px-3 pt-4">
             <span class="h3 col-11 d-flex justify-content-start text-secondary">
                 <span class="name">이다솜</span>
-                님, 오늘도 꽃 같은 날이에요-
+                님의 문의 내역입니다.<br>
+                - 1:1 문의 게시판 운영 시간 : 월 ~ 금 10:00 ~18:00 <br>
+                - 운영 시간 내에는 2시간 이내에 답변을 드리나, 문의가 많을 때는 다소 지연될 수 있습니다.
             </span>
             <div class="col-1"></div>
 
@@ -69,7 +71,7 @@
                     <a href="/community/goFaq" class="link-secondary">자주 묻는 질문</a>
                 </li>
                 <li class="list-group-item list-group-item-white">
-                    <a href="/myPage_faq_main" class="link-secondary">1:1 문의</a>
+                    <a href="/question/create" class="link-secondary">1:1 문의</a>
                 </li>
                 <li class="list-group-item list-group-item-white">
                     <a href="" class="link-secondary">상품 후기</a>
