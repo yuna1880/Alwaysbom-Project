@@ -5,79 +5,31 @@
     <title>새늘봄 - checkout</title>
     <%@ include file="../main/import.jspf"%>
     <link rel="stylesheet" href="/static/css/order/orderstyle.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-</head>
-<script>
-    //라디오버튼 화면 변경
-    window.onload = function () {
-        addDelivery ()
-    }
-    function addDelivery () {
-        document.getElementById('sender_input').style.display = 'none';
-        document.getElementById('input_info').style.display = 'block';
-    }
-    function addSender() {
-        document.getElementById('input_info').style.display = 'none';
-        document.getElementById('sender_input').style.display = 'block';
-    }
-    //다음 주소 API
-    data = {
-        userSelectedType : '',
-        roadAddress : '',
-        jibunAddress : '',
-        bname : '',
-        buildingName : '',
-        zonecode : ''
-    };
+    <script>
 
-    function showPostcode() {
-        new daum.Postcode ({
-            oncomplete : function (data) {
-                // 팝업에서 검색결과 항목 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 내려오는 변수가 값이 없는 경우에는 공백('')값을 가지므로, 이를 참고하여 분기한다.
-                let fullAddr = ''; // 최종 주소 변수
-                let extraAddr = ''; // 조합형 주소 변수
-
-                // 사용자가 선택한 주소 타입에 따라 해당 주소값을 가져온다.
-                if(data.userSelectedType === 'R') {
-                    // 사용자가 도로명 주소 선택
-                    fullAddr = data.roadAddress;
-                } else { // 지번주소 선택(J)
-                    fullAddr = data.jibunAddress;
-                }
-                //사용자가 선택한 주소가 도로명 타입일때 조합한다.
-                if(data.userSelectedType === 'R') {
-                    //동 이름 추가
-                    if(data.bname !== '') { extraAddr += data.bname; }
-                    //건물명 있으면 추가
-                    if(data.buildingName !== '') {
-                        //조합형 주소의 유무에 따라 양쪽에 괄호를 추가해서 최종 주소를 만든다.
-                        extraAddr += (extraAddr !== '' ? ', '+data.buildingName : data.buildingName );
+        //배송지목록 찾기 -> 모달
+        $(function(){
+            $("#btnradio2").on("click",function(){
+                alert("btnradio2클릭!");
+                $.ajax({
+                    url : "/order/findAddress",
+                    type : "post",
+                    success : function(data) {
+                        alert("여기여기" + data);
+                        document.getElementById('findAddr').click();
+                    },
+                    error : function() {
+                       alert("실패!!!!");
                     }
-                    //조합형 주소의 유무에 따라 양쪽에 괄호를 추가해서 최종 주소를 만든다.
-                    fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ') ' : '');
-                }
-                //우편번호와 주소정보를 해당 필드에 넣는다. 5자리 새 우편번호 사용.
-                document.getElementById('receiving_postcode').value = data.zonecode;
-                document.getElementById('receiving_address_1').value = fullAddr;
+                });
+            });
+        });
 
-                //커서를 상세주소 필드로 이동한다.
-                document.getElementById('receiving_address_2').focus();
-            }
-        }).open();
-    }
-    function selectAddress() {
-        let postCode = document.getElementById('fined-name').value
-        let addr = document.getElementById('fined-address').value
-
-        //우편번호 input에 넣어주기
-        document.getElementById('receiving_postcode').value = postCode;
-        document.getElementById('receiving_address_1').value = addr;
-
-        document.getElementById('closed-button').click();
-    }
-</script>
+    </script>
+</head>
 <body>
 <%@ include file="../main/header.jspf" %>
 <div class="container">
@@ -91,7 +43,7 @@
         </ol>
     </div>
 
-<form action="/order/payment" method="post">
+<form name="frm" method="post">
     <div class="checkout_content">
         <div class="step" id="inputAddress">
             <div class="infomation_box">
@@ -106,8 +58,10 @@
             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
                 <label class="btn btn-outline-primary" id="btn-text" for="btnradio1" onclick="addDelivery()">배송지 입력</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="addDelivery()" autocomplete="off"
-                       data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <!-- 누르면 ajax로 배송지 찾는 컨트롤러로 이동 -->
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="findDelivery()">
+                <!-- 모달 실행 -->
+                <input type="hidden" name="btnradio" id="findAddr" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <label class="btn btn-outline-primary" for="btnradio2">배송지 목록</label>
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio3" onclick="addSender()" autocomplete="off">
                 <label class="btn btn-outline-primary" for="btnradio3">받는 분이 입력</label>
@@ -120,15 +74,19 @@
     <div class="address_tabpanel role_tabpanelbox">
 
         <!-- 주소입력창 -->
-        <div class="role_tabpanel opened" tabindex="0" role="tabpanel" id="input_info"
-             aria-labelledby="tab_address_new">
+        <div class="role_tabpanel opened" tabindex="0" role="tabpanel" id="input_info">
             <table class="address_input_table">
                 <tbody>
                     <tr>
                         <td>
                             <span class="detail">
+                                <c:forEach var="letter" items="${letter}">
+                                <input type="hidden" name="idx" value="${letter.idx}">
+                                <input type="hidden" name="name" value="${letter.name}">
+                                <input type="hidden" name="letterContent" value="${letter.content}">
+                                </c:forEach>
                                 <span class="th">수령인 이름</span>
-                                <span class="td"><input maxlength="255" id="receiving_name" name="receiving_name" type="text" value="권유나" autocomplete="off"></span>
+                                <span class="td"><input maxlength="255" id="receiving_name" name="receiverName" type="text" value="유나" autocomplete="off"></span>
                             </span>
                         </td>
                     </tr>
@@ -136,7 +94,7 @@
                         <td>
                             <span class="detail"><span class="th">수령인 연락처</span>
                             <span class="td_phone">
-                                <div><select id="receiving_phone1" name="receiving_phone1">
+                                <div><select id="receiving_phone1" name="receiver_phone1">
                                         <option value="010">010</option>
                                         <option value="011">011</option>
                                         <option value="016">016</option>
@@ -146,12 +104,13 @@
                                     </select>
                                 </div>
                                 <span class="d">-</span>
-                                <div id="">
-                                    <input type="phone" maxlength="4" id="receiving_phone2" name="receiving_phone2" value="5847" autocomplete="off">
+                                <div>
+                                    <input type="phone" maxlength="4" id="receiving_phone2" name="receiver_phone2" value="5847" autocomplete="off">
                                 </div>
                                     <span class="d">-</span>
                                 <div>
-                                    <input type="phone" maxlength="4" class="form-control form-control-small" id="receiving_phone3" name="receiving_phone3" value="1880" autocomplete="off">
+                                    <input type="phone" maxlength="4" class="form-control form-control-small" id="receiving_phone3" name="receiver_phone3" value="1880" autocomplete="off">
+                                    <input type="hidden" id="receiver_phone" name="receiverPhone">
                                 </div>
                             </span>
                             </span>
@@ -164,7 +123,7 @@
                                 <span class="td">
                                     <span class="find_address">
                                         <input type="text" maxlength="128" class="find" id="receiving_postcode" autocomplete="off"
-                                               name="receiving_postcode" placeholder="주소 검색" readonly="" value="" onclick="showPostcode()">
+                                               name="receiverZipcode" placeholder="주소 검색" readonly="" value="" onclick="showPostcode()">
                                         <span class="empty"></span>
                                         <button type="button" class="btn btn-light btn-sm" onclick="showPostcode()">찾기</button>
 <%--                                        <button type="button" class="btn btn-outline-secondary">찾기</button>--%>
@@ -177,7 +136,7 @@
                     <td>
                         <span class="detail"><span class="th">주소</span><span class="td">
                             <input type="text" maxlength="255" id="receiving_address_1" autocomplete="off"
-                                   name="receiving_address_1" readonly="" value="">
+                                   name="receiverAddrBase" readonly="" value="">
                         </span>
                         </span>
                     </td>
@@ -187,7 +146,7 @@
                         <span class="detail"><span class="th">상세주소</span>
                             <span class="td">
                             <input type="text" maxlength="255" id="receiving_address_2" autocomplete="off"
-                            name="receiving_address_2" value="">
+                            name="receiverAddrDetail" value="">
                             </span>
                         </span>
                     </td>
@@ -197,7 +156,7 @@
                         <span class="detail"><span class="th">참고주소</span>
                             <span class="td">
                             <input type="text" maxlength="255" id="receiving_address_3" autocomplete="off"
-                            name="receiving_address_2" value="">
+                            name="receiverAddrExtra" value="">
                             </span>
                         </span>
                     </td>
@@ -206,9 +165,9 @@
                     <td>
                         <span class="detail"><span class="th">발신인</span>
                             <span class="td_unknown"><input type="text" maxlength="64" autocomplete="off"
-                                                            id="sender_name" name="sender_name" value="Yuna">
+                                                            id="sender_name" name="senderName" value="Yuna">
                                     <span class="unknow_noti">
-                                        <input type="checkbox" name="sender_unknown" id="sender_unknown" class="lb_unknow_name_new">
+                                        <input type="checkbox" name="sender_unknown" id="sender_unknown" class="lb_unknow_name_new" onchange="unknownName()" on>
                                         <label for="sender_unknown">익명으로 보내기</label>
                                     </span>
                             </span>
@@ -221,7 +180,7 @@
                         <span class="td_unknown">
                             <span class="unknow_noti2">
                                 <label class="save_delivery">
-                                    <input type="radio" class="save_address" name="save_address" value="저장하기">저장하기
+                                    <input type="radio" class="save_address" name="save_address" value="저장하기" onclick="saveAddress()">저장하기
                                 </label>
                                 <label>
                                     <input type="radio" class="save_address no" name="save_address" value="저장안함" checked>저장안함
@@ -312,7 +271,7 @@
     </div>
     </div>
         <div class="complete">
-            <button type="submit" class="info_btn next" id="purchase_submit">
+            <button type="button" class="info_btn next" id="purchase_submit" onclick="submitForm(this.form)">
                 <span>결제하기</span>
             </button>
             <button type="button" class="info_btn back" onclick="history.back()"><span>이전 단계로</span></button></div>
@@ -323,7 +282,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">배송지 목록</h5>
@@ -363,5 +322,97 @@
 </div>
 </div>
 <%@ include file="../main/footer.jspf"%>
+<script>
+    //라디오버튼 화면 변경
+    window.onload = function() {
+        addDelivery();
+    }
+    function addDelivery() {
+        document.getElementById('sender_input').style.display = 'none';
+        document.getElementById('input_info').style.display = 'block';
+    }
+    function addSender() {
+        document.getElementById('input_info').style.display = 'none';
+        document.getElementById('sender_input').style.display = 'block';
+    }
+    function findDelivery() {
+        document.getElementById('sender_input').style.display = 'none';
+        document.getElementById('input_info').style.display = 'block';
+    }
+    function unknownName() {
+        let unknown = document.getElementById('sender_unknown');
+        if (unknown.checked == true) {
+            document.getElementById('sender_name').value = '';
+        }
+    }
+
+    //다음 주소 API
+    data = {
+        userSelectedType : '',
+        roadAddress : '',
+        jibunAddress : '',
+        bname : '',
+        buildingName : '',
+        zonecode : ''
+    };
+
+    function showPostcode() {
+        new daum.Postcode({
+            oncomplete : function(data) {
+                // 팝업에서 검색결과 항목 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 내려오는 변수가 값이 없는 경우에는 공백('')값을 가지므로, 이를 참고하여 분기한다.
+                let fullAddr = ''; // 최종 주소 변수
+                let extraAddr = ''; // 조합형 주소 변수
+
+                // 사용자가 선택한 주소 타입에 따라 해당 주소값을 가져온다.
+                if(data.userSelectedType === 'R') {
+                    // 사용자가 도로명 주소 선택
+                    fullAddr = data.roadAddress;
+                } else { // 지번주소 선택(J)
+                    fullAddr = data.jibunAddress;
+                }
+                //사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                if(data.userSelectedType === 'R') {
+                    //동 이름 추가
+                    if(data.bname !== '') { extraAddr += data.bname; }
+                    //건물명 있으면 추가
+                    if(data.buildingName !== '') {
+                        //조합형 주소의 유무에 따라 양쪽에 괄호를 추가해서 최종 주소를 만든다.
+                        extraAddr += (extraAddr !== '' ? ', '+data.buildingName : data.buildingName );
+                    }
+                    //조합형 주소의 유무에 따라 양쪽에 괄호를 추가해서 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ') ' : '');
+                }
+                //우편번호와 주소정보를 해당 필드에 넣는다. 5자리 새 우편번호 사용.
+                document.getElementById('receiving_postcode').value = data.zonecode;
+                document.getElementById('receiving_address_1').value = fullAddr;
+
+                //커서를 상세주소 필드로 이동한다.
+                document.getElementById('receiving_address_2').focus();
+            }
+        }).open();
+    }
+    function selectAddress() {
+        let postCode = document.getElementById('fined-name').value
+        let addr = document.getElementById('fined-address').value
+
+        //우편번호 input에 넣어주기
+        document.getElementById('receiving_postcode').value = postCode;
+        document.getElementById('receiving_address_1').value = addr;
+        document.getElementById('closed-button').click();
+    }
+    function submitForm(frm) {
+        //핸드폰번호 합치기
+        let f = document.frm;
+        let phone = f.receiver_phone1.value + f.receiver_phone2.value + f.receiver_phone3.value;
+        f.receiver_phone = phone;
+        alert("번호 : " + phone);
+        //컨트롤러 이동
+        f.action = "/order/payment";
+        f.submit();
+    }
+
+</script>
 </body>
 </html>

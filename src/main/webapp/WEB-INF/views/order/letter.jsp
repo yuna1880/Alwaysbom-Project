@@ -7,15 +7,46 @@
     <title>새늘봄 - checkout</title>
     <link rel="stylesheet" href="/static/css/order/orderstyle.css">
     <%@ include file="../main/import.jspf"%>
-</head>
-<script>
-    function printLetter() {
-         const letter = document.getElementById('message').value;
-         document.getElementById('preview').innerText = letter;
+    <script>
+        function printLetter() {
+            const letter = document.getElementById('message').value;
+            document.getElementById('preview').innerText = letter;
 
-         document.getElementById('letter_press_cnt_').innerHTML = letter.length;
-    }
-</script>
+            document.getElementById('letter_press_cnt_').innerHTML = letter.length;
+        }
+
+        function submitForm() {
+            //class="flower_letter"의 폼을 전부 선택.
+            let letters = document.querySelectorAll(".flower_letter");
+            console.log(letters);
+            let datas = [];
+            for (let letter of letters) {
+                let data = {
+                    idx : letter.cart_idx.value,
+                    name : letter.product_name.value,
+                    content : letter.letter_content.value
+                };
+                //생성된 데이터 배열안에 넣어주기.
+                datas.push(data);
+            }
+
+            //폼 동적으로 만들기
+            let form = document.createElement("form")
+            form.action = "/oitem/checkOut";
+            form.method = "post";
+            let data = document.createElement("input");
+            data.name = "data";
+            data.type = "text";
+            //위에서 만든 데이터 배열을 Json 타입 문자열로 변환 -> input value로 설정해준다.
+            data.value = JSON.stringify(datas);
+            //만들어둔 form에 input 넣어준다.
+            form.appendChild(data);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</head>
+
 <body>
 <%@ include file="../main/header.jspf" %>
 
@@ -38,18 +69,17 @@
                     </div><br>
                 </div>
 
+                <form class="flower_letter">
                 <!-- letter 옵션 추가시, 그 개수만큼 생성해준다. -->
-                <c:forEach var="cart" items="${cartList}">
-                <c:if test="${cart.letter > 0}">
-                <form action="/checkOut" method="post">
+                <c:forEach var="order" items="${OrderList}">
+                <c:if test="${order.letter > 0}">
                     <div id="letterbox-wrapper">
-                        <input type="hidden" name="cart_idx" value="${cart.idx}">
-
+                        <input type="hidden" name="cart_idx" value="${order.idx}">
                         <div id="letter_product" class="letterbox">
                             <div class="letter">
                                 <div class="select_letter">
-                                    <input type="text" class="select_letter_select_tag" name="letter_product_name"
-                                           readonly value="${cart.productVo.name}">
+                                    <input type="text" class="select_letter_select_tag" name="product_name"
+                                           readonly value="${order.productVo.name}">
                                 </div>
                                 <div class="role_select_checked">
                                     <div class="col-12">
@@ -86,13 +116,14 @@
                     </c:if>
                     </c:forEach>
                     </div>
+                    </form>
                         <!-- 버튼 -->
                         <div class="float-end">
                             <button type="button" class="btn btn-outline-secondary btn-lg"
                                     onclick="history.back()">이전 화면으로</button>
-                            <button type="submit" class="btn btn btn-secondary btn-lg">다음 단계로</button>
+                            <!-- 여기서 받은 데이터를 submitForm() -->
+                            <button type="button" class="btn btn btn-secondary btn-lg" onclick="submitForm()">다음 단계로</button>
                         </div>
-                        </form>
                         <br>
                         </div>
                     </div>
