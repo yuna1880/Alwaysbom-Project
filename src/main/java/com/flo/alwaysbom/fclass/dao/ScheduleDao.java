@@ -13,19 +13,20 @@ public class ScheduleDao {
     private final SqlSessionTemplate sqlSessionTemplate;
 
     public ScheduleVo addSchedule(ScheduleVo vo) {
-        System.out.println("scheduleDao vo = " + vo);
         sqlSessionTemplate.insert("schedule.addSchedule", vo);
-        System.out.println("scheduleDao after vo = " + vo);
         return vo;
     }
 
     public List<ScheduleVo> searchSchedule(ScheduleVo vo) {
-        List<ScheduleVo> scheduleVos = sqlSessionTemplate.selectList("schedule.searchSchedule", vo);
-        System.out.println("scheduleVos = " + scheduleVos);
-        return scheduleVos;
+        return sqlSessionTemplate.selectList("schedule.searchSchedule", vo);
     }
 
-    public boolean deleteSchedule(Integer idx) {
+    public boolean deleteSchedule(List<Integer> idx) {
         return sqlSessionTemplate.delete("schedule.deleteSchedule", idx) > 0;
+    }
+
+    public ScheduleVo updateSchedule(ScheduleVo vo) {
+        sqlSessionTemplate.update("schedule.updateSchedule", vo);
+        return vo;
     }
 }
