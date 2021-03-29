@@ -12,14 +12,18 @@
         //배송지목록 찾기 -> 모달
         $(function(){
             $("#btnradio2").on("click",function(){
-
-                alert("btnradio2클릭!");
                 $.ajax({
                     url : "/order/findAddress",
                     type : "post",
                     success : function(data) {
                         alert("여기여기" + data);
-                        document.getElementById('findAddr').click();
+                        document.getElementById("find-name").value = data.receiverName;
+                        document.getElementById("find-address").value = data.receiverAddrBase;
+                        //모달 실행
+                        let myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+                            keyboard: false
+                        });
+                        myModal.toggle();
                     },
                     error : function() {
                        alert("실패!!!!");
@@ -34,13 +38,13 @@
 <div class="container">
     <!-- 헤더 -->
     <div class="checkout_wrap">
-    <div class="navi" tabindex="-1">
-        <ol class="process">
-            <div class="step"><span class="order"><b>1</b><span class="desc">편지 추가</span></span></div>
-            <div class="step current"><span class="order"><b>2</b><span class="desc">주소 입력</span></span></div>
-            <div class="step"><span class="order"><b>3</b><span class="desc">결제</span></span></div>
-        </ol>
-    </div>
+        <div class="navi" tabindex="-1">
+            <ol class="process">
+                <div class="step"><span class="order"><b>1</b><span class="desc">편지 추가</span></span></div>
+                <div class="step current"><span class="order"><b>2</b><span class="desc">주소 입력</span></span></div>
+                <div class="step"><span class="order"><b>3</b><span class="desc">결제</span></span></div>
+            </ol>
+        </div>
 
 <form name="frm" method="post">
     <div class="checkout_content">
@@ -115,7 +119,6 @@
                             </span>
                         </td>
                     </tr>
-
                     <tr>
                         <td>
                             <span class="detail"><span class="th">우편번호</span>
@@ -278,7 +281,6 @@
     </div>
     </form>
 
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -293,7 +295,7 @@
                         <tr>
                             <td><span class="detail"><span class="th">수령인 이름</span>
                                 <span class="td">
-                                    <input name="receiving_name" id="fined-name" type="text" value="${receiverName}" readonly>
+                                    <input name="receiving_name" id="find-name" type="text" value="" readonly>
                                 </span>
                             </span>
                             </td>
@@ -302,7 +304,7 @@
                             <td>
                                 <span class="detail"><span class="th">주소</span>
                                     <span class="td">
-                                    <input type="text" class="saved_address" id="fined-address" name="receiving_address" value="${receiverAddrBase}" readonly>
+                                    <input type="text" class="saved_address" id="find-address" name="receiving_address" value="${receiverAddrBase}" readonly>
                                         <button type="button" class="btn btn-dark btn-sm" onclick="selectAddress()">선택</button>
                                     </span>
 
@@ -344,7 +346,6 @@
             document.getElementById('sender_name').value = '';
         }
     }
-
     //다음 주소 API
     data = {
         userSelectedType : '',
@@ -411,7 +412,6 @@
         f.action = "/order/payment";
         f.submit();
     }
-
 </script>
 </body>
 </html>
