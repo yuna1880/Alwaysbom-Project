@@ -18,9 +18,12 @@
                         success: res => {
                             const kakao_account = res.kakao_account;
                             console.log(kakao_account);
-                        },
-                        fail: function(error) {
-                            console.log(error);
+
+                            var id = kakao_account.email;
+                            var name = kakao_account.profile.nickname;
+                            var gender = kakao_account.gender;
+
+                            window.location.href="http://localhost:8070/member_join"
                         }
                     });
                 }
@@ -31,27 +34,26 @@
             //토큰 받아오기
             Kakao.Auth.setAccessToken(ACCESS_TOKEN);
         }
-        function kakaoLogout() {
-            //로그아웃
-            if (!Kakao.Auth.getAccessToken()) {
-                console.log('Not logged in.');
-                return;
-            }
-            Kakao.Auth.logout(function () {
-                console.log(Kakao.Auth.getAccessToken());
-            });
-            //연결 끊기
-            Kakao.API.request({
-                url: '/v1/user/unlink',
-                success: function(response) {
-                    console.log(response);
-                },
-                fail: function(error) {
-                    console.log(error);
-                },
-            });
-        }
-
+        // function kakaoLogout() {
+        //     //로그아웃
+        //     if (!Kakao.Auth.getAccessToken()) {
+        //         console.log('Not logged in.');
+        //         return;
+        //     }
+        //     Kakao.Auth.logout(function () {
+        //         console.log(Kakao.Auth.getAccessToken());
+        //     });
+        //     //연결 끊기
+        //     Kakao.API.request({
+        //         url: '/v1/user/unlink',
+        //         success: function(response) {
+        //             console.log(response);
+        //         },
+        //         fail: function(error) {
+        //             console.log(error);
+        //         },
+        //     });
+        // }
     </script>
 </head>
 <body>
@@ -80,6 +82,7 @@
                             <a href="findPwd" class="link user find_pass">비밀번호 찾기</a>
                             <nav class="other">
                                 <p class="sns">SNS계정으로 간편 로그인</p>
+                                <form action="/member_join">
                                 <div class="socials">
                                     <a href="javascript:kakaoLogin();" class="link social kakao">
                                         <span class="blind">Kakao 로그인</span>
@@ -88,6 +91,7 @@
                                         <span class="blind">Naver 로그인</span>
                                     </a>
                                 </div>
+                                </form>
                                 <p class="blind">아직 회원이 아니신가요?</p>
                                 <a href="/goMemberJoin" class="btn btn-primary">회원가입</a>
                                 <p class="let_join">
