@@ -27,83 +27,8 @@
                 }
             });
         }
-
-        // function kakaoLogout() {
-        //     //로그아웃
-        //     if (!Kakao.Auth.getAccessToken()) {
-        //         console.log('Not logged in.');
-        //         return;
-        //     }
-        //     Kakao.Auth.logout(function () {
-        //         console.log(Kakao.Auth.getAccessToken());
-        //     });
-        //     //연결 끊기
-        //     Kakao.API.request({
-        //         url: '/v1/user/unlink',
-        //         success: function(response) {
-        //             console.log(response);
-        //         },
-        //         fail: function(error) {
-        //             console.log(error);
-        //         },
-        //     });
-        // }
     </script>
 </head>
-<script type="text/javascript">
-    function DosignUp() {
-            $(document).ready(function(){
-                var isCheckId = 0;
-
-                var id = $("#id").val();
-                var pw = $("#pw").val();
-                var pwCfm = $("#pwCfm").val();
-                var name = $("#name").val();
-                var phone = $("#phone").val();
-                var birth = $("#birth").val();
-                var gender = $("#gender").val();
-
-                $("#submit").on("click", function () {
-                    if (id == "") {
-                    alert("아이디(이메일)를 입력해 주세요");
-                    id.focus();
-                    return false;
-                }
-                    if (pw == "") {
-                    alert("비밀번호를 입력해주세요.");
-                    pw.focus();
-                    return false;
-                }
-                    if (pw != pwCfm) {
-                    alert("비밀번호가 서로 다릅니다. 비밀번호를 확인해 주세요.");
-                    pw.focus();
-                    return false;
-                }
-                    if (name == "") {
-                    alert("성명을 입력해주세요.");
-                    name.focus();
-                    return false;
-                }
-                    if (phone == "") {
-                    alert("휴대폰 번호를 입력해주세요.");
-                    phone.focus();
-                    return false;
-                }
-                    if (birth == "") {
-                    alert("생년월일을 입력해주세요(예시)85/03/25.");
-                    birth.focus();
-                    return false;
-                }
-                    if (gender == "") {
-                    alert("성별을 입력해주세요(예시)여성:F 남성:M");
-                    gender.focus();
-                    return false;
-                }
-            });
-        });
-    }
-
-</script>
 <body>
     <%@ include file="../main/header.jspf" %>
     <div id="container" class="mx-auto">
@@ -192,7 +117,7 @@
                                 </div>
                                 <div class="inner">
                                     <div class="row">
-                                        <input type="submit" class="btn btn-lg btn-success btn-block" value="회원가입" onclick="DosignUp();" />
+                                        <input type="submit" class="btn btn-lg btn-success btn-block" value="회원가입" />
                                     </div>
                                 </div>
                                 </div>

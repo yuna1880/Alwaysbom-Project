@@ -54,7 +54,7 @@
                                             <input type="tel" name="phone_3" id="id_phone_3" class="ipt" maxlength="4" minlength="1" required value>
                                         </span>
                                     </div>
-                                    <button type="button" class="login">확인</button>
+                                    <button type="button" class="login" onclick="location.href='/foundId'">확인</button>
                                 </fieldset>
                             </form>
                         </div>
