@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -15,7 +16,7 @@
         }
 
         #mainWrapper{
-            width: 800px;
+            width: 1000px;
             margin: 0 auto; /*가운데 정렬*/
         }
 
@@ -50,9 +51,9 @@
         }
 
         #ulTable > li > ul > li:first-child               {width:10%;} /*No 열 크기*/
-        #ulTable > li > ul > li:first-child +li           {width:45%;} /*제목 열 크기*/
+        #ulTable > li > ul > li:first-child +li           {width:40%;} /*제목 열 크기*/
         #ulTable > li > ul > li:first-child +li+li        {width:20%;} /*작성일 열 크기*/
-        #ulTable > li > ul > li:first-child +li+li+li     {width:15%;} /*작성자 열 크기*/
+        #ulTable > li > ul > li:first-child +li+li+li     {width:20%;} /*작성자 열 크기*/
         #ulTable > li > ul > li:first-child +li+li+li+li{width:10%;} /*조회수 열 크기*/
 
         #divPaging {
@@ -82,24 +83,36 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+    </script>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
 <div class="d-flex justify-content-center">
     <div id="container">
-        <div id="mainWrapper">
+       <div id="mainWrapper">
             <ul>
                 <!-- 게시판 제목 -->
                 <li>리뷰 게시판</li>
-
                 <!-- 게시판 목록  -->
                 <li>
                     <ul class="nav nav-pills nav-justified">
-                        <li class="nav-item">전체</li>
-                        <li class="nav-item">정기 구독</li>
-                        <li class="nav-item">꽃다발</li>
-                        <li class="nav-item">클래스</li>
-                        <li class="nav-item">소품샵</li>
+                        <li class="nav-item">
+                            <a href="#" onclick="goBestList()">전체</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick='goBestList("정기구독")'>정기구독</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick='goBestList("꽃다발")'>꽃다발</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick='goBestList("클래스")'>클래스</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick='goBestList("소품샵")'>소품샵</a>
+                        </li>
                         <!-- 검색 폼 영역 -->
                         <form class="d-flex">
                             <li id='liSearchOption' class="list-group list-group-horizontal">
@@ -122,31 +135,44 @@
                             <a class="nav-link" href="/community/goReview">베스트 리뷰</a>
                         </li>
                         <li class="nav-item-3">
-                            <a class="nav-link" id="${ddd}" href="#" onclick="goAllList(this)">전체리뷰</a>
+                            <a class="nav-link" id="${category}" href="#" onclick="goAllList(${category})">전체리뷰</a>
                         </li>
                     </ul>
-                    <ul id ="ulTable">
+                    <ul id ="ulTable" class="accordion">
                         <li>
                             <ul>
                                 <li>별점</li>
                                 <li>제목</li>
                                 <li>작성일</li>
                                 <li>작성자</li>
-                                <li>조회수</li>
+                                <li>좋아요</li>
                             </ul>
                         </li>
                         <!-- 게시물이 출력될 영역 -->
+                        <c:forEach var="bestAllList" items="${bestRList}">
                         <li>
-                            <ul>
-                                <li class="text-center">1</li>
-                                <li class="text-center">제목제목제목제목1</li>
-                                <li class="text-center">2014.07.09</li>
-                                <li class="text-center">자바</li>
-                                <li class="text-center">0</li>
+                            <ul id="acco_click">
+                                <li class="text-center"><div>${bestAllList.star}</div></li>
+                                <li class="text-center">${bestAllList.name}</li>
+                                <li class="text-center"><div>${bestAllList.regDate}</div></li>
+                                <li class="text-center"><div>${bestAllList.memberId}</div></li>
+                                <li class="text-center"><div>${bestAllList.likeCount}</div></li>
                             </ul>
+                            <div class="accordion_count">
+                                <div>
+                                    <p>${bestAllList.content}</p>
+                                </div>
+
+                                <div>
+                                    <c:if test="${not empty bestAllList.image}">
+                                        <div>
+                                            <img src="/static/upload/community/review/${bestAllList.image}">
+                                        </div>
+                                    </c:if>
+                                </div>
+                            </div>
                         </li>
-
-
+                        </c:forEach>
                     </ul>
                 </li>
             </ul>
@@ -158,20 +184,35 @@
 </body>
 <script>
     function goAllList(paramType) {
-        console.log(paramType);
-        console.log(paramType.getAttribute('id'));
-        if (paramType.getAttribute('id') == ""){
-            $.ajax({
-                url: '',
-                type: 'POST',
-                dataType: "json",
-                data: paramType,
-                success: function (data) {
-                }
-            });
+        let dataParam = {
+            'category': paramType
         }
+        $.ajax({
+            url: '/community/api/category/goAllReview',
+            type: 'POST',
+            dataType: "json",
+            data: dataParam,
+            success: function (data) {
+                alert("제발 나와라요~~~~~~~~~~")
+            }
+        });
     }
 
+    function goBestList(paramType) {
+
+    }
+
+    $(document).ready(function (){
+        $(".accordion ul").next(".accordion_count").slideToggle("fast")
+            .siblings(".accordion_count:visible").slideUp("fast");
+    });
+
+    $(".accordion ul").click(function(){
+        $(this).next(".accordion_count").slideToggle("fast")
+            .siblings(".accordion_count:visible").slideUp("fast");
+        $(this).toggleClass("active");
+
+    });
 </script>
 
 </html>

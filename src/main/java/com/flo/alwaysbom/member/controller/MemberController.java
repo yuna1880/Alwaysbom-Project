@@ -65,9 +65,9 @@ public class MemberController {
 
         //SignUp POST
         @RequestMapping(value="/member_join.do", method=RequestMethod.POST)
-        public String signupPOST(MemberVO memberVO) throws Exception {
+            public String signupPOST(MemberVO memberVO) throws Exception {
 
-            memberService.insertMember(memberVO);
+                memberService.insertMember(memberVO);
 
             return "/member/login";
         }
