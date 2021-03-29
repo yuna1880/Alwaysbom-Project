@@ -4,7 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
 
-
+    <select id="allBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT *
+        FROM (
+        SELECT ROW_NUMBER() over (ORDER BY STAR DESC) as RN, I.*
+        FROM REVIEW I
+        )
+        WHERE RN BETWEEN 1 and 10
+    </select>
 <!--    <insert id="addHome" parameterType="com.chicken.kyochon.vo.HomeVo">
         INSERT INTO HOME(name, age, filename)
         VALUES (#{name}, #{age}, #{filename})
