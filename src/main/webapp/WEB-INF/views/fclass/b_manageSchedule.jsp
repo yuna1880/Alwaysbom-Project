@@ -127,13 +127,12 @@
 
         let response = await fetch("/admin/fclass/api/deleteScheduleByIdx", option);
         let result = await response.json();
-        // 여기 응답받고 리스트 삭제하는 부분은 내일 합시다//////////////////////////////////////////////////////
         if(result) {
             for (let idx of idxArray) {
                 let tr = document.querySelector("tr[data-idx='" + idx + "']");
                 tr.remove();
             }
-            let numList = document.querySelectorAll("#scheduleTbody tr th span");
+            let numList = document.querySelectorAll("#scheduleTbody tr td span");
             numList.forEach(function (num, index) {
                 num.textContent = (index + 1).toString();
             });
