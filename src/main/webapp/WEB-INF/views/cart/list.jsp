@@ -32,14 +32,17 @@
                 <c:choose>
                     <c:when test="${cart.category eq '꽃다발'}">
                         <c:set var="path" value="${cart.flowerVo.image1}"/>
+                        <c:set var="link" value="/flower/${cart.flowerVo.idx}"/>
                         <c:set var="target" value="${cart.flowerVo}"/>
                     </c:when>
                     <c:when test="${cart.category eq '정기구독'}">
                         <c:set var="path" value="${cart.subsVo.image1}"/>
+                        <c:set var="link" value="/subs/${cart.subsVo.idx}"/>
                         <c:set var="target" value="${cart.subsVo}"/>
                     </c:when>
                     <c:when test="${cart.category eq '소품샵'}">
                         <c:set var="path" value="${cart.productVo.image1}"/>
+                        <c:set var="link" value="/product/${cart.productVo.idx}"/>
                         <c:set var="target" value="${cart.productVo}"/>
                     </c:when>
                     <c:otherwise>
@@ -55,7 +58,9 @@
                     </div>
                     <div class="col-6 d-flex">
                         <div class="card-img w-25 overflow-hidden">
-                            <img src="/static/upload/${path}" alt="사진" class="h-100">
+                            <a href="${link}">
+                                <img src="/static/upload/${path}" alt="사진" class="h-100">
+                            </a>
                         </div>
                         <div class="bg-transparent w-75 d-flex flex-column align-items-baseline">
                             <span>${target.name}</span>
