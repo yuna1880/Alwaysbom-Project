@@ -79,13 +79,9 @@
                         </div>
                     </div>
                     <div class="file-wrap">
-<<<<<<< HEAD
-                        <img src="../static/upload/fclass/branch/${branch.mapImage}" width="300px" class="imageBox">
-=======
                         <div class="overflow-hidden" style="height: 200px">
                             <img src="/static/upload/fclass/branch/${branch.mapImage}" width="300px" class="imageBox">
                         </div>
->>>>>>> d62fc00339e321e0277d88585f50eb4a1e9ddf07
                         <input type="hidden" name="mapImage" value="${branch.mapImage}">
                         <input type="file" name="file" class="bmap" onchange="preview(this)"/>
                         <div>
