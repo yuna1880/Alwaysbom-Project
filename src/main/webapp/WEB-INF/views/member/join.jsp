@@ -40,7 +40,7 @@
                                 <b>바로 사용할 수 있는 1,000P</b>
                                 를 드려요!
                             </p>
-                            <a href="memberJoin" class="link email">
+                            <a href="/member_join" class="link email">
                                 이메일 회원가입
                             </a>
                             <p class="sns">
