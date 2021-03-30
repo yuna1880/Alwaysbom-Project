@@ -3,11 +3,11 @@
 <html>
 <head>
     <title>클래스 수정 및 상세입력</title>
-    <%@ include file="../main/import.jspf" %>
+    <%@ include file="../main/b_import.jspf" %>
     <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
-<%@ include file="../main/header.jspf" %>
+<%@ include file="../main/b_header.jspf" %>
 <form id="container" class="mx-auto p-5" action="/admin/fclass/updateClass" method="post" enctype="multipart/form-data">
     <input type="hidden" name="idx" value="${classInfo.idx}">
     <div class="d-flex justify-content-between mb-4">
@@ -118,7 +118,7 @@
 </form>
 
 
-<%@ include file="../main/footer.jspf" %>
+<%@ include file="../main/b_footer.jspf" %>
 <script>
     function preview(file, id) {
         let img = document.querySelector("#" + id);
