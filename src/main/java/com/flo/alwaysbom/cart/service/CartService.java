@@ -9,7 +9,7 @@ public interface CartService {
 
     List<CartVo> findAllCarts();
 
-    Integer addCart(CartVo cartVo, Integer[] productIds);
+    Integer addCart(CartVo cartVo);
 
     List<CartVo> findCartsByMember(String memberId);
 
