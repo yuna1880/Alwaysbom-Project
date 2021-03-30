@@ -11,11 +11,7 @@
         )
         WHERE RN BETWEEN 1 and 10
     </select>
-<!--    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">-->
-<!--        SELECT *-->
-<!--        FROM REVIEW-->
-<!--        ORDER BY REG_DATE DESC-->
-<!--    </select>-->
+
     <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
         SELECT *
         FROM REVIEW
