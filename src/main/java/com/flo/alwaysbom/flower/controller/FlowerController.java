@@ -23,7 +23,7 @@ public class FlowerController {
     }
 
     @GetMapping("/flower")
-    public String findAll(Model model) {
+    public String getList(Model model) {
         List<FlowerVo> list = flowerService.findAll();
         model.addAttribute("list", list);
         return "flower/flowerList";
@@ -38,11 +38,11 @@ public class FlowerController {
         return "flower/flowerDetail";
     }
 
-    @GetMapping("/flower/{idx}/get")
-    @ResponseBody
-    public FlowerVo findFlowerByIdx(@PathVariable("idx") Integer idx) {
-        return flowerService.findByIdx(idx)
-                .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
-    }
+//    @GetMapping("/flower/{idx}/get")
+//    @ResponseBody
+//    public FlowerVo findFlowerByIdx(@PathVariable("idx") Integer idx) {
+//        return flowerService.findByIdx(idx)
+//                .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
+//    }
 
 }
