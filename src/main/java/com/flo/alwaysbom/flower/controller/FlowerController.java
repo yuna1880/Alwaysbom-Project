@@ -17,6 +17,11 @@ public class FlowerController {
 
     private final FlowerServiceImpl flowerService;
 
+    @GetMapping("/flower/test")
+    public String goTest(){
+        return "flower/test";
+    }
+
     @GetMapping("/flower")
     public String findAll(Model model) {
         List<FlowerVo> list = flowerService.findAll();

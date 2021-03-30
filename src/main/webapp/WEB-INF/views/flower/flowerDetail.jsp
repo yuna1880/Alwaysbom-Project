@@ -6,6 +6,8 @@
     <title>꽃다발 상세페이지</title>
     <%@ include file="../main/import.jspf"%>
     <link rel="stylesheet" href="/static/css/item/detail.css">
+    <link rel="stylesheet" href="/static/bootstrap-datepicker/bootstrap-datepicker.css">
+    <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 </head>
 <body>
     <%@ include file="../main/header.jspf"%>
@@ -25,70 +27,86 @@
             <!-- 사진 썸네일 -->
             <div class="thumbnails d-flex flex-column justify-content-start">
                 <div class="mb-4">
-                    <img src="/static/upload/${flowerVo.image1}" alt="대표 썸네일"
-                         class="img-big">
+                    <img src="/static/upload/${flowerVo.image1}" alt="대표 썸네일" class="col-12">
                 </div>
-                <div class="d-flex justify-content-between img-sm-wrap">
-                    <img src="/static/upload/${flowerVo.image1}" alt="썸네일1" class="img-sm">
+                <div class="d-flex justify-content-between">
+                    <img src="/static/upload/${flowerVo.image1}" alt="썸네일1" class="col-4 pe-2">
                     <c:if test="${not empty flowerVo.image2}">
-                    <img src="/static/upload/${flowerVo.image2}" alt="썸네일2" class="img-sm">
+                    <img src="/static/upload/${flowerVo.image2}" alt="썸네일2" class="col-4 ps-1 pe-1">
                     </c:if>
                     <c:if test="${not empty flowerVo.image3}">
-                    <img src="/static/upload/${flowerVo.image3}" alt="썸네일3" class="img-sm">
+                    <img src="/static/upload/${flowerVo.image3}" alt="썸네일3" class="col-4 ps-2">
                     </c:if>
                 </div>
             </div>
-            <div class="margin-between"></div>
+
             <!-- 주문 정보 -->
             <div class="order-info d-flex flex-column">
                 <span class="subheader">${flowerVo.subheader}</span>
                 <span class="item-name">${flowerVo.name}</span>
+
+                <!-- 가격 정보 -->
                 <div class="d-flex justify-content-start align-items-center">
                     <c:if test="${not empty flowerVo.discountRate && flowerVo.discountRate > 0}">
                     <span class="discount-rate text-danger pe-2">${flowerVo.discountRate}%</span>
-                    <span class="original-price text-decoration-line-through pe-2">${flowerVo.price}원 ></span>
+                    <span class="original-price text-decoration-line-through pe-2">
+                            <fmt:formatNumber value="${flowerVo.price}" pattern="#,###원 >"/>
+                    </span>
                     </c:if>
-                    <span class="final-price">${flowerVo.finalPrice}원</span>
+                    <span class="fs-3 fw500">
+                        <fmt:formatNumber value="${flowerVo.finalPrice}" pattern="#,###원"/>
+                    </span>
                 </div>
-                <div class="fd-announcement d-flex justify-content-start py-3 my-3">
+                <div class="fd-announcement d-flex justify-content-start py-3 my-4">
                     3만원 이상 구매시, <span class="point-color fw500 ps-1">무료배송!</span>
                 </div>
+
+                <!-- 구매옵션 -->
                 <div class="inputs-wrap">
-                    <div class="row">
-                        <div class="col-3 fw500">수령일</div>
-                        <div class="col-9">수령일을 선택해주세요.</div>
+                    <!-- 수령일 선택 옵션 -->
+                    <div class="row mb-4">
+                        <div class="col-3 fw500 pt-1">수령일</div>
+                        <div class="col-9">
+                            <input type="text" placeholder="수령일을 선택해주세요." class="datepicker col-12 p-2 ps-3 fs-6"/>
+                        </div>
                     </div>
-                    <div class="row">
+
+                    <!-- 수량 선택 옵션 -->
+                    <div class="row mb-4">
                         <div class="col-3 fw500">수량</div>
-                        <div class="col-9 count">
-                            <button type="button" class="border-0" onclick="countDown()">
+                        <div class="col-9 count d-flex justify-content-start align-items-center">
+                            <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(false)">
                                 <i class="fas fa-minus-circle"></i>
                             </button>
-                            <span id="quantity">1</span>
-                            <button type="button" class="border-0" onclick="countUp()">
+                            <span class="quantity col-1 text-center">1</span>
+                            <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(true)">
                                 <i class="fas fa-plus-circle"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="row">
+
+                    <!-- 편지 추가 옵션 -->
+                    <div class="row mb-4">
                         <div class="col-3 fw500">편지 추가</div>
                         <div class="col-9">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="letterOptions"
-                                       id="withLetter" value="option1" checked onclick="checkRadioBtn(1)">
+                                       id="withLetter" value="option1" checked onclick="checkRadioBtn(true)">
                                 <label class="form-check-label text-dark fw500" for="withLetter">추가할게요.(+2,500원)</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="letterOptions"
-                                       id="withoutLetter" value="option2" onclick="checkRadioBtn(0)">
+                                       id="withoutLetter" value="option2" onclick="checkRadioBtn(false)">
                                 <label class="form-check-label" for="withoutLetter">추가하지 않을게요.</label>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+
+                    <!-- 소품샵 아이템 추가 옵션 -->
+                    <div class="row mb-4">
                         <div class="col-3 fw500">추가 옵션</div>
                         <div class="col-9">
-                            <select class="form-select form-select" aria-label=".form-select-sm example">
+                            <select class="form-select p-2 ps-3" aria-label="form-select example">
                                 <option selected>함께하면 좋은 추천상품</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
@@ -97,22 +115,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-between p-3 mx-2 mb-3 price-box">
+
+                <!-- 상품가격 price box -->
+                <div class="d-flex justify-content-between p-4 mx-2 mb-3 price-box">
                     <span class="fw500">상품가격</span>
-                    <span class="fw500"><fmt:formatNumber value="${flowerVo.finalPrice}" pattern="#,###원"/></span>
+                    <span class="fw500">
+                        <fmt:formatNumber value="${flowerVo.finalPrice}" pattern="#,###원"/>
+                    </span>
                 </div>
+
                 <!-- 편지추가 price box -->
-                <div id="addLetter" class="p-3 mx-2 mb-3 price-box">
+                <div id="addLetter" class="p-4 mx-2 mb-3 price-box">
                     <div class="d-flex justify-content-between pb-1">
                         <span class="fw500">추가상품 : 편지추가</span>
                         <button type="button" class="btn-close btn-close-style" aria-label="Close"
                                 onclick="closeLetter(this)"></button>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <span class="fw500">${flowerVo.letterPrice}원</span>
+                        <span class="fw500">
+                            <fmt:formatNumber value="${flowerVo.letterPrice}" pattern="#,###원"/>
+                        </span>
                     </div>
                 </div>
 
+                <!-- 총 주문금액 -->
                 <c:if test="${not empty flowerVo.freeDeliveryMessage}">
                 <div class="d-flex justify-content-end mb-1 me-2">
                     <span class="badge rounded-pill price-box text-dark fw500">
@@ -120,75 +146,95 @@
                     </span>
                 </div>
                 </c:if>
-                <div class="d-flex justify-content-end align-items-baseline me-2">
+                <div class="d-flex justify-content-end align-items-baseline me-2 mb-4">
                     <span class="me-3">총 주문금액</span>
-                    <span id="totalPrice" class="fw-bold fs-6">${flowerVo.finalPrice + flowerVo.letterPrice}원</span>
+                    <span id="totalPrice" class="fw-bold fs-3">
+                        <fmt:formatNumber value="${flowerVo.finalPrice + flowerVo.letterPrice}" pattern="#,###원"/>
+                    </span>
                 </div>
 
-
+                <!-- 장바구니/결제 버튼 -->
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="button" class="btn sub-button fw-bold py-3 me-2">장바구니</button>
+                    <button type="button" class="btn main-button fw-bold py-3">바로구매</button>
+                </div>
 
             </div>
         </div> <!-- 상품 썸네일 & 주문 정보 닫기 -->
-
     </div> <!-- #container 닫기 -->
 
     <%@ include file="../main/footer.jspf"%>
 
 <script>
-    let totalPrice = document.querySelector("#totalPrice");
-    let letterOptions = document.getElementsByName("letterOptions");
+    const totalPriceEl = document.querySelector("#totalPrice");
 
-    function checkRadioBtn(statusNum) {
-        if (statusNum === 1) {
-            letterOptions[1].nextElementSibling.classList.remove("text-dark", "fw500");
-            letterOptions[0].nextElementSibling.classList.add("text-dark", "fw500");
+    function checkRadioBtn(isAdded) {
+        const letterOptionsEl = document.getElementsByName("letterOptions");
+
+        if (isAdded) {
+            letterOptionsEl[1].nextElementSibling.classList.remove("text-dark", "fw500");
+            letterOptionsEl[0].nextElementSibling.classList.add("text-dark", "fw500");
             document.querySelector("#addLetter").classList.remove("d-none");
         } else {
-            letterOptions[0].nextElementSibling.classList.remove("text-dark", "fw500");
-            letterOptions[1].nextElementSibling.classList.add("text-dark", "fw500");
+            letterOptionsEl[0].nextElementSibling.classList.remove("text-dark", "fw500");
+            letterOptionsEl[1].nextElementSibling.classList.add("text-dark", "fw500");
             document.querySelector("#addLetter").classList.add("d-none");
         }
-    }
-
-    function countUp() {
-        let quantity = document.querySelector("#quantity");
-        let qNum = Number(quantity.innerText);
-        quantity.innerText = qNum + 1;
         configTotal();
     }
 
-    function countDown() {
-        let quantity = document.querySelector("#quantity");
-        let qNum = Number(quantity.innerText);
-        if (qNum > 1) {
-            quantity.innerText = qNum - 1;
+    function adjustQuantity(isUp) {
+        const quantityEl = document.querySelector(".quantity");
+        let quantity = quantityEl.textContent;
+        if (isUp) {
+            quantity++;
+        } else {
+            if (quantity > 1) {
+                quantity--;
+            }
         }
+        quantityEl.textContent = quantity;
         configTotal();
     }
 
     function closeLetter() {
         document.querySelector("#addLetter").classList.add("d-none");
         document.querySelector("#withoutLetter").checked = true;
-        checkRadioBtn(0);
-        totalPrice.innerHTML = (configTotal() - ${flowerVo.letterPrice}) + "원";
+        checkRadioBtn(false);
+        totalPriceEl.textContent = configTotal().toLocaleString('ko-KR') + "원";
     }
 
     function configTotal() {
-        let quantity = document.querySelector("#quantity");
-        let qNum = Number(quantity.innerText);
-        let total;
-        /////// 옵션 추가값도 나중에 계산해야됨
+        const finalPrice = ${flowerVo.finalPrice};
+        const letterPrice = ${flowerVo.letterPrice};
+        const quantityEl = document.querySelector(".quantity");
+        const letterOptionsEl = document.getElementsByName("letterOptions");
+        const quantity = quantityEl.textContent;
+        let totalPrice = quantity * finalPrice;
 
-        <%--if (letterOptions[0].checked) {--%>
-        <%--    total += ${flowerVo.letterPrice};--%>
-        <%--} else {--%>
-        <%--    total -= ${flowerVo.letterPrice};--%>
-        <%--}--%>
-        total = qNum * ${flowerVo.finalPrice};
-        totalPrice.innerHTML = total + "원";
+        if (letterOptionsEl[0].checked) {
+            totalPrice += letterPrice;
+        }
 
-        return total;
+        totalPriceEl.textContent = totalPrice.toLocaleString('ko-KR') + "원";
+
+        return totalPrice;
+
     }
+
+    $(function () {
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            showOtherMonths: false,
+            startDate: 'noBefore',
+            endDate: '+14d',
+            setDate: 'today',
+            todayHighlight: true,
+            title: '원하시는 수령일을 설정해주세요.',
+            language: 'ko'
+        });
+    })
+
 
     <%--
     async function getDetail() {

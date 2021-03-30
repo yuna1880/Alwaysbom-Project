@@ -5,7 +5,7 @@
     <title>꽃다발 상품 조회</title>
     <%@ include file="../main/b_import.jspf"%>
     <link rel="stylesheet" href="/static/css/item/b_addForm.css">
-    <link rel="stylesheet" href="/static/css/item/flower.css">
+    <link rel="stylesheet" href="/static/css/item/flowerList.css">
 </head>
 <body>
     <%@ include file="../main/b_header.jspf"%>
