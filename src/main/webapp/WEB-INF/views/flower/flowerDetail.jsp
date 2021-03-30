@@ -108,9 +108,14 @@
                         <div class="col-9">
                             <select class="form-select p-2 ps-3" aria-label="form-select example">
                                 <option selected>함께하면 좋은 추천상품</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <c:forEach var="productVo" items="${productList}">
+                                <c:if test="${not empty productVo}">
+                                <option value="${productVo.idx}">
+                                    <div>${productVo.name}</div>
+                                    <div>${productVo.finalPrice}</div>
+                                </option>
+                                </c:if>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>
