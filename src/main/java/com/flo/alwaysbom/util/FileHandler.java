@@ -42,7 +42,7 @@ public class FileHandler {
                     }
                 }
 
-                return new File(uploadFolder, fileName).getPath();
+                return new File(new File("/", uploadFolder), fileName).getPath().substring(1);
             } else {
                 System.out.println(".이 없거나 확장자의 길이가 1보다 작습니다");
                 return null;

@@ -250,8 +250,11 @@
             tr.innerHTML += '<td class="fw-bold" data-hana="regCount">' + schedule.regCount + '</td>'
             tr.innerHTML += '<td><button data-idx="' + schedule.idx + '" class="btn btn-danger p-0 px-2" data-bs-toggle="modal" data-bs-target="#modal">삭제</button></td>';
             tr.querySelector("th input[type='checkbox']").addEventListener("click", checkStatus);
-            tr.querySelector("th").addEventListener("click", function(event) {
+            tr.querySelector("th").addEventListener("click", function (event) {
                 tr.querySelector("th input[type='checkbox']").click();
+                event.stopPropagation();
+            });
+            tr.querySelector("td button[data-bs-toggle='modal']").addEventListener("click", function (event) {
                 event.stopPropagation();
             });
             tbody.appendChild(tr);

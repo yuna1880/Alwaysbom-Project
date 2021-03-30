@@ -30,4 +30,8 @@ public class ScheduleService {
     public ScheduleVo updateSchedule(ScheduleVo vo) {
         return scheduleDao.updateSchedule(vo);
     }
+
+    public ScheduleVo findByIdx(Integer scheduleIdx) {
+        return scheduleDao.findByIdx(scheduleIdx);
+    }
 }
