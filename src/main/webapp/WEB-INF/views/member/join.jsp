@@ -18,11 +18,18 @@
                         success: res => {
                             const kakao_account = res.kakao_account;
                             console.log(kakao_account);
+
+                            var kakao_id = kakao_account.email;
+                            var kakao_name = kakao_account.profile.nickname;
+                            var kakao_gender = kakao_account.gender;
+
+                            window.location.href="http://localhost:8070/member_join?kakao_id=" + kakao_id + "&kakao_name=" + kakao_name +"&kakao_gender=" + kakao_gender;
                         }
                     });
                 }
             });
         }
+
     </script>
 </head>
 <body>
@@ -49,9 +56,11 @@
 
                               <span class="blind">SNS 계정으로 간편하게 새늘봄에 가입이 가능합니다.</span>
                             </p>
+                            <form action="/member_join">
                             <a href="javascript:kakaoLogin();" class="link kakao">
                                 카카오로 가입하기
                             </a>
+                            </form>
                             <a href="" class="link naver">
                                 네이버로 가입하기
                             </a>
