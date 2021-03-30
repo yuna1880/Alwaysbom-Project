@@ -23,15 +23,16 @@ public class ReviewDao {
         return list;
     }
 
-    public List<ReviewDto> allReview(String category, String tab) {
+    public List<ReviewDto> allReview(String category, String tab, Map<String, Object> map) {
         List<ReviewDto> list = null;
         if(category.equals("")){
             category = null;
         }
+        map.put("category", category);
         if(tab.equals("best")){
             list = sqlSessionTemplate.selectList("review.cateBestReview", category);
         } else if(tab.equals("allList")) {
-            list = sqlSessionTemplate.selectList("review.allReview", category);
+            list = sqlSessionTemplate.selectList("review.allReview", map);
         }
         for (ReviewDto vo : list) {
             vo.setRegDate(vo.getRegDate().substring(0,10));
@@ -45,5 +46,12 @@ public class ReviewDao {
             vo.setRegDate(vo.getRegDate().substring(0,10));
         }
         return list;
+    }
+
+    public int getTotalRecord(String category) {
+        if(category.equals("")){
+            category = null;
+        }
+        return sqlSessionTemplate.selectOne("review.totalRecord", category);
     }
 }
