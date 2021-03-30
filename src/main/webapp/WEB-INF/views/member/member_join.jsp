@@ -4,6 +4,51 @@
     <title>회원가입</title>
     <%@ include file="../main/import.jspf"%>
     <link href="/static/css/member/member_join.css" rel="stylesheet">
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+        Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");
+        Kakao.isInitialized();
+
+        function kakaoLogin() {
+            Kakao.Auth.login({
+                scope:'profile, account_email, gender, birthday',
+                success: function (authObj) {
+                    window.Kakao.API.request({
+                        url:'/v2/user/me',
+                        success: res => {
+                            const kakao_account = res.kakao_account;
+                            console.log(kakao_account);
+
+                            var kakao_id = kakao_account.email;
+                            var kakao_name = kakao_account.profile.nickname;
+                            var kakao_gender = kakao_account.gender;
+                        }
+                    });
+                }
+            });
+        }
+
+        // function kakaoLogout() {
+        //     //로그아웃
+        //     if (!Kakao.Auth.getAccessToken()) {
+        //         console.log('Not logged in.');
+        //         return;
+        //     }
+        //     Kakao.Auth.logout(function () {
+        //         console.log(Kakao.Auth.getAccessToken());
+        //     });
+        //     //연결 끊기
+        //     Kakao.API.request({
+        //         url: '/v1/user/unlink',
+        //         success: function(response) {
+        //             console.log(response);
+        //         },
+        //         fail: function(error) {
+        //             console.log(error);
+        //         },
+        //     });
+        // }
+    </script>
 </head>
 <script type="text/javascript">
     function DosignUp() {
@@ -79,20 +124,10 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="text" name="id" id="id" class="ipt" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
+                                                <input type="text" name="id" value="${kakao_id}" class="ipt" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
                                             </span>
                                             <button type="button" class="btn">중복확인</button>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row blind">
-                                    <div class="th star" for="pw">
-                                        비밀번호
-                                    </div>
-                                    <div class="td">
-                                        <span>
-                                            <input type="password" name="pw">
-                                        </span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -111,7 +146,7 @@
                                     </div>
                                     <div class="td">
                                         <span>
-                                            <input type="password" name="pw" class="ipt" maxlength="255" placeholder="비밀번호를 한 번 더 입력해주세요." autocomplete="off" />
+                                            <input type="password" name="pwCfm" class="ipt" maxlength="255" placeholder="비밀번호를 한 번 더 입력해주세요." autocomplete="off" />
                                         </span>
                                     </div>
                                 </div>
@@ -121,7 +156,7 @@
                                     </div>
                                     <div class="td">
                                         <span>
-                                            <input type="text" name="name" id="name" class="ipt" maxlength="255" placeholder="이름을 입력해주세요." />
+                                            <input type="text" name="name" value="${kakao_name}" class="ipt" maxlength="255" placeholder="이름을 입력해주세요." />
                                         </span>
                                     </div>
                                 </div>
@@ -151,7 +186,7 @@
                                     </div>
                                     <div class="td">
                                         <span>
-                                            <input type="text" name="gender" id="gender" class="csr_phone ipt" placeholder="예) 여성:F 남성:M" />
+                                            <input type="text" name="gender" value="${kakao_gender}" class="csr_phone ipt" placeholder="예) 여성:F 남성:M" />
                                         </span>
                                     </div>
                                 </div>

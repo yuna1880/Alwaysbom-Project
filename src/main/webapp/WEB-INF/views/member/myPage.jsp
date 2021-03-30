@@ -15,16 +15,30 @@
         .h-85 {
             height: 85% !important;
         }
-
         .bg-pink {
-            background-color: #f56c62;
+            background-color: #f5b0cf;
+        }
+        .name-color {
+            color: #d869db;
+        }
+        .bannerName-color {
+            color: #f7ebf1;
+        }
+        a {
+            text-decoration: none;
+        }
+        hr {
+            color: white;
+        }
+        .list-group-item {
+            border: none;
         }
     </style>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto d-flex flex-column h-100 user-select-none">
-    <div class="h-10 d-flex bg-pink text-white p-3">
+    <div class="h-10 d-flex bg-pink bannerName-color p-3">
         <div class="col-4 d-flex flex-column justify-content-center align-items-center position-relative p-2">
             <span class="position-absolute top-0 align-self-baseline">회원 등급</span>
             <span class="h4">WHITE</span>
@@ -43,16 +57,17 @@
         <div class="col-2"></div>
         <div class="col-10 d-flex justify-content-center px-3 pt-4">
             <span class="h3 col-11 d-flex justify-content-start text-secondary">
-                <span class="name">이다솜</span>
-                님, 오늘도 꽃 같은 날이에요-
+                <span class="name name-color">이다솜</span>
+                님, 환영합니다. 언제나 늘 새로운 꽃이 가득한 새늘봄입니다-
             </span>
-            <div class="col-1"></div>
-
         </div>
     </div>
     <div class="h-85 d-flex">
         <div class="col-2 border-warning d-flex flex-column p-4 ps-5">
             <ul class="d-flex flex-column list-unstyled fs-6 list-group m-0">
+                <li>
+                    <hr>
+                </li>
                 <li class="list-group-item list-group-item-white">
                     <a href="" class="link-secondary">주문 내역</a>
                 </li>
