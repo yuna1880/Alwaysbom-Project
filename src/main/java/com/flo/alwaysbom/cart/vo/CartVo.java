@@ -25,6 +25,7 @@ public class CartVo {
     private String subsMonth;
     private Date subsStartDate;
     private int letter;
+    private Date requestDate;
 
     // 관련 데이터
     private SubsVo subsVo;
