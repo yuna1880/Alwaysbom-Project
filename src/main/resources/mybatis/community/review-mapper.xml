@@ -12,15 +12,26 @@
         WHERE RN BETWEEN 1 and 10
     </select>
 
-    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
-        SELECT *
+    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">
+<!--        SELECT *
         FROM REVIEW
         <where>
             <if test="category != null">
                 CATEGORY = #{category}
             </if>
         </where>
-        ORDER BY REG_DATE DESC
+        ORDER BY REG_DATE DESC-->
+        SELECT *
+        FROM (
+        SELECT ROW_NUMBER() over (ORDER BY REGDATE DESC) as RN, I.*
+        FROM REVIEW I
+            <where>
+                <if test="category != null">
+                    CATEGORY = #{category}
+                </if>
+            </where>
+        )
+        WHERE RN BETWEEN #{begin} and #{end}
     </select>
     <select id="cateBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
         SELECT *
@@ -44,6 +55,15 @@
             </if>
         </where>
         ORDER BY REG_DATE DESC
+    </select>
+
+    <select id="totalRecord" resultType="Integer" parameterType="string">
+        SELECT COUNT(IDX) FROM REVIEW
+        <where>
+            <if test="category != null">
+                CATEGORY = #{category}
+            </if>
+        </where>
     </select>
 <!--    <select id="utilReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">-->
 <!--        SELECT *-->

@@ -217,29 +217,33 @@
                     <%--페이징 처리--%>
                     <ol class="paging">
                         <c:choose>
-                            <c:when test="${pvo.nowPage eq 1}">
-                                <li class="prev disable">이전</li>
+                            <c:when test="${pvo.nowBlock eq 1}">
+                                <li class="disable"><i class="fas fa-angle-double-left"></i></li>
+                                <li class="disable"><i class="fas fa-angle-left"></i></li>
                             </c:when>
-                            <c:when test="${pvo.nowPage > 1}">
-                                <li onclick='goPage("allList", "${param.category}", ${pvo.nowPage - 1})'>이전</li>
+                            <c:when test="${pvo.nowBlock > 1}">
+                                <li onclick='goPage("allList", "${param.category}", "1")'><i class="fas fa-angle-double-left"></i></li>
+                                <li onclick='goPage("allList", "${param.category}", "${pvo.nowPage - 5}")'><i class="fas fa-angle-left"></i></li>
                             </c:when>
                         </c:choose>
 
-                        <c:forEach var="pageNo" begin="${pvo.startPage}" end="${pvo.endPage}">
-                            <c:if test="${pvo.nowPage eq pageNo}">
-                                <li class="now-page">${pageNo}</li>
+                        <c:forEach var="pageNo" begin="${pvo.beginPage}" end="${pvo.endPage}">
+                            <c:if test="${pageNo == pvo.nowPage }">
+                                <li class="now">${pageNo}</li>
                             </c:if>
-                            <c:if test="${pvo.nowPage ne pageNo}">
-                                <li onclick='goPage("allList", "${param.category}", ${pageNo})'>${pageNo}</li>
+                            <c:if test="${pageNo ne pvo.nowPage}">
+                                <li onclick='goPage("allList", "${param.category}", "${pageNo}")'>${pageNo}</li>
                             </c:if>
                         </c:forEach>
 
                         <c:choose>
-                            <c:when test="${pvo.nowPage eq paging.totalPage }">
-                                <li class="next disable">다음</li>
+                            <c:when test="${pvo.nowBlock eq pvo.totalBlock}">
+                                <li class="disable"><i class="fas fa-angle-right"></i></li>
+                                <li class="disable"><i class="fas fa-angle-double-right"></i></li>
                             </c:when>
-                            <c:when test="${pvo.nowPage < pvo.totalPage }">
-                                <li onclick='goPage("allList", "${param.category}", ${pvo.nowPage + 1})' class="next">다음</li>
+                            <c:when test="${pvo.nowBlock < pvo.totalBlock}">
+                                <li onclick='goPage("allList", "${param.category}", "${pvo.nowPage + 5}")'><i class="fas fa-angle-right"></i></li>
+                                <li onclick='goPage("allList", "${param.category}", "${pvo.totalPage}")'><i class="fas fa-angle-double-right"></i></li>
                             </c:when>
                         </c:choose>
                     </ol>
