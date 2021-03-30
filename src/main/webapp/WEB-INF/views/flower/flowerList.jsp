@@ -4,7 +4,7 @@
 <head>
     <title>꽃다발</title>
     <%@ include file="../main/import.jspf"%>
-    <link rel="stylesheet" href="/static/css/item/flower.css">
+    <link rel="stylesheet" href="/static/css/item/flowerList.css">
 </head>
 <body>
     <%@ include file="../main/header.jspf" %>
@@ -37,7 +37,7 @@
                         </c:if>
                         <span class="final-price">${flowerVo.finalPrice}원</span>
                     </div>
-                    <div class="last-line">
+                    <div class="last-line size-delivery">
                         <span class="badge rounded-pill bg-warning size-unit">${flowerVo.fsize}</span>
                         <span class="f-col-size">size</span>
                         <span class="badge rounded-pill bg-secondary delivery-unit">${flowerVo.freeDeliveryMessage}</span>
