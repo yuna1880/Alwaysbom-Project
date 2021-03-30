@@ -15,7 +15,7 @@
         SELECT POINT FROM MEMBER WHERE ID = #{id}
     </select>
 
-    <insert id="insertOrder" parameterType="com.flo.alwaysbom.order.vo.OrderVo">
+    <insert id="insertOrder" parameterType="com.flo.alwaysbom.order.vo.OrdersVo">
 
 
     </insert>

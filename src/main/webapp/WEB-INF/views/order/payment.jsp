@@ -37,19 +37,18 @@
             let usePoint = document.querySelector('#pointHere');
             let discountPoint;
 
+
+
             alert(availablePoint);
             alert(inputPoint);
 
-            if (inputPoint !== '' || inputPoint.value.length > 0) {
-                alert("여기")
-                //discountPoint = inputPoint.value;
-                usePoint.innerHTML = '-' + inputPoint + '원';
-            } else {
-                discountPoint = 0;
-                //alert("사용가능한 포인트는" + availablePoint + "원 입니다.")
-            }
-            usePoint.textContent = '-' + discountPoint + '원';
+        }
 
+        function compareWithPoint(point) {
+            //사용자가 입력한 포인트가 현재 포인트보다 작으면..
+            if (point.value > ${point}) {
+                alert("회원님께서 사용 가능한 포인트는" <fmt:formatNumber type="number" maxFractionDigits="3" value="${order.subsVo.price}" var="commaPrice"/> );
+            }
         }
 </script>
 <body>
@@ -165,7 +164,8 @@
                             <tr>
                                 <td><span class="detail"><span class="th">적립금</span>
                                     <span class="td_savings">
-                                        <input type="number" value="" min="0" name="point" id="input_my_point" placeholder="0" autocomplete="off">
+                                        <input type="number" value="" min="0" onkeyup="compareWithPoint(this)" onchange="compareWithPoint(this)"
+                                               name="point" id="input_my_point" placeholder="0" autocomplete="off">
                                         <button type="button" class="btns add" onclick="Point()">사용</button>
                                         <span class="text">* 사용 가능 포인트:
                                             <fmt:formatNumber value="${point}" pattern="#,###"/>원</span>
