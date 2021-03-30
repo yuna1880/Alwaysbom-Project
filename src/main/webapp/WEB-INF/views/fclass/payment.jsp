@@ -128,7 +128,7 @@
                                 </div>
 
                                 <!-- 쿠폰, 적립금 -->
-                                <table class="address_input_table in_s4 w450">
+                                <table class="input_table in_s4 w450">
                                     <tbody>
                                     <tr>
                                         <td><span class="detail"><span class="th fw-bold">적립금</span>

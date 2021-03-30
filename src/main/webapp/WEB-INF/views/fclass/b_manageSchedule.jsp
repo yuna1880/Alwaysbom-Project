@@ -261,7 +261,6 @@
         })
     }
 
-
     function checkAll(allBtn) {
         let checkList = document.querySelectorAll(".each-check");
         for (let checkBox of checkList) {
@@ -369,7 +368,7 @@
             endDate: '+60d',
             setDate: 'today',
             todayHighlight: true,
-            title: '새늘봄 클래스 일정을 선택해주세요',
+            title: '"조회하실 클래스 날짜를 선택해주세요"',
             language: 'ko'
         });
 
@@ -380,7 +379,7 @@
             endDate: '+60d',
             setDate: 'today',
             todayHighlight: true,
-            title: '새늘봄 클래스 일정을 선택해주세요',
+            title: '"등록하실 새늘봄 클래스 일정을 선택해주세요"',
             language: 'ko'
         });
 
@@ -391,7 +390,7 @@
             endDate: '+60d',
             setDate: 'today',
             todayHighlight: true,
-            title: '새늘봄 클래스 일정을 선택해주세요',
+            title: '"변경하실 클래스 일정을 선택해주세요"',
             language: 'ko'
         });
     });
