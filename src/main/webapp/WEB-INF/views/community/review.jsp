@@ -78,12 +78,50 @@
             height:10px;
         }
 
-        .left {
-            text-align : left;
+        .paging {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+        .paging>li {
+            border: 1px solid #606060;
+            width: 3em;
+            height: 3em;
+            text-align: center;
+            line-height: 3em;
+            margin-right: 0.25em;
+        }
+        .paging>li:first-child, .paging>li:nth-child(2),
+        .paging>li:nth-last-child(2), .paging>li:last-child
+        {
+            border: none;
+            width: 2.2em;
+            font-size: 1.2em;
+            line-height: 2.6em;
+        }
+        .paging li i {
+            color: #808080;
+        }
+        .paging li>a {
+            text-decoration: none;
+            color: #606060;
+            font-weight: 400;
+        }
+        .now {
+            background-color: #1f1f1f;
+            color: whitesmoke;
+            font-weight: 500;
+            text-decoration: underline;
+        }
+        .paging li:not(li.now):hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .paging .disable {
+            display: none;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -176,11 +214,44 @@
                         </li>
                         </c:forEach>
                     </ul>
+                    <%--페이징 처리--%>
+                    <ol class="paging">
+                        <c:choose>
+                            <c:when test="${pvo.nowPage eq 1}">
+                                <li class="prev disable">이전</li>
+                            </c:when>
+                            <c:when test="${pvo.nowPage > 1}">
+                                <li onclick='goPage("allList", "${param.category}", ${pvo.nowPage - 1})'>이전</li>
+                            </c:when>
+                        </c:choose>
+
+                        <c:forEach var="pageNo" begin="${pvo.startPage}" end="${pvo.endPage}">
+                            <c:if test="${pvo.nowPage eq pageNo}">
+                                <li class="now-page">${pageNo}</li>
+                            </c:if>
+                            <c:if test="${pvo.nowPage ne pageNo}">
+                                <li onclick='goPage("allList", "${param.category}", ${pageNo})'>${pageNo}</li>
+                            </c:if>
+                        </c:forEach>
+
+                        <c:choose>
+                            <c:when test="${pvo.nowPage eq paging.totalPage }">
+                                <li class="next disable">다음</li>
+                            </c:when>
+                            <c:when test="${pvo.nowPage < pvo.totalPage }">
+                                <li onclick='goPage("allList", "${param.category}", ${pvo.nowPage + 1})' class="next">다음</li>
+                            </c:when>
+                        </c:choose>
+                    </ol>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<script>
+
+</script>
+
 
 <%@ include file="../main/footer.jspf"%>
 </body>
@@ -189,12 +260,21 @@
     function goCateBest(category) {
         location.href="/community/category/goReview?category="+category;
     }
-    
-    function goAllList(tab, paramType) {
+
+    function goPage(tab, paramType, page) {
+        goAllList(tab, paramType, page)
+    }
+
+    function goAllList(tab, paramType, page) {
+        $(".paging").css("display", "flex");
+        if(tab == "best"){
+            $(".paging").css("display", "none");
+        }
         console.log(paramType);
         let dataParam = {
             category : paramType,
-            tab : tab
+            tab : tab,
+            page : page
         };
         $.ajax({
             url: '/community/api/category/goAllReview',
@@ -237,6 +317,10 @@
         });
     }
 
+    $().ready(function (){
+        $(".paging").css("display", "none");
+    });
+
     $(document).ready(function (){
         $(".accordion ul").next(".accordion_count").slideToggle("fast")
             .siblings(".accordion_count:visible").slideUp("fast");
@@ -248,6 +332,9 @@
             .siblings(".accordion_count:visible").slideUp("fast");
         $(this).toggleClass("active");
     });
+
+
+
 </script>
 
 </html>
