@@ -62,6 +62,11 @@ public class MemberController {
         return "member/kakao_join";
     }
 
+    @GetMapping("/member_grade")
+    public String member_grade() {
+        return "member/member_grade";
+    }
+
     @Autowired
     private MemberService memberService;
 
