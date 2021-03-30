@@ -32,23 +32,25 @@
         }
 
         function Point() {
-            let availablePoint = document.getElementById('available_point').value;
-            let inputPoint = document.getElementById('input_my_point').value;
+            let availablePoint = document.querySelector('#available_point');
+            let inputPoint = document.querySelector('#input_my_point');
+            let usePoint = document.querySelector('#pointHere');
+            let discountPoint;
 
             alert(availablePoint);
             alert(inputPoint);
 
-            if (inputPoint <= availablePoint) {
-                document.getElementById('discountPointNum').innerText = inputPoint;
-                document.getElementById('discountPoint').value = inputPoint;
+            if (inputPoint !== '' || inputPoint.value.length > 0) {
+                alert("여기")
+                //discountPoint = inputPoint.value;
+                usePoint.innerHTML = '-' + inputPoint + '원';
             } else {
-                alert("사용가능한 포인트는" + avaliablePoint + "원 입니다.");
+                discountPoint = 0;
+                //alert("사용가능한 포인트는" + availablePoint + "원 입니다.")
             }
+            usePoint.textContent = '-' + discountPoint + '원';
 
         }
-
-
-
 </script>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -69,6 +71,7 @@
 
                 <!-- 폼 시작-->
                 <form action="" method="post">
+                    <input type="hidden" name="orderIdx" value="">
                 <div class="infomation_box">
                     <div class="checkout_finals">
                         <div class="check_row"><span class="label">마지막으로 다시 한 번 주문내역을 확인해보세요.</span></div>
@@ -80,7 +83,6 @@
                             <div class="cartlist_wrap">
                                 <div id="cartlist_wrapper_final">
                                     <div id="cartlist_wrapper" class="cartlist_wrap">
-
 
                                             <!-- 담은 수만큼 생성 -->
                                             <c:forEach var="order" items="${OrderList}">
@@ -161,23 +163,12 @@
                         <table class="address_input_table in_s4 w450">
                             <tbody>
                             <tr>
-                                <td>
-                                    <span class="detail"><span class="th">쿠폰 할인</span><span class="td_coupon">
-                                        <input type="text" autocomplete="off" maxlength="128"
-                                               name="coupon_code" id="input_my_coupon" placeholder="코드를 입력해주세요" value="">
-                                        <button type="button" class="btns add">적용</button>
-                                    </span>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td><span class="detail"><span class="th">적립금</span>
                                     <span class="td_savings">
                                         <input type="number" value="" min="0" name="point" id="input_my_point" placeholder="0" autocomplete="off">
-                                        <button type="button" class="btns add" onclick="Point()">적용</button>
+                                        <button type="button" class="btns add" onclick="Point()">사용</button>
                                         <span class="text">* 사용 가능 포인트:
-                                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${point}" var="commaPrice"/>
-                                            ${commaPrice}원</span>
+                                            <fmt:formatNumber value="${point}" pattern="#,###"/>원</span>
                                         <input type="hidden" id="available_point" value="${point}"/>
                                     </span>
                                     </span>
@@ -198,7 +189,7 @@
                                     쿠폰할인<span>-0 원</span>
                                 </li>
                                 <li name="discountPoint" id="discountPoint" class="list-group-item d-flex justify-content-between align-items-center">
-                                    포인트할인<span>-<i id="discountPointNum">0</i> 원</span>
+                                    포인트할인<span id="pointHere">-<fmt:formatNumber type="number" maxFractionDigits="3" value="0" pattern="#,###"/> 원</span>
                                 </li>
                                 <li name="discountGrade" class="list-group-item d-flex justify-content-between align-items-center">
                                     등급할인<span>-0 원</span>
