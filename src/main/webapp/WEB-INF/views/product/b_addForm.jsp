@@ -79,21 +79,21 @@
                 </div>
                 <div class="row g-2">
                     <div class="col-md d-flex justify-content-between align-items-center">
-                        <div class="col-6">
-                            <div class="form-check form-check-inline">
+                        <div class="col-2 d-flex flex-column justify-content-center options-label">
+                            <div class="form-check">
                                 <input class="form-check-input" type="radio" name="category"
                                        id="cateVase" value="화병" onclick="enableFsizeSelectBox(true)">
                                 <label class="form-check-label" for="cateVase">화병</label>
                             </div>
-                            <div class="form-check form-check-inline">
+                            <div class="form-check">
                                 <input class="form-check-input" type="radio" name="category"
                                        id="cateGoods" value="굿즈" onclick="enableFsizeSelectBox(false)">
                                 <label class="form-check-label" for="cateGoods">굿즈</label>
                             </div>
                         </div>
-                        <div class="form-floating my-2 col-6">
+                        <div class="form-floating my-2 col-10">
                             <select name="fsize" class="form-select" id="itemSize" aria-label="itemSize" disabled>
-                                <option selected>화병인 경우만 선택</option>
+                                <option>화병인 경우만 선택</option>
                                 <option value="S">S</option>
                                 <option value="M">M</option>
                                 <option value="L">L</option>
@@ -111,8 +111,8 @@
                     </div>
                 </div>
                 <div class="row g-3">
-                    <div class="col-md-4 d-flex align-items-center">
-                        <div class="form-check form-check-inline me-4">
+                    <div class="options-label col-md-2 d-flex flex-column justify-content-center">
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="freeDelivery"
                                    id="freeDelivery" value="1"
                                    onclick="changeBg(this)">
@@ -132,7 +132,7 @@
                             <label for="discountRate">할인율 (숫자만 입력)</label>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-floating my-2">
                             <input type="text" class="form-control text-end"
                                    id="finalPrice" placeholder="할인 적용가" disabled readonly>
