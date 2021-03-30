@@ -30,6 +30,8 @@
                 datas.push(data);
             }
 
+
+
             //폼 동적으로 만들기
             let form = document.createElement("form")
             form.action = "/oitem/checkOut";
@@ -79,7 +81,7 @@
                             <div class="letter">
                                 <div class="select_letter">
                                     <input type="text" class="select_letter_select_tag" name="product_name"
-                                           readonly value="${order.productVo.name}">
+                                           readonly value="${order.subsVo.name}">
                                 </div>
                                 <div class="role_select_checked">
                                     <div class="col-12">
