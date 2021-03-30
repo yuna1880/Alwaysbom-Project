@@ -38,7 +38,8 @@
     </select>
 
     <select id="findByIdx" parameterType="int" resultMap="fclassMap">
-        SELECT * FROM FCLASS WHERE IDX = #{idx}
+        SELECT * FROM FCLASS
+        WHERE IDX = #{idx}
     </select>
 
     <select id="findAll" resultMap="fclassMap">
@@ -58,4 +59,9 @@
         WHERE CATEGORY = #{category}
         ORDER BY IDX
     </select>
+
+    <insert id="addFcb" parameterType="map">
+        INSERT INTO FCB
+        VALUES (#{fclassIdx}, #{branchIdx})
+    </insert>
 </mapper>
