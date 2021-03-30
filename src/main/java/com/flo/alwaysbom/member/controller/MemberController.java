@@ -3,6 +3,7 @@ package com.flo.alwaysbom.member.controller;
 import com.flo.alwaysbom.member.service.MemberService;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
