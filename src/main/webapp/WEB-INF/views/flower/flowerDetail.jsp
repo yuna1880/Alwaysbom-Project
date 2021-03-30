@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>꽃다발 상세페이지</title>
@@ -98,7 +99,7 @@
                 </div>
                 <div class="d-flex justify-content-between p-3 mx-2 mb-3 price-box">
                     <span class="fw500">상품가격</span>
-                    <span class="fw500">${flowerVo.finalPrice}원</span>
+                    <span class="fw500"><fmt:formatNumber value="${flowerVo.finalPrice}" pattern="#,###원"/></span>
                 </div>
                 <!-- 편지추가 price box -->
                 <div id="addLetter" class="p-3 mx-2 mb-3 price-box">
@@ -108,7 +109,7 @@
                                 onclick="closeLetter(this)"></button>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <span class="fw500">2,500원</span>
+                        <span class="fw500">${flowerVo.letterPrice}원</span>
                     </div>
                 </div>
 
@@ -121,7 +122,7 @@
                 </c:if>
                 <div class="d-flex justify-content-end align-items-baseline me-2">
                     <span class="me-3">총 주문금액</span>
-                    <span class="fw-bold fs-6">19,900원</span>
+                    <span id="totalPrice" class="fw-bold fs-6">${flowerVo.finalPrice + flowerVo.letterPrice}원</span>
                 </div>
 
 
@@ -134,21 +135,10 @@
     <%@ include file="../main/footer.jspf"%>
 
 <script>
-    let headerMenuColumns = document.getElementsByClassName("h-menu");
-    let underBars = document.getElementsByClassName("under-bar");
-
-    for (let i = 0; i < headerMenuColumns.length; i++) {
-    headerMenuColumns[i].firstElementChild.classList.remove("menu-active");
-    }
-    for (let i = 0; i < underBars.length; i++) {
-        underBars[i].classList.remove("menu-active");
-    }
-    document.querySelector("#flower").classList.add("menu-active");
-    document.querySelector("#under-bar2").classList.add("menu-active");
+    let totalPrice = document.querySelector("#totalPrice");
+    let letterOptions = document.getElementsByName("letterOptions");
 
     function checkRadioBtn(statusNum) {
-        let letterOptions = document.getElementsByName("letterOptions");
-
         if (statusNum === 1) {
             letterOptions[1].nextElementSibling.classList.remove("text-dark", "fw500");
             letterOptions[0].nextElementSibling.classList.add("text-dark", "fw500");
@@ -164,6 +154,7 @@
         let quantity = document.querySelector("#quantity");
         let qNum = Number(quantity.innerText);
         quantity.innerText = qNum + 1;
+        configTotal();
     }
 
     function countDown() {
@@ -172,12 +163,31 @@
         if (qNum > 1) {
             quantity.innerText = qNum - 1;
         }
+        configTotal();
     }
 
     function closeLetter() {
         document.querySelector("#addLetter").classList.add("d-none");
         document.querySelector("#withoutLetter").checked = true;
         checkRadioBtn(0);
+        totalPrice.innerHTML = (configTotal() - ${flowerVo.letterPrice}) + "원";
+    }
+
+    function configTotal() {
+        let quantity = document.querySelector("#quantity");
+        let qNum = Number(quantity.innerText);
+        let total;
+        /////// 옵션 추가값도 나중에 계산해야됨
+
+        <%--if (letterOptions[0].checked) {--%>
+        <%--    total += ${flowerVo.letterPrice};--%>
+        <%--} else {--%>
+        <%--    total -= ${flowerVo.letterPrice};--%>
+        <%--}--%>
+        total = qNum * ${flowerVo.finalPrice};
+        totalPrice.innerHTML = total + "원";
+
+        return total;
     }
 
     <%--
