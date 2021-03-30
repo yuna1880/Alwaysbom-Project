@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="forward" value='${requestScope["javax.servlet.forward.servlet_path"]}'/>
+<c:set var="typePath" value='${forward.substring(0, forward.indexOf("/", 1) > 0 ? forward.indexOf("/", 1) : forward.length())}'/>
 <div class="d-flex justify-content-center">
     <div class="login-bar">
         <ul class="d-flex justify-content-end">
@@ -17,23 +20,23 @@
                 새늘봄 홈
             </div>
             <ul class="h-menu-wrap d-flex justify-content-end my-auto">
-                <li class="h-menu">
+                <li class="h-menu ${typePath eq '/community' ? 'menu-active' : ''}">
                     <a href="#" id="subs">꽃 정기구독</a>
                     <div class="under-bar" id="under-bar1"></div>
                 </li>
-                <li class="h-menu ms-3">
+                <li class="h-menu ms-3 ${typePath eq '/flower' ? 'menu-active' : ''}">
                     <a href="/flower" id="flower">꽃다발</a>
                     <div class="under-bar" id="under-bar2"></div>
                 </li>
-                <li class="h-menu ms-3">
+                <li class="h-menu ms-3 ${typePath eq '/fclass' ? 'menu-active' : ''}">
                     <a href="/fclass/classList" id="fclass">플라워클래스</a>
                     <div class="under-bar" id="under-bar3"></div>
                 </li>
-                <li class="h-menu ms-3">
+                <li class="h-menu ms-3 ${typePath eq '/product' ? 'menu-active' : ''}">
                     <a href="/product" id="product">소품샵</a>
                     <div class="under-bar" id="under-bar4"></div>
                 </li>
-                <li class="h-menu ms-3 me-4">
+                <li class="h-menu ms-3 me-4 ${typePath eq '/community' ? 'menu-active' : ''}">
                     <a href="#" id="community">커뮤니티</a>
                     <ul class="h-submenu d-flex flex-column justify-content-center">
                         <li><a href="#">이벤트</a></li>
