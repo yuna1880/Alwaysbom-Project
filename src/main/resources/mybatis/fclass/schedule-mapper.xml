@@ -21,9 +21,14 @@
         ORDER BY SDATE
     </select>
 
+    <select id="findByIdx" parameterType="int" resultType="com.flo.alwaysbom.fclass.vo.ScheduleVo">
+        SELECT * FROM SCHEDULE
+        WHERE IDX=#{idx}
+    </select>
+
     <delete id="deleteSchedule" parameterType="list">
         DELETE FROM SCHEDULE WHERE IDX IN
-        <foreach collection="idxList" item="idx" open="(" separator="," close=")" >
+        <foreach collection="list" item="idx" open="(" separator="," close=")" >
            #{idx}
         </foreach>
     </delete>
