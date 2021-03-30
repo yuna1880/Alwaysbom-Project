@@ -69,4 +69,9 @@ public class FclassController {
 
         return "/fclass/payment";
     }
+
+    @GetMapping("/temp")
+    public String temp() {
+        return "/fclass/m_payment";
+    }
 }
