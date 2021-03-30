@@ -55,8 +55,9 @@
                             클래스 관리
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="class">
-                            <li><a class="dropdown-item" href="/fclass/classList">클래스</a></li>
-                            <li><a class="dropdown-item" href="#">일정 관리</a></li>
+                            <li><a class="dropdown-item" href="/admin/fclass/classList">클래스</a></li>
+                            <li><a class="dropdown-item" href="/admin/fclass/branch">지점 관리</a></li>
+                            <li><a class="dropdown-item" href="/admin/fclass/selectClass">일정 관리</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
