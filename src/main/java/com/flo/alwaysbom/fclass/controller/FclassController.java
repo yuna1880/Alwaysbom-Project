@@ -36,7 +36,7 @@ public class FclassController {
         System.out.println("classList = " + classList);
         model.addAttribute("classList", classList);
         model.addAttribute("branchList", branchList);
-        return "fclass/b_classList";
+        return "fclass/classList";
     }
 
     @GetMapping("/fclass/payment")
