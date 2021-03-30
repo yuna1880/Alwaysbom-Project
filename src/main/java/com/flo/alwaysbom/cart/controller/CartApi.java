@@ -26,11 +26,10 @@ public class CartApi {
         return cartService.findAllCarts();
     }
 
-    @PostMapping("/api/cart/add")
-    public Integer addCart(CartVo cartVo, Integer[] productIds) {
-        cartService.addCart(cartVo, productIds);
-        System.out.println("cartVo = " + cartVo);
-        return cartVo.getIdx();
+    @PostMapping(value = "/api/cart/add")
+    public CartVo addCart(@RequestBody CartVo cartVo) {
+        cartService.addCart(cartVo);
+        return cartService.findById(cartVo.getIdx()).orElse(null);
     }
 
     @PostMapping("/api/cart/updateQuantity")

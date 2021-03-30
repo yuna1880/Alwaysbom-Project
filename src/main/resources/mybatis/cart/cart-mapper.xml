@@ -41,13 +41,13 @@
 
     <select id="findAll" resultMap="CartVo">
         SELECT * FROM CART
-        order by IDX desc
+        order by CASE WHEN CATEGORY = '정기구독' THEN 9999999999 ELSE IDX END desc
     </select>
 
     <select id="findCartsByMember" parameterType="string" resultMap="CartVo">
         SELECT * FROM CART
         where MEMBER_ID = #{memberId}
-        order by IDX desc
+        order by CASE WHEN CATEGORY = '정기구독' THEN 9999999999 ELSE IDX END desc
     </select>
 
     <select id="findByIdxArray" parameterType="list" resultMap="CartVo">
@@ -56,7 +56,7 @@
               <foreach collection="list" open="(" close=")" separator="," item="idx">
                   #{idx}
               </foreach>
-        ORDER BY IDX DESC
+        order by CASE WHEN CATEGORY = '정기구독' THEN 9999999999 ELSE IDX END desc
     </select>
 
     <select id="findByIdx" parameterType="int" resultMap="CartVo">
