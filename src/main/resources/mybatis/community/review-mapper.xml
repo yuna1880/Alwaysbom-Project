@@ -26,6 +26,39 @@
         </where>
         ORDER BY REG_DATE DESC
     </select>
+    <select id="cateBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
+        SELECT *
+        FROM (
+                 SELECT ROW_NUMBER() over (ORDER BY STAR DESC) as RN, I.*
+                 FROM REVIEW I
+             )
+
+        WHERE
+        <if test="category != null">
+            CATEGORY = #{category} AND
+        </if>
+        RN BETWEEN 1 and 10
+    </select>
+    <select id="cateAllReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
+        SELECT *
+        FROM REVIEW
+        <where>
+            <if test="category != null">
+                CATEGORY = #{category}
+            </if>
+        </where>
+        ORDER BY REG_DATE DESC
+    </select>
+<!--    <select id="utilReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">-->
+<!--        SELECT *-->
+<!--        FROM REVIEW-->
+<!--        <where>-->
+<!--            <if test="category != null">-->
+<!--                CATEGORY = #{category}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        ORDER BY REG_DATE DESC-->
+<!--    </select>-->
 <!--    <insert id="addHome" parameterType="com.chicken.kyochon.vo.HomeVo">
         INSERT INTO HOME(name, age, filename)
         VALUES (#{name}, #{age}, #{filename})

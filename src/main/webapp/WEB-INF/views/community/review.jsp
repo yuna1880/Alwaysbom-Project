@@ -83,9 +83,7 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
 
-    </script>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -99,19 +97,23 @@
                 <li>
                     <ul class="nav nav-pills nav-justified">
                         <li class="nav-item">
-                            <a href="#" onclick="goBestList()">전체</a>
+                            <a href="/community/goReview">전체</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" onclick='goBestList("정기구독")'>정기구독</a>
+<%--                            <a href="#" onclick='goAllList("best", "정기구독")'>정기구독</a>--%>
+                            <a href="#" onclick='goCateBest("정기구독")'>정기구독</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" onclick='goBestList("꽃다발")'>꽃다발</a>
+<%--                            <a href="#" onclick='goAllList("best", "꽃다발")'>꽃다발</a>--%>
+                            <a href="#" onclick='goCateBest("꽃다발")'>꽃다발</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" onclick='goBestList("클래스")'>클래스</a>
+<%--                            <a href="#" onclick='goAllList("best", "클래스")'>클래스</a>--%>
+                            <a href="#" onclick='goCateBest("클래스")'>클래스</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" onclick='goBestList("소품샵")'>소품샵</a>
+<%--                            <a href="#" onclick='goAllList("best", "소품샵")'>소품샵</a>--%>
+                            <a href="#" onclick='goCateBest("소품샵")'>소품샵</a>
                         </li>
                         <!-- 검색 폼 영역 -->
                         <form class="d-flex">
@@ -132,10 +134,10 @@
                     </ul>
                     <ul class="nav justify-content-around reviewBox">
                         <li class="nav-item-3">
-                            <a class="nav-link" href="/community/goReview">베스트 리뷰</a>
+                            <a class="nav-link" id="${param.category}" href="#" onclick='goAllList("best", "${param.category}")'>베스트 리뷰</a>
                         </li>
                         <li class="nav-item-3">
-                            <a class="nav-link" id="${category}" href="#" onclick="goAllList(${category})">전체리뷰</a>
+                            <a class="nav-link" id="${param.category}" href="#" onclick='goAllList("allList", "${param.category}")'>전체리뷰</a>
                         </li>
                     </ul>
                     <ul id ="ulTable" class="accordion">
@@ -183,9 +185,16 @@
 <%@ include file="../main/footer.jspf"%>
 </body>
 <script>
-    function goAllList(paramType) {
+    
+    function goCateBest(category) {
+        location.href="/community/category/goReview?category="+category;
+    }
+    
+    function goAllList(tab, paramType) {
+        console.log(paramType);
         let dataParam = {
-            category : paramType
+            category : paramType,
+            tab : tab
         };
         $.ajax({
             url: '/community/api/category/goAllReview',
@@ -193,13 +202,39 @@
             dataType: "json",
             data: dataParam,
             success: function (result) {
-                alert("제발 나와라요~~~~~~~~~~")
+                let dispHtml = "";
+                dispHtml += '<li><ul><li>별점</li><li>제목</li><li>작성일</li><li>작성자</li><li>좋아요</li></ul></li>';
+                $.each(result, function () {
+                    dispHtml += "<li>";
+                    dispHtml +=   '<ul id="acco_click">';
+                    dispHtml +=   '<li class="text-center"><div>' + this.star + '</div></li>';
+                    dispHtml +=   '<li class="text-center">' + this.name + '</li>'
+                                + '<li class="text-center"><div>' + this.regDate + '</div></li>'
+                                + '<li class="text-center"><div>' +this.memberId + '</div></li>'
+                                + '<li class="text-center"><div>' +  this.likeCount + '</div></li>'
+                                + '</ul>'
+                                + '<div class="accordion_count">'
+                                    + '<div>'
+                                        + '<p>' + this.content + '</p>'
+                                    + '</div>'
+                                    + '<div>';
+                        if(this.image != null) {
+                                dispHtml += '<div>'
+                                             + '<img src="/static/upload/community/review/' + this.image + '">'
+                                          + '</div>';
+                        }
+                    dispHtml += "</div></div></li>";
+                });
+                $("#ulTable").html(dispHtml);
+                $(".accordion ul").next(".accordion_count").slideToggle("fast")
+                    .siblings(".accordion_count:visible").slideUp("fast");
+                $(".accordion ul").click(function(){
+                    $(this).next(".accordion_count").slideToggle("fast")
+                        .siblings(".accordion_count:visible").slideUp("fast");
+                    $(this).toggleClass("active");
+                });
             }
         });
-    }
-
-    function goBestList(paramType) {
-
     }
 
     $(document).ready(function (){
@@ -207,11 +242,11 @@
             .siblings(".accordion_count:visible").slideUp("fast");
     });
 
+
     $(".accordion ul").click(function(){
         $(this).next(".accordion_count").slideToggle("fast")
             .siblings(".accordion_count:visible").slideUp("fast");
         $(this).toggleClass("active");
-
     });
 </script>
 

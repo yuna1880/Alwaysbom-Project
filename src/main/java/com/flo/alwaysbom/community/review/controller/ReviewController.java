@@ -24,22 +24,26 @@ public class ReviewController {
         return "community/review";
     }
 
-    @PostMapping("/community/api/category/goReview")
-    @ResponseBody
-    public String goReview(Model model, String category, Integer page){
-        System.out.println(category+ "제발 나와주세요");
-        return "";
-    }
-
     @PostMapping("/community/api/category/goAllReview")
     @ResponseBody
-    public List<ReviewDto> goAllReview(Model model, String category, Integer page){
+    public List<ReviewDto> goAllReview(Model model, String tab, String category, Integer page){
+        System.out.println(category + " 카테 " + tab + "탭탭");
         List<ReviewDto> bestRList;
-        System.out.println(category + "제발 나와주세요");
-//        if(category == null || category.equals("")){
-            bestRList = service.allReview(category);
-            model.addAttribute("bestRList", bestRList);
-//        }
+        if(category != null || !(category.equals(""))){
+            model.addAttribute("category", category);
+        }
+        bestRList = service.allReview(category, tab);
+        model.addAttribute("bestRList", bestRList);
         return bestRList;
+    }
+
+    @GetMapping("/community/category/goReview")
+    public String goReview(Model model, String category, Integer page){
+        if(category != null || !(category.equals(""))){
+            model.addAttribute("category", category);
+        }
+        List<ReviewDto> bestRList = service.cateBestReview(category);
+        model.addAttribute("bestRList", bestRList);
+        return "community/review";
     }
 }
