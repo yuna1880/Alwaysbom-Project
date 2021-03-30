@@ -100,8 +100,6 @@ public class BackFclassController {
 
         model.addAttribute("fclass", fclassVo);
         model.addAttribute("branch", branchVo);
-        System.out.println("fclassVo = " + fclassVo);
-        System.out.println("branchVo = " + branchVo);
 
         return "fclass/b_manageSchedule";
     }
@@ -155,6 +153,7 @@ public class BackFclassController {
     @PostMapping("/admin/fclass/api/deleteScheduleByIdx")
     @ResponseBody
     public boolean deleteSchedule(@RequestBody List<Integer> idx) {
+        System.out.println("idx = " + idx);
         return scheduleService.deleteSchedule(idx);
     }
 
