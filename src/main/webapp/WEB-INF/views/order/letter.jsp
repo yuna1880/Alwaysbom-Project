@@ -30,6 +30,8 @@
                 datas.push(data);
             }
 
+
+
             //폼 동적으로 만들기
             let form = document.createElement("form")
             form.action = "/oitem/checkOut";
