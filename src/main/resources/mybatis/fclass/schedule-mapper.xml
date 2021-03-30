@@ -28,7 +28,7 @@
 
     <delete id="deleteSchedule" parameterType="list">
         DELETE FROM SCHEDULE WHERE IDX IN
-        <foreach collection="idxList" item="idx" open="(" separator="," close=")" >
+        <foreach collection="list" item="idx" open="(" separator="," close=")" >
            #{idx}
         </foreach>
     </delete>
