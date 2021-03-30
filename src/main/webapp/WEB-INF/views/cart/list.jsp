@@ -95,9 +95,9 @@
                             <div>
                                 <c:if test="${target.discountRate ne 0}">
                                 <span class="text-danger fw-bold">${target.discountRate}%</span>
-                                <span class="text-decoration-line-through text-secondary pe-1" data-cart-original-price><fmt:formatNumber value="${cart.itemOriginalPrice * cart.quantity}" pattern="#,###원"/></span>
+                                <span class="text-decoration-line-through text-secondary pe-1" data-cart-original-price="${cart.itemOriginalPrice}"><fmt:formatNumber value="${cart.itemOriginalPrice * cart.quantity}" pattern="#,###원"/></span>
                                 </c:if>
-                                <span class="fw-bold" data-cart-final-price><fmt:formatNumber value="${cart.itemFinalPrice * cart.quantity}" pattern="#,###원"/></span>
+                                <span class="fw-bold" data-cart-final-price="${cart.itemFinalPrice}"><fmt:formatNumber value="${cart.itemFinalPrice * cart.quantity}" pattern="#,###원"/></span>
                             </div>
                             <div class="d-flex user-select-none align-items-center col-2 text-secondary">
                                 <i class="fa fa-minus-circle col-3 text-start" role="button" onclick="adjustQuantity(false, this, ${rowCount})"></i>
@@ -118,18 +118,26 @@
                         </div>
                     </c:forEach>
                     </div>
-                    <div class="col-2" data-cart-total-price><fmt:formatNumber value="${cart.totalPrice}" pattern="#,###원"/></div>
+                    <div class="col-2" data-cart-total-price="${cart.totalPrice}">
+                        <fmt:formatNumber value="${cart.totalPrice}" pattern="#,###원"/>
+                    </div>
+                    <div>
+                        <i class="fa fa-window-close text-warning"></i>
+                    </div>
                 </li>
                 </c:if>
                 </c:forEach>
             </ul>
-            <button type="submit" class="btn btn-primary btn-lg">전송테스트</button>
+            <button id="submitBtn" type="submit" class="btn btn-primary btn-lg">전송테스트</button>
         </form>
     </div>
 
     <%@ include file="../main/footer.jspf"%>
 
     <script>
+
+        let lastRequest;
+
         function applyAll(allBtn) {
             let allCheck = document.querySelectorAll(".cart-check");
             for (let check of allCheck) {
@@ -151,57 +159,86 @@
         }
 
         function adjustQuantity(isUp, adjustBtn, index) {
+            let submitBtnEl = document.querySelector("#submitBtn");
+            submitBtnEl.setAttribute("disabled", "true");
+
             const quantityEl = adjustBtn.parentElement.querySelector(".cart-quantity");
             let quantity = quantityEl.textContent;
-            if (isUp) {
-                quantity++;
-            } else {
-                if (quantity > 1) {
-                    quantity--;
-                }
-            }
 
             let cartItemList = document.querySelectorAll(".cart-item");
             let cartItemEl = cartItemList.item(index);
 
-            //ajax 처리 하고 합계금액 계산
-            let cartItem = {
-                idx: cartItemEl.getAttribute("data-cart-idx"),
-                quantity: quantity
-            };
+            let originalPriceEl = cartItemEl.querySelector("[data-cart-original-price]");
+            let finalPriceEl = cartItemEl.querySelector("[data-cart-final-price]");
+            let totalPriceEl = cartItemEl.querySelector("[data-cart-total-price]");
 
-            let option = {
-                method: 'post',
-                body: JSON.stringify(cartItem),
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8'
+            let itemOriginalPrice;
+            let itemFinalPrice;
+
+            if (originalPriceEl) {
+                itemOriginalPrice = parseInt(originalPriceEl.getAttribute("data-cart-original-price"));
+            }
+
+            if (finalPriceEl) {
+                itemFinalPrice = parseInt(finalPriceEl.getAttribute("data-cart-final-price"));
+            }
+
+            let totalPrice = parseInt(totalPriceEl.getAttribute("data-cart-total-price"));
+
+            if (isUp) {
+                quantity++;
+                totalPrice = totalPrice + itemFinalPrice;
+            } else {
+                if (quantity > 1) {
+                    quantity--;
+                    totalPrice = totalPrice - itemFinalPrice;
                 }
             }
 
-            fetch("/api/cart/updateQuantity", option)
-                .then(response => {
-                    response.json()
-                        .then(result => {
-                            let originalPriceEl = cartItemEl.querySelector("[data-cart-original-price]");
-                            let finalPriceEl = cartItemEl.querySelector("[data-cart-final-price]");
-                            let totalPriceEl = cartItemEl.querySelector("[data-cart-total-price]");
+            if (originalPriceEl) {
+                originalPriceEl.textContent = (itemOriginalPrice * quantity).toLocaleString('ko-KR') + "원";
+            }
+            if (finalPriceEl) {
+                finalPriceEl.textContent = (itemFinalPrice * quantity).toLocaleString('ko-KR') + "원";
+            }
+            totalPriceEl.textContent = totalPrice.toLocaleString('ko-KR') + "원";
+            totalPriceEl.setAttribute("data-cart-total-price", totalPrice.toString());
 
-                            if (originalPriceEl) {
-                                originalPriceEl.textContent = (result.itemOriginalPrice * quantity).toLocaleString('ko-KR') + "원";
-                            }
-                            if (finalPriceEl) {
-                                finalPriceEl.textContent = (result.itemFinalPrice * quantity).toLocaleString('ko-KR') + "원";
-                            }
-                            if (totalPriceEl) {
-                                totalPriceEl.textContent = (result.totalPrice).toLocaleString('ko-KR') + "원";
-                            }
+            quantityEl.textContent = quantity;
 
-                            quantityEl.textContent = quantity;
-                        })
-                        .catch(err => console.log(err));
-                })
-                .catch(err => console.log(err));
+            //ajax 처리 하고 합계금액 계산
 
+            if (lastRequest) {
+                clearTimeout(lastRequest);
+                lastRequest = undefined;
+            }
+
+            lastRequest = setTimeout(function () {
+                let cartItem = {
+                    idx: cartItemEl.getAttribute("data-cart-idx"),
+                    quantity: quantity
+                };
+
+                let option = {
+                    method: 'post',
+                    body: JSON.stringify(cartItem),
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    }
+                }
+
+                fetch("/api/cart/updateQuantity", option)
+                    .then(response => {
+                        response.json()
+                            .then(result => {
+                                console.log("수량이 변경되었습니다");
+                                console.log(result);
+                            })
+                            .catch(err => console.log(err));
+                    })
+                    .catch(err => console.log(err));
+                submitBtnEl.removeAttribute("disabled");
+            }, 500);
         }
     </script>
 </body>
