@@ -21,7 +21,6 @@ public class FlowerVo {
     private String delStatus;
     private int freeDelivery;
 
-
     /** 핵심 비즈니스 로직 */
 
     // 무료배송 여부 메세지 출력
@@ -40,5 +39,16 @@ public class FlowerVo {
     // 최종 금액 출력
     public Integer getFinalPrice() {
         return (int)(price * (1 - discountRate / 100.0));
+    }
+
+    // 편지 추가 가격
+    public int getLetterPrice() {
+        return 2500;
+    }
+
+    public static void main(String[] args) {
+        String aaa = "/flower/21/4548";
+        String substring = aaa.substring(0, aaa.indexOf("/", 1) > 0 ? aaa.indexOf("/", 1) : aaa.length());
+        System.out.println("substring = " + substring);
     }
 }

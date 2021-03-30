@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderVo {
+public class OrdersVo {
     private Integer idx;
     private String memberId;
     private String odate;
@@ -24,4 +24,8 @@ public class OrderVo {
     private String payDate;
     private Integer discountGrade;
     private Integer discountPoint;
+
+    //비즈니스 로직 관련 데이터..
+    private boolean saveDelivery;
+
 }

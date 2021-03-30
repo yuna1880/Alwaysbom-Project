@@ -2,6 +2,8 @@ package com.flo.alwaysbom.order.vo;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -12,12 +14,16 @@ public class OitemVo {
     private Integer ordersIdx;
     private String letterContent;
     private String name;
-    private Integer price;
+    private int price;
     private String options;
     private String image;
     private String status;
     private String requestDate;
     private String deliveryStartDate;
     private String category;
-    private Integer reviewCheck;
+    private int reviewCheck;
+
+    //비즈니스 로직 관련 데이터..
+    private boolean hasLetter;
+    private List<OsubsVo> osubsList;
 }
