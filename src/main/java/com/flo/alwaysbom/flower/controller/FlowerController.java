@@ -2,6 +2,10 @@ package com.flo.alwaysbom.flower.controller;
 
 import com.flo.alwaysbom.flower.service.FlowerServiceImpl;
 import com.flo.alwaysbom.flower.vo.FlowerVo;
+import com.flo.alwaysbom.product.controller.ProductController;
+import com.flo.alwaysbom.product.service.ProductService;
+import com.flo.alwaysbom.product.service.ProductServiceImpl;
+import com.flo.alwaysbom.product.vo.ProductVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +20,7 @@ import java.util.List;
 public class FlowerController {
 
     private final FlowerServiceImpl flowerService;
+    private final ProductServiceImpl productService;
 
     @GetMapping("/flower/test")
     public String goTest(){
@@ -33,8 +38,9 @@ public class FlowerController {
     public String getOne(@PathVariable("idx") Integer idx, Model model) {
         FlowerVo flower = flowerService.findByIdx(idx)
                 .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
-        model.addAttribute("idx", idx);
+        List<ProductVo> productList = productService.findAll();
         model.addAttribute("flowerVo", flower);
+        model.addAttribute("productList", productList);
         return "flower/flowerDetail";
     }
 
