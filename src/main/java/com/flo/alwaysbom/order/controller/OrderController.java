@@ -28,6 +28,7 @@ public class OrderController {
     private final CartService cartService;
     private final OrderDao orderDao;
 
+    // post 가 될 거다....
     //장바구니에 담긴 내용들 가지고 (세션에 저장) -> 편지
     @GetMapping("/order/getLetter")
     public String goLetter(Integer[] idx, HttpSession session) {

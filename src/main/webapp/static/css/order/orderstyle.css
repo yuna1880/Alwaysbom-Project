@@ -285,7 +285,7 @@ span.unknow_noti {
     display: none
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .wrap:before {
         left: 10px
     }
@@ -366,9 +366,9 @@ span.unknow_noti {
     }
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .checkout_wrap {
-        max-width: 1212px;
+        max-width: 1280px;
         padding: 0 10px;
         padding-bottom: 110px;
         margin: 0 auto;
@@ -500,7 +500,7 @@ span.unknow_noti {
     }
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     #regist_form_wrap_content {
         padding: 0
     }
@@ -814,7 +814,7 @@ span.unknow_noti {
     background: #a0a0a0
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .checkout_content .process .step+.step {
         margin-top: 30px
     }
@@ -1212,7 +1212,7 @@ span.unknow_noti {
     display: none
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .infomation_box .empty_infobox {
         padding-bottom: 15px;
         border-bottom: #aaa 1px solid
@@ -1633,7 +1633,7 @@ span.unknow_noti {
     background-position: -125.5px -515px
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .checkout_letter_add {
         border-top: #dedede 1px solid;
         padding: 0 35px
@@ -1854,7 +1854,7 @@ span.unknow_noti {
     cursor: pointer
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
 
     .checkout_letter_add .letterbox .role_select_checked,
     .checkout_letter_add .letterbox .role_select_radio {
@@ -2206,7 +2206,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     padding-left: 29px
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .checkout_address_input {
         padding: 0 0 20px 310px;
         border-top: #dedede 1px solid;
@@ -2753,7 +2753,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     color: #626262
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .address_input_table {
         padding: 0
     }
@@ -2983,7 +2983,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     font-weight: 400
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .infomation_box .unknow_address {
         padding: 30px 40px;
         border: #bfbfbf 1px solid
@@ -3280,7 +3280,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     text-align: right
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .checkout_finals {
         padding-bottom: 80px;
         border-top: #dedede 1px solid;
@@ -3606,7 +3606,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     width: 120px
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .process+.checkout_method_card.outside {
         position: relative;
         margin-top: -50px;
@@ -3810,7 +3810,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     text-align: center
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .checkout_endpage .checkout_cartlist .cartlist_wrap .delivery_total_price {
         margin-top: 0;
         padding-top: 55px
@@ -3925,7 +3925,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     color: #434343
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .gift_confirm_wrap {
         max-width: 700px;
         padding: 0 10px;
@@ -4082,7 +4082,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     font-weight: 200
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .team_fresh_select {
         padding: 20px 0 0
     }
@@ -4129,7 +4129,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     margin-top: 25px
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .checkout_kukka .inner .content_bottom_button {
         max-width: 360px;
         margin: 40px auto 0
@@ -4272,9 +4272,9 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     margin-top: 25px
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .checkout_kukka_letter {
-        max-width: 1240px;
+        max-width: 1280px;
         margin: 0 auto;
         padding: 0 60px;
         border-top: #d3d3d3 1px solid
@@ -4822,9 +4822,9 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     border-top: #ececec 1px solid
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .checkout_kukka_payment {
-        max-width: 620px;
+        max-width: 1280px;
         margin: 0 auto;
         padding: 0
     }
@@ -5513,7 +5513,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     display: none
 }
 
-@media (min-width:1024px) {
+@media (min-width:1280px) {
     .checkout_kukka_complete {
         padding-bottom: 100px
     }
