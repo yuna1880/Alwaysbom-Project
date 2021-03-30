@@ -1,0 +1,113 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html>
+<head>
+    <title>소품샵</title>
+    <%@ include file="../main/import.jspf"%>
+    <link rel="stylesheet" href="/static/css/item/productList.css">
+</head>
+<body>
+    <%@ include file="../main/header.jspf" %>
+    <div class="banner-img d-flex justify-content-center align-items-center">
+        소품샵 배너 이미지
+    </div>
+    <div id="container" class="mx-auto">
+
+        <!-- Best 소품 6개 (인기순) -->
+        <div class="p-subtitle fs-4 d-flex flex-column justify-content-center">
+            지금 가장 사랑받는 소품들이에요!
+        </div>
+        <div class="row row-cols-4">
+            <c:forEach var="productVo" items="${all}">
+            <c:if test="${not empty productVo}">
+                <div class="col p-col">
+                    <div class="overflow-hidden">
+                        <a href="/product/${productVo.idx}">
+                            <img src="static/upload/${productVo.image1}" class="p-col-img scale-up" alt="소품샵 썸네일">
+                        </a>
+                    </div>
+                    <div class="p-col-text">
+                        <div class="product-name">
+                            <a href="/product/${productVo.idx}">${productVo.name}</a></div>
+                        <div class="price-wrap">
+                            <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
+                            <span class="discount-rate">${productVo.discountRate}%</span>
+                            <span class="original-price">${productVo.price}원 ></span>
+                            </c:if>
+                            <span class="final-price">${productVo.finalPrice}원</span>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+            </c:forEach>
+        </div>
+
+        <!-- 화병 썸네일 -->
+        <div class="p-subtitle fs-4 d-flex flex-column justify-content-center">
+            꽃을 더 아름답게 즐길 수 있는, 화병
+        </div>
+        <div class="row row-cols-4">
+            <c:forEach var="productVo" items="${vase}">
+            <c:if test="${not empty productVo}">
+            <div class="col p-col">
+                <div class="overflow-hidden">
+                    <a href="/product/${productVo.idx}">
+                        <img src="static/upload/${productVo.image1}" class="p-col-img scale-up" alt="소품샵 썸네일">
+                    </a>
+                </div>
+                <div class="p-col-text">
+                    <div class="product-name">
+                        <a href="/product/${productVo.idx}">${productVo.name}</a></div>
+                    <div class="price-wrap">
+                        <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
+                        <span class="discount-rate">${productVo.discountRate}%</span>
+                        <span class="original-price">${productVo.price}원 ></span>
+                        </c:if>
+                        <span class="final-price">${productVo.finalPrice}원</span>
+                    </div>
+                    <c:if test="${not empty productVo.fsize}">
+                    <div class="fit-size">
+                        <span class="badge rounded-pill bg-secondary size-unit">${productVo.fsize}</span>
+                        <span class="p-col-size">size꽃과 잘어울려요!</span>
+                    </div>
+                    </c:if>
+                </div>
+            </div>
+            </c:if>
+            </c:forEach>
+        </div>
+
+        <!-- 굿즈 썸네일 -->
+        <div class="p-subtitle fs-4 d-flex flex-column justify-content-center">
+            꽃과 함께하면 더 좋은, 굿즈
+        </div>
+        <div class="row row-cols-4">
+            <c:forEach var="productVo" items="${goods}">
+            <c:if test="${not empty productVo}">
+            <div class="col p-col">
+                <div class="overflow-hidden">
+                    <a href="/product/${productVo.idx}">
+                        <img src="static/upload/${productVo.image1}" class="p-col-img scale-up" alt="소품샵 썸네일">
+                    </a>
+                </div>
+                <div class="p-col-text">
+                    <div class="product-name">
+                        <a href="/product/${productVo.idx}">${productVo.name}</a></div>
+                    <div class="price-wrap">
+                        <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
+                        <span class="discount-rate">${productVo.discountRate}%</span>
+                        <span class="original-price">${productVo.price}원 ></span>
+                        </c:if>
+                        <span class="final-price">${productVo.finalPrice}원</span>
+                    </div>
+                </div>
+            </div>
+            </c:if>
+            </c:forEach>
+        </div> <!-- .row 닫음 -->
+    </div> <!-- #container 닫음 -->
+
+    <%@ include file="../main/footer.jspf" %>
+
+</body>
+</html>

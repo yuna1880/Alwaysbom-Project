@@ -4,7 +4,7 @@
     height: 300px;
     background-color: #ece1be;
 }
-.height130 {
+.p-subtitle {
     height: 130px;
     font-weight: 500;
     color: #222222;
@@ -51,19 +51,19 @@
     font-weight: 700;
     color: #5CA865;
 }
-.old-price {
+.original-price {
     font-size: 16px;
     font-weight: 300;
     color: #707070;
     text-decoration: line-through;
+    padding-right: 0.3em;
 }
-.new-price {
-    padding-left: 0.3em;
+.final-price {
     font-size: 16px;
     font-weight: 500;
     color: #333333;
 }
-.last-line {
+.fit-size {
     margin-top: 0.2em;
     padding-left: 0.2em;
 }
@@ -76,4 +76,8 @@
     font-size: 14px;
     font-weight: 300;
     color: #707070;
+}
+.scale-up:hover {
+    transform: scale(1.05);
+    transition-duration: 0.5s;
 }

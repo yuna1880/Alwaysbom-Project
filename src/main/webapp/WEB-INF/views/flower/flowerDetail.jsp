@@ -86,7 +86,7 @@
                     </div>
 
                     <!-- 편지 추가 옵션 -->
-                    <div class="row mb-4">
+                    <div class="row mb-4 d-flex align-items-baseline">
                         <div class="col-3 fw500">편지 추가</div>
                         <div class="col-9">
                             <div class="form-check form-check-inline">
@@ -161,6 +161,7 @@
 
             </div>
         </div> <!-- 상품 썸네일 & 주문 정보 닫기 -->
+
     </div> <!-- #container 닫기 -->
 
     <%@ include file="../main/footer.jspf"%>

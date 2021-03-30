@@ -37,7 +37,7 @@
                         </c:if>
                         <span class="final-price">${flowerVo.finalPrice}원</span>
                     </div>
-                    <div class="last-line size-delivery">
+                    <div class="size-delivery">
                         <span class="badge rounded-pill bg-warning size-unit">${flowerVo.fsize}</span>
                         <span class="f-col-size">size</span>
                         <span class="badge rounded-pill bg-secondary delivery-unit">${flowerVo.freeDeliveryMessage}</span>

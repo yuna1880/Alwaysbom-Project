@@ -78,9 +78,21 @@
                     </div>
                 </div>
                 <div class="row g-2">
-                    <div class="col-md">
-                        <div class="form-floating my-2">
-                            <select name="fsize" class="form-select" id="itemSize" aria-label="itemSize">
+                    <div class="col-md d-flex justify-content-between align-items-center">
+                        <div class="col-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="category"
+                                       id="cateVase" value="화병" onclick="enableFsizeSelectBox(true)">
+                                <label class="form-check-label" for="cateVase">화병</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="category"
+                                       id="cateGoods" value="굿즈" onclick="enableFsizeSelectBox(false)">
+                                <label class="form-check-label" for="cateGoods">굿즈</label>
+                            </div>
+                        </div>
+                        <div class="form-floating my-2 col-6">
+                            <select name="fsize" class="form-select" id="itemSize" aria-label="itemSize" disabled>
                                 <option selected>화병인 경우만 선택</option>
                                 <option value="S">S</option>
                                 <option value="M">M</option>
@@ -100,7 +112,7 @@
                 </div>
                 <div class="row g-3">
                     <div class="col-md-4 d-flex align-items-center">
-                        <div class="form-check form-check-inline">
+                        <div class="form-check form-check-inline me-4">
                             <input class="form-check-input" type="checkbox" name="freeDelivery"
                                    id="freeDelivery" value="1"
                                    onclick="changeBg(this)">
@@ -166,6 +178,16 @@
                 img.classList.remove("d-none");
             }
             reader.readAsDataURL(file.files[0]);
+        }
+
+        /* 카테고리 화병을 선택하면 어울리는 꽃 사이즈 셀렉트박스 선택할 수 있게 */
+        function enableFsizeSelectBox(isVase) {
+            let fsizeSelectBoxEl = document.querySelector("#itemSize");
+            if (isVase) {
+                fsizeSelectBoxEl.toggleAttribute("disabled", false);
+            } else {
+                fsizeSelectBoxEl.toggleAttribute("disabled", true);
+            }
         }
 
         /* 할인율에 따라 최종가격 정하는 함수. (아직 수정단계입니다) */
