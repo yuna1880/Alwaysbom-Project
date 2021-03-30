@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -21,9 +23,25 @@ public class ReviewDao {
         return list;
     }
 
-    public List<ReviewDto> allReview(String category) {
-        List<ReviewDto> list = sqlSessionTemplate.selectList("review.allReview", category);
-        for (ReviewDto vo: list) {
+    public List<ReviewDto> allReview(String category, String tab) {
+        List<ReviewDto> list = null;
+        if(category.equals("")){
+            category = null;
+        }
+        if(tab.equals("best")){
+            list = sqlSessionTemplate.selectList("review.cateBestReview", category);
+        } else if(tab.equals("allList")) {
+            list = sqlSessionTemplate.selectList("review.allReview", category);
+        }
+        for (ReviewDto vo : list) {
+            vo.setRegDate(vo.getRegDate().substring(0,10));
+        }
+        return list;
+    }
+
+    public List<ReviewDto> cateBestReview(String category) {
+        List<ReviewDto> list = sqlSessionTemplate.selectList("review.cateBestReview", category);
+        for (ReviewDto vo : list) {
             vo.setRegDate(vo.getRegDate().substring(0,10));
         }
         return list;
