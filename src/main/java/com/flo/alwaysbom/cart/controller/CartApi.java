@@ -34,7 +34,6 @@ public class CartApi {
                 .price(cartVo.getTotalPrice())
                 .options(cartVo.getOptions())
                 .image(cartVo.getImage())
-                .status("입금 대기")
                 .requestDate(cartVo.getRequestDate())
                 .category(cartVo.getCategory())
                 .reviewCheck(0)

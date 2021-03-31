@@ -296,14 +296,16 @@
 
         function goOitem(oitemList) {
             let form = document.createElement("form");
-            form.action = "/oitem/letter";
+            form.action = "/order/letter";
             form.method = "post";
 
             let data = document.createElement("input");
             data.type = "text";
+            data.name = "data";
             data.value = JSON.stringify(oitemList);
             form.appendChild(data);
 
+            document.body.appendChild(form);
             form.submit();
         }
     </script>

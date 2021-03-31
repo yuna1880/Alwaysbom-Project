@@ -1,6 +1,7 @@
 package com.flo.alwaysbom.order.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flo.alwaysbom.cart.service.CartService;
 import com.flo.alwaysbom.cart.vo.CartVo;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,10 +46,16 @@ public class OrdersController {
     }
 
     //주문 시작!
-    @GetMapping("/order/startOrder")
-    public String startOrder(Model model){
+    @PostMapping("/order/letter")
+    public String startOrder(String data, Model model) throws JsonProcessingException {
         System.out.println(">>startOrder() 주문시작!");
 
+        ObjectMapper mapper = new ObjectMapper();
+        List<OitemVo> list = mapper.readValue(data, new TypeReference<List<OitemVo>>() {});
+        list.forEach(System.out::println);
+        model.addAttribute("oitemList", list);
+
+        /*
         List<OitemVo> list;
         list = new ArrayList<OitemVo>();
 
@@ -60,7 +68,7 @@ public class OrdersController {
             vo.setPrice(19900);
             vo.setOptions("화이트 미니도기[1],블룸 미니화병");
             vo.setImage("/static/image/oitem/0_2.png");
-            vo.setRequestDate("20210404");
+            vo.setRequestDate(new Date(2021, 05, 03));
             vo.setCategory("상품");
             vo.setHasLetter(true);
 
@@ -71,7 +79,7 @@ public class OrdersController {
             vo2.setPrice(31300);
             vo2.setOptions("오로라 유리 화병,컨디셔닝 꽃가위");
             vo2.setImage("/static/image/oitem/0_3.png");
-            vo2.setRequestDate("20210404");
+            vo2.setRequestDate(new Date(2021, 05, 04));
             vo2.setCategory("상품");
             vo2.setReviewCheck(0);
             vo2.setHasLetter(true);
@@ -82,6 +90,8 @@ public class OrdersController {
             model.addAttribute("oitemList", list);
             System.out.println("받은 리스트 : " + list);
         }
+
+        */
         return "order/letter";
     }
 

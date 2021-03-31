@@ -20,10 +20,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartVo> findByIdxArray(Integer[] idx) {
-        List<CartVo> allCarts = cartDao.findByIdxArray(idx);
-
-        System.out.println("allCarts = " + allCarts);
-        return allCarts;
+        return cartDao.findByIdxArray(idx);
     }
 
     @Override

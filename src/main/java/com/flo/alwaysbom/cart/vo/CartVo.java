@@ -78,7 +78,7 @@ public class CartVo {
                     for (int i = 0; i < (subsMonth * 2); i++) {
                         list.add(OsubsVo.builder()
                                 .month(subsMonth)
-                                .deliveryDate(new Date(subsStartDate.getTime() + 1000 * 60 * 60 * 24 * 7))
+                                .deliveryDate(new Date(subsStartDate.getTime() + 1000L * 60 * 60 * 24 * 14 * i))
                                 .deliveryStatus("배송전")
                                 .build());
                     }
