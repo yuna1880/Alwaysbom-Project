@@ -275,7 +275,7 @@
         });
     })
 
-    /* 추가옵션 선택시 총 주문금액에 금액 더하기 */
+    /* 추가옵션 선택시 */
     function addOptions(selectBox) {
         const optionItemsEl = selectBox.options;
         let optionItemIdx;
@@ -322,12 +322,15 @@
 
         newDiv.className =  "option-price-box p-4 mx-2 mb-3 price-box";
         newDiv.innerHTML =  "<div class='d-flex justify-content-between pb-1'>"
+                            + "<input type='hidden' name='option-idx' value='" + pvo.idx + "'>"
                             + "<span class='fw500'>추가상품 : " + pvo.name + "</span>"
                             + "<button type='button' class='btn-close btn-close-style' "
                             + "onclick='deleteOption(this)'></button></div>"
                             + "<div class='d-flex justify-content-end'>"
                             + "<span class='fw500' data-option-price>" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
                             + "</div>";
+
+        // 이미 만들어진 애들 중에 동일 인덱스 있나 보고, 있으면 기존것에 수량만 합치고 없으면 따로 추가
 
         priceBoxWrap.appendChild(newDiv);
     }
