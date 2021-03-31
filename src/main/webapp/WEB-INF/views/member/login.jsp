@@ -10,11 +10,6 @@
         Kakao.isInitialized();
 
         function kakaoLogin() {
-            Kakao.Auth.authorize({
-                redirectUri: '{https://localhost:8070/WEB-INF/views/member/join.jsp}'
-            });
-            //토큰 받아오기
-            Kakao.Auth.setAccessToken(ACCESS_TOKEN);
             Kakao.Auth.login({
                 scope:'profile, account_email, gender, birthday',
                 success: function (authObj) {
@@ -23,32 +18,15 @@
                         success: res => {
                             const kakao_account = res.kakao_account;
                             console.log(kakao_account);
-                        },
-                        fail: function(error) {
-                            console.log(error);
+
+                            var kakao_id = kakao_account.email;
+                            var kakao_name = kakao_account.profile.nickname;
+                            var kakao_gender = kakao_account.gender;
+
+                            window.location.href="http://localhost:8070/member_join?kakao_id=" + kakao_id + "&kakao_name=" + kakao_name +"&kakao_gender=" + kakao_gender;
                         }
                     });
                 }
-            });
-        }
-        function kakaoLogout() {
-            //로그아웃
-            if (!Kakao.Auth.getAccessToken()) {
-                console.log('Not logged in.');
-                return;
-            }
-            Kakao.Auth.logout(function () {
-                console.log(Kakao.Auth.getAccessToken());
-            });
-            //연결 끊기
-            Kakao.API.request({
-                url: '/v1/user/unlink',
-                success: function(response) {
-                    console.log(response);
-                },
-                fail: function(error) {
-                    console.log(error);
-                },
             });
         }
     </script>
@@ -74,21 +52,11 @@
                             </form>
                         </div>
                         <div class="login_additional_link">
-                            <p class="blind">로그인에 불편을 느낀다면,</p>
                             <a href="findId" class="link user find_id">아이디 찾기</a>
                             <a href="findPwd" class="link user find_pass">비밀번호 찾기</a>
                             <nav class="other">
-                                <p class="sns">SNS계정으로 간편 로그인</p>
-                                <div class="socials">
-                                    <a href="javascript:kakaoLogin();" class="link social kakao">
-                                        <span class="blind">Kakao 로그인</span>
-                                    </a>
-                                    <a href="" class="link social naver">
-                                        <span class="blind">Naver 로그인</span>
-                                    </a>
-                                </div>
-                                <p class="blind">아직 회원이 아니신가요?</p>
-                                <a href="/goMemberJoin" class="btn btn-primary">회원가입</a>
+                                <a href="/goMemberJoin" class="btn btn-secondary">회원가입</a>
+                                <hr>
                                 <p class="let_join">
                                     지금 회원가입 하시면
                                     <b>1,000p</b>

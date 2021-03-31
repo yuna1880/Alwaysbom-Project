@@ -18,9 +18,9 @@
         WHERE CART_IDX = #{cartIdx}
     </select>
     
-    <update id="addChoice" parameterType="map">
-        <foreach collection="productIds" item="productId" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
-            INTO CHOICE VALUES(NULL, #{productId}, #{idx})
+    <update id="addChoice" parameterType="com.flo.alwaysbom.cart.vo.CartVo">
+        <foreach collection="choices" item="choice" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
+            INTO CHOICE VALUES(NULL, #{choice.productIdx}, #{idx}, #{choice.quantity})
         </foreach>
     </update>
 

@@ -13,8 +13,8 @@ public class PagingVo {
 //	이거를 한 메소드안에서 처리 (dao)
 
     //Config
-    private int rowPerPage = 5;
-    private int pagePerBlock = 5;
+    private int rowPerPage = 10;
+    private int pagePerBlock = 10;
 
     //전체 Data
     private final int totalRow;

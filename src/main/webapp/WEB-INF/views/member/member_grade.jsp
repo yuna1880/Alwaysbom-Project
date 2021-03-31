@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>마이페이지</title>
+    <title>1:1문의</title>
     <%@ include file="../main/import.jspf" %>
     <style>
         .h-5 {
@@ -33,6 +33,11 @@
         .list-group-item {
             border: none;
         }
+        .btn-warning {
+            width: 200px;
+            height: 60px;
+            color: #2c3034;
+        }
     </style>
 </head>
 <body>
@@ -55,11 +60,7 @@
     </div>
     <div class="d-flex h-5">
         <div class="col-2"></div>
-        <div class="col-10 d-flex justify-content-center px-3 pt-4">
-            <span class="h3 col-11 d-flex justify-content-start text-secondary">
-                <span class="name name-color">이다솜</span>
-                님, 환영합니다. 언제나 늘 새로운 꽃이 가득한 새늘봄입니다-
-            </span>
+        <div class="col-10 d-flex justify-content-center px-5 pt-4">
         </div>
     </div>
     <div class="h-85 d-flex">
@@ -68,47 +69,53 @@
                 <li>
                     <hr>
                 </li>
-                <li class="list-group-item list-group-item-white">
+                <li class="list-group-item">
                     <a href="" class="link-secondary">주문 내역</a>
                 </li>
-                <li class="list-group-item list-group-item-white">
+                <li class="list-group-item">
                     <a href="" class="link-secondary">정기 구독</a>
                 </li>
-                <li class="list-group-item list-group-item-white">
+                <li class="list-group-item">
                     <a href="" class="link-secondary">수강 내역</a>
                 </li>
                 <li>
                     <hr>
                 </li>
-                <li class="list-group-item list-group-item-white">
+                <li class="list-group-item">
                     <a href="/community/goFaq" class="link-secondary">자주 묻는 질문</a>
                 </li>
-                <li class="list-group-item list-group-item-white">
+                <li class="list-group-item">
                     <a href="/myPage_faq_main" class="link-secondary">1:1 문의</a>
                 </li>
-                <li class="list-group-item list-group-item-white">
+                <li class="list-group-item">
                     <a href="" class="link-secondary">상품 후기</a>
                 </li>
                 <li>
                     <hr>
                 </li>
-                <li class="list-group-item list-group-item-white">
+                <li class="list-group-item">
                     <a href="/member_grade" class="link-secondary">회원 등급</a>
                 </li>
-                <li class="list-group-item list-group-item-white">
+                <li class="list-group-item">
                     <a href="" class="link-secondary">포인트</a>
                 </li>
-                <li class="list-group-item list-group-item-white">
+                <li class="list-group-item">
                     <a href="" class="link-secondary">회원 정보 관리</a>
                 </li>
-                <li class="list-group-item list-group-item-white">
+                <li class="list-group-item">
                     <a href="" class="link-secondary">회원 탈퇴</a>
                 </li>
             </ul>
         </div>
         <div class="col-10 border-info d-flex justify-content-center p-4">
             <div class="col-12">
-                <img src="/static/image/mypageMain_flower.jpg" alt="메인페이지 꽃 사진" class="w-100">
+                <div class="h5 col-12 d-flex flex-column text-secondary">
+                    <div class="d-flex">
+                        <span class="fw-bold name-color">이다솜</span>
+                        <span>님의 회원등급</span>
+                        <hr>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
