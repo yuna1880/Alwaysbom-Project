@@ -4,15 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flo.alwaysbom.cart.service.CartService;
 import com.flo.alwaysbom.cart.vo.CartVo;
-import com.flo.alwaysbom.cart.vo.Letter;
+import com.flo.alwaysbom.order.vo.Letter;
 import lombok.*;
-import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;

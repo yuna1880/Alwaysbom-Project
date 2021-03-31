@@ -21,7 +21,7 @@
             let datas = [];
             for (let letter of letters) {
                 let data = {
-                    idx : letter.cart_idx.value,
+                    //idx : letter.cart_idx.value,
                     name : letter.product_name.value,
                     content : letter.letter_content.value
                 };
@@ -70,10 +70,10 @@
 
                 <!-- letter 옵션 추가시, 그 개수만큼 생성해준다. -->
                 <c:forEach var="oitem" items="${oitemList}" varStatus="status">
-                <form class="flower_letter">
                 <c:if test="${oitem.hasLetter eq true}">
+                    <form class="flower_letter">
                     <div id="letterbox-wrapper">
-                        <input type="hidden" name="cart_idx" value="${oitem.idx}">
+<%--                        <input type="hidden" name="cart_idx" value="${oitem.idx}">--%>
                         <div id="letter_product" class="letterbox">
                             <div class="letter">
                                 <div class="select_letter">
@@ -111,8 +111,8 @@
                             </div>
                         </div>
                     </div>
+                    </form>
                     </c:if>
-                </form>
                     </c:forEach>
                         <!-- 버튼 -->
                         <div class="float-end">
