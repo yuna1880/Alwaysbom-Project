@@ -10,14 +10,30 @@ import java.sql.Date;
 @NoArgsConstructor
 @ToString
 public class ScheduleVo {
-    public int idx;
-    public int branchIdx;
-    public int fclassIdx;
-    public Date sdate;
-    public int smonth;
-    public int sday;
-    public String startTime;
-    public String endTime;
-    public int totalCount;
-    public int regCount;
+    private int idx;
+    private int branchIdx;
+    private int fclassIdx;
+    private Date sdate;
+    private Integer smonth;
+    private Integer sday;
+    private String startTime;
+    private String endTime;
+    private int totalCount;
+    private int regCount;
+
+    public Integer getSmonth() {
+        if (sdate != null) {
+            return sdate.toLocalDate().getMonth().getValue();
+        } else {
+            return null;
+        }
+    }
+
+    public Integer getSday() {
+        if (sdate != null) {
+            return sdate.toLocalDate().getDayOfMonth();
+        } else {
+            return null;
+        }
+    }
 }

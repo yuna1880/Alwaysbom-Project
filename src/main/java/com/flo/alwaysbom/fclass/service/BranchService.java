@@ -28,4 +28,7 @@ public class BranchService {
         return dao.findAll();
     }
 
+    public List<BranchVo> findBranchByClassIdx(Integer classIdx) {
+        return dao.findBranchByClassIdx(classIdx);
+    }
 }

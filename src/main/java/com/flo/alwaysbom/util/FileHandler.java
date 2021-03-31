@@ -1,5 +1,7 @@
 package com.flo.alwaysbom.util;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -7,10 +9,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+@Component
+@RequiredArgsConstructor
 public class FileHandler {
 
-    public static String uploadFile
-            (ServletContext context, MultipartFile file, String dbName, String uploadFolder) throws IOException {
+    private final ServletContext context;
+
+    public String uploadFile(MultipartFile file, String dbName, String uploadFolder) throws IOException {
         if (!file.isEmpty()) {
             String oriName = file.getOriginalFilename();
             int dotIndex = oriName.lastIndexOf("."); //adf..sf.d.sdafdfd.jpg
@@ -20,7 +25,7 @@ public class FileHandler {
 
                 File folder = new File("static/upload", uploadFolder);
                 String folderPath = context.getRealPath(folder.getPath());
-
+                System.out.println(folderPath);
                 //폴더가 있는지 체크
                 File f = new File(folderPath);
                 if (!f.exists()) {
@@ -37,7 +42,7 @@ public class FileHandler {
                     }
                 }
 
-                return fileName;
+                return new File(new File("/", uploadFolder), fileName).getPath().substring(1);
             } else {
                 System.out.println(".이 없거나 확장자의 길이가 1보다 작습니다");
                 return null;
@@ -45,6 +50,5 @@ public class FileHandler {
         } else {
             return dbName;
         }
-
     }
 }

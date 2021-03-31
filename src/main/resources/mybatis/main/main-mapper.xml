@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+    <insert id="addImage" parameterType="com.flo.alwaysbom.main.vo.MainVo">
+        insert into MAIN
+        values (#{imageNum}, #{imageName})
+    </insert>
+
+    <update id="updateImage" parameterType="com.flo.alwaysbom.main.vo.MainVo">
+        update MAIN
+        SET IMAGE_NAME = #{imageName}
+        WHERE IMAGE_NUM = #{imageNum}
+    </update>
+
+    <delete id="deleteImage" parameterType="int">
+        delete from MAIN
+        where IMAGE_NUM = #{imageNum}
+    </delete>
+
+    <select id="findImages" resultType="com.flo.alwaysbom.main.vo.MainVo">
+        SELECT * FROM MAIN
+        ORDER BY IMAGE_NUM
+    </select>
+
+</mapper>
