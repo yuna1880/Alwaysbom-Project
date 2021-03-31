@@ -62,7 +62,7 @@
                 </div>
 
                 <!-- 구매옵션 -->
-                <div class="inputs-wrap">
+                <div class="inputs-wrap mb-4">
                     <!-- 수령일 선택 옵션 -->
                     <div class="row mb-4">
                         <div class="col-3 fw500 pt-1">수령일</div>
@@ -139,13 +139,13 @@
                 </div>
 
                 <!-- 총 주문금액 -->
+                <div class="d-flex justify-content-end mb-1 mt-3 me-2">
                 <c:if test="${not empty flowerVo.freeDeliveryMessage}">
-                <div class="d-flex justify-content-end mb-1 me-2">
                     <span class="badge rounded-pill price-box text-dark fw500">
                         ${flowerVo.freeDeliveryMessage}
                     </span>
-                </div>
                 </c:if>
+                </div>
                 <div class="d-flex justify-content-end align-items-baseline me-2 mb-4">
                     <span class="me-3">총 주문금액</span>
                     <span id="totalPrice" class="fw-bold fs-3">
@@ -161,6 +161,27 @@
 
             </div>
         </div> <!-- 상품 썸네일 & 주문 정보 닫기 -->
+
+
+        <!-- 상품설명/리뷰/배송안내 Tabs -->
+        <ul class="nav detail-nav">
+            <li class="nav-item col-4 text-center nav-active">
+                상품설명
+            </li>
+            <li class="nav-item col-4 text-center">
+                리뷰
+            </li>
+            <li class="nav-item col-4 text-center">
+                배송안내
+            </li>
+        </ul>
+
+
+
+
+
+
+
     </div> <!-- #container 닫기 -->
 
     <%@ include file="../main/footer.jspf"%>

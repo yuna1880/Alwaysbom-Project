@@ -23,15 +23,15 @@
 
 /* 썸네일 이미지 */
 .thumbnails {
-    width: 47%;
-    background-color: #282828;
+    width: 46%;
+    padding-bottom: 4em;
+    /*background-color: #282828;*/
 }
-
 
 /* 주문 정보 */
 .order-info {
     width: 46%;
-    height: 2000px;
+    padding-bottom: 4em;
     /*background-color: #ffffff;*/
 }
 .subheader {
@@ -96,7 +96,7 @@
 .sub-button {
     width: 49%;
     border-radius: 10px;
-    background-color: #b1b1b1;
+    background-color: #dbdbdb;
 }
 .main-button {
     width: 49%;
@@ -104,6 +104,20 @@
     background-color: #90c757;
 }
 .datepicker {
-    border: 1px solid #cbcbcb;
+    border: 1px solid #dbdbdb;
     cursor: pointer;
+}
+
+
+/* 상품설명/리뷰/배송안내 탭 */
+.detail-nav {
+    font-size: 18px;
+}
+.nav-item {
+    border: 1px solid #dbdbdb;
+    padding: 0.7em;
+    cursor: pointer;
+}
+.nav-active {
+
 }
