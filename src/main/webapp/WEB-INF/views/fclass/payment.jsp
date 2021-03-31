@@ -73,7 +73,7 @@
 
                     <!-- 폼 시작-->
                     <form action="" method="post">
-                        <div class="infomation_box">
+                        <div class="information_box">
                             <div class="checkout_finals">
 
                                 <!-- 주문내역 -->
@@ -197,8 +197,8 @@
                                             <caption class="blind"></caption>
                                             <tbody>
                                             <tr>
-                                                <td><span class="detail add_200721"><span class="th">카드 번호</span>
-                                                    <span class="td_card">
+                                                <td><div class="detail add_200721"><span class="th">카드 번호</span>
+                                                    <div class="td_card">
                                                         <div class="card_number" style="width: 24%;">
                                                             <input maxlength="4" name="card_num_1" id="card_num_1" type="text"
                                                                    data-type="card_number" data-index="0" autocomplete="off" value="">
@@ -225,7 +225,7 @@
                                                                         data-type="card_number" data-index="3" type="text"
                                                                         class="form-control form-control-small"
                                                                         autocomplete="off" value=""></div>
-                                                            </span></span></td>
+                                                            </div></div></td>
                                             </tr>
                                             <tr>
                                                 <td><span class="detail add_200721"><span class="th">유효 기간
@@ -234,38 +234,17 @@
                                                         name="card_exp_year" id="card_exp_year"
                                                         data-type="card_valid" data-index="0"
                                                         style="width: 48%;">
-                                                                    <option value="2021">2021</option>
-                                                                    <option value="2022">2022</option>
-                                                                    <option value="2023">2023</option>
-                                                                    <option value="2024">2024</option>
-                                                                    <option value="2025">2025</option>
-                                                                    <option value="2026">2026</option>
-                                                                    <option value="2027">2027</option>
-                                                                    <option value="2028">2028</option>
-                                                                    <option value="2029">2029</option>
-                                                                    <option value="2030">2030</option>
-                                                                    <option value="2031">2031</option>
-                                                                    <option value="2032">2032</option>
-                                                                    <option value="2033">2033</option>
-                                                                    <option value="2034">2034</option>
-                                                                    <option value="2035">2035</option>
+                                                        <c:forEach var="year" begin="2021" end="2035">
+                                                        <option value="${year}">${year}</option>
+                                                        </c:forEach>
                                                                 </select><span class="d" style="width: 4%;">-</span><select
                                                         class="form-control form-control-small"
                                                         name="card_exp_month" id="card_exp_month"
                                                         data-type="card_valid" data-index="1"
                                                         style="width: 48%;">
-                                                                    <option value="01">01</option>
-                                                                    <option value="02">02</option>
-                                                                    <option value="03">03</option>
-                                                                    <option value="04">04</option>
-                                                                    <option value="05">05</option>
-                                                                    <option value="06">06</option>
-                                                                    <option value="07">07</option>
-                                                                    <option value="08">08</option>
-                                                                    <option value="09">09</option>
-                                                                    <option value="10">10</option>
-                                                                    <option value="11">11</option>
-                                                                    <option value="12">12</option>
+                                                                <c:forEach var="month" begin="01" end="12">
+                                                                <option value="${month}">${month}</option>
+                                                                </c:forEach>
                                                                 </select></span></span></td>
                                             </tr>
                                             <tr>
