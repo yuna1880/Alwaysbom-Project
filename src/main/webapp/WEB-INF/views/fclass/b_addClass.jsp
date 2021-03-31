@@ -4,6 +4,7 @@
 <head>
     <title>클래스 추가</title>
     <%@ include file="../main/b_import.jspf"%>
+    <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
     <%@ include file="../main/b_header.jspf"%>
@@ -23,32 +24,32 @@
                     <label class="btn btn-outline-primary" for="btnradio2">플로리스트</label>
                 </div>
                     <c:forEach var="branch" items="${branchList}" varStatus="status">
-                        <div class="form-check d-flex flex-wrap ">
+                        <div class="form-check d-flex flex-wrap">
                             <input class="form-check-input" type="checkbox" value="${branch.idx}"
                                    name="branches" id="cb${status.index}">
-                            <label class="form-check-label" for="cb${status.index}">${branch.name}</label>
+                            <label class="form-check-label px-2" for="cb${status.index}">${branch.name}</label>
                         </div>
                     </c:forEach>
 
-                <div class="form-floating mb-4">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="name">
+                <div class="form-floating mb-4 text-secondary">
+                    <input type="text" name="name" class="form-control text-secondary" id="name" placeholder="name">
                     <label for="name">class name</label>
                 </div>
-                <div class="form-floating mb-4">
-                    <input type="text" name="subheader" class="form-control" id="subheader" placeholder="subheader">
+                <div class="form-floating mb-4 text-secondary">
+                    <input type="text" name="subheader" class="form-control text-secondary" id="subheader" placeholder="subheader">
                     <label for="subheader">subHeader</label>
                 </div>
-                <div class="form-floating mb-4">
-                    <input type="text" name="price" class="form-control" id="price" placeholder="price">
+                <div class="form-floating mb-4 text-secondary">
+                    <input type="text" name="price" class="form-control text-secondary" id="price" placeholder="price">
                     <label for="price">price</label>
                 </div>
-                <div class="form-floating mb-4">
-                    <input type="text" name="discountRate" class="form-control" id="discountRate"
+                <div class="form-floating mb-4 text-secondary">
+                    <input type="text" name="discountRate" class="form-control text-secondary" id="discountRate"
                            placeholder="discountRate">
                     <label for="discountRate">discount rate</label>
                 </div>
-                <div class="form-floating">
-                    <input type="text" name="count" class="form-control" id="count"
+                <div class="form-floating text-secondary">
+                    <input type="text" name="count" class="form-control text-secondary" id="count"
                            placeholder="count">
                     <label for="count">count</label>
                 </div>
@@ -57,24 +58,24 @@
             <div class="col-8 d-flex">
                 <div class="card col-4">
                     <div class="card-header mb-3">
-                        <input type="file" name="file" class="form-control" id="file1" onchange="preview(this, 'img1')">
+                        <input type="file" name="file" class="form-control text-secondary" id="file1" onchange="preview(this, 'img1')">
 <%--                        <label class="input-group-text" for="file1">File 1</label>--%>
                     </div>
-                    <img src="" alt="사진" class="card-img-bottom d-none" id="img1">
+                    <img src="" alt="사진" class="card-img-bottom d-none text-secondary" id="img1">
                 </div>
                 <div class="card col-4">
                     <div class="card-header mb-3">
-                        <input type="file" name="file" class="form-control" id="file2" onchange="preview(this, 'img2')">
+                        <input type="file" name="file" class="form-control text-secondary" id="file2" onchange="preview(this, 'img2')">
 <%--                        <label class="input-group-text" for="file2">File 2</label>--%>
                     </div>
-                    <img src="" alt="사진" class="card-img-bottom d-none" id="img2">
+                    <img src="" alt="사진" class="card-img-bottom d-none text-secondary" id="img2">
                 </div>
                 <div class="card col-4">
                     <div class="card-header mb-3">
-                        <input type="file" name="file" class="form-control" id="file3" onchange="preview(this, 'img3')">
+                        <input type="file" name="file" class="form-control text-secondary" id="file3" onchange="preview(this, 'img3')">
 <%--                        <label class="input-group-text" for="file3">File 3</label>--%>
                     </div>
-                    <img src="" alt="사진" class="card-img-bottom d-none" id="img3">
+                    <img src="" alt="사진" class="card-img-bottom d-none text-secondary" id="img3">
                 </div>
             </div>
         </div>
@@ -86,7 +87,7 @@
 
         <div class="col-12 mb-4 text-center">
             <button type="button" class="btn btn-danger btn-lg col-4" onclick="history.back()">취소</button>
-            <button type="submit" class="btn btn-info btn-lg col-4">추가</button>
+            <button type="submit" class="btn btn-dark btn-lg col-4">추가</button>
         </div>
     </form>
 
@@ -104,5 +105,6 @@
         reader.readAsDataURL(file.files[0]);
     }
 </script>
+<script src="/static/js/imageUploader.js"></script>
 </body>
 </html>

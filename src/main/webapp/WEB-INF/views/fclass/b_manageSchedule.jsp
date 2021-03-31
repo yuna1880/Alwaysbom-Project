@@ -23,7 +23,7 @@
             <label class="form-label">
                 <input type="text" placeholder="조회하실 클래스의 날짜를 선택해주세요" id="dataForm" class="select-datepicker form-floating p-4" onclick="checkValidDate()" required="required"/>
             </label>
-            <button type="button" class="btn btn-dark" onclick="searchSchedule()">검색</button>
+            <button type="button" class="btn btn-dark" id="searchBtn" onclick="searchSchedule()">검색</button>
             </div>
             <table class="table table-hover" id="scheduleTable" style="font-size: 0.9rem;">
                 <thead class="table-dark" id="scheduleThead"></thead>
@@ -42,7 +42,7 @@
             <div class="mb-2"><input type="text" id="capacity" class="dataForm2 form-floating p-2" placeholder="수강정원" pattern="[0-9]+" onkeyup="this.reportValidity()" required="required" aria-label="수강정원"/></div>
             <div class="d-flex justify-content-between">
                 <button type="button" class="btn btn-secondary w-50 m-2" onclick="addSchedule()">추가</button>
-                <button type="button" class="btn btn-dark w-50 m-2">완료</button>
+                <button type="button" class="btn btn-dark w-50 m-2" onclick="goToList()">완료</button>
             </div>
         </div>
     </div>
@@ -261,6 +261,9 @@
         })
     }
 
+    function goToList() {
+        location.href="/admin/fclass/classList";
+    }
 
     function checkAll(allBtn) {
         let checkList = document.querySelectorAll(".each-check");
@@ -307,6 +310,7 @@
         let response = await fetch("/admin/fclass/api/addSchedule", option);
         response.json().then((result) => {
             alert("클래스 일정이 추가되었습니다")
+            document.getElementById('searchBtn').click();
             // location.href = "/admin/fclass/manageSchedule?classIdx=" + result.fclassIdx + "&branchIdx=" + result.branchIdx;
         }).catch(() => alert("클래스 일정 추가에 실패했습니다"));
     }
@@ -369,7 +373,7 @@
             endDate: '+60d',
             setDate: 'today',
             todayHighlight: true,
-            title: '새늘봄 클래스 일정을 선택해주세요',
+            title: '"조회하실 클래스 날짜를 선택해주세요"',
             language: 'ko'
         });
 
@@ -380,7 +384,7 @@
             endDate: '+60d',
             setDate: 'today',
             todayHighlight: true,
-            title: '새늘봄 클래스 일정을 선택해주세요',
+            title: '"등록하실 새늘봄 클래스 일정을 선택해주세요"',
             language: 'ko'
         });
 
@@ -391,7 +395,7 @@
             endDate: '+60d',
             setDate: 'today',
             todayHighlight: true,
-            title: '새늘봄 클래스 일정을 선택해주세요',
+            title: '"변경하실 클래스 일정을 선택해주세요"',
             language: 'ko'
         });
     });
