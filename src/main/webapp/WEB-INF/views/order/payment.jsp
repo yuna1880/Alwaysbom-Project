@@ -133,7 +133,6 @@
                         </div>
     <!---------------------------------------------- 주소입력부분 ------------------------------------------------------->
 
-    <%--                <form action="order/payment" method="post">--%>
                         <div class="check_row under"><span class="label">배송 주소</span></div>
                         <table class="address_input_table in_s4 w450">
                             <tbody>

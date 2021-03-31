@@ -11,9 +11,9 @@
         function printLetter() {
             const letter = document.getElementById('message').value;
             document.getElementById('preview').innerText = letter;
-
             document.getElementById('letter_press_cnt_').innerHTML = letter.length;
         }
+
 
         function submitForm() {
             //class="flower_letter"의 폼을 전부 선택.
@@ -29,8 +29,6 @@
                 //생성된 데이터 배열안에 넣어주기.
                 datas.push(data);
             }
-
-
 
             //폼 동적으로 만들기
             let form = document.createElement("form")
@@ -73,15 +71,15 @@
 
                 <form class="flower_letter">
                 <!-- letter 옵션 추가시, 그 개수만큼 생성해준다. -->
-                <c:forEach var="order" items="${orderList}">
-                <c:if test="${order.letter > 0}">
+                <c:forEach var="oitem" items="${oitemList}">
+                <c:if test="${oitem.hasLetter eq true}">
                     <div id="letterbox-wrapper">
-                        <input type="hidden" name="cart_idx" value="${order.idx}">
+                        <input type="hidden" name="cart_idx" value="${oitem.idx}">
                         <div id="letter_product" class="letterbox">
                             <div class="letter">
                                 <div class="select_letter">
                                     <input type="text" class="select_letter_select_tag" name="product_name"
-                                           readonly value="${order.subsVo.name}">
+                                           readonly value="${oitem.name}">
                                 </div>
                                 <div class="role_select_checked">
                                     <div class="col-12">
@@ -95,7 +93,6 @@
                                 </div>
 
                                 <!-- 편지 내용 -->
-
                                 <div class="input_letter_wrap write">
                                     <div class="input_letter">
                                         <textarea id="message" name="letter_content" class="letter_press" rows="8" maxlength="120"
