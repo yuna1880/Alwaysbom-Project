@@ -1,6 +1,7 @@
 package com.flo.alwaysbom.member.vo;
 
 import lombok.*;
+import org.apache.ibatis.session.ResultContext;
 
 import java.util.Date;
 
