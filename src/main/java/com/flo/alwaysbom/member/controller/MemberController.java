@@ -29,7 +29,7 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @GetMapping("/memberLogin")
+    @PostMapping("/memberLogin")
     public String memberLogin(String id, String pw, HttpSession session) {
         //화면에서 입력한 아이디와 비밀번호가 일치하는 회원 정보가 DB에 있는지 확인하여
         HashMap<String, String> map = new HashMap<String, String>();
@@ -106,10 +106,9 @@ public class MemberController {
 
     //회원가입 화면 요청
     @PostMapping("/member_join")
-    public String member_join() {
-        MemberVO memberVO = new MemberVO();
-        memberService.insertMember(memberVO);
+    public String member_join(MemberVO memberVO) {
 
+        memberService.insertMember(memberVO);
         return "member/login";
 }
 }
