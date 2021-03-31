@@ -36,4 +36,9 @@ public class CartApi {
     public CartVo updateQuantity(@RequestBody CartVo cartItem) {
         return cartService.updateQuantity(cartItem);
     }
+
+    @PostMapping("/api/cart/removeByIdx")
+    public boolean removeByIdx(@RequestBody Integer idx) {
+        return cartService.removeByIdx(idx);
+    }
 }

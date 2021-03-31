@@ -58,4 +58,9 @@ public class CartServiceImpl implements CartService {
             throw new IllegalStateException("Cart 수량 업데이트에 실패했습니다.");
         }
     }
+
+    @Override
+    public boolean removeByIdx(Integer idx) {
+        return cartDao.removeByIdx(idx);
+    }
 }
