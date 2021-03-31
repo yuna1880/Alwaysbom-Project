@@ -52,16 +52,4 @@ public class LocalFileHandler implements FileHandler {
             return dbName;
         }
     }
-
-    public static void main(String[] args) {
-        String folder = "/static/upload";
-        String file = "hei.jpg";
-
-        String path = new File(folder, file).getPath();
-        System.out.println("path = " + path);
-        System.out.println("File.pathSeparator = " + File.separator);
-        String s = path.replaceAll(Matcher.quoteReplacement(File.separator), "/");
-        System.out.println("s = " + s);
-
-    }
 }
