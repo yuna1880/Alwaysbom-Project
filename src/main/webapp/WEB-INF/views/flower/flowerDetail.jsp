@@ -86,7 +86,7 @@
                     </div>
 
                     <!-- 편지 추가 옵션 -->
-                    <div class="row mb-4">
+                    <div class="row mb-4 d-flex align-items-baseline">
                         <div class="col-3 fw500">편지 추가</div>
                         <div class="col-9">
                             <div class="form-check form-check-inline">
@@ -108,9 +108,14 @@
                         <div class="col-9">
                             <select class="form-select p-2 ps-3" aria-label="form-select example">
                                 <option selected>함께하면 좋은 추천상품</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <c:forEach var="productVo" items="${productList}">
+                                <c:if test="${not empty productVo}">
+                                <option value="${productVo.idx}">
+                                    <div>${productVo.name}</div>
+                                    <div>${productVo.finalPrice}</div>
+                                </option>
+                                </c:if>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>
@@ -162,7 +167,6 @@
             </div>
         </div> <!-- 상품 썸네일 & 주문 정보 닫기 -->
 
-
         <!-- 상품설명/리뷰/배송안내 Tabs -->
         <ul class="nav detail-nav">
             <li class="nav-item col-4 text-center nav-active">
@@ -175,12 +179,6 @@
                 배송안내
             </li>
         </ul>
-
-
-
-
-
-
 
     </div> <!-- #container 닫기 -->
 
