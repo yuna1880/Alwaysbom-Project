@@ -161,10 +161,10 @@
                                                 <span class="td_unknown">
                                                     <span class="unknow_noti2">
                                                         <label class="save_delivery">
-                                                            <input type="radio" class="save_address" name="save_address" value="저장하기" onclick="saveAddress()">저장하기
+                                                            <input type="radio" class="save_address" name="saveAddress" value="true">저장하기
                                                         </label>
                                                         <label>
-                                                            <input type="radio" class="save_address no" name="save_address" value="저장안함" checked>저장안함
+                                                            <input type="radio" class="save_address no" name="saveAddress" value="false" checked>저장안함
                                                         </label>
                                                     </span>
                                                 </span>
