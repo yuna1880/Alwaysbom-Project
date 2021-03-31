@@ -25,7 +25,7 @@
             <div class="col mb-8em">
                 <div class="overflow-hidden">
                     <a href="/flower/${flowerVo.idx}">
-                        <img src="static/upload/${flowerVo.image1}" class="col-12 scale-up" alt="꽃다발 썸네일">
+                        <img src="${flowerVo.image1}" class="col-12 scale-up" alt="꽃다발 썸네일">
                     </a>
                 </div>
                 <div class="ps-1">

@@ -36,7 +36,7 @@ public class FclassController {
         System.out.println("classList = " + classList);
         model.addAttribute("classList", classList);
         model.addAttribute("branchList", branchList);
-        return "fclass/b_classList";
+        return "fclass/classList";
     }
 
     @GetMapping("/fclass/payment")
@@ -68,5 +68,10 @@ public class FclassController {
         System.out.println("memberVO = " + memberVO);
 
         return "/fclass/payment";
+    }
+
+    @GetMapping("/temp")
+    public String temp() {
+        return "/fclass/m_payment";
     }
 }

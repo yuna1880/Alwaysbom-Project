@@ -13,6 +13,9 @@
 # spring properties
 application.properties
 
+# storage credential
+storage-credential.json
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
