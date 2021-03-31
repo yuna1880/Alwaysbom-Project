@@ -8,8 +8,8 @@ import lombok.*;
 public class PagingVo {
 
     // 기본 세팅값 (변하지 않음)
-    private int numPerPage = 10; //하나의 페이지에 표시할 게시글 수
-    private int pagePerBlock = 5; //블록당 표시하는 페이지 갯수
+    private int numPerPage = 2; //하나의 페이지에 표시할 게시글 수
+    private int pagePerBlock = 1; //블록당 표시하는 페이지 갯수
 
     // 유동적인 필드
     private int nowPage = 1; //현재페이지, 디폴트값이 1이다.

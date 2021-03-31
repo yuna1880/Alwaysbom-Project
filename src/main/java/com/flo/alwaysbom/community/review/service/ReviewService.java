@@ -18,15 +18,23 @@ public class ReviewService {
         return reviewDao.allBestReview();
     }
 
-    public List<ReviewDto> allReview(String category, String tab, Map<String, Object> map) {
-        return reviewDao.allReview(category, tab, map);
+    public List<ReviewDto> allReview(String category, String tab) {
+        return reviewDao.allReview(category, tab);
     }
 
     public List<ReviewDto> cateBestReview(String category) {
         return reviewDao.cateBestReview(category);
     }
 
-    public int getTotalReclrd(String category) {
-        return reviewDao.getTotalRecord(category);
+    public int oldListCnt() {
+        return reviewDao.oldListCnt();
+    }
+
+    public int oldCateListCnt(String category) {
+        return reviewDao.oldCateListCnt(category);
+    }
+
+    public List<ReviewDto> allCateReview(Map<String, String> searchParam) {
+        return reviewDao.allCateReview(searchParam);
     }
 }

@@ -28,42 +28,100 @@
             line-height:30px;
         }
 
-        #ulTable, #ulTablebar {margin-top:10px;}
+        #ulTable {margin-top:10px;}
 
 
-        #ulTablebar > li:first-child > ul > li {
+        #ulTable > li:first-child > ul > li {
             background-color:#c9c9c9;
             font-weight:bold;
             text-align:center;
         }
-        #ulTable > li:first-child > ul > li {
-            text-align:center;
-        }
 
-        #ulTable > li > ul, #ulTablebar > li > ul {
+        #ulTable > li > ul {
             clear:both;
             padding:0px;
             position:relative;
             min-width:40px;
         }
-        #ulTable > li > ul > li, #ulTablebar > li > ul > li {
+        #ulTable > li > ul > li {
             float:left;
             font-size:10pt;
             border-bottom:1px solid silver;
             vertical-align:baseline;
         }
 
-        #ulTable > li > ul > li:first-child, #ulTablebar > li > ul > li:first-child               {width:10%;} /*No 열 크기*/
-        #ulTable > li > ul > li:first-child +li, #ulTablebar > li > ul > li:first-child +li           {width:40%;} /*제목 열 크기*/
-        #ulTable > li > ul > li:first-child +li+li, #ulTablebar > li > ul > li:first-child +li+li        {width:20%;} /*작성일 열 크기*/
-        #ulTable > li > ul > li:first-child +li+li+li, #ulTablebar > li > ul > li:first-child +li+li+li     {width:20%;} /*작성자 열 크기*/
-        #ulTable > li > ul > li:first-child +li+li+li+li, #ulTablebar > li > ul > li:first-child +li+li+li+li{width:10%;} /*조회수 열 크기*/
+        #ulTable > li > ul > li:first-child               {width:10%;} /*No 열 크기*/
+        #ulTable > li > ul > li:first-child +li           {width:40%;} /*제목 열 크기*/
+        #ulTable > li > ul > li:first-child +li+li        {width:20%;} /*작성일 열 크기*/
+        #ulTable > li > ul > li:first-child +li+li+li     {width:20%;} /*작성자 열 크기*/
+        #ulTable > li > ul > li:first-child +li+li+li+li{width:10%;} /*조회수 열 크기*/
+
+        #divPaging {
+            clear:both;
+            margin:0 auto;
+            width:220px;
+            height:50px;
+        }
+
+        #divPaging > div {
+            float:left;
+            width: 30px;
+            margin:0 auto;
+            text-align:center;
+        }
+
+        #liSearchOption {clear:both;}
+        #liSearchOption > div {
+            margin:auto;
+            margin: 0px 0px 0px 40px;
+            width:auto;
+            height:10px;
+        }
+
+        .paging {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+        .paging>li {
+            border: 1px solid #606060;
+            width: 3em;
+            height: 3em;
+            text-align: center;
+            line-height: 3em;
+            margin-right: 0.25em;
+        }
+        .paging>li:first-child, .paging>li:nth-child(2),
+        .paging>li:nth-last-child(2), .paging>li:last-child
+        {
+            border: none;
+            width: 2.2em;
+            font-size: 1.2em;
+            line-height: 2.6em;
+        }
+        .paging li i {
+            color: #808080;
+        }
+        .paging li>a {
+            text-decoration: none;
+            color: #606060;
+            font-weight: 400;
+        }
+        .now {
+            background-color: #1f1f1f;
+            color: whitesmoke;
+            font-weight: 500;
+            text-decoration: underline;
+        }
+        .paging li:not(li.now):hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .paging .disable {
+            display: none;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-
-    </script>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -114,13 +172,13 @@
                     </ul>
                     <ul class="nav justify-content-around reviewBox">
                         <li class="nav-item-3">
-                            <a class="nav-link" id="${param.category}" href="#" onclick='goBestList("best", "${param.category}")'>베스트 리뷰</a>
+                            <a class="nav-link" id="${param.category}" href="#" onclick='goAllList("best", "${param.category}")'>베스트 리뷰</a>
                         </li>
                         <li class="nav-item-3">
                             <a class="nav-link" id="${param.category}" href="#" onclick='goAllList("allList", "${param.category}")'>전체리뷰</a>
                         </li>
                     </ul>
-                    <ul id ="ulTablebar">
+                    <ul id ="ulTable" class="accordion">
                         <li>
                             <ul>
                                 <li>별점</li>
@@ -130,9 +188,7 @@
                                 <li>좋아요</li>
                             </ul>
                         </li>
-                    </ul>
                         <!-- 게시물이 출력될 영역 -->
-                    <ul id="ulTable" class="accordion">
                         <c:forEach var="bestAllList" items="${bestRList}">
                         <li>
                             <ul id="acco_click">
@@ -150,7 +206,7 @@
                                 <div>
                                     <c:if test="${not empty bestAllList.image}">
                                         <div>
-                                            <img src="/static/upload/community/review/${bestAllList.image}" alt="아아아아악">
+                                            <img src="/static/upload/community/review/${bestAllList.image}">
                                         </div>
                                     </c:if>
                                 </div>
@@ -159,116 +215,80 @@
                         </c:forEach>
                     </ul>
                     <%--페이징 처리--%>
-                </li>
-                <li>
-                    <button id="searchMoreNotify" class="btn btn-outline-primary btn-block col-sm-10 mx-auto" style="display: none">더 보기</button>
+                    <ol class="paging">
+                        <c:choose>
+                            <c:when test="${pvo.nowBlock eq 1}">
+                                <li class="disable"><i class="fas fa-angle-double-left"></i></li>
+                                <li class="disable"><i class="fas fa-angle-left"></i></li>
+                            </c:when>
+                            <c:when test="${pvo.nowBlock > 1}">
+                                <li onclick='goPage("allList", "${param.category}", "1")'><i class="fas fa-angle-double-left"></i></li>
+                                <li onclick='goPage("allList", "${param.category}", "${pvo.nowPage - 5}")'><i class="fas fa-angle-left"></i></li>
+                            </c:when>
+                        </c:choose>
+
+                        <c:forEach var="pageNo" begin="${pvo.beginPage}" end="${pvo.endPage}">
+                            <c:if test="${pageNo == pvo.nowPage }">
+                                <li class="now">${pageNo}</li>
+                            </c:if>
+                            <c:if test="${pageNo ne pvo.nowPage}">
+                                <li onclick='goPage("allList", "${param.category}", "${pageNo}")'>${pageNo}</li>
+                            </c:if>
+                        </c:forEach>
+
+                        <c:choose>
+                            <c:when test="${pvo.nowBlock eq pvo.totalBlock}">
+                                <li class="disable"><i class="fas fa-angle-right"></i></li>
+                                <li class="disable"><i class="fas fa-angle-double-right"></i></li>
+                            </c:when>
+                            <c:when test="${pvo.nowBlock < pvo.totalBlock}">
+                                <li onclick='goPage("allList", "${param.category}", "${pvo.nowPage + 5}")'><i class="fas fa-angle-right"></i></li>
+                                <li onclick='goPage("allList", "${param.category}", "${pvo.totalPage}")'><i class="fas fa-angle-double-right"></i></li>
+                            </c:when>
+                        </c:choose>
+                    </ol>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<script>
+
+</script>
+
 
 <%@ include file="../main/footer.jspf"%>
 </body>
 <script>
+    
     function goCateBest(category) {
         location.href="/community/category/goReview?category="+category;
     }
 
-    function goAllList(tab, paramType) {
-        $('#ulTable').empty();
-        $("#searchMoreNotify").css("display", "block");
-        goApiAllList(paramType);
+    function goPage(tab, paramType, page) {
+        goAllList(tab, paramType, page)
     }
 
-    function goApiAllList(paramType){
-        // 읽은 알림 총 갯수
-        var oldListCnt = '${oldListCnt}';
-        console.log('${oldListCnt}');
-        // 조회 인덱스
-        var startIndex = 1;	// 인덱스 초기값
-        var searchStep = 1;	// 5개씩 로딩
-
-        // 페이지 로딩 시 첫 실행
-        readOldNotify(startIndex);
-
-        // 더보기 클릭시
-        $('#searchMoreNotify').click(function(){
-            startIndex += searchStep;
-            readOldNotify(startIndex);
-            $(".accordion ul").next(".accordion_count").slideToggle("fast")
-                .siblings(".accordion_count:visible").slideUp("fast");
-        });
-
-        // 더보기 실행함수 **
-        function readOldNotify(index){
-            let _endIndex = index+searchStep-1;	// endIndex설정
-            $.ajax({
-                type: "post",
-                async: "true",
-                dataType: "json",
-                data: {
-                    category : '${category}',
-                    startIndex: index,
-                    endIndex: _endIndex
-                },
-                url: "/community/api/category/goAllReview",
-                success: function (data, textStatus) {
-                    let dispHtml = "";
-                    for(i = 0; i < data.length; i++){
-                        dispHtml += "<li>";
-                        dispHtml +=   '<ul id="acco_click">';
-                        dispHtml +=   '<li class="text-center"><div>' + data[i].star + '</div></li>';
-                        dispHtml +=   '<li class="text-center">' + data[i].name + '</li>'
-                            + '<li class="text-center"><div>' + data[i].regDate + '</div></li>'
-                            + '<li class="text-center"><div>' +data[i].memberId + '</div></li>'
-                            + '<li class="text-center"><div>' +  data[i].likeCount + '</div></li>'
-                            + '</ul>'
-                            + '<div class="accordion_count">'
-                            + '<div>'
-                            + '<p>' + data[i].content + '</p>'
-                            + '</div>'
-                            + '<div>';
-                        if(data[i].image != null) {
-                            dispHtml += '<div>'
-                                + '<img src="/static/upload/community/review/' + data[i].image + '" alt="아아아아악">'
-                                + '</div>';
-                        }
-                        dispHtml += "</div></div></li>";
-                    }
-
-                    $(dispHtml).appendTo($("#ulTable"));
-
-                                      // 더보기 버튼 삭제
-                    if(startIndex + searchStep > oldListCnt){
-                        $("#searchMoreNotify").css("display", "none");
-                    }
-
-                    $(".accordion ul").click(function(){
-                        $(this).next(".accordion_count").slideToggle("fast");
-                            //.siblings(".accordion_count:visible").slideUp("fast");
-                        $(this).toggleClass("active");
-                    });
-                    $(".accordion ul").next(".accordion_count").slideToggle("fast");
-                       // .siblings(".accordion_count:visible").slideUp("fast");
-                }
-            });
+    function goAllList(tab, paramType, page) {
+        $(".paging").css("display", "flex");
+        if(tab == "best"){
+            $(".paging").css("display", "none");
         }
-    }
-    
-    function goBestList(tab, paramType) {
-        $("#searchMoreNotify").css("display", "none");
         console.log(paramType);
         let dataParam = {
-            category : paramType
+            category : paramType,
+            tab : tab,
+            page : page
         };
         $.ajax({
-            url: '/community/api/category/goBestReview',
-            type: 'post',
+            url: '/community/api/category/goAllReview',
+            type: 'get',
             dataType: "json",
             data: dataParam,
+
             success: function (result) {
                let dispHtml = "";
+                dispHtml += '<li><ul><li>별점</li><li>제목</li><li>작성일</li><li>작성자</li><li>좋아요</li></ul></li>';
                 $.each(result, function () {
                     dispHtml += "<li>";
                     dispHtml +=   '<ul id="acco_click">';
@@ -285,18 +305,19 @@
                                     + '<div>';
                         if(this.image != null) {
                                 dispHtml += '<div>'
-                                             + '<img src="/static/upload/community/review/' + this.image + '" alt="아아아아악">'
+                                             + '<img src="/static/upload/community/review/' + this.image + '">'
                                           + '</div>';
                         }
                     dispHtml += "</div></div></li>";
                 });
-                $("#ulTable").html(dispHtml);
-                // 아코디언
-                $(".accordion ul").next(".accordion_count").slideToggle("fast");
-                    //.siblings(".accordion_count:visible").slideUp("fast");
+                // $("#ulTable").html(dispHtml);
+                $("#ulTable").innerText(result);
+
+                $(".accordion ul").next(".accordion_count").slideToggle("fast")
+                    .siblings(".accordion_count:visible").slideUp("fast");
                 $(".accordion ul").click(function(){
-                    $(this).next(".accordion_count").slideToggle("fast");
-                        //.siblings(".accordion_count:visible").slideUp("fast");
+                    $(this).next(".accordion_count").slideToggle("fast")
+                        .siblings(".accordion_count:visible").slideUp("fast");
                     $(this).toggleClass("active");
                 });
             }
@@ -314,10 +335,11 @@
 
 
     $(".accordion ul").click(function(){
-        $(this).next(".accordion_count").slideToggle("fast");
-            //.siblings(".accordion_count:visible").slideUp("fast");
+        $(this).next(".accordion_count").slideToggle("fast")
+            .siblings(".accordion_count:visible").slideUp("fast");
         $(this).toggleClass("active");
     });
+
 
 
 </script>
