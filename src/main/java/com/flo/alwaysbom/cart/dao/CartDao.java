@@ -40,4 +40,8 @@ public class CartDao {
     public boolean updateQuantity(CartVo cartItem) {
         return sqlSessionTemplate.update("cart.updateQuantity", cartItem) > 0;
     }
+
+    public boolean removeByIdx(Integer idx) {
+        return sqlSessionTemplate.delete("cart.removeByIdx", idx) > 0;
+    }
 }

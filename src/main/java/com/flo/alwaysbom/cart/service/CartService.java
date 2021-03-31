@@ -18,4 +18,6 @@ public interface CartService {
     Optional<CartVo> findById(Integer idx);
 
     CartVo updateQuantity(CartVo cartItem);
+
+    boolean removeByIdx(Integer idx);
 }

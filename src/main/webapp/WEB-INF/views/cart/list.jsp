@@ -122,7 +122,7 @@
                         <fmt:formatNumber value="${cart.totalPrice}" pattern="#,###원"/>
                     </div>
                     <div>
-                        <i class="fa fa-window-close text-warning"></i>
+                        <i class="fa fa-window-close text-warning" onclick="removeCartItem('${cart.idx}')"></i>
                     </div>
                 </li>
                 </c:if>
@@ -135,8 +135,30 @@
     <%@ include file="../main/footer.jspf"%>
 
     <script>
-
         let lastRequest;
+
+        function removeCartItem(idx) {
+            let option = {
+                method: 'post',
+                body: idx,
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            }
+
+            fetch("/api/cart/removeByIdx", option)
+                .then(response => {
+                    response.json().then(result => {
+                        if (result) {
+                            const cartItem = document.querySelector(".cart-item[data-cart-idx='" + idx + "']");
+                            cartItem.remove();
+                        }
+                    });
+                })
+                .catch(err => {
+                    alert(err);
+                });
+        }
 
         function applyAll(allBtn) {
             let allCheck = document.querySelectorAll(".cart-check");
