@@ -32,7 +32,7 @@ public class ReviewController {
 
     @PostMapping("/community/api/category/goAllReview")
     @ResponseBody
-    public String goAllReview(Model model, String category, String startIndex, String endIndex) throws JsonProcessingException {
+    public List<ReviewDto> goAllReview(Model model, String category, String startIndex, String endIndex) throws JsonProcessingException {
         Map<String, String> searchParam = new HashMap<>();
         searchParam.put("startIndex",startIndex);
         searchParam.put("endIndex",endIndex);
@@ -43,9 +43,10 @@ public class ReviewController {
 
         List<ReviewDto> list = service.allCateReview(searchParam);
         System.out.println(list);
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonStr = mapper.writeValueAsString(list);
-        return jsonStr;
+//        ObjectMapper mapper = new ObjectMapper();
+//        String jsonStr = mapper.writeValueAsString(list);
+//        System.out.println(jsonStr);
+        return list;
 
     }
 

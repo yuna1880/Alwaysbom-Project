@@ -134,7 +134,7 @@
                         <!-- 게시물이 출력될 영역 -->
                     <ul id="ulTable" class="accordion">
                         <c:forEach var="bestAllList" items="${bestRList}">
-                        <li>
+                        <li class='allBoxes'>
                             <ul id="acco_click">
                                 <li class="text-center"><div>${bestAllList.star}</div></li>
                                 <li class="text-center">${bestAllList.name}</li>
@@ -161,10 +161,11 @@
                     <%--페이징 처리--%>
                 </li>
                 <li>
-                    <button id="searchMoreNotify" class="btn btn-outline-primary btn-block col-sm-10 mx-auto" style="display: none">더 보기</button>
                 </li>
             </ul>
-        </div>
+           <button id="searchMoreNotify" class="btn btn-outline-primary btn-block col-sm-10 mx-auto" style="display: none">더 보기</button>
+
+       </div>
     </div>
 </div>
 
@@ -176,33 +177,46 @@
     }
 
     function goAllList(tab, paramType) {
-        $('#ulTable').empty();
+         $('.allBoxes').remove();
         $("#searchMoreNotify").css("display", "block");
-        goApiAllList(paramType);
+        let startIndex = 1;	// 인덱스 초기값
+        let searchStep = 1;	// 5개씩 로딩
+        goApiAllList(startIndex, searchStep);
     }
 
-    function goApiAllList(paramType){
+    function goApiAllList(startIndex, searchStep){
         // 읽은 알림 총 갯수
-        var oldListCnt = '${oldListCnt}';
+        let oldListCnt = '${oldListCnt}';
         console.log('${oldListCnt}');
         // 조회 인덱스
-        var startIndex = 1;	// 인덱스 초기값
-        var searchStep = 1;	// 5개씩 로딩
+        // let startIndex = 1;	// 인덱스 초기값
+        // let searchStep = 1;	// 5개씩 로딩
 
         // 페이지 로딩 시 첫 실행
+        startIndex = 1;
         readOldNotify(startIndex);
-
+        startIndex = 1;
+        let clear = "clear";
         // 더보기 클릭시
-        $('#searchMoreNotify').click(function(){
+        $('#searchMoreNotify').click(function(e){
+            e.stopPropagation();
+            e.preventDefault();
+            e.stopImmediatePropagation();
             startIndex += searchStep;
+            console.log(startIndex + "클릭할떄 발생");
             readOldNotify(startIndex);
-            $(".accordion ul").next(".accordion_count").slideToggle("fast")
-                .siblings(".accordion_count:visible").slideUp("fast");
+            // $(".accordion ul").next(".accordion_count").slideToggle("fast");
+              //  .siblings(".accordion_count:visible").slideUp("fast");
+            //  $(".accordion ul").next(".accordion_count").slideToggle("fast");
+              //  .siblings(".accordion_count:visible").slideUp("fast");
         });
 
         // 더보기 실행함수 **
         function readOldNotify(index){
             let _endIndex = index+searchStep-1;	// endIndex설정
+            console.log(index + "index");
+            console.log(searchStep + "search")
+            console.log(_endIndex + "_endIndex");
             $.ajax({
                 type: "post",
                 async: "true",
@@ -213,44 +227,45 @@
                     endIndex: _endIndex
                 },
                 url: "/community/api/category/goAllReview",
-                success: function (data, textStatus) {
+                success: function (data) {
+                    console.dir(data);
                     let dispHtml = "";
-                    for(i = 0; i < data.length; i++){
-                        dispHtml += "<li>";
+                    $.each(data, function () {
+                        dispHtml += "<li class='allBoxes'>";
                         dispHtml +=   '<ul id="acco_click">';
-                        dispHtml +=   '<li class="text-center"><div>' + data[i].star + '</div></li>';
-                        dispHtml +=   '<li class="text-center">' + data[i].name + '</li>'
-                            + '<li class="text-center"><div>' + data[i].regDate + '</div></li>'
-                            + '<li class="text-center"><div>' +data[i].memberId + '</div></li>'
-                            + '<li class="text-center"><div>' +  data[i].likeCount + '</div></li>'
+                        dispHtml +=   '<li class="text-center"><div>' + this.star + '</div></li>';
+                        dispHtml +=   '<li class="text-center">' + this.name + '</li>'
+                            + '<li class="text-center"><div>' + this.regDate + '</div></li>'
+                            + '<li class="text-center"><div>' +this.memberId + '</div></li>'
+                            + '<li class="text-center"><div>' +  this.likeCount + '</div></li>'
                             + '</ul>'
                             + '<div class="accordion_count">'
                             + '<div>'
-                            + '<p>' + data[i].content + '</p>'
+                            + '<p>' + this.content + '</p>'
                             + '</div>'
                             + '<div>';
-                        if(data[i].image != null) {
+                        if(this.image != null) {
                             dispHtml += '<div>'
-                                + '<img src="/static/upload/community/review/' + data[i].image + '" alt="아아아아악">'
+                                + '<img src="/static/upload/community/review/' + this.image + '" alt="아아아아악">'
                                 + '</div>';
                         }
                         dispHtml += "</div></div></li>";
-                    }
+                    });
 
-                    $(dispHtml).appendTo($("#ulTable"));
-
+                    // $(dispHtml).html("#ulTable");
+                    $("#ulTable").append(dispHtml);
                                       // 더보기 버튼 삭제
                     if(startIndex + searchStep > oldListCnt){
                         $("#searchMoreNotify").css("display", "none");
                     }
 
                     $(".accordion ul").click(function(){
-                        $(this).next(".accordion_count").slideToggle("fast");
-                            //.siblings(".accordion_count:visible").slideUp("fast");
+                        $(this).next(".accordion_count").slideToggle("fast")
+                            .siblings(".accordion_count:visible").slideUp("fast");
                         $(this).toggleClass("active");
                     });
-                    $(".accordion ul").next(".accordion_count").slideToggle("fast");
-                       // .siblings(".accordion_count:visible").slideUp("fast");
+                    $(".accordion ul").next(".accordion_count").slideToggle("fast")
+                       .siblings(".accordion_count:visible").slideUp("fast");
                 }
             });
         }
@@ -270,7 +285,7 @@
             success: function (result) {
                let dispHtml = "";
                 $.each(result, function () {
-                    dispHtml += "<li>";
+                    dispHtml += "<li class='allBoxes'>";
                     dispHtml +=   '<ul id="acco_click">';
                     dispHtml +=   '<li class="text-center"><div>' + this.star + '</div></li>';
                     dispHtml +=   '<li class="text-center">' + this.name + '</li>'
