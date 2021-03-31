@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,16 +23,22 @@ public class OitemController {
 
     private final OitemService oitemService;
 
-    //편지 (letter_contents값 가지고)-> 배송지입력
-    @PostMapping("/oitem/checkOut")
-    public String checkOut(Model model, String data) throws JsonProcessingException {
-
-        ObjectMapper mapper = new ObjectMapper();
-        List<Letter> list = mapper.readValue(data,List.class);
-        //letter 모델로 보내줌
-        model.addAttribute("letter",list);
-        System.out.println("list : " + list);
-
-        return "order/checkout";
-    }
+//    //편지 (letter_contents값 가지고)-> 배송지입력
+//    @PostMapping("/oitem/checkOut")
+//    public String checkOut(@SessionAttribute("orderList") Model model, String data) throws JsonProcessingException {
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        List<Letter> list = mapper.readValue(data,List.class);
+//
+//        for (Letter letter : list) {
+//            letter.getContent();
+//
+//        }
+//
+//        // letter 모델로 보내줌
+//        model.addAttribute("letter", list);
+//        System.out.println("list : " + list);
+//
+//        return "order/checkout";
+//    }
 }
