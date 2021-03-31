@@ -17,12 +17,8 @@ public class ProductController {
 
     @GetMapping("/product")
     public String getList(Model model) {
-        List<ProductVo> findAllList = productService.findAll();
-        List<ProductVo> findVaseList = productService.findByCategory("화병");
-        List<ProductVo> findGoodsList = productService.findByCategory("굿즈");
-        model.addAttribute("all", findAllList);
-        model.addAttribute("vase", findVaseList);
-        model.addAttribute("goods", findGoodsList);
+        BackProductController.getProductList(model, productService.findAll(), productService.findByCategory("vase"),
+                productService.findByCategory("goods"));
         return "/product/productList";
     }
 
