@@ -23,7 +23,7 @@
             <c:if test="${not empty flowerVo}">
             <div class="col mb-8em">
                 <a href="#">
-                    <img src="/static/upload/${flowerVo.image1}" class="col-12 scale-up" alt="꽃다발 썸네일">
+                    <img src="${flowerVo.image1}" class="col-12 scale-up" alt="꽃다발 썸네일">
                 </a>
                 <div class="ps-1">
                     <div class="subheader">${flowerVo.subheader}</div>

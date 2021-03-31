@@ -2,7 +2,7 @@ package com.flo.alwaysbom.community.question.controller;
 
 import com.flo.alwaysbom.community.question.service.QuestionServise;
 import com.flo.alwaysbom.community.question.vo.QuestionVo;
-import com.flo.alwaysbom.util.FileHandler;
+import com.flo.alwaysbom.util.CloudFileHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class BackQuestionController {
-    private final FileHandler fileHandler;
+    private final CloudFileHandler fileHandler;
     private final QuestionServise servise;
     // 여기부터는 로그인 회원 정보 받기
     @GetMapping("/admin/community/question")
