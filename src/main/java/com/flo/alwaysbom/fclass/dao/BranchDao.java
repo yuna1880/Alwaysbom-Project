@@ -1,6 +1,7 @@
 package com.flo.alwaysbom.fclass.dao;
 
 import com.flo.alwaysbom.fclass.vo.BranchVo;
+import com.flo.alwaysbom.fclass.vo.FclassVo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,5 +30,9 @@ public class BranchDao {
     }
     public List<BranchVo> findAll(){
         return sqlSessionTemplate.selectList("branch.findAll");
+    }
+
+    public List<BranchVo> findBranchByClassIdx(Integer classIdx) {
+        return sqlSessionTemplate.selectList("fclass.findConnectedBranchList", classIdx);
     }
 }

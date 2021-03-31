@@ -1,0 +1,50 @@
+#container {
+    padding: 1em 1em 100px 1em;
+}
+#bread-nav {
+    display: flex;
+    font-size: 18px;
+    padding-top: 20px;
+}
+#bread-nav a {
+    color: #4D4D4D;
+    text-decoration: none;
+}
+#bread-nav a:hover {
+    text-decoration: underline;
+    color: #4D4D4D;
+}
+#bread-nav > ol {
+    background-color: #dcdcdc;
+    padding: 0.3em 0.8em;
+    border-radius: 10px;
+}
+.description {
+    font-size: 16px;
+}
+.img-card {
+    width: 350px;
+    height: 350px;
+    margin-left: 20px;
+}
+.img-card a {
+    z-index: 4;
+    opacity: 0.4;
+}
+.imgs {
+    margin-bottom: 100px;
+}
+.imgs img {
+    width: 350px;
+    height: auto;
+}
+.inputs-wrap {
+    width: 1090px;
+    margin-bottom: 100px;
+}
+.ck-editor__editable {
+    min-height: 800px;
+}
+.text-editor-wrap {
+    width: 1090px;
+}

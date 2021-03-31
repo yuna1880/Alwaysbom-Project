@@ -1,0 +1,99 @@
+/*--- 꽃다발 리스트 ---*/
+.banner-img {
+    width: 100vw;
+    height: 300px;
+    background-color: #afe5d2;
+}
+.align-by {
+    height: 130px;
+    font-size: 18px;
+    color: #404040;
+    padding-top: 2em;
+}
+.row {
+    margin: 0;
+    width: 1280px;
+}
+.f-col {
+    padding: 0;
+    margin-bottom: 120px;
+    width: 290px;
+    height: 420px;
+    /*border: 1px solid #9cc4ff;*/
+}
+.f-col:not(:nth-child(4n)) {
+    margin-right: 40px;
+}
+.f-col-img {
+    width: 290px;
+    height: 290px;
+}
+.f-col-text {
+    padding-left: 0.3em;
+}
+.scale-up:hover {
+    transform: scale(1.05);
+    transition-duration: 0.5s;
+}
+.subheader {
+    padding-top: 0.3em;
+    line-height: 2em;
+    font-size: 15px;
+    font-weight: 300;
+    color: #707070;
+}
+.flower-name {
+    font-size: 19px;
+    font-weight: 500;
+}
+.flower-name a {
+    color: #333333;
+    text-decoration: none;
+}
+.flower-name a:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+.price-wrap {
+    padding: 0.4em 0 0.2em 0;
+}
+.discount-rate {
+    padding-right: 0.3em;
+    font-size: 16px;
+    font-weight: 700;
+    color: #5CA865;
+}
+.original-price {
+    font-size: 16px;
+    font-weight: 300;
+    color: #707070;
+    text-decoration: line-through;
+    padding-right: 0.3em;
+}
+.final-price {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333333;
+}
+.last-line {
+    margin-top: 0.2em;
+}
+.size-unit {
+    margin-top: 0.2em;
+    height: 1.5em;
+    line-height: 0.8em;
+}
+.delivery-unit {
+    margin-top: 0.2em;
+    margin-left: 1em;
+    height: 1.5em;
+    line-height: 0.8em;
+    opacity: 0.5;
+    font-weight: normal;
+    font-size: 14px;
+}
+.f-col-size {
+    font-size: 14px;
+    font-weight: 300;
+    color: #707070;
+}
