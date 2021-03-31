@@ -53,6 +53,11 @@ public class OrdersController {
         list.forEach(System.out::println);
         model.addAttribute("oitemList", list);
 
+        // 리스트 idx로 해당 값 꺼내는 방법!!
+        System.out.println(list.get(0).getName());
+        System.out.println(list.get(1).getName());
+        System.out.println(list.get(2).getName());
+
         /*
         List<OitemVo> list;
         list = new ArrayList<OitemVo>();
@@ -99,8 +104,6 @@ public class OrdersController {
 
         ObjectMapper mapper = new ObjectMapper();
         List<Letter> list = mapper.readValue(data,List.class);
-
-
 
         // letter 모델로 보내줌
         model.addAttribute("letter", list);

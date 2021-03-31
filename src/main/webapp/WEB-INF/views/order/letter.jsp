@@ -14,7 +14,6 @@
             document.querySelector("#letter_press_cnt_[data-preview-index='" + index + "']").innerHTML = letter.length;
         }
 
-
         function submitForm() {
             //class="flower_letter"의 폼을 전부 선택.
             let letters = document.querySelectorAll(".flower_letter");
