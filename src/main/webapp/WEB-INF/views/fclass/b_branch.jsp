@@ -80,7 +80,7 @@
                     </div>
                     <div class="file-wrap">
                         <div class="overflow-hidden" style="height: 200px">
-                            <img src="/static/upload/fclass/branch/${branch.mapImage}" width="300px" class="imageBox">
+                            <img src="${branch.mapImage}" width="300px" class="imageBox">
                         </div>
                         <input type="hidden" name="mapImage" value="${branch.mapImage}">
                         <input type="file" name="file" class="bmap" onchange="preview(this)"/>
