@@ -53,7 +53,7 @@
                         <fmt:formatNumber value="${flowerVo.price}" pattern="#,###원 >"/>
                 </span>
                 </c:if>
-                <span class="fs-3 fw500">
+                <span class="fs-3 fw500" data-flower-finalPrice>
                     <fmt:formatNumber value="${flowerVo.finalPrice}" pattern="#,###원"/>
                 </span>
             </div>
@@ -80,7 +80,7 @@
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(false)">
                             <i class="fas fa-minus-circle"></i>
                         </button>
-                        <span class="quantity col-1 text-center">1</span>
+                        <span class="quantity col-1 text-center" data-flower-quantity>1</span>
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(true)">
                             <i class="fas fa-plus-circle"></i>
                         </button>
@@ -110,7 +110,7 @@
                     <div class="col-9">
                         <select name="selectOptions" class="form-select p-2 ps-3" aria-label="form-select example"
                                 onchange="addOptions(this)">
-                            <option selected>함께하면 좋은 추천상품</option>
+                            <option>함께하면 좋은 추천상품</option>
                             <c:forEach var="productVo" items="${productList}">
                             <c:if test="${not empty productVo}">
                             <option value="${productVo.idx}">
@@ -143,7 +143,7 @@
                         <button type="button" class="btn-close btn-close-style" onclick="closeLetter(this)"></button>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <span class="fw500">
+                        <span class="fw500" data-letter-price>
                             <fmt:formatNumber value="${flowerVo.letterPrice}" pattern="#,###원"/>
                         </span>
                     </div>
@@ -232,26 +232,33 @@
         document.querySelector("#addLetter").classList.add("d-none");
         document.querySelector("#withoutLetter").checked = true;
         checkRadioBtn(false);
-        totalPriceEl.textContent = configTotal().toLocaleString('ko-KR') + "원";
     }
 
     /* 총 주문금액 계산하기 */
     function configTotal() {
-        const finalPrice = ${flowerVo.finalPrice};
-        const letterPrice = ${flowerVo.letterPrice};
-        const quantityEl = document.querySelector(".quantity");
         const letterOptionsEl = document.getElementsByName("letterOptions");
-        const quantity = quantityEl.textContent;
-        let totalPrice = quantity * finalPrice;
+        const flowerFinalPriceEl = document.querySelector("[data-flower-finalPrice]");
+        const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
+        const letterPriceEl = document.querySelector("[data-letter-price]");
+        const optionPriceEl = document.querySelectorAll("[data-option-price]");
+
+        let flowerFinalPrice = flowerFinalPriceEl.textContent.trim().replace("원", "").replace(",", "");
+        let flowerQuantity = flowerQuantityEl.textContent;
+        let letterPrice = letterPriceEl.textContent.trim().replace("원", "").replace(",", "");
+        let totalPrice = flowerFinalPrice * flowerQuantity;
+
+        if (optionPriceEl) {
+            for (let i = 0; i < optionPriceEl.length; i++) {
+                let optionPrice = optionPriceEl[i].textContent.trim().replace("원", "").replace(",", "");
+                totalPrice += Number(optionPrice);
+            }
+        }
 
         if (letterOptionsEl[0].checked) {
-            totalPrice += letterPrice;
+            totalPrice += Number(letterPrice);
         }
 
         totalPriceEl.textContent = totalPrice.toLocaleString('ko-KR') + "원";
-
-        return totalPrice;
-
     }
 
     /* 수령일 선택 */
@@ -273,15 +280,18 @@
         const optionItemsEl = selectBox.options;
         let optionItemIdx;
         // optionItemsEl[0].value: 함께하면 좋은 추천상품
-        // optionItemsEl[1].value: 23
+        // optionItemsEl[1].value: 23 (ProductVo Idx)
         // optionItemsEl[2].value: 22 ...
 
-        for (let i = 1; i < optionItemsEl.length; i++) {
-            if (optionItemsEl[i].selected) {
-                optionItemIdx = optionItemsEl[i].value;
+        for (let i = 0; i < optionItemsEl.length; i++) {
+            if (i > 0) {
+                if (optionItemsEl[i].selected) {
+                    optionItemIdx = optionItemsEl[i].value;
+                }
+            } else {
+                optionItemIdx = null;
             }
         }
-        console.log(optionItemIdx);
 
         // ajax 처리
         let processOption = {
@@ -290,17 +300,20 @@
                 'Content-Type': 'application/json;charset=UTF-8'
             }
         }
-        fetch("/product/" + optionItemIdx + "/get", processOption)
-            .then(function (response) {
-                console.log(response);
-                response.json().then(function (result) {
-                    console.log(result);
-                    makeNewPriceBox(result);
+        if (optionItemIdx) {
+            fetch("/product/" + optionItemIdx + "/get", processOption)
+                .then(function (response) {
+                    console.log(response);
+                    response.json().then(function (result) {
+                        console.log(result);
+                        makeNewPriceBox(result);
+                        configTotal();
+                    });
+                })
+                .catch(function (err) {
+                    alert(err);
                 });
-            })
-            .catch(function (err) {
-                alert(err);
-            });
+        }
     }
 
     function makeNewPriceBox(pvo) {
@@ -313,7 +326,8 @@
                             + "<button type='button' class='btn-close btn-close-style' "
                             + "onclick='deleteOption(this)'></button></div>"
                             + "<div class='d-flex justify-content-end'>"
-                            + "<span class='fw500'>" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span></div>";
+                            + "<span class='fw500' data-option-price>" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
+                            + "</div>";
 
         priceBoxWrap.appendChild(newDiv);
     }
@@ -322,6 +336,7 @@
         const priceBoxWrap = document.querySelector(".price-box-wrap");
         let removedObj = closeBtn.parentElement.parentElement;
         priceBoxWrap.removeChild(removedObj);
+        configTotal();
     }
 
     <%--
