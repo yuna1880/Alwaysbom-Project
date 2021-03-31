@@ -29,4 +29,8 @@ public class ScheduleDao {
         sqlSessionTemplate.update("schedule.updateSchedule", vo);
         return vo;
     }
+
+    public ScheduleVo findByIdx(Integer scheduleIdx) {
+        return sqlSessionTemplate.selectOne("schedule.findByIdx", scheduleIdx);
+    }
 }

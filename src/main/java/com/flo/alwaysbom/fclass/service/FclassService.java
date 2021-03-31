@@ -13,8 +13,9 @@ public class FclassService {
 
     private final FclassDao dao;
 
-    public FclassVo addClass(FclassVo vo) {
-        return dao.addClass(vo);
+    public void addClass(FclassVo vo, Integer[] branches) {
+        dao.addClass(vo);
+        dao.addFcb(vo, branches);
     }
 
     public int updateFclass(FclassVo vo, Integer[] branches) {

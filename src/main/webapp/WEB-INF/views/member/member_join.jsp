@@ -4,61 +4,31 @@
     <title>회원가입</title>
     <%@ include file="../main/import.jspf"%>
     <link href="/static/css/member/member_join.css" rel="stylesheet">
-</head>
-<script type="text/javascript">
-    function DosignUp() {
-            $(document).ready(function(){
-                var isCheckId = 0;
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+        Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");
+        Kakao.isInitialized();
 
-                var id = $("#id").val();
-                var pw = $("#pw").val();
-                var pwCfm = $("#pwCfm").val();
-                var name = $("#name").val();
-                var phone = $("#phone").val();
-                var birth = $("#birth").val();
-                var gender = $("#gender").val();
+        function kakaoLogin() {
+            Kakao.Auth.login({
+                scope:'profile, account_email, gender, birthday',
+                success: function (authObj) {
+                    window.Kakao.API.request({
+                        url:'/v2/user/me',
+                        success: res => {
+                            const kakao_account = res.kakao_account;
+                            console.log(kakao_account);
 
-                $("#submit").on("click", function () {
-                    if (id == "") {
-                    alert("아이디(이메일)를 입력해 주세요");
-                    id.focus();
-                    return false;
-                }
-                    if (pw == "") {
-                    alert("비밀번호를 입력해주세요.");
-                    pw.focus();
-                    return false;
-                }
-                    if (pw != pwCfm) {
-                    alert("비밀번호가 서로 다릅니다. 비밀번호를 확인해 주세요.");
-                    pw.focus();
-                    return false;
-                }
-                    if (name == "") {
-                    alert("성명을 입력해주세요.");
-                    name.focus();
-                    return false;
-                }
-                    if (phone == "") {
-                    alert("휴대폰 번호를 입력해주세요.");
-                    phone.focus();
-                    return false;
-                }
-                    if (birth == "") {
-                    alert("생년월일을 입력해주세요(예시)85/03/25.");
-                    birth.focus();
-                    return false;
-                }
-                    if (gender == "") {
-                    alert("성별을 입력해주세요(예시)여성:F 남성:M");
-                    gender.focus();
-                    return false;
+                            var kakao_id = kakao_account.email;
+                            var kakao_name = kakao_account.profile.nickname;
+                            var kakao_gender = kakao_account.gender;
+                        }
+                    });
                 }
             });
-        });
-    }
-
-</script>
+        }
+    </script>
+</head>
 <body>
     <%@ include file="../main/header.jspf" %>
     <div id="container" class="mx-auto">
@@ -79,20 +49,10 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="text" name="id" id="id" class="ipt" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
+                                                <input type="text" name="id" value="${kakao_id}" class="ipt" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
                                             </span>
                                             <button type="button" class="btn">중복확인</button>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row blind">
-                                    <div class="th star" for="pw">
-                                        비밀번호
-                                    </div>
-                                    <div class="td">
-                                        <span>
-                                            <input type="password" name="pw">
-                                        </span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -111,7 +71,7 @@
                                     </div>
                                     <div class="td">
                                         <span>
-                                            <input type="password" name="pw" class="ipt" maxlength="255" placeholder="비밀번호를 한 번 더 입력해주세요." autocomplete="off" />
+                                            <input type="password" name="pwCfm" class="ipt" maxlength="255" placeholder="비밀번호를 한 번 더 입력해주세요." autocomplete="off" />
                                         </span>
                                     </div>
                                 </div>
@@ -121,7 +81,7 @@
                                     </div>
                                     <div class="td">
                                         <span>
-                                            <input type="text" name="name" id="name" class="ipt" maxlength="255" placeholder="이름을 입력해주세요." />
+                                            <input type="text" name="name" value="${kakao_name}" class="ipt" maxlength="255" placeholder="이름을 입력해주세요." />
                                         </span>
                                     </div>
                                 </div>
@@ -151,13 +111,13 @@
                                     </div>
                                     <div class="td">
                                         <span>
-                                            <input type="text" name="gender" id="gender" class="csr_phone ipt" placeholder="예) 여성:F 남성:M" />
+                                            <input type="text" name="gender" value="${kakao_gender}" class="csr_phone ipt" placeholder="예) 여성:F 남성:M" />
                                         </span>
                                     </div>
                                 </div>
                                 <div class="inner">
                                     <div class="row">
-                                        <input type="submit" class="btn btn-lg btn-success btn-block" value="회원가입" onclick="DosignUp();" />
+                                        <input type="submit" class="btn btn-lg btn-success btn-block" value="회원가입" />
                                     </div>
                                 </div>
                                 </div>
