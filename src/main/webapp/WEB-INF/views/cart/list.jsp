@@ -20,9 +20,9 @@
 <body>
     <%@ include file="../main/header.jspf"%>
 
-    <div id="container" class="mx-auto d-flex flex-column align-items-center">
+    <div id="container" class="mx-auto d-flex flex-column align-items-center py-4">
         <h1>장바구니</h1>
-        <form action="/cart/order2" method="get" class="w-100">
+        <form action="/cart/order2" method="get" class="w-100 d-flex flex-column pt-4">
             <ul id="basket" class="list-group list-group-flush w-100">
                 <li class="list-group-item bg-dark text-white d-flex text-center">
                     <div class="col-1">
@@ -58,10 +58,12 @@
                 <c:if test="${not empty target}">
                 <c:set var="rowCount" value="${rowCount + 1}"/>
                 <li class="list-group-item bg-white d-flex text-center cart-item" data-cart-idx="${cart.idx}">
+                    <!-- 체크박스 -->
                     <div class="col-1">
                         <input type="checkbox" class="form-check-input p-3 rounded-circle cart-check bg-warning border-warning" aria-label="checkbox" name="idx"
                                value="${cart.idx}" onchange="checkAll()" checked>
                     </div>
+
                     <!-- 상품정보 컬럼 -->
                     <div class="col-6 d-flex">
                         <!-- 이미지 -->
@@ -106,6 +108,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- 추가상품 -->
                     <div class="col-3 d-flex flex-column">
                     <c:if test="${cart.letter > 0}">
@@ -118,9 +121,13 @@
                         </div>
                     </c:forEach>
                     </div>
+
+                    <!-- 총 금액 -->
                     <div class="col-2" data-cart-total-price="${cart.totalPrice}">
                         <fmt:formatNumber value="${cart.totalPrice}" pattern="#,###원"/>
                     </div>
+
+                    <!-- 삭제 버튼 -->
                     <div>
                         <i class="fa fa-window-close text-warning" onclick="removeCartItem('${cart.idx}')"></i>
                     </div>
@@ -128,7 +135,11 @@
                 </c:if>
                 </c:forEach>
             </ul>
-            <button id="submitBtn" type="submit" class="btn btn-primary btn-lg">전송테스트</button>
+            <div class="col-12 d-flex justify-content-end pt-4 border-1 border-top" style="border-color: rgba(0, 0, 0, .25) !important">
+                <div class="col-3">
+                    <button type="button" class="col-12 btn-pay bg-pay py-3" onclick="goPay()">결제</button>
+                </div>
+            </div>
         </form>
     </div>
 
@@ -262,6 +273,71 @@
                 submitBtnEl.removeAttribute("disabled");
             }, 500);
         }
+
+        function goPay() {
+            let checkedList = document.querySelectorAll(".cart-check:checked");
+
+            let queryString = new URLSearchParams();
+            checkedList.forEach(el => {
+                queryString.append("idx", el.value);
+            })
+
+            fetch("/api/cart/convertOitemList?" + queryString)
+                .then(response => {
+                    response.json()
+                        .then(result => {
+                            // console.log(result);
+                            goOitem(result)
+                        })
+                        .catch(err => alert(err));
+                })
+                .catch(err => alert(err));
+        }
+
+        function goOitem(oitemList) {
+            let form = document.createElement("form");
+            form.action = "/oitem/letter";
+            form.method = "post";
+
+            let data = document.createElement("input");
+            data.type = "text";
+            data.value = JSON.stringify(oitemList);
+            form.appendChild(data);
+
+            form.submit();
+        }
     </script>
 </body>
 </html>
+<style>
+    .btn-pay {
+        background-color: white;
+        border: 1px solid #dfdfdf;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    :checked + .btn-pay {
+        background-color: #3A3A3A;
+        color: #FFFFFF;
+    }
+
+    .btn-pay:hover {
+        background-color: #5A5A5A;
+        color: #FFFFFF;
+    }
+
+    .pay-content {
+        display: none;
+    }
+
+    .pay-content.active {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .bg-pay {
+        background-color: #3A3A3A;
+        color: #FFFFFF;
+    }
+</style>

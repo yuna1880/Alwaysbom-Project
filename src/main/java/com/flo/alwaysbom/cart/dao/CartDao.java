@@ -15,8 +15,8 @@ public class CartDao {
 
     private final SqlSessionTemplate sqlSessionTemplate;
 
-    public List<CartVo> findAllCarts() {
-        return sqlSessionTemplate.selectList("cart.findAll");
+    public List<CartVo> findByIdxArray(Integer[] idx) {
+        return sqlSessionTemplate.selectList("cart.findByIdxArray", idx);
     }
 
     public Integer addCart(CartVo cartVo) {
@@ -26,11 +26,6 @@ public class CartDao {
 
     public List<CartVo> findCartsByMember(String memberId) {
         return sqlSessionTemplate.selectList("cart.findCartsByMember", memberId);
-    }
-
-    public List<CartVo> findByIdxArray(Integer[] idxArr) {
-        System.out.println("CartDao.findByIdxArray");
-        return sqlSessionTemplate.selectList("cart.findByIdxArray", Arrays.asList(idxArr));
     }
 
     public Optional<CartVo> findByIdx(Integer idx) {
