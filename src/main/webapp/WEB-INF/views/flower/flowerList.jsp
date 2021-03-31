@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>꽃다발</title>
@@ -35,9 +36,13 @@
                     <div class="price-wrap">
                         <c:if test="${not empty flowerVo.discountRate && flowerVo.discountRate > 0}">
                         <span class="discount-rate">${flowerVo.discountRate}%</span>
-                        <span class="original-price">${flowerVo.price}원 ></span>
+                        <span class="original-price">
+                            <fmt:formatNumber value="${flowerVo.price}" pattern="#,###원 >"/>
+                        </span>
                         </c:if>
-                        <span class="final-price">${flowerVo.finalPrice}원</span>
+                        <span class="final-price">
+                            <fmt:formatNumber value="${flowerVo.finalPrice}" pattern="#,###원"/>
+                        </span>
                     </div>
                     <div class="size-delivery">
                         <span class="badge rounded-pill bg-warning size-unit">${flowerVo.fsize}</span>

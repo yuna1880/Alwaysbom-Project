@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>소품샵</title>
@@ -32,9 +33,13 @@
                         <div class="price-wrap">
                             <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
                             <span class="discount-rate">${productVo.discountRate}%</span>
-                            <span class="original-price">${productVo.price}원 ></span>
+                            <span class="original-price">
+                                <fmt:formatNumber value="${productVo.price}" pattern="#,###원 >"/>
+                            </span>
                             </c:if>
-                            <span class="final-price">${productVo.finalPrice}원</span>
+                            <span class="final-price">
+                                <fmt:formatNumber value="${productVo.finalPrice}" pattern="#,###원"/>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -61,9 +66,13 @@
                     <div class="price-wrap">
                         <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
                         <span class="discount-rate">${productVo.discountRate}%</span>
-                        <span class="original-price">${productVo.price}원 ></span>
+                        <span class="original-price">
+                            <fmt:formatNumber value="${productVo.price}" pattern="#,###원 >"/>
+                        </span>
                         </c:if>
-                        <span class="final-price">${productVo.finalPrice}원</span>
+                        <span class="final-price">
+                            <fmt:formatNumber value="${productVo.finalPrice}" pattern="#,###원"/>
+                        </span>
                     </div>
                     <c:if test="${not empty productVo.fsize}">
                     <div class="fit-size">
@@ -96,9 +105,13 @@
                     <div class="price-wrap">
                         <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
                         <span class="discount-rate">${productVo.discountRate}%</span>
-                        <span class="original-price">${productVo.price}원 ></span>
+                        <span class="original-price">
+                            <fmt:formatNumber value="${productVo.price}" pattern="#,###원 >"/>
+                        </span>
                         </c:if>
-                        <span class="final-price">${productVo.finalPrice}원</span>
+                        <span class="final-price">
+                            <fmt:formatNumber value="${productVo.finalPrice}" pattern="#,###원"/>
+                        </span>
                     </div>
                 </div>
             </div>
