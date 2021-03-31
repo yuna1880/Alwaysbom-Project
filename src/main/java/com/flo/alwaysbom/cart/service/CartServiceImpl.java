@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +19,8 @@ public class CartServiceImpl implements CartService {
     private final CartDao cartDao;
 
     @Override
-    public List<CartVo> findAllCarts() {
-        List<CartVo> allCarts = cartDao.findAllCarts();
+    public List<CartVo> findByIdxArray(Integer[] idx) {
+        List<CartVo> allCarts = cartDao.findByIdxArray(idx);
 
         System.out.println("allCarts = " + allCarts);
         return allCarts;
@@ -40,11 +39,6 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartVo> findByIdxArray(Integer[] idx) {
-        return cartDao.findByIdxArray(idx);
-    }
-
-    @Override
     public Optional<CartVo> findById(Integer idx) {
         return cartDao.findByIdx(idx);
     }
@@ -57,5 +51,10 @@ public class CartServiceImpl implements CartService {
         } else {
             throw new IllegalStateException("Cart 수량 업데이트에 실패했습니다.");
         }
+    }
+
+    @Override
+    public boolean removeByIdx(Integer idx) {
+        return cartDao.removeByIdx(idx);
     }
 }
