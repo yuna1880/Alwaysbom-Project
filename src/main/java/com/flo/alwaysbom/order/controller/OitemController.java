@@ -28,6 +28,7 @@ public class OitemController {
 
         ObjectMapper mapper = new ObjectMapper();
         List<Letter> list = mapper.readValue(data,List.class);
+        //letter 모델로 보내줌
         model.addAttribute("letter",list);
         System.out.println("list : " + list);
 

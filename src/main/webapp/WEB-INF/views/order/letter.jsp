@@ -73,7 +73,7 @@
 
                 <form class="flower_letter">
                 <!-- letter 옵션 추가시, 그 개수만큼 생성해준다. -->
-                <c:forEach var="order" items="${OrderList}">
+                <c:forEach var="order" items="${orderList}">
                 <c:if test="${order.letter > 0}">
                     <div id="letterbox-wrapper">
                         <input type="hidden" name="cart_idx" value="${order.idx}">

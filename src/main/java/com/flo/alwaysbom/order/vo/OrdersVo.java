@@ -26,6 +26,8 @@ public class OrdersVo {
     private Integer discountPoint;
 
     //비즈니스 로직 관련 데이터..
-    private boolean saveDelivery;
+    private boolean saveAddress;
+
+
 
 }
