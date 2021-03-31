@@ -39,11 +39,11 @@ public class BackFclassController {
     }
 
     @PostMapping("/admin/fclass/addClass")
-    public String addClass(FclassVo vo, List<MultipartFile> file) throws IOException {
+    public String addClass(Integer[] branches, FclassVo vo, List<MultipartFile> file) throws IOException {
         vo.setImage1(fileHandler.uploadFile(file.get(0), null, "/fclass/class"));
         vo.setImage2(fileHandler.uploadFile(file.get(1), null, "/fclass/class"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), null, "/fclass/class"));
-        fclassService.addClass(vo);
+        fclassService.addClass(vo, branches);
         return "redirect:/admin/fclass/classList";
     }
 
@@ -100,8 +100,6 @@ public class BackFclassController {
 
         model.addAttribute("fclass", fclassVo);
         model.addAttribute("branch", branchVo);
-        System.out.println("fclassVo = " + fclassVo);
-        System.out.println("branchVo = " + branchVo);
 
         return "fclass/b_manageSchedule";
     }
@@ -155,6 +153,7 @@ public class BackFclassController {
     @PostMapping("/admin/fclass/api/deleteScheduleByIdx")
     @ResponseBody
     public boolean deleteSchedule(@RequestBody List<Integer> idx) {
+        System.out.println("idx = " + idx);
         return scheduleService.deleteSchedule(idx);
     }
 

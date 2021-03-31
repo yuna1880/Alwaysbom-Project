@@ -11,8 +11,8 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         async function goFaqList(faqType) {
-            let category = {
-                category : faqType.getAttribute("id")
+                let category = {
+                    category : faqType.getAttribute("id")
             }
 
             let options = {

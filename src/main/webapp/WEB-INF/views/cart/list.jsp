@@ -8,8 +8,12 @@
     <title>새늘봄 / 장바구니</title>
     <%@ include file="../main/import.jspf"%>
     <style>
-        .height-100 {
+        .height-100px {
             height: 100px;
+        }
+
+        .height-150px {
+            height: 150px;
         }
     </style>
 </head>
@@ -53,19 +57,41 @@
                 </c:choose>
                 <c:if test="${not empty target}">
                 <c:set var="rowCount" value="${rowCount + 1}"/>
-                <li class="list-group-item bg-white d-flex text-center height-100 cart-item" data-cart-idx="${cart.idx}">
+                <li class="list-group-item bg-white d-flex text-center cart-item" data-cart-idx="${cart.idx}">
                     <div class="col-1">
                         <input type="checkbox" class="form-check-input p-3 rounded-circle cart-check bg-warning border-warning" aria-label="checkbox" name="idx"
                                value="${cart.idx}" onchange="checkAll()" checked>
                     </div>
+                    <!-- 상품정보 컬럼 -->
                     <div class="col-6 d-flex">
-                        <div class="card-img w-25 overflow-hidden">
+                        <!-- 이미지 -->
+                        <div class="card-img w-25 overflow-hidden height-150px">
                             <a href="${link}">
                                 <img src="/static/upload/${path}" alt="사진" class="h-100">
                             </a>
                         </div>
-                        <div class="bg-transparent w-75 d-flex flex-column align-items-baseline">
+                        <!-- 상품내용 -->
+                        <div class="bg-transparent w-75 d-flex flex-column align-items-baseline ps-3 text-start">
                             <span>${target.name}</span>
+                            <div class="text-secondary">
+                                <c:if test="${cart.category eq '정기구독'}">
+                                <div>
+                                    <span>첫 구독일 :</span>
+                                    <span>${cart.subsStartDate}</span>
+                                </div>
+                                <div>
+                                    <span>구독기간 :</span>
+                                    <span>${cart.subsMonth}개월</span>
+                                    <span>(${cart.subsMonth * 2}회)</span>
+                                </div>
+                                </c:if>
+                                <c:if test="${cart.category ne '정기구독'}">
+                                <div>
+                                    <span>수령일 :</span>
+                                    <span>${cart.requestDate}</span>
+                                </div>
+                                </c:if>
+                            </div>
                             <div>
                                 <c:if test="${target.discountRate ne 0}">
                                 <span class="text-danger fw-bold">${target.discountRate}%</span>
@@ -80,6 +106,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- 추가상품 -->
                     <div class="col-3 d-flex flex-column">
                     <c:if test="${cart.letter > 0}">
                         <span>편지추가(2,500원)</span>
