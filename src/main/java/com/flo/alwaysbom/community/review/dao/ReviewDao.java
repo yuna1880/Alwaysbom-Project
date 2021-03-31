@@ -23,16 +23,15 @@ public class ReviewDao {
         return list;
     }
 
-    public List<ReviewDto> allReview(String category, String tab, Map<String, Object> map) {
+    public List<ReviewDto> allReview(String category, String tab) {
         List<ReviewDto> list = null;
         if(category.equals("")){
             category = null;
         }
-        map.put("category", category);
         if(tab.equals("best")){
             list = sqlSessionTemplate.selectList("review.cateBestReview", category);
         } else if(tab.equals("allList")) {
-            list = sqlSessionTemplate.selectList("review.allReview", map);
+            list = sqlSessionTemplate.selectList("review.allReview", category);
         }
         for (ReviewDto vo : list) {
             vo.setRegDate(vo.getRegDate().substring(0,10));
@@ -41,6 +40,9 @@ public class ReviewDao {
     }
 
     public List<ReviewDto> cateBestReview(String category) {
+        if(category.equals("")){
+            category = null;
+        }
         List<ReviewDto> list = sqlSessionTemplate.selectList("review.cateBestReview", category);
         for (ReviewDto vo : list) {
             vo.setRegDate(vo.getRegDate().substring(0,10));
@@ -48,10 +50,22 @@ public class ReviewDao {
         return list;
     }
 
-    public int getTotalRecord(String category) {
+    public int oldListCnt() {
+        return sqlSessionTemplate.selectOne("review.oldListCnt");
+    }
+
+    public int oldCateListCnt(String category) {
         if(category.equals("")){
             category = null;
         }
-        return sqlSessionTemplate.selectOne("review.totalRecord", category);
+        return sqlSessionTemplate.selectOne("review.oldCateListCnt", category);
+    }
+
+    public List<ReviewDto> allCateReview(Map<String, String> searchParam) {
+        List<ReviewDto> list = sqlSessionTemplate.selectList("review.allCateReview", searchParam);
+        for (ReviewDto vo : list) {
+            vo.setRegDate(vo.getRegDate().substring(0,10));
+        }
+        return list;
     }
 }
