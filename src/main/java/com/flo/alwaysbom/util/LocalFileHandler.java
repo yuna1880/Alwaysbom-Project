@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
+import java.util.regex.Matcher;
 
 @RequiredArgsConstructor
 public class LocalFileHandler implements FileHandler {
@@ -41,7 +42,8 @@ public class LocalFileHandler implements FileHandler {
                     }
                 }
 
-                return new File(new File("/static/upload/", uploadFolder), fileName).getPath().substring(1);
+                String finalPath = new File(new File("/static/upload/", uploadFolder), fileName).getPath().substring(1);
+                return finalPath.replaceAll(Matcher.quoteReplacement(File.separator), "/");
             } else {
                 System.out.println(".이 없거나 확장자의 길이가 1보다 작습니다");
                 return null;

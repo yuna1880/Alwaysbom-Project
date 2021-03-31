@@ -10,7 +10,6 @@
     <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 </head>
 <body>
-<<<<<<< HEAD
 <%@ include file="../main/header.jspf"%>
 
 <div id="container" class="mx-auto">
