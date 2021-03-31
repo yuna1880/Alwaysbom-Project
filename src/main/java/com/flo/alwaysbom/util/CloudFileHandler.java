@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 public class CloudFileHandler implements FileHandler {
 
@@ -31,7 +32,8 @@ public class CloudFileHandler implements FileHandler {
             String oriName = file.getOriginalFilename();
             int dotIndex = oriName.lastIndexOf("."); //adf..sf.d.sdafdfd.jpg
             if (dotIndex >= 0 && dotIndex < oriName.length() - 1) {
-                String fileName = new File(new File("/", uploadFolder), oriName).getPath().substring(1);
+                String fileName = new File(new File("/", uploadFolder), oriName).getPath().substring(1)
+                        .replaceAll(Matcher.quoteReplacement(File.separator), "/");
 
                 List<Acl> acls = new ArrayList<>();
                 acls.add(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));
