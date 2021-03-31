@@ -24,7 +24,7 @@
                 <div class="col mb-8em">
                     <div class="overflow-hidden mb-3">
                         <a href="/product/${productVo.idx}">
-                            <img src="static/upload/${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
+                            <img src="${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
                         </a>
                     </div>
                     <div class="ps-1">
@@ -57,7 +57,7 @@
             <div class="col mb-8em">
                 <div class="overflow-hidden mb-3">
                     <a href="/product/${productVo.idx}">
-                        <img src="static/upload/${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
+                        <img src="${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
                     </a>
                 </div>
                 <div class="ps-1">
@@ -96,7 +96,7 @@
             <div class="col mb-8em">
                 <div class="overflow-hidden mb-3">
                     <a href="/product/${productVo.idx}">
-                        <img src="static/upload/${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
+                        <img src="${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
                     </a>
                 </div>
                 <div class="ps-1">

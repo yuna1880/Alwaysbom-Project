@@ -15,7 +15,7 @@
     </insert>
 
 
-    <!-- (R) 카테고리별 조회 (화병 or 굿즈) -->
+    <!-- (R) 카테고리별 조회 (vase or goods) -->
     <select id="findByCategory" parameterType="String" resultType="com.flo.alwaysbom.product.vo.ProductVo">
         SELECT      *
         FROM        PRODUCT

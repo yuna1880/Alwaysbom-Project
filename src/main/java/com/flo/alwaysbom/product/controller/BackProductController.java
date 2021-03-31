@@ -5,6 +5,7 @@ import com.flo.alwaysbom.product.vo.ProductVo;
 import com.flo.alwaysbom.util.FileHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,22 @@ public class BackProductController {
         return "product/b_productManager";
     }
 
+    @GetMapping("/admin/productList")
+    public String getList(Model model) {
+        getProductList(model, backProductService.findAll(), backProductService.findByCategory("vase"),
+                backProductService.findByCategory("goods"));
+        return "product/b_productList";
+    }
+
+    static void getProductList(Model model, List<ProductVo> all, List<ProductVo> vase, List<ProductVo> goods) {
+        List<ProductVo> findAllList = all;
+        List<ProductVo> findVaseList = vase;
+        List<ProductVo> findGoodsList = goods;
+        model.addAttribute("all", findAllList);
+        model.addAttribute("vase", findVaseList);
+        model.addAttribute("goods", findGoodsList);
+    }
+
     @GetMapping("/admin/productAddForm")
     public String goInsert() {
         return "product/b_addForm";
@@ -36,6 +53,6 @@ public class BackProductController {
         vo.setImage3(fileHandler.uploadFile(file.get(2), null, "product"));
         System.out.println("productVo = " + vo);
         backProductService.addProduct(vo);
-        return "redirect:/product";
+        return "redirect:/admin/productList";
     }
 }
