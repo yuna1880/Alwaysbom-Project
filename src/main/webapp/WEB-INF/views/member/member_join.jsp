@@ -43,7 +43,7 @@
                 </header>
                 <div class="join_us_box">
                     <div class="inbox">
-                        <form role="form" action="/member_join" method="post">
+                        <form role="form" action="/memberLogin" method="post">
                             <fieldset>
                                 <div class="form-group">
                                 <div class="inner">
@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="text" name="id" value="${kakao_id}" class="ipt" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
+                                                <input type="text" name="id" value="${kakao_id}" class="ipt chk" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
                                             </span>
                                             <span class="valid">아이디를 입력하세요.(이메일 형식만 입력 가능)</span>
                                             <button type="button" id="btn-id" class="btn">중복확인</button>
@@ -65,7 +65,7 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="password" name="pw" id="pw" class="ipt" maxlength="255" placeholder="비밀번호를 입력해주세요." />
+                                                <input type="password" name="pw" id="pw" class="ipt chk" maxlength="255" placeholder="비밀번호를 입력해주세요." />
                                                 <span class="valid">비밀번호를 입력하세요.(영문 대/소문자, 숫자 모두 포함)</span>
                                             </span>
                                         </div>
@@ -76,7 +76,7 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="password" name="pwCfm" class="ipt" maxlength="255" placeholder="비밀번호를 한 번 더 입력해주세요." autocomplete="off" />
+                                                <input type="password" name="pwCfm" class="ipt chk" maxlength="255" placeholder="비밀번호를 한 번 더 입력해주세요." autocomplete="off" />
                                                 <span class="valid">동일하게 한 번 더 입력하세요.</span>
                                             </span>
                                         </div>
@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="text" name="name" value="${kakao_name}" class="ipt" maxlength="255" placeholder="이름을 입력해주세요." />
+                                                <input type="text" name="name" value="${kakao_name}" class="ipt chk" maxlength="255" placeholder="이름을 입력해주세요." />
                                                 <span class="valid">이름을 입력하세요.</span>
                                             </span>
                                         </div>
@@ -98,7 +98,7 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="text" name="phone" id="phone" class="csr_phone ipt" maxlength="15" minlength="9" placeholder="' - ' 없이 숫자만 입력해주세요." />
+                                                <input type="text" name="phone" id="phone" class="csr_phone ipt chk" maxlength="15" minlength="9" placeholder="' - ' 없이 숫자만 입력해주세요." />
                                                 <span class="valid">휴대폰 번호를 숫자만 입력하세요.</span>
                                             </span>
                                         </div>
@@ -109,7 +109,7 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="text" name="birth" id="birth" class="csr_phone ipt" placeholder="예) 86/04/02" />
+                                                <input type="text" name="birth" id="birth" class="csr_phone ipt chk" placeholder="예) 86/04/02" />
                                                 <span class="valid">생년월일을 년도/월/일로 입력하세요.</span>
                                             </span>
                                         </div>
@@ -120,7 +120,7 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="text" name="gender" value="${kakao_gender}" class="csr_phone ipt" placeholder="예) 여성:f 남성:m" />
+                                                <input type="text" name="gender" value="${kakao_gender}" class="csr_phone ipt chk" placeholder="예) 여성:f 남성:m" />
                                                 <span class="valid">성별을 입력하세요. 예) 여성:f 남성:m</span>
                                             </span>
                                         </div>
