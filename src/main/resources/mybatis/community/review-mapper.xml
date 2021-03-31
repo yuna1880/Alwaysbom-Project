@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review">
+    <select id="allBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT *
+        FROM (
+        SELECT ROW_NUMBER() over (ORDER BY STAR DESC) as RN, I.*
+        FROM REVIEW I
+        )
+        WHERE RN BETWEEN 1 and 10
+    </select>
+
+    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">
+<!--        SELECT *
+        FROM REVIEW
+        <where>
+            <if test="category != null">
+                CATEGORY = #{category}
+            </if>
+        </where>
+        ORDER BY REG_DATE DESC-->
+        SELECT *
+        FROM (
+        SELECT ROW_NUMBER() over (ORDER BY REGDATE DESC) as RN, I.*
+        FROM REVIEW I
+            <where>
+                <if test="category != null">
+                    CATEGORY = #{category}
+                </if>
+            </where>
+        )
+        WHERE RN BETWEEN #{begin} and #{end}
+    </select>
+    <select id="cateBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
+        SELECT *
+        FROM (
+                 SELECT ROW_NUMBER() over (ORDER BY STAR DESC) as RN, I.*
+                 FROM REVIEW I
+             )
+
+        WHERE
+        <if test="category != null">
+            CATEGORY = #{category} AND
+        </if>
+        RN BETWEEN 1 and 10
+    </select>
+    <select id="cateAllReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
+        SELECT *
+        FROM REVIEW
+        <where>
+            <if test="category != null">
+                CATEGORY = #{category}
+            </if>
+        </where>
+        ORDER BY REG_DATE DESC
+    </select>
+
+    <select id="totalRecord" resultType="Integer" parameterType="string">
+        SELECT COUNT(IDX) FROM REVIEW
+        <where>
+            <if test="category != null">
+                CATEGORY = #{category}
+            </if>
+        </where>
+    </select>
+<!--    <select id="utilReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">-->
+<!--        SELECT *-->
+<!--        FROM REVIEW-->
+<!--        <where>-->
+<!--            <if test="category != null">-->
+<!--                CATEGORY = #{category}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        ORDER BY REG_DATE DESC-->
+<!--    </select>-->
+<!--    <insert id="addHome" parameterType="com.chicken.kyochon.vo.HomeVo">
+        INSERT INTO HOME(name, age, filename)
+        VALUES (#{name}, #{age}, #{filename})
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT HOME_ID_SEQ.currval from dual
+        </selectKey>
+    </insert>
+
+    <select id="list" resultType="com.chicken.kyochon.vo.HomeVo">
+        SELECT * FROM HOME ORDER BY ID DESC
+    </select>-->
+</mapper>
