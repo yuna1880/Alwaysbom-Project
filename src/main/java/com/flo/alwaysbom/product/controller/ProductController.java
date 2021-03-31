@@ -5,8 +5,7 @@ import com.flo.alwaysbom.product.vo.ProductVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +33,13 @@ public class ProductController {
         model.addAttribute("idx", idx);
         model.addAttribute("productVo", product);
         return "product/productDetail";
+    }
+
+    @PostMapping("/product/{idx}/get")
+    @ResponseBody
+    public ProductVo findProductByIdx(@PathVariable("idx") Integer idx) {
+        return productService.findByIdx(idx)
+                .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
     }
 
 }
