@@ -3,18 +3,15 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>시작페이지(메인)</title>
+    <title>리뷰게시판</title>
     <%@ include file="../main/import.jspf"%>
     <style type="text/css">
-        body{
-            line-height:2em;
-            font-family:"맑은 고딕";
-        }
+
         ul, li{
             list-style:none;
-            text-align:center;
+/*            text-align:center;
             padding:0;
-            margin:0;
+            margin:0;*/
         }
 
         #mainWrapper{
@@ -84,6 +81,7 @@
             text-align : left;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -94,31 +92,38 @@
                 <!-- 게시판 제목 -->
                 <li>리뷰 게시판</li>
 
-
                 <!-- 게시판 목록  -->
                 <li>
-                    <ul class="list-group list-group-horizontal">
-                        <li class="list-group-item">전체</li>
-                        <li class="list-group-item">정기 구독</li>
-                        <li class="list-group-item">꽃다발</li>
-                        <li class="list-group-item">클래스</li>
-                        <li class="list-group-item">소품샵</li>
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="nav-item">전체</li>
+                        <li class="nav-item">정기 구독</li>
+                        <li class="nav-item">꽃다발</li>
+                        <li class="nav-item">클래스</li>
+                        <li class="nav-item">소품샵</li>
                         <!-- 검색 폼 영역 -->
-                        <li id='liSearchOption' class="list-group list-group-horizontal">
-                            <div>
-                                <select id='selSearchOption' >
-                                    <option value='A'>제목+내용</option>
-                                    <option value='T'>제목</option>
-                                    <option value='C'>내용</option>
-                                </select>
-                                <input id='txtKeyWord' />
-                                <input type='button' value='검색'/>
-                            </div>
-                        </li>
+                        <form class="d-flex">
+                            <li id='liSearchOption' class="list-group list-group-horizontal">
+                                <div>
+                                    <select id='selSearchOption' >
+                                        <option value='A'>제목+내용</option>
+                                        <option value='T'>제목</option>
+                                        <option value='C'>내용</option>
+                                    </select>
+<%--                                    <input id='txtKeyWord' type="text" name="searchtxt" value=""/>
+                                    <input type='button' value='검색'/>--%>
+                                </div>
+                            </li>
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">검색</button>
+                        </form>
                     </ul>
                     <ul class="nav justify-content-around reviewBox">
-                        <li class="nav-item-3">베스트 리뷰</li>
-                        <li class="nav-item-3">상품 리뷰</li>
+                        <li class="nav-item-3">
+                            <a class="nav-link" href="/community/goReview">베스트 리뷰</a>
+                        </li>
+                        <li class="nav-item-3">
+                            <a class="nav-link" id="${ddd}" href="#" onclick="goAllList(this)">전체리뷰</a>
+                        </li>
                     </ul>
                     <ul id ="ulTable">
                         <li>
@@ -133,67 +138,40 @@
                         <!-- 게시물이 출력될 영역 -->
                         <li>
                             <ul>
-                                <li>1</li>
-                                <li class="left">제목제목제목제목1</li>
-                                <li>2014.07.09</li>
-                                <li>자바킹</li>
-                                <li>0</li>
+                                <li class="text-center">1</li>
+                                <li class="text-center">제목제목제목제목1</li>
+                                <li class="text-center">2014.07.09</li>
+                                <li class="text-center">자바</li>
+                                <li class="text-center">0</li>
                             </ul>
                         </li>
 
-                        <li>
-                            <ul>
-                                <li>2</li>
-                                <li class="left">제목제목제목제목1</li>
-                                <li>2014.07.09</li>
-                                <li>자바킹</li>
-                                <li>0</li>
-                            </ul>
-                        </li>
 
-                        <li>
-                            <ul>
-                                <li>3</li>
-                                <li class="left">제목제목제목제목1</li>
-                                <li>2014.07.09</li>
-                                <li>자바킹</li>
-                                <li>0</li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <ul>
-                                <li>4</li>
-                                <li class="left">제목제목제목제목1</li>
-                                <li>2014.07.09</li>
-                                <li>자바킹</li>
-                                <li>0</li>
-                            </ul>
-                        <li>
                     </ul>
                 </li>
-
-                <!-- 게시판 페이징 영역 -->
-                <li>
-                    <div id="divPaging">
-                        <div>◀</div>
-                        <div><b>1</b></div>
-                        <div>2</div>
-                        <div>3</div>
-                        <div>4</div>
-                        <div>5</div>
-                        <div>▶</div>
-                    </div>
-                </li>
-
-
-
             </ul>
         </div>
-
     </div>
 </div>
 
 <%@ include file="../main/footer.jspf"%>
 </body>
+<script>
+    function goAllList(paramType) {
+        console.log(paramType);
+        console.log(paramType.getAttribute('id'));
+        if (paramType.getAttribute('id') == ""){
+            $.ajax({
+                url: '',
+                type: 'POST',
+                dataType: "json",
+                data: paramType,
+                success: function (data) {
+                }
+            });
+        }
+    }
+
+</script>
+
 </html>

@@ -4,16 +4,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="choice">
+    <resultMap id="choiceMap" type="com.flo.alwaysbom.choice.vo.ChoiceVo" autoMapping="true">
+        <id property="idx" column="IDX"/>
+        <association property="productVo" column="IDX" javaType="com.flo.alwaysbom.product.vo.ProductVo" select="getChoiceWithProduct"/>
+    </resultMap>
+    <select id="getChoiceWithProduct" resultType="com.flo.alwaysbom.product.vo.ProductVo" parameterType="int">
+        SELECT P.* FROM CHOICE C INNER JOIN PRODUCT P ON C.PRODUCT_IDX = P.IDX
+        WHERE C.IDX = #{idx}
+    </select>
 
-    <select id="getChoiceById" resultType="com.flo.alwaysbom.choice.vo.ChoiceVo">
+    <select id="getChoiceById" resultMap="choiceMap">
         SELECT * from CHOICE
         WHERE CART_IDX = #{cartIdx}
     </select>
     
-<!--    <update id="addChoice" parameterType="map">
+    <update id="addChoice" parameterType="map">
         <foreach collection="productIds" item="productId" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
-            INTO CHOICE
+            INTO CHOICE VALUES(NULL, #{productId}, #{idx})
         </foreach>
-    </update>-->
+    </update>
 
 </mapper>

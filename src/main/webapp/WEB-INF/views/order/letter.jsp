@@ -7,15 +7,48 @@
     <title>새늘봄 - checkout</title>
     <link rel="stylesheet" href="/static/css/order/orderstyle.css">
     <%@ include file="../main/import.jspf"%>
-</head>
-<script>
-    function printLetter() {
-         const letter = document.getElementById('message').value;
-         document.getElementById('preview').innerText = letter;
+    <script>
+        function printLetter() {
+            const letter = document.getElementById('message').value;
+            document.getElementById('preview').innerText = letter;
 
-         document.getElementById('letter_press_cnt_').innerHTML = letter.length;
-    }
-</script>
+            document.getElementById('letter_press_cnt_').innerHTML = letter.length;
+        }
+
+        function submitForm() {
+            //class="flower_letter"의 폼을 전부 선택.
+            let letters = document.querySelectorAll(".flower_letter");
+            console.log(letters);
+            let datas = [];
+            for (let letter of letters) {
+                let data = {
+                    idx : letter.cart_idx.value,
+                    name : letter.product_name.value,
+                    content : letter.letter_content.value
+                };
+                //생성된 데이터 배열안에 넣어주기.
+                datas.push(data);
+            }
+
+
+
+            //폼 동적으로 만들기
+            let form = document.createElement("form")
+            form.action = "/oitem/checkOut";
+            form.method = "post";
+            let data = document.createElement("input");
+            data.name = "data";
+            data.type = "text";
+            //위에서 만든 데이터 배열을 Json 타입 문자열로 변환 -> input value로 설정해준다.
+            data.value = JSON.stringify(datas);
+            //만들어둔 form에 input 넣어준다.
+            form.appendChild(data);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</head>
+
 <body>
 <%@ include file="../main/header.jspf" %>
 
@@ -38,69 +71,64 @@
                     </div><br>
                 </div>
 
-
-
-
-                <form action="/checkOut" method="post">
-
+                <form class="flower_letter">
                 <!-- letter 옵션 추가시, 그 개수만큼 생성해준다. -->
-                <%-- <c:forEach var="cart" items="${cartList}">
-                <c:if test="${cart.letter > 0}"> --%>
-                <div id="letterbox-wrapper">
-                    <input type="hidden" name="cartIdx" value="${cart.idx}">
-                    <div id="letter_product" class="letterbox">
-                        <input type="hidden" name="letter_product_" value="">
-                        <div class="letter">
-                            <div class="select_letter">
-                                <input type="text" class="select_letter_select_tag" name="letter_product_name"
-                                       readonly="" value="가벼운 S 꽃구독">
-                            </div>
-                            <div class="role_select_checked">
-                                <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            메세지 없이 카드만 받을게요
-                                        </label>
+                <c:forEach var="order" items="${orderList}">
+                <c:if test="${order.letter > 0}">
+                    <div id="letterbox-wrapper">
+                        <input type="hidden" name="cart_idx" value="${order.idx}">
+                        <div id="letter_product" class="letterbox">
+                            <div class="letter">
+                                <div class="select_letter">
+                                    <input type="text" class="select_letter_select_tag" name="product_name"
+                                           readonly value="${order.subsVo.name}">
+                                </div>
+                                <div class="role_select_checked">
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                메세지 없이 카드만 받을게요
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- 편지 내용 -->
+                                <!-- 편지 내용 -->
 
-                            <div class="input_letter_wrap write">
-                                <div class="input_letter">
-                                    <textarea id="message" name="message" class="letter_press" rows="8" maxlength="120"
-                                                      wrap="hard" placeholder="여기에 입력하세요 :-)" data-letter="" onkeyup="printLetter()"></textarea>
-                                        <span class="limmit">
-                                            <b class="count" id="letter_press_cnt_">0</b> / 120
-                                        </span>
-                                        <span class="noti">*이모티콘은 편지 내용에 포함되지 않습니다.</span>
-                                        <span class="noti">* 편지 내용을 이곳에 직접 입력해주세요.</span>
-                                        <span class="noti">* 붙여넣기 시용시 편지가 입력 되지 않습니다.</span>
-                                </div>
-                                <div class="preview_letter">
-                                    <textarea id="preview" class="text" readonly></textarea>
-                                    <span class="noti">* 실제 편지지 모습입니다. 최대 8줄까지만 인쇄됩니다.</span>
+                                <div class="input_letter_wrap write">
+                                    <div class="input_letter">
+                                        <textarea id="message" name="letter_content" class="letter_press" rows="8" maxlength="120"
+                                                          wrap="hard" placeholder="여기에 입력하세요 :-)" data-letter="" onkeyup="printLetter()"></textarea>
+                                            <span class="limmit">
+                                                <b class="count" id="letter_press_cnt_">0</b> / 120
+                                            </span>
+                                            <span class="noti">*이모티콘은 편지 내용에 포함되지 않습니다.</span>
+                                            <span class="noti">* 편지 내용을 이곳에 직접 입력해주세요.</span>
+                                            <span class="noti">* 붙여넣기 시용시 편지가 입력 되지 않습니다.</span>
+                                    </div>
+                                    <div class="preview_letter">
+                                        <textarea id="preview" class="text" readonly></textarea>
+                                        <span class="noti">* 실제 편지지 모습입니다. 최대 8줄까지만 인쇄됩니다.</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-<%--</c:if>
-</c:forEach>--%>
-
-</div>
-<!-- 버튼 -->
-<div class="float-end">
-<button type="button" class="btn btn-outline-secondary btn-lg"
-        onclick="javascript:location.href='goLetter?idx=${cart.idx}'">이전 화면으로</button>
-<button type="submit" class="btn btn btn-secondary btn-lg">다음 단계로</button>
-</div>
-</form>
-<br>
-</div>
-</div>
+                    </c:if>
+                    </c:forEach>
+                    </div>
+                    </form>
+                        <!-- 버튼 -->
+                        <div class="float-end">
+                            <button type="button" class="btn btn-outline-secondary btn-lg"
+                                    onclick="history.back()">이전 화면으로</button>
+                            <!-- 여기서 받은 데이터를 submitForm() -->
+                            <button type="button" class="btn btn btn-secondary btn-lg" onclick="submitForm()">다음 단계로</button>
+                        </div>
+                        <br>
+                        </div>
+                    </div>
 <%@ include file="../main/footer.jspf"%>
 </body>
 </html>

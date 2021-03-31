@@ -2,6 +2,8 @@ package com.flo.alwaysbom.order.vo;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -9,15 +11,19 @@ import lombok.*;
 @NoArgsConstructor
 public class OitemVo {
     private Integer idx;
-    private Integer orders_idx;
-    private String letter_content;
+    private Integer ordersIdx;
+    private String letterContent;
     private String name;
-    private Integer price;
+    private int price;
     private String options;
     private String image;
     private String status;
-    private String request_date;
-    private String delivery_start_date;
+    private String requestDate;
+    private String deliveryStartDate;
     private String category;
-    private Integer review_check;
+    private int reviewCheck;
+
+    //비즈니스 로직 관련 데이터..
+    private boolean hasLetter;
+    private List<OsubsVo> osubsList;
 }

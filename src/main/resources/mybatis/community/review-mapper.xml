@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review">
+
+    <select id="allBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT *
+        FROM (
+        SELECT ROW_NUMBER() over (ORDER BY INQ_NUM DESC) as RN, I.*
+        FROM REVIEW I
+        )
+        WHERE RN BETWEEN #{startRow} and #{endRow}
+
+    </select>
+<!--    <insert id="addHome" parameterType="com.chicken.kyochon.vo.HomeVo">
+        INSERT INTO HOME(name, age, filename)
+        VALUES (#{name}, #{age}, #{filename})
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT HOME_ID_SEQ.currval from dual
+        </selectKey>
+    </insert>
+
+    <select id="list" resultType="com.chicken.kyochon.vo.HomeVo">
+        SELECT * FROM HOME ORDER BY ID DESC
+    </select>-->
+</mapper>

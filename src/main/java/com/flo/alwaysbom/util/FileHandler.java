@@ -25,7 +25,7 @@ public class FileHandler {
 
                 File folder = new File("static/upload", uploadFolder);
                 String folderPath = context.getRealPath(folder.getPath());
-
+                System.out.println(folderPath);
                 //폴더가 있는지 체크
                 File f = new File(folderPath);
                 if (!f.exists()) {
@@ -42,7 +42,7 @@ public class FileHandler {
                     }
                 }
 
-                return fileName;
+                return new File(uploadFolder, fileName).getPath();
             } else {
                 System.out.println(".이 없거나 확장자의 길이가 1보다 작습니다");
                 return null;
@@ -50,6 +50,5 @@ public class FileHandler {
         } else {
             return dbName;
         }
-
     }
 }

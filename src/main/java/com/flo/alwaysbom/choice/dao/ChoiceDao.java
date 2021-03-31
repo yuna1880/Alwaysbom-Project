@@ -14,11 +14,11 @@ public class ChoiceDao {
 
     private final SqlSessionTemplate sqlSessionTemplate;
 
-    public void addChoices(Integer idx, List<Integer> productIds) {
+    public void addChoices(Integer idx, Integer[] productIds) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("idx", idx);
         paramMap.put("productIds", productIds);
 
-        sqlSessionTemplate.update("choice.add", paramMap);
+        sqlSessionTemplate.update("choice.addChoice", paramMap);
     }
 }
