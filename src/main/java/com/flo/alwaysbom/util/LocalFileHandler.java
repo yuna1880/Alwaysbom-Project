@@ -30,7 +30,8 @@ public class LocalFileHandler implements FileHandler {
                     f.mkdirs();
                 }
 
-                file.transferTo(new File(folderPath, fileName));
+                File realFile = new File(folderPath, fileName);
+                file.transferTo(realFile);
 
                 //기존 파일이 있다면 지우겠다
                 if (dbName != null) {
@@ -40,7 +41,7 @@ public class LocalFileHandler implements FileHandler {
                     }
                 }
 
-                return new File(new File("/", uploadFolder), fileName).getPath().substring(1);
+                return new File(new File("/static/upload/", uploadFolder), fileName).getPath().substring(1);
             } else {
                 System.out.println(".이 없거나 확장자의 길이가 1보다 작습니다");
                 return null;

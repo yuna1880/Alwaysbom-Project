@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class CloudFileHandler implements FileHandler {
 
     private final String BUCKET_NAME = "upload.alwaysbom.xyz";
