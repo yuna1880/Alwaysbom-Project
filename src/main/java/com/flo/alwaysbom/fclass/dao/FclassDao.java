@@ -38,6 +38,16 @@ public class FclassDao {
 
        return vo.getIdx();
     }
+
+    public void addFcb(FclassVo vo, Integer[] branches) {
+        for (Integer branch : branches) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("fclassIdx", vo.getIdx());
+            map.put("branchIdx", branch);
+            sqlSessionTemplate.insert("fclass.addFcb", map);
+        }
+    }
+
     public int deleteFclass(int idx) {
         sqlSessionTemplate.delete("fclass.deleteFclass", idx);
         return idx;

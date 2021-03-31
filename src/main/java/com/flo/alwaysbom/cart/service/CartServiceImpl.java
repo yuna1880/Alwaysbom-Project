@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +28,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Integer addCart(CartVo cartVo, Integer[] productIds) {
-        System.out.println("productIds = " + productIds);
+    public Integer addCart(CartVo cartVo) {
         cartDao.addCart(cartVo);
-        System.out.println("cartVo = " + cartVo);
-        choiceService.addChoices(cartVo.getIdx(), productIds);
+        choiceService.addChoices(cartVo);
         return cartVo.getIdx();
     }
 
