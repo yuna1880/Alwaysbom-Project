@@ -3,6 +3,7 @@ package com.flo.alwaysbom.order.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import com.flo.alwaysbom.cart.service.CartService;
 import com.flo.alwaysbom.cart.vo.CartVo;
 import com.flo.alwaysbom.cart.vo.Letter;
@@ -51,7 +52,9 @@ public class OrdersController {
         System.out.println(">>startOrder() 주문시작!");
 
         ObjectMapper mapper = new ObjectMapper();
-        List<OitemVo> list = mapper.readValue(data, new TypeReference<List<OitemVo>>() {});
+//        List<OitemVo> list = mapper.readValue(data, new TypeReference<List<OitemVo>>() {});
+        CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, OitemVo.class);
+        List<OitemVo> list = mapper.readValue(data, collectionType);
         list.forEach(System.out::println);
         model.addAttribute("oitemList", list);
 
