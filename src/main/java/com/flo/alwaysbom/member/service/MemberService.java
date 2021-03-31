@@ -7,9 +7,13 @@ import java.util.HashMap;
 public interface MemberService {
 
         //회원가입 Service
-        public default void insertMember(MemberVO memberVO) throws Exception {
+        public void insertMember(MemberVO memberVO);
 
-        }
+        //회원 로그인 Service
+        public MemberVO loginMember(MemberVO memberVO);
 
+        MemberVO memberLogin(HashMap<String, String> map);
+
+        boolean member_id_check(String id);
 }
 

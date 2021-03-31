@@ -42,7 +42,7 @@
                 <div class="login_box">
                     <div class="inner">
                         <div class="login_user_input">
-                            <form>
+                            <form action="/loginMember" method="post">
                                 <fieldset>
                                     <input type="hidden" name="csrfmiddlewaretoken" value="4Jo40kgJEICmLsn1yLNS1D1uLg2foCxgLLCSGDsgOEtkWtJGv6ix9hunfFqvVzOS">
                                     <input type="email" name="email" class="ipt" id="id_email" placeholder="아이디(이메일)" value>

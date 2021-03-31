@@ -5,6 +5,8 @@ import com.flo.alwaysbom.member.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 public class MemberServiceImpl implements MemberService {
 
@@ -12,10 +14,26 @@ public class MemberServiceImpl implements MemberService {
     MemberDAO dao;
 
     @Override
-    public void insertMember(MemberVO memberVO) throws Exception {
+    public void insertMember(MemberVO memberVO) {
 
         dao.insertMember(memberVO);
 
+    }
+    @Override
+    public MemberVO loginMember(MemberVO memberVO) {
+
+        dao.loginMember(memberVO);
+        return memberVO;
+    }
+
+    @Override
+    public MemberVO memberLogin(HashMap<String, String> map) {
+        return dao.memberLogin(map);
+    }
+
+    @Override
+    public boolean member_id_check(String id) {
+        return dao.member_id_check(id);
     }
 }
 
