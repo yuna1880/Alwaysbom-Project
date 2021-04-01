@@ -72,7 +72,7 @@
                 <c:if test="${oitem.hasLetter eq true}">
                     <form class="flower_letter">
                     <div id="letterbox-wrapper">
-<%--                        <input type="hidden" name="cart_idx" value="${oitem.idx}">--%>
+<%--                     <input type="hidden" name="cart_idx" value="${oitem.idx}">--%>
                         <div id="letter_product" class="letterbox">
                             <div class="letter">
                                 <div class="select_letter">
