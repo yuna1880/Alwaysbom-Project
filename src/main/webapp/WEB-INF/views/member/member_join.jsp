@@ -43,7 +43,7 @@
                 </header>
                 <div class="join_us_box">
                     <div class="inbox">
-                        <form role="form" action="/memberLogin" method="post">
+                        <form role="form" action="/member_join" method="post">
                             <fieldset>
                                 <div class="form-group">
                                 <div class="inner">

@@ -8,14 +8,4 @@
         INSERT INTO MEMBER (ID, PW, NAME, BIRTH, GENDER, PHONE)
         VALUES (#{id}, #{pw}, #{name}, #{birth}, #{gender}, #{phone})
     </insert>
-
-    <select id="loginMember" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultType="com.flo.alwaysbom.member.vo.MemberVO">
-        SELECT *
-        FROM MEMBER
-        WHERE ID=#{id} AND PW=#{pw}
-    </select>
-
-    <select id="id_check" resultType="Integer">
-        SELECT COUNT(*) FROM member WHERE id=#{id}
-    </select>
 </mapper>

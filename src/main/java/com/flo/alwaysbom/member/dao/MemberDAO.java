@@ -1,20 +1,19 @@
 package com.flo.alwaysbom.member.dao;
 
 import com.flo.alwaysbom.member.vo.MemberVO;
+import lombok.RequiredArgsConstructor;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
+@Repository
+@RequiredArgsConstructor
+public class MemberDAO{
 
-public interface MemberDAO {
-    //회원가입 DAO
-    public void insertMember(MemberVO memberVO);
+    private final SqlSessionTemplate sessionTemplate;
 
-    //회원 로그인 DAO
-    public void loginMember(MemberVO memberVO);
+    public void insertMember(MemberVO memberVO) {
 
-    MemberVO memberLogin(HashMap<String, String> map);
+        sessionTemplate.insert("member.insertMember",memberVO);
+    }
 
-    boolean member_id_check(String id);
 }
-
-
-

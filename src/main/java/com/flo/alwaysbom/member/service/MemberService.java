@@ -1,19 +1,20 @@
 package com.flo.alwaysbom.member.service;
 
+import com.flo.alwaysbom.member.dao.MemberDAO;
 import com.flo.alwaysbom.member.vo.MemberVO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+@Service
+@RequiredArgsConstructor
+public class MemberService{
 
-public interface MemberService {
+    private final MemberDAO dao;
 
-        //회원가입 Service
-        public void insertMember(MemberVO memberVO);
+    public void insertMember(MemberVO memberVO) {
 
-        //회원 로그인 Service
-        public MemberVO loginMember(MemberVO memberVO);
+        dao.insertMember(memberVO);
 
-        MemberVO memberLogin(HashMap<String, String> map);
-
-        boolean member_id_check(String id);
+    }
 }
 
