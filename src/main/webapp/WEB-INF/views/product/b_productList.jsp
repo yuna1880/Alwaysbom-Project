@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
     <title>소품샵 상품 조회</title>
@@ -29,13 +29,13 @@
         <c:if test="${not empty productVo}">
         <div class="col mb-8em">
             <div class="overflow-hidden mb-3">
-                <a href="/product/${productVo.idx}">
+                <a href="/admin/product/${productVo.idx}">
                     <img src="${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
                 </a>
             </div>
             <div class="ps-1">
                 <div class="item-name">
-                    <a href="/product/${productVo.idx}">${productVo.name}</a></div>
+                    <a href="/admin/product/${productVo.idx}">${productVo.name}</a></div>
                 <div class="price-wrap">
                 <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
                 <span class="discount-rate">${productVo.discountRate}%</span>
@@ -68,13 +68,13 @@
         <c:if test="${not empty productVo}">
         <div class="col mb-8em">
             <div class="overflow-hidden mb-3">
-                <a href="/product/${productVo.idx}">
+                <a href="/admin/product/${productVo.idx}">
                     <img src="${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
                 </a>
             </div>
             <div class="ps-1">
                 <div class="item-name">
-                    <a href="/product/${productVo.idx}">${productVo.name}</a></div>
+                    <a href="/admin/product/${productVo.idx}">${productVo.name}</a></div>
                 <div class="price-wrap">
                 <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
                 <span class="discount-rate">${productVo.discountRate}%</span>

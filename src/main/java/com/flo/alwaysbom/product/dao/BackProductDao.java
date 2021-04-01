@@ -33,7 +33,7 @@ public class BackProductDao {
     }
 
     public Optional<ProductVo> findByIdx(Integer idx) {
-        return sqlSessionTemplate.selectOne("PRODUCT.findByIdx", idx);
+        return Optional.ofNullable(sqlSessionTemplate.selectOne("PRODUCT.findByIdx", idx));
     }
 
 }
