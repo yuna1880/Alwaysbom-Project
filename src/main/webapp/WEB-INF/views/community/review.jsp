@@ -177,7 +177,7 @@
     }
 
     function goAllList(tab, paramType) {
-         $('.allBoxes').remove();
+        $('.allBoxes').remove();
         $("#searchMoreNotify").css("display", "block");
         let startIndex = 1;	// 인덱스 초기값
         let searchStep = 1;	// 5개씩 로딩
@@ -196,14 +196,19 @@
         startIndex = 1;
         readOldNotify(startIndex);
         startIndex = 1;
-        let clear = "clear";
+        let check = true;
         // 더보기 클릭시
         $('#searchMoreNotify').click(function(e){
             e.stopPropagation();
             e.preventDefault();
             e.stopImmediatePropagation();
+            if(check){
+                startIndex = 1;
+                check = false;
+            }
+            alert(startIndex);
             startIndex += searchStep;
-            console.log(startIndex + "클릭할떄 발생");
+            console.log(startIndex + "클릭할떄 발생" + searchStep);
             readOldNotify(startIndex);
             // $(".accordion ul").next(".accordion_count").slideToggle("fast");
               //  .siblings(".accordion_count:visible").slideUp("fast");
