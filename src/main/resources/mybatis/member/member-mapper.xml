@@ -8,4 +8,5 @@
         INSERT INTO MEMBER (ID, PW, NAME, BIRTH, GENDER, PHONE)
         VALUES (#{id}, #{pw}, #{name}, #{birth}, #{gender}, #{phone})
     </insert>
+
 </mapper>
