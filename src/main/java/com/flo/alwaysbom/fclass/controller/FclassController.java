@@ -5,6 +5,7 @@ import com.flo.alwaysbom.fclass.service.FclassService;
 import com.flo.alwaysbom.fclass.service.ScheduleService;
 import com.flo.alwaysbom.fclass.vo.BranchVo;
 import com.flo.alwaysbom.fclass.vo.FclassVo;
+import com.flo.alwaysbom.fclass.vo.OclassVo;
 import com.flo.alwaysbom.fclass.vo.ScheduleVo;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.util.FileHandler;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -46,7 +49,7 @@ public class FclassController {
         MemberVO memberVO = new MemberVO();
         memberVO.setId("minho1030@naver.com");
         memberVO.setPoint(1000);
-        memberVO.setGrade("데이지");
+        memberVO.setGrade("자스민");
         memberVO.setName("민호");
         //////////////////////////////////////////
 
@@ -67,11 +70,37 @@ public class FclassController {
         System.out.println("regCount = " + regCount);
         System.out.println("memberVO = " + memberVO);
 
-        return "/fclass/payment";
+        return "/fclass/m_payment";
     }
 
-    @GetMapping("/temp")
-    public String temp() {
-        return "/fclass/m_payment";
+    @PostMapping ("/fclass/completePayment")
+    public String completePayment(Integer scheduleIdx,String memberId, Integer discountGrade, Integer discountPoint, Integer discountTotalprice,  OclassVo ovo) {
+        // @RequestParam("pay-type") String payType, Integer payTotal, String payDate, Integer discountGrade, Integer discountPoint, Model model
+        System.out.println("scheduleIdx = " + scheduleIdx);
+        System.out.println("memberId = " + memberId);
+        System.out.println("regCount = " + ovo.getRegCount());
+        System.out.println("payType = " + ovo.getPayType());
+        System.out.println("payTotal = " + ovo.getPayTotal());
+        System.out.println("discountGrade = " + discountGrade);
+        System.out.println("discountPoint = " + discountPoint);
+        System.out.println("discountTotalprice = " + discountTotalprice);
+        ScheduleVo svo = scheduleService.findByIdx(scheduleIdx);
+        System.out.println("fclassIdx = " + svo.getFclassIdx());
+        FclassVo fvo = fclassService.findByIdx(svo.getFclassIdx());
+        System.out.println("branchIdx = " + svo.getBranchIdx());
+        BranchVo bvo = branchService.findByIdx(svo.getBranchIdx());
+        System.out.println("branchName = " + bvo.getName());
+        System.out.println("branchAddr = " + bvo.getAddr());
+        System.out.println("fclassImage = " + fvo.getImage1());
+        System.out.println("scheduleStartTime = " + svo.getStartTime());
+        System.out.println("scheduleEndTime = " + svo.getEndTime());
+
+
+
+
+        //System.out.println("regCount = " + regCount + "payType = " + payType + "payTotal = " + payTotal + "payDate = " + payDate + "discountGrade = " + discountGrade + "discountPoint = " + discountPoint);
+
+
+        return "/fclass/completePayment";
     }
 }
