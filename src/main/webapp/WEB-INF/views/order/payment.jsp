@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
     <title>새늘봄 - checkout</title>
@@ -78,20 +79,23 @@
                         <!-- 주문내역 -->
                         <div class="checkout_cartlist">
                             <div class="head"><span class="delivery">수령일</span>
-                                <span class="product">상품명</span><span class="price">가격</span></div>
+                                <span class="product">상품명</span>
+                                <span class="price">가격</span>
+                            </div>
                             <div class="cartlist_wrap">
                                 <div id="cartlist_wrapper_final">
                                     <div id="cartlist_wrapper" class="cartlist_wrap">
 
                                             <!-- 담은 수만큼 생성 -->
-                                            <c:forEach var="order" items="${OrderList}">
+                                            <c:forEach var="oitem" items="${oitemList}">
                                             <div class="item">
                                                 <h4 class="delivery_date">
                                                     <span class="label">수령일</span>
-                                                    <span class="val">2021-03-27</span>
+                                                    <span class="val">${oitem.requestDate}</span>
                                                 </h4>
-                                                <h5 class="delivery_title"><span class="label">상품명</span>
-                                                    <span class="val">${order.subsVo.name}</span>
+                                                <h5 class="delivery_title">
+                                                    <span class="label">상품명</span>
+                                                    <span class="val">${oitem.name}</span>
                                                 </h5>
                                                 <div class="delivery_goods">
                                                     <div class="row">
@@ -99,29 +103,37 @@
                                                             <div class="good">
                                                                 <div class="photo">
                                                                     <a href="#" class="img" title="">
-                                                                        <img src="${order.subsVo.image1}" class="image_size">
+                                                                        <img src="${oitem.image}" class="image_size">
                                                                     </a>
                                                                 </div>
                                                                 <div class="detail">
                                                                     <span class="content_category"></span>
-                                                                    <span class="name">${order.subsVo.name}</span>
+                                                                    <span class="name">${oitem.name}</span>
                                                                     <div class="option">
-                                                                        <span class="l"><span class="label"><i>수량 : </i>${order.quantity}</span></span>
+                                                                        <span class="l"><span class="label"><i>수량 : </i></span></span>
                                                                     </div>
                                                                     <div class="option">
-                                                                        <c:if test="${order.letter eq 1}">
+                                                                        <c:if test="${oitem.hasLetter eq true}">
                                                                         <span class="l"><span class="label"><i></i>편지 추가</span></span>
                                                                         </c:if>
                                                                     </div>
                                                                     <div class="option">
-                                                                        <span class="l"><span class="label"><i></i><span>화이트 화병[1]</span></span></span>
+                                                                        <span class="l">
+                                                                            <span class="label"><i>옵션 :</i>
+                                                                                <span>
+                                                                                    <c:forTokens items="${oitem.options}" delims="," var="option">
+                                                                                    ${option}<br/>
+                                                                                    </c:forTokens>
+                                                                                </span>
+                                                                            </span>
+                                                                        </span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="list_good_price">
-                                                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${order.subsVo.price}" var="commaPrice"/>
-                                                            <span class="price"><span>${commaPrice}</span></span>
+                                                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${oitem.price}" var="commaPrice"/>
+                                                            <span class="price">${commaPrice}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -138,21 +150,21 @@
                             <tbody>
                             <tr>
                                 <td><span class="detail"><span class="th">수령인 이름</span><span class="td">
-                                    <input readonly type="text" value="${vo.receiverName}"></span></span></td>
+                                    <input readonly type="text" value="${orderList.receiverName}"></span></span></td>
                                 </tr>
                             <tr>
                                 <td><span class="detail"><span class="th">수령인 연락처</span><span class="td">
-                                    <input readonly type="text" value="${vo.receiverPhone}"></span></span></td>
+                                    <input readonly type="text" value="${orderList.receiverPhone}"></span></span></td>
                                 </tr>
                             </tbody>
                         </table>
 
                         <div class="check_unknow">
                             <span class="label">익명처리여부</span>
-                            <c:if test="${empty vo.senderName}">
+                            <c:if test="${empty orderList.senderName}">
                                 <span class="val">익명배송</span>
                             </c:if>
-                            <c:if test="${not empty vo.senderName}">
+                            <c:if test="${not empty orderList.senderName}">
                                 <span class="val">실명배송</span>
                             </c:if>
                         </div>

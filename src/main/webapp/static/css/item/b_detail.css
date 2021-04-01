@@ -1,0 +1,21 @@
+#container {
+    padding: 1em 1em 100px 1em;
+}
+#bread-nav {
+    display: flex;
+    font-size: 18px;
+    padding-top: 20px;
+}
+#bread-nav a {
+    color: #4D4D4D;
+    text-decoration: none;
+}
+#bread-nav a:hover {
+    text-decoration: underline;
+    color: #4D4D4D;
+}
+#bread-nav > ol {
+    background-color: #dcdcdc;
+    padding: 0.3em 0.8em;
+    border-radius: 10px;
+}

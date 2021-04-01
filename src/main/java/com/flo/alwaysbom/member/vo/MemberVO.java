@@ -9,7 +9,7 @@ import java.util.Date;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberVO {
+public class MemberVO{
 
     private String id;
     private String pw;
@@ -19,4 +19,5 @@ public class MemberVO {
     private String phone;
     private int point;
     private String grade;
+
 }
