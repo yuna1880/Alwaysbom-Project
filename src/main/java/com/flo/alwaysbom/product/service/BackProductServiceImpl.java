@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +24,14 @@ public class BackProductServiceImpl {
 
     public List<ProductVo> findAll() {
         return dao.findAll();
+    }
+
+    public int updateProduct(ProductVo vo) {
+        return dao.updateProduct(vo);
+    }
+
+    public Optional<ProductVo> findByIdx(Integer idx) {
+        return dao.findByIdx(idx);
     }
 
 

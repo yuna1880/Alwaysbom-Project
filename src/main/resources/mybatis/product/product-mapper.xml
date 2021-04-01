@@ -41,4 +41,21 @@
     </select>
 
 
+    <!-- (U) 관리자가 상품 수정 -->
+    <update id="updateProduct" parameterType="com.flo.alwaysbom.product.vo.ProductVo">
+        UPDATE  PRODUCT
+        SET     CATEGORY = #{category},
+                NAME = #{name},
+                SUBHEADER = #{subheader},
+                PRICE = #{price},
+                DISCOUNT_RATE = {discountRate},
+                IMAGE1 = #{image1},
+                IMAGE2 = #{image2},
+                IMAGE3 = #{image3},
+                CONTENT = #{content},
+                SOLDOUT_STATUS = #{soldoutStatus},
+                FSIZE = #{fsize}
+        WHERE   IDX = #{idx}
+    </update>
+
 </mapper>

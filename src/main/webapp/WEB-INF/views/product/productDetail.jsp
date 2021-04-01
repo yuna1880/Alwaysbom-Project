@@ -11,6 +11,14 @@
         <h1>소품샵 상세페이지</h1>
     </div>
 
+    <span>${productVo.subheader}</span>
+    <span>${productVo.name}</span>
+    <span>${productVo.category}</span>
+    <span>${productVo.price}</span>
+    <span>${productVo.discountRate}</span>
+    <span>${productVo.content}</span>
+
+    <button type="button" onclick="javascript:location.href='/admin/productAddForm'">수정</button>
 
 
     <%@ include file="../main/footer.jspf"%>
