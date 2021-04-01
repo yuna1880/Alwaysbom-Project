@@ -24,6 +24,7 @@ public class OitemVo {
     private Date deliveryStartDate;
     private String category;
     private int reviewCheck;
+    private Integer quantity;
 
     //비즈니스 로직 관련 데이터..
     private boolean hasLetter;
