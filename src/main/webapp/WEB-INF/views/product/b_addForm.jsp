@@ -51,8 +51,8 @@
                 <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img1">
                 </c:if>
                 <c:if test="${not empty productVo}">
-                <img src="${productVo.image1}" alt="사진" class="m-0 p-0 card-img-overlay" id="img1">
-                <input type="hidden" name="image1" value="${productVo.image1}">
+                    <img src="${productVo.image1}" alt="사진" class="m-0 p-0 card-img-overlay" id="img1">
+                    <input type="hidden" name="image1" value="${productVo.image1}">
                 </c:if>
             </li>
             <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
@@ -66,8 +66,13 @@
                 <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img2">
                 </c:if>
                 <c:if test="${not empty productVo}">
-                <img src="${productVo.image2}" alt="사진" class="m-0 p-0 card-img-overlay" id="img2">
-                <input type="hidden" name="image2" value="${productVo.image1}">
+                    <c:if test="${not empty productVo.image2}">
+                    <img src="${productVo.image2}" alt="사진" class="m-0 p-0 card-img-overlay" id="img2">
+                    <input type="hidden" name="image2" value="${productVo.image2}">
+                    </c:if>
+                    <c:if test="${empty productVo.image2}">
+                    <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img2">
+                    </c:if>
                 </c:if>
             </li>
             <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
@@ -81,8 +86,13 @@
                 <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img3">
                 </c:if>
                 <c:if test="${not empty productVo}">
-                <img src="${productVo.image3}" alt="사진" class="m-0 p-0 card-img-overlay" id="img3">
-                <input type="hidden" name="image3" value="${productVo.image1}">
+                    <c:if test="${not empty productVo.image3}">
+                    <img src="${productVo.image3}" alt="사진" class="m-0 p-0 card-img-overlay" id="img3">
+                    <input type="hidden" name="image3" value="${productVo.image3}">
+                    </c:if>
+                    <c:if test="${empty productVo.image3}">
+                    <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img3">
+                    </c:if>
                 </c:if>
             </li>
         </div>

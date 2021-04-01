@@ -94,6 +94,23 @@ public class BackProductController {
     /* 상품 삭제 */
     @GetMapping("/admin/deleteProduct")
     public String deleteProduct(Integer idx) {
+//        ProductVo product = backProductService.findByIdx(idx)
+//                .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
+//        try {
+//            fileHandler.deleteFile(product.getImage1());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            fileHandler.deleteFile(product.getImage2());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            fileHandler.deleteFile(product.getImage3());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         backProductService.deleteProduct(idx);
         return "redirect:/admin/productList";
     }
