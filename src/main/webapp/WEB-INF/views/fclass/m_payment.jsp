@@ -3,13 +3,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:choose>
     <c:when test="${memberVo.grade eq '데이지'}">
-        <c:set var="discountPrice" value="0"/>
+        <fmt:parseNumber var="discountPrice" integerOnly="true" value="0"/>
+<%--        <c:set var="discountPrice" value="0"/>--%>
     </c:when>
     <c:when test="${memberVo.grade ne '데이지'}">
-        <c:set var="discountPrice" value="${fclassVo.finalPrice * regCount * 0.02}"/>
+        <fmt:parseNumber var="discountPrice" integerOnly="true" value="${fclassVo.finalPrice * regCount * 0.02}"/>
+<%--        <c:set var="discountPrice" value="${fclassVo.finalPrice * regCount * 0.02}"/>--%>
     </c:when>
 </c:choose>
-<c:set var="totalPrice" value="${fclassVo.finalPrice * regCount - discountPrice}"/>
+<fmt:parseNumber var="totalPrice" integerOnly="true" value="${fclassVo.finalPrice * regCount - discountPrice}"/>
+<%--<c:set var="totalPrice" value="${fclassVo.finalPrice * regCount - discountPrice}"/>--%>
 
 <html>
 <head>
@@ -23,7 +26,7 @@
         const finalPriceEl = document.querySelector("#finalPrice");
         const discountPointHiddenEl = document.querySelector("#discountPointHidden");
         const discountGradeEl = document.querySelector("#discountGradeHidden");
-        const discountTotalpriceEl = document.querySelector("#discountTotalpriceHidden");
+        const discountTotalPriceEl = document.querySelector("#discountTotalPriceHidden");
 
 
         let originalPrice = finalPriceEl.getAttribute("data-original-price");
@@ -40,10 +43,9 @@
         discountGradeEl.value = ${discountPrice};
         let finalPrice = originalPrice - discountPoint;
         //discountPoint.setAttribute("discountPoint");
-        //let grade = ${discountPrice};
        // grade.setAttribute("discountGrade");
         finalPriceEl.textContent = finalPrice.toLocaleString('ko-KR') + " 원";
-        discountTotalpriceEl.value= finalPrice;
+        discountTotalPriceEl.value= finalPrice;
 
     }
 
@@ -120,7 +122,7 @@
         </div>
         <div class="d-flex justify-content-between py-2 h4 text-warning m-0">
             <span>총 결제금액</span>
-            <input type="hidden" name="discountTotalprice" id="discountTotalpriceHidden" value="${totalPrice}">
+            <input type="hidden" name="discountTotalPrice" id="discountTotalPriceHidden" value="${totalPrice}">
             <span id="finalPrice" data-original-price="${totalPrice}">
                 <fmt:formatNumber value="${totalPrice}" pattern="#,### 원"/></span>
         </div>

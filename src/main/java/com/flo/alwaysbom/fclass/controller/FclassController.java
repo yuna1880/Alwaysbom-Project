@@ -2,6 +2,7 @@ package com.flo.alwaysbom.fclass.controller;
 
 import com.flo.alwaysbom.fclass.service.BranchService;
 import com.flo.alwaysbom.fclass.service.FclassService;
+import com.flo.alwaysbom.fclass.service.OclassService;
 import com.flo.alwaysbom.fclass.service.ScheduleService;
 import com.flo.alwaysbom.fclass.vo.BranchVo;
 import com.flo.alwaysbom.fclass.vo.FclassVo;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,6 +28,8 @@ public class FclassController {
     private final BranchService branchService;
     private final ScheduleService scheduleService;
     private final FileHandler fileHandler;
+    private final OclassService oclassService;
+
 
     @GetMapping("/fclass/classDetail")
     public String goDetail() {
@@ -40,6 +44,22 @@ public class FclassController {
         model.addAttribute("classList", classList);
         model.addAttribute("branchList", branchList);
         return "fclass/classList";
+    }
+
+    @GetMapping("/fclass/classList/{idx}")
+    public String classDetail(@PathVariable("idx") Integer idx, Model model) {
+        FclassVo fclassVo = fclassService.findByIdx(idx);
+        BranchVo branchVo = fclassVo.getBranchList().get(0);
+        List<ScheduleVo> scheduleList = scheduleService.searchSchedule(ScheduleVo.builder()
+                .fclassIdx(idx)
+                .branchIdx(branchVo.getIdx())
+                .build());
+
+        model.addAttribute("fclassVo", fclassVo);
+        model.addAttribute("branchVo", branchVo);
+        model.addAttribute("scheduleList", scheduleList);
+        System.out.println("scheduleList = " + scheduleList);
+        return "fclass/detail_temp";
     }
 
     @GetMapping("/fclass/payment")
@@ -74,32 +94,51 @@ public class FclassController {
     }
 
     @PostMapping ("/fclass/completePayment")
-    public String completePayment(Integer scheduleIdx,String memberId, Integer discountGrade, Integer discountPoint, Integer discountTotalprice,  OclassVo ovo) {
+    public String completePayment(Integer scheduleIdx, OclassVo ovo) {
         // @RequestParam("pay-type") String payType, Integer payTotal, String payDate, Integer discountGrade, Integer discountPoint, Model model
+        System.out.println("ovo = " + ovo);
+
         System.out.println("scheduleIdx = " + scheduleIdx);
-        System.out.println("memberId = " + memberId);
-        System.out.println("regCount = " + ovo.getRegCount());
-        System.out.println("payType = " + ovo.getPayType());
-        System.out.println("payTotal = " + ovo.getPayTotal());
-        System.out.println("discountGrade = " + discountGrade);
-        System.out.println("discountPoint = " + discountPoint);
-        System.out.println("discountTotalprice = " + discountTotalprice);
+//        System.out.println("memberId = " + memberId);
+//        System.out.println("regCount = " + ovo.getRegCount());
+//        System.out.println("payType = " + ovo.getPayType());
+//        System.out.println("payTotal = " + ovo.getPayTotal());
+//        System.out.println("discountGrade = " + ovo.getDiscountGrade());
+//        System.out.println("discountPoint = " + ovo.getDiscountPoint());
+//        System.out.println("discountTotalPrice = " + ovo.getDiscountTotalPrice());
         ScheduleVo svo = scheduleService.findByIdx(scheduleIdx);
+
         System.out.println("fclassIdx = " + svo.getFclassIdx());
         FclassVo fvo = fclassService.findByIdx(svo.getFclassIdx());
+
         System.out.println("branchIdx = " + svo.getBranchIdx());
         BranchVo bvo = branchService.findByIdx(svo.getBranchIdx());
-        System.out.println("branchName = " + bvo.getName());
-        System.out.println("branchAddr = " + bvo.getAddr());
-        System.out.println("fclassImage = " + fvo.getImage1());
-        System.out.println("scheduleStartTime = " + svo.getStartTime());
-        System.out.println("scheduleEndTime = " + svo.getEndTime());
 
+        System.out.println("svo = " + svo);
+        System.out.println("fvo = " + fvo);
+        System.out.println("bvo = " + bvo);
+//        System.out.println("branchName = " + bvo.getName());
+//        System.out.println("branchAddr = " + bvo.getAddr());
+//        System.out.println("fclassImage = " + fvo.getImage1());
+//        System.out.println("scheduleStartTime = " + svo.getStartTime());
+//        System.out.println("scheduleEndTime = " + svo.getEndTime());
 
+        ovo.setFclassName(fvo.getName());
+        ovo.setBranchName(bvo.getName());
+        ovo.setBranchAddr(bvo.getAddr());
+        ovo.setFclassImage(fvo.getImage1());
+        ovo.setScheduleDate(svo.getSdate());
+        ovo.setScheduleStartTime(svo.getStartTime());
+        ovo.setScheduleEndTime(svo.getEndTime());
+        ovo.setFclassCount(fvo.getCount());
+        if (ovo.getPayType().equals("무통장입금")) {
+            ovo.setStatus("입금대기");
+        } else {
+            ovo.setStatus("결제완료");
+        }
 
-
+        oclassService.addOclass(ovo);
         //System.out.println("regCount = " + regCount + "payType = " + payType + "payTotal = " + payTotal + "payDate = " + payDate + "discountGrade = " + discountGrade + "discountPoint = " + discountPoint);
-
 
         return "/fclass/completePayment";
     }
