@@ -25,16 +25,16 @@
             <!-- 사진 썸네일 -->
             <div class="thumbnails d-flex flex-column justify-content-start">
                 <div class="mb-4">
-                    <img src="/static/upload/${flowerVo.image1}" alt="대표 썸네일"
+                    <img src="${flowerVo.image1}" alt="대표 썸네일"
                          class="img-big">
                 </div>
                 <div class="d-flex justify-content-between img-sm-wrap">
-                    <img src="/static/upload/${flowerVo.image1}" alt="썸네일1" class="img-sm">
+                    <img src="${flowerVo.image1}" alt="썸네일1" class="img-sm">
                     <c:if test="${not empty flowerVo.image2}">
-                    <img src="/static/upload/${flowerVo.image2}" alt="썸네일2" class="img-sm">
+                    <img src="${flowerVo.image2}" alt="썸네일2" class="img-sm">
                     </c:if>
                     <c:if test="${not empty flowerVo.image3}">
-                    <img src="/static/upload/${flowerVo.image3}" alt="썸네일3" class="img-sm">
+                    <img src="${flowerVo.image3}" alt="썸네일3" class="img-sm">
                     </c:if>
                 </div>
             </div>
@@ -213,7 +213,7 @@
         let mainFlower = document.querySelector("#flower");
         let html = "<span>" + vo.name + "</span>";
         html += "<span>" + vo.subheader + "</span>";
-        html += "<img src='/static/upload/"+ vo.image1+ "'>";
+        html += "<img src='"+ vo.image1+ "'>";
 
         mainFlower.innerHTML = html;
     }

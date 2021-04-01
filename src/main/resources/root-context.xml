@@ -33,4 +33,6 @@
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
+
+    <bean id="fileHandler" class="com.flo.alwaysbom.util.CloudFileHandler"/>
 </beans>

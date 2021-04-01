@@ -2,7 +2,7 @@ package com.flo.alwaysbom.flower.controller;
 
 import com.flo.alwaysbom.flower.service.BackFlowerService;
 import com.flo.alwaysbom.flower.vo.FlowerVo;
-import com.flo.alwaysbom.util.FileHandler;
+import com.flo.alwaysbom.util.CloudFileHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ import java.util.List;
 public class BackFlowerController {
 
     private final BackFlowerService backFlowerService;
-    private final FileHandler fileHandler;
+    private final CloudFileHandler fileHandler;
 
     @GetMapping("/admin/flower")
     public String goIndex() {
