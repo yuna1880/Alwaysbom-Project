@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@ include file="../main/import.jspf" %>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+
+    </style>
+</head>
 <body>
 <%@ include file="../main/header.jspf" %>
 <div class="d-flex justify-content-center">
