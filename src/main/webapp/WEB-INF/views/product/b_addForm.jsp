@@ -51,7 +51,7 @@
                 <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img1">
                 </c:if>
                 <c:if test="${not empty productVo}">
-                <img src="${productVo.image1}" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img1">
+                <img src="${productVo.image1}" alt="사진" class="m-0 p-0 card-img-overlay" id="img1">
                 </c:if>
             </li>
             <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
@@ -65,7 +65,7 @@
                 <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img2">
                 </c:if>
                 <c:if test="${not empty productVo}">
-                <img src="${productVo.image2}" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img2">
+                <img src="${productVo.image2}" alt="사진" class="m-0 p-0 card-img-overlay" id="img2">
                 </c:if>
             </li>
             <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
@@ -79,7 +79,7 @@
                 <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img3">
                 </c:if>
                 <c:if test="${not empty productVo}">
-                <img src="${productVo.image3}" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img3">
+                <img src="${productVo.image3}" alt="사진" class="m-0 p-0 card-img-overlay" id="img3">
                 </c:if>
             </li>
         </div>
