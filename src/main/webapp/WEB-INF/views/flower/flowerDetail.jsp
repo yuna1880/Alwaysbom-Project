@@ -13,6 +13,7 @@
 <%@ include file="../main/header.jspf"%>
 
 <div id="container" class="mx-auto">
+<form method="post">
     <!-- 메뉴 경로 표시 -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-3">
@@ -93,12 +94,12 @@
                     <div class="col-9">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="letterOptions"
-                                   id="withLetter" value="option1" checked onclick="checkRadioBtn(true)">
+                                   id="withLetter" value="1" checked onclick="checkRadioBtn(true)">
                             <label class="form-check-label text-dark fw500" for="withLetter">추가할게요.(+2,500원)</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="letterOptions"
-                                   id="withoutLetter" value="option2" onclick="checkRadioBtn(false)">
+                                   id="withoutLetter" value="0" onclick="checkRadioBtn(false)">
                             <label class="form-check-label" for="withoutLetter">추가하지 않을게요.</label>
                         </div>
                     </div>
@@ -169,7 +170,13 @@
 
             <!-- 장바구니/결제 버튼 -->
             <div class="d-flex justify-content-center mt-5">
-                <button type="button" class="btn sub-button fw-bold py-3 me-2">장바구니</button>
+                <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart(this.form)">장바구니</button>
+
+            <%--memberId, category, flowerIdx, quantity, letter 임의로 넣어주기--%>
+                <input type="hidden" name="memberId" value="test">
+                <input type="hidden" name="category" value="꽃다발">
+                <input type="hidden" name="flowerIdx" value="${flowerVo.idx}">
+
                 <button type="button" class="btn main-button fw-bold py-3">바로구매</button>
             </div>
 
@@ -188,18 +195,17 @@
             배송안내
         </li>
     </ul>
-
+</form>
 </div> <!-- #container 닫기 -->
 
 <%@ include file="../main/footer.jspf"%>
 
 <script>
+    const letterOptionsEl = document.getElementsByName("letterOptions");
     const totalPriceEl = document.querySelector("#totalPrice");
 
     /* 편지 추가, 추가안함 */
     function checkRadioBtn(isAdded) {
-        const letterOptionsEl = document.getElementsByName("letterOptions");
-
         if (isAdded) {
             letterOptionsEl[1].nextElementSibling.classList.remove("text-dark", "fw500");
             letterOptionsEl[0].nextElementSibling.classList.add("text-dark", "fw500");
@@ -236,7 +242,6 @@
 
     /* 총 주문금액 계산하기 */
     function configTotal() {
-        const letterOptionsEl = document.getElementsByName("letterOptions");
         const flowerFinalPriceEl = document.querySelector("[data-flower-finalPrice]");
         const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
         const letterPriceEl = document.querySelector("[data-letter-price]");
@@ -340,6 +345,35 @@
         let removedObj = closeBtn.parentElement.parentElement;
         priceBoxWrap.removeChild(removedObj);
         configTotal();
+    }
+
+    /* 장바구니 보내기 */
+    function addCart(frm) {
+        const inputsEl = document.getElementsByTagName("input");
+        const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
+        let letterStatus;
+
+        if (letterOptionsEl[0].checked) {
+            letterStatus = letterOptionsEl[0].value;
+        } else {
+            letterStatus = letterOptionsEl[1].value;
+        }
+
+        let cartVo = {
+            memberId: inputsEl.memberId.value,
+            category: inputsEl.category.value,
+            flowerIdx: inputsEl.flowerIdx.value,
+            quantity: Number(flowerQuantityEl.textContent),
+            letter: letterStatus
+        };
+
+        let option = {
+            method: 'post',
+            body: JSON.stringify(cartVo),
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+        }
     }
 
     <%--
