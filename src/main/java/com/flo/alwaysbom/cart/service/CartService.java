@@ -7,15 +7,15 @@ import java.util.Optional;
 
 public interface CartService {
 
-    List<CartVo> findAllCarts();
+    List<CartVo> findByIdxArray(Integer[] idx);
 
-    Integer addCart(CartVo cartVo, Integer[] productIds);
+    Integer addCart(CartVo cartVo);
 
     List<CartVo> findCartsByMember(String memberId);
-
-    List<CartVo> findByIdxArray(Integer[] idx);
 
     Optional<CartVo> findById(Integer idx);
 
     CartVo updateQuantity(CartVo cartItem);
+
+    boolean removeByIdx(Integer idx);
 }

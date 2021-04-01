@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Managing branch</title>
-    <%@ include file="../main/import.jspf"%>
+    <%@ include file="../main/b_import.jspf"%>
     <style>
         /*#container {*/
         /*    margin: 0 auto;*/
@@ -50,7 +50,7 @@
     </style>
 </head>
 <body>
-<%@ include file="../main/header.jspf"%>
+<%@ include file="../main/b_header.jspf"%>
 <div id="container" class="mx-auto p-3">
     <div class="px-3">
         <button type="button" class="btn btn-dark"><a href="/admin/fclass/classList">이전페이지</a></button>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="file-wrap">
                         <div class="overflow-hidden" style="height: 200px">
-                            <img src="/static/upload/fclass/branch/${branch.mapImage}" width="300px" class="imageBox">
+                            <img src="${branch.mapImage}" width="300px" class="imageBox">
                         </div>
                         <input type="hidden" name="mapImage" value="${branch.mapImage}">
                         <input type="file" name="file" class="bmap" onchange="preview(this)"/>
@@ -129,6 +129,7 @@
         </div>
     </form>
 </div>
+<%@ include file="../main/b_footer.jspf"%>
 <script>
     // let colorArray = [ '#000000', '#fe0000', '#ff7900', '#ffb900', '#ffde00', '#fcff00', '#d2ff00', '#05c000', '#00c0a7', '#0600ff', '#6700bf', '#9500c0', '#bf0199', '#ffffff' ]
     let colorArray = ['#8DD7BF', '#FF96C5', '#FF5768', '#FFBF65', '#FC6238', '#FFD872', '#6C88C4', '#C05780', '#FF828B', '#0065A2', '#00CDAC', '#FF6F68', '#CFF800', '#4DD091', '#FFEC59', '#FFA23A']

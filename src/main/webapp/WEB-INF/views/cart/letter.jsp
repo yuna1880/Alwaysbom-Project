@@ -7,9 +7,11 @@
     <title>Letter</title>
 </head>
 <body>
+    <h1>Letter 임니다</h1>
+    <hr>
 
     <!-- 편지 폼 0-3까지 생성 -->
-    <div>
+    <div id="content">
     <c:forEach begin="0" end="2" var="idx">
         <form class="letter">
             <div><input type="hidden" name="idx" value="${idx}" aria-label="idx"></div>
@@ -81,7 +83,7 @@
                 }
             }).then(function (response) { //성공했을때 !
                 response.text().then(function (result) {
-                    document.body.innerHTML = result;
+                    document.querySelector("#content").innerHTML = result;
                     console.log(result);
                 });
 
