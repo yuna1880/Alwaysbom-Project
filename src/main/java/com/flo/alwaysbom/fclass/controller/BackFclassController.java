@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -59,7 +62,6 @@ public class BackFclassController {
 
     @PostMapping("/admin/fclass/updateClass")
     public String updateClass(FclassVo vo, Integer[] branches, List<MultipartFile> file) throws IOException {
-        System.out.println("vo = " + vo);
         vo.setImage1(fileHandler.uploadFile(file.get(0), vo.getImage1(), "/fclass/class"));
         vo.setImage2(fileHandler.uploadFile(file.get(1), vo.getImage2(), "/fclass/class"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "/fclass/class"));
@@ -69,8 +71,19 @@ public class BackFclassController {
     }
 
     @PostMapping("/admin/fclass/deleteClass")
-    public String deleteClass(Integer idx) {
+    public String deleteClass(Integer idx, MultipartFile image1) throws IOException {
         fclassService.deleteFclass(idx);
+        String image = image1.toString();
+
+        //Local 지우기 방법 1
+//        File file = new File(image);
+//        if (file.exists()) {
+//            file.delete();
+//        }
+
+        //Local 지우기 방법 2
+        Files.deleteIfExists(Paths.get(image));
+
         return "redirect:/admin/fclass/b_classList";
     }
 

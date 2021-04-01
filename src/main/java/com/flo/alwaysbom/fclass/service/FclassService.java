@@ -15,11 +15,16 @@ public class FclassService {
 
     public void addClass(FclassVo vo, Integer[] branches) {
         dao.addClass(vo);
-        dao.addFcb(vo, branches);
+        if (branches != null && branches.length > 0) {
+            dao.addFcb(vo, branches);
+        }
     }
 
-    public int updateFclass(FclassVo vo, Integer[] branches) {
-        return dao.updateFclass(vo, branches);
+    public void updateFclass(FclassVo vo, Integer[] branches) {
+        dao.updateFclass(vo);
+        if (branches != null && branches.length > 0) {
+            dao.addFcb(vo, branches);
+        }
     }
 
     public int deleteFclass(int idx) {
