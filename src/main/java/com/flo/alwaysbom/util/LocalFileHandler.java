@@ -6,6 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
@@ -24,7 +26,7 @@ public class LocalFileHandler implements FileHandler {
 
                 File folder = new File("static/upload", uploadFolder);
                 String folderPath = context.getRealPath(folder.getPath());
-                System.out.println(folderPath);
+
                 //폴더가 있는지 체크
                 File f = new File(folderPath);
                 if (!f.exists()) {
@@ -35,12 +37,7 @@ public class LocalFileHandler implements FileHandler {
                 file.transferTo(realFile);
 
                 //기존 파일이 있다면 지우겠다
-                if (dbName != null) {
-                    File dbFile = new File(folderPath, dbName);
-                    if (dbFile.exists()) {
-                        dbFile.delete();
-                    }
-                }
+                deleteFile(dbName);
 
                 String finalPath = new File(new File("/static/upload/", uploadFolder), fileName).getPath().substring(1);
                 return finalPath.replaceAll(Matcher.quoteReplacement(File.separator), "/");
@@ -51,5 +48,10 @@ public class LocalFileHandler implements FileHandler {
         } else {
             return dbName;
         }
+    }
+
+    @Override
+    public boolean deleteFile(String path) throws IOException {
+        return Files.deleteIfExists(Paths.get(path));
     }
 }

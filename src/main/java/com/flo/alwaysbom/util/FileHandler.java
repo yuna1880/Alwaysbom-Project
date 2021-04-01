@@ -6,4 +6,5 @@ import java.io.IOException;
 
 public interface FileHandler {
     String uploadFile(MultipartFile file, String dbName, String uploadFolder) throws IOException;
+    boolean deleteFile(String path) throws IOException;
 }
