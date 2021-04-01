@@ -6,7 +6,6 @@
     <title>시작페이지(메인)</title>
     <%@ include file="import.jspf"%>
     <link rel="stylesheet" href="static/css/main.css">
-
 </head>
 <body>
 <%@ include file="header.jspf"%>
@@ -23,8 +22,6 @@
         <hr>
         백오피스 페이지 링크는 푸터에 있습니다.
     </div>
-
-
 <%@ include file="footer.jspf"%>
 </body>
 </html>
