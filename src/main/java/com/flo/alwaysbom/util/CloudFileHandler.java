@@ -51,4 +51,10 @@ public class CloudFileHandler implements FileHandler {
             return dbName;
         }
     }
+
+    public boolean deleteFile(String path) {
+        String fileName = path.substring(path.lastIndexOf("/")+1, path.lastIndexOf("?")).replaceAll("%2F", "/");
+        Blob blob = storage.get(BUCKET_NAME, fileName);
+        return blob.delete();
+    }
 }
