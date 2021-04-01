@@ -166,7 +166,7 @@
                                 <div>
                                     <c:if test="${not empty bestAllList.image}">
                                         <div>
-                                            <img src="/static/upload/community/review/${bestAllList.image}">
+                                            <img src="${bestAllList.image}">
                                         </div>
                                     </c:if>
                                 </div>

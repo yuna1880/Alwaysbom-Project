@@ -96,7 +96,7 @@
                                     <input type="hidden" name="idx" value="${fclass.idx}">
 
                                     <div class="overflow-hidden">
-                                        <img src="/static/upload/${fclass.image1}" alt="꽃"
+                                        <img src="${fclass.image1}" alt="꽃"
                                              class="card-img-top scale-up">
                                     </div>
                                 </a>
@@ -135,7 +135,7 @@
                             <div>
                                 <a href="/admin/fclass/detail?idx=${fclass.idx}">
                                     <div class="overflow-hidden">
-                                        <img src="/static/upload/${fclass.image1}" alt="꽃"
+                                        <img src="${fclass.image1}" alt="꽃"
                                              class="card-img-top  scale-up">
                                     </div>
                                 </a>
