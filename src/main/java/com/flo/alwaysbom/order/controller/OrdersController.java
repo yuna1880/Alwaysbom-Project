@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -54,16 +53,6 @@ public class OrdersController {
         List<OitemVo> list = mapper.readValue(data, collectionType);
         list.forEach(System.out::println);
 
-
-        //idx설정
-        int count = 0;
-        for(OitemVo vo : list) {
-            System.out.println(count + "번째 vo = " + vo);
-
-            vo.setIdx(count);
-            count++;
-        }
-
         System.out.println("oitemList : " + list);
         model.addAttribute("oitemList", list);
 
@@ -81,47 +70,48 @@ public class OrdersController {
 
     //편지 (letter_contents값 가지고)-> 배송지입력
     @PostMapping("/oitem/checkOut")
-    public String checkOut(@ModelAttribute("oitemList") OitemVo ovo, Model model, String data) throws JsonProcessingException {
+    public String checkOut(@SessionAttribute("oitemList") List<OitemVo> olist, Model model, String data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        List<Letter> list = mapper.readValue(data,List.class);
+        CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Letter.class);
+        List<Letter> list = mapper.readValue(data, collectionType);
 
+        System.out.println("oitemList : " + olist);
 
-
-        Iterator<Letter> iter = list.iterator();
-        while(iter.hasNext()){
-            System.out.println("편지 리스트 = " + iter.next());
-
+        for (Letter letter : list) {
+            System.out.println("편지 : " + letter.getContent());
+            olist.get(letter.getIdx()).setLetterContent(letter.getContent());
         }
 
-        // letter 모델로 보내줌
-        model.addAttribute("letter", list);
-        System.out.println("list : " + list);
+        //변경 후
+        System.out.println("oitemList : " + olist);
+
+        // letter 모델로 보내줌 (곧 삭제)
+//        model.addAttribute("letter", list);
+//        System.out.println("list : " + list);
 
         return "order/checkout";
     }
 
-
     //배송지입력 페이지 -> 결제전 확인 페이지
     @PostMapping("/order/payment")
-    public String goPayment(@ModelAttribute("oitemList") OitemVo ovo , @ModelAttribute("orderList") OrdersVo vo, MemberVO mvo, Model model) {
+    public String goPayment(@SessionAttribute("oitemList") List<OitemVo> olist , OrdersVo vo, MemberVO mvo, Model model) {
 
         //세션값 가져오기
-        System.out.println("orderVo = " + vo);
-        System.out.println("OitemVo = " + ovo);
+        System.out.println("orderVo = " + vo); //orderList
+        System.out.println("OitemList = " + olist); //oitemList
 
         //id 임시 설정
         mvo.setId("yuna1880");
-
-        //vo, ovo 셋팅
         System.out.println("MemberVo = " + mvo);
 
         //해당 id 회원 포인트 찾기
         int point = ordersService.getPoint(mvo);
-        model.addAttribute("point",point);
-        model.addAttribute("vo", vo);
-        model.addAttribute("ovo", vo);
+        model.addAttribute("point",point); //포인트
+        model.addAttribute("orderList", vo); //orderList 세션
         return "order/payment";
     }
+
+
 
     //배송지 찾기
     @PostMapping("/order/findAddress")
@@ -134,9 +124,6 @@ public class OrdersController {
         System.out.println("값 : " + dvo);
         return dvo;
     }
-
-
-
 
     //세션 예시
     @GetMapping("/order/sessionExample")
