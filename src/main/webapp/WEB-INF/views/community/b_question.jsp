@@ -9,9 +9,15 @@
 
     <%@ include file="../main/b_import.jspf" %>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <style>
+        .bottom-line{
+            border-bottom:1px solid silver;
+        }
+    </style>
     <script>
 
     </script>
+
 </head>
 
 
@@ -20,48 +26,47 @@
 <div class="d-flex justify-content-center">
     <div id="container">
         <h2>1:1 관리자 문의 게시판 입니다.</h2>
-        <div>
+        <div class="mx-5">
             <form method="post">
-                <div class="row row-cols-4">
-                    <span class="text-center">번호</span>
-                    <span class="text-center">작성일</span>
-                    <span class="text-center">제목</span>
-                    <span class="text-center">상태</span>
+                <div class="row row-cols-6 mx-auto bottom-line">
+                    <span class="text-center col-2">번호</span>
+                    <span class="text-center col-2">작성일</span>
+                    <span class="text-center col-6">제목</span>
+                    <span class="text-center col-2">상태</span>
                 </div>
-                <ul class="nav row table">
+                <ul class="nav row table mx-auto">
                     <c:forEach var="quList" items="${questlist}">
-                        <li class="list ">
-                        <div class="row row-cols-4">
-                            <span class="text-center">${quList.idx}</span>
-                            <span class="text-center">작성일</span>
-                            <span class="text-center">${quList.name}</span>
-                            <span class="text-center">${quList.content}</span>
+                        <li class="list">
+                        <div class="row row-cols-4 mx-auto bottom-line">
+                            <span class="text-center col-2">${quList.idx}</span>
+                            <span class="text-center col-2">작성일</span>
+                            <span class="text-center col-6">${quList.name}</span>
+                            <span class="text-center col-2">${quList.content}</span>
                         </div>
-                        <div>
-                            <div>
-                                <img src="${quList.image}">
+                        <div class="row mx-auto bottom-line text-center">
+                            <div class="col-6 mx-auto">
+                                <img src="${quList.image}" class="rounded- mx-auto" alt="star" title="별">
                             </div>
-                            <div>
+                            <div class="col-6 mx-auto">
                                 내용내용내용내용내용질문내용
                             </div>
                         </div>
                         <div>
                             <div>
-                                <div class="row row-cols-4">
+                                <div class="row row-cols-4 bottom-line">
                                     <span class="text-center">답변 번호</span>
                                     <span class="text-center">작성일</span>
                                     <span class="text-center">답변ㅇㅇㅇㅇ</span>
                                     <span class="text-center"></span>
                                 </div>
                             </div>
-                            <div>
+                            <div class="bottom-line">
                                 <div>
                                     <div>
                                         답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </li>
                 </c:forEach>
