@@ -48,10 +48,11 @@
                         <li class="mb-2"><a href="#">1:1문의</a></li>
                     </ul>
                 </li>
+
                 <li class="h-menu-icon ms-5">
                     <a href="#">
                         <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"
-                             title="마이페이지" onclick="location.href='/myPage'">
+                             title="마이페이지" onclick="location.href='/myPage'" >
                     </a>
                 </li>
                 <li class="h-menu-icon">
