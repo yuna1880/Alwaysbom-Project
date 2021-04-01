@@ -35,6 +35,8 @@
             //let availablePoint = document.querySelector('#available_point');
             let inputPoint = document.querySelector('#input_my_point');
             let usePoint = document.querySelector('#pointHere');
+            let finalPrice = document.querySelector('#finalPrice');
+            let originalPrice = finalPrice.getAttribute('data-original-price');
             let discountPoint;
 
             if (inputPoint.value !== '' || inputPoint.value.length > 0) {
@@ -43,6 +45,8 @@
                 discountPoint = 0;
             }
             usePoint.textContent = '-' + discountPoint + '원';
+            let finalAmount = originalPrice - discountPoint;
+            finalPrice.textContent = finalAmount.toLocaleString('ko-KR') + "원";
         }
         function compareWithPoint(point) {
             //사용자가 입력한 포인트가 현재 포인트보다 크면?..
@@ -50,6 +54,7 @@
                 alert("회원님께서 사용 가능한 포인트는 <fmt:formatNumber value="${point}" pattern="#,###"/> 입니다.")
                 point.value="";
             }
+
         }
 </script>
 <body>
@@ -85,7 +90,7 @@
                             <div class="cartlist_wrap">
                                 <div id="cartlist_wrapper_final">
                                     <div id="cartlist_wrapper" class="cartlist_wrap">
-
+                                            <c:set var="total" value="0"/>
                                             <!-- 담은 수만큼 생성 -->
                                             <c:forEach var="oitem" items="${oitemList}">
                                             <div class="item">
@@ -110,7 +115,7 @@
                                                                     <span class="content_category"></span>
                                                                     <span class="name">${oitem.name}</span>
                                                                     <div class="option">
-                                                                        <span class="l"><span class="label"><i>수량 : </i></span></span>
+                                                                        <span class="l"><span class="label"><i>수량 : ${oitem.quantity}</i></span></span>
                                                                     </div>
                                                                     <div class="option">
                                                                         <c:if test="${oitem.hasLetter eq true}">
@@ -133,7 +138,8 @@
                                                         </div>
                                                         <div class="list_good_price">
                                                             <fmt:formatNumber type="number" maxFractionDigits="3" value="${oitem.price}" var="commaPrice"/>
-                                                            <span class="price">${commaPrice}</span>
+                                                            <c:set var="totals" value="${totals + oitem.price}"/>
+                                                            <span class="price">${commaPrice} 원</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -187,28 +193,35 @@
                             </tr>
                             </tbody>
                         </table>
-
                         <div class="check_row_table">
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    상품<span>69,300 원</span>
-                                </li>
-                                <li name="payDelivery" class="list-group-item d-flex justify-content-between align-items-center">
-                                    배송비<span>-0 원</span>
+                                    상품<span>+ <fmt:formatNumber value="${totals}" pattern="#,###"/> 원</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    쿠폰할인<span>-0 원</span>
+                                    배송비
+                                    <c:if test="${totals < 30000}">
+                                        <c:set var="deliveryFee" value="3000"/>
+                                        <span>+3,000 원</span>
+                                    </c:if>
+                                    <c:if test="${totals >= 30000}">
+                                        <c:set var="deliveryFee" value="0"/>
+                                        <span>무료배송</span>
+                                    </c:if>
+                                    <c:set var="finalPrice" value="${totals + deliveryFee}"/>
                                 </li>
-                                <li name="discountPoint" id="discountPoint" class="list-group-item d-flex justify-content-between align-items-center">
+                                <li id="discountPoint" class="list-group-item d-flex justify-content-between align-items-center">
                                     포인트할인<span id="pointHere">-<fmt:formatNumber type="number" maxFractionDigits="3" value="0" pattern="#,###"/> 원</span>
                                 </li>
-                                <li name="discountGrade" class="list-group-item d-flex justify-content-between align-items-center">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
                                     등급할인<span>-0 원</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center"
                                     id="total_color">
                                     <strong class="total_color">총 결제금액</strong>
-                                    <strong class="total_color" name="payTotal">69,300 원</strong>
+                                    <strong id="finalPrice" class="total_color" name="payTotal" data-original-price="${finalPrice}">
+                                        <fmt:formatNumber value="${finalPrice}" pattern="#,###"/>원
+                                    </strong>
                                 </li>
                             </ul>
                         </div>
@@ -241,7 +254,7 @@
                             <!-- 결제 정보 입력창 -->
 
                             <!-- 신용카드 -->
-                            <div class="checkout_method_card" id="credit_card_input" style="border-top: none;">
+                            <div class="checkout_method_card" id="credit_card_input">
                                 <div class="more">* 신용카드 정보를 직접 입력하여 간편하게 결제하실 수 있습니다. <br>* 꾸까에서는 절대 카드 정보를 직접 저장하지
                                     않습니다. <br>* 나이스 정보통신의 결제 기능을 사용합니다. <br>* 기명 법인카드의 경우, 소유하신 분의 주민등록번호 앞자리를
                                     입력해주세요. <br>* 무기명 법인카드의 경우, 사업자 등록번호를 입력해 주세요.</div>
@@ -249,99 +262,76 @@
                                     <caption class="blind"></caption>
                                     <tbody>
                                     <tr>
-                                        <td><span class="detail add_200721"><span class="th">카드 번호</span><span class="td_card">
-                                                                <div class="card_number" style="width: 24%;"><input
-                                                                        maxlength="4" name="card_num_1" id="card_num_1"
-                                                                        type="text" data-type="card_number" data-index="0"
-                                                                        autocomplete="off" value=""></div><span class="d"
-                                                                                                                style="width: 2%;">-</span>
-                                                                <div class="card_number" style="width: 23%;"><input
-                                                                        maxlength="4" name="card_num_2" id="card_num_2"
-                                                                        data-type="card_number" data-index="1"
-                                                                        type="password"
-                                                                        class="ui-keyboard-input ui-widget-content ui-corner-all ui-keyboard-lockedinput"
-                                                                        aria-haspopup="true" role="textbox"
-                                                                        autocomplete="off" readonly="readonly" value="">
-                                                                </div><span class="d" style="width: 2%;">-</span>
-                                                                <div class="card_number" style="width: 23%;"><input
-                                                                        maxlength="4" name="card_num_3" id="card_num_3"
-                                                                        data-type="card_number" data-index="2"
-                                                                        type="password"
-                                                                        class="ui-keyboard-input ui-widget-content ui-corner-all ui-keyboard-lockedinput"
-                                                                        aria-haspopup="true" role="textbox"
-                                                                        autocomplete="off" readonly="readonly" value="">
-                                                                </div><span class="d" style="width: 2%;">-</span>
-                                                                <div class="card_number" style="width: 24%;"><input
-                                                                        maxlength="4" name="card_num_4" id="card_num_4"
-                                                                        data-type="card_number" data-index="3" type="text"
-                                                                        class="form-control form-control-small"
-                                                                        autocomplete="off" value=""></div>
-                                                            </span></span></td>
+                                        <td><span class="detail add_200721"><span class="th">카드 번호</span>
+                                            <span class="td_card">
+                                                <div class="card_number" style="width: 24%;">
+                                                    <input maxlength="4" name="card_num_1" id="card_num_1"
+                                                        type="text" data-type="card_number" data-index="0"
+                                                        autocomplete="off" value="">
+                                                </div><span class="d" style="width: 2%;">-</span>
+                                                <div class="card_number" style="width: 23%;">
+                                                    <input maxlength="4" name="card_num_2" id="card_num_2"
+                                                        data-type="card_number" data-index="1"
+                                                        type="password"
+                                                        class="ui-keyboard-input ui-widget-content ui-corner-all ui-keyboard-lockedinput"
+                                                        aria-haspopup="true" role="textbox"
+                                                        autocomplete="off">
+                                                </div><span class="d" style="width: 2%;">-</span>
+                                                <div class="card_number" style="width: 23%;">
+                                                    <input maxlength="4" name="card_num_3" id="card_num_3"
+                                                        data-type="card_number" data-index="2"
+                                                        type="password"
+                                                        class="ui-keyboard-input ui-widget-content ui-corner-all ui-keyboard-lockedinput"
+                                                        aria-haspopup="true" role="textbox"
+                                                        autocomplete="off">
+                                                </div><span class="d" style="width: 2%;">-</span>
+                                                <div class="card_number" style="width: 24%;">
+                                                    <input maxlength="4" name="card_num_4" id="card_num_4"
+                                                        data-type="card_number" data-index="3" type="text"
+                                                        class="form-control form-control-small"
+                                                        autocomplete="off" value="">
+                                                </div>
+                                            </span></span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td><span class="detail add_200721"><span class="th">유효 기간
-                                                                (년/월)</span><span class="td_phone"><select
-                                                class="form-control form-control-small"
-                                                name="card_exp_year" id="card_exp_year"
-                                                data-type="card_valid" data-index="0"
-                                                style="width: 48%;">
-                                                                    <option value="2021">2021</option>
-                                                                    <option value="2022">2022</option>
-                                                                    <option value="2023">2023</option>
-                                                                    <option value="2024">2024</option>
-                                                                    <option value="2025">2025</option>
-                                                                    <option value="2026">2026</option>
-                                                                    <option value="2027">2027</option>
-                                                                    <option value="2028">2028</option>
-                                                                    <option value="2029">2029</option>
-                                                                    <option value="2030">2030</option>
-                                                                    <option value="2031">2031</option>
-                                                                    <option value="2032">2032</option>
-                                                                    <option value="2033">2033</option>
-                                                                    <option value="2034">2034</option>
-                                                                    <option value="2035">2035</option>
-                                                                </select><span class="d" style="width: 4%;">-</span><select
-                                                class="form-control form-control-small"
-                                                name="card_exp_month" id="card_exp_month"
-                                                data-type="card_valid" data-index="1"
-                                                style="width: 48%;">
-                                                                    <option value="01">01</option>
-                                                                    <option value="02">02</option>
-                                                                    <option value="03">03</option>
-                                                                    <option value="04">04</option>
-                                                                    <option value="05">05</option>
-                                                                    <option value="06">06</option>
-                                                                    <option value="07">07</option>
-                                                                    <option value="08">08</option>
-                                                                    <option value="09">09</option>
-                                                                    <option value="10">10</option>
-                                                                    <option value="11">11</option>
-                                                                    <option value="12">12</option>
-                                                                </select></span></span></td>
+                                        <td><span class="detail add_200721"><span class="th">
+                                            유효 기간 (년/월)</span><span class="td_phone">
+                                            <select class="form-control form-control-small" name="card_exp_year" id="card_exp_year"
+                                                data-type="card_valid" data-index="0" style="width: 48%;">
+
+                                                    <c:forEach var="year" begin="2021" end="2035">
+                                                    <option value="${year}">${year}</option>
+                                                    </c:forEach>
+                                            </select><span class="d" style="width: 4%;">-</span>
+                                            <select class="form-control form-control-small"
+                                                name="card_exp_month" id="card_exp_month" data-type="card_valid" data-index="1" style="width: 48%;">
+                                                    <c:forEach var="month" begin="01" end="12">
+                                                        <option value="${month}">${month}</option>
+                                                    </c:forEach>
+                                            </select>
+                                        </span></span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td><span class="detail add_200721"><span class="th">주민등록번호
-                                                                앞자리</span><span class="td" style="width: 48%;"><input
-                                                autocomplete="off"
+                                        <td><span class="detail add_200721"><span class="th">주민등록번호 앞자리</span><span class="td" style="width: 48%;">
+                                            <input autocomplete="off"
                                                 class="form-control form-control-small" maxlength="10"
-                                                name="card_id" id="card_id" type="text"
-                                                data-type="card_id" data-index="1"
-                                                value=""></span></span></td>
+                                                name="card_id" id="card_id" type="text" data-type="card_id" data-index="1"
+                                                value="">
+                                        </span></span></td>
                                     </tr>
                                     <tr>
-                                        <td><span class="detail add_200721"><span class="th">비밀번호 앞
-                                                                두자리</span><span class="td" style="width: 48%;"><input
-                                                autocomplete="off"
-                                                class="form-control form-control-small ui-keyboard-input ui-widget-content ui-corner-all ui-keyboard-lockedinput"
-                                                id="card_password" maxlength="2" name="card_password"
-                                                type="password" aria-haspopup="true" role="textbox"
-                                                data-type="card_password" data-index="0"
-                                                readonly="readonly"></span></span></td>
+                                        <td><span class="detail add_200721"><span class="th">비밀번호 앞 두자리</span><span class="td" style="width: 48%;">
+                                            <input autocomplete="off" class="form-control form-control-small ui-keyboard-input ui-widget-content ui-corner-all ui-keyboard-lockedinput"
+                                                   id="card_password" maxlength="2" name="card_password"
+                                                   type="password" aria-haspopup="true" role="textbox"
+                                                   data-type="card_password" data-index="0">
+                                        </span></span></td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-
 
 
                             <!-- 무통장 입금 -->
@@ -367,8 +357,8 @@
                         </div>
                     </div>
 
-                    <div class="complete"><button type="button" class="info_btn next" id="purchase_submit"><span>
-                        결제 하기</span></button><button type="button" class="info_btn back" onclick="history.back()">
+                    <div class="complete"><button type="button" class="info_btn next" id="purchase_submit"><span> 결제 하기</span>
+                    </button><button type="button" class="info_btn back" onclick="history.back()">
                         <span>이전 단계로</span></button>
                     </div>
                 </div>
