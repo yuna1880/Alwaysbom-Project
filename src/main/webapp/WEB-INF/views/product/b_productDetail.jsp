@@ -31,8 +31,7 @@
 
     <input type="submit" value="수정하기">
     <input type="hidden" value="${productVo.idx}" name="idx">
-
-    <input type="button" value="삭제" onclick="goDelete(this)">
+    <input type="button" value="삭제" onclick="goDelete(this.form)">
 
 
 
@@ -44,7 +43,8 @@
 <script>
     function goDelete(frm) {
         // 정말 삭제하시겠냐 모달창 띄우고 예 누르면 삭제, 아니면 모달창 끄기
-        frm.action="";
+        frm.action="/admin/deleteProduct";
+        frm.submit();
     }
 
 </script>

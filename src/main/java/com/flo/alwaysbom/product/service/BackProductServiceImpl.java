@@ -35,6 +35,11 @@ public class BackProductServiceImpl implements BackProductService {
     }
 
     @Override
+    public int deleteProduct(Integer idx) {
+        return dao.deleteProduct(idx);
+    }
+
+    @Override
     public Optional<ProductVo> findByIdx(Integer idx) {
         return dao.findByIdx(idx);
     }

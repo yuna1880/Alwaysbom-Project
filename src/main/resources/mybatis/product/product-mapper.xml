@@ -58,4 +58,12 @@
         WHERE   IDX = #{idx}
     </update>
 
+
+    <!-- (D) 관리자가 상품 삭제 -->
+    <update id="deleteProduct" parameterType="Integer">
+        UPDATE  PRODUCT
+        SET     DEL_STATUS = 1
+        WHERE   IDX = #{idx}
+    </update>
+
 </mapper>

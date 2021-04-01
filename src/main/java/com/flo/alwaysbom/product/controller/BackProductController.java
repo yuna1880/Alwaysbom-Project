@@ -91,5 +91,10 @@ public class BackProductController {
         return "product/b_productDetail";
     }
 
-
+    /* 상품 삭제 */
+    @GetMapping("/admin/deleteProduct")
+    public String deleteProduct(Integer idx) {
+        backProductService.deleteProduct(idx);
+        return "redirect:/admin/productList";
+    }
 }
