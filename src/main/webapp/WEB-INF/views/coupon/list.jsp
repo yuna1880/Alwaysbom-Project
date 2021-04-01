@@ -28,7 +28,7 @@
         </div>
 
         <!-- 아이디 검색 -->
-        <div class="col-3">
+        <div class="col-3 d-flex">
 
         </div>
     </div>
@@ -36,6 +36,7 @@
     <!-- 리스트 영역 -->
     <div class="col-12 p-3 bg-danger">
         <!-- 리스트 헤더 -->
+
         <!-- 리스트 내용 -->
     </div>
 
