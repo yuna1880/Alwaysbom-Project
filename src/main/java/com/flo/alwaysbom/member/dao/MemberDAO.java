@@ -16,4 +16,5 @@ public class MemberDAO{
         sessionTemplate.insert("member.insertMember",memberVO);
     }
 
+
 }
