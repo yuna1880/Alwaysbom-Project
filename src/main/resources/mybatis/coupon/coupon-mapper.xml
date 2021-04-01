@@ -13,7 +13,7 @@
     </insert>
     
     <select id="findAll" resultType="com.flo.alwaysbom.coupon.vo.CouponVo">
-        SELECT * FROM CART
+        SELECT * FROM COUPON
         ORDER BY IDX DESC
     </select>
 </mapper>
