@@ -1208,14 +1208,10 @@ span.unknow_noti {
     display: none
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_price {
-    display: none
-}
-
 @media (min-width:1280px) {
     .infomation_box .empty_infobox {
         padding-bottom: 15px;
-        border-bottom: #aaa 1px solid
+        border-bottom: #aaa 1px solid;
     }
 
     .infomation_box .empty_infobox .inner {
@@ -1223,7 +1219,7 @@ span.unknow_noti {
         margin-top: 15px;
         background: #eee;
         line-height: 40px;
-        font-size: 20px
+        font-size: 20px;
     }
 
     .infomation_box .checkout_cartlist.del_charge .head > span.product {
@@ -1328,7 +1324,7 @@ span.unknow_noti {
 
     .infomation_box .checkout_cartlist .head > span.price {
         width: 15%;
-        max-width: 191px
+        max-width: 191px;
     }
 
     .infomation_box .checkout_cartlist .head > span.charge {
@@ -1474,8 +1470,8 @@ span.unknow_noti {
         padding-top: 57px;
         font-size: 16px;
         line-height: 20px;
-        font-weight: 300;
-        color: #626262;
+        font-weight: bold;
+        color: #246c6a;
         text-align: center
     }
 

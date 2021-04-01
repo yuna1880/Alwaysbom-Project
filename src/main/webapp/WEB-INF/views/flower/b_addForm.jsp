@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <div class="row g-3">
-                    <div class="col-md-4 d-flex align-items-center">
+                    <div class="options-label col-md-2 d-flex flex-column justify-content-center">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="freeDelivery"
                                    id="freeDelivery" value="1"
@@ -120,7 +120,7 @@
                             <label for="discountRate">할인율 (숫자만 입력)</label>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-floating my-2">
                             <input type="text" class="form-control text-end"
                                    id="finalPrice" placeholder="할인 적용가" disabled readonly>

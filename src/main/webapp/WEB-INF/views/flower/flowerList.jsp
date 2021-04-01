@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>꽃다발</title>
     <%@ include file="../main/import.jspf"%>
-    <link rel="stylesheet" href="/static/css/item/flower.css">
+    <link rel="stylesheet" href="/static/css/item/list.css">
 </head>
 <body>
     <%@ include file="../main/header.jspf" %>
@@ -21,25 +22,32 @@
         <div class="row row-cols-4">
             <c:forEach var="flowerVo" items="${list}">
             <c:if test="${not empty flowerVo}">
-            <div class="col f-col">
+            <div class="col mb-8em">
                 <div class="overflow-hidden">
                     <a href="/flower/${flowerVo.idx}">
-                        <img src="${flowerVo.image1}" class="f-col-img scale-up" alt="꽃다발 썸네일">
+                        <img src="${flowerVo.image1}" class="col-12 scale-up" alt="꽃다발 썸네일">
+<%--                        <img src="/static/upload/flower/${flowerVo.image1}" class="col-12 scale-up" alt="꽃다발 썸네일">--%>
                     </a>
                 </div>
-                <div class="f-col-text">
+                <div class="ps-1">
                     <div class="subheader">${flowerVo.subheader}</div>
-                    <div class="flower-name"><a href="/flower/${flowerVo.idx}">${flowerVo.name}</a></div>
+                    <div class="item-name">
+                        <a href="/flower/${flowerVo.idx}">${flowerVo.name}</a>
+                    </div>
                     <div class="price-wrap">
                         <c:if test="${not empty flowerVo.discountRate && flowerVo.discountRate > 0}">
                         <span class="discount-rate">${flowerVo.discountRate}%</span>
-                        <span class="original-price">${flowerVo.price}원 ></span>
+                        <span class="original-price">
+                            <fmt:formatNumber value="${flowerVo.price}" pattern="#,###원 >"/>
+                        </span>
                         </c:if>
-                        <span class="final-price">${flowerVo.finalPrice}원</span>
+                        <span class="final-price">
+                            <fmt:formatNumber value="${flowerVo.finalPrice}" pattern="#,###원"/>
+                        </span>
                     </div>
-                    <div class="last-line">
+                    <div class="size-delivery">
                         <span class="badge rounded-pill bg-warning size-unit">${flowerVo.fsize}</span>
-                        <span class="f-col-size">size</span>
+                        <span class="item-size">size</span>
                         <span class="badge rounded-pill bg-secondary delivery-unit">${flowerVo.freeDeliveryMessage}</span>
                     </div>
                 </div>

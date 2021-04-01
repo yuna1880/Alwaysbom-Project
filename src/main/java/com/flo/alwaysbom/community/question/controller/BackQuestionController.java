@@ -27,7 +27,7 @@ public class BackQuestionController {
         return "community/b_question";
     }
 
-    @PostMapping("/question/api/writeQuest")
+    @PostMapping("/admin/question/api/writeQuest")
     @ResponseBody
     public Boolean addQuestion(QuestionVo vo, MultipartFile file) throws IOException {
         vo.setImage(fileHandler.uploadFile(file, null, "community/question"));

@@ -38,6 +38,10 @@ public class CloudFileHandler implements FileHandler {
                 String fileName = new File(new File("/", uploadFolder), randomName).getPath().substring(1)
                         .replaceAll(Matcher.quoteReplacement(File.separator), "/");
 
+                if (dbName != null) {
+                    deleteFile(dbName);
+                }
+
                 List<Acl> acls = new ArrayList<>();
                 acls.add(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));
                 Blob blob = storage.create(BlobInfo.newBuilder(BUCKET_NAME, fileName).setAcl(acls).build(), file.getBytes());
@@ -50,5 +54,11 @@ public class CloudFileHandler implements FileHandler {
         } else {
             return dbName;
         }
+    }
+
+    public boolean deleteFile(String path) {
+        String fileName = path.substring(path.lastIndexOf("/")+1, path.lastIndexOf("?")).replaceAll("%2F", "/");
+        Blob blob = storage.get(BUCKET_NAME, fileName);
+        return blob.delete();
     }
 }

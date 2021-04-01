@@ -1,7 +1,11 @@
+#container {
+    background-color: #ffffff;
+}
+
 /*--- 상세페이지 ---*/
 #bread-nav {
     display: flex;
-    font-size: 14px;
+    font-size: 15px;
     padding-top: 50px;
 }
 #bread-nav a {
@@ -20,42 +24,29 @@
 /* 썸네일 이미지 */
 .thumbnails {
     width: 46%;
-    background-color: #ffffff;
-}
-.img-big {
-    width: 100%;
-    height: auto;
-    /*background-color: #86b7fe;*/
-}
-.img-sm {
-    width: 30%;
-    height: auto;
-    /*background-color: #86b7fe;*/
-}
-.margin-between {
-    width: 7%;
-    background-color: #ffffff;
-}
-.order-info {
-    width: 47%;
-    height: 2000px;
-    /*background-color: #ffffff;*/
+    padding-bottom: 4em;
+    /*background-color: #282828;*/
 }
 
 /* 주문 정보 */
-.row {
-    margin-bottom: 1.2em;
+.order-info {
+    width: 46%;
+    padding-bottom: 4em;
+    /*background-color: #ffffff;*/
 }
 .subheader {
     font-size: 16px;
-    color: #808080;
     font-weight: 300;
+    color: #808080;
 }
 .item-name {
-    line-height: 1.8em;
     font-size: 28px;
     font-weight: 600;
+    line-height: 1.8em;
     padding-bottom: 0.3em;
+}
+.row {
+    margin-bottom: 1.2em;
 }
 .discount-rate {
     font-size: 19px;
@@ -66,9 +57,6 @@
     font-weight: 300;
     color: #808080;
 }
-.final-price {
-    font-size: 28px;
-}
 .fd-announcement {
     font-size: 16px;
     border-top: 1px solid #d4d4d4;
@@ -78,7 +66,7 @@
     color: #7DAF3B;
 }
 .inputs-wrap {
-    font-size: 18px;
+    font-size: 19px;
 }
 .count i {
     color: #c0c0c0;
@@ -89,13 +77,6 @@
     transition-duration: 0.3s;
     cursor: pointer;
 }
-
-#quantity {
-    display: inline-block;
-    width: 45px;
-    height: 50px;
-    text-align: center;
-}
 .fw500 {
     font-weight: 500;
 }
@@ -104,11 +85,39 @@
     color: #808080;
 }
 .price-box {
-    background-color: #d4d4d4;
+    background-color: #e0e0e0;
     border-radius: 18px;
 }
 .btn-close-style {
     border: 1px solid #585858;
     width: 14px;
     height: 14px;
+}
+.sub-button {
+    width: 49%;
+    border-radius: 10px;
+    background-color: #dbdbdb;
+}
+.main-button {
+    width: 49%;
+    border-radius: 10px;
+    background-color: #90c757;
+}
+.datepicker {
+    border: 1px solid #dbdbdb;
+    cursor: pointer;
+}
+
+
+/* 상품설명/리뷰/배송안내 탭 */
+.detail-nav {
+    font-size: 18px;
+}
+.nav-item {
+    border: 1px solid #dbdbdb;
+    padding: 0.7em;
+    cursor: pointer;
+}
+.nav-active {
+
 }
