@@ -11,11 +11,7 @@
         )
         WHERE RN BETWEEN 1 and 10
     </select>
-<!--    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">-->
-<!--        SELECT *-->
-<!--        FROM REVIEW-->
-<!--        ORDER BY REG_DATE DESC-->
-<!--    </select>-->
+
     <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
         SELECT *
         FROM REVIEW
@@ -26,6 +22,66 @@
         </where>
         ORDER BY REG_DATE DESC
     </select>
+    <select id="cateBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
+        SELECT *
+        FROM (
+                 SELECT ROW_NUMBER() over (ORDER BY STAR DESC) as RN, I.*
+                 FROM REVIEW I
+             )
+        WHERE
+        <if test="category != null">
+            CATEGORY = #{category} AND
+        </if>
+        RN BETWEEN 1 and 10
+    </select>
+    <select id="cateAllReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
+        SELECT *
+        FROM REVIEW
+        <where>
+            <if test="category != null">
+                CATEGORY = #{category}
+            </if>
+        </where>
+        ORDER BY REG_DATE DESC
+    </select>
+
+    <select id="oldListCnt" resultType="int">
+        SELECT COUNT(IDX)
+        FROM REVIEW
+    </select>
+    <select id="oldCateListCnt" resultType="int" parameterType="string">
+        SELECT COUNT (IDX)
+        FROM REVIEW
+        <where>
+            <if test="category != null">
+                CATEGORY = #{category}
+            </if>
+        </where>
+    </select>
+
+    <select id="allCateReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">
+        SELECT *
+        FROM (
+        SELECT ROW_NUMBER() over (ORDER BY REG_DATE DESC) as RN, I.*
+        FROM REVIEW I
+        <where>
+            <if test="category != null">
+                CATEGORY = #{category}
+            </if>
+        </where>
+        )
+        WHERE RN BETWEEN #{startIndex} and #{endIndex}
+    </select>
+<!--    <select id="utilReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">-->
+<!--        SELECT *-->
+<!--        FROM REVIEW-->
+<!--        <where>-->
+<!--            <if test="category != null">-->
+<!--                CATEGORY = #{category}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        ORDER BY REG_DATE DESC-->
+<!--    </select>-->
 <!--    <insert id="addHome" parameterType="com.chicken.kyochon.vo.HomeVo">
         INSERT INTO HOME(name, age, filename)
         VALUES (#{name}, #{age}, #{filename})
