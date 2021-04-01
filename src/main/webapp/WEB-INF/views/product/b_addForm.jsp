@@ -52,6 +52,7 @@
                 </c:if>
                 <c:if test="${not empty productVo}">
                 <img src="${productVo.image1}" alt="사진" class="m-0 p-0 card-img-overlay" id="img1">
+                <input type="hidden" name="image1" value="${productVo.image1}">
                 </c:if>
             </li>
             <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
@@ -66,6 +67,7 @@
                 </c:if>
                 <c:if test="${not empty productVo}">
                 <img src="${productVo.image2}" alt="사진" class="m-0 p-0 card-img-overlay" id="img2">
+                <input type="hidden" name="image2" value="${productVo.image1}">
                 </c:if>
             </li>
             <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
@@ -80,6 +82,7 @@
                 </c:if>
                 <c:if test="${not empty productVo}">
                 <img src="${productVo.image3}" alt="사진" class="m-0 p-0 card-img-overlay" id="img3">
+                <input type="hidden" name="image3" value="${productVo.image1}">
                 </c:if>
             </li>
         </div>
@@ -316,7 +319,8 @@
             </c:if>
             <c:if test="${not empty productVo}">
             <input type="button" value="수정하기" class="btn btn-lg btn-dark py-lg-3 px-lg-5"
-               onclick="">
+               onclick="goUpdate(this.form)">
+            <input type="hidden" name="idx" value="${productVo.idx}">
             </c:if>
             <input type="button" value="이전으로" class="btn btn-lg btn-secondary py-lg-3 px-lg-5 ms-3"
                    onclick="history.back()">
@@ -405,6 +409,11 @@
         frm.action = "/admin/addProduct";
         frm.submit();
     }
+    function goUpdate(frm) {
+        frm.action = "/admin/updateProduct";
+        frm.submit();
+    }
+
 </script>
 <script src="/static/js/imageUploader.js"></script>
 </body>

@@ -73,9 +73,10 @@ public class BackProductController {
     /* '수정완료' 버튼 눌렀을 때 처리 */
     @PostMapping("/admin/updateProduct")
     public String updateProduct(ProductVo vo, List<MultipartFile> file) throws IOException {
-        vo.setImage1(fileHandler.uploadFile(file.get(0), null, "product"));
-        vo.setImage2(fileHandler.uploadFile(file.get(1), null, "product"));
-        vo.setImage3(fileHandler.uploadFile(file.get(2), null, "product"));
+        vo.setImage1(fileHandler.uploadFile(file.get(0), vo.getImage1(), "product"));
+        vo.setImage2(fileHandler.uploadFile(file.get(1), vo.getImage2(), "product"));
+        vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "product"));
+        System.out.println("productVo = " + vo);
         backProductService.updateProduct(vo);
         return "redirect:/admin/productList";
     }
