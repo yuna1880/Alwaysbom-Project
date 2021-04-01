@@ -27,13 +27,18 @@ public class BackProductDao {
         return sqlSessionTemplate.selectList("PRODUCT.findByCategory", category);
     }
 
+    public Optional<ProductVo> findByIdx(Integer idx) {
+        return Optional.ofNullable(sqlSessionTemplate.selectOne("PRODUCT.findByIdx", idx));
+    }
+
     public int updateProduct(ProductVo vo) {
         sqlSessionTemplate.update("PRODUCT.updateProduct", vo);
         return vo.getIdx();
     }
 
-    public Optional<ProductVo> findByIdx(Integer idx) {
-        return Optional.ofNullable(sqlSessionTemplate.selectOne("PRODUCT.findByIdx", idx));
+    public int deleteProduct(Integer idx) {
+        return sqlSessionTemplate.update("PRODUCT.deleteProduct", idx);
     }
+
 
 }

@@ -17,4 +17,6 @@ public interface BackProductService {
 
     int updateProduct(ProductVo vo);
 
+    int deleteProduct(Integer idx);
+
 }
