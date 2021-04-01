@@ -3,6 +3,10 @@
 <head>
     <title>회원가입</title>
     <%@ include file="../main/import.jspf"%>
+    <style>
+        .valid { color: green; }
+        .invalid { color: red; }
+    </style>
     <link href="/static/css/member/member_join.css" rel="stylesheet">
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
@@ -39,7 +43,7 @@
                 </header>
                 <div class="join_us_box">
                     <div class="inbox">
-                        <form role="form" action="/member_join.do" method="post">
+                        <form role="form" action="/member_join" method="post">
                             <fieldset>
                                 <div class="form-group">
                                 <div class="inner">
@@ -49,73 +53,71 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="text" name="id" value="${kakao_id}" class="ipt" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
+                                                <input type="text" name="id" value="${kakao_id}" class="ipt chk" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
+                                                <span class="check_font" id="id_check"></span>
                                             </span>
-                                            <button type="button" class="btn">중복확인</button>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="th star">
-                                        비밀번호
+                                    <div class="row">
+                                        <div class="th star">
+                                            비밀번호
+                                        </div>
+                                        <div class="td">
+                                            <span>
+                                                <input type="password" name="pw" id="pw" class="ipt chk" maxlength="255" placeholder="비밀번호를 입력해주세요." />
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="td">
-                                        <span>
-                                            <input type="password" name="pw" id="pw" class="ipt" maxlength="255" placeholder="비밀번호를 입력해주세요." />
-                                        </span>
+                                    <div class="row">
+                                        <div class="th star">
+                                            비밀번호 확인
+                                        </div>
+                                        <div class="td">
+                                            <span>
+                                                <input type="password" name="pwCfm" class="ipt chk" maxlength="255" placeholder="비밀번호를 한 번 더 입력해주세요." autocomplete="off" />
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="th star">
-                                        비밀번호 확인
+                                    <div class="row">
+                                        <div class="th star">
+                                            이름
+                                        </div>
+                                        <div class="td">
+                                            <span>
+                                                <input type="text" name="name" value="${kakao_name}" class="ipt chk" maxlength="255" placeholder="이름을 입력해주세요." />
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="td">
-                                        <span>
-                                            <input type="password" name="pwCfm" class="ipt" maxlength="255" placeholder="비밀번호를 한 번 더 입력해주세요." autocomplete="off" />
-                                        </span>
+                                    <div class="row">
+                                        <div class="th star">
+                                            휴대폰번호 입력
+                                        </div>
+                                        <div class="td">
+                                            <span>
+                                                <input type="text" name="phone" id="phone" class="csr_phone ipt chk" maxlength="15" minlength="9" placeholder="' - ' 없이 숫자만 입력해주세요." />
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="th star">
-                                        이름
+                                    <div class="row">
+                                        <div class="th star">
+                                            생년월일
+                                        </div>
+                                        <div class="td">
+                                            <span>
+                                                <input type="text" name="birth" id="birth" class="csr_phone ipt chk" placeholder="예) 86/04/02" />
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="td">
-                                        <span>
-                                            <input type="text" name="name" value="${kakao_name}" class="ipt" maxlength="255" placeholder="이름을 입력해주세요." />
-                                        </span>
+                                    <div class="row">
+                                        <div class="th star">
+                                            성별
+                                        </div>
+                                        <div class="td">
+                                            <span>
+                                                <input type="text" name="gender" value="${kakao_gender}" class="csr_phone ipt chk" placeholder="예) 여성:f 남성:m" />
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="th star">
-                                        휴대폰번호 입력
-                                    </div>
-                                    <div class="td">
-                                        <span>
-                                            <input type="text" name="phone" id="phone" class="csr_phone ipt" maxlength="15" minlength="9" placeholder="' - ' 없이 숫자만 입력해주세요." />
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="th star">
-                                        생년월일
-                                    </div>
-                                    <div class="td">
-                                        <span>
-                                            <input type="text" name="birth" id="birth" class="csr_phone ipt" placeholder="예) 86/04/02" />
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="th star">
-                                        성별
-                                    </div>
-                                    <div class="td">
-                                        <span>
-                                            <input type="text" name="gender" value="${kakao_gender}" class="csr_phone ipt" placeholder="예) 여성:F 남성:M" />
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="inner">
                                     <div class="row">
                                         <input type="submit" class="btn btn-lg btn-success btn-block" value="회원가입" />
                                     </div>

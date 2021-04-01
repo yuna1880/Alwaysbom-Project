@@ -7,7 +7,10 @@
         <ul class="d-flex justify-content-end">
             <li><a href="#" class="text-decoration-none">오늘의 꽃은?</a></li>
             <li>|</li>
-            <li><a href="/memberLogin">로그인</a></li>
+            <li>
+                <c:if test="${sessionScope.member.id != null}"><a href="#">로그아웃</a></c:if>
+                <c:if test="${sessionScope.member.id == null}"><a href="/memberLogin">로그인</a></c:if>
+            </li>
             <li>|</li>
             <li><a href="/goMemberJoin">회원가입<span class="point-color fw-bold">(1000포인트 지급!)</span></a></li>
         </ul>
