@@ -150,7 +150,11 @@
                                 <div>
                                     <c:if test="${not empty bestAllList.image}">
                                         <div>
+
                                             <img src="/static/upload/community/review/${bestAllList.image}" alt="아아아아악">
+
+                                            <img src="${bestAllList.image}">
+
                                         </div>
                                     </c:if>
                                 </div>

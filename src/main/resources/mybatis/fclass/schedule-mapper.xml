@@ -16,7 +16,7 @@
         SELECT * FROM SCHEDULE
         WHERE FCLASS_IDX = #{fclassIdx} AND BRANCH_IDX = #{branchIdx} AND SDATE >= SYSDATE
             <if test="sdate != null">
-            AND SDATE = TO_CHAR(#{sdate}, 'YYYY-MM-DD')
+            AND TO_CHAR(SDATE, 'YYYY-MM-DD') = TO_CHAR(#{sdate}, 'YYYY-MM-DD')
             </if>
         ORDER BY SDATE
     </select>

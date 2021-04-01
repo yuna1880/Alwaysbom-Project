@@ -32,31 +32,27 @@
     </select>
 
     <insert id="insertCart" parameterType="com.flo.alwaysbom.cart.vo.CartVo">
-        Insert INTO CART(IDX, MEMBER_ID, CATEGORY, SUBS_IDX, FLOWER_IDX, PRODUCT_IDX, QUANTITY, SUBS_MONTH, SUBS_START_DATE, LETTER)
-        VALUES (null, #{memberId}, #{category}, #{subsIdx}, #{flowerIdx}, #{productIdx}, #{quantity}, #{subsMonth}, #{subsStartDate}, #{letter})
+        Insert INTO CART(IDX, MEMBER_ID, CATEGORY, SUBS_IDX, FLOWER_IDX, PRODUCT_IDX, QUANTITY, SUBS_MONTH, SUBS_START_DATE, LETTER, REQUEST_DATE)
+        VALUES (null, #{memberId}, #{category}, #{subsIdx}, #{flowerIdx}, #{productIdx}, #{quantity}, #{subsMonth}, #{subsStartDate}, #{letter}, #{requestDate})
         <selectKey keyProperty="idx" resultType="int" order="AFTER">
             SELECT CART_SEQ.currval from DUAL
         </selectKey>
     </insert>
 
-    <select id="findAll" resultMap="CartVo">
+    <select id="findByIdxArray" parameterType="arraylist" resultMap="CartVo">
         SELECT * FROM CART
-        order by IDX desc
+        <if test="array neq null">
+            <foreach collection="array" item="idx" open="WHERE IDX IN (" separator="," close=")">
+                #{idx}
+            </foreach>
+        </if>
+        order by CASE WHEN CATEGORY = '정기구독' THEN 9999999999 ELSE IDX END desc
     </select>
 
     <select id="findCartsByMember" parameterType="string" resultMap="CartVo">
         SELECT * FROM CART
         where MEMBER_ID = #{memberId}
-        order by IDX desc
-    </select>
-
-    <select id="findByIdxArray" parameterType="list" resultMap="CartVo">
-        SELECT * FROM CART
-        WHERE IDX IN
-              <foreach collection="list" open="(" close=")" separator="," item="idx">
-                  #{idx}
-              </foreach>
-        ORDER BY IDX DESC
+        order by CASE WHEN CATEGORY = '정기구독' THEN 9999999999 ELSE IDX END desc
     </select>
 
     <select id="findByIdx" parameterType="int" resultMap="CartVo">
@@ -67,4 +63,8 @@
     <update id="updateQuantity" parameterType="com.flo.alwaysbom.cart.vo.CartVo">
         update CART set QUANTITY = #{quantity} where idx = #{idx}
     </update>
+
+    <delete id="removeByIdx" parameterType="int">
+        DELETE FROM CART WHERE IDX = #{idx}
+    </delete>
 </mapper>

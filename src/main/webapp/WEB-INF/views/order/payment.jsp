@@ -30,24 +30,24 @@
             document.getElementById('credit_card_input').style.display = 'none';
             document.getElementById('mootong').style.display = 'none';
         }
-
         function Point() {
-            let availablePoint = document.querySelector('#available_point');
+            //let availablePoint = document.querySelector('#available_point');
             let inputPoint = document.querySelector('#input_my_point');
             let usePoint = document.querySelector('#pointHere');
             let discountPoint;
 
-
-
-            alert(availablePoint);
-            alert(inputPoint);
-
+            if (inputPoint.value !== '' || inputPoint.value.length > 0) {
+                discountPoint = inputPoint.value;
+            } else {
+                discountPoint = 0;
+            }
+            usePoint.textContent = '-' + discountPoint + '원';
         }
-
         function compareWithPoint(point) {
-            //사용자가 입력한 포인트가 현재 포인트보다 작으면..
+            //사용자가 입력한 포인트가 현재 포인트보다 크면?..
             if (point.value > ${point}) {
-                alert("회원님께서 사용 가능한 포인트는" <fmt:formatNumber type="number" maxFractionDigits="3" value="${order.subsVo.price}" var="commaPrice"/> );
+                alert("회원님께서 사용 가능한 포인트는 <fmt:formatNumber value="${point}" pattern="#,###"/> 입니다.")
+                point.value="";
             }
         }
 </script>
@@ -133,7 +133,6 @@
                         </div>
     <!---------------------------------------------- 주소입력부분 ------------------------------------------------------->
 
-    <%--                <form action="order/payment" method="post">--%>
                         <div class="check_row under"><span class="label">배송 주소</span></div>
                         <table class="address_input_table in_s4 w450">
                             <tbody>
@@ -164,8 +163,8 @@
                             <tr>
                                 <td><span class="detail"><span class="th">적립금</span>
                                     <span class="td_savings">
-                                        <input type="number" value="" min="0" onkeyup="compareWithPoint(this)" onchange="compareWithPoint(this)"
-                                               name="point" id="input_my_point" placeholder="0" autocomplete="off">
+                                        <input type="number" min="0" onkeyup="compareWithPoint(this)" onchange="compareWithPoint(this)"
+                                               name="point" id="input_my_point" value="0" autocomplete="off">
                                         <button type="button" class="btns add" onclick="Point()">사용</button>
                                         <span class="text">* 사용 가능 포인트:
                                             <fmt:formatNumber value="${point}" pattern="#,###"/>원</span>
