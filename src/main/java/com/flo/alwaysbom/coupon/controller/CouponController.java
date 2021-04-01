@@ -16,7 +16,7 @@ public class CouponController {
 
     private final CouponService couponService;
 
-    @GetMapping("/coupon")
+    @GetMapping("/admin/coupon")
     public String goCoupon(Model model) {
         List<CouponVo> list = couponService.findAll();
         model.addAttribute("couponList", list);

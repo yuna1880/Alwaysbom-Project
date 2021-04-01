@@ -23,7 +23,7 @@
                             회원 관리
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="member">
-                            <li><a class="dropdown-item" href="#">쿠폰</a></li>
+                            <li><a class="dropdown-item" href="/admin/coupon">쿠폰</a></li>
                             <li><a class="dropdown-item" href="#">더미텍스트</a></li>
                             <li><a class="dropdown-item" href="#">더미텍스트</a></li>
                         </ul>
