@@ -16,7 +16,7 @@
         <ol class="breadcrumb mb-8em">
             <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
             <li class="breadcrumb-item"><a href="/admin/product">소품샵 관리</a></li>
-            <li class="breadcrumb-item active" aria-current="page">상품 조회/수정/삭제</li>
+            <li class="breadcrumb-item active" aria-current="page">상품 조회</li>
         </ol>
     </nav>
 

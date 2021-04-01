@@ -16,8 +16,8 @@
         <ol class="breadcrumb mb-8em">
             <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
             <li class="breadcrumb-item"><a href="/admin/product">소품샵 관리</a></li>
-            <li class="breadcrumb-item"><a href="/admin/productList">상품 조회/수정/삭제</a></li>
-            <li class="breadcrumb-item active" aria-current="page">123123  </li>
+            <li class="breadcrumb-item"><a href="/admin/productList">상품 조회</a></li>
+            <li class="breadcrumb-item active" aria-current="page">${productVo.name}</li>
         </ol>
     </nav>
 
@@ -32,12 +32,22 @@
     <input type="submit" value="수정하기">
     <input type="hidden" value="${productVo.idx}" name="idx">
 
+    <input type="button" value="삭제" onclick="goDelete(this)">
+
 
 
 </form>
 </div>
 
 <%@ include file="../main/b_footer.jspf"%>
+
+<script>
+    function goDelete(frm) {
+        // 정말 삭제하시겠냐 모달창 띄우고 예 누르면 삭제, 아니면 모달창 끄기
+        frm.action="";
+    }
+
+</script>
 
 </body>
 </html>

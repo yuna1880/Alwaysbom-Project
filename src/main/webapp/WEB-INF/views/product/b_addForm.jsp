@@ -24,6 +24,8 @@
             <li class="breadcrumb-item active" aria-current="page">상품 등록</li>
             </c:if>
             <c:if test="${not empty productVo}">
+            <li class="breadcrumb-item"><a href="/admin/productList">상품 조회</a></li>
+            <li class="breadcrumb-item"><a href="/admin/product/${productVo.idx}">${productVo.name}</a></li>
             <li class="breadcrumb-item active" aria-current="page">상품 수정</li>
             </c:if>
         </ol>
