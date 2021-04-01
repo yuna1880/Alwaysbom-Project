@@ -8,8 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Member;
+
 @Controller
 @RequiredArgsConstructor
+@SessionAttributes(value = "member")
 public class MemberController {
 
     private final MemberService memberService;
@@ -39,6 +42,19 @@ public class MemberController {
     @GetMapping("/memberLogin")
     public String memberLogin() {
         return "member/login";
+    }
+
+    @PostMapping("/loginMember")
+    public String loginProc(@RequestParam String id, @RequestParam String pw, Model model){
+        System.out.println("아이디 : " + id + ", 패스워드 : " + pw);
+
+        MemberVO member = new MemberVO();
+        member.setId(id);
+        member.setPw(pw);
+
+        model.addAttribute("member", member);
+
+        return "main/index";
     }
 
     @GetMapping("/findId")

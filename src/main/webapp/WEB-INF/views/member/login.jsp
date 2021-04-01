@@ -45,8 +45,8 @@
                             <form action="/loginMember" method="post">
                                 <fieldset>
                                     <input type="hidden" name="csrfmiddlewaretoken" value="4Jo40kgJEICmLsn1yLNS1D1uLg2foCxgLLCSGDsgOEtkWtJGv6ix9hunfFqvVzOS">
-                                    <input type="email" name="email" class="ipt" id="id_email" placeholder="아이디(이메일)" value>
-                                    <input type="password" name="password" class="ipt" placeholder="비밀번호">
+                                    <input type="email" name="id" class="ipt" id="id_email" placeholder="아이디(이메일)" value>
+                                    <input type="password" name="pw" class="ipt" placeholder="비밀번호">
                                     <button type="submit" class="login">로그인</button>
                                 </fieldset>
                             </form>
