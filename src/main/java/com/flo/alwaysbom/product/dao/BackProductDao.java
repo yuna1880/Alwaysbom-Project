@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,5 +27,13 @@ public class BackProductDao {
         return sqlSessionTemplate.selectList("PRODUCT.findByCategory", category);
     }
 
+    public int updateProduct(ProductVo vo) {
+        sqlSessionTemplate.update("PRODUCT.updateProduct", vo);
+        return vo.getIdx();
+    }
+
+    public Optional<ProductVo> findByIdx(Integer idx) {
+        return sqlSessionTemplate.selectOne("PRODUCT.findByIdx", idx);
+    }
 
 }
