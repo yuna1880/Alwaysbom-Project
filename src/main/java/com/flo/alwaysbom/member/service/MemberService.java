@@ -12,9 +12,7 @@ public class MemberService{
     private final MemberDAO dao;
 
     public void insertMember(MemberVO memberVO) {
-
         dao.insertMember(memberVO);
-
     }
 
     public MemberVO login(MemberVO memberVO) throws Exception {
