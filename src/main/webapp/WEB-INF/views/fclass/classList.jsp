@@ -25,7 +25,7 @@
             <c:if test="${fclass.category eq '원데이클래스'}">
                 <div class="col f-col">
                     <div class="overflow-hidden">
-                        <a href="/fclass/detail?idx=${fclass.idx}">
+                        <a href="/fclass/classList/${fclass.idx}">
                             <img src="${fclass.image1}" class="f-col-img scale-up" alt="클래스 썸네일">
                         </a>
                     </div>
