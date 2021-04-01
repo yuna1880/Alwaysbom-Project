@@ -39,7 +39,7 @@
                         </div>
                         <div>
                             <div>
-                                <img src="/static/upload/community/question/${quList.image}">
+                                <img src="${quList.image}">
                             </div>
                             <div>
                                 내용내용내용내용내용질문내용

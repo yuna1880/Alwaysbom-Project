@@ -17,22 +17,18 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class EditorController {
 
+    private final FileHandler fileHandler;
     private final ServletContext context;
 
 
     @PostMapping("/uploadContent")
     @ResponseBody
     public Map<String, Object> uploadAndReturnLink(MultipartFile upload) throws IOException {
-        File folder = new File(context.getRealPath("/static/upload/editor"));
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
 
-        String fileName = upload.getOriginalFilename();
-        upload.transferTo(new File(folder, fileName));
+        String filePath = fileHandler.uploadFile(upload, null, "editor");
 
         HashMap<String, Object> result = new HashMap<>();
-        result.put("url", "/static/upload/editor/" + fileName);
+        result.put("url", filePath);
         result.put("result", true);
         return result;
     }

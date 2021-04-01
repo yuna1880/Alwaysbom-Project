@@ -69,7 +69,7 @@
                         <!-- 이미지 -->
                         <div class="card-img w-25 overflow-hidden height-150px">
                             <a href="${link}">
-                                <img src="/static/upload/${path}" alt="사진" class="h-100">
+                                <img src="${path}" alt="사진" class="h-100">
                             </a>
                         </div>
                         <!-- 상품내용 -->
