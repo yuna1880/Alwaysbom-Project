@@ -356,15 +356,13 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="complete"><button type="button" class="info_btn next" id="purchase_submit"><span> 결제 하기</span>
+                    <div class="complete"><button type="button" class="info_btn next" id="purchase_submit"><span>결제 하기</span>
                     </button><button type="button" class="info_btn back" onclick="history.back()">
                         <span>이전 단계로</span></button>
                     </div>
                 </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
