@@ -38,7 +38,7 @@
     </div>
 
     <!-- 리스트 영역 -->
-    <div class="col-12 p-3 bg-secondary d-flex flex-column">
+    <div id="listArea" class="col-12 p-3 bg-secondary d-flex flex-column">
         <!-- 리스트 헤더 -->
         <div class="col-12 d-flex text-center">
             <div class="col-2 p-2 border">쿠폰번호</div>
@@ -51,28 +51,6 @@
 
         <!-- 리스트 내용 -->
         <ul class="col-12 d-flex flex-column text-center list-unstyled m-0 p-0">
-            <li class="col-12 d-flex">
-                <div class="col-2 p-2 border">1</div>
-                <div class="col-2 p-2 border">cothis</div>
-                <div class="col-2 p-2 border">사용</div>
-                <div class="col-2 p-2 border">2021-03-16</div>
-                <div class="col-2 p-2 border">3,500</div>
-                <div class="col-2 p-2 border d-flex justify-content-around">
-                    <button>삭제</button>
-                    <button>수정</button>
-                </div>
-            </li>
-            <li class="col-12 d-flex">
-                <div class="col-2 p-2 border">2</div>
-                <div class="col-2 p-2 border">2damyoung</div>
-                <div class="col-2 p-2 border">미사용</div>
-                <div class="col-2 p-2 border">2021-03-15</div>
-                <div class="col-2 p-2 border">2,500</div>
-                <div class="col-2 p-2 border d-flex justify-content-around">
-                    <button>삭제</button>
-                    <button>수정</button>
-                </div>
-            </li>
         </ul>
     </div>
 
@@ -82,6 +60,106 @@
     </div>
 </div>
 <%@ include file="../main/b_footer.jspf"%>
+<script>
+    class Coupon {
+        constructor(coupon) {
+            this.idx = coupon.idx;
+            this.name = coupon.name;
+            this.memberId = coupon.memberId;
+            this.status = coupon.status;
+            this.point = coupon.point;
+            this.cdate = new Date(coupon.cdate);
+        }
+        static $area = document.querySelector("#listArea");
+
+        static appendHeader(length) {
+            if (length === 0) {
+                Coupon.appendNoListMessage();
+                return false;
+            } else {
+                Coupon.appendListHeader();
+                return true;
+            }
+        }
+
+        static appendListHeader() {
+            this.$area.innerHTML =
+                '<div class="col-12 d-flex text-center">' +
+                '   <div class="col-2 p-2 border">쿠폰번호</div>' +
+                '   <div class="col-2 p-2 border">유저</div>' +
+                '   <div class="col-2 p-2 border">사용여부</div>' +
+                '   <div class="col-2 p-2 border">발행일</div>' +
+                '   <div class="col-2 p-2 border">포인트</div>' +
+                '   <div class="col-2 p-2 border">기능</div>' +
+                '</div>';
+        }
+
+        static appendNoListMessage() {
+            this.$area.innerHTML =
+                '<div class="text-center">데이터가 존재하지 않습니다</div>';
+        }
+
+        static list(type) {
+            
+        }
+
+        appendListItem() {
+            this.$li = document.createElement("li");
+            this.$li.className = "col-12 d-flex text-center";
+
+            this.$rowNum = document.createElement("div");
+            this.$rowNum.className = "col-2 p-2 border";
+            this.$rowNum.innerText = this.idx;
+
+            this.$memberId = document.createElement("div");
+            this.$memberId.className = "col-2 p-2 border";
+            this.$memberId.innerText = this.memberId;
+
+            this.$isUsed = document.createElement("div");
+            this.$isUsed.className = "col-2 p-2 border";
+            this.$isUsed.innerText = this.status > 0 ? "사용" : "미사용";
+
+            this.$cdate = document.createElement("div");
+            this.$cdate.className = "col-2 p-2 border";
+            this.$cdate.innerText = this.cdate.toLocaleDateString();
+
+            this.$point = document.createElement("div");
+            this.$point.className = "col-2 p-2 border";
+            this.$point.innerText = this.point;
+
+            this.$btnArea = document.createElement("div");
+            this.$btnArea.className = "col-2 p-2 border d-flex justify-content-around";
+
+            this.$deleteBtn = document.createElement("button");
+            this.$deleteBtn.innerText = "삭제";
+
+            this.$updateBtn = document.createElement("button");
+            this.$updateBtn.innerText = "수정";
+
+            this.$btnArea.append(this.$deleteBtn, this.$updateBtn);
+            this.$li.append(this.$rowNum, this.$memberId, this.$isUsed, this.$cdate, this.$point, this.$btnArea);
+            Coupon.$area.appendChild(this.$li);
+        }
+    }
+
+    fetch("/api/coupon/list").then(
+        response => response.json()
+            .then(result => {
+                console.log(result);
+                if (Coupon.appendHeader(result.length)) {
+                    let couponArray = result.map(res => {
+                        let coupon = new Coupon(res);
+                        coupon.appendListItem();
+                        return coupon;
+                    });
+                    console.log(couponArray);
+                }
+            })
+            .catch(err => alert(err))
+    ).catch(err => alert(err));
+
+
+</script>
 </body>
 </html>
 <style>
