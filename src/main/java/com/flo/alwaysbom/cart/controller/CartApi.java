@@ -36,6 +36,7 @@ public class CartApi {
                 .image(cartVo.getImage())
                 .requestDate(cartVo.getRequestDate())
                 .category(cartVo.getCategory())
+                .quantity(cartVo.getQuantity())
                 .reviewCheck(0)
                 .osubsList(cartVo.getOsubsList())
                 .build()).collect(Collectors.toList());

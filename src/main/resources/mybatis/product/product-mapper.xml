@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PRODUCT">
+
+    <!-- (C) 관리자가 상품 등록 -->
+    <insert id="addProduct" parameterType="com.flo.alwaysbom.product.vo.ProductVo">
+        INSERT INTO PRODUCT (IDX, CATEGORY, NAME, SUBHEADER, PRICE, DISCOUNT_RATE,
+                            IMAGE1, IMAGE2, IMAGE3, CONTENT, FSIZE)
+        VALUES      (NULL, #{category}, #{name}, #{subheader}, #{price}, #{discountRate},
+                    #{image1}, #{image2}, #{image3}, #{content}, #{fsize})
+        <selectKey keyProperty="idx" order="AFTER" resultType="int">
+            SELECT  PRODUCT_SEQ.currval FROM DUAL
+        </selectKey>
+    </insert>
+
+
+    <!-- (R) 카테고리별 조회 (vase or goods) -->
+    <select id="findByCategory" parameterType="String" resultType="com.flo.alwaysbom.product.vo.ProductVo">
+        SELECT      *
+        FROM        PRODUCT
+        WHERE       CATEGORY = #{category} AND DEL_STATUS IS NULL
+        ORDER BY    IDX DESC
+    </select>
+
+
+    <!-- (R) 상품 전체 조회 (최신 등록순) -->
+    <select id="findAll" resultType="com.flo.alwaysbom.product.vo.ProductVo">
+        SELECT      *
+        FROM        PRODUCT
+        WHERE       DEL_STATUS IS NULL
+        ORDER BY    IDX DESC
+    </select>
+
+
+    <!-- (R) 상품 인덱스로 상세페이지 조회 -->
+    <select id="findByIdx" parameterType="Integer" resultType="com.flo.alwaysbom.product.vo.ProductVo">
+        SELECT  *
+        FROM    PRODUCT
+        WHERE   DEL_STATUS IS NULL AND IDX = #{idx}
+    </select>
+
+
+    <!-- (U) 관리자가 상품 수정 -->
+    <update id="updateProduct" parameterType="com.flo.alwaysbom.product.vo.ProductVo">
+        UPDATE  PRODUCT
+        SET     CATEGORY = #{category},
+                NAME = #{name},
+                SUBHEADER = #{subheader},
+                PRICE = #{price},
+                DISCOUNT_RATE = #{discountRate},
+                IMAGE1 = #{image1},
+                IMAGE2 = #{image2},
+                IMAGE3 = #{image3},
+                CONTENT = #{content},
+                SOLDOUT_STATUS = #{soldoutStatus},
+                FSIZE = #{fsize}
+        WHERE   IDX = #{idx}
+    </update>
+
+</mapper>
