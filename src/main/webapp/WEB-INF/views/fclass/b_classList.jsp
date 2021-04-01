@@ -96,14 +96,14 @@
                                     <input type="hidden" name="idx" value="${fclass.idx}">
 
                                     <div class="overflow-hidden">
-                                        <img src="/static/upload/${fclass.image1}" alt="꽃"
+                                        <img src="${fclass.image1}" alt="꽃"
                                              class="card-img-top scale-up">
                                     </div>
                                 </a>
                             </div>
                             <div class="fw-bold mb-2">${fclass.name}</div>
                             <div class="mb-2">
-                                <span class="red">(${fclass.discountRate}%)</span>
+                                <span class="red">${fclass.discountRate}%</span>
                                 <span class="text-decoration-line-through text-secondary">
                                     <fmt:formatNumber value="${fclass.price}" pattern="#,###"/>원</span>
                                 <span><fmt:formatNumber value="${fclass.finalPrice}" pattern="#,###"/>원</span>
@@ -135,14 +135,14 @@
                             <div>
                                 <a href="/admin/fclass/detail?idx=${fclass.idx}">
                                     <div class="overflow-hidden">
-                                        <img src="/static/upload/fclass/class/${fclass.image1}" alt="꽃"
+                                        <img src="${fclass.image1}" alt="꽃"
                                              class="card-img-top  scale-up">
                                     </div>
                                 </a>
                             </div>
                             <div class="fw-bold mb-2">${fclass.name}</div>
                             <div class="mb-2">
-                                <span class="red">(${fclass.discountRate}%)</span>
+                                <span class="red">${fclass.discountRate}%</span>
                                 <span class="text-decoration-line-through text-secondary">
                                     <fmt:formatNumber value="${fclass.price}" pattern="#,###"/>원</span>
                                 <span><fmt:formatNumber value="${fclass.finalPrice}" pattern="#,###"/>원</span>

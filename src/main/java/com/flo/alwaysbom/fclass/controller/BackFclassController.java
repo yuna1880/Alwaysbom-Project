@@ -32,6 +32,16 @@ public class BackFclassController {
     private static final Logger logger = LoggerFactory.getLogger(BackFclassController.class);
     private ServletContext context;
 
+    @GetMapping("admin/fclass/b_classList")
+    public String goList(Model model) {
+        List<FclassVo> classList = fclassService.findAll();
+        List<BranchVo> branchList = branchService.findAll();
+        System.out.println("classList = " + classList);
+        model.addAttribute("classList", classList);
+        model.addAttribute("branchList", branchList);
+        return "fclass/b_classList";
+    }
+
     @GetMapping("/admin/fclass/addClass")
     public String goAddClass(Model model) {
         model.addAttribute("branchList", branchService.findAll());
@@ -44,7 +54,7 @@ public class BackFclassController {
         vo.setImage2(fileHandler.uploadFile(file.get(1), null, "/fclass/class"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), null, "/fclass/class"));
         fclassService.addClass(vo, branches);
-        return "redirect:/admin/fclass/classList";
+        return "redirect:/admin/fclass/b_classList";
     }
 
     @PostMapping("/admin/fclass/updateClass")
@@ -55,13 +65,13 @@ public class BackFclassController {
         vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "/fclass/class"));
         fclassService.updateFclass(vo, branches);
 
-        return "redirect:/admin/fclass/classList";
+        return "redirect:/admin/fclass/b_classList";
     }
 
     @PostMapping("/admin/fclass/deleteClass")
     public String deleteClass(Integer idx) {
         fclassService.deleteFclass(idx);
-        return "redirect:/admin/fclass/classList";
+        return "redirect:/admin/fclass/b_classList";
     }
 
     @GetMapping("/admin/fclass/classList")
@@ -147,6 +157,7 @@ public class BackFclassController {
     @PostMapping("/admin/fclass/api/searchSchedule")
     @ResponseBody
     public List<ScheduleVo> searchSchedule(@RequestBody ScheduleVo vo) {
+        System.out.println("vo = " + vo);
         return scheduleService.searchSchedule(vo);
     }
 

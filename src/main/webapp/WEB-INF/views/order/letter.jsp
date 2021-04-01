@@ -8,17 +8,16 @@
     <link rel="stylesheet" href="/static/css/order/orderstyle.css">
     <%@ include file="../main/import.jspf"%>
     <script>
-        function printLetter() {
-            const letter = document.getElementById('message').value;
-            document.getElementById('preview').innerText = letter;
-
-            document.getElementById('letter_press_cnt_').innerHTML = letter.length;
+        function printLetter($letter, index) {
+            const letter = $letter.value;
+            document.querySelector("#preview[data-preview-index='" + index + "']").innerText = letter;
+            document.querySelector("#letter_press_cnt_[data-preview-index='" + index + "']").innerHTML = letter.length;
         }
+
 
         function submitForm() {
             //class="flower_letter"의 폼을 전부 선택.
             let letters = document.querySelectorAll(".flower_letter");
-            console.log(letters);
             let datas = [];
             for (let letter of letters) {
                 let data = {
@@ -29,8 +28,6 @@
                 //생성된 데이터 배열안에 넣어주기.
                 datas.push(data);
             }
-
-
 
             //폼 동적으로 만들기
             let form = document.createElement("form")
@@ -71,17 +68,17 @@
                     </div><br>
                 </div>
 
-                <form class="flower_letter">
                 <!-- letter 옵션 추가시, 그 개수만큼 생성해준다. -->
-                <c:forEach var="order" items="${OrderList}">
-                <c:if test="${order.letter > 0}">
+                <c:forEach var="oitem" items="${oitemList}" varStatus="status">
+                <form class="flower_letter">
+                <c:if test="${oitem.hasLetter eq true}">
                     <div id="letterbox-wrapper">
-                        <input type="hidden" name="cart_idx" value="${order.idx}">
+                        <input type="hidden" name="cart_idx" value="${oitem.idx}">
                         <div id="letter_product" class="letterbox">
                             <div class="letter">
                                 <div class="select_letter">
                                     <input type="text" class="select_letter_select_tag" name="product_name"
-                                           readonly value="${order.subsVo.name}">
+                                           readonly value="${oitem.name}">
                                 </div>
                                 <div class="role_select_checked">
                                     <div class="col-12">
@@ -95,20 +92,19 @@
                                 </div>
 
                                 <!-- 편지 내용 -->
-
                                 <div class="input_letter_wrap write">
                                     <div class="input_letter">
                                         <textarea id="message" name="letter_content" class="letter_press" rows="8" maxlength="120"
-                                                          wrap="hard" placeholder="여기에 입력하세요 :-)" data-letter="" onkeyup="printLetter()"></textarea>
+                                                          wrap="hard" placeholder="여기에 입력하세요 :-)" data-letter="" onkeyup="printLetter(this, ${status.index})"></textarea>
                                             <span class="limmit">
-                                                <b class="count" id="letter_press_cnt_">0</b> / 120
+                                                <b data-preview-index="${status.index}" class="count" id="letter_press_cnt_">0</b> / 120
                                             </span>
                                             <span class="noti">*이모티콘은 편지 내용에 포함되지 않습니다.</span>
                                             <span class="noti">* 편지 내용을 이곳에 직접 입력해주세요.</span>
                                             <span class="noti">* 붙여넣기 시용시 편지가 입력 되지 않습니다.</span>
                                     </div>
                                     <div class="preview_letter">
-                                        <textarea id="preview" class="text" readonly></textarea>
+                                        <textarea data-preview-index="${status.index}" id="preview" class="text" readonly></textarea>
                                         <span class="noti">* 실제 편지지 모습입니다. 최대 8줄까지만 인쇄됩니다.</span>
                                     </div>
                                 </div>
@@ -116,9 +112,8 @@
                         </div>
                     </div>
                     </c:if>
+                </form>
                     </c:forEach>
-                    </div>
-                    </form>
                         <!-- 버튼 -->
                         <div class="float-end">
                             <button type="button" class="btn btn-outline-secondary btn-lg"

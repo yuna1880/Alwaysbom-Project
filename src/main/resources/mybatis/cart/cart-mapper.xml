@@ -39,23 +39,19 @@
         </selectKey>
     </insert>
 
-    <select id="findAll" resultMap="CartVo">
+    <select id="findByIdxArray" parameterType="arraylist" resultMap="CartVo">
         SELECT * FROM CART
+        <if test="array neq null">
+            <foreach collection="array" item="idx" open="WHERE IDX IN (" separator="," close=")">
+                #{idx}
+            </foreach>
+        </if>
         order by CASE WHEN CATEGORY = '정기구독' THEN 9999999999 ELSE IDX END desc
     </select>
 
     <select id="findCartsByMember" parameterType="string" resultMap="CartVo">
         SELECT * FROM CART
         where MEMBER_ID = #{memberId}
-        order by CASE WHEN CATEGORY = '정기구독' THEN 9999999999 ELSE IDX END desc
-    </select>
-
-    <select id="findByIdxArray" parameterType="list" resultMap="CartVo">
-        SELECT * FROM CART
-        WHERE IDX IN
-              <foreach collection="list" open="(" close=")" separator="," item="idx">
-                  #{idx}
-              </foreach>
         order by CASE WHEN CATEGORY = '정기구독' THEN 9999999999 ELSE IDX END desc
     </select>
 
@@ -67,4 +63,8 @@
     <update id="updateQuantity" parameterType="com.flo.alwaysbom.cart.vo.CartVo">
         update CART set QUANTITY = #{quantity} where idx = #{idx}
     </update>
+
+    <delete id="removeByIdx" parameterType="int">
+        DELETE FROM CART WHERE IDX = #{idx}
+    </delete>
 </mapper>
