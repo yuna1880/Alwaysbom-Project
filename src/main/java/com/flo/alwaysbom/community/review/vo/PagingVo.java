@@ -7,54 +7,57 @@ import lombok.*;
 @ToString
 public class PagingVo {
 
-//	1. totalRow 얻는 쿼리 실행
-//	2. Paging 객체 생성
-//	3. list 얻는 쿼리 실행
-//	이거를 한 메소드안에서 처리 (dao)
+    // 기본 세팅값 (변하지 않음)
+    private int numPerPage = 2; //하나의 페이지에 표시할 게시글 수
+    private int pagePerBlock = 1; //블록당 표시하는 페이지 갯수
 
-    //Config
-    private int rowPerPage = 10;
-    private int pagePerBlock = 10;
+    // 유동적인 필드
+    private int nowPage = 1; //현재페이지, 디폴트값이 1이다.
+    private int nowBlock = 1; //현재 블록(페이지 담는 단위), 디폴트값 1
 
-    //전체 Data
-    private final int totalRow;
-    private int totalPage;
+    private int totalRecord = 0; //총 게시물 갯수(원본 게시글 수)
+    private int totalPage = 0; //전체 페이지 갯수
+    private int totalBlock = 0; //전체 블록 갯수
 
-    //현재 Data
-    private int nowPage;
-    private int nowBlock;
+    private int begin = 0; //현재 페이지상의 시작 글번호 e.g) 1, 4, 7, ...
+    private int end = 0; //현재 페이지상의 마지막 글번호 eg) 3, 6, 9, ...
 
-    //현재 페이지에서 보일 시작, 끝 행번호
-    private int startRow;
-    private int endRow;
+    private int beginPage = 0; //현재 블록의 시작 페이지 번호 . 그니까 총 글의 개수가 만약 13개다-> 페이지 번호는 1부터 5까지
+    private int endPage = 0; //현재 블록의 끝 페이지 번호
 
-    //현재 블록에서 보일 시작, 끝 페이지번호
-    private int startPage;
-    private int endPage;
 
-    public PagingVo(int totalRow, int nowPage) {
-        this.totalRow = totalRow;
+    // 현재 페이지와 총 게시물 개수를 파라미터로 가지는 생성자를 호출하면 모든 값이 한 번에 세팅되도록!
+    public PagingVo(int nowPage, int totalRecord) {
+        // nowPage
         this.nowPage = nowPage;
-        calculation();
-    }
 
-    public PagingVo(int totalRow, int nowPage, int rowPerPage, int pagePerBlock) {
-        this.rowPerPage = rowPerPage;
-        this.pagePerBlock = pagePerBlock;
-        this.totalRow = totalRow;
-        this.nowPage = nowPage;
-        calculation();
-    }
+        // nowBlock
+        nowBlock = (nowPage + pagePerBlock - 1) / pagePerBlock;
 
-    private void calculation() {
-        totalPage = (totalRow - 1) / rowPerPage + 1;
-        nowPage = Math.min(nowPage, totalPage);
-        nowBlock = (nowPage - 1) / pagePerBlock + 1;
+        // totalRecord
+        this.totalRecord = totalRecord;
 
-        startRow = (nowPage - 1) * rowPerPage + 1;
-        endRow = Math.min(nowPage * rowPerPage, totalRow);
+        // totalPage
+        totalPage = totalRecord / numPerPage;
+        if (totalRecord % numPerPage > 0) totalPage++;
 
-        startPage = (nowBlock - 1) * pagePerBlock + 1;
-        endPage = Math.min(nowBlock * pagePerBlock, totalPage);
+        // totalBlock
+        totalBlock = totalPage / pagePerBlock;
+        if (totalPage % pagePerBlock > 0) totalBlock++;
+
+        // begin
+        begin = numPerPage * (nowPage - 1) + 1;
+
+        // end
+        end = begin + numPerPage - 1;
+
+        // beginPage
+        beginPage = pagePerBlock * (nowBlock - 1) + 1;
+
+        // endPage
+        endPage = beginPage + pagePerBlock - 1;
+        if (endPage > totalPage) {
+            endPage = totalPage;
+        }
     }
 }
