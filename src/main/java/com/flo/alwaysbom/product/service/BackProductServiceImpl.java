@@ -10,26 +10,31 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class BackProductServiceImpl {
+public class BackProductServiceImpl implements BackProductService {
 
     private final BackProductDao dao;
 
+    @Override
     public ProductVo addProduct(ProductVo vo) {
         return dao.addProduct(vo);
     }
 
+    @Override
     public List<ProductVo> findByCategory(String category) {
         return dao.findByCategory(category);
     }
 
+    @Override
     public List<ProductVo> findAll() {
         return dao.findAll();
     }
 
+    @Override
     public int updateProduct(ProductVo vo) {
         return dao.updateProduct(vo);
     }
 
+    @Override
     public Optional<ProductVo> findByIdx(Integer idx) {
         return dao.findByIdx(idx);
     }

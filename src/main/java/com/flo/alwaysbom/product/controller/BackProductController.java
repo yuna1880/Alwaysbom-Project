@@ -1,6 +1,6 @@
 package com.flo.alwaysbom.product.controller;
 
-import com.flo.alwaysbom.product.service.BackProductServiceImpl;
+import com.flo.alwaysbom.product.service.BackProductService;
 import com.flo.alwaysbom.product.vo.ProductVo;
 import com.flo.alwaysbom.util.FileHandler;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BackProductController {
 
-    private final BackProductServiceImpl backProductService;
+    private final BackProductService backProductService;
     private final FileHandler fileHandler;
 
     /* 소품샵 관리 인덱스 */
@@ -62,7 +62,15 @@ public class BackProductController {
         return "redirect:/admin/productList";
     }
 
-    /* '수정하기' 버튼 눌렀을 때 처리 */
+    @GetMapping("/admin/goUpdate")
+    public String goUpdate(Integer idx, Model model) {
+        ProductVo product = backProductService.findByIdx(idx)
+                .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
+        model.addAttribute("productVo", product);
+        return "product/b_addForm";
+    }
+
+    /* '수정완료' 버튼 눌렀을 때 처리 */
     @PostMapping("/admin/updateProduct")
     public String updateProduct(ProductVo vo, List<MultipartFile> file) throws IOException {
         vo.setImage1(fileHandler.uploadFile(file.get(0), null, "product"));
@@ -72,6 +80,7 @@ public class BackProductController {
         return "redirect:/admin/productList";
     }
 
+    /* 상세페이지 조회 */
     @GetMapping("/admin/product/{idx}")
     public String getOne(@PathVariable("idx") Integer idx, Model model) {
         ProductVo product = backProductService.findByIdx(idx)
