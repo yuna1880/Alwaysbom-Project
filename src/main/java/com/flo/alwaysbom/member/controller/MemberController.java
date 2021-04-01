@@ -2,13 +2,20 @@ package com.flo.alwaysbom.member.controller;
 
 import com.flo.alwaysbom.member.service.MemberService;
 import com.flo.alwaysbom.member.vo.MemberVO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Member;
+
 @Controller
+@RequiredArgsConstructor
+@SessionAttributes(value = "member")
 public class MemberController {
+
+    private final MemberService memberService;
 
     @GetMapping("/goMemberJoin")
     public String goMemberJoin() {
@@ -22,9 +29,32 @@ public class MemberController {
         model.addAttribute("kakao_gender", kakao_gender);
         return "member/member_join";
     }
+
+
+    //회원가입 화면 요청
+    @PostMapping("/member_join")
+    public String member_join(MemberVO memberVO) {
+
+        memberService.insertMember(memberVO);
+        return "member/login";
+    }
+
     @GetMapping("/memberLogin")
     public String memberLogin() {
         return "member/login";
+    }
+
+    @PostMapping("/loginMember")
+    public String loginProc(@RequestParam String id, @RequestParam String pw, Model model){
+        System.out.println("아이디 : " + id + ", 패스워드 : " + pw);
+
+        MemberVO member = new MemberVO();
+        member.setId(id);
+        member.setPw(pw);
+
+        model.addAttribute("member", member);
+
+        return "main/index";
     }
 
     @GetMapping("/findId")
@@ -66,22 +96,4 @@ public class MemberController {
     public String member_grade() {
         return "member/member_grade";
     }
-
-    @Autowired
-    private MemberService memberService;
-
-        //SignUp GET
-        @RequestMapping(value="/member_join.do", method=RequestMethod.GET)
-        public void signupGET() {
-
-        }
-
-        //SignUp POST
-        @RequestMapping(value="/member_join.do", method=RequestMethod.POST)
-            public String signupPOST(MemberVO memberVO) throws Exception {
-
-                memberService.insertMember(memberVO);
-
-            return "/member/login";
-        }
 }

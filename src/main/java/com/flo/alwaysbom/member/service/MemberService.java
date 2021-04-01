@@ -1,15 +1,24 @@
 package com.flo.alwaysbom.member.service;
 
+import com.flo.alwaysbom.member.dao.MemberDAO;
 import com.flo.alwaysbom.member.vo.MemberVO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+@Service
+@RequiredArgsConstructor
+public class MemberService{
 
-public interface MemberService {
+    private final MemberDAO dao;
 
-        //회원가입 Service
-        public default void insertMember(MemberVO memberVO) throws Exception {
+    public void insertMember(MemberVO memberVO) {
 
-        }
+        dao.insertMember(memberVO);
 
+    }
+
+    public MemberVO login(MemberVO memberVO) throws Exception {
+        return dao.login(memberVO);
+    }
 }
 
