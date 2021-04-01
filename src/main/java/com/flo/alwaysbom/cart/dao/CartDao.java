@@ -15,8 +15,8 @@ public class CartDao {
 
     private final SqlSessionTemplate sqlSessionTemplate;
 
-    public List<CartVo> findAllCarts() {
-        return sqlSessionTemplate.selectList("cart.findAll");
+    public List<CartVo> findByIdxArray(Integer[] idx) {
+        return sqlSessionTemplate.selectList("cart.findByIdxArray", idx);
     }
 
     public Integer addCart(CartVo cartVo) {
@@ -28,16 +28,15 @@ public class CartDao {
         return sqlSessionTemplate.selectList("cart.findCartsByMember", memberId);
     }
 
-    public List<CartVo> findByIdxArray(Integer[] idxArr) {
-        System.out.println("CartDao.findByIdxArray");
-        return sqlSessionTemplate.selectList("cart.findByIdxArray", Arrays.asList(idxArr));
-    }
-
     public Optional<CartVo> findByIdx(Integer idx) {
         return Optional.ofNullable(sqlSessionTemplate.selectOne("cart.findByIdx", idx));
     }
 
     public boolean updateQuantity(CartVo cartItem) {
         return sqlSessionTemplate.update("cart.updateQuantity", cartItem) > 0;
+    }
+
+    public boolean removeByIdx(Integer idx) {
+        return sqlSessionTemplate.delete("cart.removeByIdx", idx) > 0;
     }
 }

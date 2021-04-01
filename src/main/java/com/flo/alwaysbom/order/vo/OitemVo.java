@@ -2,6 +2,7 @@ package com.flo.alwaysbom.order.vo;
 
 import lombok.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @Getter
@@ -9,6 +10,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class OitemVo {
     private Integer idx;
     private Integer ordersIdx;
@@ -18,8 +20,8 @@ public class OitemVo {
     private String options;
     private String image;
     private String status;
-    private String requestDate;
-    private String deliveryStartDate;
+    private Date requestDate;
+    private Date deliveryStartDate;
     private String category;
     private int reviewCheck;
 
