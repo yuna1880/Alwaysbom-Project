@@ -1,14 +1,62 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:choose>
+    <c:when test="${memberVo.grade eq '데이지'}">
+        <c:set var="discountPrice" value="0"/>
+    </c:when>
+    <c:when test="${memberVo.grade ne '데이지'}">
+        <c:set var="discountPrice" value="${fclassVo.finalPrice * regCount * 0.02}"/>
+    </c:when>
+</c:choose>
+<c:set var="totalPrice" value="${fclassVo.finalPrice * regCount - discountPrice}"/>
+
 <html>
 <head>
     <title>플라워클래스 결제</title>
     <%@ include file="../main/import.jspf"%>
 </head>
+<script>
+    function usePoint() {
+        const inputPointEl = document.querySelector("#input_my_point");
+        const discountPointEl = document.querySelector("#pointHere");
+        const finalPriceEl = document.querySelector("#finalPrice");
+        const discountPointHiddenEl = document.querySelector("#discountPointHidden");
+        const discountGradeEl = document.querySelector("#discountGradeHidden");
+        const discountTotalpriceEl = document.querySelector("#discountTotalpriceHidden");
+
+
+        let originalPrice = finalPriceEl.getAttribute("data-original-price");
+        let discountPoint;
+
+        if (inputPointEl.value !== "" || inputPointEl.value.length > 0) {
+            discountPoint = inputPointEl.value;
+        } else {
+            discountPoint = 0;
+        }
+        discountPointEl.textContent = '-' + discountPoint + ' 원';
+
+        discountPointHiddenEl.value = discountPoint;
+        discountGradeEl.value = ${discountPrice};
+        let finalPrice = originalPrice - discountPoint;
+        //discountPoint.setAttribute("discountPoint");
+        //let grade = ${discountPrice};
+       // grade.setAttribute("discountGrade");
+        finalPriceEl.textContent = finalPrice.toLocaleString('ko-KR') + " 원";
+        discountTotalpriceEl.value= finalPrice;
+
+    }
+
+    function compareWithPoint(point) {
+        if (point.value > ${memberVo.point}) {
+            alert("${memberVo.name}님께서 사용 가능한 포인트는 <fmt:formatNumber value="${memberVo.point}" pattern="#,###"/> 입니다.")
+            point.value="";
+        }
+    }
+</script>
 <body>
 <%@ include file="../main/header.jspf" %>
-<div id="container" class="d-flex flex-column align-items-center mx-auto bg-white p-2">
+<form action="/fclass/completePayment" method="post" id="container" class="d-flex flex-column align-items-center mx-auto bg-white p-2">
 
     <!-- 결제 단계 아이콘 -->
     <div class="rounded-circle h6 d-flex flex-column align-items-center justify-content-center"
@@ -28,48 +76,53 @@
     <div class="col-12 d-flex border-1 border-top" style="height: 170px">
         <!-- 수강일 -->
         <div class="col-3 d-flex align-items-center justify-content-center">
-            <span>2021-03-31</span>
+            <span>${scheduleVo.sdate}</span>
         </div>
 
         <!-- 클래스 내용 -->
         <div class="col-6 d-flex align-items-center">
             <div>
-                <img src="/static/image/oitem/0_1.png" alt="이미지" style="width:160px; height:130px">
+                <img src="${fclassVo.image1}" alt="이미지" style="width:160px; height:130px">
             </div>
             <div class="d-flex flex-column ps-2">
-                <span>[ 1호점 ] 플로리스트_8주과정</span>
-                <span>수강인원 : 3</span>
-                <span>수강시간 : 10:00</span>
+                <span>[ ${branchVo.name} ] ${fclassVo.category}_${fclassVo.name}</span>
+                <span>수강인원 : ${regCount}</span>
+                <span>수강시간 : ${scheduleVo.startTime}</span>
             </div>
         </div>
 
         <!-- 수강료 -->
         <div class="col-3 d-flex align-items-center justify-content-center">
-            <span class="text-secondary">560,000</span>
+            <span class="text-secondary"><fmt:formatNumber value="${fclassVo.price}" pattern="#,###"/> 원</span>
         </div>
     </div>
 
     <!-- 적립금 -->
-    <div class="col-12 py-4 d-flex align-items-center border-1 border-top border-bottom">
+    <div class="col-12 py-4 d-flex align-items-center border-1 border-secondary border-top border-bottom">
         <span class="fw-bold me-1">적립금</span>
-        <input type="number" class="mx-1 ps-3 border border-secondary btn-outline-white rounded-3">
-        <button type="button" class="btn btn-sm btn-warning mx-1">적용</button>
-        <span class="mx-1">* 사용 가능 포인트: 1,000</span>
+        <input type="number" id="input_my_point" autocomplete="off" class="mx-1 ps-3 border border-secondary btn-outline-white rounded-3" onkeyup="compareWithPoint(this)" onchange="compareWithPoint(this)">
+        <button type="button" class="btn btn-sm btn-warning mx-1" onclick="usePoint()">적용</button>
+        <span class="mx-1">* 사용 가능 포인트: <fmt:formatNumber value="${memberVo.point}" pattern="#,###"/></span>
     </div>
 
     <!-- 결제 금액 -->
-    <div class="col-12 py-4 ps-3 pe-2 d-flex flex-column border-1 border-bottom">
+    <div class="col-12 py-4 ps-3 pe-2 d-flex flex-column border-1 border-secondary border-bottom">
         <div class="d-flex justify-content-between py-2">
             <span>포인트할인</span>
-            <span>-0 원</span>
+           <input type="hidden" name="discountPoint" id="discountPointHidden" value="0">
+            <span id="pointHere">-<fmt:formatNumber value="0" pattern="#,###"/> 원</span>
         </div>
         <div class="d-flex justify-content-between py-2">
             <span>등급할인</span>
-            <span>-0 원</span>
+<%--            <span id="gradeDiscount" name="discountGrade">-<fmt:formatNumber value="0" pattern="#,###"/> 원</span>--%>
+            <input type="hidden" name="discountGrade" id="discountGradeHidden" value="0">
+            <span id="gradeDiscount">-<fmt:formatNumber value="${discountPrice}" pattern="#,###"/> 원</span>
         </div>
         <div class="d-flex justify-content-between py-2 h4 text-warning m-0">
             <span>총 결제금액</span>
-            <span>1,680,000 원</span>
+            <input type="hidden" name="discountTotalprice" id="discountTotalpriceHidden" value="${totalPrice}">
+            <span id="finalPrice" data-original-price="${totalPrice}">
+                <fmt:formatNumber value="${totalPrice}" pattern="#,### 원"/></span>
         </div>
     </div>
 
@@ -78,19 +131,19 @@
         <span>결제 수단 선택</span>
         <div class="d-flex pay-button-group">
             <label class="col-3">
-                <input class="d-none" type="radio" name="pay-type" autocomplete="off" checked>
+                <input class="d-none" type="radio" name="payType" value="신용카드" autocomplete="off" checked>
                 <span class="d-block btn-pay py-3 text-center">신용카드</span>
             </label>
             <label class="col-3">
-                <input class="d-none" type="radio" name="pay-type" autocomplete="off">
+                <input class="d-none" type="radio" name="payType" value="신용카드(직접입력)" autocomplete="off">
                 <span class="d-block btn-pay py-3 text-center">신용카드(직접입력)</span>
             </label>
             <label class="col-3">
-                <input class="d-none" type="radio" name="pay-type" autocomplete="off">
+                <input class="d-none" type="radio" name="payType" value="무통장입금" autocomplete="off">
                 <span class="d-block btn-pay py-3 text-center">무통장입금</span>
             </label>
             <label class="col-3">
-                <input class="d-none" type="radio" name="pay-type" autocomplete="off">
+                <input class="d-none" type="radio" name="payType" value="카카오페이" autocomplete="off">
                 <span class="d-block btn-pay py-3 text-center">카카오페이</span>
             </label>
         </div>
@@ -126,11 +179,15 @@
                         <div>유효 기간 (년/월)</div>
                         <div class="d-flex align-items-center text-center">
                             <select name="year" style="width:49.25%">
-                                <option value="2021">2021</option>
+                            <c:forEach var="year" begin="2021" end="2035">
+                                <option value="${year}">${year}</option>
+                            </c:forEach>
                             </select>
                             <span style="width:1.5%">-</span>
                             <select name="month" style="width:49.25%">
-                                <option value="1">01</option>
+                            <c:forEach var="month" begin="01" end="12">
+                                <option value="${month}">${month}</option>
+                            </c:forEach>
                             </select>
                         </div>
                     </div>
@@ -184,10 +241,15 @@
     </div>
 
     <!-- 버튼 영역 -->
-    <div class="col-12 py-4 d-flex flex-column">
-        <button class="col-3 align-self-end btn-pay bg-pay py-3">결제 하기</button>
+    <div class="col-12 py-4 d-flex flex-column">'
+        <input type="hidden" name="scheduleIdx" value="${scheduleVo.idx}">
+        <input type="hidden" name="regCount" value="${regCount}">
+        <input type="hidden" name="memberId" value="${memberVo.id}">
+        <input type="hidden" name="payTotal" value="${fclassVo.price * regCount}">
+       <%-- <input type="hidden" name="discountGrade" value="${discountPrice}">--%>
+        <button type="submit" class="col-3 align-self-end btn-pay bg-pay py-3">결제 하기</button>
     </div>
-</div>
+</form>
 <%@ include file="../main/footer.jspf"%>
 <script>
     let $payTypeList = document.querySelectorAll('.pay-button-group input[type="radio"]');
