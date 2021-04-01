@@ -16,5 +16,9 @@ public class MemberDAO{
         sessionTemplate.insert("member.insertMember",memberVO);
     }
 
+    public MemberVO login(MemberVO memberVO) throws Exception {
+        return sessionTemplate.selectOne("Member.Login", memberVO);
+    }
+
 
 }

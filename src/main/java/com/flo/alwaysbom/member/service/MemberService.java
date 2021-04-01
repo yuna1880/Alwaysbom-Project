@@ -16,5 +16,9 @@ public class MemberService{
         dao.insertMember(memberVO);
 
     }
+
+    public MemberVO login(MemberVO memberVO) throws Exception {
+        return dao.login(memberVO);
+    }
 }
 
