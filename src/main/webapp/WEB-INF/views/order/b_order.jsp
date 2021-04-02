@@ -2,18 +2,18 @@
 <html>
 <head>
     <title>새늘봄 백오피스 - 주문내역 조회</title>
-    <%@ include file="../main/import.jspf"%>
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="style4.css">
+    <%@ include file="../main/b_import.jspf"%>
+    <link rel="stylesheet" href="/static/css/order/orderstyle_back.css">
+
 </head>
 <body>
-<%@ include file="../main/header.jspf" %>
+<%@ include file="../main/b_header.jspf"%>
 
 <div class="container">
     <div class="row">
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-            <label class="btn btn-outline-primary for="btnradio1">입금 대기
+            <label class="btn btn-outline-primary" for="btnradio1">입금 대기
                 <span class="badge">4</span>
             </label>
 
@@ -110,9 +110,6 @@
         </tbody>
     </table>
 </div>
-
-
-
-<%@ include file="../main/footer.jspf"%>
+<script src="/static/js/imageUploader.js"></script>
 </body>
 </html>

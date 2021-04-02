@@ -8,6 +8,7 @@
         .invalid { color: red; }
     </style>
     <link href="/static/css/member/member_join.css" rel="stylesheet">
+    <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
         Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");
@@ -104,7 +105,7 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="text" name="birth" id="birth" class="csr_phone ipt chk" placeholder="예) 86/04/02" />
+                                                <input type="text" name="birth" id="birth" class="csr_phone ipt chk" placeholder="예)86/05/04" />
                                             </span>
                                         </div>
                                     </div>

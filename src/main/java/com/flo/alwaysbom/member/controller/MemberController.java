@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Member;
 
 @Controller
@@ -53,8 +54,15 @@ public class MemberController {
         member.setPw(pw);
 
         model.addAttribute("member", member);
+        return "redirect:/";
+    }
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        System.out.println(">>> 로그아웃 - logout()");
+        //1.세션 초기화(세션 객체 종료)
+        session.invalidate();
 
-        return "main/index";
+        return "member/login";
     }
 
     @GetMapping("/findId")
