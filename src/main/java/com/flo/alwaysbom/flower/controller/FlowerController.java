@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.flower.controller;
 
+import com.flo.alwaysbom.flower.service.FlowerService;
 import com.flo.alwaysbom.flower.service.FlowerServiceImpl;
 import com.flo.alwaysbom.flower.vo.FlowerVo;
 import com.flo.alwaysbom.product.controller.ProductController;
@@ -19,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FlowerController {
 
-    private final FlowerServiceImpl flowerService;
+    private final FlowerService flowerService;
     private final ProductServiceImpl productService;
 
     @GetMapping("/flower/test")

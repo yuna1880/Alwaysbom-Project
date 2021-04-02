@@ -14,10 +14,17 @@ public class FlowerServiceImpl implements FlowerService {
 
     private final FlowerDao dao;
 
+    @Override
+    public FlowerVo addFlower(FlowerVo vo) {
+        return dao.addFlower(vo);
+    }
+
+    @Override
     public List<FlowerVo> findAll() {
         return dao.findAll();
     }
 
+    @Override
     public Optional<FlowerVo> findByIdx(Integer idx) {
         return dao.findByIdx(idx);
     }

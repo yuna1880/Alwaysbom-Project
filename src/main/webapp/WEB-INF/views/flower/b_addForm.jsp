@@ -9,151 +9,151 @@
     <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
-    <%@ include file="../main/b_header.jspf"%>
-    <div id="container" class="mx-auto">
-        <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb mb-xxl-5">
-                <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
-                <li class="breadcrumb-item"><a href="/admin/flower">꽃다발 관리</a></li>
-                <li class="breadcrumb-item active" aria-current="page">상품 등록</li>
-            </ol>
-        </nav>
+<%@ include file="../main/b_header.jspf"%>
+<div id="container" class="mx-auto">
+    <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb mb-xxl-5">
+            <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
+            <li class="breadcrumb-item"><a href="/admin/flower">꽃다발 관리</a></li>
+            <li class="breadcrumb-item active" aria-current="page">상품 등록</li>
+        </ol>
+    </nav>
 
-        <!-- 1. 상품 이미지 등록 (이미지 3개 파일 업로드) -->
-        <form method="post" enctype="multipart/form-data">
-            <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
-                1. 상품 이미지 등록
-                <span class="description text-danger ms-2">
-                    * 상품 사진은 가능하다면 고화질의 정방형 이미지로 올려주십시오.
-                </span>
-            </div>
-            <div class="imgs d-flex justify-content-center">
-                <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
-                    <a href="#" class="w-100 h-100 btn btn-outline-dark
-                                       d-flex flex-column align-items-center justify-content-center">
-                        <i class="fa fa-plus h1"></i>
-                        <div>대표 이미지(필수)</div>
-                    </a>
-                    <input type="file" name="file" class="d-none" id="file1" onchange="preview(this, 'img1')">
-                    <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img1">
-                </li>
-                <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
-                    <a href="#" class="w-100 h-100 btn btn-outline-dark
-                                       d-flex flex-column align-items-center justify-content-center">
-                        <i class="fa fa-plus h1"></i>
-                        <div>서브 이미지(선택)</div>
-                    </a>
-                    <input type="file" name="file" class="d-none" id="file2" onchange="preview(this, 'img2')">
-                    <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img2">
-                </li>
-                <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
-                    <a href="#" class="w-100 h-100 btn btn-outline-dark
-                                       d-flex flex-column align-items-center justify-content-center">
-                        <i class="fa fa-plus h1"></i>
-                        <div>서브 이미지(선택)</div>
-                    </a>
-                    <input type="file" name="file" class="d-none" id="file3" onchange="preview(this, 'img3')">
-                    <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img3">
-                </li>
-            </div>
+    <!-- 1. 상품 이미지 등록 (이미지 3개 파일 업로드) -->
+    <form method="post" enctype="multipart/form-data">
+        <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
+            1. 상품 이미지 등록
+            <span class="description text-danger ms-2">
+                * 상품 사진은 가능하다면 고화질의 정방형 이미지로 올려주십시오.
+            </span>
+        </div>
+        <div class="imgs d-flex justify-content-center">
+            <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
+                <a href="#" class="w-100 h-100 btn btn-outline-dark
+                                   d-flex flex-column align-items-center justify-content-center">
+                    <i class="fa fa-plus h1"></i>
+                    <div>대표 이미지(필수)</div>
+                </a>
+                <input type="file" name="file" class="d-none" id="file1" onchange="preview(this, 'img1')">
+                <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img1">
+            </li>
+            <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
+                <a href="#" class="w-100 h-100 btn btn-outline-dark
+                                   d-flex flex-column align-items-center justify-content-center">
+                    <i class="fa fa-plus h1"></i>
+                    <div>서브 이미지(선택)</div>
+                </a>
+                <input type="file" name="file" class="d-none" id="file2" onchange="preview(this, 'img2')">
+                <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img2">
+            </li>
+            <li class="card overflow-hidden img-card" onclick="this.children.file.click()">
+                <a href="#" class="w-100 h-100 btn btn-outline-dark
+                                   d-flex flex-column align-items-center justify-content-center">
+                    <i class="fa fa-plus h1"></i>
+                    <div>서브 이미지(선택)</div>
+                </a>
+                <input type="file" name="file" class="d-none" id="file3" onchange="preview(this, 'img3')">
+                <img src="" alt="사진" class="m-0 p-0 card-img-overlay d-none" id="img3">
+            </li>
+        </div>
 
 
-            <!-- 2. 주요 정보 기입용 input 태그들 -->
-            <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
-                2. 주요 정보
-            </div>
-            <div class="inputs-wrap mx-auto">
-                <div class="row g-2">
-                    <div class="col-md">
-                        <div class="form-floating my-2">
-                            <input type="text" name="name" class="form-control" id="itemName" placeholder="상품명 입력">
-                            <label for="itemName">상품명 (한글 50자 미만)</label>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="form-floating my-2">
-                            <input type="text" name="subheader" class="form-control" id="itemSubheader" placeholder="한줄 설명">
-                            <label for="itemSubheader">한줄 설명 (한글 100자 미만)</label>
-                        </div>
+        <!-- 2. 주요 정보 기입용 input 태그들 -->
+        <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
+            2. 주요 정보
+        </div>
+        <div class="inputs-wrap mx-auto">
+            <div class="row g-2">
+                <div class="col-md">
+                    <div class="form-floating my-2">
+                        <input type="text" name="name" class="form-control" id="itemName" placeholder="상품명 입력">
+                        <label for="itemName">상품명 (한글 50자 미만)</label>
                     </div>
                 </div>
-                <div class="row g-2">
-                    <div class="col-md">
-                        <div class="form-floating my-2">
-                            <select name="fsize" class="form-select" id="itemSize" aria-label="itemSize">
-                                <option selected>Size Options</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                            </select>
-                            <label for="itemSize">꽃다발 사이즈</label>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="form-floating my-2">
-                            <input type="text" name="price" class="form-control text-end"
-                                   id="itemPrice" placeholder="가격" onchange="calculate()">
-                            <label for="itemSubheader">상품 가격</label>
-                        </div>
+                <div class="col-md">
+                    <div class="form-floating my-2">
+                        <input type="text" name="subheader" class="form-control" id="itemSubheader" placeholder="한줄 설명">
+                        <label for="itemSubheader">한줄 설명 (한글 100자 미만)</label>
                     </div>
                 </div>
-                <div class="row g-3">
-                    <div class="options-label col-md-2 d-flex flex-column justify-content-center">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="freeDelivery"
-                                   id="freeDelivery" value="1"
-                                   onclick="changeBg(this)">
-                            <label class="form-check-label" for="freeDelivery">무료배송</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="discount"
-                                   onclick="enableDiscountRateInput(this); changeBg(this)">
-                            <label class="form-check-label" for="discount">할인 적용하기</label>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-floating my-2">
-                            <input type="number" max="50" class="form-control" name="discountRate"
-                                   id="discountRate" placeholder="할인율" onchange="calculate()" disabled>
-                            <label for="discountRate">할인율 (숫자만 입력)</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating my-2">
-                            <input type="text" class="form-control text-end"
-                                   id="finalPrice" placeholder="할인 적용가" disabled readonly>
-                            <label for="finalPrice">할인 적용가</label>
-                        </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-md">
+                    <div class="form-floating my-2">
+                        <select name="fsize" class="form-select" id="itemSize" aria-label="itemSize">
+                            <option selected>Size Options</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                        <label for="itemSize">꽃다발 사이즈</label>
                     </div>
                 </div>
-            </div> <!-- inputs-wrap 닫기 -->
-
-
-            <!-- 3. 상품 상세페이지 등록 (텍스트 에디터) -->
-            <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
-                3. 상세 정보
-            </div>
-            <div class="text-editor-wrap d-flex justify-content-center mx-auto">
-                <div class="col-12">
-                    <label class="form-label description text-danger" for="content">
-                        * 고객의 이해를 돕기 위해 상품 상세정보와 이미지를 함께 등록해주세요
-                    </label>
-                    <textarea name="content" id="content"></textarea>
+                <div class="col-md">
+                    <div class="form-floating my-2">
+                        <input type="text" name="price" class="form-control text-end"
+                               id="itemPrice" placeholder="가격" onchange="calculate()">
+                        <label for="itemSubheader">상품 가격</label>
+                    </div>
                 </div>
             </div>
+            <div class="row g-3">
+                <div class="options-label col-md-2 d-flex flex-column justify-content-center">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="freeDelivery"
+                               id="freeDelivery" value="1"
+                               onclick="changeBg(this)">
+                        <label class="form-check-label" for="freeDelivery">무료배송</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="discount"
+                               onclick="enableDiscountRateInput(this); changeBg(this)">
+                        <label class="form-check-label" for="discount">할인 적용하기</label>
+                    </div>
+                </div>
 
-            <div class="d-flex justify-content-center my-lg-5">
-                <input type="button" value="등록하기" class="btn btn-lg btn-dark py-lg-3 px-lg-5"
-                       onclick="goInsert(this.form)">
-                <input type="button" value="이전으로" class="btn btn-lg btn-secondary py-lg-3 px-lg-5 ms-3"
-                       onclick="history.back()">
+                <div class="col-md-4">
+                    <div class="form-floating my-2">
+                        <input type="number" max="50" class="form-control" name="discountRate"
+                               id="discountRate" placeholder="할인율" onchange="calculate()" disabled>
+                        <label for="discountRate">할인율 (숫자만 입력)</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating my-2">
+                        <input type="text" class="form-control text-end"
+                               id="finalPrice" placeholder="할인 적용가" disabled readonly>
+                        <label for="finalPrice">할인 적용가</label>
+                    </div>
+                </div>
             </div>
-        </form>
-    </div>  <!-- container 닫기 -->
+        </div> <!-- inputs-wrap 닫기 -->
 
-    <%@ include file="../main/b_footer.jspf"%>
+
+        <!-- 3. 상품 상세페이지 등록 (텍스트 에디터) -->
+        <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
+            3. 상세 정보
+        </div>
+        <div class="text-editor-wrap d-flex justify-content-center mx-auto">
+            <div class="col-12">
+                <label class="form-label description text-danger" for="content">
+                    * 고객의 이해를 돕기 위해 상품 상세정보와 이미지를 함께 등록해주세요
+                </label>
+                <textarea name="content" id="content"></textarea>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center my-lg-5">
+            <input type="button" value="등록하기" class="btn btn-lg btn-dark py-lg-3 px-lg-5"
+                   onclick="goInsert(this.form)">
+            <input type="button" value="이전으로" class="btn btn-lg btn-secondary py-lg-3 px-lg-5 ms-3"
+                   onclick="history.back()">
+        </div>
+    </form>
+</div>  <!-- container 닫기 -->
+
+<%@ include file="../main/b_footer.jspf"%>
 
 <script>
     /* 업로드한 이미지 미리보기 */

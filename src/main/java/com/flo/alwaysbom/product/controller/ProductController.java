@@ -1,19 +1,17 @@
 package com.flo.alwaysbom.product.controller;
 
-import com.flo.alwaysbom.product.service.ProductServiceImpl;
+import com.flo.alwaysbom.product.service.ProductService;
 import com.flo.alwaysbom.product.vo.ProductVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductServiceImpl productService;
+    private final ProductService productService;
 
     @GetMapping("/product")
     public String getList(Model model) {

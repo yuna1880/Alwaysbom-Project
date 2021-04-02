@@ -30,7 +30,7 @@
             <div class="mb-4">
                 <img src="${flowerVo.image1}" alt="대표 썸네일" class="col-12">
             </div>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex">
                 <img src="${flowerVo.image1}" alt="썸네일1" class="col-4 pe-2">
                 <c:if test="${not empty flowerVo.image2}">
                 <img src="${flowerVo.image2}" alt="썸네일2" class="col-4 ps-1 pe-1">
