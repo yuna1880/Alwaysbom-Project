@@ -46,21 +46,23 @@ public class MemberController {
     }
 
     @PostMapping("/loginMember")
-    public String loginProc(@RequestParam String id, @RequestParam String pw, Model model){
+    public String loginProc(@RequestParam String id, @RequestParam String pw, Model model) throws Exception {
         System.out.println("아이디 : " + id + ", 패스워드 : " + pw);
 
         MemberVO member = new MemberVO();
         member.setId(id);
         member.setPw(pw);
+        member = memberService.login(member);
 
         model.addAttribute("member", member);
         return "redirect:/";
     }
     @RequestMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, Model model) {
         System.out.println(">>> 로그아웃 - logout()");
         //1.세션 초기화(세션 객체 종료)
         session.invalidate();
+        model.addAttribute("member", null);
 
         return "member/login";
     }

@@ -19,7 +19,7 @@ public class MemberDAO{
     }
 
     public MemberVO login(MemberVO memberVO) throws Exception {
-        return sessionTemplate.selectOne("Member.Login", memberVO);
+        return sessionTemplate.selectOne("member.Login", memberVO);
     }
 
     public void logout(HttpSession session){
