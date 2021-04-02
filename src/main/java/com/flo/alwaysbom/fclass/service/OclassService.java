@@ -31,4 +31,8 @@ public class OclassService {
     public ScheduleVo findByIdx(Integer scheduleIdx) {
         return oclassDao.findByIdx(scheduleIdx);
     }
+
+    public List<OclassVo> findByMemberId(String id) {
+        return oclassDao.findByMemberId(id);
+    }
 }

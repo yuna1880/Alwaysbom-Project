@@ -144,9 +144,10 @@ public class CartVo {
 
         try {
             if (choices != null) {
-                for (ChoiceVo choice : choices) {
-                    totalPrice += choice.getProductVo().getFinalPrice() * choice.getQuantity();
-                }
+                totalPrice += choices
+                        .stream()
+                        .mapToInt(choice -> choice.getProductVo().getFinalPrice() * choice.getQuantity())
+                        .sum();
             }
         } catch (NullPointerException e) {
             System.out.println("choice 해당 상품 vo가 존재하지 않습니다");

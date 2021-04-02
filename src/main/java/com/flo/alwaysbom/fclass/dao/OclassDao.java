@@ -31,4 +31,8 @@ public class OclassDao {
     public ScheduleVo findByIdx(Integer scheduleIdx) {
         return sqlSessionTemplate.selectOne("schedule.findByIdx", scheduleIdx);
     }
+
+    public List<OclassVo> findByMemberId(String id) {
+        return sqlSessionTemplate.selectList("oclass.findByMemberId", id);
+    }
 }
