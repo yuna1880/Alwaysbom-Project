@@ -163,7 +163,7 @@ span.unknow_noti {
 }
 
 .image_size {
-    width: 160px; height: 130px;
+    width: 140px; height: 140px;
     border: 1px solid #dedede;
     float: left;
 }
@@ -234,16 +234,6 @@ span.unknow_noti {
 .photo {
     width: 160px; height: 130px;
 }
-
-.image_size {
-    width: 160px; height: 130px;
-    border: 1px solid #dedede;
-    float: left;
-}
-
-
-
-
 
 /* 기존 꾸까 스타일 */
 

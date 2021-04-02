@@ -74,7 +74,7 @@
                     <form class="flower_letter">
                     <div id="letterbox-wrapper">
 <%--                     <input type="hidden" name="cart_idx" value="${oitem.idx}">--%>
-                         <input type="text" name="list_idx" value="${status.index}">
+                         <input type="hidden" name="list_idx" value="${status.index}">
                         <div id="letter_product" class="letterbox">
                             <div class="letter">
                                 <div class="select_letter">
@@ -105,7 +105,7 @@
                                             <span class="noti">* 붙여넣기 시용시 편지가 입력 되지 않습니다.</span>
                                     </div>
                                     <div class="preview_letter">
-                                        <textarea data-preview-index="${status.index}" id="preview" class="text" readonly></textarea>
+                                        <div data-preview-index="${status.index}" id="preview" class="text" readonly></div>
                                         <span class="noti">* 실제 편지지 모습입니다. 최대 8줄까지만 인쇄됩니다.</span>
                                     </div>
                                 </div>
