@@ -2,7 +2,7 @@ package com.flo.alwaysbom.member.vo;
 
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Getter
 @Setter

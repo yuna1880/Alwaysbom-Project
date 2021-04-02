@@ -4,6 +4,7 @@ import com.flo.alwaysbom.member.dao.MemberDAO;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ public class MemberService{
     private final MemberDAO dao;
 
     public void insertMember(MemberVO memberVO) {
+
         dao.insertMember(memberVO);
     }
 
@@ -21,8 +23,10 @@ public class MemberService{
         return dao.login(memberVO);
     }
 
-    public void logout(HttpSession session) {
+    public void logout(HttpSession session, Model model) {
         session.invalidate();
+        model.addAttribute("member", null);
+
     }
 }
 

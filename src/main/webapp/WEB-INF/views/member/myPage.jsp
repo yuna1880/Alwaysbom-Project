@@ -57,7 +57,7 @@
         <div class="col-2"></div>
         <div class="col-10 d-flex justify-content-center px-3 pt-4">
             <span class="h3 col-11 d-flex justify-content-start text-secondary">
-                <span class="name name-color">이다솜</span>
+                <span class="name name-color">${sessionScope.member.name}</span>
                 님, 환영합니다. 언제나 늘 새로운 꽃이 가득한 새늘봄입니다-
             </span>
         </div>
