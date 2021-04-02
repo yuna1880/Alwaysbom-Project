@@ -195,7 +195,7 @@
         location.href = "/admin/fclass/branch";
     }
 
-    function preview(image) {
+    function preview(file) {
         let img = document.querySelector("#preImg");
 
         let reader = new FileReader();
@@ -203,7 +203,7 @@
             img.setAttribute("src", e.target.result.toString());
             img.classList.remove("invisible");
         }
-        reader.readAsDataURL(image.files[0]);
+        reader.readAsDataURL(file.files[0]);
     }
 </script>
 </body>
