@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -90,11 +89,11 @@ public class FclassController {
         System.out.println("regCount = " + regCount);
         System.out.println("memberVO = " + memberVO);
 
-        return "/fclass/m_payment";
+        return "/fclass/payment";
     }
 
     @PostMapping ("/fclass/completePayment")
-    public String completePayment(Integer scheduleIdx, OclassVo ovo) {
+    public String completePayment(Integer scheduleIdx, OclassVo ovo, Model model) {
         // @RequestParam("pay-type") String payType, Integer payTotal, String payDate, Integer discountGrade, Integer discountPoint, Model model
         System.out.println("ovo = " + ovo);
 
@@ -138,8 +137,9 @@ public class FclassController {
         }
 
         oclassService.addOclass(ovo);
+        model.addAttribute("order", ovo);
         //System.out.println("regCount = " + regCount + "payType = " + payType + "payTotal = " + payTotal + "payDate = " + payDate + "discountGrade = " + discountGrade + "discountPoint = " + discountPoint);
 
-        return "/fclass/completePayment";
+        return "/fclass/h_completePayment";
     }
 }
