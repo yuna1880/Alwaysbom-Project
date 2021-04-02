@@ -220,8 +220,8 @@
 
     /* 꽃다발 상품 수량 증감 */
     function adjustQuantity(isUp) {
-        const quantityEl = document.querySelector(".quantity");
-        let quantity = quantityEl.textContent;
+        const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
+        let quantity = flowerQuantityEl.textContent;
         if (isUp) {
             quantity++;
         } else {
@@ -229,9 +229,34 @@
                 quantity--;
             }
         }
-        quantityEl.textContent = quantity;
+        flowerQuantityEl.textContent = quantity;
         configTotal();
     }
+
+    function adjustOptionQuantity(isUp, btn) {
+        const optionPriceEl = btn.parentElement.nextElementSibling;
+        let optionOriginalPrice = Number(optionPriceEl.dataset.optprice);
+        let quantity;
+        if (isUp) {
+            quantity = btn.previousElementSibling.textContent;
+            quantity++;
+            btn.previousElementSibling.textContent = quantity;
+        } else {
+            quantity = btn.nextElementSibling.textContent;
+            if (quantity > 1) {
+                quantity--;
+                btn.nextElementSibling.textContent = quantity;
+            }
+        }
+        let finalOptionPrice = optionOriginalPrice * quantity;
+        optionPriceEl.textContent = finalOptionPrice.toLocaleString('ko-KR') + "원";
+    }
+
+    function getOptionFinalPrice() {
+
+    }
+
+
 
     /* letterPriceBox 닫기 버튼 눌렀을 때 */
     function closeLetter() {
@@ -245,20 +270,19 @@
         const flowerFinalPriceEl = document.querySelector("[data-flower-finalPrice]");
         const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
         const letterPriceEl = document.querySelector("[data-letter-price]");
-        const optionPriceEl = document.querySelectorAll("[data-option-price]");
+        const optionPriceEl = document.querySelectorAll("[data-optprice]");
 
-        let flowerFinalPrice = flowerFinalPriceEl.textContent.trim().replace("원", "").replace(",", "");
+        let flowerFinalPrice = flowerFinalPriceEl.textContent.trim().replace("원", "").replaceAll(",", "");
         let flowerQuantity = flowerQuantityEl.textContent;
-        let letterPrice = letterPriceEl.textContent.trim().replace("원", "").replace(",", "");
+        let letterPrice = letterPriceEl.textContent.trim().replace("원", "").replaceAll(",", "");
         let totalPrice = flowerFinalPrice * flowerQuantity;
 
         if (optionPriceEl) {
             for (let i = 0; i < optionPriceEl.length; i++) {
-                let optionPrice = optionPriceEl[i].textContent.trim().replace("원", "").replace(",", "");
+                let optionPrice = optionPriceEl[i].textContent.trim().replace("원", "").replaceAll(",", "");
                 totalPrice += Number(optionPrice);
             }
         }
-
         if (letterOptionsEl[0].checked) {
             totalPrice += Number(letterPrice);
         }
@@ -326,18 +350,53 @@
         let newDiv = document.createElement("div");
 
         newDiv.className =  "option-price-box p-4 mx-2 mb-3 price-box";
+        newDiv.setAttribute("data-productidx", pvo.idx);
         newDiv.innerHTML =  "<div class='d-flex justify-content-between pb-1'>"
-                            + "<input type='hidden' name='option-idx' value='" + pvo.idx + "'>"
                             + "<span class='fw500'>추가상품 : " + pvo.name + "</span>"
                             + "<button type='button' class='btn-close btn-close-style' "
                             + "onclick='deleteOption(this)'></button></div>"
-                            + "<div class='d-flex justify-content-end'>"
-                            + "<span class='fw500' data-option-price>" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
+                            + "<div class='d-flex justify-content-between'>"
+                            + "<div class='col-3 count d-flex justify-content-between align-items-center'>"
+                            + "<button type='button' class='border-0 bg-transparent' onclick='adjustOptionQuantity(false, this)'>"
+                            + "<i class='fas fa-minus-circle'></i></button>"
+                            + "<span class='quantity col-1 text-center'>1</span>"
+                            + "<button type='button' class='border-0 bg-transparent' onclick='adjustOptionQuantity(true, this)'>"
+                            + "<i class='fas fa-plus-circle'></i></button></div>"
+                            + "<span class='fw500' data-optprice=" + pvo.finalPrice + ">" + pvo.finalPrice + "</span>"
                             + "</div>";
-
-        // 이미 만들어진 애들 중에 동일 인덱스 있나 보고, 있으면 기존것에 수량만 합치고 없으면 따로 추가
-
         priceBoxWrap.appendChild(newDiv);
+        // 이미 만들어진 애들 중에 동일 인덱스 있나 보고, 있으면 기존것에 수량만 합치고 없으면 따로 추가
+        // const optionsEl = document.querySelectorAll(".option-price-box");
+        // if (optionsEl) {
+        //     for (let i = 0; i < optionsEl.length; i++) {
+        //         let productIdx = Number(optionsEl[i].dataset.productidx);
+        //         if (pvo.idx === productIdx) {
+        //             console.log("pvo.idx= " + pvo.idx + ", productidx= " + productIdx);
+        //             console.log("중복값이 존재합니다.");
+        //             let newQuantity = optionsEl[i].querySelector(".quantity").textContent++;
+        //             optionsEl[i].querySelector("[data-optprice]").textContent = pvo.finalPrice * newQuantity;
+        //
+        //         } else {
+        //             console.log("pvo.idx= " + pvo.idx + ", productidx= " + productIdx);
+        //             console.log("중복값 없음");
+        //             optionsEl[i].querySelector("[data-optprice]").textContent
+        //             priceBoxWrap.appendChild(newDiv);
+        //         }
+        //     }
+        // }
+    // .toLocaleString('ko-KR') + "원
+
+        //
+        // if (!productIdxes) {
+        //     for (let i = 0; i < productIdxes.length; i++) {
+        //         if (pvo.idx == productIdxes[i].value) {
+        //             console.log("idx값이 같은 상품이 이미 존재합니다.");
+        //         }
+        //     }
+        // }
+
+
+        // priceBoxWrap.appendChild(newDiv);
     }
 
     function deleteOption(closeBtn) {
@@ -350,6 +409,7 @@
     /* 장바구니 보내기 */
     function addCart(frm) {
         const inputsEl = document.getElementsByTagName("input");
+        const optionItemEl = document.querySelectorAll("[data-option-item]");
         const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
         let letterStatus;
 
