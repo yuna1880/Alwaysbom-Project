@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div>
-    <h1>내 주문내역입니다</h1>
+    <h1 class="hanadul">내 주문내역입니다</h1>
     <h1>heheheheh</h1>
     <hr>
     <ul>
