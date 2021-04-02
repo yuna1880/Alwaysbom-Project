@@ -96,6 +96,7 @@
                             </div>
                         </div>
 
+
                         <div>
                             <div class="row row-cols-5 mx-auto bottom-line accoque reBoard nopadding">
                                 <span class="text-center col-2 nopadding">
