@@ -11,11 +11,11 @@
 <%--                <c:if test="${sessionScope.member.id != null}"><a href="/logout">로그아웃</a></c:if>--%>
 <%--                <c:if test="${sessionScope.member.id == null}"><a href="/memberLogin">로그인</a></c:if>--%>
                 <c:choose>
-                    <c:when test="${sessionScope.member.id == null}">
+                    <c:when test="${sessionScope.member == null}">
                         <a href="/memberLogin">로그인</a>
                     </c:when>
                     <c:otherwise>
-                        ${sessionScope.member.id}님 반갑습니다.
+                        ${sessionScope.member.name}님 반갑습니다.
                         <a href="/logout">로그아웃</a>
                     </c:otherwise>
                 </c:choose>
