@@ -10,8 +10,8 @@
     </insert>
 
     <!-- 로그인 -->
-    <select id="Login" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultType="Int">
-        SELECT COUNT(*)
+    <select id="Login" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultType="com.flo.alwaysbom.member.vo.MemberVO">
+        SELECT *
         FROM MEMBER
         WHERE ID = #{id}
           AND PW = #{pw}
