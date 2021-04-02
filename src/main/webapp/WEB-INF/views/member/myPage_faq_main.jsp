@@ -111,7 +111,7 @@
             <div class="col-12">
                 <div class="h5 col-12 d-flex flex-column text-secondary">
                     <div class="d-flex">
-                        <span class="fw-bold name-color">이다솜</span>
+                        <span class="fw-bold name-color">${sessionScope.member.name}</span>
                         <span>님의 문의 내역입니다.</span>
                         <hr>
                     </div>
