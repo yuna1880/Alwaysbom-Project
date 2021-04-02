@@ -75,7 +75,7 @@
                     <a href="" class="link-secondary">정기 구독</a>
                 </li>
                 <li class="list-group-item list-group-item-white">
-                    <a href="" class="link-secondary">수강 내역</a>
+                    <a href="" class="link-secondary" onclick="goMyClassList(event)">수강 내역</a>
                 </li>
                 <li>
                     <hr>
@@ -107,12 +107,21 @@
             </ul>
         </div>
         <div class="col-10 border-info d-flex justify-content-center p-4">
-            <div class="col-12">
+            <div class="col-12" id="contentPane">
                 <img src="/static/image/mypageMain_flower.jpg" alt="메인페이지 꽃 사진" class="w-100">
             </div>
         </div>
     </div>
 </div>
 <%@ include file="../main/footer.jspf" %>
+<script>
+    async function goMyClassList(e) {
+        e.preventDefault();
+        let $contentPane = document.querySelector("#contentPane");
+
+        let response = await fetch("/fclass/myClassList")
+        $contentPane.innerHTML = await response.text();
+    }
+</script>
 </body>
 </html>

@@ -35,6 +35,15 @@ public class FclassController {
         return "fclass/b_detail";
     }
 
+    @GetMapping("/fclass/myClassList")
+    public String goMyClassList(Model model) {
+        MemberVO memberVO = new MemberVO();
+        memberVO.setId("minho1030@naver.com");
+        List<OclassVo> list = oclassService.findByMemberId(memberVO.getId());
+        model.addAttribute("list", list);
+        return "member/my_class_list";
+    }
+
     @GetMapping("/fclass/classList")
     public String goList(Model model) {
         List<FclassVo> classList = fclassService.findAll();

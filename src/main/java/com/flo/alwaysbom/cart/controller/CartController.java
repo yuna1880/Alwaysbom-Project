@@ -28,7 +28,11 @@ public class CartController {
             memberId = "test";
         }
         List<CartVo> list = cartService.findCartsByMember(memberId);
+
+        int totalSum = list.stream().mapToInt(CartVo::getTotalPrice).sum();
+
         model.addAttribute("list", list);
+        model.addAttribute("totalSum", totalSum);
         return "cart/list";
     }
 
