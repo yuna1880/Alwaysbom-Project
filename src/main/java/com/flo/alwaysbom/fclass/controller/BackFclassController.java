@@ -147,6 +147,8 @@ public class BackFclassController {
     @PostMapping("admin/fclass/api/updateBranch")
     @ResponseBody
     public BranchVo updateBranch(BranchVo vo, MultipartFile file) throws IOException {
+        System.out.println("vo = " + vo);
+        System.out.println("file = " + file);
         vo.setMapImage(fileHandler.uploadFile(file, vo.getMapImage(), "fclass/branch"));
         branchService.updateBranch(vo);
         return vo;

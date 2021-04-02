@@ -196,7 +196,7 @@
     }
 
     function preview(file) {
-        let img = document.querySelector("#preImg");
+        let img = file.form.querySelector(".imageBox");
 
         let reader = new FileReader();
         reader.onload = function(e) {
