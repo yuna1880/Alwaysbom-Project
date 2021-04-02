@@ -137,7 +137,7 @@
             </ul>
             <div class="col-12 d-flex justify-content-end pt-4 border-1 border-top" style="border-color: rgba(0, 0, 0, .25) !important">
                 <div class="col-3">
-                    <button type="button" class="col-12 btn-pay bg-pay py-3" onclick="goPay()">결제</button>
+                    <button type="button" id="submitBtn" class="col-12 btn-pay bg-pay py-3" onclick="goPay()">결제</button>
                 </div>
             </div>
         </form>
