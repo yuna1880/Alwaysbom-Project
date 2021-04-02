@@ -2,11 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <html>
 <head>
     <title>새늘봄 - checkout</title>
     <%@ include file="../main/import.jspf"%>
     <link rel="stylesheet" href="/static/css/order/orderstyle.css">
+    <style>
+        #finalPrice {
+            outline: none;
+            cursor: initial;
+        }
+    </style>
 </head>
 <script>
     window.onload = function () {
@@ -32,9 +39,9 @@
             document.getElementById('mootong').style.display = 'none';
         }
         function Point() {
-            //let availablePoint = document.querySelector('#available_point');
             let inputPoint = document.querySelector('#input_my_point');
             let usePoint = document.querySelector('#pointHere');
+            let $discountPoint = document.querySelector("#pointHere + input");
             let finalPrice = document.querySelector('#finalPrice');
             let originalPrice = finalPrice.getAttribute('data-original-price');
             let discountPoint;
@@ -44,14 +51,15 @@
             } else {
                 discountPoint = 0;
             }
-            usePoint.textContent = '-' + discountPoint + '원';
+            usePoint.textContent = '- ' + discountPoint.toLocaleString('ko-KR') + '원';
+            $discountPoint.value = discountPoint;
             let finalAmount = originalPrice - discountPoint;
-            finalPrice.textContent = finalAmount.toLocaleString('ko-KR') + "원";
+            finalPrice.value = finalAmount.toLocaleString('ko-KR') + "원";
         }
         function compareWithPoint(point) {
             //사용자가 입력한 포인트가 현재 포인트보다 크면?..
-            if (point.value > ${point}) {
-                alert("회원님께서 사용 가능한 포인트는 <fmt:formatNumber value="${point}" pattern="#,###"/> 입니다.")
+            if (point.value > ${member.point}) {
+                alert(${member.name}"회원님께서 사용 가능한 포인트는 <fmt:formatNumber value="${member.point}" pattern="#,###"/> 입니다.")
                 point.value="";
             }
 
@@ -64,9 +72,9 @@
     <div class="checkout_wrap">
         <div class="navi" tabindex="-1">
             <ol class="process">
-                <div class="step"><span class="order"><b>1</b><span class="desc">편지 추가</span></span></div>
-                <div class="step"><span class="order"><b>2</b><span class="desc">주소 입력</span></span></div>
-                <div class="step current"><span class="order"><b>3</b><span class="desc">결제</span></span></div>
+                <li class="step"><span class="order"><b>1</b><span class="desc">편지 추가</span></span></li>
+                <li class="step"><span class="order"><b>2</b><span class="desc">주소 입력</span></span></li>
+                <li class="step current"><span class="order"><b>3</b><span class="desc">결제</span></span></li>
             </ol>
         </div>
 
@@ -75,9 +83,9 @@
             <div class="step" id="okCheckout">
 
                 <!-- 폼 시작-->
-                <form action="" method="post">
+                <form action="/order/complete" method="post">
                     <input type="hidden" name="orderIdx" value="">
-                <div class="infomation_box">
+                <div class="information_box">
                     <div class="checkout_finals">
                         <div class="check_row"><span class="label">마지막으로 다시 한 번 주문내역을 확인해보세요.</span></div>
 
@@ -90,17 +98,24 @@
                             <div class="cartlist_wrap">
                                 <div id="cartlist_wrapper_final">
                                     <div id="cartlist_wrapper" class="cartlist_wrap">
-                                            <c:set var="total" value="0"/>
                                             <!-- 담은 수만큼 생성 -->
                                             <c:forEach var="oitem" items="${oitemList}">
                                             <div class="item">
                                                 <h4 class="delivery_date">
                                                     <span class="label">수령일</span>
-                                                    <span class="val">${oitem.requestDate}</span>
+                                                        <c:if test="${oitem.category eq '정기구독'}">
+                                                            <span class="val">첫번째 수령일</span>
+                                                            <span class="val">${oitem.osubsList.get(1).deliveryDate}</span>
+                                                            <br>
+                                                            <span class="val">[${oitem.osubsList.get(1).month}개월 구독]</span>
+
+                                                        </c:if>
+                                                        <c:if test="${oitem.category ne '정기구독'}">
+                                                            <span class="val">${oitem.requestDate}</span>
+                                                        </c:if>
                                                 </h4>
                                                 <h5 class="delivery_title">
                                                     <span class="label">상품명</span>
-                                                    <span class="val">${oitem.name}</span>
                                                 </h5>
                                                 <div class="delivery_goods">
                                                     <div class="row">
@@ -112,7 +127,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div class="detail">
-                                                                    <span class="content_category"></span>
+                                                                    <span class="content_category">[${oitem.category}]</span>
                                                                     <span class="name">${oitem.name}</span>
                                                                     <div class="option">
                                                                         <span class="l"><span class="label"><i>수량 : ${oitem.quantity}</i></span></span>
@@ -137,9 +152,9 @@
                                                             </div>
                                                         </div>
                                                         <div class="list_good_price">
-                                                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${oitem.price}" var="commaPrice"/>
-                                                            <c:set var="totals" value="${totals + oitem.price}"/>
-                                                            <span class="price">${commaPrice} 원</span>
+                                                            <span class="price">
+                                                                <fmt:formatNumber value="${oitem.price}" pattern="#,### 원"/>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -149,6 +164,7 @@
                                 </div>
                             </div>
                         </div>
+
     <!---------------------------------------------- 주소입력부분 ------------------------------------------------------->
 
                         <div class="check_row under"><span class="label">배송 주소</span></div>
@@ -156,21 +172,21 @@
                             <tbody>
                             <tr>
                                 <td><span class="detail"><span class="th">수령인 이름</span><span class="td">
-                                    <input readonly type="text" value="${orderList.receiverName}"></span></span></td>
+                                    <input readonly type="text" value="${ordersVo.receiverName}"></span></span></td>
                                 </tr>
                             <tr>
                                 <td><span class="detail"><span class="th">수령인 연락처</span><span class="td">
-                                    <input readonly type="text" value="${orderList.receiverPhone}"></span></span></td>
+                                    <input readonly type="text" value="${ordersVo.receiverPhone}"></span></span></td>
                                 </tr>
                             </tbody>
                         </table>
 
                         <div class="check_unknow">
                             <span class="label">익명처리여부</span>
-                            <c:if test="${empty orderList.senderName}">
+                            <c:if test="${empty ordersVo.senderName}">
                                 <span class="val">익명배송</span>
                             </c:if>
-                            <c:if test="${not empty orderList.senderName}">
+                            <c:if test="${not empty ordersVo.senderName}">
                                 <span class="val">실명배송</span>
                             </c:if>
                         </div>
@@ -185,8 +201,8 @@
                                                name="point" id="input_my_point" value="0" autocomplete="off">
                                         <button type="button" class="btns add" onclick="Point()">사용</button>
                                         <span class="text">* 사용 가능 포인트:
-                                            <fmt:formatNumber value="${point}" pattern="#,###"/>원</span>
-                                        <input type="hidden" id="available_point" value="${point}"/>
+                                            <fmt:formatNumber value="${member.point}" pattern="#,###"/>원</span>
+                                        <input type="hidden" id="available_point" value="${member.point}"/>
                                     </span>
                                     </span>
                                 </td>
@@ -196,32 +212,29 @@
                         <div class="check_row_table">
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    상품<span>+ <fmt:formatNumber value="${totals}" pattern="#,###"/> 원</span>
+                                    상품<span><fmt:formatNumber value="${orderPrice.totalPrice}" pattern="+ #,### 원"/></span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    배송비
-                                    <c:if test="${totals < 30000}">
-                                        <c:set var="deliveryFee" value="3000"/>
-                                        <span>+3,000 원</span>
-                                    </c:if>
-                                    <c:if test="${totals >= 30000}">
-                                        <c:set var="deliveryFee" value="0"/>
-                                        <span>무료배송</span>
-                                    </c:if>
-                                    <c:set var="finalPrice" value="${totals + deliveryFee}"/>
+                                    배송비<span>${orderPrice.deliveryString}</span>
+                                    <input type="hidden" name="payDelivery" value="${orderPrice.deliveryFee}">
                                 </li>
                                 <li id="discountPoint" class="list-group-item d-flex justify-content-between align-items-center">
-                                    포인트할인<span id="pointHere">-<fmt:formatNumber type="number" maxFractionDigits="3" value="0" pattern="#,###"/> 원</span>
+                                    포인트할인<span id="pointHere">-0 원</span>
+                                    <input type="hidden" name="discountPoint" value="0">
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    등급할인<span>-0 원</span>
+                                    등급할인<span><fmt:formatNumber value="${orderPrice.discountGradePrice}" pattern="- #,###원"/></span>
+                                    <input type="hidden" name="discountGrade" value="${orderPrice.discountGradePrice}">
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center"
                                     id="total_color">
                                     <strong class="total_color">총 결제금액</strong>
-                                    <strong id="finalPrice" class="total_color" name="payTotal" data-original-price="${finalPrice}">
-                                        <fmt:formatNumber value="${finalPrice}" pattern="#,###"/>원
-                                    </strong>
+                                    <input type="text" name="finalPrice" id="finalPrice" readonly
+                                            class="total_color bg-transparent border-0 text-end"
+                                            data-original-price="${orderPrice.finalPrice}"
+                                           value="<fmt:formatNumber value='${orderPrice.finalPrice}' pattern='#,###원'/>">
+                                    <!-- db저장용 -->
+                                    <input type="hidden" name="payTotal" value="${orderPrice.finalPrice}">
                                 </li>
                             </ul>
                         </div>
@@ -356,9 +369,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="complete"><button type="button" class="info_btn next" id="purchase_submit"><span>결제 하기</span>
-                    </button><button type="button" class="info_btn back" onclick="history.back()">
-                        <span>이전 단계로</span></button>
+                    <div class="complete">
+                        <button type="submit" class="info_btn next" id="purchase_submit">결제 하기</button>
+                        <button type="button" class="info_btn back" onclick="history.back()">이전 단계로</button>
                     </div>
                 </div>
                 </form>

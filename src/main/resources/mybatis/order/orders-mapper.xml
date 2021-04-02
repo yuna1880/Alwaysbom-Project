@@ -15,11 +15,23 @@
         SELECT POINT FROM MEMBER WHERE ID = #{id}
     </select>
 
+
     <insert id="insertOrder" parameterType="com.flo.alwaysbom.order.vo.OrdersVo">
-
-
+        INSERT INTO ORDERS
+        VALUES(NULL, #{memberId}, SYSDATE, #{receiverName}, #{receiverPhone}, #{receiverZipcode}, #{receiverAddrBase},
+                    #{receiverAddrDetail}, #{receiverAddrExtra}, #{senderName}, #{payType}, #{payTotal}, #{payDelivery},
+                    SYSDATE, #{discountGrade}, #{discountPoint})
+        <selectKey keyProperty="idx" order="AFTER" resultType="int">
+            SELECT ORDERS_SEQ.CURRVAL FROM DUAL
+        </selectKey>
     </insert>
 
-
-
+    <insert id="insertOitem" parameterType="com.flo.alwaysbom.order.vo.OitemVo">
+        INSERT INTO OITEM VALUES(NULL, #{ordersIdx}, #{letterContent}, #{name}, #{price},
+                                 #{options}, #{image}, #{status}, #{requestDate},
+                                 #{deliveryStartDate}, #{category}, #{reviewCheck}, #{quantity})
+        <selectKey keyProperty="idx" order="AFTER" resultType="int">
+            select OITEM_SEQ.currval from dual
+        </selectKey>
+    </insert>
 </mapper>

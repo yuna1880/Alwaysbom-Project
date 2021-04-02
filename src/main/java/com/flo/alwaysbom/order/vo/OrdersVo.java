@@ -2,6 +2,8 @@ package com.flo.alwaysbom.order.vo;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -27,7 +29,5 @@ public class OrdersVo {
 
     //비즈니스 로직 관련 데이터..
     private boolean saveAddress;
-
-
-
+    private List<OitemVo> olist;
 }
