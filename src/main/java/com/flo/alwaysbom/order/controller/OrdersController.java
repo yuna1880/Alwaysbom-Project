@@ -45,15 +45,6 @@ public class OrdersController {
         System.out.println("oitemList : " + list);
         model.addAttribute("oitemList", list);
 
-        // 리스트 idx로 해당 값 꺼내는 방법!!
-//        System.out.println(list.get(0).getName());
-//        System.out.println(list.get(1).getName());
-//        System.out.println(list.get(2).getName());
-
-//        Iterator<OitemVo> iter = list.iterator();
-//        while(iter.hasNext()){
-//            System.out.println("iter.next() = " + iter.next());
-//        }
         return "order/letter";
     }
 
@@ -133,18 +124,9 @@ public class OrdersController {
             ordersService.saveDelivery(ordersVo);
         }
 
-        return null;
+        return "/order/order_ok";
     }
 
-
-
-
-    //세션 예시
-    @GetMapping("/order/sessionExample")
-    public String sessionExample(@ModelAttribute("orderList") List<CartVo> list) {
-        System.out.println("list = " + list);
-        return "order/letter";
-    }
 
 
 }

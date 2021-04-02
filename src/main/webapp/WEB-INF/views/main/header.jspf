@@ -33,7 +33,7 @@
             </div>
             <ul class="h-menu-wrap d-flex justify-content-end my-auto">
                 <li class="h-menu ${typePath eq '/community' ? 'menu-active' : ''}">
-                    <a href="#" id="subs">꽃 정기구독</a>
+                    <a href="/subs" id="subs">꽃 정기구독</a>
                     <div class="under-bar" id="under-bar1"></div>
                 </li>
                 <li class="h-menu ms-3 ${typePath eq '/flower' ? 'menu-active' : ''}">
