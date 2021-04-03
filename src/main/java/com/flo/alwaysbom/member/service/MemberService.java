@@ -28,5 +28,9 @@ public class MemberService{
         model.addAttribute("member", null);
 
     }
+    //아이디 중복 확인
+    public MemberVO CheckId(String id) throws Exception {
+        return dao.CheckId(id);
+    }
 }
 

@@ -5,6 +5,7 @@
     <%@ include file="../main/import.jspf"%>
     <link href="/static/css/member/member_join.css" rel="stylesheet">
     <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
         Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");
@@ -51,7 +52,7 @@
                                         <div class="td">
                                             <span>
                                                 <input type="text" name="id" value="${kakao_id}" class="ipt chk" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
-                                                <span class="check_font" id="id_check"></span>
+                                                <button type="button" class="CheckId">중복 확인</button>
                                             </span>
                                         </div>
                                     </div>
@@ -136,6 +137,28 @@
         <%@ include file="../main/footer.jspf"%>
     </div>
 </body>
+<script>
+    $(".CheckId").click(function (){
+        var query = {id : $("#id").val()};
+
+        $.ajax({
+            url: "/member/CheckId",
+            type: "POST",
+            data: query, //서버로부터 내가 받는 데이터의 타입
+
+            success: function(data){
+                if(data == 0){
+                    console.log("아이디 없음");
+                    alert("사용하실 수 있는 아이디입니다.");
+                }else{
+                    console.log("아이디 있음");
+                    alert("중복된 아이디가 존재합니다.");
+                }
+            }
+        });
+    });
+
+</script>
 </html>
 <style>
     .btn-gender,
