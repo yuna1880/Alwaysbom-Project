@@ -14,6 +14,11 @@ public class ProductDao {
 
     private final SqlSessionTemplate sqlSessionTemplate;
 
+    public ProductVo addProduct(ProductVo vo) {
+        sqlSessionTemplate.insert("PRODUCT.addProduct", vo);
+        return vo;
+    }
+
     public List<ProductVo> findAll() {
         return sqlSessionTemplate.selectList("PRODUCT.findAll");
     }
@@ -24,6 +29,15 @@ public class ProductDao {
 
     public Optional<ProductVo> findByIdx(Integer idx) {
         return Optional.ofNullable(sqlSessionTemplate.selectOne("PRODUCT.findByIdx", idx));
+    }
+
+    public int updateProduct(ProductVo vo) {
+        sqlSessionTemplate.update("PRODUCT.updateProduct", vo);
+        return vo.getIdx();
+    }
+
+    public int deleteProduct(Integer idx) {
+        return sqlSessionTemplate.update("PRODUCT.deleteProduct", idx);
     }
 
 }

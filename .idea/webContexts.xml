@@ -6,6 +6,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/community/review.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/community" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/coupon/list.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/coupon" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fclass/b_manageSchedule.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fclass" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower/flowerDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower/list.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main/header.jspf" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/myPage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
