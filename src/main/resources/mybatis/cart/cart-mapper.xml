@@ -51,7 +51,7 @@
 
     <select id="findCartsByMember" parameterType="string" resultMap="CartVo">
         SELECT * FROM CART
-        where MEMBER_ID = #{memberId}
+        where MEMBER_ID = #{memberId} and (SUBS_IDX is not null or FLOWER_IDX is not null or PRODUCT_IDX is not null)
         order by CASE WHEN CATEGORY = '정기구독' THEN 9999999999 ELSE IDX END desc
     </select>
 
