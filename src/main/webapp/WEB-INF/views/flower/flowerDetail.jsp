@@ -115,10 +115,8 @@
                             <c:forEach var="productVo" items="${productList}">
                             <c:if test="${not empty productVo}">
                             <option value="${productVo.idx}">
-                                <div>${productVo.name}</div>
-                                <div>
-                                    <fmt:formatNumber value="${productVo.finalPrice}" pattern="#,###원"/>
-                                </div>
+                                ${productVo.name}
+                                <fmt:formatNumber value="${productVo.finalPrice}" pattern=" (#,###원)"/>
                             </option>
                             </c:if>
                             </c:forEach>
