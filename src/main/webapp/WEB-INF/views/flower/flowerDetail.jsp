@@ -21,8 +21,12 @@
 <body>
 <%@ include file="../main/header.jspf"%>
 
-<!-- 맨위 -->
-<button type="button" id="moveToTop" onclick="moveToTop()">위로가기</button>
+<!-- 맨위로 가는 버튼 -->
+<button type="button" id="moveToTop" onclick="moveToTop()">
+    <i class="far fa-arrow-alt-circle-up"></i>
+</button>
+
+<!-- 메인 컨테이너 -->
 <div id="container" class="mx-auto">
 <form method="post">
 
