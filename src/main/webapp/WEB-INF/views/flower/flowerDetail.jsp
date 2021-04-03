@@ -70,7 +70,7 @@
                 <div class="row mb-4">
                     <div class="col-3 fw500 pt-1">수령일</div>
                     <div class="col-9">
-                        <input type="text" placeholder="수령일을 선택해주세요." class="datepicker col-12 p-2 ps-3 fs-6"/>
+                        <input type="text" name="requestDate" placeholder="수령일을 선택해주세요." class="datepicker col-12 p-2 ps-3 fs-6"/>
                     </div>
                 </div>
 
@@ -81,7 +81,7 @@
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(false)">
                             <i class="fas fa-minus-circle"></i>
                         </button>
-                        <span class="quantity col-1 text-center" data-flower-quantity>1</span>
+                        <span class="quantity col-2 text-center" data-flower-quantity>1</span>
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(true)">
                             <i class="fas fa-plus-circle"></i>
                         </button>
@@ -110,7 +110,7 @@
                     <div class="col-3 fw500">추가 옵션</div>
                     <div class="col-9">
                         <select name="selectOptions" class="form-select p-2 ps-3" aria-label="form-select example"
-                                onchange="addOptions(this)">
+                                onchange="addChoices(this)">
                             <option>함께하면 좋은 추천상품</option>
                             <c:forEach var="productVo" items="${productList}">
                             <c:if test="${not empty productVo}">
@@ -150,8 +150,6 @@
                     </div>
                 </div>
             </div> <!-- price-box-wrap 닫기 -->
-
-
 
             <!-- 총 주문금액 -->
             <div class="d-flex justify-content-end mb-1 mt-3 me-2">
@@ -206,11 +204,11 @@
 
     /* 편지 추가, 추가안함 */
     function checkRadioBtn(isAdded) {
-        if (isAdded) {
+        if (isAdded) { // 편지 추가 O
             letterOptionsEl[1].nextElementSibling.classList.remove("text-dark", "fw500");
             letterOptionsEl[0].nextElementSibling.classList.add("text-dark", "fw500");
             document.querySelector("#addLetter").classList.remove("d-none");
-        } else {
+        } else { // 편지 추가 X
             letterOptionsEl[0].nextElementSibling.classList.remove("text-dark", "fw500");
             letterOptionsEl[1].nextElementSibling.classList.add("text-dark", "fw500");
             document.querySelector("#addLetter").classList.add("d-none");
@@ -233,9 +231,10 @@
         configTotal();
     }
 
-    function adjustOptionQuantity(isUp, btn) {
-        const optionPriceEl = btn.parentElement.nextElementSibling;
-        let optionOriginalPrice = Number(optionPriceEl.dataset.optprice);
+    /* 추가옵션의 수량 변경 */
+    function adjustChoiceQuantity(isUp, btn) {
+        const $choicePrice = btn.parentElement.nextElementSibling;
+        let choiceOriginalPrice = Number($choicePrice.dataset.choiceprice);
         let quantity;
         if (isUp) {
             quantity = btn.previousElementSibling.textContent;
@@ -248,15 +247,10 @@
                 btn.nextElementSibling.textContent = quantity;
             }
         }
-        let finalOptionPrice = optionOriginalPrice * quantity;
-        optionPriceEl.textContent = finalOptionPrice.toLocaleString('ko-KR') + "원";
+        let finalChoicePrice = choiceOriginalPrice * quantity;
+        $choicePrice.textContent = finalChoicePrice.toLocaleString('ko-KR') + "원";
+        configTotal();
     }
-
-    function getOptionFinalPrice() {
-
-    }
-
-
 
     /* letterPriceBox 닫기 버튼 눌렀을 때 */
     function closeLetter() {
@@ -267,20 +261,20 @@
 
     /* 총 주문금액 계산하기 */
     function configTotal() {
-        const flowerFinalPriceEl = document.querySelector("[data-flower-finalPrice]");
-        const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
-        const letterPriceEl = document.querySelector("[data-letter-price]");
-        const optionPriceEl = document.querySelectorAll("[data-optprice]");
+        const $flowerFinalPrice = document.querySelector("[data-flower-finalPrice]");
+        const $flowerQuantity = document.querySelector("[data-flower-quantity]");
+        const $letterPrice = document.querySelector("[data-letter-price]");
+        const $choicePrice = document.querySelectorAll("[data-choiceprice]");
 
-        let flowerFinalPrice = flowerFinalPriceEl.textContent.trim().replace("원", "").replaceAll(",", "");
-        let flowerQuantity = flowerQuantityEl.textContent;
-        let letterPrice = letterPriceEl.textContent.trim().replace("원", "").replaceAll(",", "");
+        let flowerFinalPrice = $flowerFinalPrice.textContent.trim().replace("원", "").replaceAll(",", "");
+        let flowerQuantity = $flowerQuantity.textContent;
+        let letterPrice = $letterPrice.textContent.trim().replace("원", "").replaceAll(",", "");
         let totalPrice = flowerFinalPrice * flowerQuantity;
 
-        if (optionPriceEl) {
-            for (let i = 0; i < optionPriceEl.length; i++) {
-                let optionPrice = optionPriceEl[i].textContent.trim().replace("원", "").replaceAll(",", "");
-                totalPrice += Number(optionPrice);
+        if ($choicePrice) {
+            for (let i = 0; i < $choicePrice.length; i++) {
+                let choicePrice = $choicePrice[i].textContent.trim().replace("원", "").replaceAll(",", "");
+                totalPrice += Number(choicePrice);
             }
         }
         if (letterOptionsEl[0].checked) {
@@ -305,20 +299,20 @@
     })
 
     /* 추가옵션 선택시 */
-    function addOptions(selectBox) {
-        const optionItemsEl = selectBox.options;
-        let optionItemIdx;
-        // optionItemsEl[0].value: 함께하면 좋은 추천상품
-        // optionItemsEl[1].value: 23 (ProductVo Idx)
-        // optionItemsEl[2].value: 22 ...
+    function addChoices(selectBox) {
+        const $choices = selectBox.options;
+        let choiceIdx;
+        // $choices[0].value: 함께하면 좋은 추천상품
+        // $choices[1].value: 23 (ProductVo Idx)
+        // $choices[2].value: 22 ...
 
-        for (let i = 0; i < optionItemsEl.length; i++) {
+        for (let i = 0; i < $choices.length; i++) {
             if (i > 0) {
-                if (optionItemsEl[i].selected) {
-                    optionItemIdx = optionItemsEl[i].value;
+                if ($choices[i].selected) {
+                    choiceIdx = $choices[i].value;
                 }
             } else {
-                optionItemIdx = null;
+                choiceIdx = null;
             }
         }
 
@@ -329,8 +323,8 @@
                 'Content-Type': 'application/json;charset=UTF-8'
             }
         }
-        if (optionItemIdx) {
-            fetch("/product/" + optionItemIdx + "/get", processOption)
+        if (choiceIdx) {
+            fetch("/product/" + choiceIdx + "/get", processOption)
                 .then(function (response) {
                     console.log(response);
                     response.json().then(function (result) {
@@ -349,57 +343,49 @@
         const priceBoxWrap = document.querySelector(".price-box-wrap");
         let newDiv = document.createElement("div");
 
-        newDiv.className =  "option-price-box p-4 mx-2 mb-3 price-box";
+        newDiv.className =  "choice-price-box p-4 mx-2 mb-3 price-box";
         newDiv.setAttribute("data-productidx", pvo.idx);
         newDiv.innerHTML =  "<div class='d-flex justify-content-between pb-1'>"
                             + "<span class='fw500'>추가상품 : " + pvo.name + "</span>"
                             + "<button type='button' class='btn-close btn-close-style' "
-                            + "onclick='deleteOption(this)'></button></div>"
+                            + "onclick='deleteChoice(this)'></button></div>"
                             + "<div class='d-flex justify-content-between'>"
                             + "<div class='col-3 count d-flex justify-content-between align-items-center'>"
-                            + "<button type='button' class='border-0 bg-transparent' onclick='adjustOptionQuantity(false, this)'>"
+                            + "<button type='button' class='border-0 bg-transparent' onclick='adjustChoiceQuantity(false, this)'>"
                             + "<i class='fas fa-minus-circle'></i></button>"
                             + "<span class='quantity col-1 text-center'>1</span>"
-                            + "<button type='button' class='border-0 bg-transparent' onclick='adjustOptionQuantity(true, this)'>"
+                            + "<button type='button' class='border-0 bg-transparent' onclick='adjustChoiceQuantity(true, this)'>"
                             + "<i class='fas fa-plus-circle'></i></button></div>"
-                            + "<span class='fw500' data-optprice=" + pvo.finalPrice + ">" + pvo.finalPrice + "</span>"
+                            + "<span class='fw500' data-choiceprice=" + pvo.finalPrice + ">" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
                             + "</div>";
-        priceBoxWrap.appendChild(newDiv);
+
         // 이미 만들어진 애들 중에 동일 인덱스 있나 보고, 있으면 기존것에 수량만 합치고 없으면 따로 추가
-        // const optionsEl = document.querySelectorAll(".option-price-box");
-        // if (optionsEl) {
-        //     for (let i = 0; i < optionsEl.length; i++) {
-        //         let productIdx = Number(optionsEl[i].dataset.productidx);
-        //         if (pvo.idx === productIdx) {
-        //             console.log("pvo.idx= " + pvo.idx + ", productidx= " + productIdx);
-        //             console.log("중복값이 존재합니다.");
-        //             let newQuantity = optionsEl[i].querySelector(".quantity").textContent++;
-        //             optionsEl[i].querySelector("[data-optprice]").textContent = pvo.finalPrice * newQuantity;
-        //
-        //         } else {
-        //             console.log("pvo.idx= " + pvo.idx + ", productidx= " + productIdx);
-        //             console.log("중복값 없음");
-        //             optionsEl[i].querySelector("[data-optprice]").textContent
-        //             priceBoxWrap.appendChild(newDiv);
-        //         }
-        //     }
-        // }
-    // .toLocaleString('ko-KR') + "원
-
-        //
-        // if (!productIdxes) {
-        //     for (let i = 0; i < productIdxes.length; i++) {
-        //         if (pvo.idx == productIdxes[i].value) {
-        //             console.log("idx값이 같은 상품이 이미 존재합니다.");
-        //         }
-        //     }
-        // }
-
-
-        // priceBoxWrap.appendChild(newDiv);
+        const $choices = document.querySelectorAll(".choice-price-box");
+        let btnUp;
+        let choiceExists = false;
+        if ($choices) {
+            for (let i = 0; i < $choices.length; i++) {
+                let productIdx = Number($choices[i].dataset.productidx);
+                if (pvo.idx === productIdx) {
+                    console.log("pvo.idx= " + pvo.idx + ", productidx= " + productIdx);
+                    console.log("중복값이 존재합니다.");
+                    btnUp = $choices[i].getElementsByTagName('button')[2];
+                    choiceExists = true;
+                    break;
+                }
+            }
+            if (choiceExists) {
+                adjustChoiceQuantity(true, btnUp);
+            } else {
+                priceBoxWrap.appendChild(newDiv);
+            }
+        } else {
+            priceBoxWrap.appendChild(newDiv);
+        }
     }
 
-    function deleteOption(closeBtn) {
+    /* 추가한 옵션들의 priceBox 닫기 */
+    function deleteChoice(closeBtn) {
         const priceBoxWrap = document.querySelector(".price-box-wrap");
         let removedObj = closeBtn.parentElement.parentElement;
         priceBoxWrap.removeChild(removedObj);
@@ -408,9 +394,9 @@
 
     /* 장바구니 보내기 */
     function addCart(frm) {
-        const inputsEl = document.getElementsByTagName("input");
-        const optionItemEl = document.querySelectorAll("[data-option-item]");
-        const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
+        const $inputs = document.getElementsByTagName("input");
+        const $choices = document.querySelectorAll(".choice-price-box");
+        const $flowerQuantity = document.querySelector("[data-flower-quantity]");
         let letterStatus;
 
         if (letterOptionsEl[0].checked) {
@@ -420,11 +406,14 @@
         }
 
         let cartVo = {
-            memberId: inputsEl.memberId.value,
-            category: inputsEl.category.value,
-            flowerIdx: inputsEl.flowerIdx.value,
-            quantity: Number(flowerQuantityEl.textContent),
-            letter: letterStatus
+            memberId: $inputs.memberId.value,
+            category: $inputs.category.value,
+            flowerIdx: $inputs.flowerIdx.value,
+            quantity: Number($flowerQuantity.textContent),
+            letter: letterStatus,
+            requestDate: $inputs.requestDate.value
+
+
         };
 
         let option = {
