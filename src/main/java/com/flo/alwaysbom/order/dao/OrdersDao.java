@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 @RequiredArgsConstructor
 public class OrdersDao {
@@ -44,5 +42,8 @@ public class OrdersDao {
         return sqlSessionTemplate.selectOne("orders-mapper.getPoint",mvo);
     }
 
-
+    //배송지 저장
+    public int saveDelivery(OrdersVo ordersVo) {
+        return sqlSessionTemplate.insert("orders-mapper.saveDelivery",ordersVo);
+    }
 }

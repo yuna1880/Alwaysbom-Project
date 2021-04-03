@@ -22,6 +22,6 @@ public interface OrdersService {
     int getPoint(MemberVO mvo);
 
     //주문 완료시 저장
-    void saveDelivery(OrdersVo ordersVo);
+    OrdersVo saveDelivery(OrdersVo ordersVo);
 
 }

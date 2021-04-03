@@ -349,7 +349,7 @@
 
                             <!-- 무통장 입금 -->
                             <div id="mootong" class="checkout_method_more">
-                                <div class="more">입금자명 <input type="text" name="pre-mootong-name"
+                                <div class="more">입금자명 <input type="text" name="mootongName"
                                                               id="pre-mootong-name" value=""> 미기재시 주문자명으로 자동 반영</div>
                                 <div class="noti">* 주문 후 72시간동안 미 입금시 자동 주문 취소됩니다.</div>
                                 <div class="recept_money">

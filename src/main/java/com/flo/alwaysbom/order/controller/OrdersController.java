@@ -26,8 +26,6 @@ public class OrdersController {
 
     private final OrderPriceService orderPriceService;
     private final OrdersService ordersService;
-    private final CartService cartService;
-    private final OrdersDao ordersDao;
 
 
     //주문 시작! (받은 list oitemList 세션에 저장)
@@ -109,7 +107,7 @@ public class OrdersController {
 
     //주문 전 확인창 (결제 정보 입력) -> 주문 완료
     @PostMapping("/order/complete")
-    public String completeOrder (@SessionAttribute("oitemList") List<OitemVo> olist, OrdersVo ordersVo) {
+    public String completeOrder (@SessionAttribute("oitemList") List<OitemVo> olist, OrdersVo ordersVo, Model model) {
 
         System.out.println("OrdersController.completeOrder");
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
@@ -123,9 +121,17 @@ public class OrdersController {
         if (ordersVo.isSaveAddress() == true) {
             ordersService.saveDelivery(ordersVo);
         }
-
+        model.addAttribute("ordersVo",ordersVo);
         return "/order/order_ok";
     }
+
+    //주문정보 + 주문한 상품내역 조회
+    @PostMapping("/order/findMyOrders")
+    public String findOrder(MemberVO vo) {
+        return null;
+    }
+
+
 
 
 

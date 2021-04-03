@@ -14,7 +14,7 @@
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-xxl-5">
             <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
-            <li class="breadcrumb-item"><a href="/admin/flower">정기구독 관리</a></li>
+            <li class="breadcrumb-item"><a href="/admin/subs">정기구독 관리</a></li>
             <li class="breadcrumb-item active" aria-current="page">정기구독 상품 등록</li>
         </ol>
     </nav>

@@ -34,4 +34,13 @@
             select OITEM_SEQ.currval from dual
         </selectKey>
     </insert>
+
+    <insert id="saveDelivery" parameterType="com.flo.alwaysbom.order.vo.OrdersVo">
+        INSERT INTO DELIVERY_INFO
+        VALUES(NULL, #{memberId}, #{receiverName}, #{receiverPhone}, #{receiverZipcode},
+                    #{receiverAddrBase}, #{receiverAddrDetail}, #{receiverAddrExtra})
+
+    </insert>
+
+
 </mapper>

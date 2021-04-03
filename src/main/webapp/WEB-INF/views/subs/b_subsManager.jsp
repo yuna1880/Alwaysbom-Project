@@ -22,7 +22,7 @@
                 배너 등록/수정
             </div>
             <div class="btn-circle d-flex justify-content-center align-items-center"
-                 onclick="location.href='/admin/addForm'">
+                 onclick="location.href='/admin/subsAddForm'">
                 정기구독 상품 등록
             </div>
             <div class="btn-circle d-flex justify-content-center align-items-center"
