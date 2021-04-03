@@ -164,7 +164,8 @@ header {
 
 /*--- footer ---*/
 footer {
-    background-color: #2c3034;
+    z-index: 1000;
+    background-color: #303030;
     width: 100vw;
     height: 300px;
     color: #d4d4d4;

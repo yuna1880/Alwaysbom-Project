@@ -7,13 +7,25 @@
     <%@ include file="../main/import.jspf"%>
     <link rel="stylesheet" href="/static/css/item/detail.css">
     <link rel="stylesheet" href="/static/bootstrap-datepicker/bootstrap-datepicker.css">
-    <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script>
+    function moveToTop() {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+</script>
 </head>
 <body>
 <%@ include file="../main/header.jspf"%>
 
+<!-- 맨위 -->
+<button type="button" id="moveToTop" onclick="moveToTop()">위로가기</button>
 <div id="container" class="mx-auto">
 <form method="post">
+
     <!-- 메뉴 경로 표시 -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-3">
@@ -24,7 +36,7 @@
     </nav>
 
     <!-- 상품 썸네일과 주문 정보 -->
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between thumb-order">
         <!-- 사진 썸네일 -->
         <div class="thumbnails d-flex flex-column justify-content-start">
             <div class="mb-4">
@@ -70,7 +82,8 @@
                 <div class="row mb-4">
                     <div class="col-3 fw500 pt-1">수령일</div>
                     <div class="col-9">
-                        <input type="text" name="requestDate" placeholder="수령일을 선택해주세요." class="datepicker col-12 p-2 ps-3 fs-6"/>
+                        <input type="text" name="requestDate" placeholder="수령일을 선택해주세요."
+                               class="datepicker col-12 p-2 ps-3 fs-6" autocomplete="off"/>
                     </div>
                 </div>
 
@@ -180,17 +193,36 @@
     </div> <!-- 상품 썸네일 & 주문 정보 닫기 -->
 
     <!-- 상품설명/리뷰/배송안내 Tabs -->
-    <ul class="nav detail-nav">
-        <li class="nav-item col-4 text-center nav-active">
-            상품설명
-        </li>
-        <li class="nav-item col-4 text-center">
-            리뷰
-        </li>
-        <li class="nav-item col-4 text-center">
-            배송안내
-        </li>
-    </ul>
+    <div class="d-flex showType-wrap">
+        <label class="col-4">
+            <input type="radio" name="showType" class="d-none" checked="">
+            <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#detail-area')">상품설명</span>
+        </label>
+        <label class="col-4">
+            <input type="radio" name="showType" class="d-none">
+            <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#review-area')">리뷰</span>
+        </label>
+        <label class="col-4">
+            <input type="radio" name="showType" class="d-none">
+            <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#delivery-area')">배송안내</span>
+        </label>
+    </div>
+
+    <!-- 상품설명 -->
+    <div id="detail-area">
+        ${flowerVo.content}
+        <br>
+        여기에 상품 설명 들어감
+    </div>
+
+    <!-- 리뷰게시판 -->
+    <hr>
+    <div id="review-area">리뷰게시판!!!</div>
+
+    <!-- 배송안내 -->
+    <hr>
+    <div id="delivery-area">배송안내</div>
+
 </form>
 </div> <!-- #container 닫기 -->
 
@@ -454,13 +486,38 @@
 
         console.log("data.value: " + data.value);
 
+        // deleteFromCart(cartVo.idx);
+
         frm.appendChild(data);
         frm.action = "/order/letter";
         frm.submit();
     }
 
+    // function deleteFromCart(idx) {
+    //     console.log(idx);
+    //     fetch("/api/cart/removeByIdx", {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json;charset=UTF-8'
+    //         },
+    //         body: JSON.stringify({
+    //             idx: idx
+    //         })
+    //     }).then(
+    //         (response) => console.log(response)
+    //     ).then(
+    //         (result) => console.log(result)
+    //     ).catch(function (err) {
+    //         alert(err);
+    //     });
+    // }
 
 
+    function animateScroll(locationStr) {
+        let headerHeight = document.querySelector("header").offsetHeight;
+        let targetScrollVal = document.querySelector(locationStr).offsetTop;
+        window.scrollTo({top:targetScrollVal - headerHeight, behavior:'smooth'});
+    }
 
 
 
@@ -500,3 +557,6 @@
 </script>
 </body>
 </html>
+<style>
+
+</style>
