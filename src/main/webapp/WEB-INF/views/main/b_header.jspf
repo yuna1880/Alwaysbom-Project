@@ -39,6 +39,16 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="orders" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            주문 내역
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="orders">
+                            <li><a class="dropdown-item" href="#">상품 주문 내역</a></li>
+                            <li><a class="dropdown-item" href="#">클래스 주문 내역</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="items" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             상품 관리

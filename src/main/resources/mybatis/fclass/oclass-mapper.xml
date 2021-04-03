@@ -11,11 +11,26 @@
                 <if test="!payType.equals('무통장입금')">SYSDATE</if>
                 , #{discountGrade}, #{discountPoint},
         #{fclassName}, #{branchName}, #{branchAddr}, #{fclassImage}, #{scheduleDate},
-        #{scheduleStartTime}, #{scheduleEndTime}, #{fclassCount}, #{status}, #{reviewCheck}, #{discountTotalPrice})
+        #{scheduleStartTime}, #{scheduleEndTime}, #{fclassCount}, #{status}, #{reviewCheck}, #{discountTotalPrice}, #{fclassIdx})
     <selectKey keyProperty="idx" resultType="int" order="AFTER">
         SELECT OCLASS_SEQ.currval FROM DUAL
     </selectKey>
     </insert>
+
+    <select id="findBySearchOption" parameterType="com.flo.alwaysbom.fclass.vo.OclassSearchOptionDto"
+            resultType="com.flo.alwaysbom.fclass.vo.OclassVo">
+        SELECT * FROM OCLASS
+        <where>
+            MEMBER_ID = #{memberId}
+            <if test="status != null and !status.equals('전체')">
+                AND STATUS = #{status}
+            </if>
+            <if test="className != null">
+                AND FCLASS_NAME LIKE '%' || #{className} || '%'
+            </if>
+        </where>
+        ORDER BY IDX DESC
+    </select>
 
 <!--    <select id="searchSchedule" parameterType="com.flo.alwaysbom.fclass.vo.ScheduleVo" resultType="com.flo.alwaysbom.fclass.vo.ScheduleVo">
         SELECT * FROM SCHEDULE

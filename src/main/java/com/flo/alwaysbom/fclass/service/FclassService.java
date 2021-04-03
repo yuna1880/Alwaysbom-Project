@@ -27,8 +27,10 @@ public class FclassService {
         }
     }
 
-    public int deleteFclass(int idx) {
-        return dao.deleteFclass(idx);
+    public FclassVo deleteFclass(int idx) {
+        FclassVo fclassVo = dao.findByIdx(idx);
+        dao.deleteFclass(idx);
+        return fclassVo;
     }
 
     public FclassVo findByIdx(int idx) {

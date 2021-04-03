@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.fclass.dao;
 
+import com.flo.alwaysbom.fclass.vo.OclassSearchOptionDto;
 import com.flo.alwaysbom.fclass.vo.OclassVo;
 import com.flo.alwaysbom.fclass.vo.ScheduleVo;
 import lombok.RequiredArgsConstructor;
@@ -16,19 +17,9 @@ public class OclassDao {
     public OclassVo addOclass(OclassVo vo) {
         sqlSessionTemplate.insert("oclass.addOclass", vo);
         return vo;
-
     }
 
-    public boolean deleteSchedule(List<Integer> idx) {
-        return sqlSessionTemplate.delete("schedule.deleteSchedule", idx) > 0;
-    }
-
-    public ScheduleVo updateSchedule(ScheduleVo vo) {
-        sqlSessionTemplate.update("schedule.updateSchedule", vo);
-        return vo;
-    }
-
-    public ScheduleVo findByIdx(Integer scheduleIdx) {
-        return sqlSessionTemplate.selectOne("schedule.findByIdx", scheduleIdx);
+    public List<OclassVo> findBySearchOption(OclassSearchOptionDto searchOption) {
+        return sqlSessionTemplate.selectList("oclass.findBySearchOption", searchOption);
     }
 }

@@ -71,19 +71,11 @@ public class BackFclassController {
     }
 
     @PostMapping("/admin/fclass/deleteClass")
-    public String deleteClass(Integer idx, MultipartFile image1) throws IOException {
-        fclassService.deleteFclass(idx);
-        String image = image1.toString();
-
-        //Local 지우기 방법 1
-//        File file = new File(image);
-//        if (file.exists()) {
-//            file.delete();
-//        }
-
-        //Local 지우기 방법 2
-        Files.deleteIfExists(Paths.get(image));
-
+    public String deleteClass(Integer idx) throws IOException {
+        FclassVo fclassVo = fclassService.deleteFclass(idx);
+        fileHandler.deleteFile(fclassVo.getImage1());
+        fileHandler.deleteFile(fclassVo.getImage2());
+        fileHandler.deleteFile(fclassVo.getImage3());
         return "redirect:/admin/fclass/b_classList";
     }
 
@@ -102,7 +94,6 @@ public class BackFclassController {
         model.addAttribute("branchList", branchService.findAll());
         return "fclass/b_detail";
     }
-
 
     @GetMapping("admin/fclass/branch")
     public String goBranch(Model model) {
@@ -155,6 +146,8 @@ public class BackFclassController {
     @PostMapping("admin/fclass/api/updateBranch")
     @ResponseBody
     public BranchVo updateBranch(BranchVo vo, MultipartFile file) throws IOException {
+        System.out.println("vo = " + vo);
+        System.out.println("file = " + file);
         vo.setMapImage(fileHandler.uploadFile(file, vo.getMapImage(), "fclass/branch"));
         branchService.updateBranch(vo);
         return vo;

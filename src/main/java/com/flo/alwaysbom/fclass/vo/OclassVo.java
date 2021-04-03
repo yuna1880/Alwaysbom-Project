@@ -30,6 +30,5 @@ public class OclassVo {
     private String status; // -> 결제타입에 따라 다르게 적용 (서비스)
     private int reviewCheck;    //mapper에 넣을때 아예 value에 포함하지 말것 (default 0)
     private Integer discountTotalPrice;
-
-
+    private Integer fclassIdx;
 }
