@@ -107,7 +107,7 @@
             </ul>
         </div>
         <div class="col-10 border-info d-flex justify-content-center p-4">
-            <div class="col-12" id="contentPane">
+            <div class="col-12 h-100" id="contentPane">
                 <img src="/static/image/mypageMain_flower.jpg" alt="메인페이지 꽃 사진" class="w-100">
             </div>
         </div>
@@ -119,8 +119,13 @@
         e.preventDefault();
         let $contentPane = document.querySelector("#contentPane");
 
-        let response = await fetch("/fclass/myClassList")
+        let response = await fetch("/fclass/orders");
         $contentPane.innerHTML = await response.text();
+        let $innerScript = $contentPane.querySelector("#innerScript");
+
+        let $script = document.createElement("script");
+        $script.appendChild(document.createTextNode($innerScript.innerHTML));
+        $innerScript.replaceWith($script);
     }
 </script>
 </body>
