@@ -168,14 +168,14 @@
 
             <!-- 장바구니/결제 버튼 -->
             <div class="d-flex justify-content-center mt-5">
-                <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart(this.form)">장바구니</button>
+                <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart(true, this.form)">장바구니</button>
 
             <%--memberId, category, flowerIdx, quantity, letter 임의로 넣어주기--%>
                 <input type="hidden" name="memberId" value="test">
                 <input type="hidden" name="category" value="꽃다발">
                 <input type="hidden" name="flowerIdx" value="${flowerVo.idx}">
 
-                <button type="button" class="btn main-button fw-bold py-3">바로구매</button>
+                <button type="button" class="btn main-button fw-bold py-3" onclick="addCart(false, this.form)">바로구매</button>
             </div>
 
         </div> <!-- 주문 정보 닫기 -->
@@ -234,7 +234,7 @@
     /* 추가옵션의 수량 변경 */
     function adjustChoiceQuantity(isUp, btn) {
         const $choicePrice = btn.parentElement.nextElementSibling;
-        let choiceOriginalPrice = Number($choicePrice.dataset.choiceprice);
+        let choiceOriginalPrice = Number($choicePrice.dataset.choicePrice);
         let quantity;
         if (isUp) {
             quantity = btn.previousElementSibling.textContent;
@@ -264,7 +264,7 @@
         const $flowerFinalPrice = document.querySelector("[data-flower-finalPrice]");
         const $flowerQuantity = document.querySelector("[data-flower-quantity]");
         const $letterPrice = document.querySelector("[data-letter-price]");
-        const $choicePrice = document.querySelectorAll("[data-choiceprice]");
+        const $choicePrice = document.querySelectorAll("[data-choice-price]");
 
         let flowerFinalPrice = $flowerFinalPrice.textContent.trim().replace("원", "").replaceAll(",", "");
         let flowerQuantity = $flowerQuantity.textContent;
@@ -344,7 +344,7 @@
         let newDiv = document.createElement("div");
 
         newDiv.className =  "choice-price-box p-4 mx-2 mb-3 price-box";
-        newDiv.setAttribute("data-productidx", pvo.idx);
+        newDiv.setAttribute("data-product-idx", pvo.idx);
         newDiv.innerHTML =  "<div class='d-flex justify-content-between pb-1'>"
                             + "<span class='fw500'>추가상품 : " + pvo.name + "</span>"
                             + "<button type='button' class='btn-close btn-close-style' "
@@ -356,7 +356,7 @@
                             + "<span class='quantity col-1 text-center'>1</span>"
                             + "<button type='button' class='border-0 bg-transparent' onclick='adjustChoiceQuantity(true, this)'>"
                             + "<i class='fas fa-plus-circle'></i></button></div>"
-                            + "<span class='fw500' data-choiceprice=" + pvo.finalPrice + ">" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
+                            + "<span class='fw500' data-choice-price=" + pvo.finalPrice + ">" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
                             + "</div>";
 
         // 이미 만들어진 애들 중에 동일 인덱스 있나 보고, 있으면 기존것에 수량만 합치고 없으면 따로 추가
@@ -365,7 +365,7 @@
         let choiceExists = false;
         if ($choices) {
             for (let i = 0; i < $choices.length; i++) {
-                let productIdx = Number($choices[i].dataset.productidx);
+                let productIdx = Number($choices[i].dataset["productIdx"]);
                 if (pvo.idx === productIdx) {
                     console.log("pvo.idx= " + pvo.idx + ", productidx= " + productIdx);
                     console.log("중복값이 존재합니다.");
@@ -393,37 +393,81 @@
     }
 
     /* 장바구니 보내기 */
-    function addCart(frm) {
+    async function addCart(goCart, frm) {
         const $inputs = document.getElementsByTagName("input");
         const $choices = document.querySelectorAll(".choice-price-box");
         const $flowerQuantity = document.querySelector("[data-flower-quantity]");
-        let letterStatus;
 
-        if (letterOptionsEl[0].checked) {
-            letterStatus = letterOptionsEl[0].value;
-        } else {
-            letterStatus = letterOptionsEl[1].value;
-        }
+        const choices = [...$choices].map((choice) => {
+            return {
+                productIdx: choice.dataset.productIdx,
+                quantity: choice.querySelector(".quantity").textContent
+            }
+        });
 
-        let cartVo = {
+        const cartVo = {
             memberId: $inputs.memberId.value,
             category: $inputs.category.value,
             flowerIdx: $inputs.flowerIdx.value,
-            quantity: Number($flowerQuantity.textContent),
-            letter: letterStatus,
-            requestDate: $inputs.requestDate.value
-
-
+            quantity: $flowerQuantity.textContent,
+            requestDate: $inputs.requestDate.value,
+            letter: letterOptionsEl[0].checked ? 1 : 0,
+            choices: choices
         };
 
-        let option = {
+        const option = {
             method: 'post',
             body: JSON.stringify(cartVo),
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8'
             }
         }
+
+        const response = await fetch("/api/carts", option);
+        const result = await response.json();
+        console.log(result);
+
+        if (goCart && result) {
+            location.href = "/cart/list";
+        } else if (!goCart && result) {
+            goPay(result, frm);
+        }
     }
+
+    function goPay(cartVo, frm) {
+        console.log("goPay()실행. cartVo: " + cartVo);
+        const oitemVoList = [
+            {hasLetter: letterOptionsEl[0].checked},
+            {name: cartVo.name},
+            {price: cartVo.totalPrice},
+            {options: cartVo.options},
+            {image: cartVo.image},
+            {requestDate: cartVo.requestDate},
+            {category: cartVo.category},
+            {quantity: cartVo.quantity},
+            {reviewCheck: 0}
+        ];
+        console.log("oitemVoList: " + oitemVoList);
+
+        let data = document.createElement("input");
+        data.type = "text";
+        data.name = "data";
+        data.value = JSON.stringify(oitemVoList);
+
+        console.log("data.value: " + data.value);
+
+        frm.appendChild(data);
+        frm.action = "/order/letter";
+        frm.submit();
+    }
+
+
+
+
+
+
+
+
 
     <%--
     async function getDetail() {

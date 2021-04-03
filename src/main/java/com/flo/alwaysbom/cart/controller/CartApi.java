@@ -42,7 +42,7 @@ public class CartApi {
                 .build()).collect(Collectors.toList());
     }
 
-    @PostMapping(value = "/api/cart/add")
+    @PostMapping(value = "/api/carts")
     public CartVo addCart(@RequestBody CartVo cartVo) {
         cartService.addCart(cartVo);
         return cartService.findById(cartVo.getIdx()).orElse(null);
