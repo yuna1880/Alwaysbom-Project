@@ -31,7 +31,7 @@ public class FclassController {
 
         List<OclassVo> orders = oclassService.findBySearchOption(searchOption);
         model.addAttribute("orders", orders);
-        return "member/my_class_list";
+        return "fclass/myClassList";
     }
 
     @GetMapping("/api/fclass/orders")
@@ -39,7 +39,7 @@ public class FclassController {
         searchOption.setMemberId(member != null ? member.getId() : "minho1030@naver.com");
         List<OclassVo> orders = oclassService.findBySearchOption(searchOption);
         model.addAttribute("orders", orders);
-        return "member/my_class_list_content";
+        return "fclass/myClassListContent";
     }
 
 
