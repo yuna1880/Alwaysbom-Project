@@ -430,6 +430,7 @@
         if (goCart && result) {
             location.href = "/cart/list";
         } else if (!goCart && result) {
+            // 이때 사실 cartList 에 담긴 result 를 지워줘야하는데 말이지..?
             goPay(result, frm);
         }
     }
@@ -447,7 +448,6 @@
             {quantity: cartVo.quantity},
             {reviewCheck: 0}
         ];
-        console.log("oitemVoList: " + oitemVoList);
 
         let data = document.createElement("input");
         data.type = "text";
