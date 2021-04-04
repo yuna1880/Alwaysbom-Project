@@ -17,7 +17,7 @@ public class CouponService {
         return couponDao.addCoupon(couponVo);
     }
 
-    public List<CouponVo> findAll() {
-        return couponDao.findAll();
+    public List<CouponVo> findByStatus(Integer status) {
+        return couponDao.findByStatus(status);
     }
 }

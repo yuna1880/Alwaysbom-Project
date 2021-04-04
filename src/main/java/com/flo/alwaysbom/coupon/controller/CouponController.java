@@ -18,14 +18,15 @@ public class CouponController {
 
     @GetMapping("/coupon")
     public String goCoupon(Model model) {
-        List<CouponVo> list = couponService.findAll();
+        List<CouponVo> list = couponService.findByStatus(null);
         model.addAttribute("couponList", list);
         return "coupon/list";
     }
 
     @GetMapping("/api/coupon/list")
     @ResponseBody
-    public List<CouponVo> list() {
-        return couponService.findAll();
+    public List<CouponVo> list(Integer status) {
+        System.out.println("status = " + status);
+        return couponService.findByStatus(status);
     }
 }

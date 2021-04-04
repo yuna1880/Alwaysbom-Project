@@ -12,8 +12,13 @@
         </selectKey>
     </insert>
     
-    <select id="findAll" resultType="com.flo.alwaysbom.coupon.vo.CouponVo">
+    <select id="findAll" parameterType="int" resultType="com.flo.alwaysbom.coupon.vo.CouponVo">
         SELECT * FROM COUPON
+        <where>
+            <if test="status != null">
+                STATUS = #{status}
+            </if>
+        </where>
         ORDER BY IDX DESC
     </select>
 </mapper>

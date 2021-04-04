@@ -13,25 +13,25 @@
     <!-- 메뉴 영역 -->
     <div class="col-12 d-flex justify-content-between align-items-center p-3">
         <!-- 라디오 버튼(전체/사용/미사용) -->
-        <div class="col-3 d-flex bg-info">
+        <div class="col-3 d-flex btn-group" role="group">
             <label class="col-4">
-                <input type="radio" name="showType" class="d-none" checked="">
-                <span class="d-block text-center p-3 btn-show">전체</span>
+                <input type="radio" name="status" class="d-none btn-check" onchange="searchCoupon()" checked>
+                <span class="d-block text-center p-2 btn btn-outline-secondary">전체</span>
             </label>
             <label class="col-4">
-                <input type="radio" name="showType" class="d-none">
-                <span class="d-block text-center p-3 btn-show">사용</span>
+                <input type="radio" name="status" class="d-none btn-check" value="1" onchange="searchCoupon(1)">
+                <span class="d-block text-center p-2 btn btn-outline-secondary">사용</span>
             </label>
             <label class="col-4">
-                <input type="radio" name="showType" class="d-none">
-                <span class="d-block text-center p-3 btn-show">미사용</span>
+                <input type="radio" name="status" class="d-none btn-check" value="0" onchange="searchCoupon(0)">
+                <span class="d-block text-center p-2 btn btn-outline-secondary">미사용</span>
             </label>
         </div>
 
         <!-- 아이디 검색 -->
         <div class="col-3 d-flex align-items-center">
-            <input type="text" class="rounded-3 border-1 p-3" aria-label="searchId" name="searchId" id="searchId">
-            <button class="border-1 rounded-3 btn btn-secondary p-3 flex-grow-1 shadow-none">
+            <input type="text" class="rounded-3 border-1 p-2" aria-label="searchId" name="searchId" id="searchId">
+            <button class="border-1 rounded-3 btn btn-secondary p-2 flex-grow-1 shadow-none">
                 <i class="fa fa-search"></i>
             </button>
         </div>
@@ -99,8 +99,16 @@
                 '<div class="text-center">데이터가 존재하지 않습니다</div>';
         }
 
-        static list(type) {
-            
+        static async list(status) {
+            if (status === undefined) status = "";
+
+            let response = await fetch("/api/coupon/list?status=" + status);
+            let result = await response.json();
+            if (Coupon.appendHeader(result.length)) {
+                return result.map(res => {
+                    return new Coupon(res);
+                });
+            }
         }
 
         appendListItem() {
@@ -142,41 +150,14 @@
         }
     }
 
-    fetch("/api/coupon/list").then(
-        response => response.json()
-            .then(result => {
-                console.log(result);
-                if (Coupon.appendHeader(result.length)) {
-                    let couponArray = result.map(res => {
-                        let coupon = new Coupon(res);
-                        coupon.appendListItem();
-                        return coupon;
-                    });
-                    console.log(couponArray);
-                }
-            })
-            .catch(err => alert(err))
-    ).catch(err => alert(err));
+    searchCoupon();
 
+    function searchCoupon(type) {
+        Coupon.list(type).then(list => {
+            list.forEach(coupon => coupon.appendListItem());
+        })
+    }
 
 </script>
 </body>
 </html>
-<style>
-    .btn-show {
-        background-color: #bbbbbb;
-        color: #030303;
-        border: 1px solid rgba(0,0,0,0.25);
-        cursor: pointer;
-    }
-
-    .btn-show:hover {
-        background-color: #5A5A5A;
-        color: #FFFFFF;
-    }
-
-    input[type=radio]:checked + .btn-show {
-        background-color: #3a3a3a;
-        color: #FFFFFF;
-    }
-</style>

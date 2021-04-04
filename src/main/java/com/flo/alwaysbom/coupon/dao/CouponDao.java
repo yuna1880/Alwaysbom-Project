@@ -18,7 +18,7 @@ public class CouponDao {
         return couponVo;
     }
 
-    public List<CouponVo> findAll() {
-        return sessionTemplate.selectList("coupon.findAll");
+    public List<CouponVo> findByStatus(Integer status) {
+        return sessionTemplate.selectList("coupon.findAll", status);
     }
 }
