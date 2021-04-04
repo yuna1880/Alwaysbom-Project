@@ -28,4 +28,12 @@ public class OclassDao {
     public List<String> findAllBranch() {
         return sqlSessionTemplate.selectList("oclass.findAllBranch");
     }
+
+    public void updateOrderStatus(OclassVo oclassVo) {
+        sqlSessionTemplate.update("oclass.updateOrderStatus", oclassVo);
+    }
+
+    public OclassVo findByIdx(Integer idx) {
+        return sqlSessionTemplate.selectOne("oclass.findByIdx", idx);
+    }
 }

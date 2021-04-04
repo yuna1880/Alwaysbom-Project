@@ -130,6 +130,23 @@ public class BackFclassController {
         return "fclass/b_orderListContent";
     }
 
+    @GetMapping("/admin/fclass/api/orders/{idx}")
+    public String getOrder(Model model, @PathVariable Integer idx) {
+        OclassVo oclass = oclassService.findByIdx(idx);
+        model.addAttribute("order", oclass);
+        return "fclass/b_orderListContentRow";
+    }
+
+    @RequestMapping(value = "/admin/fclass/api/orders/{idx}", method = RequestMethod.PUT)
+    @ResponseBody
+    public OclassVo updateOrderStatus(@RequestBody String status, @PathVariable Integer idx) {
+        OclassVo oclassVo = OclassVo.builder()
+                .status(status)
+                .idx(idx)
+                .build();
+        return oclassService.updateOrderStatus(oclassVo);
+    }
+
 
     @GetMapping("admin/fclass/api/findClassByCategory")
     @ResponseBody

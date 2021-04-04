@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <ul id="classUl">
+    <ul id="classUl" class="px-5">
 
     </ul>
 
@@ -54,6 +54,31 @@
         let queryString = new URLSearchParams(params);
         const response = await fetch("/admin/fclass/api/orders?" + queryString);
         document.querySelector("#classUl").innerHTML = await response.text();
+    }
+
+    async function updateStatus(btn) {
+        const idx = btn.dataset.orderIdx;
+        const data = '결제완료';
+
+        const option = {
+            method: 'put',
+            body: data,
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            }
+        }
+
+        //PUT요청(변경)
+        let response = await fetch("/admin/fclass/api/orders/" + idx, option);
+        // let result = await response.json();
+
+        if (response.ok) {
+            //GET요청(가져오기)
+            response = await fetch("/admin/fclass/api/orders/" + idx);
+            let result = await response.text();
+            const oldLi = document.querySelector("#classUl #o" + idx);
+            oldLi.outerHTML = result;
+        }
     }
 </script>
 </body>

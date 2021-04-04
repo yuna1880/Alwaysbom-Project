@@ -26,4 +26,13 @@ public class OclassService {
     public List<String> findAllBranch() {
         return oclassDao.findAllBranch();
     }
+
+    public OclassVo updateOrderStatus(OclassVo oclassVo) {
+        oclassDao.updateOrderStatus(oclassVo);
+        return findByIdx(oclassVo.getIdx());
+    }
+
+    public OclassVo findByIdx(Integer idx) {
+        return oclassDao.findByIdx(idx);
+    }
 }
