@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,7 +9,9 @@
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
-
+<%-- 오늘 날짜 구하기 --%>
+<c:set var="today" value="<%=new java.util.Date()%>"/>
+<c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd hh:mm:ss"/></c:set>
 <section class="contents" id="contents" tabindex="0">
 
     <div id="root" data-app="payment">
@@ -27,15 +30,13 @@
                             <span>다음계좌로 입금해주시면 주문이 완료됩니다.</span>
                         </dt>
                         <dd class="td">
-                                    <span class="line">
-                                        <b class="prop">계좌번호</b>
-                                    <span class="val">비트은행 274-072066-01-041</span>
-                                </span>
                             <span class="line">
-                                    <b class="prop">예금주</b><span class="val">(주)새늘봄</span>
-                                </span>
+                                <b class="prop">계좌번호</b>
+                            <span class="val">새늘은행 274-072066-01-041</span></span>
+                            <span class="line">
+                                    <b class="prop">예금주</b><span class="val">(주)새늘봄</span></span>
                             <span class="line"><b class="prop">입금금액</b>
-                                        <span class="val">${ordersVo.payTotal}원</span></span>
+                                        <span class="val"><fmt:formatNumber value="${ordersVo.payTotal}" pattern="#,###"/>원</span></span>
                             <span class="line"><b class="prop">보내시는분</b>
                                         <span class="val">${ordersVo.mootongName}</span></span>
                             <span class="line"><b class="prop">입금기한</b>
@@ -55,9 +56,9 @@
                                 <span class="line"><b class="prop">결제타입</b>
                                         <span class="val">${ordersVo.payType}원</span></span>
                                 <span class="line"><b class="prop">결제금액</b>
-                                        <span class="val">${ordersVo.payTotal}원</span></span>
+                                        <span class="val"><fmt:formatNumber value="${ordersVo.payTotal}" pattern="#,###"/>원</span></span>
                                 <span class="line"><b class="prop">결제날짜</b>
-                                        <span class="val">${ordersVo.payDate}</span></span>
+                                        <span class="val">${date}</span></span>
                             </dd>
                         </dl>
                     </c:if>

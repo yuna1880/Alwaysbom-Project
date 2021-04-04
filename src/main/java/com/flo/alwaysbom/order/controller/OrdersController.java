@@ -28,7 +28,7 @@ public class OrdersController {
     private final OrdersService ordersService;
 
 
-    //주문 시작! (받은 list oitemList 세션에 저장)
+    //주문 시작!
     @PostMapping("/order/letter")
 
     public String startOrder(String data, Model model) throws JsonProcessingException {
@@ -110,9 +110,27 @@ public class OrdersController {
     public String completeOrder (@SessionAttribute("oitemList") List<OitemVo> olist, OrdersVo ordersVo, Model model) {
 
         System.out.println("OrdersController.completeOrder");
-        System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("oitemList : " + olist);
         System.out.println("orderVo : " + ordersVo);
+
+        System.out.println("결제정보 : " + ordersVo.getPayType());
+
+        //주문상태 변경 (신용카드 -> 결제완료 / 무통장입금 -> 입금대기)
+        if (ordersVo.getPayType().equals("무통장입금")) {
+
+            for (OitemVo ovo : olist) {
+                ovo.setStatus("입금 대기");
+                System.out.println("oitem = " + ovo);
+            }
+        }
+
+        if (ordersVo.getPayType().equals("신용카드")) {
+            System.out.println("신요오옹 : " + ordersVo.getPayType());
+            for (OitemVo ovo : olist) {
+                System.out.println("oitem = " + ovo);
+                ovo.setStatus("결제 완료");
+            }
+        }
 
         //주문상품, 주문자 정보 모두 가지고 DB insert
         ordersService.insertOrder(ordersVo, olist);
@@ -121,6 +139,8 @@ public class OrdersController {
         if (ordersVo.isSaveAddress() == true) {
             ordersService.saveDelivery(ordersVo);
         }
+
+        model.addAttribute("oitemList", olist);
         model.addAttribute("ordersVo",ordersVo);
         return "/order/order_ok";
     }

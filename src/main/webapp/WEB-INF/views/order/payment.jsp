@@ -240,7 +240,6 @@
                         </div>
 
                         <!-- 결제수단 선택 라디오 버튼 -->
-
                         <div class="check_row_method" id="check_row_method">
                             <div class="row"><span class="label">결제 수단 선택</span><span class="val">
                                 <b class="total"></b></span></div>
