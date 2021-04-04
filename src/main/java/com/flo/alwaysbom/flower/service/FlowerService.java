@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface FlowerService {
 
+    FlowerVo addFlower(FlowerVo vo);
+
     List<FlowerVo> findAll();
 
     Optional<FlowerVo> findByIdx(Integer idx);

@@ -18,6 +18,12 @@
 <head>
     <title>플라워클래스 결제</title>
     <%@ include file="../main/import.jspf"%>
+    <style>
+        .ps-hana {
+            padding-left: 7rem;
+            padding-right: 7rem;
+        }
+    </style>
 </head>
 <script>
     function usePoint() {
@@ -75,16 +81,16 @@
     </div>
 
     <!-- 상품 -->
-    <div class="col-12 d-flex border-1 border-top" style="height: 170px">
+    <div class="col-12 d-flex border-1 border-top ps-hana" style="height: 170px">
         <!-- 수강일 -->
-        <div class="col-3 d-flex align-items-center justify-content-center">
+        <div class="col-3 d-flex align-items-center text-start">
             <span>${scheduleVo.sdate}</span>
         </div>
 
         <!-- 클래스 내용 -->
         <div class="col-6 d-flex align-items-center">
-            <div>
-                <img src="${fclassVo.image1}" alt="이미지" style="width:160px; height:130px">
+            <div class="overflow-hidden" style="height:150px">
+                <img src="${fclassVo.image1}" alt="이미지" width="160px;">
             </div>
             <div class="d-flex flex-column ps-2">
                 <span>[ ${branchVo.name} ] ${fclassVo.category}_${fclassVo.name}</span>
@@ -94,13 +100,13 @@
         </div>
 
         <!-- 수강료 -->
-        <div class="col-3 d-flex align-items-center justify-content-center">
+        <div class="col-3 d-flex align-items-center justify-content-end">
             <span class="text-secondary"><fmt:formatNumber value="${fclassVo.price}" pattern="#,###"/> 원</span>
         </div>
     </div>
 
     <!-- 적립금 -->
-    <div class="col-12 py-4 d-flex align-items-center border-1 border-secondary border-top border-bottom">
+    <div class="col-12 py-4 ps-hana d-flex align-items-center border-1 border-secondary border-top border-bottom">
         <span class="fw-bold me-1">적립금</span>
         <input type="number" id="input_my_point" autocomplete="off" class="mx-1 ps-3 border border-secondary btn-outline-white rounded-3" onkeyup="compareWithPoint(this)" onchange="compareWithPoint(this)">
         <button type="button" class="btn btn-sm btn-warning mx-1" onclick="usePoint()">적용</button>
@@ -108,28 +114,33 @@
     </div>
 
     <!-- 결제 금액 -->
-    <div class="col-12 py-4 ps-3 pe-2 d-flex flex-column border-1 border-secondary border-bottom">
-        <div class="d-flex justify-content-between py-2">
-            <span>포인트할인</span>
-           <input type="hidden" name="discountPoint" id="discountPointHidden" value="0">
-            <span id="pointHere">-<fmt:formatNumber value="0" pattern="#,###"/> 원</span>
+    <div class="col-12 py-4 ps-hana d-flex flex-column border-1 border-secondary border-bottom">
+        <div class="d-flex py-2">
+            <span class="col-9">포인트할인</span>
+            <input type="hidden" name="discountPoint" id="discountPointHidden" value="0">
+            <span class="col-3 d-flex justify-content-end align-items-center" id="pointHere">
+                <fmt:formatNumber value="0" pattern="-#,### 원"/>
+            </span>
         </div>
-        <div class="d-flex justify-content-between py-2">
-            <span>등급할인</span>
+        <div class="d-flex py-2">
+            <span class="col-9">등급할인</span>
 <%--            <span id="gradeDiscount" name="discountGrade">-<fmt:formatNumber value="0" pattern="#,###"/> 원</span>--%>
             <input type="hidden" name="discountGrade" id="discountGradeHidden" value="0">
-            <span id="gradeDiscount">-<fmt:formatNumber value="${discountPrice}" pattern="#,###"/> 원</span>
+            <span class="col-3 d-flex justify-content-end align-items-center" id="gradeDiscount">
+                <fmt:formatNumber value="${discountPrice}" pattern="-#,### 원"/>
+            </span>
         </div>
-        <div class="d-flex justify-content-between py-2 h4 text-warning m-0">
-            <span>총 결제금액</span>
+        <div class="d-flex py-2 h4 text-warning m-0">
+            <span class="col-9">총 결제금액</span>
             <input type="hidden" name="discountTotalPrice" id="discountTotalPriceHidden" value="${totalPrice}">
-            <span id="finalPrice" data-original-price="${totalPrice}">
-                <fmt:formatNumber value="${totalPrice}" pattern="#,### 원"/></span>
+            <span class="col-3 d-flex justify-content-end align-items-center" id="finalPrice" data-original-price="${totalPrice}">
+                <fmt:formatNumber value="${totalPrice}" pattern="#,### 원"/>
+            </span>
         </div>
     </div>
 
     <!-- 결제 수단 -->
-    <div class="col-12 py-4 d-flex flex-column">
+    <div class="col-12 py-4 ps-hana d-flex flex-column border-1 border-bottom border-dark">
         <span>결제 수단 선택</span>
         <div class="d-flex pay-button-group">
             <label class="col-3">
@@ -150,14 +161,14 @@
             </label>
         </div>
         <!-- 결제 수단별 내용 영역 -->
-        <div class="border-1 border-bottom border-dark">
+        <div>
             <!-- 신용카드 내용 -->
             <div class="pay-content active p-4">
             </div>
 
             <!-- 신용카드(직접입력) 내용 -->
             <div class="pay-content">
-                <div class="d-flex flex-column border-1 border-bottom border-dark p-4">
+                <div class="d-flex flex-column border-1 border-bottom border-secondary p-4">
                     <span>* 신용카드 정보를 직접 입력하여 간편하게 결제하실 수 있습니다.</span>
                     <span>* 꾸까에서는 절대 카드 정보를 직접 저장하지 않습니다.</span>
                     <span>* 나이스 정보통신의 결제 기능을 사용합니다.</span>
@@ -243,19 +254,36 @@
     </div>
 
     <!-- 버튼 영역 -->
-    <div class="col-12 py-4 d-flex flex-column">'
+    <div class="col-12 py-4 ps-hana d-flex flex-column">
         <input type="hidden" name="scheduleIdx" value="${scheduleVo.idx}">
         <input type="hidden" name="regCount" value="${regCount}">
         <input type="hidden" name="memberId" value="${memberVo.id}">
         <input type="hidden" name="payTotal" value="${fclassVo.price * regCount}">
        <%-- <input type="hidden" name="discountGrade" value="${discountPrice}">--%>
-        <button type="submit" class="col-3 align-self-end btn-pay bg-pay py-3">결제 하기</button>
+        <button type="button" class="col-3 align-self-end btn-pay bg-pay py-3" onclick="completePayment(this.form)">결제 하기</button>
     </div>
 </form>
 <%@ include file="../main/footer.jspf"%>
 <script>
     let $payTypeList = document.querySelectorAll('.pay-button-group input[type="radio"]');
     let $payButtonContentList = document.querySelectorAll('.pay-content');
+
+    async function completePayment(form) {
+        //regCount가 scheduleVo에 있는 total - regcount 의 값보다 클 때 alert띄우고 다시입력하게 하기
+        let scheduleIdx = form.scheduleIdx.value;
+        let response = await fetch("/api/fclass/schedules/" + scheduleIdx);
+        let result = await response.json();
+
+        console.log(result);
+
+        if (result.totalCount - result.regCount < form.regCount.value) {
+            alert("수강등록 가능한 인원수를 초과하였습니다.");
+        } else {
+            form.submit();
+        }
+
+        //regCount가 scheduleVo에 있는 total - regcount 의 값보다 작을 때 결제완료 페이지로 넘기기
+    }
 
     function getPayTypeIndex($payTypeList) {
         let result = -1;

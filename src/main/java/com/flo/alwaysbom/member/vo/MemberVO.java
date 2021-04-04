@@ -9,6 +9,7 @@ import java.sql.Date;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class MemberVO{
 
     private String id;

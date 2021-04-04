@@ -1,58 +1,76 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/order/orderstyle.css">
+    <title>결제완료 페이지</title>
+    <%@ include file="../main/import.jspf"%>
 </head>
 <body>
-<form action="/admin/fclass/completePayment" method="get" class="contents" id="contents" tabindex="0">
-
-    <div id="root" data-app="payment">
-        <div class="checkout_kukka_complete">
-            <div class="inbox">
-                <div class="checkout_note">
-                    <h3 class="thank"><span class="name">고객이름</span>님의<br>주문이 완료되었습니다.</h3>
-                    <p class="desc">새늘봄이 행복을 가득 담아 보내드릴게요!</p>
-                    <p class="order_no">주문번호 : #</p>
-                    <dl class="bank_info">
-                        <dt class="th">입금계좌 안내
-                            <span>다음계좌로 입금해주시면 주문이 완료됩니다.</span>
-                        </dt>
-                        <dd class="td">
-                                    <span class="line">
-                                        <b class="prop">계좌번호</b>
-                                    <span class="val">비트은행 274-072066-01-041</span>
-                                </span>
-                            <span class="line">
-                                    <b class="prop">예금주</b><span class="val">(주)새늘봄</span>
-                                </span>
-                            <span class="line"><b class="prop">입금금액</b>
-                                        <span class="val">32,400 원</span></span>
-                            <span class="line"><b class="prop">보내시는분</b>
-                                        <span class="val">Yuna</span></span>
-                            <span class="line"><b class="prop">입금기한</b>
-                                        <span class="val">다음날 오전 9시까지</span>
-                                        </span>
-                        </dd>
-                    </dl>
-                    <p class="more">상세내역은 아래 주문내역조회에서<br>확인하실 수 있습니다.</p>
+<%@ include file="../main/header.jspf" %>
+<div id="container" class="mx-auto bg-warning d-flex flex-column pt-5">
+    <div class="mt-5 mb-3 text-center">
+        <h3 class="fw-bold my-4"><span>${member.name}</span>님의 클래스 예약 내역입니다.</h3>
+        <span>새늘봄 클래스에서 봄을 만끽하세요!</span>
+    </div>
+    <form action="/admin/fclass/completePayment" method="post" id="contents" class="d-flex flex-column align-items-center">
+        <div class="d-flex flex-column col-4 justify-content-center text-center">
+            <div class="bg-light border px-2 py-3 mb-4" style="border-radius: 20px">
+                ${member.name}님의 예약 정보
+            </div>
+            <div class="d-flex flex-column bg-light border rounded-3 p-4 mb-4">
+                <c:if test="${order.payType eq '무통장입금'}">
+                <div class="flex flex-column text-start mb-3">
+                    <span class="d-block">입금계좌 안내</span>
+                    <span>다음 계좌로 입금해주시면 예약이 완료됩니다.</span>
                 </div>
-                <div class="checkout_next">
-                    <div class="content_bottom_button">
-                        <div class="bottom_row">
-                            <div class="bottom_col">
-                                <a href="/" class="bottom_button is_default">쇼핑 계속하기</a>
-                            </div>
-                            <div class="bottom_col">
-                                <a href="#" class="bottom_button is_active">주문 내역 조회</a>
-                            </div>
-                        </div>
+                <div class="d-flex small fw-bold">
+                    <div class="d-flex flex-column pe-3 text-start">
+                        <span>계좌번호</span>
+                        <span>예금주</span>
+                        <span>입금금액</span>
+                        <span>입금기한</span>
+                    </div>
+                    <div class="d-flex flex-column text-start">
+                        <span>새늘봄은행 274-072066-01-041</span>
+                        <span>(주)새늘봄</span>
+                        <span><fmt:formatNumber value="${order.discountTotalPrice}" pattern="#,###"/></span>
+                        <span>주문일 기준 다음날 오전 9시까지</span>
                     </div>
                 </div>
+                </c:if>
+                <c:if test="${order.payType ne '무통장입금'}">
+                <div class="d-flex flex-column text-start mb-3">
+                    <span>예약 안내</span>
+                    <span>예약이 완료되었습니다!</span>
+                </div>
+                <div class="d-flex small fw-bold">
+                    <div class="d-flex flex-column pe-3 text-start">
+                        <span>클래스이름</span>
+                        <span>지점명</span>
+                        <span>입금금액</span>
+                        <span>예약날짜</span>
+                        <span>예약시간</span>
+                    </div>
+                    <div class="d-flex flex-column text-start">
+                        <span>${order.fclassName}</span>
+                        <span>${order.branchName}</span>
+                        <span><fmt:formatNumber value="${order.discountTotalPrice}" pattern="#,###"/></span>
+                        <span>${order.scheduleDate}</span>
+                        <span>${order.scheduleStartTime} ~ ${order.scheduleEndTime}</>
+                    </div>
+                </div>
+                </c:if>
             </div>
+
         </div>
+
+    </form>
+    <div class="mt-2 text-center">
+        <span>상세내역은 주문내역조회에서 확인하실 수 있습니다. </span>
     </div>
-</form>
+</div>
+<%@ include file="../main/footer.jspf"%>
 
 </body>
 </html>

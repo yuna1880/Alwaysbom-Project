@@ -10,9 +10,14 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private final ProductDao dao;
+
+    @Override
+    public ProductVo addProduct(ProductVo vo) {
+        return dao.addProduct(vo);
+    }
 
     @Override
     public List<ProductVo> findAll() {
@@ -27,6 +32,16 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Optional<ProductVo> findByIdx(Integer idx) {
         return dao.findByIdx(idx);
+    }
+
+    @Override
+    public int updateProduct(ProductVo vo) {
+        return dao.updateProduct(vo);
+    }
+
+    @Override
+    public int deleteProduct(Integer idx) {
+        return dao.deleteProduct(idx);
     }
 
 }

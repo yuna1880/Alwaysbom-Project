@@ -27,4 +27,9 @@ public class SubsVo {
     public Integer getFinalPrice(){
         return (int)(price * (1 - 0 / 100.0));
     }
+
+    // 편지 추가 가격
+    public int getLetterPrice() {
+        return 2500;
+    }
 }

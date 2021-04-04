@@ -7,13 +7,29 @@
     <%@ include file="../main/import.jspf"%>
     <link rel="stylesheet" href="/static/css/item/detail.css">
     <link rel="stylesheet" href="/static/bootstrap-datepicker/bootstrap-datepicker.css">
-    <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script>
+    function moveToTop() {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+</script>
 </head>
 <body>
 <%@ include file="../main/header.jspf"%>
 
+<!-- 맨위로 가는 버튼 -->
+<button type="button" id="moveToTop" onclick="moveToTop()">
+    <i class="far fa-arrow-alt-circle-up"></i>
+</button>
+
+<!-- 메인 컨테이너 -->
 <div id="container" class="mx-auto">
 <form method="post">
+
     <!-- 메뉴 경로 표시 -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-3">
@@ -24,13 +40,13 @@
     </nav>
 
     <!-- 상품 썸네일과 주문 정보 -->
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between thumb-order">
         <!-- 사진 썸네일 -->
         <div class="thumbnails d-flex flex-column justify-content-start">
             <div class="mb-4">
                 <img src="${flowerVo.image1}" alt="대표 썸네일" class="col-12">
             </div>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex">
                 <img src="${flowerVo.image1}" alt="썸네일1" class="col-4 pe-2">
                 <c:if test="${not empty flowerVo.image2}">
                 <img src="${flowerVo.image2}" alt="썸네일2" class="col-4 ps-1 pe-1">
@@ -70,7 +86,8 @@
                 <div class="row mb-4">
                     <div class="col-3 fw500 pt-1">수령일</div>
                     <div class="col-9">
-                        <input type="text" placeholder="수령일을 선택해주세요." class="datepicker col-12 p-2 ps-3 fs-6"/>
+                        <input type="text" name="requestDate" placeholder="수령일을 선택해주세요."
+                               class="datepicker col-12 p-2 ps-3 fs-6" autocomplete="off"/>
                     </div>
                 </div>
 
@@ -81,7 +98,7 @@
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(false)">
                             <i class="fas fa-minus-circle"></i>
                         </button>
-                        <span class="quantity col-1 text-center" data-flower-quantity>1</span>
+                        <span class="quantity col-2 text-center" data-flower-quantity>1</span>
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(true)">
                             <i class="fas fa-plus-circle"></i>
                         </button>
@@ -110,15 +127,13 @@
                     <div class="col-3 fw500">추가 옵션</div>
                     <div class="col-9">
                         <select name="selectOptions" class="form-select p-2 ps-3" aria-label="form-select example"
-                                onchange="addOptions(this)">
+                                onchange="addChoices(this)">
                             <option>함께하면 좋은 추천상품</option>
                             <c:forEach var="productVo" items="${productList}">
                             <c:if test="${not empty productVo}">
                             <option value="${productVo.idx}">
-                                <div>${productVo.name}</div>
-                                <div>
-                                    <fmt:formatNumber value="${productVo.finalPrice}" pattern="#,###원"/>
-                                </div>
+                                ${productVo.name}
+                                <fmt:formatNumber value="${productVo.finalPrice}" pattern=" (#,###원)"/>
                             </option>
                             </c:if>
                             </c:forEach>
@@ -151,8 +166,6 @@
                 </div>
             </div> <!-- price-box-wrap 닫기 -->
 
-
-
             <!-- 총 주문금액 -->
             <div class="d-flex justify-content-end mb-1 mt-3 me-2">
             <c:if test="${not empty flowerVo.freeDeliveryMessage}">
@@ -170,31 +183,50 @@
 
             <!-- 장바구니/결제 버튼 -->
             <div class="d-flex justify-content-center mt-5">
-                <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart(this.form)">장바구니</button>
+                <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart(true, this.form)">장바구니</button>
 
             <%--memberId, category, flowerIdx, quantity, letter 임의로 넣어주기--%>
                 <input type="hidden" name="memberId" value="test">
                 <input type="hidden" name="category" value="꽃다발">
                 <input type="hidden" name="flowerIdx" value="${flowerVo.idx}">
 
-                <button type="button" class="btn main-button fw-bold py-3">바로구매</button>
+                <button type="button" class="btn main-button fw-bold py-3" onclick="addCart(false, this.form)">바로구매</button>
             </div>
 
         </div> <!-- 주문 정보 닫기 -->
     </div> <!-- 상품 썸네일 & 주문 정보 닫기 -->
 
     <!-- 상품설명/리뷰/배송안내 Tabs -->
-    <ul class="nav detail-nav">
-        <li class="nav-item col-4 text-center nav-active">
-            상품설명
-        </li>
-        <li class="nav-item col-4 text-center">
-            리뷰
-        </li>
-        <li class="nav-item col-4 text-center">
-            배송안내
-        </li>
-    </ul>
+    <div class="d-flex showType-wrap">
+        <label class="col-4">
+            <input type="radio" name="showType" class="d-none" checked="">
+            <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#detail-area')">상품설명</span>
+        </label>
+        <label class="col-4">
+            <input type="radio" name="showType" class="d-none">
+            <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#review-area')">리뷰</span>
+        </label>
+        <label class="col-4">
+            <input type="radio" name="showType" class="d-none">
+            <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#delivery-area')">배송안내</span>
+        </label>
+    </div>
+
+    <!-- 상품설명 -->
+    <div id="detail-area">
+        ${flowerVo.content}
+        <br>
+        여기에 상품 설명 들어감
+    </div>
+
+    <!-- 리뷰게시판 -->
+    <hr>
+    <div id="review-area">리뷰게시판!!!</div>
+
+    <!-- 배송안내 -->
+    <hr>
+    <div id="delivery-area">배송안내</div>
+
 </form>
 </div> <!-- #container 닫기 -->
 
@@ -206,11 +238,11 @@
 
     /* 편지 추가, 추가안함 */
     function checkRadioBtn(isAdded) {
-        if (isAdded) {
+        if (isAdded) { // 편지 추가 O
             letterOptionsEl[1].nextElementSibling.classList.remove("text-dark", "fw500");
             letterOptionsEl[0].nextElementSibling.classList.add("text-dark", "fw500");
             document.querySelector("#addLetter").classList.remove("d-none");
-        } else {
+        } else { // 편지 추가 X
             letterOptionsEl[0].nextElementSibling.classList.remove("text-dark", "fw500");
             letterOptionsEl[1].nextElementSibling.classList.add("text-dark", "fw500");
             document.querySelector("#addLetter").classList.add("d-none");
@@ -220,8 +252,8 @@
 
     /* 꽃다발 상품 수량 증감 */
     function adjustQuantity(isUp) {
-        const quantityEl = document.querySelector(".quantity");
-        let quantity = quantityEl.textContent;
+        const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
+        let quantity = flowerQuantityEl.textContent;
         if (isUp) {
             quantity++;
         } else {
@@ -229,7 +261,28 @@
                 quantity--;
             }
         }
-        quantityEl.textContent = quantity;
+        flowerQuantityEl.textContent = quantity;
+        configTotal();
+    }
+
+    /* 추가옵션의 수량 변경 */
+    function adjustChoiceQuantity(isUp, btn) {
+        const $choicePrice = btn.parentElement.nextElementSibling;
+        let choiceOriginalPrice = Number($choicePrice.dataset.choicePrice);
+        let quantity;
+        if (isUp) {
+            quantity = btn.previousElementSibling.textContent;
+            quantity++;
+            btn.previousElementSibling.textContent = quantity;
+        } else {
+            quantity = btn.nextElementSibling.textContent;
+            if (quantity > 1) {
+                quantity--;
+                btn.nextElementSibling.textContent = quantity;
+            }
+        }
+        let finalChoicePrice = choiceOriginalPrice * quantity;
+        $choicePrice.textContent = finalChoicePrice.toLocaleString('ko-KR') + "원";
         configTotal();
     }
 
@@ -242,23 +295,22 @@
 
     /* 총 주문금액 계산하기 */
     function configTotal() {
-        const flowerFinalPriceEl = document.querySelector("[data-flower-finalPrice]");
-        const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
-        const letterPriceEl = document.querySelector("[data-letter-price]");
-        const optionPriceEl = document.querySelectorAll("[data-option-price]");
+        const $flowerFinalPrice = document.querySelector("[data-flower-finalPrice]");
+        const $flowerQuantity = document.querySelector("[data-flower-quantity]");
+        const $letterPrice = document.querySelector("[data-letter-price]");
+        const $choicePrice = document.querySelectorAll("[data-choice-price]");
 
-        let flowerFinalPrice = flowerFinalPriceEl.textContent.trim().replace("원", "").replace(",", "");
-        let flowerQuantity = flowerQuantityEl.textContent;
-        let letterPrice = letterPriceEl.textContent.trim().replace("원", "").replace(",", "");
+        let flowerFinalPrice = $flowerFinalPrice.textContent.trim().replace("원", "").replaceAll(",", "");
+        let flowerQuantity = $flowerQuantity.textContent;
+        let letterPrice = $letterPrice.textContent.trim().replace("원", "").replaceAll(",", "");
         let totalPrice = flowerFinalPrice * flowerQuantity;
 
-        if (optionPriceEl) {
-            for (let i = 0; i < optionPriceEl.length; i++) {
-                let optionPrice = optionPriceEl[i].textContent.trim().replace("원", "").replace(",", "");
-                totalPrice += Number(optionPrice);
+        if ($choicePrice) {
+            for (let i = 0; i < $choicePrice.length; i++) {
+                let choicePrice = $choicePrice[i].textContent.trim().replace("원", "").replaceAll(",", "");
+                totalPrice += Number(choicePrice);
             }
         }
-
         if (letterOptionsEl[0].checked) {
             totalPrice += Number(letterPrice);
         }
@@ -281,20 +333,20 @@
     })
 
     /* 추가옵션 선택시 */
-    function addOptions(selectBox) {
-        const optionItemsEl = selectBox.options;
-        let optionItemIdx;
-        // optionItemsEl[0].value: 함께하면 좋은 추천상품
-        // optionItemsEl[1].value: 23 (ProductVo Idx)
-        // optionItemsEl[2].value: 22 ...
+    function addChoices(selectBox) {
+        const $choices = selectBox.options;
+        let choiceIdx;
+        // $choices[0].value: 함께하면 좋은 추천상품
+        // $choices[1].value: 23 (ProductVo Idx)
+        // $choices[2].value: 22 ...
 
-        for (let i = 0; i < optionItemsEl.length; i++) {
+        for (let i = 0; i < $choices.length; i++) {
             if (i > 0) {
-                if (optionItemsEl[i].selected) {
-                    optionItemIdx = optionItemsEl[i].value;
+                if ($choices[i].selected) {
+                    choiceIdx = $choices[i].value;
                 }
             } else {
-                optionItemIdx = null;
+                choiceIdx = null;
             }
         }
 
@@ -305,8 +357,8 @@
                 'Content-Type': 'application/json;charset=UTF-8'
             }
         }
-        if (optionItemIdx) {
-            fetch("/product/" + optionItemIdx + "/get", processOption)
+        if (choiceIdx) {
+            fetch("/product/" + choiceIdx + "/get", processOption)
                 .then(function (response) {
                     console.log(response);
                     response.json().then(function (result) {
@@ -325,22 +377,49 @@
         const priceBoxWrap = document.querySelector(".price-box-wrap");
         let newDiv = document.createElement("div");
 
-        newDiv.className =  "option-price-box p-4 mx-2 mb-3 price-box";
+        newDiv.className =  "choice-price-box p-4 mx-2 mb-3 price-box";
+        newDiv.setAttribute("data-product-idx", pvo.idx);
         newDiv.innerHTML =  "<div class='d-flex justify-content-between pb-1'>"
-                            + "<input type='hidden' name='option-idx' value='" + pvo.idx + "'>"
                             + "<span class='fw500'>추가상품 : " + pvo.name + "</span>"
                             + "<button type='button' class='btn-close btn-close-style' "
-                            + "onclick='deleteOption(this)'></button></div>"
-                            + "<div class='d-flex justify-content-end'>"
-                            + "<span class='fw500' data-option-price>" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
+                            + "onclick='deleteChoice(this)'></button></div>"
+                            + "<div class='d-flex justify-content-between'>"
+                            + "<div class='col-3 count d-flex justify-content-between align-items-center'>"
+                            + "<button type='button' class='border-0 bg-transparent' onclick='adjustChoiceQuantity(false, this)'>"
+                            + "<i class='fas fa-minus-circle'></i></button>"
+                            + "<span class='quantity col-1 text-center'>1</span>"
+                            + "<button type='button' class='border-0 bg-transparent' onclick='adjustChoiceQuantity(true, this)'>"
+                            + "<i class='fas fa-plus-circle'></i></button></div>"
+                            + "<span class='fw500' data-choice-price=" + pvo.finalPrice + ">" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
                             + "</div>";
 
         // 이미 만들어진 애들 중에 동일 인덱스 있나 보고, 있으면 기존것에 수량만 합치고 없으면 따로 추가
-
-        priceBoxWrap.appendChild(newDiv);
+        const $choices = document.querySelectorAll(".choice-price-box");
+        let btnUp;
+        let choiceExists = false;
+        if ($choices) {
+            for (let i = 0; i < $choices.length; i++) {
+                let productIdx = Number($choices[i].dataset["productIdx"]);
+                if (pvo.idx === productIdx) {
+                    console.log("pvo.idx= " + pvo.idx + ", productidx= " + productIdx);
+                    console.log("중복값이 존재합니다.");
+                    btnUp = $choices[i].getElementsByTagName('button')[2];
+                    choiceExists = true;
+                    break;
+                }
+            }
+            if (choiceExists) {
+                adjustChoiceQuantity(true, btnUp);
+            } else {
+                priceBoxWrap.appendChild(newDiv);
+            }
+        } else {
+            priceBoxWrap.appendChild(newDiv);
+        }
     }
 
-    function deleteOption(closeBtn) {
+    /* 추가한 옵션들의 priceBox 닫기 */
+    function deleteChoice(closeBtn) {
         const priceBoxWrap = document.querySelector(".price-box-wrap");
         let removedObj = closeBtn.parentElement.parentElement;
         priceBoxWrap.removeChild(removedObj);
@@ -348,33 +427,106 @@
     }
 
     /* 장바구니 보내기 */
-    function addCart(frm) {
-        const inputsEl = document.getElementsByTagName("input");
-        const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
-        let letterStatus;
+    async function addCart(goCart, frm) {
+        const $inputs = document.getElementsByTagName("input");
+        const $choices = document.querySelectorAll(".choice-price-box");
+        const $flowerQuantity = document.querySelector("[data-flower-quantity]");
 
-        if (letterOptionsEl[0].checked) {
-            letterStatus = letterOptionsEl[0].value;
-        } else {
-            letterStatus = letterOptionsEl[1].value;
-        }
+        const choices = [...$choices].map((choice) => {
+            return {
+                productIdx: choice.dataset.productIdx,
+                quantity: choice.querySelector(".quantity").textContent
+            }
+        });
 
-        let cartVo = {
-            memberId: inputsEl.memberId.value,
-            category: inputsEl.category.value,
-            flowerIdx: inputsEl.flowerIdx.value,
-            quantity: Number(flowerQuantityEl.textContent),
-            letter: letterStatus
+        const cartVo = {
+            memberId: $inputs.memberId.value,
+            category: $inputs.category.value,
+            flowerIdx: $inputs.flowerIdx.value,
+            quantity: $flowerQuantity.textContent,
+            requestDate: $inputs.requestDate.value,
+            letter: letterOptionsEl[0].checked ? 1 : 0,
+            choices: choices
         };
 
-        let option = {
+        const option = {
             method: 'post',
             body: JSON.stringify(cartVo),
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8'
             }
         }
+
+        const response = await fetch("/api/carts", option);
+        const result = await response.json();
+        console.log(result);
+
+        if (goCart && result) {
+            location.href = "/cart/list";
+        } else if (!goCart && result) {
+            // 이때 사실 cartList 에 담긴 result 를 지워줘야하는데 말이지..?
+            goPay(result, frm);
+        }
     }
+
+    function goPay(cartVo, frm) {
+        console.log("goPay()실행. cartVo: " + cartVo);
+        const oitemVoList = [
+            {hasLetter: letterOptionsEl[0].checked},
+            {name: cartVo.name},
+            {price: cartVo.totalPrice},
+            {options: cartVo.options},
+            {image: cartVo.image},
+            {requestDate: cartVo.requestDate},
+            {category: cartVo.category},
+            {quantity: cartVo.quantity},
+            {reviewCheck: 0}
+        ];
+
+        let data = document.createElement("input");
+        data.type = "text";
+        data.name = "data";
+        data.value = JSON.stringify(oitemVoList);
+
+        console.log("data.value: " + data.value);
+
+        // deleteFromCart(cartVo.idx);
+
+        frm.appendChild(data);
+        frm.action = "/order/letter";
+        frm.submit();
+    }
+
+    // function deleteFromCart(idx) {
+    //     console.log(idx);
+    //     fetch("/api/cart/removeByIdx", {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json;charset=UTF-8'
+    //         },
+    //         body: JSON.stringify({
+    //             idx: idx
+    //         })
+    //     }).then(
+    //         (response) => console.log(response)
+    //     ).then(
+    //         (result) => console.log(result)
+    //     ).catch(function (err) {
+    //         alert(err);
+    //     });
+    // }
+
+
+    function animateScroll(locationStr) {
+        let headerHeight = document.querySelector("header").offsetHeight;
+        let targetScrollVal = document.querySelector(locationStr).offsetTop;
+        window.scrollTo({top:targetScrollVal - headerHeight, behavior:'smooth'});
+    }
+
+
+
+
+
 
     <%--
     async function getDetail() {
@@ -409,3 +561,6 @@
 </script>
 </body>
 </html>
+<style>
+
+</style>

@@ -56,6 +56,9 @@
             width: 60px;
             text-align: center;
         }
+        .height-320px {
+            height: 320px;
+        }
 
     </style>
 </head>
@@ -95,7 +98,7 @@
                                 <a href="/admin/fclass/detail?idx=${fclass.idx}">
                                     <input type="hidden" name="idx" value="${fclass.idx}">
 
-                                    <div class="overflow-hidden">
+                                    <div class="overflow-hidden height-320px">
                                         <img src="${fclass.image1}" alt="꽃"
                                              class="card-img-top scale-up">
                                     </div>
@@ -117,7 +120,7 @@
                         </li>
                     </c:if>
                 </c:forEach>
-                <li class="col-4 card p-4" style="height: 439.88px;">
+                <li class="col-4 card p-4" style="min-height: 400px;">
                     <a class="w-100 h-100 btn btn-outline-secondary d-flex align-items-center justify-content-center"
                        href="/admin/fclass/addClass">
                         <i class="fa fa-plus h1"></i>
@@ -134,7 +137,7 @@
                         <li class="col-4 card p-4">
                             <div>
                                 <a href="/admin/fclass/detail?idx=${fclass.idx}">
-                                    <div class="overflow-hidden">
+                                    <div class="overflow-hidden height-320px">
                                         <img src="${fclass.image1}" alt="꽃"
                                              class="card-img-top  scale-up">
                                     </div>
@@ -156,7 +159,7 @@
                         </li>
                     </c:if>
                 </c:forEach>
-                <li class="col-4 card p-4" style="height: 439.88px;">
+                <li class="col-4 card p-4" style="min-height: 400px;">
                     <a class="w-100 h-100 btn btn-outline-secondary d-flex align-items-center justify-content-center"
                        href="/admin/fclass/addClass">
                         <i class="fa fa-plus h1"></i>
