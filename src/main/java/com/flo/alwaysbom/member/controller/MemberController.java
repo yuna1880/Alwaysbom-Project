@@ -120,10 +120,10 @@ public class MemberController {
         return "member/member_grade";
     }
 
-    @PostMapping("/update_info")
-    public String update_info(MemberVO memberVO) {
+    @PostMapping("/updateMember")
+    public String updateMember(MemberVO memberVO) {
         memberService.updateMember(memberVO);
-        return "member/update_info";
+        return "member/updateMember";
     }
 
 

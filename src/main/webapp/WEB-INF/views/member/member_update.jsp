@@ -120,7 +120,7 @@
                     </div>
                     <div class="join_us_box">
                         <div class="inbox">
-                            <form role="form" action="/update_info" method="post" onsubmit="confirm();">
+                            <form role="form" action="/updateMember" method="post" onsubmit="confirm();">
                                 <fieldset>
                                     <div class="form-group">
                                         <div class="inner">

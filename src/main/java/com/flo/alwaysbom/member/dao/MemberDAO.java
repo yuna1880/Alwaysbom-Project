@@ -33,6 +33,7 @@ public class MemberDAO{
 
     //회원 정보 수정
     public void updateMember(MemberVO memberVO) {
+
         sessionTemplate.update("member.updateMember",memberVO);
     }
 
