@@ -37,17 +37,47 @@
     </button>
 </div>
 
-<!-- 컨테이너 -->
-<div id="container" class="mx-auto">
-    <h1>Main</h1>
-    <h1>담영 열작업중!!!!</h1>
-    메인 컨테이너입니다. (width: 1280px)<br>
-    모두들 이 가로 사이즈에 맞게 작업해주세요.
-    <br><br>
-    메뉴 네비게이션 바 a 태그 href 에 각자 자기 페이지 컨트롤러 주소를 입력하세요!
-    <hr>
-    백오피스 페이지 링크는 푸터에 있습니다.
+<!-- 새늘봄 꽃 정기구독 -->
+<div class="w-1280 mx-auto mt-100 mb-5 d-flex justify-content-between">
+    <div class="col-4 d-flex flex-column pt-2 ps-4">
+        <span class="fs-3 ts-narrower ps-3">2주에 한번, 나를 위한 행복</span>
+        <span class="fs-3 fw-bolder ts-narrower ps-3">새늘봄 꽃 정기구독</span>
+        <span class="mt-3 mb-2 fs-19 fw-light ts-narrower ps-3">
+            이 계절 가장 이쁜 꽃으로 구성된 구독 꽃이예요!
+        </span>
+        <span class="my-2 ps-3">M size M size M size M size</span>
+        <button type="button" class="mt-4 py-3 subs-btn col-8">정기구독 더 알아보기</button>
+    </div>
+    <div class="col-7 d-flex justify-content-end">
+        <div class="me-2 thumbnails"></div>
+        <div class="ms-3 thumbnails"></div>
+    </div>
+    <div class="col-1 d-flex align-items-center justify-content-center">
+        <i class="fas fa-chevron-right fs-1 next-btn"></i>
+    </div>
 </div>
+
+<!-- 새늘봄 꽃다발 -->
+<div class="mt-100 flower-wrap">
+    <div class="w-1280 mx-auto">
+        <div class="ps-4">
+            <span class="fs-3 ts-narrower ps-3">꽃이 필요한 순간,</span>
+            <span class="fs-3 fw-bolder ts-narrower ps-3">새늘봄 꽃다발</span>
+        </div>
+    </div>
+</div>
+
+<!-- 새늘봄 플라워클래스 -->
+<div class="fclass-wrap">
+    <div class="w-1280 mx-auto">
+        <div class="ps-4">
+            <span class="fs-3 ts-narrower ps-3">꽃과 함께 하는 일상,</span>
+            <span class="fs-3 fw-bolder ts-narrower ps-3">플라워클래스</span>
+        </div>
+    </div>
+</div>
+<!-- 새늘봄 소품샵 -->
+
 
 
 <%@ include file="footer.jspf"%>
