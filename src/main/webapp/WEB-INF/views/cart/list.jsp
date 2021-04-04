@@ -129,18 +129,45 @@
 
                     <!-- 삭제 버튼 -->
                     <div>
-                        <i class="fa fa-window-close text-warning" onclick="removeCartItem('${cart.idx}')"></i>
+                        <i class="btn fa fa-window-close text-warning" data-cart-idx="${cart.idx}" onclick="showPopup(this)"></i>
                     </div>
                 </li>
                 </c:if>
                 </c:forEach>
             </ul>
-            <div class="col-12 d-flex justify-content-end pt-4 border-1 border-top" style="border-color: rgba(0, 0, 0, .25) !important">
+
+            <!-- 총 합계금액 표시 영역 -->
+            <div class="col-12 d-flex justify-content-end py-4 border-1 border-top border-bottom" style="border-color: rgba(0, 0, 0, .25) !important">
+                <div class="d-flex text-end fs-1 text-warning">
+                    <span class="px-1">총 금액 : </span>
+                    <span id="sumTotalPrice"><fmt:formatNumber value="${totalSum}" pattern="#,###원"/></span>
+                </div>
+            </div>
+
+            <!-- 결제 버튼 영역 -->
+            <div class="col-12 d-flex justify-content-end pt-4 border-1 border-top">
                 <div class="col-3">
-                    <button type="button" class="col-12 btn-pay bg-pay py-3" onclick="goPay()">결제</button>
+                    <button type="button" id="submitBtn" class="col-12 btn-pay bg-pay py-3" onclick="goPay()">결제</button>
                 </div>
             </div>
         </form>
+    </div>
+
+    <div class="modal fade" id="popup" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    정말 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="removeCartBtn" onclick="removeCartItem()">삭제</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <%@ include file="../main/footer.jspf"%>
@@ -148,7 +175,13 @@
     <script>
         let lastRequest;
 
-        function removeCartItem(idx) {
+        function showPopup(button) {
+            document.querySelector("#removeCartBtn").setAttribute("data-cart-idx", button.getAttribute("data-cart-idx"));
+            new bootstrap.Modal(document.querySelector("#popup")).toggle();
+        }
+
+        function removeCartItem() {
+            let idx = document.querySelector("#removeCartBtn").getAttribute("data-cart-idx");
             let option = {
                 method: 'post',
                 body: idx,
@@ -236,6 +269,14 @@
             }
             totalPriceEl.textContent = totalPrice.toLocaleString('ko-KR') + "원";
             totalPriceEl.setAttribute("data-cart-total-price", totalPrice.toString());
+
+            let sumTotalPrice = [...document.querySelectorAll("[data-cart-total-price]")]
+                .map(el => parseInt(el.getAttribute("data-cart-total-price")))
+                .reduce((prev, curr) => prev + curr, 0);
+            console.log(sumTotalPrice);
+
+            let sumTotalPriceEl = document.querySelector("#sumTotalPrice");
+            sumTotalPriceEl.innerHTML = sumTotalPrice.toLocaleString("ko-KR") + "원";
 
             quantityEl.textContent = quantity;
 

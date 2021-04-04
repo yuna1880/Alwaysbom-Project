@@ -7,10 +7,16 @@ import java.util.Optional;
 
 public interface ProductService {
 
+    ProductVo addProduct(ProductVo vo);
+
     List<ProductVo> findAll();
 
     List<ProductVo> findByCategory(String category);
 
     Optional<ProductVo> findByIdx(Integer idx);
+
+    int updateProduct(ProductVo vo);
+
+    int deleteProduct(Integer idx);
 
 }

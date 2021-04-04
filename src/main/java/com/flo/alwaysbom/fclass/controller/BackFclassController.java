@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -31,6 +34,11 @@ public class BackFclassController {
     private final FileHandler fileHandler;
     private static final Logger logger = LoggerFactory.getLogger(BackFclassController.class);
     private ServletContext context;
+
+    @GetMapping("admin/fclass/orders")
+    public String goOrders() {
+        return "fclass/b_orders";
+    }
 
     @GetMapping("admin/fclass/b_classList")
     public String goList(Model model) {
@@ -59,7 +67,6 @@ public class BackFclassController {
 
     @PostMapping("/admin/fclass/updateClass")
     public String updateClass(FclassVo vo, Integer[] branches, List<MultipartFile> file) throws IOException {
-        System.out.println("vo = " + vo);
         vo.setImage1(fileHandler.uploadFile(file.get(0), vo.getImage1(), "/fclass/class"));
         vo.setImage2(fileHandler.uploadFile(file.get(1), vo.getImage2(), "/fclass/class"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "/fclass/class"));
@@ -69,8 +76,11 @@ public class BackFclassController {
     }
 
     @PostMapping("/admin/fclass/deleteClass")
-    public String deleteClass(Integer idx) {
-        fclassService.deleteFclass(idx);
+    public String deleteClass(Integer idx) throws IOException {
+        FclassVo fclassVo = fclassService.deleteFclass(idx);
+        fileHandler.deleteFile(fclassVo.getImage1());
+        fileHandler.deleteFile(fclassVo.getImage2());
+        fileHandler.deleteFile(fclassVo.getImage3());
         return "redirect:/admin/fclass/b_classList";
     }
 
@@ -89,7 +99,6 @@ public class BackFclassController {
         model.addAttribute("branchList", branchService.findAll());
         return "fclass/b_detail";
     }
-
 
     @GetMapping("admin/fclass/branch")
     public String goBranch(Model model) {
@@ -142,6 +151,8 @@ public class BackFclassController {
     @PostMapping("admin/fclass/api/updateBranch")
     @ResponseBody
     public BranchVo updateBranch(BranchVo vo, MultipartFile file) throws IOException {
+        System.out.println("vo = " + vo);
+        System.out.println("file = " + file);
         vo.setMapImage(fileHandler.uploadFile(file, vo.getMapImage(), "fclass/branch"));
         branchService.updateBranch(vo);
         return vo;

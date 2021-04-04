@@ -1,6 +1,6 @@
 package com.flo.alwaysbom.flower.controller;
 
-import com.flo.alwaysbom.flower.service.BackFlowerService;
+import com.flo.alwaysbom.flower.service.FlowerService;
 import com.flo.alwaysbom.flower.vo.FlowerVo;
 import com.flo.alwaysbom.util.CloudFileHandler;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BackFlowerController {
 
-    private final BackFlowerService backFlowerService;
+    private final FlowerService flowerService;
     private final CloudFileHandler fileHandler;
 
     @GetMapping("/admin/flower")
@@ -36,14 +36,14 @@ public class BackFlowerController {
         vo.setImage2(fileHandler.uploadFile(file.get(1), null, "flower"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), null, "flower"));
         System.out.println("vo = " + vo);
-        backFlowerService.addFlower(vo);
+        flowerService.addFlower(vo);
         return "redirect:/admin/flowerList";
     }
 
     @GetMapping("/admin/flowerList")
     public String findAll(Model model) {
         System.out.println("findAll() 실행");
-        List<FlowerVo> list = backFlowerService.findAll();
+        List<FlowerVo> list = flowerService.findAll();
         model.addAttribute("list", list);
         return "flower/b_flowerList";
     }

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>리뷰게시판</title>
     <%@ include file="../main/import.jspf"%>
-    <style type="text/css">
+    <style>
 
         ul, li{
             list-style:none;

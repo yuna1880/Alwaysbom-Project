@@ -25,7 +25,7 @@
             <c:if test="${fclass.category eq '원데이클래스'}">
                 <div class="col f-col">
                     <div class="overflow-hidden">
-                        <a href="/fclass/detail?idx=${fclass.idx}">
+                        <a href="/fclass/classList/${fclass.idx}">
                             <img src="${fclass.image1}" class="f-col-img scale-up" alt="클래스 썸네일">
                         </a>
                     </div>
@@ -56,22 +56,25 @@
         <c:forEach var="fclass" items="${classList}">
             <c:if test="${fclass.category eq '플로리스트'}">
                 <div class="col f-col">
-                        <div class="overflow-hidden">
-                    <a href="/fclass/detail?idx=${fclass.idx}">
-                        <img src="${fclass.image1}" class="f-col-img scale-up" alt="클래스 썸네일">
-                    </a>
-                        </div>
+                    <div class="overflow-hidden">
+                        <a href="/fclass/classList/${fclass.idx}">
+                            <img src="${fclass.image1}" class="f-col-img scale-up" alt="클래스 썸네일">
+                        </a>
+                    </div>
                     <div class="f-col-text">
                         <div class="subheader">${fclass.subheader}</div>
                         <div class="class-name"><a href="/fclass/${fclass.idx}">${fclass.name}</a></div>
                         <div class="price-wrap">
                             <span class="discount-rate">${fclass.discountRate}%</span>
-                            <span class="original-price"><fmt:formatNumber value="${fclass.price}" pattern="#,###"/>원 ></span>
-                            <span class="final-price"><fmt:formatNumber value="${fclass.finalPrice}" pattern="#,###"/>원</span>
+                            <span class="original-price"><fmt:formatNumber value="${fclass.price}"
+                                                                           pattern="#,###"/>원 ></span>
+                            <span class="final-price"><fmt:formatNumber value="${fclass.finalPrice}"
+                                                                        pattern="#,###"/>원</span>
                         </div>
                         <ul class="border-0 d-flex m-0 p-0">
                             <c:forEach var="bvo" items="${fclass.branchList}">
-                                <li class="branch-box list-unstyled p-1 me-1 fw-bold"  style="color: ${bvo.color}; border: 2px solid ${bvo.color}; border-radius: 12px; font-size: 0.75rem; width: 60px; text-align: center;">${bvo.name}</li>
+                                <li class="branch-box list-unstyled p-1 me-1 fw-bold"
+                                    style="color: ${bvo.color}; border: 2px solid ${bvo.color}; border-radius: 12px; font-size: 0.75rem; width: 60px; text-align: center;">${bvo.name}</li>
                             </c:forEach>
                         </ul>
                     </div>

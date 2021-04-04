@@ -9,6 +9,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class ScheduleVo {
     private int idx;
     private int branchIdx;

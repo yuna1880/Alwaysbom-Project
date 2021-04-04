@@ -8,8 +8,17 @@
             <li><a href="#" class="text-decoration-none">오늘의 꽃은?</a></li>
             <li>|</li>
             <li>
-                <c:if test="${sessionScope.member.id != null}"><a href="#">로그아웃</a></c:if>
-                <c:if test="${sessionScope.member.id == null}"><a href="/memberLogin">로그인</a></c:if>
+<%--                <c:if test="${sessionScope.member.id != null}"><a href="/logout">로그아웃</a></c:if>--%>
+<%--                <c:if test="${sessionScope.member.id == null}"><a href="/memberLogin">로그인</a></c:if>--%>
+                <c:choose>
+                    <c:when test="${sessionScope.member == null}">
+                        <a href="/memberLogin">로그인</a>
+                    </c:when>
+                    <c:otherwise>
+                        ${sessionScope.member.name}님 반갑습니다.
+                        <a href="/logout">로그아웃</a>
+                    </c:otherwise>
+                </c:choose>
             </li>
             <li>|</li>
             <li><a href="/goMemberJoin">회원가입<span class="point-color fw-bold">(1000포인트 지급!)</span></a></li>
@@ -24,7 +33,7 @@
             </div>
             <ul class="h-menu-wrap d-flex justify-content-end my-auto">
                 <li class="h-menu ${typePath eq '/community' ? 'menu-active' : ''}">
-                    <a href="#" id="subs">꽃 정기구독</a>
+                    <a href="/subs" id="subs">꽃 정기구독</a>
                     <div class="under-bar" id="under-bar1"></div>
                 </li>
                 <li class="h-menu ms-3 ${typePath eq '/flower' ? 'menu-active' : ''}">
@@ -48,10 +57,11 @@
                         <li class="mb-2"><a href="#">1:1문의</a></li>
                     </ul>
                 </li>
+
                 <li class="h-menu-icon ms-5">
                     <a href="#">
                         <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"
-                             title="마이페이지" onclick="location.href='/myPage'">
+                             title="마이페이지" onclick="location.href='/myPage'" >
                     </a>
                 </li>
                 <li class="h-menu-icon">

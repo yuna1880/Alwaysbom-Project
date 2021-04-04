@@ -140,22 +140,13 @@ header {
 }
 
 /* 헤더 메뉴에 active 표시 */
-/*.menu-active {*/
-/*    opacity: 1;*/
-/*    pointer-events: auto;*/
-/*    color: #7DAF3B !important;*/
-/*    font-weight: 500;*/
-/*}*/
-
 .menu-active {
     color: #7DAF3B !important;
 }
-
 .menu-active a {
     font-weight: 500;
     color: #7DAF3B !important;
 }
-
 .menu-active .under-bar {
     opacity: 1;
     transition-duration: 0.2s;
@@ -164,7 +155,8 @@ header {
 
 /*--- footer ---*/
 footer {
-    background-color: #2c3034;
+    z-index: 100;
+    background-color: #303030;
     width: 100vw;
     height: 300px;
     color: #d4d4d4;

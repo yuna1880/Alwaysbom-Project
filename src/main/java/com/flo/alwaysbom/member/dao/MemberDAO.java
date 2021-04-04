@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.servlet.http.HttpSession;
+
 @Repository
 @RequiredArgsConstructor
 public class MemberDAO{
@@ -17,7 +19,11 @@ public class MemberDAO{
     }
 
     public MemberVO login(MemberVO memberVO) throws Exception {
-        return sessionTemplate.selectOne("Member.Login", memberVO);
+        return sessionTemplate.selectOne("member.Login", memberVO);
+    }
+
+    public void logout(HttpSession session){
+
     }
 
 

@@ -50,9 +50,6 @@
         DELETE FROM FCB WHERE FCLASS_IDX = #{idx}
     </delete>
 
-    <insert id="insertClassBranch" parameterType="map">
-        INSERT INTO FCB VALUES (#{idx}, #{branch})
-    </insert>
 
     <select id="findClassByCategory" parameterType="string" resultMap="fclassMap">
         SELECT * FROM FCLASS
