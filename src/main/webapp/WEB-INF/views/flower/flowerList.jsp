@@ -16,8 +16,8 @@
         <img src="/static/image/flower/flower_banner_1280.jpg" alt="꽃다발배너" class="col-12">
     </div>
     <div class="banner-text w-1280 position-absolute mx-auto">
-        <div class="banner-title fw500 mb-4">새늘봄 꽃다발</div>
-        <div class="banner-summary fw-light">
+        <div class="banner-title fw500 mb-4 ms-2">새늘봄 꽃다발</div>
+        <div class="banner-summary fw-light ms-2">
             계절을 가득 담은 꽃다발로<br>당신의 일상을 특별한 날로 만들어보세요.
         </div>
     </div>
@@ -34,7 +34,7 @@
     <div class="row row-cols-4">
         <c:forEach var="flowerVo" items="${list}">
         <c:if test="${not empty flowerVo}">
-        <div class="col mb-8em">
+        <div class="col mb-8em px-3">
             <div class="overflow-hidden">
                 <a href="/flower/${flowerVo.idx}">
                     <img src="${flowerVo.image1}" class="col-12 scale-up" alt="꽃다발 썸네일">
