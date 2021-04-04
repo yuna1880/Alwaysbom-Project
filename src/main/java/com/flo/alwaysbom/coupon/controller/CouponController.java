@@ -5,8 +5,7 @@ import com.flo.alwaysbom.coupon.vo.CouponVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,14 +17,22 @@ public class CouponController {
 
     @GetMapping("/admin/coupon")
     public String goCoupon(Model model) {
-        List<CouponVo> list = couponService.findAll();
+        List<CouponVo> list = couponService.findByStatus(null);
         model.addAttribute("couponList", list);
         return "coupon/list";
     }
 
-    @GetMapping("/api/coupon/list")
+    @GetMapping("/api/coupons")
     @ResponseBody
-    public List<CouponVo> list() {
-        return couponService.findAll();
+    public List<CouponVo> getCoupons(Integer status) {
+        System.out.println("status = " + status);
+        return couponService.findByStatus(status);
+    }
+
+    @PostMapping("/api/coupons")
+    @ResponseBody
+    public CouponVo addCoupon(@RequestBody CouponVo couponVo) {
+        System.out.println("couponVo = " + couponVo);
+        return couponService.addCoupon(couponVo);
     }
 }

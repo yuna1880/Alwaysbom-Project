@@ -6,14 +6,23 @@
 <mapper namespace="coupon">
     <insert id="addCoupon" parameterType="com.flo.alwaysbom.coupon.vo.CouponVo">
         INSERT INTO COUPON(IDX, NAME, MEMBER_ID, STATUS, POINT, CDATE)
-        VALUES (null, #{name}, #{memberId}, #{status}, #{point}, #{cdate})
+        VALUES (null, #{name}, #{memberId}, #{status}, #{point}, SYSDATE)
         <selectKey resultType="int" order="AFTER" keyProperty="idx" keyColumn="IDX">
             SELECT COUPON_SEQ.currval FROM DUAL
         </selectKey>
     </insert>
     
-    <select id="findAll" resultType="com.flo.alwaysbom.coupon.vo.CouponVo">
+    <select id="findByStatus" parameterType="int" resultType="com.flo.alwaysbom.coupon.vo.CouponVo">
         SELECT * FROM COUPON
+        <where>
+            <if test="status != null">
+                STATUS = #{status}
+            </if>
+        </where>
         ORDER BY IDX DESC
+    </select>
+
+    <select id="findByIdx" resultType="com.flo.alwaysbom.coupon.vo.CouponVo">
+        SELECT * FROM COUPON WHERE IDX = #{idx}
     </select>
 </mapper>

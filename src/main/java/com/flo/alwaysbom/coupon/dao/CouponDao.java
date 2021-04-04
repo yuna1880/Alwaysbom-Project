@@ -13,12 +13,15 @@ public class CouponDao {
 
     private final SqlSessionTemplate sessionTemplate;
 
-    public CouponVo addCoupon(CouponVo couponVo) {
+    public void addCoupon(CouponVo couponVo) {
         sessionTemplate.insert("coupon.addCoupon", couponVo);
-        return couponVo;
     }
 
-    public List<CouponVo> findAll() {
-        return sessionTemplate.selectList("coupon.findAll");
+    public List<CouponVo> findByStatus(Integer status) {
+        return sessionTemplate.selectList("coupon.findByStatus", status);
+    }
+
+    public CouponVo findByIdx(Integer idx) {
+        return sessionTemplate.selectOne("coupon.findByIdx", idx);
     }
 }
