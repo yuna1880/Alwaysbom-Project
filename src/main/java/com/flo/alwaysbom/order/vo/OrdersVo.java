@@ -30,9 +30,11 @@ public class OrdersVo {
     //비즈니스 로직 관련 데이터..
     private boolean saveAddress;
     private List<OitemVo> olist;
-    
+
     //무통장입금
     private String mootongName;
+
+
 
     //카드결제
     

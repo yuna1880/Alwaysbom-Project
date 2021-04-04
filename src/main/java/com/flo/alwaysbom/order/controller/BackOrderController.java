@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
 public class BackOrderController {
@@ -17,6 +15,6 @@ public class BackOrderController {
 
     @GetMapping("/admin/order")
     public String backOrder() {
-        return "order/b_order";
+        return "b_orderList";
     }
 }

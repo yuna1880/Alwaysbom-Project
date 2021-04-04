@@ -12,10 +12,6 @@ public interface OrdersService {
     OrdersVo insertOrder(OrdersVo vo, List<OitemVo> olist);
     void updateOrder(OrdersVo vo);
     void deleteOrder(OrdersVo vo);
-    OrdersVo getOrder(OrdersVo vo);
-
-    List<OrdersVo> getOrderList();
-    List<OrdersVo> getOrderList(OrdersVo vo);
 
     DeliveryInfoVo findAddress(MemberVO vo);
 
@@ -23,5 +19,9 @@ public interface OrdersService {
 
     //주문 완료시 저장
     OrdersVo saveDelivery(OrdersVo ordersVo);
+
+    //주문내역 조회
+    List<OrdersVo> findByMember(MemberVO vo);
+
 
 }
