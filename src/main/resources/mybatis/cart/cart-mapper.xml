@@ -67,4 +67,12 @@
     <delete id="removeByIdx" parameterType="int">
         DELETE FROM CART WHERE IDX = #{idx}
     </delete>
+
+    <delete id="removeByIdxes" parameterType="list">
+        delete from CART
+        where idx IN
+        <foreach collection="list" item="idx" open="(" separator="," close=")">
+            #{idx}
+        </foreach>
+    </delete>
 </mapper>

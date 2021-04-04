@@ -18,4 +18,6 @@ public interface CartService {
     CartVo updateQuantity(CartVo cartItem);
 
     boolean removeByIdx(Integer idx);
+
+    List<CartVo> removeByIdxes(List<Integer> idxes);
 }
