@@ -34,7 +34,7 @@
     <div class="row row-cols-4">
         <c:forEach var="flowerVo" items="${list}">
         <c:if test="${not empty flowerVo}">
-        <div class="col mb-8em px-3">
+        <div class="col mb-8em">
             <div class="overflow-hidden">
                 <a href="/flower/${flowerVo.idx}">
                     <img src="${flowerVo.image1}" class="col-12 scale-up" alt="꽃다발 썸네일">

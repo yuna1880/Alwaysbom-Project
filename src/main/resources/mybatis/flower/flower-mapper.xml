@@ -30,4 +30,30 @@
         FROM    FLOWER
         WHERE   DEL_STATUS IS NULL AND IDX = #{idx}
     </select>
+
+
+    <!-- (U) 관리자가 상품 수정 -->
+    <update id="updateFlower" parameterType="com.flo.alwaysbom.flower.vo.FlowerVo">
+        UPDATE  FLOWER
+        SET     NAME = #{name},
+                SUBHEADER = #{subheader},
+                PRICE = #{price},
+                FSIZE = #{fsize},
+                DISCOUNT_RATE = #{discountRate},
+                IMAGE1 = #{image1},
+                IMAGE2 = #{image2},
+                IMAGE3 = #{image3},
+                CONTENT = #{content},
+                FREE_DELIVERY = #{freeDelivery}
+        WHERE   IDX = #{idx}
+    </update>
+
+
+    <!-- (D) 관리자가 상품 삭제 -->
+    <update id="deleteFlower" parameterType="Integer">
+        UPDATE  FLOWER
+        SET     DEL_STATUS = 1
+        WHERE   IDX = #{idx}
+    </update>
+
 </mapper>

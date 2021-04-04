@@ -28,4 +28,14 @@ public class FlowerServiceImpl implements FlowerService {
     public Optional<FlowerVo> findByIdx(Integer idx) {
         return dao.findByIdx(idx);
     }
+
+    @Override
+    public Integer updateFlower(FlowerVo vo) {
+        return dao.updateFlower(vo);
+    }
+
+    @Override
+    public Integer deleteFlower(Integer idx) {
+        return dao.deleteFlower(idx);
+    }
 }

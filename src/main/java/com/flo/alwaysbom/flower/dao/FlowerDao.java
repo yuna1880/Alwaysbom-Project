@@ -27,4 +27,12 @@ public class FlowerDao {
         return Optional.ofNullable(sqlSessionTemplate.selectOne("FLOWER.findByIdx", idx));
     }
 
+    public Integer updateFlower(FlowerVo vo) {
+        sqlSessionTemplate.update("FLOWER.updateFlower", vo);
+        return vo.getIdx();
+    }
+
+    public Integer deleteFlower(Integer idx) {
+        return sqlSessionTemplate.update("FLOWER.deleteFlower", idx);
+    }
 }

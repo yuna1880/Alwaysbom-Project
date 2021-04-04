@@ -15,8 +15,8 @@ public interface ProductService {
 
     Optional<ProductVo> findByIdx(Integer idx);
 
-    int updateProduct(ProductVo vo);
+    Integer updateProduct(ProductVo vo);
 
-    int deleteProduct(Integer idx);
+    Integer deleteProduct(Integer idx);
 
 }
