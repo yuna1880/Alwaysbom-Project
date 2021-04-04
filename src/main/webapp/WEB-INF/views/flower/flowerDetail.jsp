@@ -47,12 +47,12 @@
                 <img src="${flowerVo.image1}" alt="대표 썸네일" class="col-12">
             </div>
             <div class="d-flex">
-                <img src="${flowerVo.image1}" alt="썸네일1" class="col-4 pe-2">
+                <img src="${flowerVo.image1}" alt="썸네일1" class="col-4 pe-3">
                 <c:if test="${not empty flowerVo.image2}">
-                <img src="${flowerVo.image2}" alt="썸네일2" class="col-4 ps-1 pe-1">
+                <img src="${flowerVo.image2}" alt="썸네일2" class="col-4 ps-2 pe-2">
                 </c:if>
                 <c:if test="${not empty flowerVo.image3}">
-                <img src="${flowerVo.image3}" alt="썸네일3" class="col-4 ps-2">
+                <img src="${flowerVo.image3}" alt="썸네일3" class="col-4 ps-3">
                 </c:if>
             </div>
         </div>

@@ -17,7 +17,7 @@
     margin-bottom: 5em;
 }
 
-/*--- 상세페이지 ---*/
+/* 유저 이동경로 */
 #bread-nav {
     display: flex;
     font-size: 15px;
@@ -38,12 +38,12 @@
 
 /* 썸네일 이미지 */
 .thumbnails {
-    width: 46%;
+    width: 45%;
 }
 
 /* 주문 정보 */
 .order-info {
-    width: 46%;
+    width: 46.5%;
 }
 .subheader {
     font-size: 16px;
@@ -81,7 +81,7 @@
 }
 .count i {
     color: #c0c0c0;
-    font-size: 25px;
+    font-size: 23px;
 }
 .count i:hover {
     color: #9a9a9a;
@@ -96,7 +96,7 @@
     color: #808080;
 }
 .price-box {
-    background-color: #e0e0e0;
+    background-color: #eeeeee;
     border-radius: 18px;
 }
 .btn-close-style {

@@ -25,7 +25,7 @@ public class FlowerController {
 
     @GetMapping("/flower/test")
     public String goTest(){
-        return "flower/test";
+        return "flower/imgThumbTest";
     }
 
     @GetMapping("/flower")
