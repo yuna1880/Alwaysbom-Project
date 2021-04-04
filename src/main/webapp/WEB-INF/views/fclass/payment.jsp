@@ -34,8 +34,8 @@
         const discountGradeEl = document.querySelector("#discountGradeHidden");
         const discountTotalPriceEl = document.querySelector("#discountTotalPriceHidden");
 
-
-        let originalPrice = finalPriceEl.getAttribute("data-original-price");
+        /*let originalPrice = finalPriceEl.getAttribute("data-original-price");*/
+        let originalPrice = finalPriceEl.dataset.originalPrice;
         let discountPoint;
 
         if (inputPointEl.value !== "" || inputPointEl.value.length > 0) {
@@ -52,7 +52,6 @@
        // grade.setAttribute("discountGrade");
         finalPriceEl.textContent = finalPrice.toLocaleString('ko-KR') + " 원";
         discountTotalPriceEl.value= finalPrice;
-
     }
 
     function compareWithPoint(point) {
@@ -224,7 +223,7 @@
                 <div class="d-flex flex-column">
                     <div class="col-6 d-flex align-items-center">
                         <span>입금자명</span>
-                        <input type="text" class="mx-2" style="width:80px">
+                        <input type="text" class="mx-2" style="width:80px" aria-label="name">
                         <span>미기재시 주문자명으로 자동 반영</span>
                     </div>
                     <div class="py-4">

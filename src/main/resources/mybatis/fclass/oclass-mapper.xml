@@ -21,12 +21,17 @@
             resultType="com.flo.alwaysbom.fclass.vo.OclassVo">
         SELECT * FROM OCLASS
         <where>
-            MEMBER_ID = #{memberId}
+            <if test="memberId != null">
+                MEMBER_ID = #{memberId}
+            </if>
             <if test="status != null and !status.equals('전체')">
                 AND STATUS = #{status}
             </if>
             <if test="className != null">
                 AND FCLASS_NAME LIKE '%' || #{className} || '%'
+            </if>
+            <if test="branchName != null">
+                AND BRANCH_NAME LIKE '%' || #{branchName} || '%'
             </if>
         </where>
         ORDER BY IDX DESC
