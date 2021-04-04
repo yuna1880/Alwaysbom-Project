@@ -52,7 +52,7 @@
                                         <div class="td">
                                             <span>
                                                 <input type="text" name="id" value="${kakao_id}" class="ipt chk" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
-                                                <button type="button" class="CheckId">중복 확인</button>
+                                                <button type="button" class="CheckId" onclick="CheckId()">중복 확인</button>
                                             </span>
                                         </div>
                                     </div>
@@ -137,12 +137,12 @@
         <%@ include file="../main/footer.jspf"%>
     </div>
 </body>
-<script>
-    $(".CheckId").click(function (){
+<script type="text/javascript">
+    function CheckId(){
         var query = {id : $("#id").val()};
 
         $.ajax({
-            url: "/member/CheckId",
+            url: "/member/member_join",
             type: "POST",
             data: query, //서버로부터 내가 받는 데이터의 타입
 
@@ -156,7 +156,7 @@
                 }
             }
         });
-    });
+    };
 
 </script>
 </html>

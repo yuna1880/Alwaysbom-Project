@@ -32,5 +32,10 @@ public class MemberService{
     public MemberVO CheckId(String id) throws Exception {
         return dao.CheckId(id);
     }
+
+    //회원 정보 수정
+    public void updateMember(MemberVO memberVO) {
+        dao.updateMember(memberVO);
+    }
 }
 

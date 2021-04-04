@@ -119,4 +119,12 @@ public class MemberController {
     public String member_grade() {
         return "member/member_grade";
     }
+
+    @PostMapping("/update_info")
+    public String update_info(MemberVO memberVO) {
+        memberService.updateMember(memberVO);
+        return "member/update_info";
+    }
+
+
 }
