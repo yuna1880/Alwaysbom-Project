@@ -35,6 +35,11 @@ public class BackFclassController {
     private static final Logger logger = LoggerFactory.getLogger(BackFclassController.class);
     private ServletContext context;
 
+    @GetMapping("admin/fclass/orders")
+    public String goOrders() {
+        return "fclass/b_orders";
+    }
+
     @GetMapping("admin/fclass/b_classList")
     public String goList(Model model) {
         List<FclassVo> classList = fclassService.findAll();
