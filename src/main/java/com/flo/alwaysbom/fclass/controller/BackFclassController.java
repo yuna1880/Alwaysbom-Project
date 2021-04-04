@@ -34,7 +34,9 @@ public class BackFclassController {
     private ServletContext context;
 
     @GetMapping("admin/fclass/orders")
-    public String goOrders() {
+    public String goOrders(Model model) {
+        List<String> branchNames = oclassService.findAllBranch();
+        model.addAttribute("branchList", branchNames);
         return "fclass/b_orders";
     }
 
@@ -122,10 +124,12 @@ public class BackFclassController {
     }
 
     @GetMapping("/admin/fclass/api/orders")
-    @ResponseBody
-    public List<OclassVo> getOrders(OclassSearchOptionDto searchOption) {
-        return oclassService.findBySearchOption(searchOption);
+    public String getOrders(Model model, OclassSearchOptionDto searchOption) {
+        List<OclassVo> orders = oclassService.findBySearchOption(searchOption);
+        model.addAttribute("orders", orders);
+        return "fclass/b_orderListContent";
     }
+
 
     @GetMapping("admin/fclass/api/findClassByCategory")
     @ResponseBody

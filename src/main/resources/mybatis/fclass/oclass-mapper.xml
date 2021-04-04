@@ -22,7 +22,7 @@
         SELECT * FROM OCLASS
         <where>
             <if test="memberId != null">
-                MEMBER_ID = #{memberId}
+                MEMBER_ID LIKE '%' || #{memberId} || '%'
             </if>
             <if test="status != null and !status.equals('전체')">
                 AND STATUS = #{status}
@@ -35,6 +35,11 @@
             </if>
         </where>
         ORDER BY IDX DESC
+    </select>
+
+    <select id="findAllBranch" resultType="string">
+        SELECT DISTINCT BRANCH_NAME FROM OCLASS
+        ORDER BY BRANCH_NAME
     </select>
 
 <!--    <select id="searchSchedule" parameterType="com.flo.alwaysbom.fclass.vo.ScheduleVo" resultType="com.flo.alwaysbom.fclass.vo.ScheduleVo">

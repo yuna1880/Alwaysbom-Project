@@ -32,7 +32,7 @@
         </div>
 
         <!-- 지점 및 수업일시 -->
-        <div class="flex-grow-1 d-flex justify-content-center">
+        <div class="col-3 d-flex justify-content-center">
             <div class="d-flex flex-column">
                 <span>지점 | ${order.branchName}</span>
                 <span>수강시작일</span>
@@ -42,9 +42,11 @@
             </div>
         </div>
 
-        <!-- 리뷰링크 -->
-        <div class="d-flex justify-content-center align-items-center">
-            <a class="btn btn-sm btn-light px-3 py-2" href="/community/goReview">리뷰쓰기</a>
+        <!-- 입금확인 처리 -->
+        <div class="col-1 d-flex justify-content-center align-items-center">
+            <c:if test="${order.status eq '입금대기'}">
+            <button type="button" class="btn btn-sm btn-light px-3 py-2">입금확인</button>
+            </c:if>
         </div>
     </li>
 </c:forEach>

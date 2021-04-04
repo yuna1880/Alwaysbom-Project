@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <html>
 <head>
@@ -11,40 +12,48 @@
         <span class="fs-2 fw-bold">클래스 등록 조회</span>
     </div>
     <div class="d-flex row-cols-3 p-5">
-        <div>
-            <select id="branchSelect" class="form-select form-select-lg mb-3" onchange="searchByBranch()">
-                <option selected>지점으로 조회</option>
-                <option value="지점1">지점1</option>
-                <option value="지점2">지점2</option>
-                <option value="지점3">지점3</option>
+        <div class="d-flex">
+            <select id="branchSelect" class="form-select form-select-lg">
+                <option value selected>전체지점</option>
+                <c:forEach var="branchName" items="${branchList}">
+                <option value="${branchName}">${branchName}</option>
+                </c:forEach>
             </select>
         </div>
-        <div class="px-2">
-            <select class="form-select form-select-lg mb-3">
-                <option selected>입금상태로 조회</option>
-                <option value="1">전체</option>
-                <option value="2">입금대기</option>
-                <option value="3">결제완료</option>
+        <div class="px-2 d-flex">
+            <select id="status" class="form-select form-select-lg">
+                <option value="전체" selected>전체</option>
+                <option value="입금대기">입금대기</option>
+                <option value="결제완료">결제완료</option>
             </select>
         </div>
-        <div>
-            <div class="input-group mb-3" style="height: 47.6px;">
-                <input type="text" class="form-control" placeholder="회원명으로 조회">
-                <button class="btn btn-outline-secondary" type="button">검색</button>
+        <div class="d-flex">
+            <div class="input-group">
+                <input id="memberId" type="text" class="form-control" placeholder="회원명으로 조회">
+                <button class="btn btn-outline-secondary" type="button" onclick="searchBySearchOption()">검색</button>
             </div>
         </div>
     </div>
 
+    <ul id="classUl">
 
+    </ul>
 
 </div>
 <%@ include file="../main/b_footer.jspf" %>
 <script>
-    async function searchByBranch() {
-        let branch = document.querySelector("#branchSelect").value();
-        let response = await fetch("admin/fclass/api/searchByBranch?branchName=" + branch);
-        let result = await response.text();
-        console.log(result);
+    async function searchBySearchOption() {
+        let branch = document.querySelector("#branchSelect").value;
+        const status = document.querySelector("#status").value;
+
+        let params = {
+            branchName: branch,
+            status: status,
+            memberId: document.querySelector("#memberId").value
+        }
+        let queryString = new URLSearchParams(params);
+        const response = await fetch("/admin/fclass/api/orders?" + queryString);
+        document.querySelector("#classUl").innerHTML = await response.text();
     }
 </script>
 </body>
