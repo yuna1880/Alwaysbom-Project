@@ -56,19 +56,61 @@
 
     <!-- 버튼 영역 -->
     <div class="col-12 p-3 bg-info d-flex justify-content-end">
-        <button class="col-2 p-3 btn btn-primary">추가</button>
+        <button class="col-2 p-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#popup">추가</button>
     </div>
 </div>
+
+<!-- 추가 팝업 -->
+<div class="modal fade" id="popup" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title">쿠폰 추가 화면입니다</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex flex-column">
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Name">
+                    <label for="name">Name</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" name="memberId" id="memberId" placeholder="Member Id">
+                    <label for="memberId">Member Id</label>
+                </div>
+
+                <div class="form-floating">
+                    <input class="form-control" type="number" name="point" id="point" placeholder="Point">
+                    <label for="point">Point</label>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addCoupon(this.form)">추가</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <%@ include file="../main/b_footer.jspf"%>
 <script>
     class Coupon {
-        constructor(coupon) {
-            this.idx = coupon.idx;
-            this.name = coupon.name;
-            this.memberId = coupon.memberId;
-            this.status = coupon.status;
-            this.point = coupon.point;
-            this.cdate = new Date(coupon.cdate);
+        constructor() {
+            if (typeof arguments[0] === "object") {
+                this.idx = arguments[0].idx;
+                this.name = arguments[0].name;
+                this.memberId = arguments[0].memberId;
+                this.status = arguments[0].status;
+                this.point = arguments[0].point;
+                this.cdate = new Date(arguments[0].cdate);
+            } else {
+                this.name = arguments[0];
+                this.memberId = arguments[1];
+                this.status = 0;
+                this.point = arguments[2];
+            }
         }
         static $area = document.querySelector("#listArea");
 
@@ -86,10 +128,11 @@
             this.$area.innerHTML =
                 '<div class="col-12 d-flex text-center">' +
                 '   <div class="col-2 p-2 border">쿠폰번호</div>' +
+                '   <div class="col-2 p-2 border">이름</div>' +
                 '   <div class="col-2 p-2 border">유저</div>' +
-                '   <div class="col-2 p-2 border">사용여부</div>' +
+                '   <div class="col-1 p-2 border">사용여부</div>' +
                 '   <div class="col-2 p-2 border">발행일</div>' +
-                '   <div class="col-2 p-2 border">포인트</div>' +
+                '   <div class="col-1 p-2 border">포인트</div>' +
                 '   <div class="col-2 p-2 border">기능</div>' +
                 '</div>';
         }
@@ -102,7 +145,7 @@
         static async list(status) {
             if (status === undefined) status = "";
 
-            let response = await fetch("/api/coupon/list?status=" + status);
+            let response = await fetch("/api/coupons?status=" + status);
             let result = await response.json();
             if (Coupon.appendHeader(result.length)) {
                 return result.map(res => {
@@ -111,7 +154,7 @@
             }
         }
 
-        appendListItem() {
+        makeListItem() {
             this.$li = document.createElement("li");
             this.$li.className = "col-12 d-flex text-center";
 
@@ -119,12 +162,16 @@
             this.$rowNum.className = "col-2 p-2 border";
             this.$rowNum.innerText = this.idx;
 
+            this.$name = document.createElement("div");
+            this.$name.className = "col-2 p-2 border";
+            this.$name.innerText = this.name;
+
             this.$memberId = document.createElement("div");
             this.$memberId.className = "col-2 p-2 border";
             this.$memberId.innerText = this.memberId;
 
             this.$isUsed = document.createElement("div");
-            this.$isUsed.className = "col-2 p-2 border";
+            this.$isUsed.className = "col-1 p-2 border";
             this.$isUsed.innerText = this.status > 0 ? "사용" : "미사용";
 
             this.$cdate = document.createElement("div");
@@ -132,7 +179,7 @@
             this.$cdate.innerText = this.cdate.toLocaleDateString();
 
             this.$point = document.createElement("div");
-            this.$point.className = "col-2 p-2 border";
+            this.$point.className = "col-1 p-2 border";
             this.$point.innerText = this.point;
 
             this.$btnArea = document.createElement("div");
@@ -145,8 +192,34 @@
             this.$updateBtn.innerText = "수정";
 
             this.$btnArea.append(this.$deleteBtn, this.$updateBtn);
-            this.$li.append(this.$rowNum, this.$memberId, this.$isUsed, this.$cdate, this.$point, this.$btnArea);
+            this.$li.append(this.$rowNum, this.$name, this.$memberId, this.$isUsed, this.$cdate, this.$point, this.$btnArea);
+        }
+
+        appendListItem() {
+            this.makeListItem();
             Coupon.$area.appendChild(this.$li);
+        }
+
+        prependListItem() {
+            this.makeListItem();
+            Coupon.$area.children.item(0).insertAdjacentElement("afterend", this.$li);
+        }
+
+        async addCoupon() {
+            const option = {
+                method: "post",
+                body: JSON.stringify(this),
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8"
+                }
+            }
+            const response = await fetch("/api/coupons", option)
+            const result = await response.json();
+            console.log(result);
+            this.idx = result.idx;
+            this.cdate = new Date(result.cdate);
+
+            this.prependListItem();
         }
     }
 
@@ -156,6 +229,15 @@
         Coupon.list(type).then(list => {
             list.forEach(coupon => coupon.appendListItem());
         })
+    }
+
+    function addCoupon(form) {
+        const name = form.name.value;
+        const memberId = form.memberId.value;
+        const point = form.point.value;
+
+        const coupon = new Coupon(name, memberId, point);
+        coupon.addCoupon();
     }
 
 </script>
