@@ -34,6 +34,10 @@ public class QuestionDao {
         sessionTemplate.delete("question.deleteAnswer", idx);
     }
 
+    public Integer mailCheckIdx(Integer idx) {
+        return sessionTemplate.selectOne("question.mailCheck", idx);
+    }
+
     private List<QuestionVo> dateCut(List<QuestionVo> list) {
         for (QuestionVo vo : list) {
             vo.setQuestionDate(vo.getQuestionDate().substring(0,10));

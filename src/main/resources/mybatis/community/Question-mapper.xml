@@ -29,6 +29,10 @@
         WHERE RN BETWEEN 1 and 10
     </select>
 
+    <select id="mailCheck" parameterType="int" resultType="int">
+        SELECT EMAIL_SEND FROM MYQ WHERE IDX = #{idx}
+    </select>
+
     <update id="updateAnswer" parameterType="com.flo.alwaysbom.community.question.vo.QuestionVo">
         UPDATE MYQ SET ANSWER_DATE=SYSDATE, ANSWER=#{answer}, ANSWER_TITLE=#{answerTitle}
         WHERE IDX=#{idx}

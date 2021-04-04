@@ -31,4 +31,8 @@ public class QuestionServise {
     public void deleteAnswer(Integer idx) {
         dao.deleteAnswer(idx);
     }
+
+    public Integer mailCheckIdx(Integer idx) {
+        return dao.mailCheckIdx(idx);
+    }
 }

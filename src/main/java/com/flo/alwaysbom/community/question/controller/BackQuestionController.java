@@ -2,23 +2,21 @@ package com.flo.alwaysbom.community.question.controller;
 
 import com.flo.alwaysbom.community.question.service.QuestionServise;
 import com.flo.alwaysbom.community.question.vo.QuestionVo;
-import com.flo.alwaysbom.util.CloudFileHandler;
+import com.flo.alwaysbom.util.MailSend;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class BackQuestionController {
-    private final CloudFileHandler fileHandler;
     private final QuestionServise servise;
+    private final MailSend mail;
+//    MailSend mail = new MailSend();
     // 여기부터는 로그인 회원 정보 받기
     @GetMapping("/admin/community/question")
     public String question(Model model, String answer){
@@ -50,6 +48,11 @@ public class BackQuestionController {
     @ResponseBody
     public boolean addAnswer(QuestionVo vo){
         servise.updateAnswer(vo);
+        Integer mailCheck = servise.mailCheckIdx(vo.getIdx());
+        System.out.println(mailCheck);
+        if(mailCheck == 1){
+            mail.sendMail("xzllxz456@naver.com");
+        }
         return true;
     }
 
