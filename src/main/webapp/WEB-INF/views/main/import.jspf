@@ -15,6 +15,6 @@
     #container {
         width: 1280px !important;
         /*background-color: #f3f1eb; !* 임시 배경 음영. 나중에 지울 것 *!*/
-        padding-bottom: 6em;
+        padding: 0 3em 6em 3em;
     }
 </style>

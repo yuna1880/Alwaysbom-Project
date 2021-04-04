@@ -6,6 +6,7 @@
     width: 1280px;
 }
 .banner-text {
+    padding: 0 3em;
     /*border: 1px solid blue;*/
 }
 .banner-title {
