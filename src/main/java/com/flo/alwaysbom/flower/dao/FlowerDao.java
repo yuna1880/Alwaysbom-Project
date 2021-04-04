@@ -32,7 +32,7 @@ public class FlowerDao {
         return vo.getIdx();
     }
 
-    public Integer deleteFlower(Integer idx) {
-        return sqlSessionTemplate.update("FLOWER.deleteFlower", idx);
+    public void deleteFlower(Integer idx) {
+        sqlSessionTemplate.update("FLOWER.deleteFlower", idx);
     }
 }

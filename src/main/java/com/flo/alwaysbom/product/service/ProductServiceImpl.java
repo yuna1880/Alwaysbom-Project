@@ -40,8 +40,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Integer deleteProduct(Integer idx) {
-        return dao.deleteProduct(idx);
+    public void deleteProduct(Integer idx) {
+        dao.deleteProduct(idx);
     }
 
 }

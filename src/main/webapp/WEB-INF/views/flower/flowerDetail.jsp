@@ -213,10 +213,8 @@
     </div>
 
     <!-- 상품설명 -->
-    <div id="detail-area">
-        ${flowerVo.content}
-        <br>
-        여기에 상품 설명 들어감
+    <div id="detail-area" class="d-flex justify-content-center">
+        <div>${flowerVo.content}</div>
     </div>
 
     <!-- 리뷰게시판 -->

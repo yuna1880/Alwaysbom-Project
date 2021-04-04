@@ -35,7 +35,7 @@ public class FlowerServiceImpl implements FlowerService {
     }
 
     @Override
-    public Integer deleteFlower(Integer idx) {
-        return dao.deleteFlower(idx);
+    public void deleteFlower(Integer idx) {
+        dao.deleteFlower(idx);
     }
 }

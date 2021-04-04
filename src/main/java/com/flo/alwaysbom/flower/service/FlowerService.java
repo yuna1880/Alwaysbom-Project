@@ -15,6 +15,6 @@ public interface FlowerService {
 
     Integer updateFlower(FlowerVo vo);
 
-    Integer deleteFlower(Integer idx);
+    void deleteFlower(Integer idx);
 
 }

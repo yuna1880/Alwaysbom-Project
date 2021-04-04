@@ -144,7 +144,8 @@ input[type=radio]:checked + .btn-show {
 
 /* 상품설명 */
 #detail-area {
-    height: 2000px;
+    /*height: 2000px;*/
+    margin-bottom: 4em;
 }
 
 /* 리뷰 */

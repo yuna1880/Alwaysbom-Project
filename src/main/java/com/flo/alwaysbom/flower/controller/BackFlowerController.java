@@ -40,8 +40,8 @@ public class BackFlowerController {
         vo.setImage2(fileHandler.uploadFile(file.get(1), null, "flower"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), null, "flower"));
         System.out.println("vo = " + vo);
-        flowerService.addFlower(vo);
-        return "redirect:/admin/flowerList";
+        vo = flowerService.addFlower(vo);
+        return "redirect:/admin/flower/" + vo.getIdx();
     }
 
     /* 상품 수정페이지로 이동 */

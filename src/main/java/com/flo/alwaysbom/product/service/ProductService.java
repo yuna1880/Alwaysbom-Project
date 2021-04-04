@@ -17,6 +17,6 @@ public interface ProductService {
 
     Integer updateProduct(ProductVo vo);
 
-    Integer deleteProduct(Integer idx);
+    void deleteProduct(Integer idx);
 
 }
