@@ -15,4 +15,7 @@ public class QuestionVo {
     private String memberId;
     private Integer emailSend;
     private String answer;
+    private String questionDate;
+    private String answerDate;
+    private String answerTitle;
 }

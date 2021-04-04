@@ -163,7 +163,7 @@
                                                      title="별" height="15" width="15">
                                                 <img src="/static/icons/starstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
                                             </c:if>
                                             <c:if test="${bestAllList.star eq 3}">
@@ -173,9 +173,9 @@
                                                      title="별" height="15" width="15">
                                                 <img src="/static/icons/starstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
                                             </c:if>
                                             <c:if test="${bestAllList.star eq 2}">
@@ -183,35 +183,35 @@
                                                      title="별" height="15" width="15">
                                                 <img src="/static/icons/starstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
                                             </c:if>
                                             <c:if test="${bestAllList.star eq 1}">
                                                 <img src="/static/icons/starstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
                                             </c:if>
                                             <c:if test="${bestAllList.star eq 0}">
                                                 <img src="/static/icons/sibalstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
+                                                <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
                                             </c:if>
                                         </div>
@@ -339,35 +339,35 @@
                                 + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
                                 + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
                                 + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
                         }
                         if(this.star == 3){
                             dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
                                 + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
                                 + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
                         }
                         if(this.star == 2){
                             dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
                                 + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
                         }
                         if(this.star == 1){
                             dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
                         }
                         if(this.star == 0){
-                            dispHtml += '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            dispHtml += '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
                         }
 
 
@@ -439,35 +439,35 @@
                             + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
                             + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
                             + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
                     }
                     if(this.star == 3){
                         dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
                             + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
                             + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
                     }
                     if(this.star == 2){
                         dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
                             + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
                     }
                     if(this.star == 1){
                         dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
                     }
                     if(this.star == 0){
-                        dispHtml += '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/sibalstar.png" class="" alt="star" title="별" height="15" width="15">'
+                        dispHtml += '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
                     }
 
                     dispHtml += '</div></li>';
