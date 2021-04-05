@@ -13,15 +13,18 @@ public class MemberDAO{
 
     private final SqlSessionTemplate sessionTemplate;
 
+    //회원 가입
     public void insertMember(MemberVO memberVO) {
 
         sessionTemplate.insert("member.insertMember",memberVO);
     }
 
+    //로그인
     public MemberVO login(MemberVO memberVO) throws Exception {
         return sessionTemplate.selectOne("member.Login", memberVO);
     }
 
+    //로그아웃
     public void logout(HttpSession session){
 
     }
@@ -32,10 +35,7 @@ public class MemberDAO{
     }
 
     //회원 정보 수정
-    public void updateMember(MemberVO memberVO) {
-
-        sessionTemplate.update("member.updateMember",memberVO);
+    public void updateMember(MemberVO memberVO) throws Exception {
+        sessionTemplate.update("member.updateMember", memberVO);
     }
-
-
 }

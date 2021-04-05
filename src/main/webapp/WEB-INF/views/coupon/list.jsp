@@ -5,10 +5,16 @@
     <meta charset="UTF-8">
     <title>새늘봄 / 쿠폰</title>
     <%@ include file="../main/b_import.jspf"%>
+    <style>
+        #listArea li:last-child div {
+            border-bottom: 2px solid #dee2e6 !important;
+            box-shadow: 0 3px #E0E0E0;
+        }
+    </style>
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
-<div id="container" class="d-flex flex-column align-items-center mx-auto">
+<div id="container" class="d-flex flex-column align-items-center mx-auto bg-white">
     <!-- 메뉴 영역 -->
     <!-- 메뉴 영역 -->
     <div class="col-12 d-flex justify-content-between align-items-center p-3">
@@ -38,30 +44,20 @@
     </div>
 
     <!-- 리스트 영역 -->
-    <div id="listArea" class="col-12 p-3 bg-secondary d-flex flex-column">
-        <!-- 리스트 헤더 -->
-        <div class="col-12 d-flex text-center">
-            <div class="col-2 p-2 border">쿠폰번호</div>
-            <div class="col-2 p-2 border">유저</div>
-            <div class="col-2 p-2 border">사용여부</div>
-            <div class="col-2 p-2 border">발행일</div>
-            <div class="col-2 p-2 border">포인트</div>
-            <div class="col-2 p-2 border">기능</div>
-        </div>
-
+    <div class="col-12 p-3 d-flex flex-column">
         <!-- 리스트 내용 -->
-        <ul class="col-12 d-flex flex-column text-center list-unstyled m-0 p-0">
+        <ul id="listArea" class="col-12 d-flex flex-column text-center list-unstyled m-0 p-0">
         </ul>
     </div>
 
     <!-- 버튼 영역 -->
-    <div class="col-12 p-3 bg-info d-flex justify-content-end">
-        <button class="col-2 p-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#popup">추가</button>
+    <div class="col-12 p-3 d-flex justify-content-end">
+        <button class="col-2 p-3 btn btn-dark" onclick="showPopup('#mergePopup')">추가</button>
     </div>
 </div>
 
 <!-- 추가 팝업 -->
-<div class="modal fade" id="popup" tabindex="-1">
+<div class="modal fade" id="mergePopup" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <form class="modal-content">
             <div class="modal-header bg-warning">
@@ -88,9 +84,27 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addCoupon(this.form)">추가</button>
+                <button id="mergeBtn" type="button" class="btn btn-dark" data-bs-dismiss="modal" onclick="mergeCouponCaller(this.form)">추가</button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- 삭제팝업 -->
+<div class="modal fade" id="deletePopup" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button id="deleteBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        onclick="deleteCouponCaller(this)">삭제
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -126,15 +140,15 @@
 
         static appendListHeader() {
             this.$area.innerHTML =
-                '<div class="col-12 d-flex text-center">' +
-                '   <div class="col-2 p-2 border">쿠폰번호</div>' +
-                '   <div class="col-2 p-2 border">이름</div>' +
-                '   <div class="col-2 p-2 border">유저</div>' +
-                '   <div class="col-1 p-2 border">사용여부</div>' +
-                '   <div class="col-2 p-2 border">발행일</div>' +
-                '   <div class="col-1 p-2 border">포인트</div>' +
-                '   <div class="col-2 p-2 border">기능</div>' +
-                '</div>';
+                '<li class="col-12 d-flex text-center bg-secondary text-white">' +
+                '   <div class="col-2 p-2 py-3 border">쿠폰번호</div>' +
+                '   <div class="col-2 p-2 py-3 border">이름</div>' +
+                '   <div class="col-2 p-2 py-3 border">유저</div>' +
+                '   <div class="col-1 p-2 py-3 border">사용여부</div>' +
+                '   <div class="col-2 p-2 py-3 border">발행일</div>' +
+                '   <div class="col-1 p-2 py-3 border">포인트</div>' +
+                '   <div class="col-2 p-2 py-3 border">기능</div>' +
+                '</li>';
         }
 
         static appendNoListMessage() {
@@ -144,22 +158,25 @@
 
         static async list(status) {
             if (status === undefined) status = "";
+            console.log(status);
 
             let response = await fetch("/api/coupons?status=" + status);
             let result = await response.json();
             if (Coupon.appendHeader(result.length)) {
-                return result.map(res => {
+                Coupon.coupons = result.map(res => {
                     return new Coupon(res);
                 });
+                return Coupon.coupons;
             }
         }
 
         makeListItem() {
+            let self = this;
             this.$li = document.createElement("li");
             this.$li.className = "col-12 d-flex text-center";
 
             this.$rowNum = document.createElement("div");
-            this.$rowNum.className = "col-2 p-2 border";
+            this.$rowNum.className = "col-2 p-2 border border-start-0";
             this.$rowNum.innerText = this.idx;
 
             this.$name = document.createElement("div");
@@ -180,16 +197,20 @@
 
             this.$point = document.createElement("div");
             this.$point.className = "col-1 p-2 border";
-            this.$point.innerText = this.point;
+            this.$point.innerText = parseInt(this.point).toLocaleString("ko-KR");
 
             this.$btnArea = document.createElement("div");
-            this.$btnArea.className = "col-2 p-2 border d-flex justify-content-around";
+            this.$btnArea.className = "col-2 p-2 border border-end-0 d-flex justify-content-around";
 
             this.$deleteBtn = document.createElement("button");
+            this.$deleteBtn.className = "btn btn-danger";
             this.$deleteBtn.innerText = "삭제";
+            this.$deleteBtn.onclick = () => deletePopup(self);
 
             this.$updateBtn = document.createElement("button");
+            this.$updateBtn.className = "btn btn-secondary";
             this.$updateBtn.innerText = "수정";
+            this.$updateBtn.onclick = () => showPopup("#mergePopup", self);
 
             this.$btnArea.append(this.$deleteBtn, this.$updateBtn);
             this.$li.append(this.$rowNum, this.$name, this.$memberId, this.$isUsed, this.$cdate, this.$point, this.$btnArea);
@@ -205,21 +226,44 @@
             Coupon.$area.children.item(0).insertAdjacentElement("afterend", this.$li);
         }
 
-        async addCoupon() {
+        async mergeCoupon() {
             const option = {
-                method: "post",
+                method: this.idx ? "put" : "post",
                 body: JSON.stringify(this),
                 headers: {
                     "Content-Type": "application/json;charset=utf-8"
                 }
             }
-            const response = await fetch("/api/coupons", option)
-            const result = await response.json();
-            console.log(result);
-            this.idx = result.idx;
-            this.cdate = new Date(result.cdate);
 
-            this.prependListItem();
+            const queryString = this.idx ? "/" + this.idx : "";
+
+            const response = await fetch("/api/coupons" + queryString, option)
+            const result = await response.json();
+
+            if (this.idx) {
+                this.$name.innerText = this.name;
+                this.$memberId.innerText = this.memberId;
+                this.$point.innerText = this.point;
+            } else {
+                this.idx = result.idx;
+                this.cdate = new Date(result.cdate);
+                this.prependListItem();
+            }
+        }
+
+        async deleteCoupon() {
+            const option = {
+                method: 'delete',
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8"
+                }
+            };
+
+            const response = await fetch("/api/coupons/" + this.idx, option);
+            const result = await response.json();
+            if (result) {
+                this.$li.remove();
+            }
         }
     }
 
@@ -231,15 +275,58 @@
         })
     }
 
-    function addCoupon(form) {
+    function mergeCouponCaller(form) {
         const name = form.name.value;
         const memberId = form.memberId.value;
         const point = form.point.value;
 
-        const coupon = new Coupon(name, memberId, point);
-        coupon.addCoupon();
+        let coupon;
+
+        let couponIdx = form.dataset.couponIdx;
+        console.log(couponIdx);
+
+        if (couponIdx) {
+            coupon = Coupon.coupons.filter(coupon => coupon.idx === parseInt(couponIdx))[0];
+            console.log(coupon);
+            coupon.name = name;
+            coupon.memberId = memberId;
+            coupon.point = point;
+        } else {
+             coupon = new Coupon(name, memberId, point);
+        }
+        console.log(coupon);
+        coupon.mergeCoupon();
     }
 
+    function showPopup(target, coupon) {
+        const modalTitle = document.querySelector(target + " .modal-title");
+        const form = document.querySelector(target + " .modal-content");
+        const mergeBtn = document.querySelector("#mergeBtn");
+
+        form.dataset.couponIdx = coupon ? coupon.idx : "";
+
+        modalTitle.innerText = coupon ? "쿠폰 수정" : "쿠폰 추가";
+        form.name.value = coupon ? coupon.name : "";
+        form.memberId.value = coupon ? coupon.memberId : "";
+        form.point.value = coupon ? coupon.point : "";
+        mergeBtn.innerText = coupon ? "수정" : "추가";
+
+        const modal = new bootstrap.Modal(document.querySelector(target));
+        modal.toggle();
+    }
+
+    function deleteCouponCaller(btn) {
+        const couponIdx = btn.dataset.couponIdx;
+        const coupon = Coupon.coupons.filter(coupon => coupon.idx === parseInt(couponIdx))[0];
+        coupon.deleteCoupon();
+    }
+
+    function deletePopup(coupon) {
+        console.log(coupon);
+        document.querySelector("#deleteBtn").dataset.couponIdx = coupon.idx;
+        const modal = new bootstrap.Modal(document.querySelector("#deletePopup"));
+        modal.toggle();
+    }
 </script>
 </body>
 </html>
