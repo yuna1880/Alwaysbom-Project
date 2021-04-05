@@ -1,9 +1,7 @@
+/* 배너 관련 */
 .banner-wrap {
     width: 100vw;
     background-color: #efeeeb;
-}
-.w-1280 {
-    width: 1280px;
 }
 .banner-text {
     padding: 0 3em;
@@ -16,21 +14,48 @@
     font-size: 19px;
     line-height: 1.5em;
 }
+
+/* 스타일 속성들 */
+.w-1280 {
+    width: 1280px;
+}
+.fw500 {
+    font-weight: 500;
+}
+.mb-8em {
+    margin-bottom: 8em;
+}
+
+/* 정렬 순서 */
 .align-by {
     height: 130px;
     font-size: 18px;
     color: #404040;
     padding-top: 2em;
 }
+
+/* 닫기 버튼 */
+.btn-close-style {
+    position: absolute;
+    border-radius: 16px;
+    padding: 0.3em 1.1em;
+    margin: 0.5em 0.5em;
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.06);
+}
+.btn-close-style:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.18);
+}
+
 .p-subtitle {
     height: 130px;
     font-weight: 500;
     color: #222222;
     padding-top: 2em;
 }
-.mb-8em {
-    margin-bottom: 8em;
-}
+
 .scale-up:hover {
     transform: scale(1.05);
     transition-duration: 0.6s;
@@ -98,7 +123,4 @@
     font-size: 14px;
     font-weight: 300;
     color: #707070;
-}
-.fw500 {
-    font-weight: 500;
 }

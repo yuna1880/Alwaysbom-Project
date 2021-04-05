@@ -9,6 +9,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fclass/classList.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fclass" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower/b_addForm.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower/b_flowerDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower/b_flowerList.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower/flowerDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower/list.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main/header.jspf" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main" />

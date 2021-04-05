@@ -5,8 +5,8 @@
 <head>
     <title>소품샵 상품 조회</title>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="/static/css/item/b_addForm.css">
-    <link rel="stylesheet" href="/static/css/item/list.css">
+    <link rel="stylesheet" href="../../../static/css/item/b_addForm.css">
+    <link rel="stylesheet" href="../../../static/css/item/list.css">
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
@@ -14,8 +14,8 @@
     <!-- 메뉴 이동 경로 -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-8em">
-            <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
-            <li class="breadcrumb-item"><a href="/admin/product">소품샵 관리</a></li>
+            <li class="breadcrumb-item" onclick="location.href='/admin/main'">관리자 홈</li>
+            <li class="breadcrumb-item" onclick="location.href='/admin/product'">소품샵 관리</li>
             <li class="breadcrumb-item active" aria-current="page">상품 조회</li>
         </ol>
     </nav>
@@ -29,13 +29,13 @@
         <c:if test="${not empty productVo}">
         <div class="col mb-8em">
             <div class="overflow-hidden mb-3">
-                <a href="/admin/product/${productVo.idx}">
+                <a href="/admin/productUpdateForm/${productVo.idx}">
                     <img src="${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
                 </a>
             </div>
             <div class="ps-1">
                 <div class="item-name">
-                    <a href="/admin/product/${productVo.idx}">${productVo.name}</a></div>
+                    <a href="/admin/productUpdateForm/${productVo.idx}">${productVo.name}</a></div>
                 <div class="price-wrap">
                 <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
                 <span class="discount-rate">${productVo.discountRate}%</span>
@@ -92,8 +92,6 @@
         </c:forEach>
     </div> <!-- .row 닫음 -->
 </div>
-
 <%@ include file="../main/b_footer.jspf"%>
-
 </body>
 </html>
