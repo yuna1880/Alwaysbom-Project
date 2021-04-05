@@ -37,13 +37,19 @@
             <div class="mb-4" style="width: 533px; height: 533px; overflow: hidden">
                 <img src="${fclassVo.image1}" alt="대표 썸네일" class="col-12" style="width: 533px; height: auto;">
             </div>
-            <div class="d-flex row-cols3" style="width: 161px; height: 161px; overflow: hidden">
-                <img src="${fclassVo.image1}" alt="썸네일1" class="col pe-3">
+            <div class="d-flex">
+                <div class="d-flex col-4" style="width: 161px; height: 161px; overflow: hidden">
+                    <img src="${fclassVo.image1}" alt="썸네일1" class="col pe-3">
+                </div>
                 <c:if test="${not empty fclassVo.image2}">
-                <img src="${fclassVo.image2}" alt="썸네일2" class="col ps-2 pe-2">
+                <div class="d-flex col-4" style="width: 161px; height: 161px; overflow: hidden">
+                    <img src="${fclassVo.image2}" alt="썸네일2" class="col ps-2 pe-2">
+                </div>
                 </c:if>
                 <c:if test="${not empty fclassVo.image3}">
-                <img src="${fclassVo.image3}" alt="썸네일3" class="col ps-3">
+                <div class="d-flex col-4" style="width: 161px; height: 161px; overflow: hidden">
+                    <img src="${fclassVo.image3}" alt="썸네일3" class="col ps-3">
+                </div>
                 </c:if>
             </div>
         </div>
@@ -105,7 +111,7 @@
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(false)">
                             <i class="fas fa-minus-circle"></i>
                         </button>
-                        <span class="quantity col-2 text-center" data-flower-quantity>1</span>
+                        <span id="regCount" class="quantity col-2 text-center" data-fclass-regCount>1</span>
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(true)">
                             <i class="fas fa-plus-circle"></i>
                         </button>
@@ -117,8 +123,8 @@
             <div class="price-box-wrap">
                 <!-- 상품가격 price box -->
                 <div class="d-flex justify-content-between p-4 mx-2 mb-3 price-box">
-                    <span class="fw500">상품가격</span>
-                    <span class="fw500">
+                    <span class="fw500">클래스 수업가격</span>
+                    <span id="classPrice" class="fw500" data-fclass-price="${fclassVo.finalPrice}">
                         <fmt:formatNumber value="${fclassVo.finalPrice}" pattern="#,###원"/>
                     </span>
                 </div>
@@ -269,17 +275,25 @@
 
     /* 꽃다발 상품 수량 증감 */
     function adjustQuantity(isUp) {
-        const flowerQuantityEl = document.querySelector("[data-flower-quantity]");
-        let quantity = flowerQuantityEl.textContent;
+        const regCountEl = document.querySelector("#regCount");
+        const classPriceEl = document.querySelector("#classPrice");
+        const totalPriceEl = document.querySelector("#totalPrice");
+
+        let regCount = parseInt(regCountEl.innerText.toString());
+        let classPrice = classPriceEl.dataset.fclassPrice;
+
+        console.log(regCountEl);
         if (isUp) {
-            quantity++;
+            regCount = regCount + 1;
         } else {
-            if (quantity > 1) {
-                quantity--;
+            if (regCount > 1) {
+                regCount = regCount -1;
             }
         }
-        flowerQuantityEl.textContent = quantity;
-        configTotal();
+        classPrice = classPrice * regCount;
+        regCountEl.innerText = regCount;
+        totalPriceEl.innerText = classPrice.toLocaleString("ko-KR") + "원";
+
     }
 
     /* 총 주문금액 계산하기 */
