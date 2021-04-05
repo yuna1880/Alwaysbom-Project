@@ -12,26 +12,20 @@
 </style>
 <body>
 <%@ include file="../main/header.jspf" %>
-<div class="col-5 mx-auto">
-<form role="form" action="/loginMember" method="post">
-    <div class="join-header py-3 mb-4">
-        <h5 class="page_title text-center p-2 text-secondary m-0">로그인</h5>
-    </div>
-    <p>
-        <input type="email" name="id" class="col-6 mx-auto d-flex" id="id_email" placeholder="아이디(이메일)" value>
-    </p>
-    <p class="d-flex">
-        <input type="password" name="pw" class="col-6 mx-auto" placeholder="비밀번호">
-    </p>
-    <button type="submit" class="d-flex">로그인</button>
-
-                        <a href="findId" class="d-flex">아이디 찾기</a>
-                        <a href="findPwd" class="d-flex">비밀번호 찾기</a>
-                        <a href="/goMemberJoin" class="btn-secondary d-flex">회원가입</a>
-                        <hr>
-    <p class="text-center">지금 회원가입 하시면<b class="text-center text-info">1,000p</b>바로 지급!</p>
-</form>
-<%@ include file="../main/footer.jspf"%>
+<div id="container" class="mx-auto d-flex flex-column align-items-center">
+    <form role="form" action="/loginMember" method="post" class="col-6 d-flex flex-column">
+        <h5 class="page_title text-center p-2 text-secondary m-0 p-4 border-bottom border-secondary">로그인</h5>
+        <input type="email" name="id" class="py-2 my-3" id="id_email" placeholder="아이디(이메일)" value>
+        <input type="password" name="pw" class="py-2 mb-3" placeholder="비밀번호">
+        <button type="submit" class="py-2 btn-warning mb-3 text-center">로그인</button>
+        <div class="d-flex justify-content-center">
+            <a href="findId" class="p-2 text-decoration-none">아이디 찾기</a>
+            <a href="findPwd" class="p-2 text-decoration-none">비밀번호 찾기</a>
+        </div>
+        <a href="/goMemberJoin" class="py-2 btn-secondary text-center text-decoration-none">회원가입</a>
+        <p class="text-center">지금 회원가입 하시면<b class="text-center text-info">1,000p</b>바로 지급!</p>
+    </form>
+</div>
 <script>
     Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");
     Kakao.isInitialized();
@@ -57,5 +51,6 @@
         });
     }
 </script>
+    <%@ include file="../main/footer.jspf"%>
 </body>
 </html>

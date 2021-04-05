@@ -1,5 +1,7 @@
 package com.flo.alwaysbom.member.controller;
 
+import com.flo.alwaysbom.coupon.service.CouponService;
+import com.flo.alwaysbom.coupon.vo.CouponVo;
 import com.flo.alwaysbom.member.service.MemberService;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
@@ -9,13 +11,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@SessionAttributes(value = "member")
+@SessionAttributes(value = {"member", "coupons", "couponCount"})
 public class MemberController {
 
     private final MemberService memberService;
+    private final CouponService couponService;
 
     @GetMapping("/goMemberJoin")
     public String goMemberJoin() {
@@ -66,7 +70,12 @@ public class MemberController {
         member.setId(id);
         member.setPw(pw);
         member = memberService.login(member);
+        List<CouponVo> coupons = couponService.findBySearchOption(CouponVo.builder().memberId(id).build());
 
+        model.addAttribute("coupons", coupons);
+        model.addAttribute("couponCount", coupons.size());
+        System.out.println("coupons = " + coupons);
+        System.out.println("coupons.size() = " + coupons.size());
         model.addAttribute("member", member);
         return "redirect:/";
     }
