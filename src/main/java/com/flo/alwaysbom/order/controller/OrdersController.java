@@ -148,9 +148,6 @@ public class OrdersController {
 
         System.out.println("오더리스트 : " + ordersList);
 
-        ordersList.get(1).getOlist();
-
-
         model.addAttribute("ordersList",ordersList);
         return "/order/b_orderList";
     }
