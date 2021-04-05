@@ -54,14 +54,11 @@
     .h-85 {
         height: 85% !important;
     }
-    .bg-pink {
-        background-color: #f5b0cf;
-    }
     .name-color {
         color: #d869db;
     }
     .bannerName-color {
-        color: #f7ebf1;
+        color: white;
     }
     a {
         text-decoration: none;

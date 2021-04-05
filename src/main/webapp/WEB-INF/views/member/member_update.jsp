@@ -92,18 +92,18 @@
 <style>
     .btn-gender,
     .gender-area input[type=radio]:not([checked])[disabled] + .btn-gender:hover {
-        background-color: #eccccf;
-        color: #FFFFFF;
+        background-color: darkgrey;
+        color: white;
     }
 
     .gender-area input[type=radio] + .btn-gender:hover {
-        background-color: #f5b0cf;
-        color: #FFFFFF;
+        background-color: grey;
+        color: white;
     }
 
     .gender-area input[type=radio]:checked + .btn-gender,
     .gender-area input[type=radio][checked] + .btn-gender {
-        background-color: #f5b0cf;
-        color: #FFFFFF;
+        background-color: grey;
+        color: white;
     }
 </style>

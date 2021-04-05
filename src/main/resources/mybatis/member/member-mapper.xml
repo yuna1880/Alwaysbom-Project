@@ -18,7 +18,7 @@
     </select>
 
     <!-- 아이디 중복 확인 -->
-    <select parameterType="String" id="CheckId" resultType="com.flo.alwaysbom.member.vo.MemberVO">
+    <select id="CheckId">
         SELECT id FROM MEMBER WHERE id = #{id}
     </select>
 
