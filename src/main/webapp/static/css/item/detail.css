@@ -131,7 +131,7 @@
 .btn-show {
     border-right: 1px solid #e1e1e1;
     border-top: 1px solid #e1e1e1;
-    border-bottom: 2px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
     font-size: 18px;
     color: #707070;
 }
@@ -139,7 +139,7 @@
     cursor: pointer;
 }
 input[type=radio]:checked + .btn-show {
-    border-bottom: 3px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
     border-top: 3px solid #030303;
     color: #030303;
 }
@@ -158,6 +158,26 @@ input[type=radio]:checked + .btn-show {
 .c-666 {
     color: #666666;
 }
+/* 리뷰 카테고리 */
+.review-category {
+    border-bottom: 1px solid #dbdbdb;
+    margin: 2em 0;
+}
+.btn-rev {
+    font-size: 20px;
+    color: #707070;
+}
+.btn-rev:hover {
+    cursor: pointer;
+}
+input[type=radio]:checked + .btn-rev {
+    border-bottom: 3px solid #030303;
+    color: #030303;
+    font-weight: 500;
+}
+
+
+
 
 /* 배송안내 */
 .delivery-text {
