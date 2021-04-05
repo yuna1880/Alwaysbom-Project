@@ -126,4 +126,13 @@ public class MemberController {
         return "member/member_update";
     }
 
+    @RequestMapping(value="/member_update", method = RequestMethod.POST)
+    public String member_update(MemberVO memberVO, HttpSession session) throws Exception{
+
+        memberService.updateMember(memberVO);
+
+        session.invalidate();
+
+        return "redirect:/";
+    }
 }
