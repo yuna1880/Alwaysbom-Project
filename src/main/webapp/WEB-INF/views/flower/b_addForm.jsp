@@ -28,8 +28,7 @@
             </c:if>
             <c:if test="${not empty flowerVo}">
                 <li class="breadcrumb-item"><a href="/admin/flowerList">상품 조회</a></li>
-                <li class="breadcrumb-item"><a href="/admin/flower/${flowerVo.idx}">${flowerVo.name}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">상품 수정</li>
+                <li class="breadcrumb-item" active aria-current="page">${flowerVo.name}</li>
             </c:if>
         </ol>
     </nav>

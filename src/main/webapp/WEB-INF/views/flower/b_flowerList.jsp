@@ -22,13 +22,16 @@
             <c:forEach var="flowerVo" items="${list}">
             <c:if test="${not empty flowerVo}">
             <div class="col mb-8em">
-                <a href="/admin/flower/${flowerVo.idx}">
-                    <img src="${flowerVo.image1}" class="col-12 scale-up" alt="꽃다발 썸네일">
-                </a>
+                <div class="overflow-hidden">
+                    <a href="/admin/flowerUpdateForm/${flowerVo.idx}">
+                        <img src="${flowerVo.image1}" class="col-12 scale-up" alt="꽃다발 썸네일">
+                    </a>
+                    <button type="button" class="btn-close btn-close-style" onclick="closeLetter(this)"></button>
+                </div>
                 <div class="ps-1">
                     <div class="subheader">${flowerVo.subheader}</div>
                     <div class="item-name">
-                        <a href="/admin/flower/${flowerVo.idx}">${flowerVo.name}</a></div>
+                        <a href="/admin/flowerUpdateForm/${flowerVo.idx}">${flowerVo.name}</a></div>
                     <div>
                         <c:if test="${not empty flowerVo.discountRate && flowerVo.discountRate > 0}">
                         <span class="discount-rate">${flowerVo.discountRate}%</span>
