@@ -8,28 +8,38 @@
     <link rel="stylesheet" href="/static/css/fclass/classlist.css">
 </head>
 <body>
+<%@ include file="../main/header.jspf" %>
 <!-- 고객이 클래스메뉴 눌렀을때 나오는 화면 (클래스 리스트) -->
 
-<%@ include file="../main/header.jspf" %>
-<div class="banner-img d-flex justify-content-center align-items-center">
-    클래스 배너 이미지
+<!-- 배너 이미지와 글귀 -->
+<div class="banner-wrap d-flex align-items-center justify-content-center">
+    <div class="w-1280 mx-auto">
+        <img src="/static/image/flower/flower_banner_1280.jpg" alt="꽃다발배너" class="col-12">
+    </div>
+    <div class="banner-text w-1280 position-absolute mx-auto">
+        <div class="banner-title fw500 mb-4 ms-2">새늘봄 꽃다발</div>
+        <div class="banner-summary fw-light ms-2">
+            계절을 가득 담은 꽃다발로<br>당신의 일상을 특별한 날로 만들어보세요.
+        </div>
+    </div>
 </div>
+
 <div id="container" class="mx-auto">
-    <div class="class-li-wrap pt-5">
-        <h3 class="classes">One-day class</h3>
-        <h3 class="classes">원데이클래스</h3>
+    <div class="class-li-wrap pt-5 mb-3">
+        <div class="fs-3">One-day class</div>
+        <div class="fs-3 fw-bold">원데이클래스</div>
     </div>
     <!-- 원데이클래스 썸네일 리스트 -->
-    <div class="row row-cols-4">
+    <div class="row row-cols-3">
         <c:forEach var="fclass" items="${classList}">
             <c:if test="${fclass.category eq '원데이클래스'}">
-                <div class="col f-col">
-                    <div class="overflow-hidden">
+                <div class="col mb-8em">
+                    <div class="overflow-hidden img-height">
                         <a href="/fclass/classList/${fclass.idx}">
-                            <img src="${fclass.image1}" class="f-col-img scale-up" alt="클래스 썸네일">
+                            <img src="${fclass.image1}" class="col-12 scale-up" alt="클래스 썸네일">
                         </a>
                     </div>
-                    <div class="f-col-text">
+                    <div class="ps-1">
                         <div class="subheader">${fclass.subheader}</div>
                         <div class="class-name"><a href="/fclass/${fclass.idx}">${fclass.name}</a></div>
                         <div class="price-wrap">
@@ -48,20 +58,20 @@
         </c:forEach>
     </div>
     <!-- 플로리스트 썸네일 리스트 -->
-    <div class="class-li-wrap">
-        <h3 class="classes">Florist class</h3>
-        <h3 class="classes">플로리스트 클래스</h3>
+    <div class="class-li-wrap mb-3">
+        <div class="fs-3">Florist class</div>
+        <div class="fs-3 fw-bold">플로리스트 클래스</div>
     </div>
     <div class="row row-cols-4">
         <c:forEach var="fclass" items="${classList}">
             <c:if test="${fclass.category eq '플로리스트'}">
-                <div class="col f-col">
+                <div class="col mb-8em">
                     <div class="overflow-hidden">
                         <a href="/fclass/classList/${fclass.idx}">
-                            <img src="${fclass.image1}" class="f-col-img scale-up" alt="클래스 썸네일">
+                            <img src="${fclass.image1}" class="col-12 scale-up" alt="클래스 썸네일">
                         </a>
                     </div>
-                    <div class="f-col-text">
+                    <div class="ps-1">
                         <div class="subheader">${fclass.subheader}</div>
                         <div class="class-name"><a href="/fclass/${fclass.idx}">${fclass.name}</a></div>
                         <div class="price-wrap">

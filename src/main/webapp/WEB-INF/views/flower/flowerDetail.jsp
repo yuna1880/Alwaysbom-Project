@@ -498,7 +498,7 @@
             for (let i = 0; i < $choices.length; i++) {
                 let productIdx = Number($choices[i].dataset["productIdx"]);
                 if (pvo.idx === productIdx) {
-                    console.log("pvo.idx= " + pvo.idx + ", productidx= " + productIdx);
+                    console.log("pvo.idx= " + pvo.idx + ", productIdx= " + productIdx);
                     console.log("중복값이 존재합니다.");
                     btnUp = $choices[i].getElementsByTagName('button')[2];
                     choiceExists = true;
