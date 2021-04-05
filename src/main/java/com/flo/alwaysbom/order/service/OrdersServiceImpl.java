@@ -4,15 +4,13 @@ package com.flo.alwaysbom.order.service;
 import com.flo.alwaysbom.cart.dao.CartDao;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.dao.OrdersDao;
-import com.flo.alwaysbom.order.vo.DeliveryInfoVo;
-import com.flo.alwaysbom.order.vo.OitemVo;
-import com.flo.alwaysbom.order.vo.OrdersVo;
+import com.flo.alwaysbom.order.vo.*;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -91,5 +89,20 @@ public class OrdersServiceImpl implements OrdersService {
         System.out.println("orderList =" + ordersList);
  */
         return ordersList;
+    }
+
+    @Override
+    public List<OrdersVo> findBySearchOption(OrdersSearchOptionDto searchOption) {
+        return orderDao.findBySearchOption(searchOption);
+    }
+
+    @Override
+    public OrdersStatusCount findStatusCount() {
+        return orderDao.findStatusCount();
+    }
+
+    @Override
+    public boolean updateStatus(OrdersVo orders) {
+        return orderDao.updateStatus(orders);
     }
 }

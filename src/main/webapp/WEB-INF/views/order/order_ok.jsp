@@ -71,7 +71,7 @@
                                 <a href="/" class="bottom_button is_default">쇼핑 계속하기</a>
                             </div>
                             <div class="bottom_col">
-                                <a href="/order/findMyOrders" class="bottom_button is_active">주문 내역 조회</a>
+                                <a href="/orders" class="bottom_button is_active">주문 내역 조회</a>
                             </div>
                         </div>
                     </div>
