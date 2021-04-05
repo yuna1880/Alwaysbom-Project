@@ -166,6 +166,7 @@
                                                 <img src="/static/icons/silberstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
                                             </c:if>
+
                                             <c:if test="${bestAllList.star eq 3}">
                                                 <img src="/static/icons/starstar.png" class="" alt="star"
                                                      title="별" height="15" width="15">
