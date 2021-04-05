@@ -17,11 +17,19 @@ public class CouponDao {
         sessionTemplate.insert("coupon.addCoupon", couponVo);
     }
 
-    public List<CouponVo> findByStatus(Integer status) {
-        return sessionTemplate.selectList("coupon.findByStatus", status);
+    public List<CouponVo> findBySearchOption(CouponVo option) {
+        return sessionTemplate.selectList("coupon.findBySearchOption", option);
     }
 
     public CouponVo findByIdx(Integer idx) {
         return sessionTemplate.selectOne("coupon.findByIdx", idx);
+    }
+
+    public void updateCoupon(CouponVo couponVo) {
+        sessionTemplate.update("coupon.updateCoupon", couponVo);
+    }
+
+    public boolean deleteCoupon(Integer idx) {
+        return sessionTemplate.delete("coupon.deleteByIdx", idx) > 0;
     }
 }
