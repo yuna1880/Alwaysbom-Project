@@ -1,0 +1,44 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<div class="col-2 border-warning d-flex flex-column p-4 ps-5">
+    <ul class="d-flex flex-column list-unstyled fs-6 list-group m-0">
+        <li>
+            <hr>
+        </li>
+        <li class="list-group-item">
+            <a href="" class="link-secondary">주문 내역</a>
+        </li>
+        <li class="list-group-item">
+            <a href="" class="link-secondary">정기 구독</a>
+        </li>
+        <li class="list-group-item">
+            <a href="" class="link-secondary">수강 내역</a>
+        </li>
+        <li>
+            <hr>
+        </li>
+        <li class="list-group-item">
+            <a href="/community/goFaq" class="link-secondary">자주 묻는 질문</a>
+        </li>
+        <li class="list-group-item">
+            <a href="/myPage_faq_main" class="link-secondary">1:1 문의</a>
+        </li>
+        <li class="list-group-item">
+            <a href="" class="link-secondary">상품 후기</a>
+        </li>
+        <li>
+            <hr>
+        </li>
+        <li class="list-group-item">
+            <a href="/member_grade" class="link-secondary">회원 등급</a>
+        </li>
+        <li class="list-group-item">
+            <a href="" class="link-secondary">포인트</a>
+        </li>
+        <li class="list-group-item">
+            <a href="/member_update" class="link-secondary">회원 정보 관리</a>
+        </li>
+        <li class="list-group-item">
+            <a href="" class="link-secondary">회원 탈퇴</a>
+        </li>
+    </ul>
+</div>

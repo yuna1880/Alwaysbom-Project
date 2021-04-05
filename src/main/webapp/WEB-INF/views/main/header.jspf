@@ -19,8 +19,11 @@
                     </c:otherwise>
                 </c:choose>
             </li>
-            <li>|</li>
-            <li><a href="/goMemberJoin">회원가입<span class="point-color fw-bold">(1000포인트 지급!)</span></a></li>
+            <c:if test="${sessionScope.member == null}">
+                <li>|</li>
+                <li><a href="/goMemberJoin">회원가입<span class="point-color fw-bold">(1000포인트 지급!)</span></a></li>
+            </c:if>
+            <c:if test="${sessionScope.member != null}"></c:if>
         </ul>
     </div>
 </div>

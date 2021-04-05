@@ -92,7 +92,7 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="text" name="phone" id="phone" class="csr_phone ipt chk" maxlength="15" minlength="9" placeholder="' - ' 없이 숫자만 입력해주세요." />
+                                                <input type="text" name="phone" id="phone" class="csr_phone ipt chk" maxlength="15" minlength="9" placeholder="예) 010-1234-5678" />
                                             </span>
                                         </div>
                                     </div>

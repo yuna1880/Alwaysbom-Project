@@ -32,27 +32,14 @@
         }
         .list-group-item {
             border: none;
+            font-size: 15px;
         }
     </style>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto d-flex flex-column h-100 user-select-none">
-    <div class="h-10 d-flex bg-pink bannerName-color p-3">
-        <div class="col-4 d-flex flex-column justify-content-center align-items-center position-relative p-2">
-            <span class="position-absolute top-0 align-self-baseline">회원 등급</span>
-            <span class="h4">WHITE</span>
-        </div>
-        <div class="col-4 d-flex flex-column justify-content-center align-items-center position-relative p-2
-                    border-secondary border border-bottom-0 border-top-0">
-            <span class="position-absolute top-0 align-self-baseline">포인트</span>
-            <span class="h4">1000</span>
-        </div>
-        <div class="col-4 d-flex flex-column justify-content-center align-items-center position-relative p-2">
-            <span class="position-absolute top-0 align-self-baseline">보유 쿠폰</span>
-            <span class="h4">0장</span>
-        </div>
-    </div>
+    <%@ include file="../member/mypage_header.jspf" %>
     <div class="d-flex h-5">
         <div class="col-2"></div>
         <div class="col-10 d-flex justify-content-center px-3 pt-4">
@@ -99,7 +86,7 @@
                     <a href="" class="link-secondary">포인트</a>
                 </li>
                 <li class="list-group-item list-group-item-white">
-                    <a href="/update_info" class="link-secondary">회원 정보 관리</a>
+                    <a href="/member_update" class="link-secondary">회원 정보 관리</a>
                 </li>
                 <li class="list-group-item list-group-item-white">
                     <a href="" class="link-secondary">회원 탈퇴</a>
