@@ -152,7 +152,10 @@ public class OrdersController {
 
         System.out.println("오더리스트 : " + ordersList);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 11c3c063f3e5a1679dcea1ff70692756b474a703
         model.addAttribute("ordersList",ordersList);
         return "/order/b_orderList";
     }
