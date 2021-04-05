@@ -21,7 +21,7 @@
 <div class="banner-img d-flex justify-content-center align-items-center">
     꽃 정기구독 배너 이미지
 </div>
-    <div class="container" class="mx-auto">
+    <div class="container">
 
     <!-- 상품 버튼 -->
     <div class="d-flex justify-content-center my-5">

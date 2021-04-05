@@ -10,6 +10,7 @@ import com.flo.alwaysbom.order.vo.*;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.dao.OrdersDao;
 import com.flo.alwaysbom.order.service.OrdersService;
+import com.flo.alwaysbom.util.MailSend;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,7 @@ public class OrdersController {
 
     private final OrderPriceService orderPriceService;
     private final OrdersService ordersService;
+    private final MailSend mail;
 
     //주문 시작!
     @PostMapping("/order/letter")
@@ -134,6 +136,8 @@ public class OrdersController {
             ordersService.saveDelivery(ordersVo);
         }
 
+        //mail.sendMail("xzllxz456@naver.com");
+
         model.addAttribute("oitemList", olist);
         model.addAttribute("ordersVo",ordersVo);
         return "/order/order_ok";
@@ -147,8 +151,6 @@ public class OrdersController {
         List<OrdersVo> ordersList = ordersService.findByMember(vo);
 
         System.out.println("오더리스트 : " + ordersList);
-
-        ordersList.get(1).getOlist();
 
 
         model.addAttribute("ordersList",ordersList);

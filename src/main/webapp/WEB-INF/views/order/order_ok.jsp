@@ -41,7 +41,7 @@
                                         <span class="val">${ordersVo.mootongName}</span></span>
                             <span class="line"><b class="prop">입금기한</b>
                                         <span class="val">다음날 오전 9시까지</span>
-                                        </span>
+                            </span>
                         </dd>
                     </dl>
                     </c:if>
@@ -64,7 +64,6 @@
                     </c:if>
                     <p class="more">상세내역은 아래 주문내역조회에서<br>확인하실 수 있습니다.</p>
                 </div>
-
                 <div class="checkout_next">
                     <div class="content_bottom_button">
                         <div class="bottom_row">
@@ -81,7 +80,6 @@
         </div>
     </div>
 </section>
-
 <%@ include file="../main/footer.jspf"%>
 </body>
 </html>
