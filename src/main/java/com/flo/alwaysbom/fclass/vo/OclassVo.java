@@ -31,4 +31,5 @@ public class OclassVo {
     private int reviewCheck;    //mapper에 넣을때 아예 value에 포함하지 말것 (default 0)
     private Integer discountTotalPrice;
     private Integer fclassIdx;
+    private Integer scheduleIdx;
 }

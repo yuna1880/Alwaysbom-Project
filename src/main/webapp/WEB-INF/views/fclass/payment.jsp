@@ -55,6 +55,10 @@
     }
 
     function compareWithPoint(point) {
+        if (point.value < 0) {
+            alert("포인트는 0원 이상부터 사용 가능합니다.");
+            point.value="";
+        }
         if (point.value > ${memberVo.point}) {
             alert("${memberVo.name}님께서 사용 가능한 포인트는 <fmt:formatNumber value="${memberVo.point}" pattern="#,###"/> 입니다.")
             point.value="";

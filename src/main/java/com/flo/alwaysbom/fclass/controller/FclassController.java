@@ -67,7 +67,8 @@ public class FclassController {
         model.addAttribute("branchVo", branchVo);
         model.addAttribute("scheduleList", scheduleList);
         System.out.println("scheduleList = " + scheduleList);
-        return "fclass/detail_temp";
+        return "fclass/flowerClassDetail";
+        //return "fclass/detail_temp";
     }
 
     @GetMapping("/fclass/payment")
@@ -75,10 +76,10 @@ public class FclassController {
         // member는 아마도.. 세션에서 꺼내올거야
         // 지금은 임시로 객체를 여기서 생성한다
         MemberVO memberVO = new MemberVO();
-        memberVO.setId("minho1030@naver.com");
-        memberVO.setPoint(1000);
+        memberVO.setId("dlagksk64@naver.com");
+        memberVO.setPoint(2000);
         memberVO.setGrade("자스민");
-        memberVO.setName("민호");
+        memberVO.setName("임하나");
         //////////////////////////////////////////
 
         ScheduleVo scheduleVo = scheduleService.findByIdx(scheduleIdx);
@@ -133,7 +134,8 @@ public class FclassController {
             ovo.setStatus("결제완료");
         }
         ovo.setFclassIdx(fvo.getIdx());
-        oclassService.addOclass(ovo);
+        ovo.setScheduleIdx(svo.getIdx());
+        oclassService.addOclass(ovo, svo);
 
         if(svo.getTotalCount() < svo.getRegCount() + ovo.getRegCount() ) {
             throw new IllegalStateException("등록 인원수가 큽니다");

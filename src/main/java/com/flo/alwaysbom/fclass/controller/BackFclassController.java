@@ -147,6 +147,12 @@ public class BackFclassController {
         return oclassService.updateOrderStatus(oclassVo);
     }
 
+    @RequestMapping(value = "/admin/fclass/api/orders/{idx}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public boolean deleteOrder(@PathVariable Integer idx) {
+        /*oclassService.deleteOrder(idx);*/
+        return oclassService.deleteOrder(idx);
+    }
 
     @GetMapping("admin/fclass/api/findClassByCategory")
     @ResponseBody
