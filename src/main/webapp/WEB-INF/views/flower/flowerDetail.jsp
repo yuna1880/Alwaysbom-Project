@@ -231,11 +231,11 @@
         <!-- 리뷰 카테고리 -->
         <div class="d-flex align-items-baseline review-category col-12">
             <label>
-                <input type="radio" name="bestReview" class="d-none" checked="">
+                <input type="radio" name="reviewCategory" class="d-none" checked="">
                 <span class="d-block text-center py-3 px-4 btn-rev">꽃다발 베스트 리뷰</span>
             </label>
             <label>
-                <input type="radio" name="thisReview" class="d-none">
+                <input type="radio" name="reviewCategory" class="d-none">
                 <span class="d-block text-center py-3 px-4 btn-rev">이 상품의 리뷰</span>
             </label>
         </div>

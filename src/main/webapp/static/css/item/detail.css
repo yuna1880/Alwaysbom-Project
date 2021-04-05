@@ -159,6 +159,9 @@ input[type=radio]:checked + .btn-show {
     color: #666666;
 }
 /* 리뷰 카테고리 */
+#review-area {
+    margin-bottom: 4em;
+}
 .review-category {
     border-bottom: 1px solid #dbdbdb;
     margin: 2em 0;
