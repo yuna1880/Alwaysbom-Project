@@ -1,9 +1,9 @@
 package com.flo.alwaysbom.community.review.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.service.ReviewService;
+import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +26,8 @@ public class ReviewController {
         model.addAttribute("bestRList", bestRList);
         int oldListCnt = service.oldListCnt();
         model.addAttribute("oldListCnt", oldListCnt);
-
+        List<ReviewLikeVo> likeList = service.likeList();
+        model.addAttribute("likeList", likeList);
         return "community/review";
     }
 
@@ -80,6 +81,8 @@ public class ReviewController {
         model.addAttribute("bestRList", bestRList);
         int oldListCnt = service.oldCateListCnt(category);
         model.addAttribute("oldListCnt", oldListCnt);
+        List<ReviewLikeVo> likeList = service.likeList();
+        model.addAttribute("likeList", likeList);
         return "community/review";
     }
 
@@ -92,5 +95,11 @@ public class ReviewController {
     public String deleteReview(Integer idx){
         service.deleteReview(idx);
         return "redirect:/community/goReview";
+    }
+
+    @GetMapping("/community/api/category/golike")
+    public List<ReviewLikeVo> like(){
+
+        return service.likeList();
     }
 }

@@ -1,11 +1,11 @@
 package com.flo.alwaysbom.community.review.dao;
 
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
+import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,5 +78,9 @@ public class ReviewDao {
 
     public void searchReview(Integer idx) {
         sqlSessionTemplate.delete("review.deleteReview", idx);
+    }
+
+    public List<ReviewLikeVo> likeList() {
+        return sqlSessionTemplate.selectList("reviewLike.allLikeList");
     }
 }

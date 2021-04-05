@@ -208,22 +208,30 @@
                                             </div>
                                         </c:if>
                                     </div>
-                                    <div class="d-flex justify-content-end">
-                                        <button class="btn"
-                                                onclick="goLike(${bestAllList.idx})"><i class="fas fa-thumbs-up text-primary fa-2x"></i>
-                                        </button>
-                                        <button class="btn"
-                                                onclick="goLike(${bestAllList.idx})"><i class="far fa-thumbs-up text-primary fa-2x"></i>
-                                        </button>
-                                    </div>
+                                        <div class="d-flex justify-content-end" id="like">
+                                    <c:forEach var="like" items="${likeList}">
+                                        <c:choose>
+                                            <c:when test="${member.id == like.memberId && bestAllList.idx == like.reviewIdx}">
+                                            <button class="btn"
+                                                    onclick="goLike(${bestAllList.idx})"><i class="fas fa-thumbs-up text-dark fa-2x"></i>
+                                            </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                            <button class="btn"
+                                                    onclick="goLike(${bestAllList.idx})"><i class="far fa-thumbs-up text-dark fa-2x"></i>
+                                            </button>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                        </div>
                                     <div class="d-flex justify-content-center">
                                         <c:if test="${member.id == bestAllList.memberId || member.id == 'xzllxz456@naver.com'}">
-                                            <button type="button" class="btn btn-secondary mx-2"
-                                                    onclick="goUpdate(this.form, ${bestAllList.idx})">수정
-                                            </button>
-                                            <button type="button" class="btn btn-outline-danger"
-                                                    onclick="goDelete(${bestAllList.idx})">삭제
-                                            </button>
+                                                <button type="button" class="btn btn-secondary mx-2"
+                                                        onclick="goUpdate(this.form, ${bestAllList.idx})">수정
+                                                </button>
+                                                <button type="button" class="btn btn-outline-danger"
+                                                        onclick="goDelete(${bestAllList.idx})">삭제
+                                                </button>
                                         </c:if>
                                     </div>
                                 </div>
@@ -250,7 +258,7 @@
 
     function goSearch(form) {
         let formData = $(form).serialize();
-
+        let id = '${member.id}';
         $.ajax({
             url: '/admin/question/searchReview',
             type: 'get',
@@ -333,14 +341,29 @@
                             + '<img src="/static/upload/community/review/' + this.image + '" alt="아아아아악">'
                             + '</div>';
                     }
-                    dispHtml += "</div></div></div></li>";
+                    dispHtml += "</div>";
+
+
+                    dispHtml += '<div class="d-flex justify-content-end" id="like">';
+                    dispHtml += '</div>'
+                        + '<div class="d-flex justify-content-center">';
+                    if(this.memberId == id || id == 'xzllxz456@naver.com'){
+                        dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
+                            + 'onclick="goUpdate(this.form,' + this.idx + ')">수정'
+                            + '</button>'
+                            + '<button type="button" class="btn btn-outline-danger"'
+                            + 'onclick="goDelete(' + this.idx + ')">삭제'
+                            + '</button>';
+                    }
+                    dispHtml += '</div>';
+
+                    dispHtml += "</div></div></li>";
                 });
                 $("#review-bar").html(resultBar);
                 $("#ulTablebar").html(ultable);
                 $("#ulTable").html(dispHtml);
             }
         });
-
 
     }
     function goAllList(tab, paramType) {
@@ -389,6 +412,7 @@
         function readOldNotify(index, _endIndex){
             // _endIndex = index+searchStep-1;	// endIndex설정
             // $(".accordion_count").css("display", "none");
+            let id = '${member.id}';
             console.log(index + "index");
             console.log(searchStep + "search")
             console.log(_endIndex + "_endIndex");
@@ -471,7 +495,24 @@
                                 + '<img src="/static/upload/community/review/' + this.image + '" alt="아아아아악">'
                                 + '</div>';
                         }
-                        dispHtml += "</div></div></div></li>";
+                        dispHtml += "</div>";
+
+
+                        dispHtml += '<div class="d-flex justify-content-end" id="like">';
+
+                        dispHtml += '</div>'
+                            + '<div class="d-flex justify-content-center">';
+                        if(this.memberId == id || id == 'xzllxz456@naver.com'){
+                            dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
+                                + 'onclick="goUpdate(this.form,' + this.idx + ')">수정'
+                                + '</button>'
+                                + '<button type="button" class="btn btn-outline-danger"'
+                                + 'onclick="goDelete(' + this.idx + ')">삭제'
+                                + '</button>';
+                        }
+                        dispHtml += '</div>';
+
+                        dispHtml += "</div></div></li>";
                     });
 
                     // $(dispHtml).html("#ulTable");
@@ -491,10 +532,22 @@
             });
         }
     }
-    
+
+
     function goBestList(tab, paramType) {
+        let listList = new Array();
+        <c:forEach items="${likeList}" var="like">
+        listList.push({idx: ${like.idx}
+                        ,reviewIdx: ${like.reviewIdx}
+                        ,memberId: "${like.memberId}"});
+        </c:forEach>
+        for(let i=0;i<listList.length; i++){
+            console.log(listList[i].idx);
+            console.log(listList[i].memberId);
+            console.log(listList[i].reviewIdx);
+        }
         $("#searchMoreNotify").css("display", "none");
-        console.log(paramType);
+        let id = '${member.id}';
         let dataParam = {
             category : paramType
         };
@@ -505,7 +558,7 @@
             data: dataParam,
             success: function (result) {
                let dispHtml = "";
-                $.each(result, function () {
+                $.each(result, function (i, item) {
                     dispHtml += '<li class="allBoxes accordion-item">';
                     dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco">';
                     dispHtml += '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
@@ -563,7 +616,7 @@
                         + '<div id="col' + this.idx + '" class="accordion-collapse collapse" aria-labelledby="head' + this.idx + '" data-bs-parent="#ulTable">'
                         + '<div class="accordion-body">'
                         + '<div>'
-                        +   '<p>' + this.content + '</p>'
+                        +   '<p>' + item.content + '</p>'
                         + '</div>'
                         + '<div>';
                     if(this.image != null) {
@@ -571,7 +624,29 @@
                             + '<img src="/static/upload/community/review/' + this.image + '" alt="아아아아악">'
                             + '</div>';
                     }
-                    dispHtml += "</div></div></div></li>";
+                    dispHtml += "</div>";
+
+                    dispHtml += '<div class="d-flex justify-content-end" id="like">';
+                    for(let i=0;i<listList.length; i++){
+                        if(id == listList[i].memberId && item.idx == listList[i].reviewIdx){
+                            dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
+                        } else {
+                            dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
+                        }
+                    }
+                    dispHtml += '</div>'
+                + '<div class="d-flex justify-content-center">';
+                        if(this.memberId == id || id == 'xzllxz456@naver.com'){
+                    dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
+                    + 'onclick="goUpdate(this.form,' + this.idx + ')">수정'
+                    + '</button>'
+                    + '<button type="button" class="btn btn-outline-danger"'
+                    + 'onclick="goDelete(' + this.idx + ')">삭제'
+                    + '</button>';
+                    }
+                    dispHtml += '</div>';
+
+                    dispHtml += "</div></div></li>";
                 });
                 $("#ulTable").html(dispHtml);
             }

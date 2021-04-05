@@ -2,6 +2,7 @@ package com.flo.alwaysbom.community.review.service;
 
 import com.flo.alwaysbom.community.review.dao.ReviewDao;
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
+import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,9 @@ public class ReviewService {
 
     public void deleteReview(Integer idx) {
         reviewDao.searchReview(idx);
+    }
+
+    public List<ReviewLikeVo> likeList() {
+        return reviewDao.likeList();
     }
 }
