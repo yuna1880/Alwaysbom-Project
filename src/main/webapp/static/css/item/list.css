@@ -37,16 +37,18 @@
 /* 닫기 버튼 */
 .btn-close-style {
     position: absolute;
-    border-radius: 16px;
-    padding: 0.3em 1.1em;
-    margin: 0.5em 0.5em;
-    border: 2px solid #FFFFFF;
-    color: #FFFFFF;
-    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: 0.4em 1.1em;
+    margin: 0.6em 0.6em;
+    border: 2px solid #303030;
+    font-size: 15px;
+    color: #303030;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 .btn-close-style:hover {
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.18);
+    background-color: rgba(255, 255, 255, 0.45);
+    -webkit-transition: all 0.2s ease-in-out;
 }
 
 .p-subtitle {

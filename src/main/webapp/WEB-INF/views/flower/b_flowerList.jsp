@@ -24,9 +24,28 @@
         <c:forEach var="flowerVo" items="${list}">
         <c:if test="${not empty flowerVo}">
         <div class="col mb-8em">
-            <div class="position-relative d-flex flex-column justify-content-start align-items-end"
+            <div class="transition position-relative d-flex flex-column justify-content-start align-items-end"
                  onmouseover="showBtn(this)" onmouseout="showBtn(this)">
-                <button type="button" class="btn-close-style d-none" onclick="deleteItem(this.form)">DELETE</button>
+                <button type="button" class="btn-close-style d-none" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">삭제</button>
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">정말 삭제하시겠습니까?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                게시물 삭제를 원하시면 '삭제' 버튼을 눌러주세요.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" onclick="deleteItem(this.form)">삭제</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- Modal 끝 -->
                 <input type="hidden" name="idx" value="${flowerVo.idx}">
                 <div class="overflow-hidden">
                     <a href="/admin/flowerUpdateForm/${flowerVo.idx}">
