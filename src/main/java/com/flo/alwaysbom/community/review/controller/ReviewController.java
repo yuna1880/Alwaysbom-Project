@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.service.ReviewService;
-import com.flo.alwaysbom.community.review.vo.ReviewVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +26,7 @@ public class ReviewController {
         model.addAttribute("bestRList", bestRList);
         int oldListCnt = service.oldListCnt();
         model.addAttribute("oldListCnt", oldListCnt);
+
         return "community/review";
     }
 
@@ -48,6 +48,14 @@ public class ReviewController {
 //        System.out.println(jsonStr);
         return list;
 
+    }
+
+    @GetMapping("/admin/question/searchReview")
+    @ResponseBody
+    public List<ReviewDto> searchReview(String opt, String search, Model model){
+        List<ReviewDto> list = service.searchReview(opt, search);
+        System.out.println(list);
+        return list;
     }
 
     @PostMapping("/community/api/category/goBestReview")
@@ -73,5 +81,16 @@ public class ReviewController {
         int oldListCnt = service.oldCateListCnt(category);
         model.addAttribute("oldListCnt", oldListCnt);
         return "community/review";
+    }
+
+    @GetMapping("/community/category/writeReview")
+    public String goWrite(){
+        return null;
+    }
+
+    @GetMapping("/community/category/deleteReview")
+    public String deleteReview(Integer idx){
+        service.deleteReview(idx);
+        return "redirect:/community/goReview";
     }
 }

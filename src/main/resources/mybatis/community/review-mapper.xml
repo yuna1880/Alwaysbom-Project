@@ -72,6 +72,23 @@
         )
         WHERE RN BETWEEN #{startIndex} and #{endIndex}
     </select>
+
+    <select id="searchReview" parameterType="string" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT *
+        FROM (
+        SELECT ROW_NUMBER() over (ORDER BY REG_DATE DESC) as RN, I.*
+        FROM REVIEW I
+            WHERE (CATEGORY LIKE '%' || #{search} || '%') OR
+                (NAME LIKE '%' || #{search} || '%') OR
+                (NAME LIKE '%' || #{search} || '%') OR
+                (MEMBER_ID LIKE '%' || #{search} || '%') OR
+                (CONTENT LIKE '%' || #{search} || '%')
+        )
+    </select>
+
+    <delete id="deleteReview" parameterType="int">
+        DELETE FROM REVIEW WHERE IDX = #{idx}
+    </delete>
 <!--    <select id="utilReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">-->
 <!--        SELECT *-->
 <!--        FROM REVIEW-->
