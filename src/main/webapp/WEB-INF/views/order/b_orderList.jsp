@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>새늘봄 백오피스 - 주문내역 조회</title>
@@ -14,7 +16,7 @@
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
             <label class="btn btn-outline-primary" for="btnradio1">입금 대기
-                <span class="badge">4</span>
+                <span class="badge">${totalNum}</span>
             </label>
 
             <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
@@ -50,65 +52,88 @@
         <span id="order-name">입금 대기 목록</span>
     </div>
 
+    <!-- 담은 수만큼 생성 -->
+
+    <c:forEach var="order" items="${ordersList}" varStatus="status">
     <table class="table">
         <thead>
         <tr>
             <th scope="col">
-                주문번호 : 202103240001
+                주문번호 : ${order.idx}
                 <button type="button" class="btn btn-dark btn-sm" id="order-button">입금확인</button>
             </th>
             <th scope="col">
-                <span class="badge bg-secondary" id="order-date">주문일 : 2021-03-24</span>
+                <span class="badge bg-secondary" id="order-date">주문일 : ${order.odate}</span>
             </th>
         </tr>
         </thead>
+
+        <c:forEach var="oitem" items="${ordersList.get(status.index).olist}">
         <tbody>
         <tr>
             <th scope="row">
                 <div class="photo">
                     <a href="#" class="img" title="폴인로즈 에디션">
                         <!-- <img src="images/0_1.png" class="rounded float-start" alt="..."> -->
-                        <img src="images/0_1.png" class="image_size">
+                        <img src="${oitem.image}" class="image_size">
                     </a>
                 </div>
                 <div class="detail">
                     <span class="content_category"></span>
-                    <span class="name">[정기구독]가벼운 S꽃구독</span>
+                    <span class="name">[${oitem.category}] ${oitem.name}</span>
 
                     <div class="option">
-                        <span class="l"><span class="label"><i>수량 : </i>1</span></span>
+                        <span class="l"><span class="label"><i>수량 : </i>${oitem.quantity}</span></span>
                     </div>
+                    <c:if test="${not empty oitem.letterContent}">
                     <div class="option">
                         <span class="l"><span class="label"><i></i>편지 추가</span></span>
                     </div>
+                    </c:if>
+                    <c:if test="${empty oitem.letterContent}">
+                        <div class="option">
+                            <span class="l"><span class="label"><i></i>편지 없음</span></span>
+                        </div>
+                    </c:if>
                     <div class="option">
-                        <span class="l"><span class="label"><i></i><span>화이트 화병[1]</span></span></span>
+                        <span class="l"><span class="label"><i>옵션 : </i><span>
+                            <c:forTokens items="${oitem.options}" delims="," var="option">
+                                ${option}<br/>
+                            </c:forTokens>
+                        </span></span></span>
                     </div>
                     <span class="price">
                                 <span class="label">가격</span>
-                                <span class="val">69,300원</span>
-                            </span>
+                                <span class="val">
+                                    <fmt:formatNumber value="${oitem.price}" pattern="#,### 원"/>
+                                </span>
+                    </span>
                 </div>
             </th>
             <td>
                 <div class="detail2">
                     <span class="content_category"></span>
-                    <span class="name">수령인 이름 : 권유나</span>
+                    <span class="name">수령인 이름 : ${order.senderName}</span>
 
                     <div class="option">
-                        <span class="label"><i>수령인 연락처 : 010-0000-0000</i></span>
+                        <span class="label"><i>수령인 연락처 : ${order.receiverPhone}</i></span>
                     </div>
                     <div class="option">
-                        <span class="label">결제방법 : 무통장입금</span>
+                        <span class="label">결제방법 : ${order.payType}</span>
                     </div>
                     <div class="option_status">
-                        <span class="label">상태: 입금대기</span>
+                        <span class="label">상태: ${oitem.status}</span>
                     </div>
                 </div>
             </td>
         </tr>
         </tbody>
+        </c:forEach>
     </table>
+        <c:if test="${status.last eq true}">
+            <c:set var="totalNum" value="${status.index}"/>
+        </c:if>
+    </c:forEach>
 </div>
 <script src="/static/js/imageUploader.js"></script>
 </body>

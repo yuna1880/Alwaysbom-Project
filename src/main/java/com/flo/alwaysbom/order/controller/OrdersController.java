@@ -27,7 +27,6 @@ public class OrdersController {
     private final OrderPriceService orderPriceService;
     private final OrdersService ordersService;
 
-
     //주문 시작!
     @PostMapping("/order/letter")
 
@@ -87,7 +86,6 @@ public class OrdersController {
         model.addAttribute("orderPrice", orderPriceService.getOrderPrice(olist, mvo));
 
         ordersVo.setMemberId("yuna1880");
-
         model.addAttribute("ordersVo", ordersVo); //orderVo 세션
         System.out.println("ordersVo : " + ordersVo);
         return "order/payment";
@@ -113,8 +111,6 @@ public class OrdersController {
         System.out.println("oitemList : " + olist);
         System.out.println("orderVo : " + ordersVo);
 
-        System.out.println("결제정보 : " + ordersVo.getPayType());
-
         //주문상태 변경 (신용카드 -> 결제완료 / 무통장입금 -> 입금대기)
         if (ordersVo.getPayType().equals("무통장입금")) {
 
@@ -123,9 +119,7 @@ public class OrdersController {
                 System.out.println("oitem = " + ovo);
             }
         }
-
         if (ordersVo.getPayType().equals("신용카드")) {
-            System.out.println("신요오옹 : " + ordersVo.getPayType());
             for (OitemVo ovo : olist) {
                 System.out.println("oitem = " + ovo);
                 ovo.setStatus("결제 완료");
@@ -146,9 +140,19 @@ public class OrdersController {
     }
 
     //주문정보 + 주문한 상품내역 조회
-    @PostMapping("/order/findMyOrders")
-    public String findOrder(MemberVO vo) {
-        return null;
+    @GetMapping("/order/findMyOrders")
+    public String findOrder(MemberVO vo ,OrdersVo ovo, Model model) {
+        //더미 아이디 셋팅
+        vo.setId("yuna1880");
+        List<OrdersVo> ordersList = ordersService.findByMember(vo);
+
+        System.out.println("오더리스트 : " + ordersList);
+
+        ordersList.get(1).getOlist();
+
+
+        model.addAttribute("ordersList",ordersList);
+        return "/order/b_orderList";
     }
 
 

@@ -42,5 +42,33 @@
 
     </insert>
 
+<!-- using resultMap -->
+<!--    id : 'join' 하는 POJO 클래스의 CamelCase명 또는 @Alias("키값") -->
+<!--    column :  DB컬럼명 -->
+<!--    property : type에 적힌 POJO클래스의 속성명-->
+    <resultMap id="OrdersMap" type="com.flo.alwaysbom.order.vo.OrdersVo" autoMapping="true">
+        <id property="idx" column="IDX"/>
+        <collection property="olist" column="IDX" ofType="com.flo.alwaysbom.order.vo.OitemVo" select="findByOrderIdx"/>
+    </resultMap>
+    <select id="findByMember" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultMap="OrdersMap">
+        SELECT * FROM ORDERS
+                    INNER JOIN OITEM ON(OITEM.ORDERS_IDX = ORDERS.IDX)
+        WHERE ORDERS.MEMBER_ID = #{id}
+        ORDER BY ORDERS.IDX DESC
+    </select>
+
+<!--    <select id="findByMember" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultType="com.flo.alwaysbom.order.vo.OrdersVo">-->
+<!--        SELECT * FROM ORDERS-->
+<!--                 INNER JOIN OITEM ON(OITEM.ORDERS_IDX = ORDERS.IDX)-->
+<!--        WHERE ORDERS.MEMBER_ID = #{id}-->
+<!--        ORDER BY ORDERS.IDX DESC-->
+<!--    </select>-->
+
+    <select id="findByOrderIdx" parameterType="int" resultType="com.flo.alwaysbom.order.vo.OitemVo">
+        SELECT
+            *
+        FROM OITEM
+        WHERE ORDERS_IDX = #{idx}
+    </select>
 
 </mapper>

@@ -5,8 +5,11 @@ import com.flo.alwaysbom.order.vo.DeliveryInfoVo;
 import com.flo.alwaysbom.order.vo.OitemVo;
 import com.flo.alwaysbom.order.vo.OrdersVo;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,7 +29,9 @@ public class OrdersDao {
     }
 
     //배송지 저장
-
+    public int saveDelivery(OrdersVo ordersVo) {
+        return sqlSessionTemplate.insert("orders-mapper.saveDelivery",ordersVo);
+    }
 
     //저장된 배송지 찾기
     public DeliveryInfoVo findAddress(MemberVO vo) {
@@ -35,15 +40,17 @@ public class OrdersDao {
         return sqlSessionTemplate.selectOne("orders-mapper.findDelivery",vo);
     }
 
-
-
-
+    //포인트찾기 (더미)
     public int getPoint(MemberVO mvo) {
         return sqlSessionTemplate.selectOne("orders-mapper.getPoint",mvo);
     }
 
-    //배송지 저장
-    public int saveDelivery(OrdersVo ordersVo) {
-        return sqlSessionTemplate.insert("orders-mapper.saveDelivery",ordersVo);
+
+    public List<OrdersVo> findByMember(MemberVO vo) {
+        return sqlSessionTemplate.selectList("orders-mapper.findByMember",vo);
+    }
+
+    public List<OitemVo> findByOrderIdx(Integer idx) {
+        return sqlSessionTemplate.selectList("orders-mapper.findByOrderIdx",idx);
     }
 }
