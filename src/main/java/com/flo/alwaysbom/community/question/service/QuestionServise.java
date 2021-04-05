@@ -16,7 +16,23 @@ public class QuestionServise {
         dao.addQuestion(vo);
     }
 
-    public List<QuestionVo> userQuestion() {
-        return dao.userQuestion();
+    public List<QuestionVo> noAnswer() {
+        return dao.noAnswer();
+    }
+
+    public List<QuestionVo> answer() {
+        return dao.answer();
+    }
+
+    public void updateAnswer(QuestionVo vo) {
+        dao.updateAnswer(vo);
+    }
+
+    public void deleteAnswer(Integer idx) {
+        dao.deleteAnswer(idx);
+    }
+
+    public Integer mailCheckIdx(Integer idx) {
+        return dao.mailCheckIdx(idx);
     }
 }

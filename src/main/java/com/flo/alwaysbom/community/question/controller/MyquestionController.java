@@ -23,15 +23,18 @@ public class MyquestionController {
         return "community/myquestion";
     }
 
-//    @PostMapping("/question/api/writeQuest")
-//    @ResponseBody
-//    public Boolean addQuestion(QuestionVo vo, MultipartFile file) throws IOException {
-//        vo.setImage(fileHandler.uploadFile(file, null, "community/question"));
-////        if(vo.getEmailSend() == null || vo.getEmailSend().equals("null")){
-////            vo.setEmailSend(0);
-////        }
-//        servise.addQuestion(vo);
-//        System.out.println(vo);
-//        return true;
-//    }
+    @PostMapping("/admin/question/api/writeQuest")
+    @ResponseBody
+    public Boolean addQuestion(QuestionVo vo, MultipartFile file) throws IOException {
+        if(vo.getEmailSend() == null){
+            vo.setEmailSend(0);
+        }
+        vo.setImage(fileHandler.uploadFile(file, null, "community/question"));
+//        if(vo.getEmailSend() == null || vo.getEmailSend().equals("null")){
+//            vo.setEmailSend(0);
+//        }
+        servise.addQuestion(vo);
+        System.out.println(vo);
+        return true;
+    }
 }

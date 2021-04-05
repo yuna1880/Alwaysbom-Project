@@ -15,7 +15,38 @@ public class QuestionDao {
         sessionTemplate.insert("question.addque", vo);
     }
 
-    public List<QuestionVo> userQuestion() {
-        return sessionTemplate.selectList("question.allQuestion");
+    public List<QuestionVo> noAnswer() {
+        List<QuestionVo> list = sessionTemplate.selectList("question.noAnswer");
+        list = dateCut(list);
+        return list;
     }
+    public List<QuestionVo> answer() {
+        List<QuestionVo> list = sessionTemplate.selectList("question.answer");
+        list = dateCut(list);
+        return list;
+    }
+
+    public void updateAnswer(QuestionVo vo) {
+        sessionTemplate.update("question.updateAnswer", vo);
+    }
+
+    public void deleteAnswer(Integer idx) {
+        sessionTemplate.delete("question.deleteAnswer", idx);
+    }
+
+    public Integer mailCheckIdx(Integer idx) {
+        return sessionTemplate.selectOne("question.mailCheck", idx);
+    }
+
+    private List<QuestionVo> dateCut(List<QuestionVo> list) {
+        for (QuestionVo vo : list) {
+            vo.setQuestionDate(vo.getQuestionDate().substring(0,10));
+            if(vo.getAnswerDate() != null){
+                vo.setAnswerDate(vo.getAnswerDate().substring(0,10));
+            }
+        }
+        return list;
+    }
+
+
 }
