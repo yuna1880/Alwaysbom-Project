@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -120,11 +121,9 @@ public class MemberController {
         return "member/member_grade";
     }
 
-    @PostMapping("/updateMember")
-    public String updateMember(MemberVO memberVO) {
-        memberService.updateMember(memberVO);
-        return "member/updateMember";
+    @GetMapping("/member_update")
+    public String member_update() {
+        return "member/member_update";
     }
-
 
 }
