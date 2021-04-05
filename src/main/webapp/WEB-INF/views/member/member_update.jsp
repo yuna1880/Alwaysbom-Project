@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>1:1문의</title>
+    <title>회원 정보 관리</title>
     <%@ include file="../main/import.jspf" %>
     <style>
         .h-5 {
@@ -35,6 +35,7 @@
         }
         .list-group-item {
             border: none;
+            font-size: 15px;
         }
         .btn-warning {
             width: 200px;
@@ -103,7 +104,7 @@
                     <a href="" class="link-secondary">포인트</a>
                 </li>
                 <li class="list-group-item">
-                    <a href="" class="link-secondary">회원 정보 관리</a>
+                    <a href="/member_update" class="link-secondary">회원 정보 관리</a>
                 </li>
                 <li class="list-group-item">
                     <a href="" class="link-secondary">회원 탈퇴</a>
@@ -120,7 +121,7 @@
                     </div>
                     <div class="join_us_box">
                         <div class="inbox">
-                            <form role="form" action="/updateMember" method="post" onsubmit="confirm();">
+                            <form role="form" action="/member_update" method="post" onsubmit="confirm();">
                                 <fieldset>
                                     <div class="form-group">
                                         <div class="inner">

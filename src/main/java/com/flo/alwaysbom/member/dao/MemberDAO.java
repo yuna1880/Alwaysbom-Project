@@ -31,11 +31,4 @@ public class MemberDAO{
         return sessionTemplate.selectOne("member.CheckId", id);
     }
 
-    //회원 정보 수정
-    public void updateMember(MemberVO memberVO) {
-
-        sessionTemplate.update("member.updateMember",memberVO);
-    }
-
-
 }

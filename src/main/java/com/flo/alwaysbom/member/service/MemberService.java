@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService{
+public class MemberService {
 
     private final MemberDAO dao;
 
@@ -28,14 +28,9 @@ public class MemberService{
         model.addAttribute("member", null);
 
     }
+
     //아이디 중복 확인
     public MemberVO CheckId(String id) throws Exception {
         return dao.CheckId(id);
     }
-
-    //회원 정보 수정
-    public void updateMember(MemberVO memberVO) {
-        dao.updateMember(memberVO);
-    }
 }
-
