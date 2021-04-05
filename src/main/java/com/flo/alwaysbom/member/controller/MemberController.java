@@ -135,4 +135,14 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/mypage_review")
+    public String mypage_review() {
+        return "member/mypage_review";
+    }
+
+    @GetMapping("/member_point")
+    public String member_point() {
+        return "member/member_point";
+    }
 }

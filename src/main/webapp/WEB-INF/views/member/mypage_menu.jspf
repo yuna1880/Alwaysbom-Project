@@ -11,7 +11,7 @@
             <a href="" class="link-secondary">정기 구독</a>
         </li>
         <li class="list-group-item">
-            <a href="" class="link-secondary">수강 내역</a>
+            <a href="" class="link-secondary" onclick="goMyClassList(event)">수강 내역</a>
         </li>
         <li>
             <hr>
@@ -23,7 +23,7 @@
             <a href="/myPage_faq_main" class="link-secondary">1:1 문의</a>
         </li>
         <li class="list-group-item">
-            <a href="" class="link-secondary">상품 후기</a>
+            <a href="/mypage_review" class="link-secondary">상품 후기</a>
         </li>
         <li>
             <hr>
@@ -32,7 +32,7 @@
             <a href="/member_grade" class="link-secondary">회원 등급</a>
         </li>
         <li class="list-group-item">
-            <a href="" class="link-secondary">포인트</a>
+            <a href="/member_point" class="link-secondary">포인트</a>
         </li>
         <li class="list-group-item">
             <a href="/member_update" class="link-secondary">회원 정보 관리</a>
@@ -42,3 +42,38 @@
         </li>
     </ul>
 </div>
+<style>
+    .h-5 {
+        height: 5% !important;
+    }
+
+    .h-10 {
+        height: 10% !important;
+    }
+
+    .h-85 {
+        height: 85% !important;
+    }
+    .bg-pink {
+        background-color: #f5b0cf;
+    }
+    .name-color {
+        color: #d869db;
+    }
+    .bannerName-color {
+        color: #f7ebf1;
+    }
+    a {
+        text-decoration: none;
+    }
+    hr {
+        color: white;
+    }
+    .list-group-item {
+        border: none;
+        font-size: 15px;
+    }
+    .hr1{
+        color: dimgrey;
+    }
+</style>

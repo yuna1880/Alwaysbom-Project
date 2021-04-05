@@ -11,6 +11,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower/flowerDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower/list.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/flower" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main/header.jspf" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/member_update.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/myPage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order/b_order.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order/payment.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order" />
