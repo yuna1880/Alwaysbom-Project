@@ -58,8 +58,8 @@ public class BackFlowerController {
     @PostMapping("/admin/updateFlower")
     public String updateFlower(FlowerVo vo, List<MultipartFile> file) throws IOException {
         vo.setImage1(fileHandler.uploadFile(file.get(0), vo.getImage1(), "flower"));
-        vo.setImage1(fileHandler.uploadFile(file.get(1), vo.getImage2(), "flower"));
-        vo.setImage1(fileHandler.uploadFile(file.get(2), vo.getImage3(), "flower"));
+        vo.setImage2(fileHandler.uploadFile(file.get(1), vo.getImage2(), "flower"));
+        vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "flower"));
         Integer idx = flowerService.updateFlower(vo);
         return "redirect:/admin/flower/" + idx;
     }
