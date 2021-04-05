@@ -10,18 +10,19 @@
     border: none;
 }
 
+/* 메인 컨테이너 */
 #container {
     background-color: #ffffff;
 }
+
+/* 썸네일-주문정보 */
 .thumb-order {
     margin-bottom: 5em;
 }
 
 /* 유저 이동경로 */
-#bread-nav {
-    display: flex;
-    font-size: 15px;
-    padding-top: 50px;
+#pt-70 {
+    padding-top: 70px;
 }
 #bread-nav a {
     color: #4D4D4D;
@@ -128,7 +129,7 @@
 .btn-show {
     border-right: 1px solid #e1e1e1;
     border-top: 1px solid #e1e1e1;
-    border-bottom: 2px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
     font-size: 18px;
     color: #707070;
 }
@@ -136,7 +137,7 @@
     cursor: pointer;
 }
 input[type=radio]:checked + .btn-show {
-    border-bottom: 3px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
     border-top: 3px solid #030303;
     color: #030303;
 }
@@ -150,12 +151,35 @@ input[type=radio]:checked + .btn-show {
 
 /* 리뷰 */
 #review-area {
-    height: 2000px;
+    margin : 4em 0;
+}
+.c-666 {
+    color: #666666;
+}
+/* 리뷰 카테고리(꽃다발 베스트리뷰/이 상품의 리뷰) */
+#review-area {
+    margin-bottom: 4em;
+}
+.review-category {
+    border-bottom: 1px solid #dbdbdb;
+    margin: 2em 0;
+}
+.btn-rev {
+    font-size: 20px;
+    color: #707070;
+}
+.btn-rev:hover {
+    cursor: pointer;
+}
+input[type=radio]:checked + .btn-rev {
+    border-bottom: 3px solid #030303;
+    color: #030303;
+    font-weight: 500;
+}
+.branchBtn {
+    background-color: #eeeeee;
 }
 
-/* 배송안내 */
-#delivery-area {
-    height: 2000px;
+.branchBtn:hover {
+    background-color: #f1a417;
 }
-
-

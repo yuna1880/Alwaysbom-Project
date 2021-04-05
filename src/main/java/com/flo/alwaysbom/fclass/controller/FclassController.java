@@ -57,15 +57,17 @@ public class FclassController {
     @GetMapping("/fclass/classList/{idx}")
     public String classDetail(@PathVariable("idx") Integer idx, Model model) {
         FclassVo fclassVo = fclassService.findByIdx(idx);
-        BranchVo branchVo = fclassVo.getBranchList().get(0);
+        List<BranchVo> branchList = fclassVo.getBranchList();
         List<ScheduleVo> scheduleList = scheduleService.searchSchedule(ScheduleVo.builder()
                 .fclassIdx(idx)
-                .branchIdx(branchVo.getIdx())
+              /*  .branchIdx(branchList.getIdx())*/
                 .build());
 
         model.addAttribute("fclassVo", fclassVo);
-        model.addAttribute("branchVo", branchVo);
+        model.addAttribute("branchList", branchList);
         model.addAttribute("scheduleList", scheduleList);
+        System.out.println("fclassVo = " + fclassVo);
+        System.out.println("branchList = " + branchList);
         System.out.println("scheduleList = " + scheduleList);
         return "fclass/flowerClassDetail";
         //return "fclass/detail_temp";
@@ -94,7 +96,7 @@ public class FclassController {
 
         System.out.println("FclassController.goPayment");
         System.out.println("scheduleVo = " + scheduleVo);
-        System.out.println("branchVo = " + branchVo);
+        System.out.println("branchList = " + branchVo);
         System.out.println("fclassVo = " + fclassVo);
         System.out.println("regCount = " + regCount);
         System.out.println("memberVO = " + memberVO);
