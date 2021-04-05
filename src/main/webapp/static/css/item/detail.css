@@ -10,9 +10,12 @@
     border: none;
 }
 
+/* 메인 컨테이너 */
 #container {
     background-color: #ffffff;
 }
+
+/* 썸네일-주문정보 */
 .thumb-order {
     margin-bottom: 5em;
 }
@@ -150,12 +153,15 @@ input[type=radio]:checked + .btn-show {
 
 /* 리뷰 */
 #review-area {
-    height: 2000px;
+    margin : 4em 0;
+}
+.c-666 {
+    color: #666666;
 }
 
 /* 배송안내 */
-#delivery-area {
-    height: 2000px;
+.delivery-text {
+    color: #666666;
 }
 
 

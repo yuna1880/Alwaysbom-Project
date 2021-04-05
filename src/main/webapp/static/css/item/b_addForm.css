@@ -44,6 +44,9 @@
 }
 .ck-editor__editable {
     min-height: 800px;
+    line-height: normal;
+    /*font-weight: 400;*/
+    /*font-size: 19px;*/
 }
 .text-editor-wrap {
     width: 1090px;
