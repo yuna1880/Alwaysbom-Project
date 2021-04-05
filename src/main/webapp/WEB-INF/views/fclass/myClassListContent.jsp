@@ -14,7 +14,7 @@
 
         <!-- 입금상태에 따른 안내문구 -->
         <div class="d-flex flex-column justify-content-center align-items-baseline col-6">
-            <a href="/fclass/classList/${order.fclassIdx}" class="link-dark fs-6">${order.fclassName}</a>
+            <a href="/fclass/classList/${order.fclassIdx}" class="link-dark fs-6 text-decoration-none">${order.fclassName}</a>
             <div class="d-flex border-bottom border-1 border-warning col-12">
                 <span class="pe-2"><fmt:formatNumber value="${order.discountTotalPrice}" pattern="#,### 원"/></span>
                 <span class="text-secondary">${order.status}</span>

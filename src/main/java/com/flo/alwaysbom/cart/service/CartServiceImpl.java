@@ -26,7 +26,9 @@ public class CartServiceImpl implements CartService {
     @Override
     public Integer addCart(CartVo cartVo) {
         cartDao.addCart(cartVo);
-        choiceService.addChoices(cartVo);
+        if (cartVo.getChoices() != null && cartVo.getChoices().size() > 0) {
+            choiceService.addChoices(cartVo);
+        }
         return cartVo.getIdx();
     }
 

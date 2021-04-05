@@ -45,7 +45,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="orders">
                             <li><a class="dropdown-item" href="#">상품 주문 내역</a></li>
-                            <li><a class="dropdown-item" href="#">클래스 주문 내역</a></li>
+                            <li><a class="dropdown-item" href="/admin/fclass/orders">클래스 주문 내역</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -54,7 +54,7 @@
                             상품 관리
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="items">
-                            <li><a class="dropdown-item" href="#">꽃 정기구독</a></li>
+                            <li><a class="dropdown-item" href="/admin/subs">꽃 정기구독</a></li>
                             <li><a class="dropdown-item" href="/admin/flower">꽃다발</a></li>
                             <li><a class="dropdown-item" href="/admin/product">소품샵</a></li>
                         </ul>

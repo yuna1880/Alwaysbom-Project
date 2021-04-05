@@ -1,5 +1,54 @@
 @charset "UTF-8";
 
+/* 3/28  주문완료 페이지 스타일*/
+
+.content_bottom_button .bottom_row {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 0 -5px;
+}
+
+.content_bottom_button .bottom_row .bottom_col {
+    flex: 1;
+    padding: 0 5px;
+}
+
+.content_bottom_button .bottom_row .bottom_col .bottom_button.is_default {
+    background: #ececec;
+    color: #222;
+}
+
+.content_bottom_button .bottom_row .bottom_col .bottom_button.is_active {
+    background: #ffcd32;
+    color: #0d0d0d;
+}
+.content_bottom_button .bottom_row .bottom_col .bottom_button {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: 0 0;
+    outline: 0;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 48px;
+    background: #ffcd32;
+    text-align: center;
+    font-size: 14px;
+    line-height: 48px;
+    font-weight: 300;
+    letter-spacing: -.21px;
+    color: #0d0d0d;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
+
+
 
 /* 3/26 */
 
@@ -1036,11 +1085,11 @@ span.unknow_noti {
     }
 }
 
-.infomation_box .empty_infobox {
+.information_box .empty_infobox {
     color: #626262
 }
 
-.infomation_box .empty_infobox .inner {
+.information_box .empty_infobox .inner {
     display: block;
     padding: 60px 10px;
     margin-top: 20px;
@@ -1051,49 +1100,49 @@ span.unknow_noti {
     text-align: center
 }
 
-.infomation_box .checkout_cartlist .noti_q {
+.information_box .checkout_cartlist .noti_q {
     display: none;
     font-size: 11px;
     color: #888;
     font-weight: 300
 }
 
-.infomation_box .checkout_cartlist .head {
+.information_box .checkout_cartlist .head {
     display: none
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .item {
+.information_box .checkout_cartlist .cartlist_wrap .item {
     margin-top: 25px;
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .item:after {
+.information_box .checkout_cartlist .cartlist_wrap .item:after {
     content: '';
     display: block;
     clear: both
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .item:first-of-type {
+.information_box .checkout_cartlist .cartlist_wrap .item:first-of-type {
     margin-top: 0
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .item:first-of-type .delivery_total_price {
+.information_box .checkout_cartlist .cartlist_wrap .item:first-of-type .delivery_total_price {
     border-bottom: none
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_date,
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_title {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_date,
+.information_box .checkout_cartlist .cartlist_wrap .delivery_title {
     border-top: #626262 1px solid;
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_date:after,
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_title:after {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_date:after,
+.information_box .checkout_cartlist .cartlist_wrap .delivery_title:after {
     content: '';
     display: block;
     clear: both
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_date .label,
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_title .label {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_date .label,
+.information_box .checkout_cartlist .cartlist_wrap .delivery_title .label {
     float: left;
     width: 120px;
     min-height: 45px;
@@ -1104,8 +1153,8 @@ span.unknow_noti {
     color: #626262
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_date .val,
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_title .val {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_date .val,
+.information_box .checkout_cartlist .cartlist_wrap .delivery_title .val {
     display: block;
     overflow: hidden;
     padding: 15px 15px 0 0;
@@ -1115,12 +1164,12 @@ span.unknow_noti {
     color: #3a3a3a
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_date .val>br,
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_title .val>br {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_date .val>br,
+.information_box .checkout_cartlist .cartlist_wrap .delivery_title .val>br {
     display: none
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_total_price {
     height: 38px;
     padding: 7px 22px 0 0;
     border-top: #bfbfbf 1px solid;
@@ -1131,20 +1180,20 @@ span.unknow_noti {
     text-align: right
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .label {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_total_price .label {
     float: none;
     display: inline-block;
     vertical-align: top;
     font-weight: 500
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .label.ok {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_total_price .label.ok {
     position: relative;
     font-weight: 400;
     padding-right: 30px
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .label.ok:after {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_total_price .label.ok:after {
     content: '';
     position: absolute;
     top: -2px;
@@ -1154,7 +1203,7 @@ span.unknow_noti {
     background: #bfbfbf
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val {
     display: inline-block;
     min-width: 40px;
     margin-left: 5px;
@@ -1162,21 +1211,21 @@ span.unknow_noti {
     font-weight: 300
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val+.label {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val+.label {
     margin-left: 15px;
     color: #246c6a
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_goods {
     padding: 0;
     border-top: #bfbfbf 1px solid
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .row {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_goods .row {
     position: relative
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .delete {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .delete {
     padding: 0;
     margin: 0;
     border: none;
@@ -1193,18 +1242,18 @@ span.unknow_noti {
     color: #626262
 }
 
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .card,
-.infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .chk_card {
+.information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .card,
+.information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .chk_card {
     display: none
 }
 
 @media (min-width:1280px) {
-    .infomation_box .empty_infobox {
+    .information_box .empty_infobox {
         padding-bottom: 15px;
         border-bottom: #aaa 1px solid;
     }
 
-    .infomation_box .empty_infobox .inner {
+    .information_box .empty_infobox .inner {
         padding: 150px 20px;
         margin-top: 15px;
         background: #eee;
@@ -1212,86 +1261,86 @@ span.unknow_noti {
         font-size: 20px;
     }
 
-    .infomation_box .checkout_cartlist.del_charge .head > span.product {
+    .information_box .checkout_cartlist.del_charge .head > span.product {
         width: 52%;
         max-width: 620px
     }
 
-    .infomation_box .checkout_cartlist.del_charge .cartlist_wrap .delivery_goods .list_good_checkout {
+    .information_box .checkout_cartlist.del_charge .cartlist_wrap .delivery_goods .list_good_checkout {
         width: 77%
     }
 
-    .infomation_box .checkout_cartlist.del_charge .cartlist_wrap .delivery_goods .list_good_price {
+    .information_box .checkout_cartlist.del_charge .cartlist_wrap .delivery_goods .list_good_price {
         width: 22.5%
     }
 
-    .infomation_box .checkout_cartlist.checkout_classlist .head > span.product {
+    .information_box .checkout_cartlist.checkout_classlist .head > span.product {
         width: 71%;
         max-width: 845px
     }
 
-    .infomation_box .checkout_cartlist.checkout_classlist .cartlist_wrap .delivery_date {
+    .information_box .checkout_cartlist.checkout_classlist .cartlist_wrap .delivery_date {
         padding-top: 35px
     }
 
-    .infomation_box .checkout_cartlist.checkout_classlist .cartlist_wrap .delivery_goods {
+    .information_box .checkout_cartlist.checkout_classlist .cartlist_wrap .delivery_goods {
         width: 87%;
         max-width: inherit
     }
 
-    .infomation_box .checkout_cartlist.checkout_classlist .cartlist_wrap .delivery_goods .list_good_checkout {
+    .information_box .checkout_cartlist.checkout_classlist .cartlist_wrap .delivery_goods .list_good_checkout {
         width: 83%
     }
 
-    .infomation_box .checkout_cartlist.checkout_classlist .cartlist_wrap .delivery_goods .list_good_price {
+    .information_box .checkout_cartlist.checkout_classlist .cartlist_wrap .delivery_goods .list_good_price {
         width: 17%
     }
 
-    .infomation_box .checkout_cartlist.checkout_del_none .head > span.delete {
+    .information_box .checkout_cartlist.checkout_del_none .head > span.delete {
         width: 26%;
         max-width: 298px
     }
 
-    .infomation_box .checkout_cartlist.checkout_del_none .cartlist_wrap .delivery_goods {
+    .information_box .checkout_cartlist.checkout_del_none .cartlist_wrap .delivery_goods {
         width: 62%
     }
 
-    .infomation_box .checkout_cartlist.checkout_del_none .cartlist_wrap .delivery_goods .list_good_checkout {
+    .information_box .checkout_cartlist.checkout_del_none .cartlist_wrap .delivery_goods .list_good_checkout {
         width: 75%
     }
 
-    .infomation_box .checkout_cartlist.checkout_del_none .cartlist_wrap .delivery_goods .list_good_price {
+    .information_box .checkout_cartlist.checkout_del_none .cartlist_wrap .delivery_goods .list_good_price {
         width: 25%
     }
 
-    .infomation_box .checkout_cartlist.checkout_del_none .cartlist_wrap .delivery_total_price {
+    .information_box .checkout_cartlist.checkout_del_none .cartlist_wrap .delivery_total_price {
         width: 25%;
         max-width: inherit
     }
 
-    .infomation_box .checkout_cartlist.checkout_del_none .cartlist_wrap .delivery_total_price .val {
+    .information_box .checkout_cartlist.checkout_del_none .cartlist_wrap .delivery_total_price .val {
         display: block
     }
 
-    .infomation_box .checkout_cartlist .noti_q {
+    .information_box .checkout_cartlist .noti_q {
         display: block;
         padding: 5px 0 0 10px;
         font-size: 12px;
         color: #888
     }
 
-    .infomation_box .checkout_cartlist .noti_q b {
+    .information_box .checkout_cartlist .noti_q b {
         font-weight: 400;
         color: #246c6a
     }
 
-    .infomation_box .checkout_cartlist .head {
+    .information_box .checkout_cartlist .head {
         display: block;
         height: 38px;
         border-top: #626262 1px solid
     }
 
-    .infomation_box .checkout_cartlist .head > span {
+    .information_box .checkout_cartlist .head > span {
         display: block;
         float: left;
         min-height: 15px;
@@ -1302,56 +1351,56 @@ span.unknow_noti {
         text-align: center
     }
 
-    .infomation_box .checkout_cartlist .head > span.delivery {
+    .information_box .checkout_cartlist .head > span.delivery {
         width: 13%;
         max-width: 275px
     }
 
-    .infomation_box .checkout_cartlist .head > span.product {
+    .information_box .checkout_cartlist .head > span.product {
         width: 47%;
         max-width: 560px
     }
 
-    .infomation_box .checkout_cartlist .head > span.price {
+    .information_box .checkout_cartlist .head > span.price {
         width: 15%;
         max-width: 191px;
     }
 
-    .infomation_box .checkout_cartlist .head > span.charge {
+    .information_box .checkout_cartlist .head > span.charge {
         width: 13%;
         max-width: 151px
     }
 
-    .infomation_box .checkout_cartlist .head > span.delete {
+    .information_box .checkout_cartlist .head > span.delete {
         width: 13%;
         max-width: 147px
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap {
+    .information_box .checkout_cartlist .cartlist_wrap {
         border-top: #dedede 1px solid;
         border-bottom: #dedede 1px solid
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .cartlist_wrap {
+    .information_box .checkout_cartlist .cartlist_wrap .cartlist_wrap {
         border: none
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .item {
+    .information_box .checkout_cartlist .cartlist_wrap .item {
         padding: 20px 0;
         margin-top: 0;
         position: relative;
         border-top: #dedede 1px solid
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .item + .item {
+    .information_box .checkout_cartlist .cartlist_wrap .item + .item {
         border-top: #dedede 1px solid
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .item:first-of-type {
+    .information_box .checkout_cartlist .cartlist_wrap .item:first-of-type {
         border-top: none
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_date {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_date {
         border-top: none;
         float: left;
         width: 13%;
@@ -1360,11 +1409,11 @@ span.unknow_noti {
         padding-top: 45px
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_date .label {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_date .label {
         display: none
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_date .val {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_date .val {
         position: relative;
         padding: 0;
         font-size: 16px;
@@ -1373,15 +1422,15 @@ span.unknow_noti {
         text-align: center
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_date .val > br {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_date .val > br {
         display: block
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_title {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_title {
         display: none
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_total_price {
         float: left;
         width: 11%;
         max-width: 146px;
@@ -1394,52 +1443,52 @@ span.unknow_noti {
         text-align: center
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .label {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_total_price .label {
         display: none
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val {
         display: block;
         padding: 0;
         min-width: inherit;
         margin-left: 0
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val + .label + .val {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val + .label + .val {
         margin-top: 4px;
         font-size: 14px;
         color: #246c6a
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val + .label + .val:before {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_total_price .val + .label + .val:before {
         content: '추가';
         display: inline-block;
         margin-right: 3px
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods {
         float: left;
         width: 75%;
         max-width: 940px;
         border: none
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .row {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .row {
         position: relative;
         width: 100%;
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .row:after {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .row:after {
         content: '';
         display: block;
         clear: both
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .row + .row {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .row + .row {
         margin-top: 40px
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .row + .row:before {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .row + .row:before {
         content: '';
         position: absolute;
         top: -20px;
@@ -1448,12 +1497,12 @@ span.unknow_noti {
         border-top: #bfbfbf 1px solid
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_checkout {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_checkout {
         float: left;
         width: 63%
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_price {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_price {
         display: block;
         float: left;
         width: 20%;
@@ -1465,7 +1514,7 @@ span.unknow_noti {
         text-align: center
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_price.list_class_price .quantity_warp .count input {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_price.list_class_price .quantity_warp .count input {
         display: inline-block;
         text-align: center;
         font-size: 14px;
@@ -1474,7 +1523,7 @@ span.unknow_noti {
         color: #606060
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del {
         display: block;
         float: left;
         width: 16%;
@@ -1485,7 +1534,7 @@ span.unknow_noti {
         text-align: center
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .delete {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .delete {
         padding: 0;
         margin: 0;
         border: none;
@@ -1500,7 +1549,7 @@ span.unknow_noti {
         color: #626262
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .card {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .card {
         display: inline-block;
         font-size: 16px;
         line-height: 18px;
@@ -1508,7 +1557,7 @@ span.unknow_noti {
         color: #626262
     }
 
-    .infomation_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .chk_card {
+    .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_del .chk_card {
         padding: 0;
         margin: 0;
         border: none;
@@ -2945,11 +2994,11 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     }
 }
 
-.infomation_box .unknow_address {
+.information_box .unknow_address {
     padding: 0 2px
 }
 
-.infomation_box .unknow_address .tit {
+.information_box .unknow_address .tit {
     padding: 55px 0 45px;
     font-size: 13px;
     line-height: 17px;
@@ -2958,36 +3007,36 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
     text-align: center
 }
 
-.infomation_box .unknow_address .noti_txt {
+.information_box .unknow_address .noti_txt {
     padding-left: 20px;
     list-style: disc
 }
 
-.infomation_box .unknow_address .noti_txt li {
+.information_box .unknow_address .noti_txt li {
     font-size: 11px;
     line-height: 17px;
     font-weight: 400
 }
 
 @media (min-width:1280px) {
-    .infomation_box .unknow_address {
+    .information_box .unknow_address {
         padding: 30px 40px;
         border: #bfbfbf 1px solid
     }
 
-    .infomation_box .unknow_address .tit {
+    .information_box .unknow_address .tit {
         padding: 0;
         font-size: 16px;
         line-height: 20px;
         text-align: left
     }
 
-    .infomation_box .unknow_address .noti_txt {
+    .information_box .unknow_address .noti_txt {
         margin-top: 45px;
         padding-left: 20px
     }
 
-    .infomation_box .unknow_address .noti_txt li {
+    .information_box .unknow_address .noti_txt li {
         font-size: 14px;
         line-height: 17px
     }

@@ -231,7 +231,7 @@
                                                             <span class="th">수령인 이름</span>
                                                             <span class="td">
                                                                         <input maxlength="255" id="receiving_name_gift" name="receiving_name_gift" type="text" value="권유나" autocomplete="off">
-                                                                    </span>
+                                                            </span>
                                                         </div>
                                                     </td>
                                                 </tr>

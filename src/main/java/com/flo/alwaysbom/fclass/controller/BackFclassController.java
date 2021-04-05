@@ -2,20 +2,17 @@ package com.flo.alwaysbom.fclass.controller;
 
 import com.flo.alwaysbom.fclass.service.BranchService;
 import com.flo.alwaysbom.fclass.service.FclassService;
+import com.flo.alwaysbom.fclass.service.OclassService;
 import com.flo.alwaysbom.fclass.service.ScheduleService;
-import com.flo.alwaysbom.fclass.vo.BranchVo;
-import com.flo.alwaysbom.fclass.vo.FclassVo;
-import com.flo.alwaysbom.fclass.vo.ScheduleVo;
+import com.flo.alwaysbom.fclass.vo.*;
+import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.util.FileHandler;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -31,9 +28,17 @@ public class BackFclassController {
     private final BranchService branchService;
     private final FclassService fclassService;
     private final ScheduleService scheduleService;
+    private final OclassService oclassService;
     private final FileHandler fileHandler;
     private static final Logger logger = LoggerFactory.getLogger(BackFclassController.class);
     private ServletContext context;
+
+    @GetMapping("admin/fclass/orders")
+    public String goOrders(Model model) {
+        List<String> branchNames = oclassService.findAllBranch();
+        model.addAttribute("branchList", branchNames);
+        return "fclass/b_orders";
+    }
 
     @GetMapping("admin/fclass/b_classList")
     public String goList(Model model) {
@@ -117,6 +122,31 @@ public class BackFclassController {
 
         return "fclass/b_manageSchedule";
     }
+
+    @GetMapping("/admin/fclass/api/orders")
+    public String getOrders(Model model, OclassSearchOptionDto searchOption) {
+        List<OclassVo> orders = oclassService.findBySearchOption(searchOption);
+        model.addAttribute("orders", orders);
+        return "fclass/b_orderListContent";
+    }
+
+    @GetMapping("/admin/fclass/api/orders/{idx}")
+    public String getOrder(Model model, @PathVariable Integer idx) {
+        OclassVo oclass = oclassService.findByIdx(idx);
+        model.addAttribute("order", oclass);
+        return "fclass/b_orderListContentRow";
+    }
+
+    @RequestMapping(value = "/admin/fclass/api/orders/{idx}", method = RequestMethod.PUT)
+    @ResponseBody
+    public OclassVo updateOrderStatus(@RequestBody String status, @PathVariable Integer idx) {
+        OclassVo oclassVo = OclassVo.builder()
+                .status(status)
+                .idx(idx)
+                .build();
+        return oclassService.updateOrderStatus(oclassVo);
+    }
+
 
     @GetMapping("admin/fclass/api/findClassByCategory")
     @ResponseBody

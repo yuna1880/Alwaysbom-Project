@@ -64,9 +64,8 @@
             <div class="flex-grow-1 d-flex justify-content-center">
                 <div class="d-flex flex-column">
                     <span>지점 | ${order.branchName}</span>
-                    <span>수강시작일</span>
+                    <span>수강일시 <i class="fas fa-angle-down"></i></span>
                     <span>${order.scheduleDate}</span>
-                    <span>수업시간</span>
                     <span>${order.scheduleStartTime} ~ ${order.scheduleEndTime}</span>
                 </div>
             </div>

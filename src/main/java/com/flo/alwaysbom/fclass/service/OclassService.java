@@ -1,6 +1,7 @@
 package com.flo.alwaysbom.fclass.service;
 
 import com.flo.alwaysbom.fclass.dao.OclassDao;
+import com.flo.alwaysbom.fclass.vo.BranchVo;
 import com.flo.alwaysbom.fclass.vo.OclassSearchOptionDto;
 import com.flo.alwaysbom.fclass.vo.OclassVo;
 import com.flo.alwaysbom.fclass.vo.ScheduleVo;
@@ -20,5 +21,18 @@ public class OclassService {
 
     public List<OclassVo> findBySearchOption(OclassSearchOptionDto searchOption) {
         return oclassDao.findBySearchOption(searchOption);
+    }
+
+    public List<String> findAllBranch() {
+        return oclassDao.findAllBranch();
+    }
+
+    public OclassVo updateOrderStatus(OclassVo oclassVo) {
+        oclassDao.updateOrderStatus(oclassVo);
+        return findByIdx(oclassVo.getIdx());
+    }
+
+    public OclassVo findByIdx(Integer idx) {
+        return oclassDao.findByIdx(idx);
     }
 }

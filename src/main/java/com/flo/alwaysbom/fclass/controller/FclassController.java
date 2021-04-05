@@ -107,13 +107,6 @@ public class FclassController {
         System.out.println("ovo = " + ovo);
 
         System.out.println("scheduleIdx = " + scheduleIdx);
-//        System.out.println("memberId = " + memberId);
-//        System.out.println("regCount = " + ovo.getRegCount());
-//        System.out.println("payType = " + ovo.getPayType());
-//        System.out.println("payTotal = " + ovo.getPayTotal());
-//        System.out.println("discountGrade = " + ovo.getDiscountGrade());
-//        System.out.println("discountPoint = " + ovo.getDiscountPoint());
-//        System.out.println("discountTotalPrice = " + ovo.getDiscountTotalPrice());
         ScheduleVo svo = scheduleService.findByIdx(scheduleIdx);
 
         System.out.println("fclassIdx = " + svo.getFclassIdx());
@@ -125,11 +118,6 @@ public class FclassController {
         System.out.println("svo = " + svo);
         System.out.println("fvo = " + fvo);
         System.out.println("bvo = " + bvo);
-//        System.out.println("branchName = " + bvo.getName());
-//        System.out.println("branchAddr = " + bvo.getAddr());
-//        System.out.println("fclassImage = " + fvo.getImage1());
-//        System.out.println("scheduleStartTime = " + svo.getStartTime());
-//        System.out.println("scheduleEndTime = " + svo.getEndTime());
 
         ovo.setFclassName(fvo.getName());
         ovo.setBranchName(bvo.getName());
@@ -150,14 +138,13 @@ public class FclassController {
         if(svo.getTotalCount() < svo.getRegCount() + ovo.getRegCount() ) {
             throw new IllegalStateException("등록 인원수가 큽니다");
         }
-        if (!ovo.getPayType().equals("무통장입금")) {
+/*        if (!ovo.getPayType().equals("무통장입금")) {
             svo.setRegCount(svo.getRegCount() + ovo.getRegCount());
-        }
+        }*/
 
         scheduleService.updateSchedule(svo);
 
         model.addAttribute("order", ovo);
-        //System.out.println("regCount = " + regCount + "payType = " + payType + "payTotal = " + payTotal + "payDate = " + payDate + "discountGrade = " + discountGrade + "discountPoint = " + discountPoint);
 
         MemberVO member = new MemberVO();
         member.setName("임하나");
