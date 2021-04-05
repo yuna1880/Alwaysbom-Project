@@ -17,12 +17,12 @@
 <div class="col-5 mx-auto">
 <form role="form" action="/member_join" method="post">
     <div class="join-header py-3 mb-4">
-        <h5 class="page_title text-center p-2 text-secondary m-0">회원가입</h5>
+        <h5 class="page_title text-center p-2 mt-5 text-secondary m-0">회원가입</h5>
     </div>
 
     <label class="my-2">이메일 (아이디)</label>
     <div class="d-flex mb-4">
-        <input type="text" name="id" value="${kakao_id}" class="col-10" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
+        <input type="text" name="id" value="${kakao_id}" class="col-10 mr-3" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
         <button type="button" class="CheckId col-2" onclick="CheckId()">중복 확인</button>
     </div>
 

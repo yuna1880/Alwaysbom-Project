@@ -5,36 +5,9 @@
     <%@ include file="../main/import.jspf"%>
     <link rel="stylesheet" href="static/css/member/joinStyle.css">
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script>
-        Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");
-        Kakao.isInitialized();
-
-        function kakaoLogin() {
-            Kakao.Auth.login({
-                scope:'profile, account_email, gender, birthday',
-                success: function (authObj) {
-                    window.Kakao.API.request({
-                        url:'/v2/user/me',
-                        success: res => {
-                            const kakao_account = res.kakao_account;
-                            console.log(kakao_account);
-
-                            var kakao_id = kakao_account.email;
-                            var kakao_name = kakao_account.profile.nickname;
-                            var kakao_gender = kakao_account.gender;
-
-                            window.location.href="http://localhost:8070/member_join?kakao_id=" + kakao_id + "&kakao_name=" + kakao_name +"&kakao_gender=" + kakao_gender;
-                        }
-                    });
-                }
-            });
-        }
-
-    </script>
 </head>
 <body>
-    <%@ include file="../main/header.jspf" %>
-
+<%@ include file="../main/header.jspf" %>
     <div id="container" class="mx-auto">
         <aside class="member join" id="join_us_select">
             <div class="member_wrap">
@@ -61,15 +34,37 @@
                                 카카오로 가입하기
                             </a>
                             </form>
-                            <a href="" class="link naver">
-                                네이버로 가입하기
-                            </a>
                         </nav>
                     </div>
                 </div>
             </div>
         </aside>
     </div>
-    <%@ include file="../main/footer.jspf"%>
+<%@ include file="../main/footer.jspf"%>
+<script>
+    Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");
+    Kakao.isInitialized();
+
+    function kakaoLogin() {
+        Kakao.Auth.login({
+            scope:'profile, account_email, gender, birthday',
+            success: function (authObj) {
+                window.Kakao.API.request({
+                    url:'/v2/user/me',
+                    success: res => {
+                        const kakao_account = res.kakao_account;
+                        console.log(kakao_account);
+
+                        var kakao_id = kakao_account.email;
+                        var kakao_name = kakao_account.profile.nickname;
+                        var kakao_gender = kakao_account.gender;
+
+                        window.location.href="http://localhost:8070/member_join?kakao_id=" + kakao_id + "&kakao_name=" + kakao_name +"&kakao_gender=" + kakao_gender;
+                    }
+                });
+            }
+        });
+    }
+</script>
 </body>
 </html>

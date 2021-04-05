@@ -6,17 +6,15 @@
     <link href="/static/css/member/findId.css" rel="stylesheet">
 </head>
 <body>
-    <%@ include file="../main/header.jspf" %>
-    <div id="container" class="mx-auto">
-        <section class="contents" id="contents" tabindex="0">
-            <div id="root" data-app="login">
-                <header class="content_header" style="position: static;">
-                    <h2 class="page_title">아이디 찾기</h2>
-                    <span id="goto_path_next_page" style="display: none;">account/login</span>
+<%@ include file="../main/header.jspf" %>
+    <div id="container" class="mx-auto d-flex flex-column align-items-center">
+        <form role="form" action="/loginMember" method="post" class="col-5 d-flex flex-column">
+            <h5 class="page_title text-center p-2 mt-5 text-secondary m-0 p-4 border-bottom border-secondary">아이디 찾기</h5>
+            <span id="goto_path_next_page" style="display: none;">account/login</span>
                     <a href="#" class="page_back">
                         <span class="blind">이전 페이지</span>
                     </a>
-                </header>
+
                 <div class="login_box">
                     <div class="inner">
                         <div class="login_user_input">
@@ -65,9 +63,8 @@
                         </p>
                     </div>
                 </div>
-            </div>
-        </section>
-        <%@ include file="../main/footer.jspf"%>
-    </div>
+        </form>
+<%@ include file="../main/footer.jspf"%>
+</div>
 </body>
 </html>
