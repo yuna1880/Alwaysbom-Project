@@ -44,7 +44,7 @@
                             주문 내역
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="orders">
-                            <li><a class="dropdown-item" href="/order/findMyOrders">상품 주문 내역</a></li>
+                            <li><a class="dropdown-item" href="/admin/orders">상품 주문 내역</a></li>
                             <li><a class="dropdown-item" href="/admin/fclass/orders">클래스 주문 내역</a></li>
                         </ul>
                     </li>

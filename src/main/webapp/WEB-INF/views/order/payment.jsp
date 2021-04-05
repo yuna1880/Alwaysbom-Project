@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <html>
 <head>
     <title>새늘봄 - checkout</title>
@@ -14,13 +13,12 @@
             cursor: initial;
         }
     </style>
-</head>
-<script>
-    window.onload = function () {
-        creditCard();
-    }
+    <script>
+        window.onload = function () {
+            creditCard();
+        }
         //신용카드
-        function creditCard () {
+        function creditCard() {
             document.getElementById('credit_card_input').style.display = 'none';
             document.getElementById('mootong').style.display = 'none';
         }
@@ -58,13 +56,18 @@
         }
         function compareWithPoint(point) {
             //사용자가 입력한 포인트가 현재 포인트보다 크면?..
-            if (point.value > ${member.point}) {
-                alert(${member.name}"회원님께서 사용 가능한 포인트는 <fmt:formatNumber value="${member.point}" pattern="#,###"/> 입니다.")
+            if (point.value < 0) {
+                alert("포인트는 0원 이상부터 사용 가능합니다.");
                 point.value="";
             }
-
+            if (point.value > ${member.point}) {
+                alert("${member.name} 회원님께서 사용 가능한 포인트는 <fmt:formatNumber value="${member.point}" pattern="#,###"/> 입니다.");
+                point.value="";
+            }
         }
-</script>
+    </script>
+</head>
+
 <body>
 <%@ include file="../main/header.jspf" %>
 <div class="container">
@@ -199,7 +202,7 @@
                                     <span class="td_savings">
                                         <input type="number" min="0" onkeyup="compareWithPoint(this)" onchange="compareWithPoint(this)"
                                                name="point" id="input_my_point" value="0" autocomplete="off">
-                                        <button type="button" class="btns add" onclick="Point()">사용</button>
+                                        <button type="button" class="btns add" onclick="Point()" onchange="Point()">사용</button>
                                         <span class="text">* 사용 가능 포인트:
                                             <fmt:formatNumber value="${member.point}" pattern="#,###"/>원</span>
                                         <input type="hidden" id="available_point" value="${member.point}"/>
@@ -366,6 +369,9 @@
                                     </div>
                                 </div>
                             </div>
+
+
+
                         </div>
                     </div>
                     <div class="complete">
@@ -379,7 +385,6 @@
     </div>
 </div>
 </div>
-
 <%@ include file="../main/footer.jspf"%>
 </body>
 </html>

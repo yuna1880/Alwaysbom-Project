@@ -13,11 +13,12 @@
             border: none;
             background-color: white;
             color: black;
+            box-shadow: none;
         }
     </style>
 </head>
 <body>
-    <%@ include file="../main/header.jspf" %>
+<%@ include file="../main/header.jspf" %>
     <div class="banner-wrap d-flex align-items-center justify-content-center">
         <div class="w-1280 mx-auto">
             <img src="/static/image/flower/flower_banner_1280.jpg" alt="꽃다발배너" class="col-12">
@@ -29,7 +30,9 @@
             </div>
         </div>
     </div>
-    <div class="container" class="mx-auto">
+
+<!-- 컨테이너 -->
+<div id="container" class="mx-auto">
     <!-- 상품 버튼 -->
     <div class="d-flex justify-content-center my-5">
         <div class="row">

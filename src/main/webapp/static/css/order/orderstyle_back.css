@@ -50,8 +50,8 @@
 }
 
 .image_size {
-    width: 160px;
-    height: 130px;
+    width: 140px;
+    height: 140px;
     border: 1px solid #dedede;
     float: left;
 }
@@ -68,7 +68,6 @@
 
 .table > :not(:last-child) > :last-child > * {
     border-bottom-color: #a1a1a1;
-    background-color: #e8e8e8;
 }
 
 .option_status {
@@ -82,4 +81,10 @@
 
 .btn .badge {
     background-color: #ffba80;
+}
+
+/* 4/5 */
+
+#price_color {
+    color: #0c4128;
 }

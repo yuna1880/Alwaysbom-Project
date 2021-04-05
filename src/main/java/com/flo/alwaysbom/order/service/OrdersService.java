@@ -1,11 +1,10 @@
 package com.flo.alwaysbom.order.service;
 
 import com.flo.alwaysbom.member.vo.MemberVO;
-import com.flo.alwaysbom.order.vo.DeliveryInfoVo;
-import com.flo.alwaysbom.order.vo.OitemVo;
-import com.flo.alwaysbom.order.vo.OrdersVo;
+import com.flo.alwaysbom.order.vo.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrdersService {
 
@@ -24,4 +23,9 @@ public interface OrdersService {
     List<OrdersVo> findByMember(MemberVO vo);
 
 
+    List<OrdersVo> findBySearchOption(OrdersSearchOptionDto status);
+
+    OrdersStatusCount findStatusCount();
+
+    boolean updateStatus(OrdersVo orders);
 }
