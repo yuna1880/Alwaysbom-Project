@@ -189,7 +189,7 @@
                 <input type="hidden" name="memberId" value="test">
                 <input type="hidden" name="category" value="꽃다발">
                 <input type="hidden" name="flowerIdx" value="${flowerVo.idx}">
-
+            <%----------------------------------------------------------------%>
                 <button type="button" class="btn main-button fw-bold py-3" onclick="addCart(false, this.form)">바로구매</button>
             </div>
 
@@ -247,7 +247,7 @@
     <!-- 배송안내 -->
     <div id="delivery-area" class="ps-3 my-4">
         <div class="fs-2 fw500 py-3">배송안내</div>
-        <div class="delivery-text d-flex flex-column">
+        <div class="c-666 d-flex flex-column">
             <hr>
             <div class="fs-5 fw500 mt-3">1. 배송 정보<br>1-1. 배송비 정책</div>
             <p>
