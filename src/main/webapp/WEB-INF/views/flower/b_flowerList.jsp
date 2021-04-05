@@ -24,7 +24,7 @@
         <c:forEach var="flowerVo" items="${list}">
         <c:if test="${not empty flowerVo}">
         <div class="col mb-8em">
-            <div class="transition position-relative d-flex flex-column justify-content-start align-items-end"
+            <div class="position-relative d-flex flex-column justify-content-start align-items-end"
                  onmouseover="showBtn(this)" onmouseout="showBtn(this)">
                 <button type="button" class="btn-close-style d-none" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">삭제</button>
@@ -47,7 +47,7 @@
                     </div>
                 </div> <!-- Modal 끝 -->
                 <input type="hidden" name="idx" value="${flowerVo.idx}">
-                <div class="overflow-hidden">
+                <div class="overflow-hidden thumbnails">
                     <a href="/admin/flowerUpdateForm/${flowerVo.idx}">
                         <img src="${flowerVo.image1}" class="col-12" alt="꽃다발 썸네일">
                     </a>

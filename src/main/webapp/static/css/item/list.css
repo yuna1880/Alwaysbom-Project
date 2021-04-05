@@ -50,7 +50,10 @@
     background-color: rgba(255, 255, 255, 0.45);
     -webkit-transition: all 0.2s ease-in-out;
 }
-
+.thumbnails {
+    border-radius: 12px;
+    border: 2px solid #303030;
+}
 .p-subtitle {
     height: 130px;
     font-weight: 500;
