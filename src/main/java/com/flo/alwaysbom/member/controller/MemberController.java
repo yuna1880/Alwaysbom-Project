@@ -145,4 +145,9 @@ public class MemberController {
     public String member_point() {
         return "member/member_point";
     }
+
+    @GetMapping("/member_delete")
+    public String member_delete() {
+        return "member/member_delete";
+    }
 }

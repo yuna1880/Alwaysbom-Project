@@ -36,7 +36,7 @@
     <div id="container" class="mx-auto">
         <section class="contents" id="contents" tabindex="0">
             <div id="root" data-app="login">
-                <header class="content_header" style="position: static;">
+                <header class="content_header text-secondary" style="position: static;">
                     <h2 class="page_title">로그인</h2>
                 </header>
                 <div class="login_box">

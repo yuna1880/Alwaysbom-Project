@@ -3,11 +3,64 @@
 <head>
     <title>회원가입</title>
     <%@ include file="../main/import.jspf"%>
-    <link href="/static/css/member/member_join.css" rel="stylesheet">
     <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script>
+</head>
+<style>
+    .join-header {
+        border-bottom: 1px solid #4D4D4D;
+    }
+</style>
+<body>
+<%@ include file="../main/header.jspf" %>
+<div class="col-5 mx-auto">
+<form role="form" action="/member_join" method="post">
+    <div class="join-header py-3 mb-4">
+        <h5 class="page_title text-center p-2 text-secondary m-0">회원가입</h5>
+    </div>
+
+    <label class="my-2">이메일 (아이디)</label>
+    <div class="d-flex mb-4">
+        <input type="text" name="id" value="${kakao_id}" class="col-10" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
+        <button type="button" class="CheckId col-2" onclick="CheckId()">중복 확인</button>
+    </div>
+
+    <label class="my-2">비밀번호</label>
+    <input type="password" name="pw" id="pw" class="col-12 mb-4" maxlength="255" placeholder="비밀번호를 입력해주세요."/>
+
+    <label class="my-2">비밀번호 확인</label>
+    <input type="password" name="pwCfm" class="col-12 mb-4" maxlength="255" placeholder="비밀번호를 한 번 더 입력해주세요." autocomplete="off" />
+
+    <label class="my-2">이름</label>
+    <input type="text" name="name" value="${kakao_name}" class="col-12 mb-4" maxlength="255" placeholder="이름을 입력해주세요." />
+
+    <label class="my-2">휴대폰번호 입력</label>
+    <input type="text" name="phone" id="phone" class="col-12 mb-4" maxlength="15" minlength="9" placeholder="예) 010-1234-5678" />
+
+    <label class="my-2">생년월일</label>
+    <input type="date" name="birth" id="birth" class="col-12 mb-4" placeholder="예)86/05/04" />
+
+    <label class="my-2">성별</label>
+    <div class="d-grid gap-2 d-flex col-12 gender-area">
+        <label class="col-6">
+            <input type="radio" name="gender" value="female" ${kakao_gender eq 'female' ? "checked" : ""}
+                   class="d-none" ${empty kakao_gender ? "" : "disabled"}>
+            <span class="col-12 d-block p-3 btn btn-gender">여성</span>
+        </label>
+        <label class="col-6">
+            <input type="radio" name="gender" value="male" ${kakao_gender eq 'male' ? "checked" : ""}
+                   class="d-none" ${empty kakao_gender ? "" : "disabled"}>
+            <span class="col-12 d-block p-3 btn btn-gender">남성</span>
+        </label>
+    </div>
+    <div class="d-grid col-3 mx-auto">
+        <input type="submit" class="btn btn-lg m-4 btn-outline-danger" value="회원가입" />
+    </div>
+</form>
+</div>
+    <%@ include file="../main/footer.jspf"%>
+    <script type="text/javascript">
         Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");
         Kakao.isInitialized();
 
@@ -29,136 +82,28 @@
                 }
             });
         }
-    </script>
-</head>
-<body>
-    <%@ include file="../main/header.jspf" %>
-    <div id="container" class="mx-auto">
-        <section class="contents" id="contents" tabindex="0">
-            <div id="root" data-app="join">
-                <header class="content_header is_fixed_header" style="position: static;">
-                    <h2 class="page_title">회원가입</h2>
-                </header>
-                <div class="join_us_box">
-                    <div class="inbox">
-                        <form role="form" action="/member_join" method="post">
-                            <fieldset>
-                                <div class="form-group">
-                                <div class="inner">
-                                    <div class="row">
-                                        <div class="th star">
-                                            이메일 (아이디)
-                                        </div>
-                                        <div class="td">
-                                            <span>
-                                                <input type="text" name="id" value="${kakao_id}" class="ipt chk" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
-                                                <button type="button" class="CheckId" onclick="CheckId()">중복 확인</button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="th star">
-                                            비밀번호
-                                        </div>
-                                        <div class="td">
-                                            <span>
-                                                <input type="password" name="pw" id="pw" class="ipt chk" maxlength="255" placeholder="비밀번호를 입력해주세요." />
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="th star">
-                                            비밀번호 확인
-                                        </div>
-                                        <div class="td">
-                                            <span>
-                                                <input type="password" name="pwCfm" class="ipt chk" maxlength="255" placeholder="비밀번호를 한 번 더 입력해주세요." autocomplete="off" />
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="th star">
-                                            이름
-                                        </div>
-                                        <div class="td">
-                                            <span>
-                                                <input type="text" name="name" value="${kakao_name}" class="ipt chk" maxlength="255" placeholder="이름을 입력해주세요." />
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="th star">
-                                            휴대폰번호 입력
-                                        </div>
-                                        <div class="td">
-                                            <span>
-                                                <input type="text" name="phone" id="phone" class="csr_phone ipt chk" maxlength="15" minlength="9" placeholder="예) 010-1234-5678" />
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="th star">
-                                            생년월일
-                                        </div>
-                                        <div class="td">
-                                            <span>
-                                                <input type="date" name="birth" id="birth" class="csr_phone ipt chk" placeholder="예)86/05/04" />
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="th star">
-                                            성별
-                                        </div>
-                                        <div class="d-grid gap-2 d-flex col-12 gender-area">
-                                            <label class="col-6">
-                                                <input type="radio" name="gender" value="female" ${kakao_gender eq 'female' ? "checked" : ""}
-                                                       class="d-none" ${empty kakao_gender ? "" : "disabled"}>
-                                                <span class="col-12 d-block p-3 btn btn-gender">여성</span>
-                                            </label>
-                                            <label class="col-6">
-                                                <input type="radio" name="gender" value="male" ${kakao_gender eq 'male' ? "checked" : ""}
-                                                       class="d-none" ${empty kakao_gender ? "" : "disabled"}>
-                                                <span class="col-12 d-block p-3 btn btn-gender">남성</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="d-grid col-3 mx-auto">
-                                        <input type="submit" class="btn btn-lg m-4 btn-outline-danger" value="회원가입" />
-                                    </div>
-                                </div>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <%@ include file="../main/footer.jspf"%>
-    </div>
-</body>
-<script type="text/javascript">
-    function CheckId(){
-        var query = {id : $("#id").val()};
 
-        $.ajax({
-            url: "/member/member_join",
-            type: "POST",
-            data: query, //서버로부터 내가 받는 데이터의 타입
+        function CheckId(){
+            var query = {id : $("#id").val()};
 
-            success: function(data){
-                if(data == 0){
-                    console.log("아이디 없음");
-                    alert("사용하실 수 있는 아이디입니다.");
-                }else{
-                    console.log("아이디 있음");
-                    alert("중복된 아이디가 존재합니다.");
+            $.ajax({
+                url: "/member/member_join",
+                type: "POST",
+                data: query, //서버로부터 내가 받는 데이터의 타입
+
+                success: function(data){
+                    if(data == 0){
+                        console.log("아이디 없음");
+                        alert("사용하실 수 있는 아이디입니다.");
+                    }else{
+                        console.log("아이디 있음");
+                        alert("중복된 아이디가 존재합니다.");
+                    }
                 }
-            }
-        });
-    };
-
-</script>
+            });
+        }
+    </script>
+</body>
 </html>
 <style>
     .btn-gender,

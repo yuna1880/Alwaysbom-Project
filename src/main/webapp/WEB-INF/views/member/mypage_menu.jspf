@@ -38,7 +38,7 @@
             <a href="/member_update" class="link-secondary">회원 정보 관리</a>
         </li>
         <li class="list-group-item">
-            <a href="" class="link-secondary">회원 탈퇴</a>
+            <a href="/member_delete" class="link-secondary">회원 탈퇴</a>
         </li>
     </ul>
 </div>
