@@ -4,6 +4,7 @@ import com.flo.alwaysbom.member.dao.MemberDAO;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ public class MemberService{
     private final MemberDAO dao;
 
     public void insertMember(MemberVO memberVO) {
+
         dao.insertMember(memberVO);
     }
 
@@ -21,8 +23,19 @@ public class MemberService{
         return dao.login(memberVO);
     }
 
-    public void logout(HttpSession session) {
+    public void logout(HttpSession session, Model model) {
         session.invalidate();
+        model.addAttribute("member", null);
+
+    }
+    //아이디 중복 확인
+    public MemberVO CheckId(String id) throws Exception {
+        return dao.CheckId(id);
+    }
+
+    //회원 정보 수정
+    public void updateMember(MemberVO memberVO) {
+        dao.updateMember(memberVO);
     }
 }
 

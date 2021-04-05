@@ -100,7 +100,7 @@
                     <a href="" class="link-secondary">포인트</a>
                 </li>
                 <li class="list-group-item">
-                    <a href="" class="link-secondary">회원 정보 관리</a>
+                    <a href="update_info" class="link-secondary">회원 정보 관리</a>
                 </li>
                 <li class="list-group-item">
                     <a href="" class="link-secondary">회원 탈퇴</a>
@@ -111,7 +111,7 @@
             <div class="col-12">
                 <div class="h5 col-12 d-flex flex-column text-secondary">
                     <div class="d-flex">
-                        <span class="fw-bold name-color">이다솜</span>
+                        <span class="fw-bold name-color">${sessionScope.member.name}</span>
                         <span>님의 회원등급</span>
                         <hr>
                     </div>

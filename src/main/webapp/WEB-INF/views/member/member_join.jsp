@@ -3,12 +3,9 @@
 <head>
     <title>회원가입</title>
     <%@ include file="../main/import.jspf"%>
-    <style>
-        .valid { color: green; }
-        .invalid { color: red; }
-    </style>
     <link href="/static/css/member/member_join.css" rel="stylesheet">
     <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
         Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");
@@ -55,7 +52,7 @@
                                         <div class="td">
                                             <span>
                                                 <input type="text" name="id" value="${kakao_id}" class="ipt chk" maxlength="255" placeholder="예) alwaysbom@bom.kr" />
-                                                <span class="check_font" id="id_check"></span>
+                                                <button type="button" class="CheckId" onclick="CheckId()">중복 확인</button>
                                             </span>
                                         </div>
                                     </div>
@@ -105,7 +102,7 @@
                                         </div>
                                         <div class="td">
                                             <span>
-                                                <input type="text" name="birth" id="birth" class="csr_phone ipt chk" placeholder="예)86/05/04" />
+                                                <input type="date" name="birth" id="birth" class="csr_phone ipt chk" placeholder="예)86/05/04" />
                                             </span>
                                         </div>
                                     </div>
@@ -113,14 +110,21 @@
                                         <div class="th star">
                                             성별
                                         </div>
-                                        <div class="td">
-                                            <span>
-                                                <input type="text" name="gender" value="${kakao_gender}" class="csr_phone ipt chk" placeholder="예) 여성:f 남성:m" />
-                                            </span>
+                                        <div class="d-grid gap-2 d-flex col-12 gender-area">
+                                            <label class="col-6">
+                                                <input type="radio" name="gender" value="female" ${kakao_gender eq 'female' ? "checked" : ""}
+                                                       class="d-none" ${empty kakao_gender ? "" : "disabled"}>
+                                                <span class="col-12 d-block p-3 btn btn-gender">여성</span>
+                                            </label>
+                                            <label class="col-6">
+                                                <input type="radio" name="gender" value="male" ${kakao_gender eq 'male' ? "checked" : ""}
+                                                       class="d-none" ${empty kakao_gender ? "" : "disabled"}>
+                                                <span class="col-12 d-block p-3 btn btn-gender">남성</span>
+                                            </label>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <input type="submit" class="btn btn-lg btn-success btn-block" value="회원가입" />
+                                    <div class="d-grid col-3 mx-auto">
+                                        <input type="submit" class="btn btn-lg m-4 btn-outline-danger" value="회원가입" />
                                     </div>
                                 </div>
                                 </div>
@@ -133,4 +137,45 @@
         <%@ include file="../main/footer.jspf"%>
     </div>
 </body>
+<script type="text/javascript">
+    function CheckId(){
+        var query = {id : $("#id").val()};
+
+        $.ajax({
+            url: "/member/member_join",
+            type: "POST",
+            data: query, //서버로부터 내가 받는 데이터의 타입
+
+            success: function(data){
+                if(data == 0){
+                    console.log("아이디 없음");
+                    alert("사용하실 수 있는 아이디입니다.");
+                }else{
+                    console.log("아이디 있음");
+                    alert("중복된 아이디가 존재합니다.");
+                }
+            }
+        });
+    };
+
+</script>
 </html>
+<style>
+    .btn-gender,
+    .gender-area input[type=radio]:not([checked])[disabled] + .btn-gender:hover {
+        background-color: #eccccf;
+        color: #FFFFFF;
+    }
+
+    .gender-area input[type=radio] + .btn-gender:hover {
+        background-color: #f5b0cf;
+        color: #FFFFFF;
+    }
+
+    .gender-area input[type=radio]:checked + .btn-gender,
+    .gender-area input[type=radio][checked] + .btn-gender,
+    .gender-area input[type=radio][disabled] + .btn-gender:hover {
+        background-color: #f5b0cf;
+        color: #FFFFFF;
+    }
+</style>

@@ -3,13 +3,11 @@ package com.flo.alwaysbom.member.controller;
 import com.flo.alwaysbom.member.service.MemberService;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Member;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,6 +33,7 @@ public class MemberController {
     //회원가입 화면 요청
     @PostMapping("/member_join")
     public String member_join(MemberVO memberVO) {
+        //System.out.println("memberVO = " + memberVO);
 
         memberService.insertMember(memberVO);
         return "member/login";
@@ -42,12 +41,25 @@ public class MemberController {
 
     @GetMapping("/memberLogin")
     public String memberLogin() {
+
         return "member/login";
+    }
+    //아이디 중복 확인
+    @PostMapping("/CheckId")
+    public String CheckId(HttpSession session) throws Exception {
+        String mem_id = session.getId();
+        MemberVO CheckId = memberService.CheckId(mem_id);
+
+        if (CheckId != null) {
+            return "-1";
+        } else {
+            return "0";
+        }
     }
 
     @PostMapping("/loginMember")
     public String loginProc(@RequestParam String id, @RequestParam String pw, Model model) throws Exception {
-        System.out.println("아이디 : " + id + ", 패스워드 : " + pw);
+        //System.out.println("아이디 : " + id + ", 패스워드 : " + pw);
 
         MemberVO member = new MemberVO();
         member.setId(id);
@@ -59,11 +71,12 @@ public class MemberController {
     }
     @RequestMapping("/logout")
     public String logout(HttpSession session, Model model) {
-        System.out.println(">>> 로그아웃 - logout()");
+        //System.out.println("before_logout_memberVO = " + model);
         //1.세션 초기화(세션 객체 종료)
         session.invalidate();
         model.addAttribute("member", null);
 
+        //System.out.println("after_logout_memberVO = " + model);
         return "member/login";
     }
 
@@ -106,4 +119,12 @@ public class MemberController {
     public String member_grade() {
         return "member/member_grade";
     }
+
+    @PostMapping("/updateMember")
+    public String updateMember(MemberVO memberVO) {
+        memberService.updateMember(memberVO);
+        return "member/updateMember";
+    }
+
+
 }

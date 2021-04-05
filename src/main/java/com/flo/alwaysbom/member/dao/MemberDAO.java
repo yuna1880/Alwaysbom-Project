@@ -26,5 +26,16 @@ public class MemberDAO{
 
     }
 
+    // 아이디 중복 확인
+    public MemberVO CheckId(String id) throws Exception {
+        return sessionTemplate.selectOne("member.CheckId", id);
+    }
+
+    //회원 정보 수정
+    public void updateMember(MemberVO memberVO) {
+
+        sessionTemplate.update("member.updateMember",memberVO);
+    }
+
 
 }

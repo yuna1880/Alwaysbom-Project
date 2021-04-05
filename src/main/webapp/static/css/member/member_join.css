@@ -566,3 +566,10 @@ ul {
     letter-spacing: -.5px;
     outline-width: 0px;
 }
+.btn-success {
+    color: #fff;
+    background-color: #bc5050;
+    border-color: #198754;
+    padding-left: 12px;
+    padding-right: 12px;
+}

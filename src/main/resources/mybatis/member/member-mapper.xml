@@ -13,7 +13,22 @@
     <select id="Login" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultType="com.flo.alwaysbom.member.vo.MemberVO">
         SELECT *
         FROM MEMBER
-        WHERE ID = #{id}
-          AND PW = #{pw}
+        WHERE id = #{id}
+          AND pw = #{pw}
     </select>
+
+    <!-- 아이디 중복 확인 -->
+    <select parameterType="String" id="CheckId" resultType="com.flo.alwaysbom.member.vo.MemberVO">
+        SELECT id FROM MEMBER WHERE id = #{id}
+    </select>
+
+    <!-- 회원 정보 수정 -->
+    <update id="updateMember" parameterType="com.flo.alwaysbom.member.vo.MemberVO">
+        UPDATE MEMBER
+        SET NAME = #{name},
+            PW = #{pw},
+            PHONE = #{phone},
+            BIRTH = #{birth}
+        WHERE ID = #{Id}
+    </update>
 </mapper>

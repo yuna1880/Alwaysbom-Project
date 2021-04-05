@@ -8,14 +8,13 @@
             <li><a href="#" class="text-decoration-none">오늘의 꽃은?</a></li>
             <li>|</li>
             <li>
-<%--                <c:if test="${sessionScope.member.id != null}"><a href="/logout">로그아웃</a></c:if>--%>
-<%--                <c:if test="${sessionScope.member.id == null}"><a href="/memberLogin">로그인</a></c:if>--%>
                 <c:choose>
                     <c:when test="${sessionScope.member == null}">
                         <a href="/memberLogin">로그인</a>
                     </c:when>
                     <c:otherwise>
-                        ${sessionScope.member.name}님 반갑습니다.
+                        ${sessionScope.member.name}님 반갑습니다:-)
+                        <li>|</li>
                         <a href="/logout">로그아웃</a>
                     </c:otherwise>
                 </c:choose>
