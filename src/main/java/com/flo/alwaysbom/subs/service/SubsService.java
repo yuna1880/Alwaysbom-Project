@@ -15,4 +15,6 @@ public interface SubsService {
     Optional<SubsVo> findByIdx(Integer idx);
 
     Integer updateSubs(SubsVo svo);
+
+    void deleteSubs(Integer idx);
 }

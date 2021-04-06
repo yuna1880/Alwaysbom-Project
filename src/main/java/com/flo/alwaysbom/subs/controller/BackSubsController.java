@@ -78,4 +78,12 @@ public class BackSubsController {
         model.addAttribute("subsVo",subs);
         return "subs/b_subsDetail";
     }
+
+    //해당 상품 삭제
+    @GetMapping("/admin/deleteSubs")
+    public String deleteSubs(Integer idx) {
+        System.out.println("deleteSubs()실행");
+        subsService.deleteSubs(idx);
+        return "redirect:/admin/subsList";
+    }
 }

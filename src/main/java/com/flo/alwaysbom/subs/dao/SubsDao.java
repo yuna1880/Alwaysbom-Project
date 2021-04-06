@@ -30,4 +30,7 @@ public class SubsDao {
         sqlSessionTemplate.update("SUBS.updateSubs",svo);
         return svo.getIdx();
     }
+    public void deleteSubs(Integer idx) {
+        sqlSessionTemplate.delete("SUBS.deleteSubs",idx);
+    }
 }

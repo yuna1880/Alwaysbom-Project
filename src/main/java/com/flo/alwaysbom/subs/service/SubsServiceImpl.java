@@ -32,4 +32,8 @@ public class SubsServiceImpl implements SubsService{
     public Integer updateSubs(SubsVo svo) {
         return dao.updateSubs(svo);
     }
+    @Override
+    public void deleteSubs(Integer idx) {
+        dao.deleteSubs(idx);
+    }
 }

@@ -39,7 +39,7 @@
 
     <!-- 관리자가 상품 삭제 -->
     <update id="deleteSubs" parameterType="Integer">
-        DELETE SUBS
+        DELETE FROM SUBS
         WHERE IDX = #{idx}
     </update>
 
