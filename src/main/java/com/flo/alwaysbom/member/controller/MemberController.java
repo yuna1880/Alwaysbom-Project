@@ -90,12 +90,12 @@ public class MemberController {
     }
 
     @GetMapping("/findId")
-    public String find_id() {
+    public String findId() {
         return "member/find_id";
     }
 
     @GetMapping("/foundId")
-    public String found_id() {
+    public String foundId() {
         return "member/found_id";
     }
 
