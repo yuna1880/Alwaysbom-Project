@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>회원탈퇴</title>
-    <%@ include file="../main/import.jspf" %>
+<title>회원탈퇴</title>
+<%@ include file="../main/import.jspf" %>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -18,7 +18,28 @@
                             <span class="h5">회원 탈퇴 안내</span>
                         </div>
                         <hr class="hr1"/>
+                        ${sessionScope.member.name} 고객님,
+                        <br>
+                        탈퇴를 원하신다니 마음이 아프네요.
+                        <hr>
+                        지금 탈퇴하시면 고객님의 ${sessionScope.member.point}포인트는 자동 소멸됨을 알려드립니다.
+                        <div class="mt-5">
+                            <span class="h5">비밀번호 확인(필수)</span>
+                            <input type="password" name="pw" maxlength="255" class="form-control form-control-sm mt-3" required id="pw"/>
+                        </div>
+                        <div class="text-center mt-5">
+                        <a href="/" class="text-decoration-none p-5"><button type="button" class="btn btn-secondary">취소하기</button></a>
+                        <a href="/" class="text-decoration-none p-5"><button type="button" class="btn btn-danger">탈퇴하기</button></a>
+                        </div>
                     </div>
+
+
+
+
+
+
+
+
                 </div>
             </div>
         </div>
