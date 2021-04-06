@@ -59,7 +59,7 @@ public class FclassController {
         FclassVo fclassVo = fclassService.findByIdx(idx);
         List<BranchVo> branchList = fclassVo.getBranchList();
         List<ScheduleVo> scheduleList = scheduleService.searchSchedule(ScheduleVo.builder()
-                .fclassIdx(idx),
+                .fclassIdx(idx)
                 /*.branchIdx(branchList.getIdx())*/
                 .build());
 
