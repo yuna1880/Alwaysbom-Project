@@ -189,7 +189,7 @@
                 <input type="hidden" name="memberId" value="test">
                 <input type="hidden" name="category" value="꽃다발">
                 <input type="hidden" name="flowerIdx" value="${flowerVo.idx}">
-                <input type="hidden" name="fsize" value="${flowerVo.fsize}">
+                <input type="hidden" id="fsize" name="fsize" value="${flowerVo.fsize}">
             <%----------------------------------------------------------------%>
                 <button type="button" class="btn main-button fw-bold py-3" onclick="addCart(false, this.form)">바로구매</button>
             </div>
@@ -426,6 +426,7 @@
     /* 수령일 선택 */
     $(function () {
         $('.datepicker').datepicker({
+            autoclose: true,
             format: 'yyyy-mm-dd',
             showOtherMonths: false,
             startDate: 'noBefore',
@@ -577,16 +578,18 @@
     function goPay(cartVo, frm) {
         console.log("goPay()실행. cartVo: " + cartVo);
         const oitemVoList = [
-            {hasLetter: letterOptionsEl[0].checked},
-            {name: cartVo.name},
-            {price: cartVo.totalPrice},
-            {options: cartVo.options},
-            {image: cartVo.image},
-            {requestDate: cartVo.requestDate},
-            {category: cartVo.category},
-            {quantity: cartVo.quantity},
-            {reviewCheck: 0},
-            {fsize: }
+            {
+                hasLetter: letterOptionsEl[0].checked,
+                name: cartVo.name,
+                price: cartVo.totalPrice,
+                options: cartVo.options,
+                image: cartVo.image,
+                requestDate: cartVo.requestDate,
+                category: cartVo.category,
+                quantity: cartVo.quantity,
+                reviewCheck: 0,
+                fsize: document.querySelector("#fsize").value
+            }
         ];
 
         let data = document.createElement("input");
