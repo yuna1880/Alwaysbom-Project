@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -91,23 +90,23 @@ public class MemberController {
     }
 
     @GetMapping("/findId")
-    public String findId() {
-        return "member/findId";
+    public String find_id() {
+        return "member/find_id";
     }
 
     @GetMapping("/foundId")
-    public String foundId() {
-        return "member/foundId";
+    public String found_id() {
+        return "member/found_id";
     }
 
     @GetMapping("/findPwd")
     public String findPwd() {
-        return "member/findPassword";
+        return "member/find_password";
     }
 
     @GetMapping("/foundPwd")
     public String foundPwd() {
-        return "member/foundPassword";
+        return "member/found_password";
     }
 
     @GetMapping("/myPage")

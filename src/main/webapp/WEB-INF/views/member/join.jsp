@@ -8,38 +8,40 @@
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
-    <div id="container" class="mx-auto">
-        <aside class="member join" id="join_us_select">
-            <div class="member_wrap">
-                <div class="member_content new_2nd">
-                    <h5 class="title">새늘봄 회원 가입</h5>
-                    <div class="content_box">
-                        <nav class="join_us_2nd">
-                            <p class="blind">새늘봄 멤버쉽 회원가입을 할 수 있습니다.</p>
-                            <p class="let_join">
-                                <b>바로 사용할 수 있는 1,000P</b>
-                                를 드려요!
-                            </p>
-                            <a href="/member_join" class="link email">
-                                이메일 회원가입
-                            </a>
-                            <p class="sns">
-
-                                                      SNS 간편 회원가입
-
-                              <span class="blind">SNS 계정으로 간편하게 새늘봄에 가입이 가능합니다.</span>
-                            </p>
-                            <form action="/member_join">
-                            <a href="javascript:kakaoLogin();" class="link kakao">
-                                카카오로 가입하기
-                            </a>
-                            </form>
-                        </nav>
+<div id="container" class="mx-auto">
+    <aside class="member join" id="join_us_select">
+        <div class="member_wrap">
+            <div class="member_content new_2nd">
+                <h5 class="title">새늘봄 회원 가입</h5>
+                <nav class="join_us_2nd">
+                    <p class="blind">새늘봄 멤버쉽 회원가입을 할 수 있습니다.</p>
+                    <p class="let_join">
+                        <b>바로 사용할 수 있는 1,000P</b>
+                        를 드려요!
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <a href="/member_join" class="link email border-dark rounded-3 p-2 col-12 text-center">
+                            이메일 회원가입
+                        </a>
                     </div>
-                </div>
+                    <p class="sns">
+
+                                              SNS 간편 회원가입
+
+                      <span class="blind">SNS 계정으로 간편하게 새늘봄에 가입이 가능합니다.</span>
+                    </p>
+                    <form action="/member_join">
+                    <div class="d-flex justify-content-center">
+                    <a href="javascript:kakaoLogin();" class="link kakao border-warning rounded-3 p-2 col-12 text-center">
+                        카카오로 가입하기
+                    </a>
+                    </div>
+                    </form>
+                </nav>
             </div>
-        </aside>
-    </div>
+        </div>
+    </aside>
+</div>
 <%@ include file="../main/footer.jspf"%>
 <script>
     Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");

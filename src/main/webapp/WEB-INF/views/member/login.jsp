@@ -9,6 +9,23 @@
     .join-header {
         border-bottom: 1px solid #4D4D4D;
     }
+    #id_email {
+        border-radius: 10px;
+        border: 1px solid #888888;
+        padding-left: 1em;
+    }
+    #pw {
+        border-radius: 10px;
+        border: 1px solid #888888;
+        padding-left: 1em;
+    }
+    #login-btn {
+        border-radius: 10px;
+    }
+    #join-btn {
+        border-radius: 10px;
+    }
+
 </style>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -16,13 +33,13 @@
     <form role="form" action="/loginMember" method="post" class="col-5 d-flex flex-column">
         <h5 class="page_title text-center p-2 mt-5 text-secondary m-0 p-4 border-bottom border-secondary">로그인</h5>
         <input type="email" name="id" class="py-3 mt-5 my-3" id="id_email" placeholder="아이디(이메일)" value>
-        <input type="password" name="pw" class="mt-4 py-3 mb-3" placeholder="비밀번호">
-        <button type="submit" class="mt-4 py-3 btn-warning mb-3 text-center">로그인</button>
+        <input type="password" name="pw" class="mt-4 py-3 mb-3" id="pw" placeholder="비밀번호">
+        <button type="submit" class="mt-4 py-3 btn-warning mb-3 text-center" id="login-btn">로그인</button>
         <div class="d-flex justify-content-center">
             <a href="findId" class="p-2 text-decoration-none text-secondary">아이디 찾기</a>
             <a href="findPwd" class="p-2 text-decoration-none text-secondary">비밀번호 찾기</a>
         </div>
-        <a href="/goMemberJoin" class="mt-4 py-3 btn-secondary text-center text-decoration-none">회원가입</a>
+        <a href="/goMemberJoin" class="mt-4 py-3 btn-secondary text-center text-decoration-none" id="join-btn">회원가입</a>
         <p class="text-center mt-2">지금 회원가입 하시면<b class="p-2 text-center text-info">1,000p</b>바로 지급!</p>
     </form>
 </div>
