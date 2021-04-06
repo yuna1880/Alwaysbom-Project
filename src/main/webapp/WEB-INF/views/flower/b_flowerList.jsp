@@ -20,12 +20,12 @@
         </ol>
     </nav>
 
+    <!-- 상품 썸네일 -->
     <div class="row row-cols-4">
         <c:forEach var="flowerVo" items="${list}">
         <c:if test="${not empty flowerVo}">
         <div class="col mb-8em">
-            <div id="thumbnails-wrap" class="position-relative d-flex flex-column justify-content-start align-items-end">
-                <!--onmouseover="showBtn(this)" onmouseout="showBtn(this)"-->
+            <div class="thumbnails-wrap position-relative d-flex flex-column justify-content-start align-items-end">
                 <button type="button" class="btn-close-style" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">삭제</button>
                 <!-- Modal -->
@@ -83,10 +83,6 @@
     function deleteItem(frm) {
         frm.action = "/admin/deleteFlower";
         frm.submit();
-    }
-
-    function showBtn(div) {
-        div.firstElementChild.classList.toggle("d-none");
     }
 </script>
 </body>
