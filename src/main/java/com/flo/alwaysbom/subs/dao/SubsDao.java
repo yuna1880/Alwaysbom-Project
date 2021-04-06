@@ -26,5 +26,8 @@ public class SubsDao {
     public Optional<SubsVo> findByIdx(Integer idx) {
         return Optional.ofNullable(sqlSessionTemplate.selectOne("SUBS.findByIdx",idx));
     }
-
+    public Integer updateSubs(SubsVo svo) {
+        sqlSessionTemplate.update("SUBS.updateSubs",svo);
+        return svo.getIdx();
+    }
 }

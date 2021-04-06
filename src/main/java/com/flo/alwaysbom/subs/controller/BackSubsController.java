@@ -38,13 +38,34 @@ public class BackSubsController {
     @PostMapping("/admin/addSubs")
     public String addSubs(SubsVo svo, List<MultipartFile> file) throws IOException {
         svo.setImage1(fileHandler.uploadFile(file.get(0),null,"subs"));
-        svo.setImage1(fileHandler.uploadFile(file.get(1),null,"subs"));
-        svo.setImage1(fileHandler.uploadFile(file.get(2),null,"subs"));
+        svo.setImage2(fileHandler.uploadFile(file.get(1),null,"subs"));
+        svo.setImage3(fileHandler.uploadFile(file.get(2),null,"subs"));
         System.out.println("svo = " + svo);
         subsService.addSubs(svo);
         return "redirect:/admin/subsList";
     }
 
+    //상품 수정 페이지로 이동
+    @GetMapping("/admin/subsUpdateForm")
+    public String goUpdateForm(Integer idx, Model model) {
+        SubsVo subs = subsService.findByIdx(idx)
+                .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다."));
+        model.addAttribute("subsVo",subs);
+        return "subs/b_addForm";
+    }
+
+    //상품 수정 완료 버튼 클릭시
+    @GetMapping("/admin/updateSubs")
+    public String updateSubs(SubsVo svo, List<MultipartFile> file) throws IOException {
+        svo.setImage1(fileHandler.uploadFile(file.get(0), svo.getImage1(),"subs"));
+        svo.setImage2(fileHandler.uploadFile(file.get(1), svo.getImage2(),"subs"));
+        svo.setImage3(fileHandler.uploadFile(file.get(2), svo.getImage3(),"subs"));
+        Integer idx = subsService.updateSubs(svo);
+        return "redirect:/admin/subs" + idx;
+    }
+
+
+    //정기구독 상품 리스트 조회
     @GetMapping("/admin/subsList")
     public String findAll(Model model) {
         System.out.println("findAll()실행");
@@ -52,6 +73,15 @@ public class BackSubsController {
         model.addAttribute("subsList",list);
         return "subs/b_subsList";
     }
+    //상품 인덱스로 상세페이지 조회
+    @GetMapping("/admin/subs/{idx}")
+    public String findByIdx(@PathVariable Integer idx, Model model) {
+        SubsVo subs = subsService.findByIdx(idx).orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다."));
+        model.addAttribute("subsVo",subs);
+        return "subs/b_subsDetail";
+    }
+
+
 
 
 }

@@ -28,4 +28,8 @@ public class SubsServiceImpl implements SubsService{
     public Optional<SubsVo> findByIdx(Integer idx) {
         return dao.findByIdx(idx);
     }
+    @Override
+    public Integer updateSubs(SubsVo svo) {
+        return dao.updateSubs(svo);
+    }
 }

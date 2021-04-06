@@ -25,9 +25,9 @@
                  onclick="location.href='/admin/subsAddForm'">
                 정기구독 상품 등록
             </div>
-            <div class="btn-circle d-flex justify-content-center align-items-center"
+            <div class="btn-circle d-flex justify-content-center align-items-center text-center"
                  onclick="location.href='/admin/subsList'">
-                정기구독 조회/수정/삭제
+                정기구독 상품<br>조회/수정/삭제
             </div>
         </div>
     </div>
