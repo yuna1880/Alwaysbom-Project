@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="statistics">
+
+    <select id="findSubsByMonth" resultType="com.flo.alwaysbom.statistics.vo.SubsByMonthVo">
+        <![CDATA[
+        select NVL(SUM(S.cnt), 0) as subs_count, TO_CHAR(D.dummy, 'YY/MM') as month
+        from (select count(oitem.idx) cnt, TO_DATE(orders.odate, 'YY/MM/DD') as odate
+              from oitem
+                       inner join orders on
+                  oitem.orders_idx = orders.idx
+              where oitem.category = '정기구독'
+              group by TO_DATE(orders.odate, 'YY/MM/DD')) S
+                 RIGHT JOIN
+             (select to_date('20/11/01', 'YY/MM/DD') - 1 + LEVEL as dummy
+              from dual
+              connect by LEVEL <= (SYSDATE - TO_DATE('20/11/01', 'YY/MM/DD') + 1)) D
+             ON S.odate = D.dummy
+        group by TO_CHAR(D.dummy, 'YY/MM')
+        order by TO_CHAR(D.dummy, 'YY/MM')
+        ]]>
+
+    </select>
+</mapper>

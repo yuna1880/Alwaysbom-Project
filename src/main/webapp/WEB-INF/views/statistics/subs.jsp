@@ -8,54 +8,103 @@
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
-<div id="container" class="mx-auto d-flex">
-    <div class="col-8">
+<div id="container" class="mx-auto d-flex p-3 bg-white">
+    <div class="col-8 p-4">
         <canvas id="subsByMonth"></canvas>
     </div>
-    <div class="col-4">
+    <div class="col-4 p-4">
         <canvas id="subsBySize"></canvas>
     </div>
 </div>
 <%@ include file="../main/b_footer.jspf"%>
 <script>
-    const labels = [
-        '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'
-    ];
 
-    const data = {
-        labels: labels,
-        datasets: [{
-            label: 'my first dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [1, 10, 5, 2, 20, 30, 45, 33, 48, 20, 2, 33]
-        }]
-    }
+    fetch("/statistics/api/subsByMonth").then(response => {
+        response.json().then(result => {
+            console.log(result);
 
-    const config = {
-        type: 'bar',
-        data,
-        options: {}
-    }
+            const labels = result.map((v, i) => v.month);
+            const datas = result.map((v, i) => v.subsCount);
 
-    const ctxMonth = document.querySelector("#subsByMonth");
-    const subsByMonth = new Chart(ctxMonth, config);
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: "월별 구독 수 추이",
+                    backgroundColor: '#ff6384',
+                    border: 'none',
+                    data: datas
+                }]
+            }
+
+            const config = {
+                type: 'bar',
+                data,
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '월별 구독 수 추이'
+                        }
+                    }
+                }
+            }
+
+            const ctxMonth = document.querySelector("#subsByMonth");
+            const subsByMonth = new Chart(ctxMonth, config);
+
+        })
+    })
+
+    // const labels = Array.from({length: 6}, (v, i) => (((new Date().getMonth() + 1) - (5 - i) + 12 - 1) % 12 + 1) + "월")
+    //
+    // const data = {
+    //     labels: labels,
+    //     datasets: [{
+    //         label: "월별 구독 수 추이",
+    //         backgroundColor: '#ff6384',
+    //         border: 'none',
+    //         data: [1, 10, 5, 2, 20, 30]
+    //     }]
+    // }
+    //
+    // const config = {
+    //     type: 'bar',
+    //     data,
+    //     options: {
+    //         plugins: {
+    //             title: {
+    //                 display: true,
+    //                 text: '월별 구독 수 추이'
+    //             }
+    //         }
+    //     }
+    // }
+    //
+    // const ctxMonth = document.querySelector("#subsByMonth");
+    // const subsByMonth = new Chart(ctxMonth, config);
 
     const sizeLabels = ['Small', 'Medium', 'Large'];
     const sizeData = {
         labels: sizeLabels,
         datasets: [
             {
-                label: '사이즈별 구독 수량',
                 backgroundColor: ['rgb(127,145,232)', 'rgb(97,198,73)', 'rgb(226,224,94)'],
-                // borderColor: ,
+                border: 'none',
                 data: [20, 30, 60]
             }
         ]
     }
     const sizeConfig = {
         type: 'doughnut',
-        data: sizeData
+        data: sizeData,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: '사이즈별 구독 수량'
+                }
+            }
+        }
     }
     const ctxSize = document.querySelector("#subsBySize");
     const subsMySize = new Chart(ctxSize, sizeConfig);
