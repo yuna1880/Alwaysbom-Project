@@ -55,6 +55,10 @@
     }
 
     function compareWithPoint(point) {
+        if (point.value < 0) {
+            alert("포인트는 0원 이상부터 사용 가능합니다.");
+            point.value="";
+        }
         if (point.value > ${memberVo.point}) {
             alert("${memberVo.name}님께서 사용 가능한 포인트는 <fmt:formatNumber value="${memberVo.point}" pattern="#,###"/> 입니다.")
             point.value="";
@@ -94,7 +98,7 @@
             <div class="d-flex flex-column ps-2">
                 <span>[ ${branchVo.name} ] ${fclassVo.category}_${fclassVo.name}</span>
                 <span>수강인원 : ${regCount}</span>
-                <span>수강시간 : ${scheduleVo.startTime}</span>
+                <span>수강시간 : ${scheduleVo.startTime} ~ ${scheduleVo.endTime}</span>
             </div>
         </div>
 

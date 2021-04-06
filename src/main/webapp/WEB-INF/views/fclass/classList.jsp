@@ -14,12 +14,12 @@
 <!-- 배너 이미지와 글귀 -->
 <div class="banner-wrap d-flex align-items-center justify-content-center">
     <div class="w-1280 mx-auto">
-        <img src="/static/image/flower/flower_banner_1280.jpg" alt="꽃다발배너" class="col-12">
+        <img src="../../../static/image/fclass/fclass_banner_1280.jpg" alt="플라워클래스배너" class="col-12">
     </div>
     <div class="banner-text w-1280 position-absolute mx-auto">
-        <div class="banner-title fw500 mb-4 ms-2">새늘봄 꽃다발</div>
+        <div class="banner-title fw500 mb-4 ms-2">새늘봄 플라워클래스</div>
         <div class="banner-summary fw-light ms-2">
-            계절을 가득 담은 꽃다발로<br>당신의 일상을 특별한 날로 만들어보세요.
+            1주에 한 번, 플로리스트가 되어 꽃이 주는 행복을 느껴보세요.
         </div>
     </div>
 </div>
@@ -34,7 +34,7 @@
         <c:forEach var="fclass" items="${classList}">
             <c:if test="${fclass.category eq '원데이클래스'}">
                 <div class="col mb-8em">
-                    <div class="overflow-hidden img-height">
+                    <div class="overflow-hidden img-height" style="max-height: 250px;">
                         <a href="/fclass/classList/${fclass.idx}">
                             <img src="${fclass.image1}" class="col-12 scale-up" alt="클래스 썸네일">
                         </a>
@@ -62,11 +62,11 @@
         <div class="fs-3">Florist class</div>
         <div class="fs-3 fw-bold">플로리스트 클래스</div>
     </div>
-    <div class="row row-cols-4">
+    <div class="row row-cols-3">
         <c:forEach var="fclass" items="${classList}">
             <c:if test="${fclass.category eq '플로리스트'}">
                 <div class="col mb-8em">
-                    <div class="overflow-hidden">
+                    <div class="overflow-hidden img-height" style="max-height: 250px;">
                         <a href="/fclass/classList/${fclass.idx}">
                             <img src="${fclass.image1}" class="col-12 scale-up" alt="클래스 썸네일">
                         </a>
