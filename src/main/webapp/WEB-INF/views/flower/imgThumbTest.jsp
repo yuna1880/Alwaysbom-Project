@@ -7,11 +7,13 @@
 <body>
 <div id="container" class="mx-auto">
     <div class="thumbnails d-flex flex-column justify-content-start">
-        <div class="mb-4 d-inline-flex">
-            <img src="/static/image/flower/vase3-1.jpg" alt="대표 썸네일" class="col-12">
-            <img src="/static/image/flower/vase3-2.jpg" alt="썸네일2" class="col-12">
-            <img src="/static/image/flower/vase3-3.jpg" alt="썸네일2" class="col-12">
-            <img src="/static/image/flower/vase3-1.jpg" alt="썸네일3" class="col-12">
+        <div class="w-100 overflow-hidden">
+            <div class="mb-4 d-inline-flex">
+                <img src="/static/image/flower/vase3-1.jpg" alt="대표 썸네일" class="col-12">
+                <img src="/static/image/flower/vase3-2.jpg" alt="썸네일2" class="col-12">
+                <img src="/static/image/flower/vase3-3.jpg" alt="썸네일2" class="col-12">
+                <img src="/static/image/flower/vase3-1.jpg" alt="썸네일3" class="col-12">
+            </div>
         </div>
         <div class="d-flex">
             <img src="/static/image/flower/vase3-1.jpg" alt="썸네일1" class="col-4 pe-3">

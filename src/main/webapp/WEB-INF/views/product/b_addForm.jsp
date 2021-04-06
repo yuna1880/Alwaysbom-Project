@@ -10,8 +10,8 @@
     <title>소품샵 상품 수정</title>
     </c:if>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="/static/css/item/b_addForm.css">
-    <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="../../../static/css/item/b_addForm.css">
+    <script src="../../../static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
@@ -20,15 +20,14 @@
     <!-- 브레드크럼 (유저 이동경로) -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-xxl-5">
-            <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
-            <li class="breadcrumb-item"><a href="/admin/product">소품샵 관리</a></li>
+            <li class="breadcrumb-item" onclick="location.href='/admin/main'">관리자 홈</li>
+            <li class="breadcrumb-item" onclick="location.href='/admin/product'">소품샵 관리</li>
             <c:if test="${empty productVo}">
             <li class="breadcrumb-item active" aria-current="page">상품 등록</li>
             </c:if>
             <c:if test="${not empty productVo}">
-            <li class="breadcrumb-item"><a href="/admin/productList">상품 조회</a></li>
-            <li class="breadcrumb-item"><a href="/admin/product/${productVo.idx}">${productVo.name}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">상품 수정</li>
+            <li class="breadcrumb-item" onclick="location.href='/admin/productList'">상품 조회</li>
+            <li class="breadcrumb-item active" aria-current="page">${productVo.name}</li>
             </c:if>
         </ol>
     </nav>
@@ -435,6 +434,6 @@
     }
 
 </script>
-<script src="/static/js/imageUploader.js"></script>
+<script src="../../../static/js/imageUploader.js"></script>
 </body>
 </html>
