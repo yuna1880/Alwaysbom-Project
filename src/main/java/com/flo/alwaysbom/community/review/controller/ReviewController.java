@@ -143,4 +143,8 @@ public class ReviewController {
         service.likeCheck(memberId, reviewIdx);
         return true;
     }
+    @GetMapping("/lilililil")
+    public String lIlIlIlIlIlIlIlIlI(){
+        return "/community/eventList";
+    }
 }
