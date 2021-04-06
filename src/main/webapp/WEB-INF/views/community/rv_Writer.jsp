@@ -19,16 +19,27 @@
                 <select class="form-select" id="floatingSelect" name="category"
                         aria-label="Floating label select example">
                     <option disabled>카테고리</option>
-                    <c:forEach var="cate" items="${category}">
-                        <c:if test="${cate eq vo.category}">
-                            <option value="${cate}" selected>${cate}</option>
-                        </c:if>
-                        <c:if test="${cate ne vo.category}">
-                            <option value="${cate}">${cate}</option>
-                        </c:if>
-                    </c:forEach>
+                            <option value="클래스" selected>클래스</option>
+                            <option value="꽃다발">꽃다발</option>
+                            <option value="정기구독">정기구독</option>
+                            <option value="소품샵">소품샵</option>
                 </select>
                 <label for="floatingSelect">카테고리</label>
+            </div>
+            <div class="md-3">
+                <label for="question" class="form-label">Question</label>
+                <input type="text" class="form-control" name="question" id="question" value="${vo.question}"
+                       placeholder="제목">
+            </div>
+            <div class="md-3">
+                <label for="question" class="form-label">Question</label>
+                <input type="text" class="form-control" name="question" id="question" value="${vo.question}"
+                       placeholder="내용">
+            </div>
+            <div class="md-3">
+                <label for="question" class="form-label">Question</label>
+                <input type="text" class="form-control" name="question" id="question" value="${vo.question}"
+                       placeholder="이미지">
             </div>
             <div class="md-3">
                 <label for="question" class="form-label">Question</label>
@@ -39,6 +50,11 @@
                 <textarea class="form-control" placeholder="내용을 입력하세요" id="answer" name="answer"
                           style="height: 200px">${vo.answer}</textarea>
                 <label for="answer">Answer</label>
+            </div>
+            <div class="md-3">
+                <label for="question" class="form-label">Question</label>
+                <input type="text" class="form-control" name="question" id="question" value="${vo.question}"
+                       placeholder="별점">
             </div>
             <c:if test="${empty vo.idx}">
                 <div class="file-wrap">
