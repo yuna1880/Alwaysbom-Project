@@ -28,27 +28,27 @@
 
 <!-- 메인 컨테이너 -->
 <div id="container" class="mx-auto">
-<form method="post">
+<form method="get" action="/fclass/payment">
 
     <!-- 상품 썸네일과 주문 정보 -->
     <div id="pt-70" class="d-flex justify-content-between thumb-order">
         <!-- 사진 썸네일 -->
         <div class="thumbnails d-flex flex-column justify-content-start">
-            <div class="mb-4" style="width: 533px; height: 533px; overflow: hidden">
+            <div class="mb-4" style="width: 533px; max-height: 533px; overflow: hidden">
                 <img src="${fclassVo.image1}" alt="대표 썸네일" class="col-12" style="width: 533px; height: auto;">
             </div>
-            <div class="d-flex">
-                <div class="d-flex col-4" style="width: 161px; height: 161px; overflow: hidden">
-                    <img src="${fclassVo.image1}" alt="썸네일1" class="col pe-3">
+            <div class="d-flex justify-content-between col-12" style="overflow: hidden; height: 161px;">
+                <div class="d-flex col-4" style="overflow: hidden; width: 161px;">
+                    <img name="fclassImage" src="${fclassVo.image1}" alt="썸네일1" class="col">
                 </div>
                 <c:if test="${not empty fclassVo.image2}">
-                <div class="d-flex col-4" style="width: 161px; height: 161px; overflow: hidden">
-                    <img src="${fclassVo.image2}" alt="썸네일2" class="col ps-2 pe-2">
+                <div class="d-flex col-4" style="overflow: hidden; width: 161px;">
+                    <img src="${fclassVo.image2}" alt="썸네일2" class="col">
                 </div>
                 </c:if>
                 <c:if test="${not empty fclassVo.image3}">
-                <div class="d-flex col-4" style="width: 161px; height: 161px; overflow: hidden">
-                    <img src="${fclassVo.image3}" alt="썸네일3" class="col ps-3">
+                <div class="d-flex col-4" style="overflow: hidden; width: 161px;">
+                    <img src="${fclassVo.image3}" alt="썸네일3" class="col">
                 </div>
                 </c:if>
             </div>
@@ -57,7 +57,7 @@
         <!-- 주문 정보 -->
         <div class="order-info d-flex flex-column">
             <span class="subheader">${fclassVo.subheader}</span>
-            <span class="item-name">${fclassVo.name}</span>
+            <span class="item-name" name="fclassName">${fclassVo.name}</span>
 
             <!-- 가격 정보 -->
             <div class="d-flex justify-content-start align-items-center pb-4 border-bottom" style="border-bottom-color: #9d9d9d">
@@ -67,7 +67,7 @@
                         <fmt:formatNumber value="${fclassVo.price}" pattern="#,###원 >"/>
                 </span>
                 </c:if>
-                <span class="fs-3 fw500" data-flower-finalPrice>
+                <span class="fs-3 fw500" name="payTotal" data-flower-finalPrice>
                     <fmt:formatNumber value="${fclassVo.finalPrice}" pattern="#,###원"/>
                 </span>
             </div>
@@ -77,13 +77,15 @@
                 <!-- 지점 선택 옵션 -->
                 <div class="row mb-4">
                     <div class="col-3 fw500 pt-1">지점</div>
-                    <div id="branchSelectArea" class="col-9">
+                    <div id="branchSelectArea" class="col-9" role="group">
                         <c:forEach var="branch" items="${branchList}" varStatus="status">
                         <label>
                             <input type="radio" ${status.index eq 0 ? "checked" : ""}
                                    name="branchIdx" value="${branch.idx}"
-                                   class="branchBtn border p-2 rounded-3">
-                            <span>${branch.name}</span>
+                                   class="branchBtn border p-2 rounded-3 btn-check">
+                            <span class="btn btn-outline-warning text-dark me-1" name="branchName">
+                                    ${branch.name}
+                            </span>
                         </label>
                         </c:forEach>
                     </div>
@@ -93,6 +95,7 @@
                     <div class="col-3 fw500 pt-1">수강일</div>
                     <div class="col-9">
                         <input type="text" name="requestDate" placeholder="수업 날짜를 선택해주세요."
+                               name="scheduleDate"
                                class="schedule-datepicker col-12 p-2 ps-3 fs-6"
                                onclick="checkValidDate()"
                                onchange="searchSchedule(this.value)"
@@ -104,14 +107,14 @@
                     </div>
                 </div>
 
-                <!-- 수량 선택 옵션 -->
+                <!-- 수강인원 선택 옵션 -->
                 <div class="row mb-4">
                     <div class="col-3 fw500">수강인원</div>
                     <div class="col-9 count d-flex justify-content-start align-items-center">
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(false)">
                             <i class="fas fa-minus-circle"></i>
                         </button>
-                        <span id="regCount" class="quantity col-2 text-center" data-fclass-regCount>1</span>
+                        <span id="regCount" name="regCount" class="quantity col-2 text-center" data-fclass-regCount>1</span>
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(true)">
                             <i class="fas fa-plus-circle"></i>
                         </button>
@@ -132,20 +135,21 @@
 
             <div class="d-flex justify-content-end align-items-baseline me-2 mb-4">
                 <span class="me-3">총 주문금액</span>
-                <span id="totalPrice" class="fw-bold fs-3">
+                <span id="totalPrice" name="payTotal" class="fw-bold fs-3">
                     <fmt:formatNumber value="${fclassVo.finalPrice}" pattern="#,###원"/>
                 </span>
             </div>
 
-            <!-- 장바구니/결제 버튼 -->
+            <!-- 결제 버튼 -->
             <div class="d-flex justify-content-center mt-5">
-                <button type="button" class="btn main-button fw-bold py-3">클래스 예약하기</button>
+
+                <button type="submit" class="btn main-button fw-bold py-3">클래스 예약하기</button>
             </div>
 
-        </div> <!-- 주문 정보 닫기 -->
-    </div> <!-- 상품 썸네일 & 주문 정보 닫기 -->
+        </div>
+    </div>
 
-    <!-- 상품설명/리뷰/배송안내 Tabs -->
+    <!-- 상품설명/리뷰/클래스안내 Tabs -->
     <div class="d-flex showType-wrap">
         <label class="col-4">
             <input type="radio" name="showType" class="d-none" checked="">
@@ -157,7 +161,7 @@
         </label>
         <label class="col-4">
             <input type="radio" name="showType" class="d-none">
-            <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#delivery-area')">배송안내</span>
+            <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#delivery-area')">수강안내</span>
         </label>
     </div>
 
@@ -171,7 +175,7 @@
 
     <!-- 배송안내 -->
     <hr>
-    <div id="delivery-area">배송안내</div>
+    <div id="delivery-area">수강안내</div>
 
 </form>
 </div> <!-- #container 닫기 -->
@@ -335,6 +339,7 @@
             language: 'ko'
         });
     })
+
 
     function goPay(cartVo, frm) {
         console.log("goPay()실행. cartVo: " + cartVo);

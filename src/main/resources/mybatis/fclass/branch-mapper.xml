@@ -24,6 +24,7 @@
     <select id="findByIdx" parameterType="int" resultType="com.flo.alwaysbom.fclass.vo.BranchVo">
         SELECT * FROM BRANCH
         WHERE IDX = #{idx}
+        ORDER BY IDX
     </select>
 
     <select id="findAll" resultType="com.flo.alwaysbom.fclass.vo.BranchVo">

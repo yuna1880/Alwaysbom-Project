@@ -40,6 +40,7 @@
     <select id="findByIdx" parameterType="int" resultMap="fclassMap">
         SELECT * FROM FCLASS
         WHERE IDX = #{idx}
+        ORDER BY IDX
     </select>
 
     <select id="findAll" resultMap="fclassMap">
