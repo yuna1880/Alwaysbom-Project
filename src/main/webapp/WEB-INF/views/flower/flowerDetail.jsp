@@ -189,6 +189,7 @@
                 <input type="hidden" name="memberId" value="test">
                 <input type="hidden" name="category" value="꽃다발">
                 <input type="hidden" name="flowerIdx" value="${flowerVo.idx}">
+                <input type="hidden" name="fsize" value="${flowerVo.fsize}">
             <%----------------------------------------------------------------%>
                 <button type="button" class="btn main-button fw-bold py-3" onclick="addCart(false, this.form)">바로구매</button>
             </div>
@@ -584,7 +585,8 @@
             {requestDate: cartVo.requestDate},
             {category: cartVo.category},
             {quantity: cartVo.quantity},
-            {reviewCheck: 0}
+            {reviewCheck: 0},
+            {fsize: }
         ];
 
         let data = document.createElement("input");
