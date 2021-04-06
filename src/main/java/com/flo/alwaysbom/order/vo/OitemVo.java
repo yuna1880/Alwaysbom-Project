@@ -19,7 +19,6 @@ public class OitemVo {
     private int price;
     private String options;
     private String image;
-    private String status;
     private Date requestDate;
     private Date deliveryStartDate;
     private String category;

@@ -16,15 +16,19 @@
                     url: "/order/findAddress",
                     type: "post",
                     success: function (data) {
+                        if(data.receiverName == null) {
+                            document.getElementById('findAddrNone').click();
+                        } else {
                         document.getElementById('findAddr').click();
                         document.getElementById('find-name').value = data.receiverName;
                         document.getElementById('find-zipcode').value = data.receiverZipcode;
                         document.getElementById('find-address').value = data.receiverAddrBase;
                         document.getElementById('find-address-details').value = data.receiverAddrDetail;
                         document.getElementById('find-address-extra').value = data.receiverAddrExtra;
+                        }
                     },
                     error: function () {
-                        alert("실패!!!!");
+
                     }
                 });
             });
@@ -68,6 +72,10 @@
                                             <!-- 모달 실행 -->
                                             <input type="hidden" name="btnradio" id="findAddr"
                                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <!-- 모달 (주소지 저장 없을때) 실행 -->
+                                            <input type="hidden" name="btnradio2" id="findAddrNone"
+                                                   data-bs-toggle="modal" data-bs-target="#noneModal">
+
                                             <label class="btn btn-outline-primary" for="btnradio2">배송지 목록</label>
                                             <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
                                                    onclick="addSender()" autocomplete="off">
@@ -336,6 +344,28 @@
             </div>
         </div>
     </div>
+
+
+    <!-- 주소지 없을때의 Modal -->
+    <div class="modal fade" id="noneModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">최근 배송지</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>저장된 주소지가 없습니다.</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>
 <%@ include file="../main/footer.jspf" %>
 <script>
@@ -425,7 +455,6 @@
          let f = document.frm;
          let phone = f.receiver_phone1.value + '-' + f.receiver_phone2.value + '-' + f.receiver_phone3.value;
          document.getElementById('receiver_phone').value = phone;
-        alert("합친번호 : " + phone);
         //컨트롤러 이동
         f.action = "/order/payment";
         f.submit();

@@ -56,7 +56,7 @@
                     <hr>
                 </li>
                 <li class="list-group-item list-group-item-white">
-                    <a href="" class="link-secondary">주문 내역</a>
+                    <a href="/orders" class="link-secondary">주문 내역</a>
                 </li>
                 <li class="list-group-item list-group-item-white">
                     <a href="" class="link-secondary">정기 구독</a>
