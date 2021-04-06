@@ -14,10 +14,10 @@
 <!-- 배너 이미지와 글귀 -->
 <div class="banner-wrap d-flex align-items-center justify-content-center">
     <div class="w-1280 mx-auto">
-        <img src="../../../static/image/fclass/fclass_banner_1280.jpg" alt="플라워클래스배너" class="col-12">
+        <img src="/static/image/fclass/fclass_banner_1280.jpg" alt="플라워클래스배너" class="col-12">
     </div>
     <div class="banner-text w-1280 position-absolute mx-auto">
-        <div class="banner-title fw500 mb-4 ms-2">새늘봄 플라워클래스</div>
+        <div class="banner-title fw-500 mb-4 ms-2">새늘봄 플라워클래스</div>
         <div class="banner-summary fw-light ms-2">
             1주에 한 번, 플로리스트가 되어 꽃이 주는 행복을 느껴보세요.
         </div>

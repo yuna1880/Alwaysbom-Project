@@ -155,4 +155,10 @@ public class FclassController {
         return scheduleService.findByIdx(idx);
     }
 
+    @GetMapping("/fclass/api/branches/{idx}")
+    @ResponseBody
+    public BranchVo findBranches(@PathVariable Integer idx) {
+        return branchService.findByIdx(idx);
+    }
+
 }
