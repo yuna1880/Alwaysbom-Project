@@ -24,9 +24,9 @@
         <c:forEach var="flowerVo" items="${list}">
         <c:if test="${not empty flowerVo}">
         <div class="col mb-8em">
-            <div class="position-relative d-flex flex-column justify-content-start align-items-end"
-                 onmouseover="showBtn(this)" onmouseout="showBtn(this)">
-                <button type="button" class="btn-close-style d-none" data-bs-toggle="modal"
+            <div id="thumbnails-wrap" class="position-relative d-flex flex-column justify-content-start align-items-end">
+                <!--onmouseover="showBtn(this)" onmouseout="showBtn(this)"-->
+                <button type="button" class="btn-close-style" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">삭제</button>
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
