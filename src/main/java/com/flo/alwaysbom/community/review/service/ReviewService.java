@@ -20,7 +20,6 @@ public class ReviewService {
             ReviewLikeVo reviewLikeVo = new ReviewLikeVo(null, review.getIdx(), memberId);
             review.setHasReview(reviewDao.hasReviewLike(reviewLikeVo));
         }
-
         return reviews;
     }
 
@@ -28,8 +27,13 @@ public class ReviewService {
         return reviewDao.allReview(category, tab);
     }
 
-    public List<ReviewDto> cateBestReview(String category) {
-        return reviewDao.cateBestReview(category);
+    public List<ReviewDto> cateBestReview(String category, String memberId) {
+        List<ReviewDto> reviews = reviewDao.cateBestReview(category);
+        for (ReviewDto review : reviews) {
+            ReviewLikeVo reviewLikeVo = new ReviewLikeVo(null, review.getIdx(), memberId);
+            review.setHasReview(reviewDao.hasReviewLike(reviewLikeVo));
+        }
+        return reviews;
     }
 
     public int oldListCnt() {
@@ -40,12 +44,22 @@ public class ReviewService {
         return reviewDao.oldCateListCnt(category);
     }
 
-    public List<ReviewDto> allCateReview(Map<String, String> searchParam) {
-        return reviewDao.allCateReview(searchParam);
+    public List<ReviewDto> allCateReview(Map<String, String> searchParam, String memberId) {
+        List<ReviewDto> reviews = reviewDao.allCateReview(searchParam);
+        for (ReviewDto review : reviews) {
+            ReviewLikeVo reviewLikeVo = new ReviewLikeVo(null, review.getIdx(), memberId);
+            review.setHasReview(reviewDao.hasReviewLike(reviewLikeVo));
+        }
+        return reviews;
     }
 
-    public List<ReviewDto> searchReview(String opt, String search) {
-        return reviewDao.searchReview(opt, search);
+    public List<ReviewDto> searchReview(String opt, String search, String memberId) {
+        List<ReviewDto> reviews = reviewDao.searchReview(opt, search);
+        for (ReviewDto review : reviews) {
+            ReviewLikeVo reviewLikeVo = new ReviewLikeVo(null, review.getIdx(), memberId);
+            review.setHasReview(reviewDao.hasReviewLike(reviewLikeVo));
+        }
+        return reviews;
     }
 
     public void deleteReview(Integer idx) {

@@ -189,10 +189,10 @@
                                             </c:if>
                                         </div>
                                     </li>
-                                    <li class="text-center">${bestAllList.name}</li>
-                                    <li class="text-center"><div>${bestAllList.regDate}</div></li>
-                                    <li class="text-center"><div>${bestAllList.memberId}</div></li>
-                                    <li class="text-center"><div>${bestAllList.likeCount}</div></li>
+                                    <li class="text-center"><span>${bestAllList.name}</span></li>
+                                    <li class="text-center"><span>${bestAllList.regDate}</span></li>
+                                    <li class="text-center"><span>${bestAllList.memberId}</span></li>
+                                    <li class="text-center"><span>${bestAllList.likeCount}</span></li>
                                 </button>
                             </ul>
                             <div id="col${bestAllList.idx}" class="accordion-collapse collapse" aria-labelledby="head${bestAllList.idx}" data-bs-parent="#ulTable">
@@ -208,33 +208,17 @@
                                             </div>
                                         </c:if>
                                     </div>
-                                        <div class="d-flex justify-content-end" id="like">
-                                            <c:if test="${!bestAllList.hasReview}">
-                                            <button class="btn"
+                                        <div class="d-flex justify-content-end">
+                                            <c:if test="${bestAllList.hasReview}">
+                                            <button class="btn like"
                                                     onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="fas fa-thumbs-up text-dark fa-2x"></i>
                                             </button>
                                             </c:if>
-<%--                                            <c:if test="${empty likeList}">--%>
-<%--                                                <button class="btn"--%>
-<%--                                                        onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="far fa-thumbs-up text-dark fa-2x"></i>--%>
-<%--                                                </button>--%>
-<%--                                            </c:if>--%>
-<%--                                    <c:forEach var="like" items="${likeList}">--%>
-
-<%--                                        <c:choose>--%>
-<%--                                            <c:when test="${member.id == like.memberId && bestAllList.idx == like.reviewIdx}">--%>
-<%--                                            <button class="btn"--%>
-<%--                                                    onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="fas fa-thumbs-up text-dark fa-2x"></i>--%>
-<%--                                            </button>--%>
-<%--                                            </c:when>--%>
-<%--                                            <c:when test="${bestAllList.idx != like.reviewIdx || member.id != like.memberId || bestAllList.likeCount == 0}">--%>
-<%--                                                <button class="btn"--%>
-<%--                                                        onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="far fa-thumbs-up text-dark fa-2x"></i>--%>
-<%--                                                </button>--%>
-<%--                                            </c:when>--%>
-
-<%--                                        </c:choose>--%>
-<%--                                    </c:forEach>--%>
+                                            <c:if test="${!bestAllList.hasReview}">
+                                                <button class="btn like"
+                                                        onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="far fa-thumbs-up text-dark fa-2x"></i>
+                                                </button>
+                                            </c:if>
                                         </div>
                                     <div class="d-flex justify-content-center">
                                         <c:if test="${member.id == bestAllList.memberId || member.id == 'xzllxz456@naver.com'}">
@@ -264,12 +248,32 @@
 <%@ include file="../main/footer.jspf"%>
 </body>
 <script>
+    // $(".like").click(function (){
+    //     if($(this).children().hasClass("far")){
+    //         $(this).children().removeClass("far");
+    //         $(this).children().addClass("fas");
+    //     } else{
+    //         $(this).children().removeClass("fas");
+    //         $(this).children().addClass("far");
+    //     }
+    //
+    // });
 
     function goUpdate(form, idx) {
         console.log(form + idx);
     }
-    function goLike(memberId, reviewIdx) {
-        console.log(memberId + reviewIdx);
+
+    function goLike(memberId, reviewIdx, bt) {
+        // console.log(bt.children(".fas"));
+        if($("this").children("button").hasClass("fas")){
+            alert("ddddddd");
+        }
+        if($("this").children("button").hasClass("far")){
+            alert("ddddddd");
+        }
+        if($(this).hasClass("toggleStyle")) {
+            $(this).removeClass("toggleStyle");
+        }
         let data = {"memberId": memberId, "reviewIdx": reviewIdx};
         $.ajax({
             url: '/admin/question/likeCheck',
@@ -277,7 +281,7 @@
             dataType: 'json',
             data: data,
             success: function (result){
-
+                location.reload();
             }
         });
 
@@ -385,13 +389,11 @@
                     }
                     dispHtml += "</div>";
 
-                    dispHtml += '<div class="d-flex justify-content-end" id="like">';
-                    for(let i=0;i<listList.length; i++){
-                        if(id == listList[i].memberId && item.idx == listList[i].reviewIdx){
-                            dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
-                        } else {
-                            dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
-                        }
+                    dispHtml += '<div class="d-flex justify-content-end">';
+                    if(this.hasReview){
+                        dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, ' + this.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
+                    } else {
+                        dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, `' + this.idx + '`)"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
                     }
                     dispHtml += '</div>'
                         + '<div class="d-flex justify-content-center">';
@@ -414,6 +416,7 @@
         });
 
     }
+
     function goAllList(tab, paramType) {
         $('.allBoxes').remove();
         $("#searchMoreNotify").css("display", "block");
@@ -556,13 +559,11 @@
                         }
                         dispHtml += "</div>";
 
-                        dispHtml += '<div class="d-flex justify-content-end" id="like">';
-                        for(let i=0;i<listList.length; i++){
-                            if(id == listList[i].memberId && item.idx == listList[i].reviewIdx){
-                                dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
-                            } else {
-                                dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
-                            }
+                        dispHtml += '<div class="d-flex justify-content-end">';
+                        if(this.hasReview){
+                            dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, ' + this.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
+                        } else {
+                            dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, `' + this.idx + '`)"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
                         }
                         dispHtml += '</div>'
                             + '<div class="d-flex justify-content-center">';
@@ -616,12 +617,6 @@
             dataType: "json",
             data: dataParam,
             success: function (result) {
-                let listList = new Array();
-                <c:forEach items="${likeList}" var="like">
-                listList.push({idx: ${like.idx}
-                    ,reviewIdx: ${like.reviewIdx}
-                    ,memberId: "${like.memberId}"});
-                </c:forEach>
                let dispHtml = "";
                 $.each(result, function (i, item) {
                     dispHtml += '<li class="allBoxes accordion-item">';
@@ -691,27 +686,21 @@
                     }
                     dispHtml += "</div>";
 
-                    dispHtml += '<div class="d-flex justify-content-end" id="like">';
-                    for(let i=0;i<listList.length; i++){
-                        if(id == listList[i].memberId && item.idx == listList[i].reviewIdx){
-                            dispHtml += ' <button class="btn" onclick="goLike('
-                                + '`' + id +'`'
-                                +', '
-                                + item.idx
-                                + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
-                        } else {
-                            dispHtml += ' <button class="btn" onclick="goLike(' + '`' + id +'`, ' + item.idx + ')"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
-                        }
+                    dispHtml += '<div class="d-flex justify-content-end">';
+                    if(this.hasReview){
+                        dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, ' + this.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
+                    } else {
+                        dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, `' + this.idx + '`)"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
                     }
                     dispHtml += '</div>'
-                + '<div class="d-flex justify-content-center">';
-                        if(this.memberId == id || id == 'xzllxz456@naver.com'){
-                    dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
-                    + 'onclick="goUpdate(' + this.form + ', ' + this.idx + ')">수정'
-                    + '</button>'
-                    + '<button type="button" class="btn btn-outline-danger"'
-                    + 'onclick="goDelete(' + this.idx + ')">삭제'
-                    + '</button>';
+                        + '<div class="d-flex justify-content-center">';
+                    if(this.memberId == id || id == 'xzllxz456@naver.com'){
+                        dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
+                            + 'onclick="goUpdate(this.form,' + this.idx + ')">수정'
+                            + '</button>'
+                            + '<button type="button" class="btn btn-outline-danger"'
+                            + 'onclick="goDelete(' + this.idx + ')">삭제'
+                            + '</button>';
                     }
                     dispHtml += '</div>';
 
@@ -725,8 +714,6 @@
     function goDelete(idx) {
         location.href="/community/category/deleteReview?idx=" + idx;
     }
-
-
 
 </script>
 

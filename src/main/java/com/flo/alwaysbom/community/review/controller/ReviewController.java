@@ -27,7 +27,7 @@ public class ReviewController {
         if (member == null) {
             // 없을 때 임시
             member = new MemberVO();
-            member.setId("test@test.com");
+            member.setId("ee@test.com");
         }
 
         List<ReviewDto> bestRList = service.allBestReview(member.getId());
@@ -41,7 +41,13 @@ public class ReviewController {
 
     @PostMapping("/community/api/category/goAllReview")
     @ResponseBody
-    public List<ReviewDto> goAllReview(Model model, String category, String startIndex, String endIndex) throws JsonProcessingException {
+    public List<ReviewDto> goAllReview(@SessionAttribute(required = false) MemberVO member, Model model, String category, String startIndex, String endIndex){
+        if (member == null) {
+            // 없을 때 임시
+            member = new MemberVO();
+            member.setId("ee@test.com");
+        }
+
         Map<String, String> searchParam = new HashMap<>();
         searchParam.put("startIndex",startIndex);
         searchParam.put("endIndex",endIndex);
@@ -50,7 +56,7 @@ public class ReviewController {
         }
         searchParam.put("category", category);
 
-        List<ReviewDto> list = service.allCateReview(searchParam);
+        List<ReviewDto> list = service.allCateReview(searchParam, member.getId());
         System.out.println(list);
 //        ObjectMapper mapper = new ObjectMapper();
 //        String jsonStr = mapper.writeValueAsString(list);
@@ -61,8 +67,14 @@ public class ReviewController {
 
     @GetMapping("/admin/question/searchReview")
     @ResponseBody
-    public List<ReviewDto> searchReview(String opt, String search, Model model){
-        List<ReviewDto> list = service.searchReview(opt, search);
+    public List<ReviewDto> searchReview(@SessionAttribute(required = false) MemberVO member, String opt, String search, Model model){
+        if (member == null) {
+            // 없을 때 임시
+            member = new MemberVO();
+            member.setId("ee@test.com");
+        }
+
+        List<ReviewDto> list = service.searchReview(opt, search, member.getId());
         System.out.println(list);
         List<ReviewLikeVo> likeList = service.likeList();
         model.addAttribute("likeList", likeList);
@@ -71,13 +83,18 @@ public class ReviewController {
 
     @PostMapping("/community/api/category/goBestReview")
     @ResponseBody
-    public List<ReviewDto> goAllReview(Model model, String tab, String category){
+    public List<ReviewDto> goAllReview(@SessionAttribute(required = false) MemberVO member, Model model, String tab, String category){
+        if (member == null) {
+            // 없을 때 임시
+            member = new MemberVO();
+            member.setId("ee@test.com");
+        }
         System.out.println(category + " 카테 " + tab + "탭탭");
         List<ReviewDto> bestRList;
         if(category != null || !(category.equals(""))){
             model.addAttribute("category", category);
         }
-        bestRList = service.cateBestReview(category);
+        bestRList = service.cateBestReview(category, member.getId());
         model.addAttribute("bestRList", bestRList);
         List<ReviewLikeVo> likeList = service.likeList();
         model.addAttribute("likeList", likeList);
@@ -85,11 +102,16 @@ public class ReviewController {
     }
 
     @GetMapping("/community/category/goReview")
-    public String goReview(Model model, String category, Integer page){
+    public String goReview(@SessionAttribute(required = false) MemberVO member, Model model, String category, Integer page){
+        if (member == null) {
+            // 없을 때 임시
+            member = new MemberVO();
+            member.setId("ee@test.com");
+        }
         if(category != null || !(category.equals(""))){
             model.addAttribute("category", category);
         }
-        List<ReviewDto> bestRList = service.cateBestReview(category);
+        List<ReviewDto> bestRList = service.cateBestReview(category, member.getId());
         model.addAttribute("bestRList", bestRList);
         int oldListCnt = service.oldCateListCnt(category);
         model.addAttribute("oldListCnt", oldListCnt);
