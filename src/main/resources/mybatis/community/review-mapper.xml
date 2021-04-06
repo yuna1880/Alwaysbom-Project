@@ -89,6 +89,15 @@
     <delete id="deleteReview" parameterType="int">
         DELETE FROM REVIEW WHERE IDX = #{idx}
     </delete>
+
+    <select id="likeCount" parameterType="int" resultType="int">
+        SELECT LIKE_COUNT FROM REVIEW WHERE IDX = #{reviewIdx}
+    </select>
+
+    <update id="likeUpdate" parameterType="map">
+        UPDATE REVIEW SET LIKE_COUNT = #{review}
+        WHERE IDX = #{reviewIdx}
+    </update>
 <!--    <select id="utilReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">-->
 <!--        SELECT *-->
 <!--        FROM REVIEW-->

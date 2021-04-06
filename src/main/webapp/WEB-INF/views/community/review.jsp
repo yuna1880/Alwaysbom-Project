@@ -209,18 +209,25 @@
                                         </c:if>
                                     </div>
                                         <div class="d-flex justify-content-end" id="like">
+                                            <c:if test="${empty likeList}">
+                                                <button class="btn"
+                                                        onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="far fa-thumbs-up text-dark fa-2x"></i>
+                                                </button>
+                                            </c:if>
                                     <c:forEach var="like" items="${likeList}">
+
                                         <c:choose>
                                             <c:when test="${member.id == like.memberId && bestAllList.idx == like.reviewIdx}">
                                             <button class="btn"
-                                                    onclick="goLike(${bestAllList.idx})"><i class="fas fa-thumbs-up text-dark fa-2x"></i>
+                                                    onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="fas fa-thumbs-up text-dark fa-2x"></i>
                                             </button>
                                             </c:when>
-                                            <c:otherwise>
-                                            <button class="btn"
-                                                    onclick="goLike(${bestAllList.idx})"><i class="far fa-thumbs-up text-dark fa-2x"></i>
-                                            </button>
-                                            </c:otherwise>
+                                            <c:when test="${bestAllList.idx != like.reviewIdx || member.id != like.memberId || bestAllList.likeCount == 0}">
+                                                <button class="btn"
+                                                        onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="far fa-thumbs-up text-dark fa-2x"></i>
+                                                </button>
+                                            </c:when>
+
                                         </c:choose>
                                     </c:forEach>
                                         </div>
@@ -252,11 +259,41 @@
 <%@ include file="../main/footer.jspf"%>
 </body>
 <script>
+
+    function goUpdate(form, idx) {
+        console.log(form + idx);
+    }
+    function goLike(memberId, reviewIdx) {
+        console.log(memberId + reviewIdx);
+        let data = {"memberId": memberId, "reviewIdx": reviewIdx};
+        $.ajax({
+            url: '/admin/question/likeCheck',
+            type: 'get',
+            dataType: 'json',
+            data: data,
+            success: function (result){
+
+            }
+        });
+
+    }
+
     function goCateBest(category) {
         location.href="/community/category/goReview?category="+category;
     }
 
     function goSearch(form) {
+        let listList = new Array();
+        <c:forEach items="${likeList}" var="like">
+        listList.push({idx: ${like.idx}
+            ,reviewIdx: ${like.reviewIdx}
+            ,memberId: "${like.memberId}"});
+        </c:forEach>
+        for(let i=0;i<listList.length; i++){
+            console.log(listList[i].idx);
+            console.log(listList[i].memberId);
+            console.log(listList[i].reviewIdx);
+        }
         let formData = $(form).serialize();
         let id = '${member.id}';
         $.ajax({
@@ -265,7 +302,7 @@
             dataType: 'json',
             data: formData,
 
-            success: function (data){
+            success: function (result){
                 let resultBar = "";
                 let ultable = "";
                 let dispHtml = "";
@@ -275,7 +312,7 @@
 
                 ultable += '<li> <ul> <li>별점</li> <li>제목</li> <li>작성일</li> <li>작성자</li> <li>좋아요</li> </ul> </li>';
 
-                $.each(data, function () {
+                $.each(result, function (i, item) {
                     dispHtml += '<li class="allBoxes accordion-item">';
                     dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco">';
                     dispHtml += '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
@@ -343,8 +380,14 @@
                     }
                     dispHtml += "</div>";
 
-
                     dispHtml += '<div class="d-flex justify-content-end" id="like">';
+                    for(let i=0;i<listList.length; i++){
+                        if(id == listList[i].memberId && item.idx == listList[i].reviewIdx){
+                            dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
+                        } else {
+                            dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
+                        }
+                    }
                     dispHtml += '</div>'
                         + '<div class="d-flex justify-content-center">';
                     if(this.memberId == id || id == 'xzllxz456@naver.com'){
@@ -410,6 +453,17 @@
 
         // 더보기 실행함수 **
         function readOldNotify(index, _endIndex){
+            let listList = new Array();
+            <c:forEach items="${likeList}" var="like">
+            listList.push({idx: ${like.idx}
+                ,reviewIdx: ${like.reviewIdx}
+                ,memberId: "${like.memberId}"});
+            </c:forEach>
+            for(let i=0;i<listList.length; i++){
+                console.log(listList[i].idx);
+                console.log(listList[i].memberId);
+                console.log(listList[i].reviewIdx);
+            }
             // _endIndex = index+searchStep-1;	// endIndex설정
             // $(".accordion_count").css("display", "none");
             let id = '${member.id}';
@@ -426,10 +480,10 @@
                     endIndex: _endIndex
                 },
                 url: "/community/api/category/goAllReview",
-                success: function (data) {
-                    console.dir(data);
+                success: function (result) {
+                    console.dir(result);
                     let dispHtml = "";
-                    $.each(data, function () {
+                    $.each(result, function (i, item) {
                         dispHtml += '<li class="allBoxes accordion-item">';
                         dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco">';
                         dispHtml += '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
@@ -497,9 +551,14 @@
                         }
                         dispHtml += "</div>";
 
-
                         dispHtml += '<div class="d-flex justify-content-end" id="like">';
-
+                        for(let i=0;i<listList.length; i++){
+                            if(id == listList[i].memberId && item.idx == listList[i].reviewIdx){
+                                dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
+                            } else {
+                                dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
+                            }
+                        }
                         dispHtml += '</div>'
                             + '<div class="d-flex justify-content-center">';
                         if(this.memberId == id || id == 'xzllxz456@naver.com'){
@@ -535,17 +594,12 @@
 
 
     function goBestList(tab, paramType) {
-        let listList = new Array();
-        <c:forEach items="${likeList}" var="like">
-        listList.push({idx: ${like.idx}
-                        ,reviewIdx: ${like.reviewIdx}
-                        ,memberId: "${like.memberId}"});
-        </c:forEach>
-        for(let i=0;i<listList.length; i++){
-            console.log(listList[i].idx);
-            console.log(listList[i].memberId);
-            console.log(listList[i].reviewIdx);
-        }
+
+        // for(let i=0;i<listList.length; i++){
+        //     console.log(listList[i].idx);
+        //     console.log(listList[i].memberId);
+        //     console.log(listList[i].reviewIdx);
+        // }
         $("#searchMoreNotify").css("display", "none");
         let id = '${member.id}';
         let dataParam = {
@@ -557,6 +611,12 @@
             dataType: "json",
             data: dataParam,
             success: function (result) {
+                let listList = new Array();
+                <c:forEach items="${likeList}" var="like">
+                listList.push({idx: ${like.idx}
+                    ,reviewIdx: ${like.reviewIdx}
+                    ,memberId: "${like.memberId}"});
+                </c:forEach>
                let dispHtml = "";
                 $.each(result, function (i, item) {
                     dispHtml += '<li class="allBoxes accordion-item">';
@@ -629,16 +689,20 @@
                     dispHtml += '<div class="d-flex justify-content-end" id="like">';
                     for(let i=0;i<listList.length; i++){
                         if(id == listList[i].memberId && item.idx == listList[i].reviewIdx){
-                            dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
+                            dispHtml += ' <button class="btn" onclick="goLike('
+                                + '`' + id +'`'
+                                +', '
+                                + item.idx
+                                + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
                         } else {
-                            dispHtml += ' <button class="btn" onclick="goLike(' + item.idx + ')"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
+                            dispHtml += ' <button class="btn" onclick="goLike(' + '`' + id +'`, ' + item.idx + ')"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
                         }
                     }
                     dispHtml += '</div>'
                 + '<div class="d-flex justify-content-center">';
                         if(this.memberId == id || id == 'xzllxz456@naver.com'){
                     dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
-                    + 'onclick="goUpdate(this.form,' + this.idx + ')">수정'
+                    + 'onclick="goUpdate(' + this.form + ', ' + this.idx + ')">수정'
                     + '</button>'
                     + '<button type="button" class="btn btn-outline-danger"'
                     + 'onclick="goDelete(' + this.idx + ')">삭제'

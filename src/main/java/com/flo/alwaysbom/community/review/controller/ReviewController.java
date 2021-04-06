@@ -56,6 +56,8 @@ public class ReviewController {
     public List<ReviewDto> searchReview(String opt, String search, Model model){
         List<ReviewDto> list = service.searchReview(opt, search);
         System.out.println(list);
+        List<ReviewLikeVo> likeList = service.likeList();
+        model.addAttribute("likeList", likeList);
         return list;
     }
 
@@ -69,6 +71,8 @@ public class ReviewController {
         }
         bestRList = service.cateBestReview(category);
         model.addAttribute("bestRList", bestRList);
+        List<ReviewLikeVo> likeList = service.likeList();
+        model.addAttribute("likeList", likeList);
         return bestRList;
     }
 
@@ -101,5 +105,12 @@ public class ReviewController {
     public List<ReviewLikeVo> like(){
 
         return service.likeList();
+    }
+
+    @GetMapping("/admin/question/likeCheck")
+    @ResponseBody
+    public Boolean likeCheck(String memberId, Integer reviewIdx){
+        service.likeCheck(memberId, reviewIdx);
+        return true;
     }
 }

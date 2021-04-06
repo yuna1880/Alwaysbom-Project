@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,4 +84,26 @@ public class ReviewDao {
     public List<ReviewLikeVo> likeList() {
         return sqlSessionTemplate.selectList("reviewLike.allLikeList");
     }
+
+    public void likeCheck(String memberId, Integer reviewIdx) {
+        List<ReviewLikeVo> list = null;
+        int review=0;
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberId", memberId);
+        map.put("reviewIdx", reviewIdx);
+        list = sqlSessionTemplate.selectList("reviewLike.likeSearch", map);
+        if(list != null && list.size() > 0){
+            sqlSessionTemplate.delete("reviewLike.likedelete" ,map);
+            review = sqlSessionTemplate.selectOne("review.likeCount", reviewIdx);
+            map.put("review", --review);
+            sqlSessionTemplate.update("review.likeUpdate", map);
+        } else{
+            sqlSessionTemplate.insert("reviewLike.likeinsert", map);
+            review = sqlSessionTemplate.selectOne("review.likeCount", reviewIdx);
+            map.put("review", ++review);
+            sqlSessionTemplate.update("review.likeUpdate", map);
+        }
+    }
+
+
 }

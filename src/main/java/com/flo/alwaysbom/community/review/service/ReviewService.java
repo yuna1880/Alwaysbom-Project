@@ -49,4 +49,8 @@ public class ReviewService {
     public List<ReviewLikeVo> likeList() {
         return reviewDao.likeList();
     }
+
+    public void likeCheck(String memberId, Integer reviewIdx) {
+        reviewDao.likeCheck(memberId, reviewIdx);
+    }
 }
