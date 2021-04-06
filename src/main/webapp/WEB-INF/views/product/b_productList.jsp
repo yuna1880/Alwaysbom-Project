@@ -11,7 +11,8 @@
 <body>
 <%@ include file="../main/b_header.jspf"%>
 <div id="container" class="mx-auto">
-    <!-- 메뉴 이동 경로 -->
+<form>
+    <!-- 브레드크럼 (유저 이동 경로) -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-8em">
             <li class="breadcrumb-item" onclick="location.href='/admin/main'">관리자 홈</li>
@@ -28,10 +29,33 @@
         <c:forEach var="productVo" items="${vase}">
         <c:if test="${not empty productVo}">
         <div class="col mb-8em">
-            <div class="overflow-hidden mb-3">
-                <a href="/admin/productUpdateForm/${productVo.idx}">
-                    <img src="${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
-                </a>
+            <div class="thumbnails-wrap position-relative d-flex flex-column justify-content-start align-items-end">
+                <button type="button" class="btn-close-style" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">삭제</button>
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">정말 삭제하시겠습니까?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                게시물 삭제를 원하시면 '삭제' 버튼을 눌러주세요.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" onclick="deleteItem(this.form)">삭제</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- Modal 끝 -->
+                <input type="hidden" name="idx" value="${productVo.idx}">
+                <div class="overflow-hidden mb-3 thumbnails">
+                    <a href="/admin/productUpdateForm/${productVo.idx}">
+                        <img src="${productVo.image1}" class="col-12" alt="소품샵 썸네일">
+                    </a>
+                </div>
             </div>
             <div class="ps-1">
                 <div class="item-name">
@@ -67,10 +91,33 @@
         <c:forEach var="productVo" items="${goods}">
         <c:if test="${not empty productVo}">
         <div class="col mb-8em">
-            <div class="overflow-hidden mb-3">
-                <a href="/admin/product/${productVo.idx}">
-                    <img src="${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
-                </a>
+            <div class="thumbnails-wrap position-relative d-flex flex-column justify-content-start align-items-end">
+                <button type="button" class="btn-close-style" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop2">삭제</button>
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel2">정말 삭제하시겠습니까?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                게시물 삭제를 원하시면 '삭제' 버튼을 눌러주세요.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" onclick="deleteItem(this.form)">삭제</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- Modal 끝 -->
+                <input type="hidden" name="idx" value="${productVo.idx}">
+                <div class="overflow-hidden mb-3">
+                    <a href="/admin/product/${productVo.idx}">
+                        <img src="${productVo.image1}" class="col-12" alt="소품샵 썸네일">
+                    </a>
+                </div>
             </div>
             <div class="ps-1">
                 <div class="item-name">
@@ -91,7 +138,14 @@
         </c:if>
         </c:forEach>
     </div> <!-- .row 닫음 -->
+</form>
 </div>
 <%@ include file="../main/b_footer.jspf"%>
+<script>
+    function deleteItem(frm) {
+        frm.action = "/admin/deleteProduct";
+        frm.submit();
+    }
+</script>
 </body>
 </html>
