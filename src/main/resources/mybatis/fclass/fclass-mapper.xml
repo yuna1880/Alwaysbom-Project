@@ -35,6 +35,7 @@
     <select id="findConnectedBranchList" resultType="com.flo.alwaysbom.fclass.vo.BranchVo" parameterType="int">
         SELECT B.* from BRANCH B inner join FCB on B.IDX = FCB.BRANCH_IDX
         where FCB.FCLASS_IDX = #{idx}
+        ORDER BY B.NAME
     </select>
 
     <select id="findByIdx" parameterType="int" resultMap="fclassMap">

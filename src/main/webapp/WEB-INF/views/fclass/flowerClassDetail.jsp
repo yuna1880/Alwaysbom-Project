@@ -28,8 +28,6 @@
 
 <!-- 메인 컨테이너 -->
 <div id="container" class="mx-auto">
-<form method="get" action="/fclass/payment">
-
     <!-- 상품 썸네일과 주문 정보 -->
     <div id="pt-70" class="d-flex justify-content-between thumb-order">
         <!-- 사진 썸네일 -->
@@ -39,7 +37,7 @@
             </div>
             <div class="d-flex justify-content-between col-12" style="overflow: hidden; height: 161px;">
                 <div class="d-flex col-4" style="overflow: hidden; width: 161px;">
-                    <img name="fclassImage" src="${fclassVo.image1}" alt="썸네일1" class="col">
+                    <img src="${fclassVo.image1}" alt="썸네일1" class="col">
                 </div>
                 <c:if test="${not empty fclassVo.image2}">
                 <div class="d-flex col-4" style="overflow: hidden; width: 161px;">
@@ -55,9 +53,9 @@
         </div>
 
         <!-- 주문 정보 -->
-        <div class="order-info d-flex flex-column">
+        <form class="order-info d-flex flex-column" action="/fclass/payment">
             <span class="subheader">${fclassVo.subheader}</span>
-            <span class="item-name" name="fclassName">${fclassVo.name}</span>
+            <span class="item-name">${fclassVo.name}</span>
 
             <!-- 가격 정보 -->
             <div class="d-flex justify-content-start align-items-center pb-4 border-bottom" style="border-bottom-color: #9d9d9d">
@@ -67,7 +65,7 @@
                         <fmt:formatNumber value="${fclassVo.price}" pattern="#,###원 >"/>
                 </span>
                 </c:if>
-                <span class="fs-3 fw500" name="payTotal" data-flower-finalPrice>
+                <span class="fs-3 fw500">
                     <fmt:formatNumber value="${fclassVo.finalPrice}" pattern="#,###원"/>
                 </span>
             </div>
@@ -83,7 +81,7 @@
                             <input type="radio" ${status.index eq 0 ? "checked" : ""}
                                    name="branchIdx" value="${branch.idx}"
                                    class="branchBtn border p-2 rounded-3 btn-check">
-                            <span class="btn btn-outline-warning text-dark me-1" name="branchName">
+                            <span class="btn btn-outline-warning text-dark me-1">
                                     ${branch.name}
                             </span>
                         </label>
@@ -94,14 +92,13 @@
                 <div class="row mb-4">
                     <div class="col-3 fw500 pt-1">수강일</div>
                     <div class="col-9">
-                        <input type="text" name="requestDate" placeholder="수업 날짜를 선택해주세요."
-                               name="scheduleDate"
+                        <input type="text" placeholder="수업 날짜를 선택해주세요."
                                class="schedule-datepicker col-12 p-2 ps-3 fs-6"
                                onclick="checkValidDate()"
                                onchange="searchSchedule(this.value)"
                                autocomplete="off" required="required"/>
                         <div>
-                            <select id="scheduleSelect" class="form-select mt-3 text-secondary ps-3 py-2" disabled>
+                            <select id="scheduleSelect" name="scheduleIdx" class="form-select mt-3 text-secondary ps-3 py-2" disabled>
                             </select>
                         </div>
                     </div>
@@ -114,7 +111,7 @@
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(false)">
                             <i class="fas fa-minus-circle"></i>
                         </button>
-                        <span id="regCount" name="regCount" class="quantity col-2 text-center" data-fclass-regCount>1</span>
+                        <input id="regCount" name="regCount" class="quantity col-2 text-center border-0" value="1" readonly>
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(true)">
                             <i class="fas fa-plus-circle"></i>
                         </button>
@@ -135,20 +132,18 @@
 
             <div class="d-flex justify-content-end align-items-baseline me-2 mb-4">
                 <span class="me-3">총 주문금액</span>
-                <span id="totalPrice" name="payTotal" class="fw-bold fs-3">
+                <span id="totalPrice" class="fw-bold fs-3">
                     <fmt:formatNumber value="${fclassVo.finalPrice}" pattern="#,###원"/>
                 </span>
             </div>
 
             <!-- 결제 버튼 -->
             <div class="d-flex justify-content-center mt-5">
-
                 <button type="submit" class="btn main-button fw-bold py-3">클래스 예약하기</button>
             </div>
 
-        </div>
+        </form>
     </div>
-
     <!-- 상품설명/리뷰/클래스안내 Tabs -->
     <div class="d-flex showType-wrap">
         <label class="col-4">
@@ -166,7 +161,8 @@
     </div>
 
     <!-- 상품설명 -->
-    <div id="detail-area" class="d-flex justify-content-center">
+    <div id="detail-area" class="mb-5 col-12" style="max-width: 1280px;">
+        <div class="w-auto overflow-auto d-flex flex-column justify-content-center">${fclassVo.content}</div>
     </div>
 
     <!-- 리뷰게시판 -->
@@ -177,7 +173,6 @@
     <hr>
     <div id="delivery-area">수강안내</div>
 
-</form>
 </div> <!-- #container 닫기 -->
 
 <%@ include file="../main/footer.jspf"%>
@@ -208,7 +203,7 @@
 
         result.forEach(function (schedule) {
             const $option = document.createElement("option");
-            $option.value = schedule.index;
+            $option.value = schedule.idx;
             $option.innerText = schedule.startTime + " ~ " + schedule.endTime;
             $scheduleSelect.appendChild($option);
         })
@@ -283,7 +278,7 @@
         const classPriceEl = document.querySelector("#classPrice");
         const totalPriceEl = document.querySelector("#totalPrice");
 
-        let regCount = parseInt(regCountEl.innerText.toString());
+        let regCount = parseInt(regCountEl.value.toString());
         let classPrice = classPriceEl.dataset.fclassPrice;
 
         console.log(regCountEl);
@@ -295,7 +290,7 @@
             }
         }
         classPrice = classPrice * regCount;
-        regCountEl.innerText = regCount;
+        regCountEl.value = regCount;
         totalPriceEl.innerText = classPrice.toLocaleString("ko-KR") + "원";
 
     }

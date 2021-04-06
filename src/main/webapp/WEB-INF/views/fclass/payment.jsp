@@ -98,7 +98,7 @@
             <div class="d-flex flex-column ps-2">
                 <span>[ ${branchVo.name} ] ${fclassVo.category}_${fclassVo.name}</span>
                 <span>수강인원 : ${regCount}</span>
-                <span>수강시간 : ${scheduleVo.startTime}</span>
+                <span>수강시간 : ${scheduleVo.startTime} ~ ${scheduleVo.endTime}</span>
             </div>
         </div>
 

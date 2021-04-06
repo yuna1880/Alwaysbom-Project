@@ -58,17 +58,9 @@ public class FclassController {
     public String classDetail(@PathVariable("idx") Integer idx, Model model) {
         FclassVo fclassVo = fclassService.findByIdx(idx);
         List<BranchVo> branchList = fclassVo.getBranchList();
-        List<ScheduleVo> scheduleList = scheduleService.searchSchedule(ScheduleVo.builder()
-                .fclassIdx(idx)
-                /*.branchIdx(branchList.getIdx())*/
-                .build());
 
         model.addAttribute("fclassVo", fclassVo);
         model.addAttribute("branchList", branchList);
-        model.addAttribute("scheduleList", scheduleList);
-        System.out.println("fclassVo = " + fclassVo);
-        System.out.println("branchList = " + branchList);
-        System.out.println("scheduleList = " + scheduleList);
         return "fclass/flowerClassDetail";
         //return "fclass/detail_temp";
     }
