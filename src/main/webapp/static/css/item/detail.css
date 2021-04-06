@@ -91,7 +91,7 @@
     transition-duration: 0.3s;
     cursor: pointer;
 }
-.fw500 {
+.fw-500 {
     font-weight: 500;
 }
 .form-check-label {
