@@ -49,16 +49,10 @@ public class MemberController {
         return "member/login";
     }
     //아이디 중복 확인
-    @PostMapping("/CheckId")
-    public String CheckId(HttpSession session) throws Exception {
-        String mem_id = session.getId();
-        MemberVO CheckId = memberService.CheckId(mem_id);
-
-        if (CheckId != null) {
-            return "-1";
-        } else {
-            return "0";
-        }
+    @GetMapping("/idCheck")
+    public @ResponseBody int idCheck(@RequestParam("id")String id) {
+        int cnt=memberService.idCheck(id);
+        return cnt;
     }
 
     @PostMapping("/loginMember")

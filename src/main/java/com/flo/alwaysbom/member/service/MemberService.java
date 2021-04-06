@@ -30,8 +30,9 @@ public class MemberService {
     }
 
     //아이디 중복 확인
-    public MemberVO CheckId(String id) throws Exception {
-        return dao.CheckId(id);
+    public int idCheck(String id) {
+        int cnt= dao.idCheck(id);
+        return cnt;
     }
 
     //회원 정보 수정

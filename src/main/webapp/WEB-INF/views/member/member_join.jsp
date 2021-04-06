@@ -5,6 +5,7 @@
 <%@ include file="../main/import.jspf"%>
 <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
     function joinform_check() {
@@ -45,7 +46,7 @@
             alert("이름을 입력해주세요.");
             return false;
         }
-        var reg = /[0,1,6,7,8,9]{3}[-]+[0-9]{4}[-]+[0-9]{4}"+/g; //숫자만 입력하는 정규식
+        var reg = /[0,1,6,7,8,9]{3}[-]+[0-9]{4}[-]+[0-9]{4}/; //숫자만 입력하는 정규식
 
         if (!reg.test(phone.value)) {
             alert("전화번호는 숫자만 사용하여 010-1234-5678 형식으로 입력할 수 있습니다.");
@@ -69,20 +70,42 @@
         document.join_form.submit();
     }
 
-    //아이디 중복 확인
-    function id_check(){
+    $(function(){
+        let timer;
+        // 아이디 중복체크
+        document.querySelector("#id").addEventListener("keyup", function() {
+            let idString = this.value;
+            let warning = this.nextElementSibling;
 
-    }
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                $.ajax({
+                    url: "/idCheck",
+                    method: "get",
+                    data: {
+                        id: idString
+                    },
+                    dataType: "json",
+                    success: function(hasId) {
+                        if (hasId) {
+                            // 중복
+                            // 경고메시지 표시(classList.remove("hidden"))
+                            warning.classList.remove("hidden");
+                            document.querySelector("#id").classList.add("red-border");
+
+                        } else {
+                            // 중복없음
+                            warning.classList.add("hidden");
+                            document.querySelector("#id").classList.remove("red-border");
+                        }
+                    }
+                });
+            }, 300);
+        });
+    });
 </script>
 </head>
-<style>
-    .join-header {
-        border-bottom: 1px solid #4D4D4D;
-    }
-</style>
-
 <body>
-
 <%@ include file="../main/header.jspf" %>
 <div class="col-5 mx-auto">
 <form role="form" action="/member_join" method="post" name="join_form" onsubmit="return joinform_check()">
@@ -91,9 +114,9 @@
     </div>
 
     <label class="my-2">이메일 (아이디)</label>
-    <div class="d-flex mb-4">
-        <input type="text" name="id" value="${kakao_id}" class="col-10 mr-3" maxlength="255" placeholder="6~30자 이메일 형식(특수문자 사용불가)" pattern="[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-z]{2,3}$" />
-        <button type="button" class="CheckId col-2" onclick="id_check();">중복 확인</button>
+    <div class="d-flex flex-column mb-4">
+        <input type="text" id="id" name="id" value="${kakao_id}" class="col-12 mr-3" maxlength="255" placeholder="6~30자 이메일 형식(특수문자 사용불가)" pattern="^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-z]{2,3}$" />
+        <div class="hidden warning">※ 이미 사용중인 아이디입니다.</div>
     </div>
 
     <label class="my-2">비밀번호</label>
@@ -173,5 +196,14 @@
     .gender-area input[type=radio][checked] + .btn-gender {
         background-color: grey;
         color: white;
+    }
+    .red-border {
+        border: 1px solid red;
+    }
+    .hidden {
+        display: none;
+    }
+    .join-header {
+        border-bottom: 1px solid #4D4D4D;
     }
 </style>
