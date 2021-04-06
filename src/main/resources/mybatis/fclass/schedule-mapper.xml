@@ -41,4 +41,10 @@
         WHERE IDX = #{idx}
     </update>
 
+    <update id="updateRegCount" parameterType="com.flo.alwaysbom.fclass.vo.ScheduleVo">
+        UPDATE SCHEDULE
+        SET REG_COUNT = #{regCount}
+        WHERE IDX = #{idx}
+    </update>
+
 </mapper>

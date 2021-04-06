@@ -135,13 +135,24 @@
             <!-- 꽃 사이즈 선택 S/M/L/XL -->
             <div class="col-md">
                 <div class="form-floating my-2">
-                    <select name="fclass" id="selectSize" class="form-select p-2 ps-3" aria-label="form-select example">
+                    <c:if test="${empty subsVo}">
+                    <select name="fsize" id="selectFsize" class="form-select p-2 ps-3" aria-label="form-select example">
                         <option>정기구독 꽃 사이즈 선택</option>
                         <option value="S">S</option>
                         <option value="M">M</option>
                         <option value="L">L</option>
                         <option value="XL">XL</option>
                     </select>
+                    </c:if>
+                    <c:if test="${not empty subsVo}">
+                        <select name="fsize" id="selectFsize" class="form-select p-2 ps-3" aria-label="form-select example">
+                            <option value="${subsVo.fsize}">${subsVo.fsize}</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </c:if>
                 </div>
             </div>
         </div>

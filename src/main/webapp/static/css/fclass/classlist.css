@@ -18,6 +18,10 @@
     line-height: 1.5em;
 }
 
+.fw-500 {
+    font-weight: 500;
+}
+
 /*--- 꽃다발 리스트 ---*/
 .banner-img {
     width: 100vw;

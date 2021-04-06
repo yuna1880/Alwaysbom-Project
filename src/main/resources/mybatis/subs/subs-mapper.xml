@@ -8,7 +8,7 @@
     <insert id="addSubs" parameterType="com.flo.alwaysbom.subs.vo.SubsVo">
         INSERT INTO SUBS
         VALUES(NULL, #{name}, #{subheader}, #{summary}, #{price}, #{image1},
-               #{image2}, #{image2}, #{content})
+               #{image2}, #{image3}, #{content}, #{fsize})
     <selectKey keyProperty="idx" order="AFTER" resultType="int">
         SELECT SUBS_SEQ.currval FROM DUAL
     </selectKey>
@@ -23,7 +23,8 @@
                 IMAGE1 = #{image1},
                 IMAGE2 = #{image2},
                 IMAGE3 = #{image3},
-                CONTENT = #{content}
+                CONTENT = #{content},
+                FSIZE = #{fsize}
         WHERE   IDX = #{idx}
     </update>
 

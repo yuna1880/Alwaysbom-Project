@@ -33,4 +33,8 @@ public class ScheduleDao {
     public ScheduleVo findByIdx(Integer scheduleIdx) {
         return sqlSessionTemplate.selectOne("schedule.findByIdx", scheduleIdx);
     }
+
+    public void updateRegCount(ScheduleVo svo) {
+        sqlSessionTemplate.update("schedule.updateRegCount", svo);
+    }
 }

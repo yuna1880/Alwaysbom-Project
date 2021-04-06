@@ -64,9 +64,13 @@
 
         <!-- 가격 정보 -->
         <div class="d-flex justify-content-start align-items-center">
-                <span class="fs-3 fw500" data-subs-finalPrice>
-                <fmt:formatNumber value="${subsVo.price}" pattern="#,###원"/>
+            <span class="fs-3 fw500" data-subs-finalPrice>
+            <fmt:formatNumber value="${subsVo.price}" pattern="#,###원"/>
             </span>
+        </div>
+        <!-- 꽃 사이즈 정보 -->
+        <div class="d-flex justify-content-start align-items-center my-3">
+            <h5><span class="badge rounded-pill bg-light text-dark" id="selectFsize" value="${subsVo.fsize}">${subsVo.fsize} 사이즈</span></h5>
         </div>
 
         <!-- 무료배송 알림 -->
@@ -158,6 +162,7 @@
                     <fmt:formatNumber value="${subsVo.price}" pattern="#,###원"/>
                 </span>
             </div>
+
 
             <!-- 편지추가 price box -->
             <div id="addLetter" class="p-4 mx-2 mb-3 price-box">
@@ -533,6 +538,7 @@
         const $selectMonth = document.querySelector("#selectMonth");
         const $choices = document.querySelectorAll(".choice-price-box");
         const $subsQuantity = document.querySelector("[data-subs-quantity]");
+        const $subsFsize = document.querySelector("#selectFsize");
 
         const choices = [...$choices].map((choice) => {
             return {
@@ -549,7 +555,8 @@
             quantity: $subsQuantity.textContent,
             subsStartDate: $inputs.requestDate.value,
             letter: letterOptionsEl[0].checked ? 1 : 0,
-            choices: choices
+            choices: choices,
+            fsize: $subsFsize.value
         };
 
         const option = {
@@ -583,7 +590,10 @@
             {requestDate: cartVo.requestDate},
             {category: cartVo.category},
             {quantity: cartVo.quantity},
-            {reviewCheck: 0}
+            //{month: cartVo.month},
+            {fsize: cartVo.fsize},
+            {reviewCheck: 0},
+
         ];
 
         let data = document.createElement("input");

@@ -240,8 +240,15 @@
             </label>
         </div>
 
-        <!-- 리뷰 게시판 -->
+        <!-- 꽃다발 베스트 리뷰 게시판 -->
+        <div class="best-review">
 
+        </div>
+
+        <!-- 이 상품의 리뷰 게시판 -->
+        <div class="this-review">
+
+        </div>
     </div>
 
     <!-- 배송안내 -->

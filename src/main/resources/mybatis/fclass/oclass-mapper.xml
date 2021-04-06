@@ -11,7 +11,8 @@
                 <if test="!payType.equals('무통장입금')">SYSDATE</if>
                 , #{discountGrade}, #{discountPoint},
         #{fclassName}, #{branchName}, #{branchAddr}, #{fclassImage}, #{scheduleDate},
-        #{scheduleStartTime}, #{scheduleEndTime}, #{fclassCount}, #{status}, #{reviewCheck}, #{discountTotalPrice}, #{fclassIdx})
+        #{scheduleStartTime}, #{scheduleEndTime}, #{fclassCount}, #{status}, #{reviewCheck},
+        #{discountTotalPrice}, #{fclassIdx}, #{scheduleIdx})
     <selectKey keyProperty="idx" resultType="int" order="AFTER">
         SELECT OCLASS_SEQ.currval FROM DUAL
     </selectKey>
@@ -52,5 +53,10 @@
         SELECT * FROM OCLASS
         WHERE IDX = #{idx}
     </select>
+
+    <delete id="deleteOrder" parameterType="int">
+        DELETE FROM OCLASS
+        WHERE IDX = #{idx}
+    </delete>
 
 </mapper>

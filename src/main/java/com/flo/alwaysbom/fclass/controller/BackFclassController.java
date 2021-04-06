@@ -44,9 +44,11 @@ public class BackFclassController {
     public String goList(Model model) {
         List<FclassVo> classList = fclassService.findAll();
         List<BranchVo> branchList = branchService.findAll();
+
         System.out.println("classList = " + classList);
         model.addAttribute("classList", classList);
         model.addAttribute("branchList", branchList);
+
         return "fclass/b_classList";
     }
 
@@ -147,6 +149,12 @@ public class BackFclassController {
         return oclassService.updateOrderStatus(oclassVo);
     }
 
+    @RequestMapping(value = "/admin/fclass/api/orders/{idx}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public boolean deleteOrder(@PathVariable Integer idx) {
+        /*oclassService.deleteOrder(idx);*/
+        return oclassService.deleteOrder(idx);
+    }
 
     @GetMapping("admin/fclass/api/findClassByCategory")
     @ResponseBody
@@ -193,7 +201,7 @@ public class BackFclassController {
     @PostMapping("/admin/fclass/api/searchSchedule")
     @ResponseBody
     public List<ScheduleVo> searchSchedule(@RequestBody ScheduleVo vo) {
-        System.out.println("vo = " + vo);
+        System.out.println("searchSchedule : vo = " + vo);
         return scheduleService.searchSchedule(vo);
     }
 

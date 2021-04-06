@@ -80,6 +80,25 @@
             oldLi.outerHTML = result;
         }
     }
+    async function deleteRow(btn) {
+        const idx = btn.dataset.orderIdx;
+        const option = {
+            method: 'delete',
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            }
+        }
+        let response = await fetch("/admin/fclass/api/orders/" + idx, option);
+        //let result = await response.json();
+        //console.log(result);
+        if (response.ok) {
+            let oldLi = document.querySelector("#classUl #o" + idx);
+            oldLi.remove();
+            alert("주문취소");
+        } else {
+            alert("주문취소 실패");
+        }
+    }
 </script>
 </body>
 </html>
