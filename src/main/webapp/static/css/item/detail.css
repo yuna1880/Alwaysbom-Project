@@ -160,6 +160,15 @@ input[type=radio]:checked + .btn-show {
 .c-666 {
     color: #666666;
 }
+.c-bbb {
+    color: #bbbbbb;
+}
+.c-star {
+    color: #ffdc4d;
+}
+.ls-narrower {
+    letter-spacing: -1.3px;
+}
 
 /* 리뷰 카테고리(꽃다발 베스트리뷰/이 상품의 리뷰) */
 #review-area {

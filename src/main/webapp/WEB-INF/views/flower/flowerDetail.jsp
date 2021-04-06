@@ -242,8 +242,16 @@
                     <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
                          data-bs-toggle="collapse" data-bs-target="#reviewContent1"
                          aria-expanded="false" aria-controls="reviewContent1">
-                        <span class="col-2 fs-17">별점</span>
-                        <span class="col-5 fs-17">정말 마음에 들어요!</span>
+                        <span class="col-2 fs-17 c-star ls-narrower">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </span>
+                        <span class="col-5 fs-17">
+                            정말 마음에 들어요!<span class="c-bbb ms-2"><i class="fas fa-images"></i></span>
+                        </span>
                         <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
                         <span class="col-2 text-center c-666 fw-light">작성일</span>
                     </div>
@@ -252,7 +260,7 @@
                      data-bs-parent="#bestReview">
                     <div class="accordion-body bb-1">
                         <div class="col-5 d-flex flex-column ms-13">
-                        <img src="../../../static/image/flower/flower1.jpg" alt="dummy" class="col-10">
+                        <img src="../../../static/image/flower/flower1.jpg" alt="dummy" class="col-9">
                         <div class="my-4">
                             리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
                         </div>
@@ -265,8 +273,14 @@
                     <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
                          data-bs-toggle="collapse" data-bs-target="#reviewContent2"
                          aria-expanded="false" aria-controls="reviewContent2">
-                        <span class="col-2 fs-17">별점</span>
-                        <span class="col-5 fs-17">배송이 빨랐어요.</span>
+                        <span class="col-2 fs-17 c-star ls-narrower">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </span>
+                        <span class="col-5 fs-17">배송이 빨랐어요.<span class="c-bbb ms-2"><i class="fas fa-images"></i></span></span>
                         <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
                         <span class="col-2 text-center c-666 fw-light">작성일</span>
                     </div>
@@ -275,7 +289,7 @@
                      data-bs-parent="#bestReview">
                     <div class="accordion-body bb-1">
                         <div class="col-5 d-flex flex-column ms-13">
-                            <img src="../../../static/image/flower/vase3-1.jpg" alt="dummy" class="col-10">
+                            <img src="../../../static/image/flower/vase3-1.jpg" alt="dummy" class="col-9">
                             <div class="my-4">
                                 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
                             </div>
@@ -292,8 +306,14 @@
                     <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
                          data-bs-toggle="collapse" data-bs-target="#thisReviewContent1"
                          aria-expanded="false" aria-controls="thisReviewContent1">
-                        <span class="col-2 fs-17">별점</span>
-                        <span class="col-5 fs-17">리뷰 제목</span>
+                        <span class="col-2 fs-17 c-star ls-narrower">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                        <span class="col-5 fs-17">리뷰 제목<span class="c-bbb ms-2"><i class="fas fa-images"></i></span></span>
                         <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
                         <span class="col-2 text-center c-666 fw-light">작성일</span>
                     </div>
@@ -302,7 +322,7 @@
                      data-bs-parent="#thisReview">
                     <div class="accordion-body bb-1">
                         <div class="col-5 d-flex flex-column ms-13">
-                            <img src="../../../static/image/flower/vase3-2.jpg" alt="dummy" class="col-10">
+                            <img src="../../../static/image/flower/vase3-2.jpg" alt="dummy" class="col-9">
                             <div class="my-4">
                                 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
                             </div>
@@ -315,8 +335,14 @@
                     <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
                          data-bs-toggle="collapse" data-bs-target="#thisReviewContent2"
                          aria-expanded="false" aria-controls="thisReviewContent2">
-                        <span class="col-2 fs-17">별점</span>
-                        <span class="col-5 fs-17">리뷰 제목</span>
+                        <span class="col-2 fs-17 c-star ls-narrower">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                        <span class="col-5 fs-17">리뷰 제목<span class="c-bbb ms-2"><i class="fas fa-images"></i></span></span>
                         <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
                         <span class="col-2 text-center c-666 fw-light">작성일</span>
                     </div>
@@ -325,7 +351,7 @@
                      data-bs-parent="#thisReview">
                     <div class="accordion-body bb-1">
                         <div class="col-5 d-flex flex-column ms-13">
-                            <img src="../../../static/image/flower/flower2.jpg" alt="dummy" class="col-10">
+                            <img src="../../../static/image/flower/flower2.jpg" alt="dummy" class="col-9">
                             <div class="my-4">
                                 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
                             </div>
