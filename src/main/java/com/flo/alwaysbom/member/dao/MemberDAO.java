@@ -39,4 +39,10 @@ public class MemberDAO{
     public void updateMember(MemberVO memberVO) throws Exception {
         sessionTemplate.update("member.updateMember", memberVO);
     }
+
+    //회원 탈퇴
+    public void deleteMember(MemberVO memberVO) throws Exception {
+        sessionTemplate.delete("member.deleteMember", memberVO);
+
+    }
 }

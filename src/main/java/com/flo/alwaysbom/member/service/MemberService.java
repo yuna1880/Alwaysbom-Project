@@ -14,15 +14,18 @@ public class MemberService {
 
     private final MemberDAO dao;
 
+    //회원가입
     public void insertMember(MemberVO memberVO) {
 
         dao.insertMember(memberVO);
     }
 
+    //로그인
     public MemberVO login(MemberVO memberVO) throws Exception {
         return dao.login(memberVO);
     }
 
+    //로그아웃
     public void logout(HttpSession session, Model model) {
         session.invalidate();
         model.addAttribute("member", null);
@@ -38,6 +41,10 @@ public class MemberService {
     //회원 정보 수정
     public void updateMember(MemberVO memberVO) throws Exception {
         dao.updateMember(memberVO);
+    }
 
+    //회원 탈퇴
+    public void deleteMember(MemberVO memberVO) throws Exception {
+        dao.deleteMember(memberVO);
     }
 }
