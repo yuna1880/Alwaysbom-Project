@@ -10,8 +10,8 @@
         <title>정기구독 상품 수정</title>
     </c:if>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="/static/css/item/b_addForm.css">
-    <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="../../../static/css/item/b_addForm.css">
+    <script src="../../../static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
@@ -21,14 +21,14 @@
     <!-- 브레드크럼 (유저 이동경로) -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-xxl-5">
-            <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
-            <li class="breadcrumb-item"><a href="/admin/subs">정기구독 관리</a></li>
+            <li class="breadcrumb-item" onclick="location.href='/admin/main'">관리자 홈</li>
+            <li class="breadcrumb-item" onclick="location.href='/admin/subs'">정기구독 관리</li>
             <c:if test="${empty subsVo}">
                 <li class="breadcrumb-item active" aria-current="page">정기구독 등록</li>
             </c:if>
             <c:if test="${not empty subsVo}">
-                <li class="breadcrumb-item"><a href="/admin/subsList">정기구독 조회</a></li>
-                <li class="breadcrumb-item"><a href="/admin/flower/${subsVo.idx}">${subsVo.name}</a></li>
+                <li class="breadcrumb-item" onclick="location.href='/admin/subsList'">정기구독 조회</li>
+                <li class="breadcrumb-item" disabled>${subsVo.name}</li>
                 <li class="breadcrumb-item active" aria-current="page">상품 수정</li>
             </c:if>
         </ol>
@@ -159,8 +159,8 @@
                         <label for="itemSubheader">상품 개요 (한글 500자 미만)</label>
                         </c:if>
                         <c:if test="${not empty subsVo.summary}">
-                            <textarea class="form-control" name="summary" placeholder="상품 개요(500자 미만)" id="floatingTextarea2" style="height: 120px">${subsVo.summary}</textarea>
-                            <label for="itemSubheader">상품 개요 (한글 500자 미만)</label>
+                        <textarea class="form-control" name="summary" placeholder="상품 개요(500자 미만)" id="floatingTextarea2" style="height: 120px">${subsVo.summary}</textarea>
+                        <label for="itemSubheader">상품 개요 (한글 500자 미만)</label>
                         </c:if>
                     </div>
                 </div>
@@ -276,10 +276,10 @@
         frm.submit();
     }
     function goUpdate(frm) {
-        frm.action = "/admin/updateSubs";
+        frm.action = "/admin/updateSubs/";
         frm.submit();
     }
 </script>
-<script src="/static/js/imageUploader.js"></script>
+<script src="../../../static/js/imageUploader.js"></script>
 </body>
 </html>

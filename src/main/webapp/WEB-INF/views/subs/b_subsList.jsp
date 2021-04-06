@@ -4,34 +4,33 @@
 <head>
     <title>정기구독 상품 조회</title>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="/static/css/item/b_addForm.css">
-    <link rel="stylesheet" href="/static/css/item/list.css">
+    <link rel="stylesheet" href="../../../static/css/item/b_addForm.css">
+    <link rel="stylesheet" href="../../../static/css/item/list.css">
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
 <div id="container" class="mx-auto">
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-8em">
-            <li class="breadcrumb-item"><a href="/admin/main">관리자 홈</a></li>
-            <li class="breadcrumb-item"><a href="/admin/subs">정기구독 관리</a></li>
+            <li class="breadcrumb-item" onclick="location.href='/admin/main'">관리자 홈</li>
+            <li class="breadcrumb-item" onclick="location.href='/admin/subs'">정기구독 관리</li>
             <li class="breadcrumb-item active" aria-current="page">정기구독 상품 조회/수정/삭제</li>
         </ol>
     </nav>
     <div class="subs_list justify-content-center">
+
         <!-- 정기구독 상품 4개 리스트 -->
         <c:forEach var="subsVo" items="${subsList}" varStatus="status">
-
             <c:if test="${empty subsVo}">
                 <h3>판매중인 정기구독 상품이 없습니다.</h3>
             </c:if>
 
             <c:if test="${not empty subsVo}">
-
                 <c:if test="${status.index == 0 || status.index == 2}">
                     <div class="row my-5 align-middle">
                         <div class="col-6">
-                            <!-- 이미지 클릭시, 백오피스 상품 상세페이지로 이동 -->
-                            <a href="/admin/subs/${subsVo.idx}">
+                            <!-- 이미지 클릭시, 수정 페이지로 이동 -->
+                            <a href="/admin/subsUpdateForm/${subsVo.idx}">
                                 <img src="${subsVo.image1}" alt="${subsVo.name}" class="w-100" height="580px"/>
                             </a>
                         </div>
@@ -59,7 +58,7 @@
                             <h5 class="py-3"><span class="badge rounded-pill bg-light text-dark">무료배송</span></h5>
                         </div>
                         <div class="col-6">
-                            <a href="/subs/${subsVo.idx}">
+                            <a href="/admin/subsUpdateForm/${subsVo.idx}">
                                 <img src="${subsVo.image1}" alt="${subsVo.name}" class="w-100" height="580px"/>
                             </a>
                         </div>

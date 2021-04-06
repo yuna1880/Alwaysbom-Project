@@ -20,7 +20,6 @@
         SET     NAME = #{name},
                 SUBHEADER = #{subheader},
                 SUMMARY = #{summary},
-                FSIZE = #{fsize},
                 IMAGE1 = #{image1},
                 IMAGE2 = #{image2},
                 IMAGE3 = #{image3},

@@ -21,7 +21,6 @@ public class BackSubsController {
     private final SubsService subsService;
     private final CloudFileHandler fileHandler;
 
-
     //백오피스 정기구독 이동
     @GetMapping("/admin/subs")
     public String goIndex() {
@@ -46,8 +45,8 @@ public class BackSubsController {
     }
 
     //상품 수정 페이지로 이동
-    @GetMapping("/admin/subsUpdateForm")
-    public String goUpdateForm(Integer idx, Model model) {
+    @GetMapping("/admin/subsUpdateForm/{idx}")
+    public String goUpdateForm(@PathVariable Integer idx, Model model) {
         SubsVo subs = subsService.findByIdx(idx)
                 .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다."));
         model.addAttribute("subsVo",subs);
@@ -55,15 +54,14 @@ public class BackSubsController {
     }
 
     //상품 수정 완료 버튼 클릭시
-    @GetMapping("/admin/updateSubs")
+    @PostMapping("/admin/updateSubs")
     public String updateSubs(SubsVo svo, List<MultipartFile> file) throws IOException {
         svo.setImage1(fileHandler.uploadFile(file.get(0), svo.getImage1(),"subs"));
         svo.setImage2(fileHandler.uploadFile(file.get(1), svo.getImage2(),"subs"));
         svo.setImage3(fileHandler.uploadFile(file.get(2), svo.getImage3(),"subs"));
         Integer idx = subsService.updateSubs(svo);
-        return "redirect:/admin/subs" + idx;
+        return "redirect:/admin/subsList";
     }
-
 
     //정기구독 상품 리스트 조회
     @GetMapping("/admin/subsList")
@@ -80,8 +78,4 @@ public class BackSubsController {
         model.addAttribute("subsVo",subs);
         return "subs/b_subsDetail";
     }
-
-
-
-
 }
