@@ -39,17 +39,15 @@ public class BackFlowerController {
         vo.setImage1(fileHandler.uploadFile(file.get(0), null, "flower"));
         vo.setImage2(fileHandler.uploadFile(file.get(1), null, "flower"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), null, "flower"));
-        System.out.println("vo = " + vo);
         vo = flowerService.addFlower(vo);
         return "redirect:/admin/flower/" + vo.getIdx();
     }
 
     /* 상품 수정페이지로 이동 */
-    @GetMapping("/admin/flowerUpdateForm")
-    public String goUpdateForm(Integer idx, Model model) {
+    @GetMapping("/admin/flowerUpdateForm/{idx}")
+    public String goUpdateForm(@PathVariable Integer idx, Model model) {
         FlowerVo flower = flowerService.findByIdx(idx)
                 .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
-        System.out.println("flowerVo 수정할 때 나오니 : " + flower);
         model.addAttribute("flowerVo", flower);
         return "flower/b_addForm";
     }
@@ -58,8 +56,8 @@ public class BackFlowerController {
     @PostMapping("/admin/updateFlower")
     public String updateFlower(FlowerVo vo, List<MultipartFile> file) throws IOException {
         vo.setImage1(fileHandler.uploadFile(file.get(0), vo.getImage1(), "flower"));
-        vo.setImage1(fileHandler.uploadFile(file.get(1), vo.getImage2(), "flower"));
-        vo.setImage1(fileHandler.uploadFile(file.get(2), vo.getImage3(), "flower"));
+        vo.setImage2(fileHandler.uploadFile(file.get(1), vo.getImage2(), "flower"));
+        vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "flower"));
         Integer idx = flowerService.updateFlower(vo);
         return "redirect:/admin/flower/" + idx;
     }
@@ -67,7 +65,6 @@ public class BackFlowerController {
     /* 꽃다발 상품 리스트 조회 */
     @GetMapping("/admin/flowerList")
     public String findAll(Model model) {
-        System.out.println("findAll() 실행");
         List<FlowerVo> list = flowerService.findAll();
         model.addAttribute("list", list);
         return "flower/b_flowerList";
