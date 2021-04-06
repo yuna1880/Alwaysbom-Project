@@ -154,6 +154,9 @@ input[type=radio]:checked + .btn-show {
 #review-area {
     margin : 4em 0;
 }
+#review-area a, #review-area a:hover {
+    color: #7DAF3B;
+}
 .c-666 {
     color: #666666;
 }
@@ -164,7 +167,7 @@ input[type=radio]:checked + .btn-show {
 }
 .review-category {
     border-bottom: 1px solid #dbdbdb;
-    margin: 2em 0;
+    margin-top: 2em;
 }
 .btn-rev {
     font-size: 20px;
@@ -180,6 +183,20 @@ input[type=radio]:checked + .btn-rev {
 }
 
 
+/* 베스트 리뷰 게시판 */
+.review-row:hover {
+    background-color: #f4f4f4;
+    cursor: pointer;
+}
+.fs-17 {
+    font-size: 17px;
+}
+.bb-1 {
+    border-bottom: 1px solid #dbdbdb;
+}
+.ms-13 {
+    margin-left: 13.5em;
+}
 /* 배송안내 */
 
 

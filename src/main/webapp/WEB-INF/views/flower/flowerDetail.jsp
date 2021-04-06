@@ -131,7 +131,7 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> <!-- 구매옵션 닫기 -->
 
             <!-- price box 그룹 -->
             <div class="price-box-wrap">
@@ -157,14 +157,16 @@
                 </div>
             </div> <!-- price-box-wrap 닫기 -->
 
-            <!-- 총 주문금액 -->
+            <!-- 무료배송일때만 붙는 badge -->
             <div class="d-flex justify-content-end mb-1 mt-3 me-2">
-            <c:if test="${not empty flowerVo.freeDeliveryMessage}">
+                <c:if test="${not empty flowerVo.freeDeliveryMessage}">
                 <span class="badge rounded-pill price-box text-dark fw-500">
                     ${flowerVo.freeDeliveryMessage}
                 </span>
-            </c:if>
+                </c:if>
             </div>
+
+            <!-- 총 주문금액 -->
             <div class="d-flex justify-content-end align-items-baseline me-2 mb-4">
                 <span class="me-3">총 주문금액</span>
                 <span id="totalPrice" class="fw-bold fs-3">
@@ -172,11 +174,11 @@
                 </span>
             </div>
 
-            <!-- 장바구니/결제 버튼 -->
+            <!-- 장바구니/바로구매 버튼 -->
             <div class="d-flex justify-content-center mt-5">
                 <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
 
-            <%--memberId, category, flowerIdx, quantity, letter 임의로 넣어주기--%>
+            <%--memberId, category, flowerIdx, image, fsize 임의로 넣어주기--%>
                 <input type="hidden" name="memberId" value="test@test.com">
                 <input type="hidden" name="category" value="꽃다발">
                 <input type="hidden" name="flowerIdx" value="${flowerVo.idx}">
@@ -192,7 +194,7 @@
     <!-- 상품설명/리뷰/배송안내 Tabs -->
     <div class="d-flex showType-wrap">
         <label class="col-4">
-            <input type="radio" name="showType" class="d-none" checked="">
+            <input type="radio" name="showType" class="d-none" id="showTypeContent" checked="">
             <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#detail-area')">상품설명</span>
         </label>
         <label class="col-4">
@@ -213,36 +215,130 @@
     <!-- 리뷰게시판 -->
     <div id="review-area" class="p-3">
         <!-- 리뷰게시판 타이틀 -->
-        <div class="d-flex justify-content-between align-items-baseline">
+        <div class="d-flex justify-content-between align-items-end">
             <div class="d-flex align-items-baseline">
                 <span class="fs-2 fw-500 py-3 pe-5">리뷰</span>
                 <span class="fs-5 c-666">리뷰 작성 시 200P 적립 (사진 등록 시 300P)</span>
             </div>
-            <span class="fs-5"><a href="#">리뷰 쓰기</a></span>
+            <span class="fs-17"><a href="#" class="fw-500">리뷰 쓰기</a></span>
         </div>
 
         <!-- 리뷰 카테고리 -->
         <div class="d-flex align-items-baseline review-category col-12">
             <label>
-                <input type="radio" name="reviewCategory" class="d-none" checked="">
+                <input type="radio" name="reviewCategory" class="d-none" checked="" onclick="switchCategory('#thisReview', '#bestReview')">
                 <span class="d-block text-center py-3 px-4 btn-rev">꽃다발 베스트 리뷰</span>
             </label>
             <label>
-                <input type="radio" name="reviewCategory" class="d-none">
+                <input type="radio" name="reviewCategory" class="d-none" onclick="switchCategory('#bestReview', '#thisReview')">
                 <span class="d-block text-center py-3 px-4 btn-rev">이 상품의 리뷰</span>
             </label>
         </div>
 
         <!-- 꽃다발 베스트 리뷰 게시판 -->
-        <div class="best-review">
-
+        <div id="bestReview">
+            <div class="review-item">
+                <div class="accordion-header" id="review1">
+                    <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
+                         data-bs-toggle="collapse" data-bs-target="#reviewContent1"
+                         aria-expanded="false" aria-controls="reviewContent1">
+                        <span class="col-2 fs-17">별점</span>
+                        <span class="col-5 fs-17">정말 마음에 들어요!</span>
+                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
+                        <span class="col-2 text-center c-666 fw-light">작성일</span>
+                    </div>
+                </div>
+                <div id="reviewContent1" class="accordion-collapse collapse border-0" aria-labelledby="review1"
+                     data-bs-parent="#bestReview">
+                    <div class="accordion-body bb-1">
+                        <div class="col-5 d-flex flex-column ms-13">
+                        <img src="../../../static/image/flower/flower1.jpg" alt="dummy" class="col-10">
+                        <div class="my-4">
+                            리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-item">
+                <div class="accordion-header" id="review2">
+                    <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
+                         data-bs-toggle="collapse" data-bs-target="#reviewContent2"
+                         aria-expanded="false" aria-controls="reviewContent2">
+                        <span class="col-2 fs-17">별점</span>
+                        <span class="col-5 fs-17">배송이 빨랐어요.</span>
+                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
+                        <span class="col-2 text-center c-666 fw-light">작성일</span>
+                    </div>
+                </div>
+                <div id="reviewContent2" class="accordion-collapse collapse border-0" aria-labelledby="review2"
+                     data-bs-parent="#bestReview">
+                    <div class="accordion-body bb-1">
+                        <div class="col-5 d-flex flex-column ms-13">
+                            <img src="../../../static/image/flower/vase3-1.jpg" alt="dummy" class="col-10">
+                            <div class="my-4">
+                                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- 이 상품의 리뷰 게시판 -->
-        <div class="this-review">
-
+        <div id="thisReview" class="d-none">
+            <div class="review-item">
+                <div class="accordion-header" id="thisReview1">
+                    <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
+                         data-bs-toggle="collapse" data-bs-target="#thisReviewContent1"
+                         aria-expanded="false" aria-controls="thisReviewContent1">
+                        <span class="col-2 fs-17">별점</span>
+                        <span class="col-5 fs-17">리뷰 제목</span>
+                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
+                        <span class="col-2 text-center c-666 fw-light">작성일</span>
+                    </div>
+                </div>
+                <div id="thisReviewContent1" class="accordion-collapse collapse border-0" aria-labelledby="thisReview1"
+                     data-bs-parent="#thisReview">
+                    <div class="accordion-body bb-1">
+                        <div class="col-5 d-flex flex-column ms-13">
+                            <img src="../../../static/image/flower/vase3-2.jpg" alt="dummy" class="col-10">
+                            <div class="my-4">
+                                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-item">
+                <div class="accordion-header" id="thisReview2">
+                    <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
+                         data-bs-toggle="collapse" data-bs-target="#thisReviewContent2"
+                         aria-expanded="false" aria-controls="thisReviewContent2">
+                        <span class="col-2 fs-17">별점</span>
+                        <span class="col-5 fs-17">리뷰 제목</span>
+                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
+                        <span class="col-2 text-center c-666 fw-light">작성일</span>
+                    </div>
+                </div>
+                <div id="thisReviewContent2" class="accordion-collapse collapse border-0" aria-labelledby="thisReview2"
+                     data-bs-parent="#thisReview">
+                    <div class="accordion-body bb-1">
+                        <div class="col-5 d-flex flex-column ms-13">
+                            <img src="../../../static/image/flower/flower2.jpg" alt="dummy" class="col-10">
+                            <div class="my-4">
+                                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+
+
+
+
+    </div> <!-- 리뷰게시판 닫기 -->
 
     <!-- 배송안내 -->
     <div id="delivery-area" class="ps-3 my-4">
@@ -322,8 +418,7 @@
                 [기타] 무통장 결제의 환불은 주문취소요청이 확인된 날짜 기준으로 다음날(휴일 제외)에 일괄적으로 이루어집니다.
             </p>
         </div>
-    </div>
-
+    </div> <!-- 배송안내 닫기 -->
 </form>
 </div> <!-- #container 닫기 -->
 
@@ -471,6 +566,7 @@
         }
     }
 
+    /* 추가옵션 선택시 choice-price-box 를 새로 생성하고 append 해주기  */
     function makeNewPriceBox(pvo) {
         const priceBoxWrap = document.querySelector(".price-box-wrap");
         let newDiv = document.createElement("div");
@@ -577,6 +673,7 @@
             }
         });
 
+        // CartVo 에 있는 메소드 getOption()을 javascript 에서 구현 -> 옵션상품명1 : 3개, 상품명2 : 1개, ... 이런식으로 출력되게
         let optionStr = "";
         for (let i = 0; i < choices.length; i++) {
             optionStr += choices[i].productName + " : " + choices[i].quantity + "개, ";
@@ -604,7 +701,7 @@
         data.name = "data";
         data.value = JSON.stringify(oitemVoList);
 
-        console.log("data.value: " + data.value);
+        // console.log("data.value: " + data.value);
 
         frm.appendChild(data);
         frm.action = "/order/letter";
@@ -625,8 +722,14 @@
             left: 0,
             behavior: 'smooth'
         });
+        document.querySelector('#showTypeContent').checked = true;
     }
 
+    /* 리뷰 카테고리(베스트리뷰/해당 상품리뷰) 탭으로 바꾸기 */
+    function switchCategory(prev, next) {
+        document.querySelector(prev).classList.add('d-none');
+        document.querySelector(next).classList.remove('d-none');
+    }
 </script>
 </body>
 </html>
