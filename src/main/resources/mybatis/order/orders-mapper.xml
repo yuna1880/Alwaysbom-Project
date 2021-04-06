@@ -29,7 +29,7 @@
     <insert id="insertOitem" parameterType="com.flo.alwaysbom.order.vo.OitemVo">
         INSERT INTO OITEM VALUES(NULL, #{ordersIdx}, #{letterContent}, #{name}, #{price},
                                  #{options}, #{image}, #{requestDate},
-                                 #{deliveryStartDate}, #{category}, #{reviewCheck}, #{quantity})
+                                 #{deliveryStartDate}, #{category}, #{reviewCheck}, #{quantity}, #{fsize})
         <selectKey keyProperty="idx" order="AFTER" resultType="int">
             select OITEM_SEQ.currval from dual
         </selectKey>
