@@ -63,8 +63,8 @@ public class BackProductController {
     }
 
     /* 상품 수정페이지로 이동 */
-    @GetMapping("/admin/productUpdateForm")
-    public String goUpdate(Integer idx, Model model) {
+    @GetMapping("/admin/productUpdateForm/{idx}")
+    public String goUpdate(@PathVariable Integer idx, Model model) {
         ProductVo product = productService.findByIdx(idx)
                 .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
         model.addAttribute("productVo", product);

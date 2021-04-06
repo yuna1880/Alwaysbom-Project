@@ -21,10 +21,8 @@
 }
 
 /* 유저 이동경로 */
-#bread-nav {
-    display: flex;
-    font-size: 15px;
-    padding-top: 50px;
+#pt-70 {
+    padding-top: 70px;
 }
 #bread-nav a {
     color: #4D4D4D;
@@ -147,6 +145,7 @@ input[type=radio]:checked + .btn-show {
 
 /* 상품설명 */
 #detail-area {
+    /*height: 2000px;*/
     margin-bottom: 4em;
 }
 
@@ -157,7 +156,6 @@ input[type=radio]:checked + .btn-show {
 .c-666 {
     color: #666666;
 }
-
 /* 리뷰 카테고리(꽃다발 베스트리뷰/이 상품의 리뷰) */
 #review-area {
     margin-bottom: 4em;
@@ -178,8 +176,10 @@ input[type=radio]:checked + .btn-rev {
     color: #030303;
     font-weight: 500;
 }
+.branchBtn {
+    background-color: #eeeeee;
+}
 
-
-/* 배송안내 */
-
-
+.branchBtn:hover {
+    background-color: #f1a417;
+}

@@ -43,7 +43,8 @@
                 onclick="updateStatus(this)">입금확인</button>
         <button type="button"
                 class="btn btn-sm btn-danger px-3 py-2"
-                data-order-idx="${order.idx}">주문취소</button>
+                data-order-idx="${order.idx}"
+                onclick="deleteRow(this)">주문취소</button>
         </c:if>
     </div>
 </li>

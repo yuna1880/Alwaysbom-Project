@@ -1,24 +1,32 @@
 #container {
     padding: 1em 1em 300px 1em;
 }
+
+/* 유저 이동경로 */
 #bread-nav {
     display: flex;
-    font-size: 18px;
+    font-size: 16px;
     padding-top: 20px;
-    margin-bottom: 100px;
 }
-#bread-nav a {
+#bread-nav li {
     color: #4D4D4D;
     text-decoration: none;
 }
-#bread-nav a:hover {
+#bread-nav li:not(:last-child):hover {
     text-decoration: underline;
     color: #4D4D4D;
+    cursor: pointer;
 }
 #bread-nav > ol {
     background-color: #dcdcdc;
-    padding: 0.3em 0.8em;
+    padding: 0.3em 1em;
     border-radius: 10px;
+}
+#bread-nav .active {
+    color: #808080;
+}
+.mt-100 {
+    margin-top: 100px;
 }
 .btn-circle {
     width: 300px;
