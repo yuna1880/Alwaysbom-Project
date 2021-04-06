@@ -80,3 +80,15 @@ body, button, input, select, table, textarea {
 div {
     display: block;
 }
+
+.let_join {
+    color: #0dcaf0;
+}
+.blind {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    margin: -1px;
+    width: 1px;
+    height: 1px;
+}

@@ -16,11 +16,11 @@
                 <nav class="join_us_2nd">
                     <p class="blind">새늘봄 멤버쉽 회원가입을 할 수 있습니다.</p>
                     <p class="let_join">
-                        <b>바로 사용할 수 있는 1,000P</b>
+                        바로 사용할 수 있는 <b>1,000P</b>
                         를 드려요!
                     </p>
                     <div class="d-flex justify-content-center">
-                        <a href="/member_join" class="link email border-dark rounded-3 p-2 col-12 text-center">
+                        <a href="/member_join" class="link email border-dark rounded-3 p-2 col-12 text-center text-decoration-none">
                             이메일 회원가입
                         </a>
                     </div>
@@ -32,7 +32,7 @@
                     </p>
                     <form action="/member_join">
                     <div class="d-flex justify-content-center">
-                    <a href="javascript:kakaoLogin();" class="link kakao border-warning rounded-3 p-2 col-12 text-center">
+                    <a href="javascript:kakaoLogin();" class="link kakao border-warning rounded-3 p-2 col-12 text-center text-decoration-none">
                         카카오로 가입하기
                     </a>
                     </div>
