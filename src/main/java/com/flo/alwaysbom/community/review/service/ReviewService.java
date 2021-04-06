@@ -14,8 +14,14 @@ import java.util.Map;
 public class ReviewService {
     private final ReviewDao reviewDao;
 
-    public List<ReviewDto> allBestReview() {
-        return reviewDao.allBestReview();
+    public List<ReviewDto> allBestReview(String memberId) {
+        List<ReviewDto> reviews = reviewDao.allBestReview();
+        for (ReviewDto review : reviews) {
+            ReviewLikeVo reviewLikeVo = new ReviewLikeVo(null, review.getIdx(), memberId);
+            review.setHasReview(reviewDao.hasReviewLike(reviewLikeVo));
+        }
+
+        return reviews;
     }
 
     public List<ReviewDto> allReview(String category, String tab) {

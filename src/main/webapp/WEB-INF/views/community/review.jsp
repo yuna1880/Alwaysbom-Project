@@ -209,27 +209,32 @@
                                         </c:if>
                                     </div>
                                         <div class="d-flex justify-content-end" id="like">
-                                            <c:if test="${empty likeList}">
-                                                <button class="btn"
-                                                        onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="far fa-thumbs-up text-dark fa-2x"></i>
-                                                </button>
-                                            </c:if>
-                                    <c:forEach var="like" items="${likeList}">
-
-                                        <c:choose>
-                                            <c:when test="${member.id == like.memberId && bestAllList.idx == like.reviewIdx}">
+                                            <c:if test="${!bestAllList.hasReview}">
                                             <button class="btn"
                                                     onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="fas fa-thumbs-up text-dark fa-2x"></i>
                                             </button>
-                                            </c:when>
-                                            <c:when test="${bestAllList.idx != like.reviewIdx || member.id != like.memberId || bestAllList.likeCount == 0}">
-                                                <button class="btn"
-                                                        onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="far fa-thumbs-up text-dark fa-2x"></i>
-                                                </button>
-                                            </c:when>
+                                            </c:if>
+<%--                                            <c:if test="${empty likeList}">--%>
+<%--                                                <button class="btn"--%>
+<%--                                                        onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="far fa-thumbs-up text-dark fa-2x"></i>--%>
+<%--                                                </button>--%>
+<%--                                            </c:if>--%>
+<%--                                    <c:forEach var="like" items="${likeList}">--%>
 
-                                        </c:choose>
-                                    </c:forEach>
+<%--                                        <c:choose>--%>
+<%--                                            <c:when test="${member.id == like.memberId && bestAllList.idx == like.reviewIdx}">--%>
+<%--                                            <button class="btn"--%>
+<%--                                                    onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="fas fa-thumbs-up text-dark fa-2x"></i>--%>
+<%--                                            </button>--%>
+<%--                                            </c:when>--%>
+<%--                                            <c:when test="${bestAllList.idx != like.reviewIdx || member.id != like.memberId || bestAllList.likeCount == 0}">--%>
+<%--                                                <button class="btn"--%>
+<%--                                                        onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="far fa-thumbs-up text-dark fa-2x"></i>--%>
+<%--                                                </button>--%>
+<%--                                            </c:when>--%>
+
+<%--                                        </c:choose>--%>
+<%--                                    </c:forEach>--%>
                                         </div>
                                     <div class="d-flex justify-content-center">
                                         <c:if test="${member.id == bestAllList.memberId || member.id == 'xzllxz456@naver.com'}">

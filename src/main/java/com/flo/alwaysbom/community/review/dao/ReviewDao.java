@@ -106,4 +106,8 @@ public class ReviewDao {
     }
 
 
+    public boolean hasReviewLike(ReviewLikeVo reviewLikeVo) {
+        int count = sqlSessionTemplate.selectOne("reviewLike.hasReview", reviewLikeVo);
+        return count > 0;
+    }
 }

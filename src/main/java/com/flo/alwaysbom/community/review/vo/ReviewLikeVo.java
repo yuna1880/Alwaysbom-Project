@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class ReviewLikeVo {
-    private String idx;
-    private String reviewIdx;
+    private Integer idx;
+    private Integer reviewIdx;
     private String memberId;
 }

@@ -4,12 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.service.ReviewService;
 import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
+import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +23,14 @@ public class ReviewController {
     private final ReviewService service;
 
     @GetMapping("/community/goReview")
-    public String goReview(Model model){
-        List<ReviewDto> bestRList = service.allBestReview();
+    public String goReview(@SessionAttribute(required = false) MemberVO member, Model model){
+        if (member == null) {
+            // 없을 때 임시
+            member = new MemberVO();
+            member.setId("test@test.com");
+        }
+
+        List<ReviewDto> bestRList = service.allBestReview(member.getId());
         model.addAttribute("bestRList", bestRList);
         int oldListCnt = service.oldListCnt();
         model.addAttribute("oldListCnt", oldListCnt);
