@@ -6,6 +6,7 @@
     <title>이벤트</title>
     <%@ include file="../main/import.jspf"%>
     <link rel="stylesheet" href="../../../static/css/item/list.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -18,7 +19,7 @@
     <div class="banner-text w-1280 position-absolute mx-auto">
         <div class="banner-title fw500 mb-4 ms-2">새늘봄 이벤트</div>
         <div class="banner-summary fw-light ms-2">
-            꽃과 함께하는 시간을 더 행복하게<br>만들어 줄 이벤트를 만나보세요.
+            인생을 꽃같이<br>만들어 줄 이벤트를 만나보세요.
         </div>
     </div>
 </div>
@@ -28,7 +29,7 @@
 
     <!-- Best 소품 6개 (인기순) -->
     <div class="p-subtitle fs-4 d-flex align-items-center">
-        지금 가장 사랑받는 소품들이에요!
+        현제 진행중인 이벤트에요!
     </div>
     <div class="row row-cols-2">
         <c:forEach var="productVo" items="${all}">
