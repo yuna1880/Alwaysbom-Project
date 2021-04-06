@@ -19,9 +19,9 @@
     <!-- 메뉴 영역 -->
     <div class="col-12 d-flex justify-content-between align-items-center p-3">
         <!-- 라디오 버튼(전체/사용/미사용) -->
-        <div class="col-3 d-flex btn-group" role="group">
+        <div id="statusRadio" class="col-3 d-flex btn-group" role="group">
             <label class="col-4">
-                <input type="radio" name="status" class="d-none btn-check" onchange="searchCoupon()" checked>
+                <input type="radio" name="status" class="d-none btn-check" value onchange="searchCoupon()" checked>
                 <span class="d-block text-center p-2 btn btn-outline-secondary">전체</span>
             </label>
             <label class="col-4">
@@ -36,8 +36,11 @@
 
         <!-- 아이디 검색 -->
         <div class="col-3 d-flex align-items-center">
-            <input type="text" class="rounded-3 border-1 p-2" aria-label="searchId" name="searchId" id="searchId">
-            <button class="border-1 rounded-3 btn btn-secondary p-2 flex-grow-1 shadow-none">
+            <input type="text" class="rounded-3 border-1 p-2" aria-label="searchId"
+                   name="searchId" id="searchId"
+                   onkeypress="if(event.keyCode === 13) searchCoupon(null, this.value)">
+            <button class="border-1 rounded-3 btn btn-secondary p-2 flex-grow-1 shadow-none"
+                    onclick="searchCoupon()">
                 <i class="fa fa-search"></i>
             </button>
         </div>
@@ -141,9 +144,9 @@
         static appendListHeader() {
             this.$area.innerHTML =
                 '<li class="col-12 d-flex text-center bg-secondary text-white">' +
-                '   <div class="col-2 p-2 py-3 border">쿠폰번호</div>' +
+                '   <div class="col-1 p-2 py-3 border">쿠폰번호</div>' +
                 '   <div class="col-2 p-2 py-3 border">이름</div>' +
-                '   <div class="col-2 p-2 py-3 border">유저</div>' +
+                '   <div class="col-3 p-2 py-3 border">유저</div>' +
                 '   <div class="col-1 p-2 py-3 border">사용여부</div>' +
                 '   <div class="col-2 p-2 py-3 border">발행일</div>' +
                 '   <div class="col-1 p-2 py-3 border">포인트</div>' +
@@ -156,11 +159,15 @@
                 '<div class="text-center">데이터가 존재하지 않습니다</div>';
         }
 
-        static async list(status) {
-            if (status === undefined) status = "";
-            console.log(status);
+        static async list(status, memberId) {
+            const params = {
+                status: status,
+                memberId: memberId
+            }
 
-            let response = await fetch("/api/coupons?status=" + status);
+            const queryString = new URLSearchParams(params).toString();
+
+            let response = await fetch("/api/coupons?" + queryString);
             let result = await response.json();
             if (Coupon.appendHeader(result.length)) {
                 Coupon.coupons = result.map(res => {
@@ -176,7 +183,7 @@
             this.$li.className = "col-12 d-flex text-center";
 
             this.$rowNum = document.createElement("div");
-            this.$rowNum.className = "col-2 p-2 border border-start-0";
+            this.$rowNum.className = "col-1 p-2 border border-start-0";
             this.$rowNum.innerText = this.idx;
 
             this.$name = document.createElement("div");
@@ -184,7 +191,7 @@
             this.$name.innerText = this.name;
 
             this.$memberId = document.createElement("div");
-            this.$memberId.className = "col-2 p-2 border";
+            this.$memberId.className = "col-3 p-2 border";
             this.$memberId.innerText = this.memberId;
 
             this.$isUsed = document.createElement("div");
@@ -269,8 +276,15 @@
 
     searchCoupon();
 
-    function searchCoupon(type) {
-        Coupon.list(type).then(list => {
+    function searchCoupon(type, memberId) {
+        if (!type) {
+            type = document.querySelector("#statusRadio input[type=radio]:checked").value;
+        }
+        if (!memberId) {
+            memberId = document.querySelector("#searchId").value;
+        }
+
+        Coupon.list(type, memberId).then(list => {
             list.forEach(coupon => coupon.appendListItem());
         })
     }
