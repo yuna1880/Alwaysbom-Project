@@ -63,16 +63,16 @@
                     <img src="${flowerVo.image1}" alt="썸네일1" class="w-100">
                 </button>
                 <c:if test="${not empty flowerVo.image2}">
-                <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="1"
-                        class="col-4 p-0 ps-2 pe-2 border-0 bg-transparent m-0" aria-label="Slide 2">
-                    <img src="${flowerVo.image2}" alt="썸네일2" class="w-100">
-                </button>
+                    <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="1"
+                            class="col-4 p-0 ps-2 pe-2 border-0 bg-transparent m-0" aria-label="Slide 2">
+                        <img src="${flowerVo.image2}" alt="썸네일2" class="w-100">
+                    </button>
                 </c:if>
                 <c:if test="${not empty flowerVo.image3}">
-                <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="2"
-                        class="col-4 p-0 ps-3 border-0 bg-transparent m-0" aria-label="Slide 3">
-                    <img src="${flowerVo.image3}" alt="썸네일3" class="w-100">
-                </button>
+                    <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="2"
+                            class="col-4 p-0 ps-3 border-0 bg-transparent m-0" aria-label="Slide 3">
+                        <img src="${flowerVo.image3}" alt="썸네일3" class="w-100">
+                    </button>
                 </c:if>
             </div>
         </div> <!-- 사진 썸네일 닫기 -->
@@ -389,8 +389,6 @@
                 </div>
             </div>
         </div>
-
-
 
 
     </div> <!-- 리뷰게시판 닫기 -->

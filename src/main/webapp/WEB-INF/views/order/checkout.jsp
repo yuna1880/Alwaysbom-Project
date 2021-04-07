@@ -47,8 +47,7 @@
                 <li class="step"><span class="order"><b>3</b><span class="desc">결제</span></span></li>
             </ol>
         </div>
-
-        <form name="frm" method="post">
+        <form name="frm" method="post" onSubmit="return checkForm(this.form)">
             <div class="checkout_content">
                 <div class="step" id="inputAddress">
                     <div class="infomation_box">
@@ -130,7 +129,8 @@
                                                 <span class="th">우편번호</span>
                                                 <div class="td">
                                                     <div class="find_address">
-                                                        <input type="text" maxlength="128" class="find" id="receiving_postcode" autocomplete="off" name="receiverZipcode" placeholder="주소 검색" readonly="" value="" onclick="showPostcode()">
+                                                        <input type="text" maxlength="128" class="find" id="receiving_postcode" autocomplete="off" name="receiverZipcode"
+                                                               id="find_addr" placeholder="주소 검색" readonly value="" onclick="showPostcode()">
                                                         <span class="empty"></span>
                                                         <button type="button" class="btn btn-light btn-sm" onclick="showPostcode()">찾기</button>
                                                         <%--  <button type="button" class="btn btn-outline-secondary">찾기</button> --%>
@@ -274,7 +274,6 @@
                                             </table>
                                         </div>
                                     </div>
-
                                     <!-- 여기 -->
                                 </div>
                             </div>
@@ -282,7 +281,7 @@
                     </div>
                 </div>
                 <div class="complete">
-                    <button type="button" class="info_btn next" id="purchase_submit" onclick="submitForm(this.form)">
+                    <button type="submit" class="info_btn next" id="purchase_submit" onclick="submitForm(this.form)">
                         <span>결제하기</span>
                     </button>
                     <button type="button" class="info_btn back" onclick="history.back()">
@@ -363,9 +362,6 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
 <%@ include file="../main/footer.jspf" %>
 <script>
@@ -451,14 +447,68 @@
         document.getElementById('close-button').click();
 
     }
+    function checkForm() {
+
+        let name = document.querySelector("#receiving_name").value;
+        let phone1 = document.querySelector("#receiving_phone2").value;
+        let phone2 = document.querySelector("#receiving_phone3").value;
+        let addr = document.querySelector("#find_addr").value;
+        let addr1 = document.querySelector("#receiving_address_1").value;
+        let addr2 = document.querySelector("#receiving_address_2").value;
+
+        alert("name : " + name);
+
+        if (name === "") {
+            alert("수령인 이름을 입력해주세요.");
+            return false;
+        }
+        if (phone1 === "" || phone2 === "") {
+            alert("수령인 연락처를 입력해주세요.");
+            return false;
+        }
+        if (addr === "" || addr1 === "" || addr2 === "") {
+            alert("수령인 주소를 입력해주세요.");
+            return false;
+        }
+    }
+
     function submitForm(frm) {
+
          let f = document.frm;
          let phone = f.receiver_phone1.value + '-' + f.receiver_phone2.value + '-' + f.receiver_phone3.value;
          document.getElementById('receiver_phone').value = phone;
-        //컨트롤러 이동
+
+
+        let name = document.querySelector("#receiving_name").value;
+        let phone1 = document.querySelector("#receiving_phone2").value;
+        let phone2 = document.querySelector("#receiving_phone3").value;
+        let addr = document.querySelector("#find_addr").value;
+        let addr1 = document.querySelector("#receiving_address_1").value;
+        let addr2 = document.querySelector("#receiving_address_2").value;
+
+        alert("여기여기 이름 : " + name);
+
+        if (name === "") {
+            alert("수령인 이름을 입력해주세요.");
+            return false;
+        }
+        if (phone1 === "" || phone2 === "") {
+            alert("수령인 연락처를 입력해주세요.");
+            return false;
+        }
+        if (addr === "" || addr1 === "" || addr2 === "") {
+            alert("수령인 주소를 입력해주세요.");
+            return false;
+        }
+
+
+         //컨트롤러 이동
         f.action = "/order/payment";
         f.submit();
     }
+
+
+
 </script>
 </body>
 </html>
