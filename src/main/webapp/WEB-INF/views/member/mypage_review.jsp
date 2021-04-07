@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>회원 등급</title>
+    <title>상품 후기</title>
     <%@ include file="../main/import.jspf" %>
 </head>
 <body>
@@ -15,8 +15,7 @@
                 <div class="col-12 border-info d-flex justify-content-center p-4">
                     <div class="col-12">
                         <div class="d-flex text-secondary">
-                            <span class="h5 fw-bold name-color">${sessionScope.member.name}</span>
-                            <span>님의 회원등급</span>
+                            <span class="h5">상품 후기</span>
                         </div>
                         <hr class="hr1"/>
                     </div>
