@@ -23,16 +23,12 @@
         response.json().then(result => {
             console.log(result);
 
-            const labels = result.map((v, i) => v.month);
-            const datas = result.map((v, i) => v.subsCount);
-
             const data = {
-                labels: labels,
                 datasets: [{
                     label: "월별 구독 수 추이",
                     backgroundColor: '#ff6384',
                     border: 'none',
-                    data: datas
+                    data: result
                 }]
             }
 
@@ -45,6 +41,10 @@
                             display: true,
                             text: '월별 구독 수 추이'
                         }
+                    },
+                    parsing: {
+                        xAxisKey: 'month',
+                        yAxisKey: 'subsCount'
                     }
                 }
             }
@@ -54,34 +54,6 @@
 
         })
     })
-
-    // const labels = Array.from({length: 6}, (v, i) => (((new Date().getMonth() + 1) - (5 - i) + 12 - 1) % 12 + 1) + "월")
-    //
-    // const data = {
-    //     labels: labels,
-    //     datasets: [{
-    //         label: "월별 구독 수 추이",
-    //         backgroundColor: '#ff6384',
-    //         border: 'none',
-    //         data: [1, 10, 5, 2, 20, 30]
-    //     }]
-    // }
-    //
-    // const config = {
-    //     type: 'bar',
-    //     data,
-    //     options: {
-    //         plugins: {
-    //             title: {
-    //                 display: true,
-    //                 text: '월별 구독 수 추이'
-    //             }
-    //         }
-    //     }
-    // }
-    //
-    // const ctxMonth = document.querySelector("#subsByMonth");
-    // const subsByMonth = new Chart(ctxMonth, config);
 
     const sizeLabels = ['Small', 'Medium', 'Large'];
     const sizeData = {
