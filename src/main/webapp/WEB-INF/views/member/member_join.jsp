@@ -103,40 +103,6 @@
             }, 300);
         });
     });
-
-    $(function(){
-        let timer;
-        // 아이디 중복체크
-        document.querySelector("#phone").addEventListener("keyup", function() {
-            let phoneString = this.value;
-            let warning = this.nextElementSibling;
-
-            clearTimeout(timer);
-            timer = setTimeout(function() {
-                $.ajax({
-                    url: "/phoneCheck",
-                    method: "get",
-                    data: {
-                        id: phoneString
-                    },
-                    dataType: "json",
-                    success: function(hasPhone) {
-                        if (hasPhone) {
-                            // 중복
-                            // 경고메시지 표시(classList.remove("hidden"))
-                            warning.classList.remove("hidden");
-                            document.querySelector("#phone").classList.add("red-border");
-
-                        } else {
-                            // 중복없음
-                            warning.classList.add("hidden");
-                            document.querySelector("#phone").classList.remove("red-border");
-                        }
-                    }
-                });
-            }, 300);
-        });
-    });
 </script>
 </head>
 <body>
@@ -164,8 +130,10 @@
     <input type="text" name="name" value="${kakao_name}" class="col-12 mb-4" maxlength="255" placeholder="이름을 입력해주세요." />
 
     <label class="my-2">휴대폰번호 입력</label>
+    <div class="d-flex flex-column mb-4">
         <input type="text" name="phone" id="phone" class="col-12 mb-4" maxlength="15" minlength="9" placeholder="예) 010-1234-5678" title="전화번호를 입력하세요"/>
         <div class="hidden warning">※ 사용중인 휴대폰 번호가 있습니다.</div>
+    </div>
 
     <label class="my-2">생년월일</label>
     <input type="date" name="birth" id="birth" class="col-12 mb-4" placeholder="달력에서 선택해주세요."/>

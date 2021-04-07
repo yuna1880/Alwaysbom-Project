@@ -57,13 +57,6 @@ public class MemberController {
         return cnt;
     }
 
-    //휴대폰 번호 중복 확인
-    @GetMapping("/phoneCheck")
-    public @ResponseBody int phoneCheck(@RequestParam("phone")String phone) {
-        int cnt=memberService.phoneCheck(phone);
-        return cnt;
-    }
-
     //로그인(post)
     @PostMapping("/loginMember")
     public String loginProc(@RequestParam String id, @RequestParam String pw, Model model) throws Exception {
