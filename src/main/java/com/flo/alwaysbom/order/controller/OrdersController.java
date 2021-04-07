@@ -50,7 +50,6 @@ public class OrdersController {
         ObjectMapper mapper = new ObjectMapper();
         CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Letter.class);
         List<Letter> list = mapper.readValue(data, collectionType);
-
         System.out.println("oitemList : " + olist);
 
         //편지 내용들 출력해보고, 각 인덱스에 맞는 편지내용 저장!
@@ -61,7 +60,6 @@ public class OrdersController {
 
         //편지 내용 저장 후 oitemList
         System.out.println("oitemList : " + olist);
-
         return "order/checkout";
     }
 
@@ -72,13 +70,6 @@ public class OrdersController {
         //세션값 가져오기
         System.out.println("orderVo = " + ordersVo); //orderList
         System.out.println("OitemList = " + olist); //oitemList
-
-//        //id 임시 설정
-//        mvo = MemberVO.builder()
-//                .id("yuna1880")
-//                .grade("자스민")
-//                .point(1000)
-//                .build();
 
         model.addAttribute("member", member);
         model.addAttribute("oitemList", olist);
@@ -123,7 +114,6 @@ public class OrdersController {
         if (ordersVo.isSaveAddress()) {
             ordersService.saveDelivery(ordersVo);
         }
-
         //mail.sendMail("xzllxz456@naver.com");
 
         model.addAttribute("oitemList", olist);
@@ -149,6 +139,4 @@ public class OrdersController {
         model.addAttribute("ordersList",ordersList);
         return "/order/orderList";
     }
-
-
 }

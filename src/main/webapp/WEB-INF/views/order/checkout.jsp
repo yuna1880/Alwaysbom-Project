@@ -33,6 +33,8 @@
                 });
             });
         });
+
+
     </script>
 </head>
 <body>
@@ -47,7 +49,7 @@
                 <li class="step"><span class="order"><b>3</b><span class="desc">결제</span></span></li>
             </ol>
         </div>
-        <form name="frm" method="post" onSubmit="return checkForm(this.form)">
+        <form name="frm" method="post" action="/order/payment" onsubmit="return submitForm()">
             <div class="checkout_content">
                 <div class="step" id="inputAddress">
                     <div class="infomation_box">
@@ -105,7 +107,7 @@
                                                 <span class="th">수령인 연락처</span>
                                                 <div class="td_phone">
                                                     <div>
-                                                        <select id="receiving_phone1" name="receiver_phone1">
+                                                        <select id="receiving_phone1" name="receiverPhone1">
                                                             <option value="010">010</option>
                                                             <option value="011">011</option>
                                                             <option value="016">016</option>
@@ -116,11 +118,11 @@
                                                     </div>
                                                     <span class="d">-</span>
                                                     <div>
-                                                        <input type="phone" maxlength="4" id="receiving_phone2" name="receiver_phone2" value="" autocomplete="off">
+                                                        <input type="phone" maxlength="4" id="receiving_phone2" name="receiverPhone2" value="" autocomplete="off" pattern="[0-9]{4}">
                                                     </div>
                                                     <span class="d">-</span>
                                                     <div>
-                                                        <input type="phone" maxlength="4" class="form-control form-control-small" id="receiving_phone3" name="receiver_phone3" value="" autocomplete="off">
+                                                        <input type="phone" maxlength="4" class="form-control form-control-small" id="receiving_phone3" name="receiverPhone3" value="" autocomplete="off" pattern="[0-9]{4}">
                                                         <input type="hidden" id="receiver_phone" name="receiverPhone">
                                                     </div>
                                                 </div>
@@ -260,11 +262,11 @@
                                                                 </div>
                                                                 <span class="d">-</span>
                                                                 <div id="id_form-0-phone_2_form-group">
-                                                                    <input type="text" maxlength="4" id="receiving_phone2_gift" name="receiving_phone2_gift" value="5847" autocomplete="off">
+                                                                    <input type="text" maxlength="4" id="receiving_phone2_gift" name="receiving_phone2_gift" value="" pattern="[0-9]{4}" autocomplete="off">
                                                                 </div>
                                                                 <span class="d">-</span>
                                                                 <div>
-                                                                    <input type="text" maxlength="4" class="form-control form-control-small" id="receiving_phone3_gift" name="receiving_phone3_gift" value="1880" autocomplete="off">
+                                                                    <input type="text" maxlength="4" class="form-control form-control-small" id="receiving_phone3_gift" name="receiving_phone3_gift" value="" pattern="[0-9]{4}" autocomplete="off">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -281,7 +283,7 @@
                     </div>
                 </div>
                 <div class="complete">
-                    <button type="submit" class="info_btn next" id="purchase_submit" onclick="submitForm(this.form)">
+                    <button type="submit" class="info_btn next" id="purchase_submit">
                         <span>결제하기</span>
                     </button>
                     <button type="button" class="info_btn back" onclick="history.back()">
@@ -447,68 +449,26 @@
         document.getElementById('close-button').click();
 
     }
-    function checkForm() {
+    function submitForm() {
 
-        let name = document.querySelector("#receiving_name").value;
-        let phone1 = document.querySelector("#receiving_phone2").value;
-        let phone2 = document.querySelector("#receiving_phone3").value;
-        let addr = document.querySelector("#find_addr").value;
-        let addr1 = document.querySelector("#receiving_address_1").value;
-        let addr2 = document.querySelector("#receiving_address_2").value;
-
-        alert("name : " + name);
-
-        if (name === "") {
+        if (!document.frm.receiverName.value) {
             alert("수령인 이름을 입력해주세요.");
+            frm.receiverName.focus();
             return false;
-        }
-        if (phone1 === "" || phone2 === "") {
+        } else if (!document.frm.receiverPhone1.value || !document.frm.receiverPhone2.value || !document.frm.receiverPhone3.value) {
             alert("수령인 연락처를 입력해주세요.");
+            frm.receiverPhone2.focus();
             return false;
-        }
-        if (addr === "" || addr1 === "" || addr2 === "") {
+        } else if (!document.frm.receiverAddrBase.value || !document.frm.receiverAddrDetail.value) {
             alert("수령인 주소를 입력해주세요.");
+            frm.receiverAddrBase.focus();
             return false;
+        } else {
+            let f = document.frm;
+                let phone = f.receiverPhone1.value + '-' + f.receiverPhone2.value + '-' + f.receiverPhone3.value;
+                document.querySelector('#receiver_phone').value = phone;
         }
     }
-
-    function submitForm(frm) {
-
-         let f = document.frm;
-         let phone = f.receiver_phone1.value + '-' + f.receiver_phone2.value + '-' + f.receiver_phone3.value;
-         document.getElementById('receiver_phone').value = phone;
-
-
-        let name = document.querySelector("#receiving_name").value;
-        let phone1 = document.querySelector("#receiving_phone2").value;
-        let phone2 = document.querySelector("#receiving_phone3").value;
-        let addr = document.querySelector("#find_addr").value;
-        let addr1 = document.querySelector("#receiving_address_1").value;
-        let addr2 = document.querySelector("#receiving_address_2").value;
-
-        alert("여기여기 이름 : " + name);
-
-        if (name === "") {
-            alert("수령인 이름을 입력해주세요.");
-            return false;
-        }
-        if (phone1 === "" || phone2 === "") {
-            alert("수령인 연락처를 입력해주세요.");
-            return false;
-        }
-        if (addr === "" || addr1 === "" || addr2 === "") {
-            alert("수령인 주소를 입력해주세요.");
-            return false;
-        }
-
-
-         //컨트롤러 이동
-        f.action = "/order/payment";
-        f.submit();
-    }
-
-
-
 </script>
 </body>
 </html>
