@@ -46,7 +46,7 @@ public class MemberController {
     }
 
     //로그인(get)
-    @GetMapping("/memberLogin")
+    @GetMapping("/login")
     public String memberLogin() {
         return "member/login";
     }
@@ -59,7 +59,7 @@ public class MemberController {
     }
 
     //로그인(post)
-    @PostMapping("/loginMember")
+    @PostMapping("/login")
     public String loginProc(@RequestParam String id, @RequestParam String pw, Model model) throws Exception {
         //System.out.println("아이디 : " + id + ", 패스워드 : " + pw);
 
@@ -101,12 +101,6 @@ public class MemberController {
         model.addAttribute("id", memberService.found_id(response, phone));
         return "/member/found_id";
     }
-
-//    //찾은 아이디
-//    @GetMapping("/foundId")
-//    public String foundId() {
-//        return "member/found_id";
-//    }
 
     //비밀번호 찾기
     @GetMapping("/findPwd")

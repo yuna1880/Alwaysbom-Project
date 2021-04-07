@@ -19,6 +19,10 @@ public class MemberDAO{
 
         sessionTemplate.insert("member.insertMember",memberVO);
     }
+    // 로그인 검사
+    public MemberVO login(String id) throws Exception{
+        return sessionTemplate.selectOne("member.login", id);
+    }
 
     //로그인
     public MemberVO login(MemberVO memberVO) throws Exception {
