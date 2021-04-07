@@ -51,7 +51,8 @@ public class BackQuestionController {
         Integer mailCheck = servise.mailCheckIdx(vo.getIdx());
         System.out.println(mailCheck);
         if(mailCheck == 1){
-            mail.sendMail("xzllxz456@naver.com");
+            mail.sendMail("xzllxz456@naver.com", "<h3>안녕하세요</h3>\n <h4>안녕하세요 새늘봄입니다 :) \n 문의하신 내용에 답변을 하였습니다.</h4>\n <h4>꽃같은 하루 되시길 바랍니다.</h4> \n",
+                    "안녕하세요 새늘봄입니다 :) 문의하신 내용에 답변을 하였습니다.");
         }
         return true;
     }

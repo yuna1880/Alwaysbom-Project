@@ -50,7 +50,6 @@ public class OrdersController {
         ObjectMapper mapper = new ObjectMapper();
         CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Letter.class);
         List<Letter> list = mapper.readValue(data, collectionType);
-
         System.out.println("oitemList : " + olist);
 
         //편지 내용들 출력해보고, 각 인덱스에 맞는 편지내용 저장!
@@ -61,7 +60,6 @@ public class OrdersController {
 
         //편지 내용 저장 후 oitemList
         System.out.println("oitemList : " + olist);
-
         return "order/checkout";
     }
 
@@ -72,13 +70,6 @@ public class OrdersController {
         //세션값 가져오기
         System.out.println("orderVo = " + ordersVo); //orderList
         System.out.println("OitemList = " + olist); //oitemList
-
-//        //id 임시 설정
-//        mvo = MemberVO.builder()
-//                .id("yuna1880")
-//                .grade("자스민")
-//                .point(1000)
-//                .build();
 
         model.addAttribute("member", member);
         model.addAttribute("oitemList", olist);
@@ -123,7 +114,6 @@ public class OrdersController {
         if (ordersVo.isSaveAddress()) {
             ordersService.saveDelivery(ordersVo);
         }
-
         //mail.sendMail("xzllxz456@naver.com");
 
         model.addAttribute("oitemList", olist);
@@ -148,51 +138,5 @@ public class OrdersController {
         model.addAttribute("searchOption", searchOption);
         model.addAttribute("ordersList",ordersList);
         return "/order/orderList";
-    }
-
-    //=========================================================================================================================================================
-
-    //주문정보 + 주문한 상품내역 조회 (관리자용)
-    @GetMapping("/admin/orders")
-    public String findOrder(@SessionAttribute(required = false) MemberVO member, Model model) {
-        if (member == null) {
-            member = MemberVO.builder().id("yuna1880").build();
-        }
-
-        OrdersSearchOptionDto searchOption = OrdersSearchOptionDto.builder()
-                //.memberId(member.getId()) // admin 일땐 이게 없어야 함.
-                .status("입금대기")
-                .build();
-
-        List<OrdersVo> ordersList = ordersService.findBySearchOption(searchOption);
-        //주문에 대한 총 개수 구하기
-        OrdersStatusCount statusCount = ordersService.findStatusCount();
-
-        model.addAttribute("statusCount", statusCount);
-        model.addAttribute("searchOption", searchOption);
-        model.addAttribute("ordersList",ordersList);
-        return "/order/b_orderList";
-    }
-
-    //해당 status에 대한 주문정보 찾기 (만들어둔 DTO이용)
-    @GetMapping("/admin/api/orders")
-    public String findOrdersByStatus(OrdersSearchOptionDto searchOption, Model model) {
-        //라디오 버튼에서 선택한 ststus 값으로 주문 찾기
-        List<OrdersVo> orders = ordersService.findBySearchOption(searchOption);
-        model.addAttribute("searchOption", searchOption);
-        model.addAttribute("ordersList", orders);
-        return "/order/b_orderListContent";
-    }
-
-    //해당 인덱스의 상태값 update
-    @RequestMapping("/admin/api/orders/{idx}/status")
-    @ResponseBody
-    public boolean updateStatus(@RequestBody String status, @PathVariable Integer idx) {
-        OrdersVo orders = OrdersVo.builder()
-                .idx(idx)
-                .status(status)
-                .build();
-
-        return ordersService.updateStatus(orders);
     }
 }

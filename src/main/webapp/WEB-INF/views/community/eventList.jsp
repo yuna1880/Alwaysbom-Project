@@ -6,6 +6,7 @@
     <title>이벤트</title>
     <%@ include file="../main/import.jspf"%>
     <link rel="stylesheet" href="../../../static/css/item/list.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -18,120 +19,38 @@
     <div class="banner-text w-1280 position-absolute mx-auto">
         <div class="banner-title fw500 mb-4 ms-2">새늘봄 이벤트</div>
         <div class="banner-summary fw-light ms-2">
-            꽃과 함께하는 시간을 더 행복하게<br>만들어 줄 이벤트를 만나보세요.
+            인생을 꽃같이<br>만들어 줄 이벤트를 만나보세요.
         </div>
     </div>
 </div>
 
 <!-- 컨테이너 -->
 <div id="container" class="mx-auto">
-
-    <!-- Best 소품 6개 (인기순) -->
     <div class="p-subtitle fs-4 d-flex align-items-center">
-        지금 가장 사랑받는 소품들이에요!
+        현제 진행중인 이벤트에요!
     </div>
-    <div class="row row-cols-2">
-        <c:forEach var="productVo" items="${all}">
-        <c:if test="${not empty productVo}">
+    <div class="row row-cols-3">
+        <c:forEach var="event" items="${eventList}">
             <div class="col mb-8em">
                 <div class="overflow-hidden mb-3">
-                    <a href="/product/${productVo.idx}">
-                        <img src="${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
+                    <a href="/community/event/${event.idx}">
+                        <img src="${event.thumb}" class="col-12 scale-up" alt="소품샵 썸네일">
                     </a>
                 </div>
                 <div class="ps-1">
                     <div class="item-name">
-                        <a href="/product/${productVo.idx}">${productVo.name}</a></div>
+                        <a href="/product/${event.idx}">${event.name}</a></div>
                     <div class="price-wrap">
-                        <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
-                        <span class="discount-rate">${productVo.discountRate}%</span>
-                        <span class="original-price">
-                            <fmt:formatNumber value="${productVo.price}" pattern="#,###원 >"/>
-                        </span>
-                        </c:if>
-                        <span class="final-price">
-                            <fmt:formatNumber value="${productVo.finalPrice}" pattern="#,###원"/>
-                        </span>
+                        <div class="mb-2">
+                                <span class="final-price">
+                               ${event.startDate} ~ ${event.endDate}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </c:if>
         </c:forEach>
     </div>
-
-    <!-- 화병 썸네일 -->
-    <div class="p-subtitle fs-4 d-flex align-items-center">
-        꽃을 더 아름답게 즐길 수 있는, 화병
-    </div>
-    <div class="row row-cols-2">
-        <c:forEach var="productVo" items="${vase}">
-        <c:if test="${not empty productVo}">
-        <div class="col mb-8em">
-            <div class="overflow-hidden mb-3">
-                <a href="/product/${productVo.idx}">
-                    <img src="${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
-                </a>
-            </div>
-            <div class="ps-1">
-                <div class="item-name">
-                    <a href="/product/${productVo.idx}">${productVo.name}</a></div>
-                <div class="price-wrap">
-                    <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
-                    <span class="discount-rate">${productVo.discountRate}%</span>
-                    <span class="original-price">
-                        <fmt:formatNumber value="${productVo.price}" pattern="#,###원 >"/>
-                    </span>
-                    </c:if>
-                    <span class="final-price">
-                        <fmt:formatNumber value="${productVo.finalPrice}" pattern="#,###원"/>
-                    </span>
-                </div>
-                <c:if test="${not empty productVo.fsize}">
-                <div class="fit-size">
-                    <span class="badge rounded-pill bg-secondary size-unit">${productVo.fsize}</span>
-                    <span class="item-size">size꽃과 잘어울려요!</span>
-                </div>
-                </c:if>
-            </div>
-        </div>
-        </c:if>
-        </c:forEach>
-    </div>
-
-    <!-- 굿즈 썸네일 -->
-    <div class="p-subtitle fs-4 d-flex align-items-center">
-        꽃과 함께하면 더 좋은, 굿즈
-    </div>
-    <div class="row row-cols-4">
-        <c:forEach var="productVo" items="${goods}">
-        <c:if test="${not empty productVo}">
-        <div class="col mb-8em">
-            <div class="overflow-hidden mb-3">
-                <a href="/product/${productVo.idx}">
-                    <img src="${productVo.image1}" class="col-12 scale-up" alt="소품샵 썸네일">
-                </a>
-            </div>
-            <div class="ps-1">
-                <div class="item-name">
-                    <a href="/product/${productVo.idx}">${productVo.name}</a></div>
-                <div class="price-wrap">
-                    <c:if test="${not empty productVo.discountRate && productVo.discountRate > 0}">
-                    <span class="discount-rate">${productVo.discountRate}%</span>
-                    <span class="original-price">
-                        <fmt:formatNumber value="${productVo.price}" pattern="#,###원 >"/>
-                    </span>
-                    </c:if>
-                    <span class="final-price">
-                        <fmt:formatNumber value="${productVo.finalPrice}" pattern="#,###원"/>
-                    </span>
-                </div>
-            </div>
-        </div>
-        </c:if>
-        </c:forEach>
-    </div> <!-- .row 닫음 -->
 </div> <!-- #container 닫음 -->
-
 <%@ include file="../main/footer.jspf" %>
 
 </body>

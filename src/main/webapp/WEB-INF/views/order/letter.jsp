@@ -14,7 +14,22 @@
             document.querySelector("#letter_press_cnt_[data-preview-index='" + index + "']").innerHTML = letter.length;
         }
 
+        //메세지 체크박스 선택 안했는데 메세지 비어있을때!
+        function checkForm() {
+
+            let message = document.querySelector("#message");
+            let check = document.letter_form.letter_none.checked;
+
+            if (message.value === "" && !check) {
+                alert("메세지를 입력해주세요.\n메세지 없이 카드만 받고싶으시면 선택해주세요.");
+                return false;
+            } else {
+                submitForm();
+            }
+        }
+
         function submitForm() {
+
             //class="flower_letter"의 폼을 전부 선택.
             let letters = document.querySelectorAll(".flower_letter");
             let datas = [];
@@ -42,9 +57,23 @@
             document.body.appendChild(form);
             form.submit();
         }
+
+        function letterNone(event, btn) {
+
+             let message = document.querySelector("#message");
+
+            if(event.target.checked) {
+                btn.form.querySelector('#letter_input_form').style.display = 'none';
+                message.value = 'null';
+            } else {
+                btn.form.querySelector('#letter_input_form').style.display = 'block';
+            }
+        }
+
+
+
     </script>
 </head>
-
 <body>
 <%@ include file="../main/header.jspf" %>
 
@@ -52,11 +81,11 @@
         <!-- 헤더 -->
         <div class="checkout_wrap">
             <div class="navi" tabindex="-1">
-                <ol class="process">
+                <ul class="process">
                     <div class="step current"><span class="order"><b>1</b><span class="desc">편지 추가</span></span></div>
                     <div class="step"><span class="order"><b>2</b><span class="desc">주소 입력</span></span></div>
                     <div class="step"><span class="order"><b>3</b><span class="desc">결제</span></span></div>
-                </ol>
+                </ul>
             </div>
 
             <!-- 편지 폼 -->
@@ -69,11 +98,9 @@
 
                 <!-- letter 옵션 추가시, 그 개수만큼 생성해준다. -->
                 <c:forEach var="oitem" items="${oitemList}" varStatus="status">
-
                 <c:if test="${oitem.hasLetter eq true}">
-                    <form class="flower_letter">
+                    <form class="flower_letter" name="letter_form" onSubmit="return CheckForm(this)">
                     <div id="letterbox-wrapper">
-<%--                     <input type="hidden" name="cart_idx" value="${oitem.idx}">--%>
                          <input type="hidden" name="list_idx" value="${status.index}">
                         <div id="letter_product" class="letterbox">
                             <div class="letter">
@@ -84,8 +111,8 @@
                                 <div class="role_select_checked">
                                     <div class="col-12">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" id="letter_none" name="letter_none" value="letterNone" onclick="letterNone(event, this)"/>
                                                 메세지 없이 카드만 받을게요
                                             </label>
                                         </div>
@@ -93,7 +120,7 @@
                                 </div>
 
                                 <!-- 편지 내용 -->
-                                <div class="input_letter_wrap write">
+                                <div class="input_letter_wrap write" id="letter_input_form">
                                     <div class="input_letter">
                                         <textarea id="message" name="letter_content" class="letter_press" rows="8" maxlength="120"
                                                           wrap="hard" placeholder="여기에 입력하세요 :-)" data-letter="" onkeyup="printLetter(this, ${status.index})"></textarea>
@@ -120,7 +147,7 @@
                             <button type="button" class="btn btn-outline-secondary btn-lg"
                                     onclick="history.back()">이전 화면으로</button>
                             <!-- 여기서 받은 데이터를 submitForm() -->
-                            <button type="button" class="btn btn btn-secondary btn-lg" onclick="submitForm()">다음 단계로</button>
+                            <button type="button" class="btn btn btn-secondary btn-lg" onclick="checkForm()">다음 단계로</button>
                         </div>
                         <br>
                         </div>
