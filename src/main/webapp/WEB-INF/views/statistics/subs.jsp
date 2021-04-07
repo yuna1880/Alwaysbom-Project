@@ -49,6 +49,9 @@
                             text: '월별 구독 수 추이'
                         },
                         datalabels: {
+                            font: {
+                                size: 20
+                            },
                             color: '#FFFFFF'
                         }
                     }
@@ -88,7 +91,9 @@
                             text: '사이즈별 구독 수량'
                         },
                         datalabels: {
-                            fontSize: '30',
+                            font: {
+                                size: 20
+                            },
                             color: function (ctx) {
                                 if (ctx.dataIndex !== 2) {
                                     return '#FFFFFF';
