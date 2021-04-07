@@ -42,6 +42,14 @@
             document.body.appendChild(form);
             form.submit();
         }
+
+        function letterNone(event, btn) {
+            if(event.target.checked) {
+                btn.form.querySelector('#letter_input_form').style.display = 'none';
+            } else {
+                btn.form.querySelector('#letter_input_form').style.display = 'block';
+            }
+        }
     </script>
 </head>
 
@@ -52,11 +60,11 @@
         <!-- 헤더 -->
         <div class="checkout_wrap">
             <div class="navi" tabindex="-1">
-                <ol class="process">
+                <ul class="process">
                     <div class="step current"><span class="order"><b>1</b><span class="desc">편지 추가</span></span></div>
                     <div class="step"><span class="order"><b>2</b><span class="desc">주소 입력</span></span></div>
                     <div class="step"><span class="order"><b>3</b><span class="desc">결제</span></span></div>
-                </ol>
+                </ul>
             </div>
 
             <!-- 편지 폼 -->
@@ -69,11 +77,9 @@
 
                 <!-- letter 옵션 추가시, 그 개수만큼 생성해준다. -->
                 <c:forEach var="oitem" items="${oitemList}" varStatus="status">
-
                 <c:if test="${oitem.hasLetter eq true}">
                     <form class="flower_letter">
                     <div id="letterbox-wrapper">
-<%--                     <input type="hidden" name="cart_idx" value="${oitem.idx}">--%>
                          <input type="hidden" name="list_idx" value="${status.index}">
                         <div id="letter_product" class="letterbox">
                             <div class="letter">
@@ -84,8 +90,8 @@
                                 <div class="role_select_checked">
                                     <div class="col-12">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" id="letter_none" value="letterNone" onclick="letterNone(event, this)"/>
                                                 메세지 없이 카드만 받을게요
                                             </label>
                                         </div>
@@ -93,7 +99,7 @@
                                 </div>
 
                                 <!-- 편지 내용 -->
-                                <div class="input_letter_wrap write">
+                                <div class="input_letter_wrap write" id="letter_input_form">
                                     <div class="input_letter">
                                         <textarea id="message" name="letter_content" class="letter_press" rows="8" maxlength="120"
                                                           wrap="hard" placeholder="여기에 입력하세요 :-)" data-letter="" onkeyup="printLetter(this, ${status.index})"></textarea>
@@ -109,6 +115,8 @@
                                         <span class="noti">* 실제 편지지 모습입니다. 최대 8줄까지만 인쇄됩니다.</span>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
