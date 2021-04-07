@@ -40,7 +40,6 @@ public class MemberController {
     @PostMapping("/member_join")
     public String member_join(MemberVO memberVO) {
         //System.out.println("memberVO = " + memberVO);
-
         memberService.insertMember(memberVO);
         return "member/login";
     }
@@ -163,27 +162,18 @@ public class MemberController {
         return "member/member_point";
     }
 
-    // 회원 탈퇴 get
-    @GetMapping(value="/memberDeleteView")
-    public String memberDeleteView() throws Exception{ return "member/member_delete"; }
+    //회원 탈퇴(get)
+    @GetMapping("/member_delete")
+    public String member_delete() {
+        return "member/member_delete";
+    }
 
-    // 회원 탈퇴 post
-    @RequestMapping(value="/deleteMember", method = RequestMethod.POST)
-    public String deleteMember(MemberVO memberVO, HttpSession session, RedirectAttributes rttr) throws Exception{
-
-        // 세션에 있는 member를 가져와 member변수에 넣어줍니다.
-        MemberVO session_mem = (MemberVO) session.getAttribute("session_mem");
-        // 세션에있는 비밀번호
-        String sessionPass = session_mem.getPw();
-        // vo로 들어오는 비밀번호
-        String voPass = memberVO.getPw();
-
-        if(!(sessionPass.equals(voPass))) {
-            rttr.addFlashAttribute("msg", false);
-            return "member/member_delete";
-        }
-        memberService.deleteMember(memberVO);
-        session.invalidate();
+    //회원 탈퇴(post)
+    @RequestMapping(value="/member_delete", method = RequestMethod.POST)
+    public String member_delete(MemberVO memberVO, Model model, HttpSession session) throws Exception{
+        memberService.deleteMember(memberVO, session);
+        model.addAttribute("member", null);
         return "redirect:/";
     }
+
 }

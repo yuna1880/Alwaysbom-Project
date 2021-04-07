@@ -44,7 +44,8 @@ public class MemberService {
     }
 
     //회원 탈퇴
-    public void deleteMember(MemberVO memberVO) throws Exception {
-        dao.deleteMember(memberVO);
+    public void deleteMember(MemberVO memberVO, HttpSession session) throws Exception {
+        dao.deleteMember(memberVO,session);
     }
+
 }

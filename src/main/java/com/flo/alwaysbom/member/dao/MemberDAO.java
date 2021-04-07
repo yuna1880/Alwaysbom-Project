@@ -4,6 +4,7 @@ import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 
@@ -41,8 +42,9 @@ public class MemberDAO{
     }
 
     //회원 탈퇴
-    public void deleteMember(MemberVO memberVO) throws Exception {
+    public void deleteMember(MemberVO memberVO, HttpSession session) throws Exception {
         sessionTemplate.delete("member.deleteMember", memberVO);
-
+        session.invalidate();
     }
+
 }
