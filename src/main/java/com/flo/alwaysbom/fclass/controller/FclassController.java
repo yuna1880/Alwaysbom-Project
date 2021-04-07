@@ -1,6 +1,8 @@
 package com.flo.alwaysbom.fclass.controller;
 
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.service.ReviewService;
+import com.flo.alwaysbom.community.review.vo.ReviewVo;
 import com.flo.alwaysbom.fclass.service.BranchService;
 import com.flo.alwaysbom.fclass.service.FclassService;
 import com.flo.alwaysbom.fclass.service.OclassService;
@@ -66,9 +68,16 @@ public class FclassController {
     public String classDetail(@PathVariable("idx") Integer idx, Model model) {
         FclassVo fclassVo = fclassService.findByIdx(idx);
         List<BranchVo> branchList = fclassVo.getBranchList();
+        //전체리뷰 값 가져오기
+        List<ReviewDto> allReview = reviewService.allReview("클래스", "allList");
+        //베스트리뷰 값 가져오기
+        List<ReviewDto> bestReview = reviewService.allReview("클래스", "best");
 
         model.addAttribute("fclassVo", fclassVo);
         model.addAttribute("branchList", branchList);
+        model.addAttribute("allReview", allReview);
+        model.addAttribute("bestReview", bestReview);
+
         return "fclass/flowerClassDetail";
         //return "fclass/detail_temp";
     }

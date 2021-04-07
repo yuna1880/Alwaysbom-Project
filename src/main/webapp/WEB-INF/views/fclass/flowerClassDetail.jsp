@@ -28,6 +28,7 @@
 
     document.addEventListener("DOMContentLoaded", function () {
         findBranch();
+        checkValidDate();
     });
 </script>
 </head>
@@ -42,28 +43,55 @@
 <!-- 메인 컨테이너 -->
 <div id="container" class="mx-auto d-flex flex-column">
     <!-- 상품 썸네일과 주문 정보 -->
-    <div id="pt-70" class="d-flex justify-content-between thumb-order">
+    <div class="d-flex justify-content-between thumb-order">
         <!-- 사진 썸네일 -->
         <div class="thumbnails d-flex flex-column justify-content-start">
-            <div class="mb-4" style="width: 533px; max-height: 533px; overflow: hidden">
-                <img id="bigP" src="${fclassVo.image1}" alt="대표 썸네일" class="col-12" style="width: 533px; height: auto;">
-            </div>
-            <div class="d-flex justify-content-between col-12" style="overflow: hidden; height: 161px;">
-                <div class="d-flex col-4" style="overflow: hidden; width: 161px;">
-                    <img src="${fclassVo.image1}" alt="썸네일1" class="col smallP">
+            <div id="item-thumbnails" class="carousel slide mb-4" data-bs-interval="0" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="${fclassVo.image1}" class="d-block w-100" alt="대표 썸네일">
+                    </div>
+                    <c:if test="${not empty fclassVo.image2}">
+                    <div class="carousel-item">
+                        <img src="${fclassVo.image2}" class="d-block w-100" alt="대표 썸네일">
+                    </div>
+                    </c:if>
+                    <c:if test="${not empty fclassVo.image3}">
+                    <div class="carousel-item">
+                        <img src="${fclassVo.image3}" class="d-block w-100" alt="대표 썸네일">
+                    </div>
+                    </c:if>
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#item-thumbnails" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#item-thumbnails" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div> <!-- id="item-thumbnails" 닫기 -->
+
+            <!-- 3개 한 줄에 일렬로 나오는 썸네일 -->
+            <div class="d-flex">
+                <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="0"
+                        class="active col-4 p-0 pe-3 border-0 bg-transparent m-0" aria-current="true" aria-label="Slide 1">
+                    <img src="${fclassVo.image1}" alt="썸네일1" class="w-100">
+                </button>
                 <c:if test="${not empty fclassVo.image2}">
-                <div class="d-flex col-4" style="overflow: hidden; width: 161px;">
-                    <img src="${fclassVo.image2}" alt="썸네일2" class="col smallP">
-                </div>
+                    <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="1"
+                            class="col-4 p-0 ps-2 pe-2 border-0 bg-transparent m-0" aria-label="Slide 2">
+                        <img src="${fclassVo.image2}" alt="썸네일2" class="w-100">
+                    </button>
                 </c:if>
                 <c:if test="${not empty fclassVo.image3}">
-                <div class="d-flex col-4" style="overflow: hidden; width: 161px;">
-                    <img src="${fclassVo.image3}" alt="썸네일3" class="col smallP">
-                </div>
+                    <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="2"
+                            class="col-4 p-0 ps-3 border-0 bg-transparent m-0" aria-label="Slide 3">
+                        <img src="${fclassVo.image3}" alt="썸네일3" class="w-100">
+                    </button>
                 </c:if>
             </div>
-        </div>
+        </div> <!-- 사진 썸네일 닫기 -->
 
         <!-- 주문 정보 -->
         <form class="order-info d-flex flex-column" action="/fclass/payment">
@@ -187,32 +215,119 @@
         </div>
     </div>
 
-    <!-- 리뷰게시판 -->
-    <hr>
-    <div id="review-area" class="mb-5 d-flex flex-column">리뷰게시판!!!</div>
-    <div>
-        <div class="d-flex mb-5">
-            <span class="fs-2 pe-5">리뷰</span>
-            <span class="fs-5 ps-4 pt-3 text-secondary">리뷰 작성 시 200P 적립 (사진 등록 시 300P)</span>
+    <!-- 클래스 리뷰게시판 -->
+    <div id="review-area" class="p-3">
+        <!-- 리뷰게시판 타이틀 -->
+        <div class="d-flex justify-content-between align-items-end">
+            <div class="d-flex align-items-baseline">
+                <span class="fs-2 fw-500 py-3 pe-5">리뷰</span>
+                <span class="fs-5 c-666">리뷰 작성 시 200P 적립 (사진 등록 시 300P)</span>
+            </div>
+            <span class="fs-17"><a href="#" class="fw-500">리뷰 쓰기</a></span>
         </div>
-    </div>
-    <div class="d-flex">
-        <div class="btn-group border-secondary border-bottom-1" role="group">
-            <input type="radio" class="btn-check px-3 py-2" name="btnradio" id="btnradio1" autocomplete="off" checked>
-            <label class="btn btn-outline-light fs-5 text-dark" for="btnradio1">클래스 베스트 리뷰</label>
 
-            <input type="radio" class="btn-check px-3 py-2" name="btnradio" id="btnradio2" autocomplete="off">
-            <label class="btn btn-outline-light fs-5 text-dark" for="btnradio2">클래스 전체 리뷰</label>
+        <!-- 리뷰 카테고리 -->
+        <div class="d-flex align-items-baseline review-category col-12 mt-4">
+            <label>
+                <input type="radio" name="reviewCategory" class="d-none" checked="" onclick="switchCategory('#thisReview', '#bestReview')">
+                <span class="d-block text-center py-3 px-4 btn-rev">클래스 베스트 리뷰</span>
+            </label>
+            <label>
+                <input type="radio" name="reviewCategory" class="d-none" onclick="switchCategory('#bestReview', '#thisReview')">
+                <span class="d-block text-center py-3 px-4 btn-rev">모든 클래스 리뷰</span>
+            </label>
         </div>
-    </div>
-  <%--  <p>
-        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            리뷰보기
-        </a>
-    </p>--%>
-    <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-            <p>리뷰 전체글이 여기 들어와야겠네..........</p>
+
+        <div id="bestReview" class="accordion accordion-flush">
+            <c:forEach var="best" items="${bestReview}" varStatus="status">
+                <div class="accordion-item">
+                    <div class="accordion-header" id="flush-heading${status.index}" role="button">
+                        <div class="review-row collapsed d-flex justify-content-between p-4 fs-5"
+                             data-bs-toggle="collapse" data-bs-target="#collapse${status.index}"
+                             aria-expanded="false" aria-controls="collapse${status.index}">
+                    <span class="col-2 fs-17 c-star ls-narrower text-warning">
+                        <c:forEach begin="1" end="5" var="count">
+                            <c:set var="halfStar" value="${true}"/>
+                            <c:if test="${best.star >= count}">
+                                <c:set var="faClassName" value="fas fa-star"/>
+                            </c:if>
+                            <c:if test="${best.star < count}">
+                                <c:set var="faClassName" value="far fa-star"/>
+                                <c:if test="${best.star + 1 > count and best.star % 1 > 0 and halfStar}">
+                                    <c:set var="halfStar" value="${false}"/>
+                                    <c:set var="faClassName" value="fas fa-star-half-alt"/>
+                                </c:if>
+                            </c:if>
+                            <i class="${faClassName} fs-6"></i>
+                        </c:forEach>
+                    </span>
+                    <span class="col-5 fs-17">
+                        ${best.name}
+                        <c:if test="${best.image != null}">
+                        <span class="c-bbb ms-2">
+                            <i class="fas fa-images text-secondary"></i>
+                        </span>
+                        </c:if>
+                    </span>
+                            <span class="col-2 text-center fs-6 fw-light">${best.memberId}</span>
+                            <span class="col-2 text-center fs-6 fw-light">${best.regDate}</span>
+                        </div>
+                    </div>
+                    <div id="collapse${status.index}" class="accordion-collapse collapse border-0"
+                         aria-labelledby="flush-heading${status.index}" data-bs-parent="#bestReview"
+                         style="padding-left: 196px;">
+                        <div class="accordion-body px-5">
+                            <span>${best.content}</span>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+
+        <div id="thisReview" class="accordion accordion-flush d-none">
+            <c:forEach var="all" items="${allReview}" varStatus="status">
+                <div class="accordion-item">
+                    <div class="accordion-header" id="flush-heading${status.index}" role="button">
+                        <div class="review-row collapsed d-flex justify-content-between p-4 fs-5"
+                             data-bs-toggle="collapse" data-bs-target="#collapse${status.index}"
+                             aria-expanded="false" aria-controls="collapse${status.index}">
+                            <span class="col-2 fs-17 c-star ls-narrower text-warning">
+                                <c:forEach begin="1" end="5" var="count">
+                                    <c:set var="halfStar" value="${true}"/>
+                                    <c:if test="${all.star >= count}">
+                                        <c:set var="faClassName" value="fas fa-star"/>
+                                    </c:if>
+                                    <c:if test="${all.star < count}">
+                                        <c:set var="faClassName" value="far fa-star"/>
+                                        <c:if test="${all.star + 1 > count and all.star % 1 > 0 and halfStar}">
+                                            <c:set var="halfStar" value="${false}"/>
+                                            <c:set var="faClassName" value="fas fa-star-half-alt"/>
+                                        </c:if>
+                                    </c:if>
+                                    <i class="${faClassName} fs-6"></i>
+                                </c:forEach>
+                            </span>
+                            <span class="col-5 fs-17">
+                                ${all.name}
+                                <c:if test="${all.image != null}">
+                                <span class="c-bbb ms-2">
+                                    <i class="fas fa-images text-secondary"></i>
+                                </span>
+                                </c:if>
+                            </span>
+                            <span class="col-2 text-center fs-6 fw-light">${all.memberId}</span>
+                            <span class="col-2 text-center fs-6 fw-light">${all.regDate}</span>
+                        </div>
+                    </div>
+                    <div id="collapse${status.index}" class="accordion-collapse collapse border-0"
+                         aria-labelledby="flush-heading${status.index}" data-bs-parent="#bestReview"
+                         style="padding-left: 196px;">
+                        <div class="accordion-body px-5">
+                            <span>${all.content}</span>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
 
@@ -414,15 +529,10 @@
         window.scrollTo({top:targetScrollVal - headerHeight, behavior:'smooth'});
     }
 
-    let bigPic = document.querySelector("#bigP");
-    let smallPics = document.querySelectorAll(".smallP");
-    for(let i = 0; i < smallPics.length; i++) {
-        smallPics[i].addEventListener("click", changePic);
-    }
-
-    function changePic() {
-        let smallPicAttribute = this.getAttribute("src");
-        bigPic.setAttribute("src", smallPicAttribute);
+    /* 리뷰 카테고리(베스트리뷰/해당 상품리뷰) 탭으로 바꾸기 */
+    function switchCategory(prev, next) {
+        document.querySelector(prev).classList.add('d-none');
+        document.querySelector(next).classList.remove('d-none');
     }
 
 </script>

@@ -6,32 +6,17 @@
 </head>
 <body>
 <div class="d-flex flex-column w-25">
-    <div id="hana" class="carousel slide carousel-fade" data-bs-interval="0" data-bs-ride="carousel" style="width: 533px; max-height: 533px; overflow: hidden">
+    <div id="hana" class="carousel slide carousel-fade" data-bs-interval="0" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src=src="${fclassVo.image1}" class="d-block w-100" alt="..." style="overflow: hidden; width: 161px;">
+                <img src="/static/image/flower/flower1.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src=src="${fclassVo.image2}" class="d-block w-100" alt="..." style="overflow: hidden; width: 161px;">
+                <img src="/static/image/flower/flower2.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src=src="${fclassVo.image3}" class="d-block w-100" alt="..." style="overflow: hidden; width: 161px;">
+                <img src="/static/image/flower/vase3-1.jpg" class="d-block w-100" alt="...">
             </div>
-            <!---------------->
-            <div class="d-flex col-4" style="overflow: hidden; width: 161px;">
-                <img src="${fclassVo.image1}" alt="썸네일1" class="col smallP">
-            </div>
-            <c:if test="${not empty fclassVo.image2}">
-                <div class="d-flex col-4" style="overflow: hidden; width: 161px;">
-                    <img src="${fclassVo.image2}" alt="썸네일2" class="col smallP">
-                </div>
-            </c:if>
-            <c:if test="${not empty fclassVo.image3}">
-                <div class="d-flex col-4" style="overflow: hidden; width: 161px;">
-                    <img src="${fclassVo.image3}" alt="썸네일3" class="col smallP">
-                </div>
-            </c:if>
-            <!---------------->
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#hana" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
