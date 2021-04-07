@@ -16,8 +16,8 @@
         <img src="../../../static/image/flower/flower_banner_1280.jpg" alt="꽃다발배너" class="col-12">
     </div>
     <div class="banner-text w-1280 position-absolute mx-auto">
-        <div class="banner-title fw500 mb-4 ms-2">새늘봄 꽃다발</div>
-        <div class="banner-summary fw-light ms-2">
+        <div class="banner-title fw-500 mb-4 ms-2 ls-narrower">새늘봄 꽃다발</div>
+        <div class="banner-summary fw-light ms-2 ls-narrower">
             계절을 가득 담은 꽃다발로<br>당신의 일상을 특별한 날로 만들어보세요.
         </div>
     </div>

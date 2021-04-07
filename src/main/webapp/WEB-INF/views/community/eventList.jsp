@@ -3,9 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>소품샵</title>
+    <title>이벤트</title>
     <%@ include file="../main/import.jspf"%>
-    <link rel="stylesheet" href="/static/css/item/list.css">
+    <link rel="stylesheet" href="../../../static/css/item/list.css">
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -13,12 +13,12 @@
 <!-- 배너 이미지와 글귀 -->
 <div class="banner-wrap d-flex align-items-center justify-content-center">
     <div class="w-1280 mx-auto">
-        <img src="/static/image/product/product_banner_1280.jpg" alt="꽃다발배너" class="col-12">
+        <img src="../../../static/image/product/product_banner_1280.jpg" alt="이벤트배너" class="col-12">
     </div>
     <div class="banner-text w-1280 position-absolute mx-auto">
-        <div class="banner-title fw-500 mb-4 ms-2 ls-narrower">새늘봄 소품샵</div>
-        <div class="banner-summary fw-light ms-2 ls-narrower">
-            꽃과 함께하는 시간을 더 행복하게<br>만들어 줄 소품들을 만나보세요.
+        <div class="banner-title fw500 mb-4 ms-2">새늘봄 이벤트</div>
+        <div class="banner-summary fw-light ms-2">
+            꽃과 함께하는 시간을 더 행복하게<br>만들어 줄 이벤트를 만나보세요.
         </div>
     </div>
 </div>
@@ -30,7 +30,7 @@
     <div class="p-subtitle fs-4 d-flex align-items-center">
         지금 가장 사랑받는 소품들이에요!
     </div>
-    <div class="row row-cols-4">
+    <div class="row row-cols-2">
         <c:forEach var="productVo" items="${all}">
         <c:if test="${not empty productVo}">
             <div class="col mb-8em">
@@ -63,7 +63,7 @@
     <div class="p-subtitle fs-4 d-flex align-items-center">
         꽃을 더 아름답게 즐길 수 있는, 화병
     </div>
-    <div class="row row-cols-4">
+    <div class="row row-cols-2">
         <c:forEach var="productVo" items="${vase}">
         <c:if test="${not empty productVo}">
         <div class="col mb-8em">
