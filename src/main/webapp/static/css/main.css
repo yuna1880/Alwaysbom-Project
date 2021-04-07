@@ -11,8 +11,14 @@
 .fs-19 {
     font-size: 19px;
 }
-.ts-narrower {
-    text-space: -0.075px;
+.fw-500 {
+    font-weight: 500;
+}
+.mb-8em {
+    margin-bottom: 8em;
+}
+.ls-narrower {
+    letter-spacing: -0.1px;
 }
 .subs-btn {
     background-color: #efeeeb;
