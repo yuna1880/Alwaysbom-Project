@@ -34,17 +34,21 @@
     <div class="d-flex justify-content-between thumb-order">
         <!-- 사진 썸네일 -->
         <div class="thumbnails d-flex flex-column justify-content-start">
-            <div id="item-thumbnails" class="carousel slide carousel-fade mb-4" data-bs-interval="0" data-bs-ride="carousel">
+            <div id="item-thumbnails" class="carousel slide mb-4" data-bs-interval="0" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="${flowerVo.image1}" class="d-block w-100" alt="대표 썸네일">
                     </div>
+                    <c:if test="${not empty flowerVo.image2}">
                     <div class="carousel-item">
                         <img src="${flowerVo.image2}" class="d-block w-100" alt="대표 썸네일">
                     </div>
+                    </c:if>
+                    <c:if test="${not empty flowerVo.image3}">
                     <div class="carousel-item">
                         <img src="${flowerVo.image3}" class="d-block w-100" alt="대표 썸네일">
                     </div>
+                    </c:if>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#item-thumbnails" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -314,8 +318,7 @@
                         <span class="col-2 text-center c-666 fw-light">작성일</span>
                     </div>
                 </div>
-                <div id="reviewContent2" class="accordion-collapse collapse border-0" aria-labelledby="review2"
-                     data-bs-parent="#bestReview">
+                <div id="reviewContent2" class="accordion-collapse collapse border-0" aria-labelledby="review2" data-bs-parent="#bestReview">
                     <div class="accordion-body bb-1">
                         <div class="col-5 d-flex flex-column ms-13">
                             <img src="../../../static/image/flower/vase3-1.jpg" alt="dummy" class="col-9">
@@ -326,7 +329,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> <!-- #bestReview 닫기 -->
 
         <!-- 이 상품의 리뷰 게시판 -->
         <div id="thisReview" class="d-none">
