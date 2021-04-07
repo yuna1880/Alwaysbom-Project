@@ -30,12 +30,19 @@ public class MemberDAO{
     }
 
     // 아이디 중복 확인
-    public MemberVO CheckId(String id) throws Exception {
-        return sessionTemplate.selectOne("member.CheckId", id);
+    public int idCheck(String id) {
+        int cnt=sessionTemplate.selectOne("member.idCheck", id);
+        return cnt;
     }
 
     //회원 정보 수정
     public void updateMember(MemberVO memberVO) throws Exception {
         sessionTemplate.update("member.updateMember", memberVO);
+    }
+
+    //회원 탈퇴
+    public void deleteMember(MemberVO memberVO) throws Exception {
+        sessionTemplate.delete("member.deleteMember", memberVO);
+
     }
 }

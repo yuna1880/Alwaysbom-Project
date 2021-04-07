@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.fclass.controller;
 
+import com.flo.alwaysbom.community.review.service.ReviewService;
 import com.flo.alwaysbom.fclass.service.BranchService;
 import com.flo.alwaysbom.fclass.service.FclassService;
 import com.flo.alwaysbom.fclass.service.OclassService;
@@ -23,6 +24,13 @@ public class FclassController {
     private final ScheduleService scheduleService;
     private final FileHandler fileHandler;
     private final OclassService oclassService;
+    private final ReviewService reviewService;
+
+    @GetMapping("/fclass/testPage")
+    public String testPage() {
+        return "fclass/testPage";
+    }
+
 
     @GetMapping("/fclass/orders")
     public String goMyClassList(@SessionAttribute(required = false) MemberVO member, Model model) {

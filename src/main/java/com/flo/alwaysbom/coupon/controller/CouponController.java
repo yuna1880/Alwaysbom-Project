@@ -17,22 +17,33 @@ public class CouponController {
 
     @GetMapping("/admin/coupon")
     public String goCoupon(Model model) {
-        List<CouponVo> list = couponService.findByStatus(null);
+        List<CouponVo> list = couponService.findBySearchOption(null);
         model.addAttribute("couponList", list);
         return "coupon/list";
     }
 
     @GetMapping("/api/coupons")
     @ResponseBody
-    public List<CouponVo> getCoupons(Integer status) {
-        System.out.println("status = " + status);
-        return couponService.findByStatus(status);
+    public List<CouponVo> getCoupons(CouponVo option) {
+        System.out.println("option = " + option);
+        return couponService.findBySearchOption(option);
     }
 
     @PostMapping("/api/coupons")
     @ResponseBody
     public CouponVo addCoupon(@RequestBody CouponVo couponVo) {
-        System.out.println("couponVo = " + couponVo);
         return couponService.addCoupon(couponVo);
+    }
+
+    @RequestMapping(value = "/api/coupons/{idx}", method = RequestMethod.PUT)
+    @ResponseBody
+    public CouponVo updateCoupon(@RequestBody CouponVo couponVo, @PathVariable Integer idx) {
+        return couponService.updateCoupon(couponVo);
+    }
+
+    @RequestMapping(value = "/api/coupons/{idx}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public boolean deleteCoupon(@PathVariable Integer idx) {
+        return couponService.deleteCoupon(idx);
     }
 }

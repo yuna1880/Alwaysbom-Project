@@ -173,25 +173,52 @@
         </label>
         <label class="col-4">
             <input type="radio" name="showType" class="d-none">
-            <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#delivery-area')">수강안내</span>
+            <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#class-area')">수강안내</span>
         </label>
     </div>
 
     <!-- 상품설명 -->
     <div id="detail-area" class="mb-5 d-flex flex-column">
         <div class="d-flex flex-column align-items-center">${fclassVo.content}</div>
-        <div>
+
+        <!-- 상품설명 -->
+        <div class="d-flex flex-column align-items-center">
             <img id="branchMapImg" src="" alt="">
         </div>
     </div>
 
     <!-- 리뷰게시판 -->
     <hr>
-    <div id="review-area">리뷰게시판!!!</div>
+    <div id="review-area" class="mb-5 d-flex flex-column">리뷰게시판!!!</div>
+    <div>
+        <div class="d-flex mb-5">
+            <span class="fs-2 pe-5">리뷰</span>
+            <span class="fs-5 ps-4 pt-3 text-secondary">리뷰 작성 시 200P 적립 (사진 등록 시 300P)</span>
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="btn-group border-secondary border-bottom-1" role="group">
+            <input type="radio" class="btn-check px-3 py-2" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class="btn btn-outline-light fs-5 text-dark" for="btnradio1">클래스 베스트 리뷰</label>
+
+            <input type="radio" class="btn-check px-3 py-2" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-light fs-5 text-dark" for="btnradio2">클래스 전체 리뷰</label>
+        </div>
+    </div>
+  <%--  <p>
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            리뷰보기
+        </a>
+    </p>--%>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <p>리뷰 전체글이 여기 들어와야겠네..........</p>
+        </div>
+    </div>
 
     <!-- 배송안내 -->
     <hr>
-    <div class="ps-3 my-4">
+    <div id="class-area" class="ps-3 my-4">
     <div class="fs-2 fw-500 py-3">수강안내</div>
         <div class="c-666 d-flex flex-column">
             <hr>

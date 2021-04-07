@@ -19,13 +19,13 @@ public class OitemVo {
     private int price;
     private String options;
     private String image;
-    private String status;
     private Date requestDate;
     private Date deliveryStartDate;
     private String category;
     private int reviewCheck;
     private Integer quantity;
     private Integer cartIdx;
+    private String fsize;
 
     //비즈니스 로직 관련 데이터..
     private boolean hasLetter;

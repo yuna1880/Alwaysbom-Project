@@ -18,7 +18,16 @@ public class CouponService {
         return couponDao.findByIdx(couponVo.getIdx());
     }
 
-    public List<CouponVo> findByStatus(Integer status) {
-        return couponDao.findByStatus(status);
+    public List<CouponVo> findBySearchOption(CouponVo option) {
+        return couponDao.findBySearchOption(option);
+    }
+
+    public CouponVo updateCoupon(CouponVo couponVo) {
+        couponDao.updateCoupon(couponVo);
+        return couponDao.findByIdx(couponVo.getIdx());
+    }
+
+    public boolean deleteCoupon(Integer idx) {
+        return couponDao.deleteCoupon(idx);
     }
 }
