@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class SubsByMonthVo {
-    private String month;
-    private Integer subsCount;
+    private String label;
+    private Integer value;
 }
