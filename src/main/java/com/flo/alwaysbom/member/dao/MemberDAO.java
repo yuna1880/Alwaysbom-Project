@@ -36,6 +36,12 @@ public class MemberDAO{
         return cnt;
     }
 
+    // 휴대폰번호 중복 확인
+    public int phoneCheck(String phone) {
+        int cnt=sessionTemplate.selectOne("member.phoneCheck", phone);
+        return cnt;
+    }
+
     //회원 정보 수정
     public void updateMember(MemberVO memberVO) throws Exception {
         sessionTemplate.update("member.updateMember", memberVO);
