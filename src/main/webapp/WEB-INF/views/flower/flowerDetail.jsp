@@ -34,19 +34,48 @@
     <div class="d-flex justify-content-between thumb-order">
         <!-- 사진 썸네일 -->
         <div class="thumbnails d-flex flex-column justify-content-start">
-            <div class="mb-4">
-                <img src="${flowerVo.image1}" alt="대표 썸네일" class="col-12">
-            </div>
+            <div id="item-thumbnails" class="carousel slide carousel-fade mb-4" data-bs-interval="0" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="${flowerVo.image1}" class="d-block w-100" alt="대표 썸네일">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="${flowerVo.image2}" class="d-block w-100" alt="대표 썸네일">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="${flowerVo.image3}" class="d-block w-100" alt="대표 썸네일">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#item-thumbnails" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#item-thumbnails" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div> <!-- id="item-thumbnails" 닫기 -->
+
+            <!-- 3개 한 줄에 일렬로 나오는 썸네일 -->
             <div class="d-flex">
-                <img src="${flowerVo.image1}" alt="썸네일1" class="col-4 pe-3">
+                <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="0"
+                        class="active col-4 p-0 pe-3 border-0 bg-transparent m-0" aria-current="true" aria-label="Slide 1">
+                    <img src="${flowerVo.image1}" alt="썸네일1" class="w-100">
+                </button>
                 <c:if test="${not empty flowerVo.image2}">
-                <img src="${flowerVo.image2}" alt="썸네일2" class="col-4 ps-2 pe-2">
+                <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="1"
+                        class="col-4 p-0 ps-2 pe-2 border-0 bg-transparent m-0" aria-label="Slide 2">
+                    <img src="${flowerVo.image2}" alt="썸네일2" class="w-100">
+                </button>
                 </c:if>
                 <c:if test="${not empty flowerVo.image3}">
-                <img src="${flowerVo.image3}" alt="썸네일3" class="col-4 ps-3">
+                <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="2"
+                        class="col-4 p-0 ps-3 border-0 bg-transparent m-0" aria-label="Slide 3">
+                    <img src="${flowerVo.image3}" alt="썸네일3" class="w-100">
+                </button>
                 </c:if>
             </div>
-        </div>
+        </div> <!-- 사진 썸네일 닫기 -->
 
         <!-- 주문 정보 -->
         <div class="order-info d-flex flex-column">
