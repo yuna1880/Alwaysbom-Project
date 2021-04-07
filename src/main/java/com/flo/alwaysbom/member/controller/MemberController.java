@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -89,16 +90,23 @@ public class MemberController {
     }
 
     //아이디 찾기
-    @GetMapping("/findId")
-    public String findId() {
+    @RequestMapping(value = "/find_id")
+    public String find_id() throws Exception {
         return "member/find_id";
     }
 
-    //찾은 아이디
-    @GetMapping("/foundId")
-    public String foundId() {
-        return "member/found_id";
+    //아이디 찾기
+    @RequestMapping(value = "/found_id", method = RequestMethod.POST)
+    public String found_id(HttpServletResponse response, @RequestParam("phone") String phone, Model model) throws Exception{
+        model.addAttribute("id", memberService.found_id(response, phone));
+        return "/member/found_id";
     }
+
+//    //찾은 아이디
+//    @GetMapping("/foundId")
+//    public String foundId() {
+//        return "member/found_id";
+//    }
 
     //비밀번호 찾기
     @GetMapping("/findPwd")

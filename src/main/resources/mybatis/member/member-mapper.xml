@@ -39,4 +39,11 @@
             AND PW = #{pw}
     </delete>
 
+    <!-- 아이디 찾기 -->
+    <select id="found_id" parameterType="String" resultType="String">
+        SELECT ID
+        FROM MEMBER
+        WHERE PHONE = #{phone}
+    </select>
+
 </mapper>

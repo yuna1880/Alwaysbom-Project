@@ -47,4 +47,9 @@ public class MemberDAO{
         session.invalidate();
     }
 
+    //아이디 찾기
+    public String found_id(String phone)throws Exception {
+        return sessionTemplate.selectOne("member.found_id", phone);
+    }
+
 }
