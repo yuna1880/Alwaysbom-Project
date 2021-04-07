@@ -18,8 +18,8 @@
             <if test="status != null">
                 STATUS = #{status}
             </if>
-            <if test="memberId != null">
-                MEMBER_ID = #{memberId}
+            <if test="memberId != null and memberId.length > 0">
+                AND MEMBER_ID LIKE '%' || #{memberId} || '%'
             </if>
         </where>
         ORDER BY IDX DESC

@@ -36,4 +36,8 @@ public class OclassDao {
     public OclassVo findByIdx(Integer idx) {
         return sqlSessionTemplate.selectOne("oclass.findByIdx", idx);
     }
+
+    public boolean deleteOrder(Integer idx) {
+        return sqlSessionTemplate.delete("oclass.deleteOrder", idx) > 0;
+    }
 }

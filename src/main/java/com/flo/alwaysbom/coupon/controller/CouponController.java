@@ -25,6 +25,7 @@ public class CouponController {
     @GetMapping("/api/coupons")
     @ResponseBody
     public List<CouponVo> getCoupons(CouponVo option) {
+        System.out.println("option = " + option);
         return couponService.findBySearchOption(option);
     }
 

@@ -1,9 +1,7 @@
+/* 배너 관련 */
 .banner-wrap {
     width: 100vw;
     background-color: #efeeeb;
-}
-.w-1280 {
-    width: 1280px;
 }
 .banner-text {
     padding: 0 3em;
@@ -16,21 +14,61 @@
     font-size: 19px;
     line-height: 1.5em;
 }
+
+/* 스타일 속성들 */
+.w-1280 {
+    width: 1280px;
+}
+.fw500 {
+    font-weight: 500;
+}
+.mb-8em {
+    margin-bottom: 8em;
+}
+
+/* 정렬 순서 */
 .align-by {
     height: 130px;
     font-size: 18px;
     color: #404040;
     padding-top: 2em;
 }
+
+/* 닫기 버튼 */
+.btn-close-style {
+    position: absolute;
+    border-radius: 12px;
+    padding: 0.4em 1.1em;
+    margin: 0.6em 0.6em;
+    border: 2px solid #303030;
+    font-size: 15px;
+    color: #303030;
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    -webkit-transition: all 0.2s ease-in-out;
+}
+.thumbnails-wrap:hover .btn-close-style {
+    cursor: pointer;
+    opacity: 1;
+    -webkit-transition: all 0.2s ease-in-out;
+}
+.btn-close-style:hover {
+    background-color: rgba(255, 255, 255, 0.45);
+    -webkit-transition: all 0.2s ease-in-out;
+}
+
+.thumbnails {
+    border-radius: 12px;
+    /*border: 2px solid #303030;*/
+}
+
 .p-subtitle {
     height: 130px;
     font-weight: 500;
     color: #222222;
     padding-top: 2em;
 }
-.mb-8em {
-    margin-bottom: 8em;
-}
+
 .scale-up:hover {
     transform: scale(1.05);
     transition-duration: 0.6s;
@@ -98,7 +136,4 @@
     font-size: 14px;
     font-weight: 300;
     color: #707070;
-}
-.fw500 {
-    font-weight: 500;
 }

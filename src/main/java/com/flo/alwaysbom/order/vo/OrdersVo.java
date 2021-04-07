@@ -9,6 +9,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class OrdersVo {
     private Integer idx;
     private String memberId;
@@ -26,6 +27,7 @@ public class OrdersVo {
     private String payDate;
     private Integer discountGrade;
     private Integer discountPoint;
+    private String status;
 
     //비즈니스 로직 관련 데이터..
     private boolean saveAddress;
