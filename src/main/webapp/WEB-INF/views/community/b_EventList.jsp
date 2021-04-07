@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>fclass mainView</title>
+    <title>Event List</title>
     <%@ include file="../main/b_import.jspf" %>
     <style>
         header {
@@ -33,10 +33,10 @@
             <table class="table">
                 <tbody>
                 <tr>
-                    <th><a href="#" onclick="" class="text-decoration-none">진행중인 이벤트</a></th>
+                    <th><a href="/admin/community/eventList" class="text-decoration-none">진행중인 이벤트</a></th>
                 </tr>
                 <tr>
-                    <th><a href="#" onclick="" class="text-decoration-none">지난 이벤트</a></th>
+                    <th><a href="/admin/community/eventOldList" class="text-decoration-none">지난 이벤트</a></th>
                 </tr>
             </table>
         </div>
@@ -45,31 +45,27 @@
         <div class="class-li-wrap">
             <h3 class="classes">이벤트</h3>
             <ul class="d-flex flex-wrap">
-                <c:forEach var="event" items="${event}">
-                    <c:if test="${event.category eq '이벤트'}">
+                <c:forEach var="event" items="${eventList}">
                         <li class="col-4 card p-4">
                             <div>
                                 <a href="/admin/event/detail?idx=${event.idx}">
                                     <input type="hidden" name="idx" value="${event.idx}">
-
                                     <div class="overflow-hidden height-320px">
-                                        <img src="${event.image1}" alt="썸네일이미지"
+                                        <img src="${event.thumb}" alt="썸네일이미지"
                                              class="card-img-top scale-up">
                                     </div>
                                 </a>
                             </div>
                             <div class="fw-bold mb-2">${event.name}</div>
                             <div class="mb-2">
-                                <span class="text-decoration-line-through text-secondary">
-                                    <fmt:formatNumber value="${fclass.price}" pattern="#,###"/>시작날짜</span>
-                                <span><fmt:formatNumber value="${fclass.finalPrice}" pattern="#,###"/>종료날짜</span>
+                                <span class="text-secondary">
+                               ${event.startDate} ~ ${event.endDate}</span>
                             </div>
                         </li>
-                    </c:if>
                 </c:forEach>
                 <li class="col-4 card p-4" style="min-height: 400px;">
                     <a class="w-100 h-100 btn btn-outline-secondary d-flex align-items-center justify-content-center"
-                       href="/admin/event/addEvent">
+                       href="/admin/community/addEventList">
                         <i class="fa fa-plus h1"></i>
                     </a>
                 </li>

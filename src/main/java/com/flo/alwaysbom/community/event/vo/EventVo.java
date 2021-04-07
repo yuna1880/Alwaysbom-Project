@@ -14,6 +14,6 @@ public class EventVo {
     private String image1;
     private String image2;
     private String content;
-    private String start_date;
-    private String end_date;
+    private String startDate;
+    private String endDate;
 }
