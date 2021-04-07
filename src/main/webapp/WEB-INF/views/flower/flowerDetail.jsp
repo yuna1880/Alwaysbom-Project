@@ -734,6 +734,7 @@
         frm.submit();
     }
 
+
     /* 상품설명/리뷰/배송안내 탭 누르면 스크롤 이동 */
     function animateScroll(locationStr) {
         let headerHeight = document.querySelector("header").offsetHeight;

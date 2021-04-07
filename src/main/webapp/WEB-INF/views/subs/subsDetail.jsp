@@ -44,7 +44,7 @@
         <!-- 사진 썸네일 -->
         <div class="thumbnails d-flex flex-column justify-content-start">
             <div class="mb-4">
-                <img src="${subsVo.image1}" alt="대표 썸네일" class="col-12">
+                <img id="bigImage" src="${subsVo.image1}" alt="대표 썸네일" class="col-12">
             </div>
             <div class="d-flex">
                 <img src="${subsVo.image1}" alt="썸네일1" class="col-4 pe-3">
@@ -70,7 +70,7 @@
         </div>
         <!-- 꽃 사이즈 정보 -->
         <div class="d-flex justify-content-start align-items-center my-3">
-            <h5><span class="badge rounded-pill bg-light text-dark" id="selectFsize" value="${subsVo.fsize}">${subsVo.fsize} 사이즈</span></h5>
+            <h5><span class="badge rounded-pill bg-light text-dark" id="fsize" value="${subsVo.fsize}">${subsVo.fsize} 사이즈</span></h5>
         </div>
 
         <!-- 무료배송 알림 -->
@@ -195,14 +195,14 @@
 
             <!-- 장바구니/결제 버튼 -->
             <div class="d-flex justify-content-center mt-5">
-                <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart(true, this.form)">장바구니</button>
+                <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
 
             <%--memberId, category, flowerIdx, quantity, letter 임의로 넣어주기--%>
                 <input type="hidden" name="memberId" value="test">
                 <input type="hidden" name="category" value="정기구독">
                 <input type="hidden" name="subsIdx" value="${subsVo.idx}">
 
-                <button type="button" class="btn main-button fw-bold py-3" onclick="addCart(false, this.form)">바로구매</button>
+                <button type="button" class="btn main-button fw-bold py-3" onclick="goPay(this.form)">바로구매</button>
             </div>
 
         </div> <!-- 주문 정보 닫기 -->
@@ -427,6 +427,7 @@
     /* 수령일 선택 */
     $(function () {
         $('.datepicker').datepicker({
+            autoclose: true,
             format: 'yyyy-mm-dd',
             showOtherMonths: false,
             startDate: 'noBefore',
@@ -485,8 +486,9 @@
 
         newDiv.className =  "choice-price-box p-4 mx-2 mb-3 price-box";
         newDiv.setAttribute("data-product-idx", pvo.idx);
+        newDiv.setAttribute("data-product-name", pvo.name);
         newDiv.innerHTML =  "<div class='d-flex justify-content-between pb-1'>"
-                            + "<span class='fw500'>추가상품 : " + pvo.name + "</span>"
+                            + "<span class='fw-500'>추가상품 : " + pvo.name + "</span>"
                             + "<button type='button' class='btn-close btn-close-style' "
                             + "onclick='deleteChoice(this)'></button></div>"
                             + "<div class='d-flex justify-content-between'>"
@@ -496,7 +498,7 @@
                             + "<span class='quantity col-1 text-center'>1</span>"
                             + "<button type='button' class='border-0 bg-transparent' onclick='adjustChoiceQuantity(true, this)'>"
                             + "<i class='fas fa-plus-circle'></i></button></div>"
-                            + "<span class='fw500' data-choice-price=" + pvo.finalPrice + ">" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
+                            + "<span class='fw-500' data-choice-price=" + pvo.finalPrice + ">" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
                             + "</div>";
 
         // 이미 만들어진 애들 중에 동일 인덱스 있나 보고, 있으면 기존것에 수량만 합치고 없으면 따로 추가
@@ -533,12 +535,12 @@
     }
 
     /* 장바구니 보내기 */
-    async function addCart(goCart, frm) {
+    async function addCart() {
         const $inputs = document.getElementsByTagName("input");
         const $selectMonth = document.querySelector("#selectMonth");
         const $choices = document.querySelectorAll(".choice-price-box");
         const $subsQuantity = document.querySelector("[data-subs-quantity]");
-        const $subsFsize = document.querySelector("#selectFsize");
+        const $subsFsize = document.querySelector("#fsize");
 
         const choices = [...$choices].map((choice) => {
             return {
@@ -571,105 +573,106 @@
         const result = await response.json();
         console.log(result);
 
-        if (goCart && result) {
+        if (result) {
             location.href = "/cart/list";
-        } else if (!goCart && result) {
-            // 이때 사실 cartList 에 담긴 result 를 지워줘야하는데 말이지..?
-            goPay(result, frm);
         }
     }
 
-    function goPay(cartVo, frm) {
-        console.log("goPay()실행. cartVo: " + cartVo);
-        const oitemVoList = [
-            {hasLetter: letterOptionsEl[0].checked},
-            {name: cartVo.name},
-            {price: cartVo.totalPrice},
-            {options: cartVo.options},
-            {image: cartVo.image},
-            {requestDate: cartVo.requestDate},
-            {category: cartVo.category},
-            {quantity: cartVo.quantity},
-            //{month: cartVo.month},
-            {fsize: cartVo.fsize},
-            {reviewCheck: 0},
+    /* 바로구매 클릭 */
+    function goPay(frm) {
+        alert("goPay()실행");
+        const $input = document.getElementsByTagName("input");
+        const $selectMonth = document.querySelector("#selectMonth");
+        const $choices = document.querySelectorAll(".choice-price-box");
 
+        //이부분이 무엇일까?
+        const choices = [...$choices].map((choice) => {
+            return {
+                productName: choice.dataset.productName,
+                quantity: choice.querySelector(".quantity").textContent
+            }
+        });
+
+        // CartVo 에 있는 메소드 getOption()을 javascript 에서 구현 -> 옵션상품명 1 : 3개, 상품명2 : 1개, ... 이런식으로 출력되게
+        let optionStr = "";
+        for (let i = 0; i < choices.length; i++) {
+            optionStr += choices[i].productName + " : " + choices[i].quantity + "개"
+        }
+        optionStr = optionStr.substring(0, optionStr.length - 2);
+
+        // 정기구독
+        const month = $selectMonth.value;
+        const deliveryStartDate = new Date($input.requestDate.value).getTime();
+
+        let osubsList = [];
+        for (let i = 0; i < month * 2; i++) {
+            const osubs = {
+                month: month,
+                deliveryDate: new Date(deliveryStartDate + i * 1000 * 60 * 60 * 24 * 14),
+                deliveryStatus: '배송전'
+            }
+            osubsList.push(osubs);
+        }
+
+        // Array.from 방법
+        // let osubsList = Array.from({length: month * 2}, (v, i) => {
+        //     return {
+        //         month: month,
+        //         deliveryDate: new Date(deliveryStartDate + i * 1000 * 60 * 60 * 24 * 14),
+        //         deliveryStatus:'배송전'
+        //     }
+        // });
+
+        const oitemVoList = [
+            {
+                hasLetter: letterOptionsEl[0].checked,
+                name: document.querySelector(".item-name").textContent,
+                price: totalPriceEl.textContent.replace("원","").replaceAll(",",""),
+                options: optionStr,
+                image: document.querySelector("#bigImage").getAttribute("src"),
+                requestDate: $input.requestDate.value,
+                category: $input.category.value,
+                quantity: document.querySelector("[data-subs-quantity]").textContent,
+                reviewCheck: 0,
+                fsize: document.querySelector("#fsize").value,
+                osubsList: osubsList
+            }
         ];
 
         let data = document.createElement("input");
+        data.classList.add("visually-hidden");
         data.type = "text";
         data.name = "data";
         data.value = JSON.stringify(oitemVoList);
 
-        console.log("data.value: " + data.value);
-
-        // deleteFromCart(cartVo.idx);
-
         frm.appendChild(data);
         frm.action = "/order/letter";
         frm.submit();
+
     }
 
-    // function deleteFromCart(idx) {
-    //     console.log(idx);
-    //     fetch("/api/cart/removeByIdx", {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json;charset=UTF-8'
-    //         },
-    //         body: JSON.stringify({
-    //             idx: idx
-    //         })
-    //     }).then(
-    //         (response) => console.log(response)
-    //     ).then(
-    //         (result) => console.log(result)
-    //     ).catch(function (err) {
-    //         alert(err);
-    //     });
-    // }
-
-
+    /* 상품설명/리뷰/배송안내 탭 누르면 스크롤 이동 */
     function animateScroll(locationStr) {
         let headerHeight = document.querySelector("header").offsetHeight;
         let targetScrollVal = document.querySelector(locationStr).offsetTop;
         window.scrollTo({top:targetScrollVal - headerHeight, behavior:'smooth'});
     }
 
-
-
-
-
-
-    <%--
-    async function getDetail() {
-        let response = await fetch("/flower/${idx}/get");
-        let result = await response.json();
-        makeDetail(result);
-    }
-
-    fetch("/flower/${idx}/get")
-        .then(function (response) {
-            console.log(response);
-            response.json().then(function (result) {
-                console.log(result);
-                makeDetail(result);
-            });
-        })
-        .catch(function (err) {
-            alert(err);
+    /* 최상단으로 스크롤 이동 */
+    function moveToTop() {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
         });
-
-    function makeDetail(vo) {
-        let mainFlower = document.querySelector("#flower");
-        let html = "<span>" + vo.name + "</span>";
-        html += "<span>" + vo.subheader + "</span>";
-        html += "<img src='"+ vo.image1+ "'>";
-
-        mainFlower.innerHTML = html;
+        document.querySelector('#showTypeContent').checked = true;
     }
-    --%>
 
+    /* 리뷰 카테고리(베스트리뷰/해당 상품리뷰) 탭으로 바꾸기 */
+    function switchCategory(prev, next) {
+        document.querySelector(prev).classList.add('d-none');
+        document.querySelector(next).classList.remove('d-none');
+    }
 
 </script>
 </body>
