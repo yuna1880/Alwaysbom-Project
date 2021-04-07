@@ -61,29 +61,32 @@
 <!-- 새늘봄 꽃다발 -->
 <div class="mt-100 flower-wrap">
     <div class="w-1280 mx-auto">
-        <div class="ps-4 mb-4">
-            <span class="fs-3 ls-narrower ps-3">꽃이 필요한 순간,</span>
-            <span class="fs-3 fw-bolder ls-narrower ps-3">새늘봄 꽃다발</span>
+        <div class="px-4 me-3 mb-5 d-flex justify-content-between align-items-end">
+            <div>
+                <span class="fs-3 ls-narrower ps-3">꽃이 필요한 순간,</span>
+                <span class="fs-3 fw-bolder ls-narrower ps-3">새늘봄 꽃다발</span>
+            </div>
+            <span class="cursor-pointer" onclick="location.href='/flower'">더보기</span>
         </div>
 
         <!----------------------------------------->
         <div class="px-4 mx-2 row row-cols-4">
             <c:forEach var="flowerVo" items="${flowerList}">
             <c:if test="${not empty flowerVo}">
-            <div class="col mb-8em">
+            <div class="col mb-5">
                 <div class="overflow-hidden">
-                    <a href="#">
-                        <img src="/static/image/flower/flower2.jpg" class="col-12 scale-up" alt="꽃다발 썸네일">
+                    <a href="/flower/${flowerVo.idx}">
+                        <img src="${flowerVo.image1}" class="col-12 scale-up" alt="꽃다발 썸네일">
                     </a>
                 </div>
                 <div class="ps-1">
-                    <div class="subheader">subheader</div>
+                    <div class="subheader">${flowerVo.subheader}</div>
                     <div class="item-name">
-                        <a href="#">flowerVo.name</a>
+                        <a href="/flower/${flowerVo.idx}">${flowerVo.name}</a>
                     </div>
                     <div class="price-wrap">
                     <c:if test="${not empty flowerVo.discountRate && flowerVo.discountRate > 0}">
-                        <span class="discount-rate">%</span>
+                        <span class="discount-rate">${flowerVo.discountRate}%</span>
                         <span class="original-price">
                             <fmt:formatNumber value="${flowerVo.price}" pattern="#,###원 >"/>
                         </span>
@@ -93,9 +96,9 @@
                         </span>
                     </div>
                     <div class="size-delivery">
-                        <span class="badge rounded-pill bg-warning size-unit">M</span>
+                        <span class="badge rounded-pill bg-warning size-unit">${flowerVo.fsize}</span>
                         <span class="item-size">size</span>
-                        <span class="badge rounded-pill bg-secondary delivery-unit">무료배송</span>
+                        <span class="badge rounded-pill bg-secondary delivery-unit">${flowerVo.freeDeliveryMessage}</span>
                     </div>
                 </div>
             </div>

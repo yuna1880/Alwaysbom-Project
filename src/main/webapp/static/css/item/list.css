@@ -28,6 +28,11 @@
 .ls-narrower {
     letter-spacing: -0.1px;
 }
+.cursor-pointer {
+    cursor: pointer;
+}
+
+
 /* 정렬 순서 */
 .align-by {
     height: 130px;
