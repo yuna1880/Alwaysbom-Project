@@ -34,8 +34,16 @@
 
     <!-- 회원 탈퇴 -->
     <delete id="deleteMember">
-        DELETE FROM KEY_MEMBER
+        DELETE FROM MEMBER
         WHERE ID = #{id}
-        AND PW = #{pw}
+            AND PW = #{pw}
     </delete>
+
+    <!-- 아이디 찾기 -->
+    <select id="found_id" parameterType="String" resultType="String">
+        SELECT ID
+        FROM MEMBER
+        WHERE PHONE = #{phone}
+    </select>
+
 </mapper>

@@ -8,24 +8,7 @@
     <link rel="stylesheet" href="/static/css/item/list.css">
     <link rel="stylesheet" href="/static/css/subs/subs.css">
     <style>
-        #sub_btn1, #sub_btn2 {
-            font-size: 23px;
-            padding: 0px 80px 10px 80px;
-            border: none;
-            background-color: white;
-            color: black;
-            box-shadow: none;
-            border-bottom: 4px solid #ffcd32;
-        }
-        .btn-group {
-            margin: 20px 50px;
-        }
-        #subs_infos {
-            padding: 80px 0px 10px 90px;
-        }
-        #subs_infos2 {
-            padding: 80px 90px 10px 0px;
-        }
+
     </style>
 </head>
 <body>
@@ -115,35 +98,43 @@
         <h5 class="how_tit">꽃 정기구독, 이렇게 시작해보세요!</h5>
         <ul class="how_step list-unstyled">
             <li class="list">
-                <span class="ico s1"></span>
+                <span class="ico s1">
+                    <img src="/static/image/subs/1.png" width="200px">
+                </span>
                 <span class="step fw-bold">01</span>
                 <span class="desc">
                     정기구독 상품 중 원하시는<br>꽃 사이즈를 선택해주세요.
                 </span>
             </li>
             <li class="list">
-                <span class="ico s2"></span>
+                <span class="ico s2">
+                    <img src="/static/image/subs/2.png" width="200px">
+                </span>
                 <span class="step fw-bold">02</span>
                 <span class="desc">
                     꽃을 구독하고 싶은<br>총 기간을 선택해주세요.
                 </span>
             </li>
             <li class="list">
-                <span class="ico s1"></span>
+                <span class="ico s1">
+                    <img src="/static/image/subs/3.png" width="200px">
+                </span>
                 <span class="step fw-bold">03</span>
                 <span class="desc">
-                    꽃을 받고싶은<br>요일을 선택해주세요.
+                    꽃을 받고 싶은<br>요일을 선택해주세요.
                 </span>
             </li>
             <li class="list">
-                <span class="ico s1"></span>
-                <span class="step fw-bold">03</span>
+                <span class="ico s1 pe-5">
+                    <img src="/static/image/subs/6.png" width="200px">
+                </span>
+                <span class="step fw-bold">04</span>
                 <span class="desc">
                     2주에 한번 그 계절 가장<br>예쁜 꽃으로 찾아갈게요.
                 </span>
             </li>
         </ul>
-        <p class="how_tip"><span class="line">혹시, 일정을 변경하고 싶으신가요?<br>주문 후에는 고객센터를 통해 미리 일정을 변경하실 수 있습니다.</span></p>
+        <p class="how_tip"><span class="line">혹시, 일정을 변경하고 싶으신가요? 주문 후에는 고객센터를 통해 미리 일정을 변경하실 수 있습니다.</span></p>
     </div>
 
 

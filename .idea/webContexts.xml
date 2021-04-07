@@ -20,6 +20,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order/payment.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/product/b_addForm.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/product" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/subs/b_addForm.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/subs" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/subs/subsDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/subs" />
       </map>
     </option>
   </component>
