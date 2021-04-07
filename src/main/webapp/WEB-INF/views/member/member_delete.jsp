@@ -30,9 +30,9 @@
                                 <span class="h5">비밀번호 확인(필수)</span>
                                 <input type="password" name="pw" maxlength="255" class="form-control form-control-sm mt-3" required id="pw"/>
                             </div>
-                            <div class="text-center mt-5">
-                            <button type="submit" id="submit" class="btn btn-danger">탈퇴하기</button>
-                            <button type="button" id="cencel" class="btn btn-secondary">취소하기</button>
+                            <div class="text-center col-12 mt-5">
+                                <button type="submit" id="submit" class="btn btn-danger col-3">탈퇴하기</button>
+                                <button type="button" class="btn btn-secondary col-3" onclick="location.href='/'">취소하기</button>
                             </div>
                         </form>
                     </div>
