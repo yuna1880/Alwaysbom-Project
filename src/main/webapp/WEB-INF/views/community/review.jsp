@@ -100,22 +100,24 @@
                         </li>
                         <!-- 검색 폼 영역 -->
                         <form class="d-flex">
-                            <li id='liSearchOption' class="list-group list-group-horizontal">
-                                <div>
-                                    <select id='selSearchOption' >
-                                        <option value='A'>제목+내용</option>
-                                        <option value='T'>제목</option>
-                                        <option value='C'>내용</option>
+                            <li id='liSearchOption' class="col list-group list-group-horizontal nav-item">
+                                <div class="row">
+                                    <select id='selSearchOption' name="opt">
+                                        <option value='S'>전체</option>
                                     </select>
 <%--                                    <input id='txtKeyWord' type="text" name="searchtxt" value=""/>
                                     <input type='button' value='검색'/>--%>
                                 </div>
+                                <div class="row mx-3">
+                                <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="search">
+                                </div>
+                                <div class="row">
+                                    <button class="btn btn-outline-success" type="button" onclick="goSearch(this.form)">검색</button>
+                                </div>
                             </li>
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">검색</button>
                         </form>
                     </ul>
-                    <ul class="nav justify-content-around reviewBox">
+                    <ul class="nav justify-content-around reviewBox" id="review-bar">
                         <li class="nav-item-3">
                             <a class="nav-link" id="${param.category}" href="#" onclick='goBestList("best", "${param.category}")'>베스트 리뷰</a>
                         </li>
@@ -143,99 +145,89 @@
                                     <li class="text-center">
                                         <div>
                                             <c:if test="${bestAllList.star eq 5}">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
                                             </c:if>
                                             <c:if test="${bestAllList.star eq 4}">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
                                             </c:if>
 
                                             <c:if test="${bestAllList.star eq 3}">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
                                             </c:if>
                                             <c:if test="${bestAllList.star eq 2}">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
                                             </c:if>
                                             <c:if test="${bestAllList.star eq 1}">
-                                                <img src="/static/icons/starstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
                                             </c:if>
                                             <c:if test="${bestAllList.star eq 0}">
-                                                <img src="/static/icons/sibalstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
-                                                <img src="/static/icons/silberstar.png" class="" alt="star"
-                                                     title="별" height="15" width="15">
+                                                <i class="far fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
+                                                <i class="far fa-star text-warning"></i>
                                             </c:if>
                                         </div>
                                     </li>
-                                    <li class="text-center">${bestAllList.name}</li>
-                                    <li class="text-center"><div>${bestAllList.regDate}</div></li>
-                                    <li class="text-center"><div>${bestAllList.memberId}</div></li>
-                                    <li class="text-center"><div>${bestAllList.likeCount}</div></li>
+                                    <li class="text-center"><span>${bestAllList.name}</span></li>
+                                    <li class="text-center"><span>${bestAllList.regDate}</span></li>
+                                    <li class="text-center"><span>${bestAllList.memberId}</span></li>
+                                    <li class="text-center"><span>${bestAllList.likeCount}</span></li>
                                 </button>
                             </ul>
                             <div id="col${bestAllList.idx}" class="accordion-collapse collapse" aria-labelledby="head${bestAllList.idx}" data-bs-parent="#ulTable">
                                 <div class="accordion-body">
-                                    <div>
+                                    <div class="d-flex justify-content-center">
                                         <p>${bestAllList.content}</p>
                                     </div>
 
-                                    <div>
+                                    <div class="d-flex justify-content-center">
                                         <c:if test="${not empty bestAllList.image}">
                                             <div>
-
                                                 <img src="/static/upload/community/review/${bestAllList.image}" alt="아아아아악">
-
                                             </div>
+                                        </c:if>
+                                    </div>
+                                        <div class="d-flex justify-content-end">
+                                            <c:if test="${bestAllList.hasReview}">
+                                            <button class="btn like"
+                                                    onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="fas fa-thumbs-up text-dark fa-2x"></i>
+                                            </button>
+                                            </c:if>
+                                            <c:if test="${!bestAllList.hasReview}">
+                                                <button class="btn like"
+                                                        onclick="goLike('${member.id}', '${bestAllList.idx}')"><i class="far fa-thumbs-up text-dark fa-2x"></i>
+                                                </button>
+                                            </c:if>
+                                        </div>
+                                    <div class="d-flex justify-content-center">
+                                        <c:if test="${member.id == bestAllList.memberId || member.id == 'xzllxz456@naver.com'}">
+                                                <button type="button" class="btn btn-secondary mx-2"
+                                                        onclick="goUpdate(this.form, ${bestAllList.idx})">수정
+                                                </button>
+                                                <button type="button" class="btn btn-outline-danger"
+                                                        onclick="goDelete(${bestAllList.idx})">삭제
+                                                </button>
                                         </c:if>
                                     </div>
                                 </div>
@@ -243,7 +235,6 @@
                         </li>
                         </c:forEach>
                     </ul>
-                    <%--페이징 처리--%>
                 </li>
                 <li>
                 </li>
@@ -257,8 +248,173 @@
 <%@ include file="../main/footer.jspf"%>
 </body>
 <script>
+    // $(".like").click(function (){
+    //     if($(this).children().hasClass("far")){
+    //         $(this).children().removeClass("far");
+    //         $(this).children().addClass("fas");
+    //     } else{
+    //         $(this).children().removeClass("fas");
+    //         $(this).children().addClass("far");
+    //     }
+    //
+    // });
+
+    function goUpdate(form, idx) {
+        console.log(form + idx);
+    }
+
+    function goLike(memberId, reviewIdx, bt) {
+        // console.log(bt.children(".fas"));
+        if($("this").children("button").hasClass("fas")){
+            alert("ddddddd");
+        }
+        if($("this").children("button").hasClass("far")){
+            alert("ddddddd");
+        }
+        if($(this).hasClass("toggleStyle")) {
+            $(this).removeClass("toggleStyle");
+        }
+        let data = {"memberId": memberId, "reviewIdx": reviewIdx};
+        $.ajax({
+            url: '/admin/question/likeCheck',
+            type: 'get',
+            dataType: 'json',
+            data: data,
+            success: function (result){
+                location.reload();
+            }
+        });
+
+    }
+
     function goCateBest(category) {
         location.href="/community/category/goReview?category="+category;
+    }
+
+    function goSearch(form) {
+        let listList = new Array();
+        <c:forEach items="${likeList}" var="like">
+        listList.push({idx: ${like.idx}
+            ,reviewIdx: ${like.reviewIdx}
+            ,memberId: "${like.memberId}"});
+        </c:forEach>
+        for(let i=0;i<listList.length; i++){
+            console.log(listList[i].idx);
+            console.log(listList[i].memberId);
+            console.log(listList[i].reviewIdx);
+        }
+        let formData = $(form).serialize();
+        let id = '${member.id}';
+        $.ajax({
+            url: '/admin/question/searchReview',
+            type: 'get',
+            dataType: 'json',
+            data: formData,
+
+            success: function (result){
+                let resultBar = "";
+                let ultable = "";
+                let dispHtml = "";
+                resultBar += '<li class="nav-item">'
+                    + '<span class="nav-link">검색결과</span>'
+                    + '</li>'
+
+                ultable += '<li> <ul> <li>별점</li> <li>제목</li> <li>작성일</li> <li>작성자</li> <li>좋아요</li> </ul> </li>';
+
+                $.each(result, function (i, item) {
+                    dispHtml += '<li class="allBoxes accordion-item">';
+                    dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco">';
+                    dispHtml += '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
+                    dispHtml +=   '<li class="text-center"><div>';
+                    if(this.star == 5){
+                        dispHtml += '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>';
+                    }
+                    if(this.star == 4){
+                        dispHtml += '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>';
+                    }
+                    if(this.star == 3){
+                        dispHtml += '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>';
+                    }
+                    if(this.star == 2){
+                        dispHtml += '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>';
+                    }
+                    if(this.star == 1){
+                        dispHtml += '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>';
+                    }
+                    if(this.star == 0){
+                        dispHtml += '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>';
+                    }
+
+
+                    dispHtml += '</div></li>';
+                    dispHtml +=   '<li class="text-center">' + this.name + '</li>'
+                        + '<li class="text-center"><div>' + this.regDate + '</div></li>'
+                        + '<li class="text-center"><div>' +this.memberId + '</div></li>'
+                        + '<li class="text-center"><div>' +  this.likeCount + '</div></li></<button>'
+                        + '</ul>'
+                        + '<div id="col' + this.idx + '" class="accordion-collapse collapse" aria-labelledby="head' + this.idx + '" data-bs-parent="#ulTable">'
+                        + '<div class="accordion-body">'
+                        + '<div>'
+                        +   '<p>' + this.content + '</p>'
+                        + '</div>'
+                        + '<div>';
+                    if(this.image != null) {
+                        dispHtml += '<div>'
+                            + '<img src="/static/upload/community/review/' + this.image + '" alt="아아아아악">'
+                            + '</div>';
+                    }
+                    dispHtml += "</div>";
+
+                    dispHtml += '<div class="d-flex justify-content-end">';
+                    if(this.hasReview){
+                        dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, ' + this.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
+                    } else {
+                        dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, `' + this.idx + '`)"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
+                    }
+                    dispHtml += '</div>'
+                        + '<div class="d-flex justify-content-center">';
+                    if(this.memberId == id || id == 'xzllxz456@naver.com'){
+                        dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
+                            + 'onclick="goUpdate(this.form,' + this.idx + ')">수정'
+                            + '</button>'
+                            + '<button type="button" class="btn btn-outline-danger"'
+                            + 'onclick="goDelete(' + this.idx + ')">삭제'
+                            + '</button>';
+                    }
+                    dispHtml += '</div>';
+
+                    dispHtml += "</div></div></li>";
+                });
+                $("#review-bar").html(resultBar);
+                $("#ulTablebar").html(ultable);
+                $("#ulTable").html(dispHtml);
+            }
+        });
+
     }
 
     function goAllList(tab, paramType) {
@@ -305,8 +461,20 @@
 
         // 더보기 실행함수 **
         function readOldNotify(index, _endIndex){
+            let listList = new Array();
+            <c:forEach items="${likeList}" var="like">
+            listList.push({idx: ${like.idx}
+                ,reviewIdx: ${like.reviewIdx}
+                ,memberId: "${like.memberId}"});
+            </c:forEach>
+            for(let i=0;i<listList.length; i++){
+                console.log(listList[i].idx);
+                console.log(listList[i].memberId);
+                console.log(listList[i].reviewIdx);
+            }
             // _endIndex = index+searchStep-1;	// endIndex설정
             // $(".accordion_count").css("display", "none");
+            let id = '${member.id}';
             console.log(index + "index");
             console.log(searchStep + "search")
             console.log(_endIndex + "_endIndex");
@@ -320,59 +488,59 @@
                     endIndex: _endIndex
                 },
                 url: "/community/api/category/goAllReview",
-                success: function (data) {
-                    console.dir(data);
+                success: function (result) {
+                    console.dir(result);
                     let dispHtml = "";
-                    $.each(data, function () {
+                    $.each(result, function (i, item) {
                         dispHtml += '<li class="allBoxes accordion-item">';
                         dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco">';
                         dispHtml += '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
                         dispHtml +=   '<li class="text-center"><div>';
                         if(this.star == 5){
-                            dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            dispHtml += '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="fas fa-star text-warning"></i>';
                         }
                         if(this.star == 4){
-                            dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            dispHtml += '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>';
                         }
                         if(this.star == 3){
-                            dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            dispHtml += '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>';
                         }
                         if(this.star == 2){
-                            dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            dispHtml += '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>';
                         }
                         if(this.star == 1){
-                            dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            dispHtml += '<i class="fas fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>';
                         }
                         if(this.star == 0){
-                            dispHtml += '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                                + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                            dispHtml += '<i class="far fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>'
+                                + '<i class="far fa-star text-warning"></i>';
                         }
 
-
                         dispHtml += '</div></li>';
+
                         dispHtml +=   '<li class="text-center">' + this.name + '</li>'
                             + '<li class="text-center"><div>' + this.regDate + '</div></li>'
                             + '<li class="text-center"><div>' +this.memberId + '</div></li>'
@@ -389,7 +557,27 @@
                                 + '<img src="/static/upload/community/review/' + this.image + '" alt="아아아아악">'
                                 + '</div>';
                         }
-                        dispHtml += "</div></div></div></li>";
+                        dispHtml += "</div>";
+
+                        dispHtml += '<div class="d-flex justify-content-end">';
+                        if(this.hasReview){
+                            dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, ' + this.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
+                        } else {
+                            dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, `' + this.idx + '`)"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
+                        }
+                        dispHtml += '</div>'
+                            + '<div class="d-flex justify-content-center">';
+                        if(this.memberId == id || id == 'xzllxz456@naver.com'){
+                            dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
+                                + 'onclick="goUpdate(this.form,' + this.idx + ')">수정'
+                                + '</button>'
+                                + '<button type="button" class="btn btn-outline-danger"'
+                                + 'onclick="goDelete(' + this.idx + ')">삭제'
+                                + '</button>';
+                        }
+                        dispHtml += '</div>';
+
+                        dispHtml += "</div></div></li>";
                     });
 
                     // $(dispHtml).html("#ulTable");
@@ -409,10 +597,17 @@
             });
         }
     }
-    
+
+
     function goBestList(tab, paramType) {
+
+        // for(let i=0;i<listList.length; i++){
+        //     console.log(listList[i].idx);
+        //     console.log(listList[i].memberId);
+        //     console.log(listList[i].reviewIdx);
+        // }
         $("#searchMoreNotify").css("display", "none");
-        console.log(paramType);
+        let id = '${member.id}';
         let dataParam = {
             category : paramType
         };
@@ -423,52 +618,52 @@
             data: dataParam,
             success: function (result) {
                let dispHtml = "";
-                $.each(result, function () {
+                $.each(result, function (i, item) {
                     dispHtml += '<li class="allBoxes accordion-item">';
                     dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco">';
                     dispHtml += '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
                     dispHtml +=   '<li class="text-center"><div>';
                     if(this.star == 5){
-                        dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
+                        dispHtml += '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>';
                     }
                     if(this.star == 4){
-                        dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                        dispHtml += '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>';
                     }
                     if(this.star == 3){
-                        dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                        dispHtml += '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>';
                     }
                     if(this.star == 2){
-                        dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                        dispHtml += '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>';
                     }
                     if(this.star == 1){
-                        dispHtml += '<img src="/static/icons/starstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                        dispHtml += '<i class="fas fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>';
                     }
                     if(this.star == 0){
-                        dispHtml += '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
-                            + '<img src="/static/icons/silberstar.png" class="" alt="star" title="별" height="15" width="15">'
+                        dispHtml += '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>'
+                            + '<i class="far fa-star text-warning"></i>';
                     }
 
                     dispHtml += '</div></li>';
@@ -481,7 +676,7 @@
                         + '<div id="col' + this.idx + '" class="accordion-collapse collapse" aria-labelledby="head' + this.idx + '" data-bs-parent="#ulTable">'
                         + '<div class="accordion-body">'
                         + '<div>'
-                        +   '<p>' + this.content + '</p>'
+                        +   '<p>' + item.content + '</p>'
                         + '</div>'
                         + '<div>';
                     if(this.image != null) {
@@ -489,37 +684,36 @@
                             + '<img src="/static/upload/community/review/' + this.image + '" alt="아아아아악">'
                             + '</div>';
                     }
-                    dispHtml += "</div></div></div></li>";
+                    dispHtml += "</div>";
+
+                    dispHtml += '<div class="d-flex justify-content-end">';
+                    if(this.hasReview){
+                        dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, ' + this.idx + ')"><i class="fas fa-thumbs-up text-dark fa-2x"></i></button>';
+                    } else {
+                        dispHtml += '<button class="btn" onclick="goLike(`' + id + '`, `' + this.idx + '`)"><i class="far fa-thumbs-up text-dark fa-2x"></i></button>';
+                    }
+                    dispHtml += '</div>'
+                        + '<div class="d-flex justify-content-center">';
+                    if(this.memberId == id || id == 'xzllxz456@naver.com'){
+                        dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
+                            + 'onclick="goUpdate(this.form,' + this.idx + ')">수정'
+                            + '</button>'
+                            + '<button type="button" class="btn btn-outline-danger"'
+                            + 'onclick="goDelete(' + this.idx + ')">삭제'
+                            + '</button>';
+                    }
+                    dispHtml += '</div>';
+
+                    dispHtml += "</div></div></li>";
                 });
                 $("#ulTable").html(dispHtml);
-                // 아코디언
-                // $(".accordion ul").next(".accordion_count").slideToggle("fast")
-                //     .siblings(".accordion_count:visible").slideUp("fast");
-                // $(".accordion ul").click(function(){
-                //     $(this).next(".accordion_count").slideToggle("fast")
-                //         .siblings(".accordion_count:visible").slideUp("fast")
-                //     $(this).toggleClass("active");
-                // });
             }
         });
     }
 
-    // $().ready(function (){
-    //     $(".paging").css("display", "none");
-    // });
-
-    // $(document).ready(function (){
-    //     $(".accordion ul").next(".accordion_count").slideToggle("fast")
-    //         .siblings(".accordion_count:visible").slideUp("fast");
-    // });
-    //
-    //
-    // $(".accordion ul").click(function(){
-    //     $(this).next(".accordion_count").slideToggle("fast");
-    //         //.siblings(".accordion_count:visible").slideUp("fast");
-    //     $(this).toggleClass("active");
-    // });
-
+    function goDelete(idx) {
+        location.href="/community/category/deleteReview?idx=" + idx;
+    }
 
 </script>
 
