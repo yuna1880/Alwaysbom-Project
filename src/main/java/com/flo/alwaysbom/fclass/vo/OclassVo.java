@@ -32,4 +32,5 @@ public class OclassVo {
     private Integer discountTotalPrice;
     private Integer fclassIdx;
     private Integer scheduleIdx;
+    private Date orderDate;
 }

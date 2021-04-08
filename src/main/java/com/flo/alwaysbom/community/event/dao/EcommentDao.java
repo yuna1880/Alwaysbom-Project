@@ -26,7 +26,7 @@ public class EcommentDao {
 
 
     public void ecommentUpdate(EcommentVo vo) {
-        sqlSessionTemplate.update("ecomment.ecommentUpdate",vo);
+        sqlSessionTemplate.update("ecomment.ecommentUpdate", vo);
     }
 
     public void ecommentDelete(Integer idx) {

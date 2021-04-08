@@ -13,6 +13,8 @@ public interface FlowerService {
 
     Optional<FlowerVo> findByIdx(Integer idx);
 
+    List<FlowerVo> findRecent4();
+
     Integer updateFlower(FlowerVo vo);
 
     void deleteFlower(Integer idx);

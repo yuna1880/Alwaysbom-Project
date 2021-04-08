@@ -17,6 +17,7 @@ public class OclassDao {
 
     public OclassVo addOclass(OclassVo vo) {
         sqlSessionTemplate.insert("oclass.addOclass", vo);
+        vo = findByIdx(vo.getIdx());
         return vo;
     }
 
@@ -39,5 +40,11 @@ public class OclassDao {
 
     public boolean deleteOrder(Integer idx) {
         return sqlSessionTemplate.delete("oclass.deleteOrder", idx) > 0;
+    }
+
+    public void updateClassImg(String newImg, int idx) {
+        OclassVo build = OclassVo.builder().fclassIdx(idx).fclassImage(newImg).build();
+        System.out.println("build = " + build);
+        sqlSessionTemplate.update("oclass.updateClassImg", build);
     }
 }

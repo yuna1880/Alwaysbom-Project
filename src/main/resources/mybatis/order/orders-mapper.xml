@@ -98,4 +98,12 @@
         SET STATUS = #{status}
         WHERE IDX = #{idx}
     </update>
+
+    <update id="updatePoint" parameterType="com.flo.alwaysbom.member.vo.MemberVO">
+        UPDATE MEMBER
+        SET POINT = #{point}
+        WHERE ID = #{id}
+    </update>
+
+
 </mapper>

@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+
+#btn_margin {
+    margin-right: 170px;
+}
+
 #sub_btn1, #sub_btn2 {
     font-size: 23px;
     padding: 0px 80px 10px 80px;
