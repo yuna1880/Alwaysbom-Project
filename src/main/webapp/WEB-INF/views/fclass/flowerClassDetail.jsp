@@ -24,6 +24,17 @@
         const result = await response.json();
         const imgTag = document.querySelector("#branchMapImg");
         imgTag.setAttribute('src', result.mapImage);
+        let branchAddr = document.querySelector("#branchAddr")
+        branchAddr.innerHTML = result.addr;
+    }
+
+    function classReservation(form) {
+        if (${member.id == null}) {
+            alert("로그인이 필요한 페이지입니다.");
+            location.href="/login";
+        } else {
+            form.submit("/fclass/payment");
+        }
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -201,7 +212,7 @@
 
             <!-- 결제 버튼 -->
             <div class="d-flex justify-content-center mt-5">
-                <button type="submit" class="btn main-button fw-bold py-3">클래스 예약하기</button>
+                <button id="paymentBtn" type="button" class="btn main-button fw-bold py-3" onclick="classReservation(this.form)">클래스 예약하기</button>
             </div>
 
         </form>
@@ -226,8 +237,13 @@
     <div id="detail-area" class="mb-5 d-flex flex-column">
         <div class="d-flex flex-column align-items-center">${fclassVo.content}</div>
 
-        <!-- 상품설명 -->
+        <!-- 지점지도 -->
         <div class="d-flex flex-column align-items-center">
+            <span class="fs-4 fw-500 p-5">- 지점안내 -</span>
+            <div class="d-flex pb-4 fs-5">
+                <span>지점주소 : </span>
+                <span id="branchAddr"></span>
+            </div>
             <img id="branchMapImg" src="" alt="">
         </div>
     </div>
@@ -251,7 +267,7 @@
             </label>
             <label>
                 <input type="radio" name="reviewCategory" class="d-none" onclick="switchCategory('#bestReview', '#thisReview')">
-                <span class="d-block text-center py-3 px-4 btn-rev">모든 클래스 리뷰</span>
+                <span class="d-block text-center py-3 px-4 btn-rev">이 클래스의 리뷰</span>
             </label>
         </div>
 
@@ -430,10 +446,10 @@
         result.forEach(function (schedule) {
             const $option = document.createElement("option");
             const remainCount = schedule.totalCount - schedule.regCount;
-            $option.dataset.remainCount = remainCount.toString(); //data-remain-count 속성의 값으로 들어갑니다
-            $option.value = schedule.idx;
-            $option.innerText = schedule.startTime + " ~ " + schedule.endTime + "(" + remainCount + "명 가능)";
-            $scheduleSelect.appendChild($option);
+                $option.dataset.remainCount = remainCount.toString(); //data-remain-count 속성의 값으로 들어갑니다
+                $option.value = schedule.idx;
+                $option.innerText = schedule.startTime + " ~ " + schedule.endTime + "(" + remainCount + "명 가능)";
+                $scheduleSelect.appendChild($option);
         })
 
         if (result.length) {
@@ -486,10 +502,14 @@
         let result = await response.json();
 
         for (let scheduleVo of result) {
-            disabledArrayInit = disabledArrayInit.filter(value => value !== dateToString(scheduleVo.sdate));
+            let checkRegCount = scheduleVo.totalCount - scheduleVo.regCount;
+            if (checkRegCount > 0) {
+                disabledArrayInit = disabledArrayInit.filter(value => value !== dateToString(scheduleVo.sdate));
+            }
             // let sdateString = dateToString(scheduleVo.sdate);
             // let number = disabledArrayInit.indexOf(sdateString);
             // disabledArrayInit.splice(number, 1);
+
         }
         $('.schedule-datepicker').datepicker("setDatesDisabled", disabledArrayInit);
     }

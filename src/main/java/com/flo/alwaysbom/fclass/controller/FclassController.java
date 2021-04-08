@@ -112,7 +112,7 @@ public class FclassController {
         return "/fclass/payment";
     }
 
-    @PostMapping ("/fclass/completePayment")
+    @GetMapping ("/fclass/completePayment")
     public String completePayment(Integer scheduleIdx, OclassVo ovo, Model model) {
         // @RequestParam("pay-type") String payType, Integer payTotal, String payDate, Integer discountGrade, Integer discountPoint, Model model
         System.out.println("ovo = " + ovo);
