@@ -11,7 +11,9 @@
 
     <select id="eventList" resultType="com.flo.alwaysbom.community.event.vo.EventVo">
         SELECT * FROM EVENT
-        WHERE START_DATE <![CDATA[ >= ]]> TO_DATE(SYSDATE, 'YY/MM/DD')
+
+        WHERE END_DATE <![CDATA[ >= ]]> TO_DATE(SYSDATE, 'YY/MM/DD')
+
        /* AND END_DATE <![CDATA[ >= ]]> TO_DATE(SYSDATE, 'YY/MM/DD')*/
     </select>
 

@@ -23,8 +23,8 @@ public class ReviewService {
         return reviews;
     }
 
-    public List<ReviewDto> allReview(String category, String tab) {
-        return reviewDao.allReview(category, tab);
+    public List<ReviewDto> allReview(String category, String tab, Integer idx) {
+        return reviewDao.allReview(category, tab, idx);
     }
 
     public List<ReviewDto> cateBestReview(String category, String memberId) {
@@ -73,4 +73,11 @@ public class ReviewService {
     public void likeCheck(String memberId, Integer reviewIdx) {
         reviewDao.likeCheck(memberId, reviewIdx);
     }
+
+    public void reviewPassible(String id) {
+//        List<Integer> orderIdx =
+    }
+
+    //마이페이지 리뷰 작성체크
+
 }

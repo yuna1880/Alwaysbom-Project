@@ -12,12 +12,21 @@
         WHERE RN BETWEEN 1 and 10
     </select>
 
-    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
+    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">
         SELECT *
         FROM REVIEW
         <where>
-            <if test="category != null">
-                CATEGORY = #{category}
+            <if test="category == '클래스'">
+                CATEGORY = #{category} AND FCLASS_IDX = #{idx}
+            </if>
+            <if test="category == '꽃다발'">
+                CATEGORY = #{category} AND FLOWER_IDX = #{idx}
+            </if>
+            <if test="category == '소품'">
+                CATEGORY = #{category} AND PRODUCT_IDX = #{idx}
+            </if>
+            <if test="category == '정기구독'">
+                CATEGORY = #{category} AND SUBS_IDX = #{idx}
             </if>
         </where>
         ORDER BY REG_DATE DESC

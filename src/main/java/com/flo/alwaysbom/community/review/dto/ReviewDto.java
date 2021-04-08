@@ -22,7 +22,6 @@ public class ReviewDto {
       private String regDate;
       private double star;
       private Integer likeCount;
-
       private boolean hasReview;
 
 }
