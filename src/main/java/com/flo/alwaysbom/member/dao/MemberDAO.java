@@ -4,6 +4,7 @@ import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,10 @@ public class MemberDAO{
     public void insertMember(MemberVO memberVO) {
 
         sessionTemplate.insert("member.insertMember",memberVO);
+    }
+    // 로그인 검사
+    public MemberVO login(String id) throws Exception{
+        return sessionTemplate.selectOne("member.login", id);
     }
 
     //로그인
@@ -41,8 +46,14 @@ public class MemberDAO{
     }
 
     //회원 탈퇴
-    public void deleteMember(MemberVO memberVO) throws Exception {
+    public void deleteMember(MemberVO memberVO, HttpSession session) throws Exception {
         sessionTemplate.delete("member.deleteMember", memberVO);
-
+        session.invalidate();
     }
+
+    //아이디 찾기
+    public String found_id(String phone)throws Exception {
+        return sessionTemplate.selectOne("member.found_id", phone);
+    }
+
 }

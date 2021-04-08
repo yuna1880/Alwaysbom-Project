@@ -16,4 +16,8 @@ public class StatisticsService {
     public List<SubsByMonthVo> findSubsByMonth() {
         return statisticsDao.findSubsByMonth();
     }
+
+    public List<SubsByMonthVo> findSubsBySize() {
+        return statisticsDao.findSubsBySize();
+    }
 }
