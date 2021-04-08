@@ -24,6 +24,11 @@
 #pt-70 {
     padding-top: 70px;
 }
+#bread-nav {
+    display: flex;
+    font-size: 15px;
+    padding-top: 50px;
+}
 #bread-nav a {
     color: #4D4D4D;
     text-decoration: none;
@@ -190,4 +195,45 @@ input[type=radio]:checked + .btn-rev {
 
 .review-row:hover {
     background-color: #f1f0f0;
+}
+
+/* 이미지 정사각형 처리 */
+.square {
+    position: relative;
+}
+
+.square::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.square.wide::after {
+    content: "";
+    display: block;
+    padding-bottom: 50%;
+}
+
+.square.wide70::after {
+    content: "";
+    display: block;
+    padding-bottom: 70%;
+}
+
+.square.wide80::after {
+    content: "";
+    display: block;
+    padding-bottom: 80%;
+}
+
+.square > .inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.inner > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

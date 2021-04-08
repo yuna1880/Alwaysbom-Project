@@ -68,9 +68,9 @@ public class FclassController {
         FclassVo fclassVo = fclassService.findByIdx(idx);
         List<BranchVo> branchList = fclassVo.getBranchList();
         //전체리뷰 값 가져오기
-        List<ReviewDto> allReview = reviewService.allReview("클래스", "allList");
+        List<ReviewDto> allReview = reviewService.allReview("클래스", "allList", idx);
         //베스트리뷰 값 가져오기
-        List<ReviewDto> bestReview = reviewService.allReview("클래스", "best");
+        List<ReviewDto> bestReview = reviewService.allReview("클래스", "best", idx);
 
         model.addAttribute("fclassVo", fclassVo);
         model.addAttribute("branchList", branchList);

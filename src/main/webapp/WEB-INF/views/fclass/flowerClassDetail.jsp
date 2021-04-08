@@ -42,22 +42,32 @@
 
 <!-- 메인 컨테이너 -->
 <div id="container" class="mx-auto d-flex flex-column">
+
+    <!-- 메뉴 경로 표시 -->
+    <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb mb-3">
+            <li class="breadcrumb-item"><a href="/">HOME</a></li>
+            <li class="breadcrumb-item"><a href="/fclass/classList">플라워클래스</a></li>
+            <li class="breadcrumb-item active" aria-current="page">${fclassVo.name}</li>
+        </ol>
+    </nav>
+
     <!-- 상품 썸네일과 주문 정보 -->
     <div class="d-flex justify-content-between thumb-order">
         <!-- 사진 썸네일 -->
         <div class="thumbnails d-flex flex-column justify-content-start">
             <div id="item-thumbnails" class="carousel slide mb-4" data-bs-interval="0" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
+                <div class="carousel-inner square">
+                    <div class="carousel-item active inner">
                         <img src="${fclassVo.image1}" class="d-block w-100" alt="대표 썸네일">
                     </div>
                     <c:if test="${not empty fclassVo.image2}">
-                    <div class="carousel-item">
+                    <div class="carousel-item inner">
                         <img src="${fclassVo.image2}" class="d-block w-100" alt="대표 썸네일">
                     </div>
                     </c:if>
                     <c:if test="${not empty fclassVo.image3}">
-                    <div class="carousel-item">
+                    <div class="carousel-item inner">
                         <img src="${fclassVo.image3}" class="d-block w-100" alt="대표 썸네일">
                     </div>
                     </c:if>
@@ -73,22 +83,29 @@
             </div> <!-- id="item-thumbnails" 닫기 -->
 
             <!-- 3개 한 줄에 일렬로 나오는 썸네일 -->
-            <div class="d-flex">
-                <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="0"
-                        class="active col-4 p-0 pe-3 border-0 bg-transparent m-0" aria-current="true" aria-label="Slide 1">
-                    <img src="${fclassVo.image1}" alt="썸네일1" class="w-100">
-                </button>
+            <div class="d-flex row-cols-3">
+                <div class="square">
+                    <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="0"
+                            class="inner active col-4 p-0 pe-3 border-0 bg-transparent m-0" aria-current="true"
+                            aria-label="Slide 1">
+                        <img src="${fclassVo.image1}" alt="썸네일1" class="w-100">
+                    </button>
+                </div>
                 <c:if test="${not empty fclassVo.image2}">
+                <div class="square">
                     <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="1"
-                            class="col-4 p-0 ps-2 pe-2 border-0 bg-transparent m-0" aria-label="Slide 2">
+                            class="inner col-4 p-0 ps-2 pe-2 border-0 bg-transparent m-0" aria-label="Slide 2">
                         <img src="${fclassVo.image2}" alt="썸네일2" class="w-100">
                     </button>
+                </div>
                 </c:if>
                 <c:if test="${not empty fclassVo.image3}">
+                <div class="square">
                     <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="2"
-                            class="col-4 p-0 ps-3 border-0 bg-transparent m-0" aria-label="Slide 3">
+                            class="inner col-4 p-0 ps-3 border-0 bg-transparent m-0" aria-label="Slide 3">
                         <img src="${fclassVo.image3}" alt="썸네일3" class="w-100">
                     </button>
+                </div>
                 </c:if>
             </div>
         </div> <!-- 사진 썸네일 닫기 -->
@@ -265,12 +282,12 @@
                         ${best.name}
                         <c:if test="${best.image != null}">
                         <span class="c-bbb ms-2">
-                            <i class="fas fa-images text-secondary"></i>
+                            <i class="fas fa-images"></i>
                         </span>
                         </c:if>
                     </span>
-                            <span class="col-2 text-center fs-6 fw-light">${best.memberId}</span>
-                            <span class="col-2 text-center fs-6 fw-light">${best.regDate}</span>
+                            <span class="col-2 text-center fs-6 fw-light c-666">${best.memberId}</span>
+                            <span class="col-2 text-center fs-6 fw-light c-666">${best.regDate}</span>
                         </div>
                     </div>
                     <div id="collapse${status.index}" class="accordion-collapse collapse border-0"
@@ -311,12 +328,12 @@
                                 ${all.name}
                                 <c:if test="${all.image != null}">
                                 <span class="c-bbb ms-2">
-                                    <i class="fas fa-images text-secondary"></i>
+                                    <i class="fas fa-images"></i>
                                 </span>
                                 </c:if>
                             </span>
-                            <span class="col-2 text-center fs-6 fw-light">${all.memberId}</span>
-                            <span class="col-2 text-center fs-6 fw-light">${all.regDate}</span>
+                            <span class="col-2 text-center fs-6 fw-light c-666">${all.memberId}</span>
+                            <span class="col-2 text-center fs-6 fw-light c-666">${all.regDate}</span>
                         </div>
                     </div>
                     <div id="collapse${status.index}" class="accordion-collapse collapse border-0"

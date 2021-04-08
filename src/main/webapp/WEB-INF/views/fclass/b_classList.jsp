@@ -59,6 +59,34 @@
         .height-320px {
             height: 320px;
         }
+        .box {
+            display: flex;
+        }
+
+        .square {
+            width: 290px;
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+
+        .square:after {
+            content: "";
+            display: block;
+            padding-bottom: 100%;
+        }
+
+        .inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
     </style>
 </head>
@@ -94,15 +122,17 @@
                 <c:forEach var="fclass" items="${classList}">
                     <c:if test="${fclass.category eq '원데이클래스'}">
                         <li class="col-4 card p-4">
-                            <div>
-                                <a href="/admin/fclass/detail?idx=${fclass.idx}">
-                                    <input type="hidden" name="idx" value="${fclass.idx}">
+                            <div class="box">
+                                <div class="square">
+                                    <a href="/admin/fclass/detail?idx=${fclass.idx}">
+                                        <input type="hidden" name="idx" value="${fclass.idx}">
 
-                                    <div class="overflow-hidden height-320px">
-                                        <img src="${fclass.image1}" alt="꽃"
-                                             class="card-img-top scale-up">
-                                    </div>
-                                </a>
+                                        <div class="overflow-hidden height-320px inner">
+                                            <img src="${fclass.image1}" alt="꽃"
+                                                 class="card-img-top scale-up">
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                             <div class="fw-bold mb-2">${fclass.name}</div>
                             <div class="mb-2">
@@ -135,13 +165,17 @@
                 <c:forEach var="fclass" items="${classList}">
                     <c:if test="${fclass.category eq '플로리스트'}">
                         <li class="col-4 card p-4">
-                            <div>
-                                <a href="/admin/fclass/detail?idx=${fclass.idx}">
-                                    <div class="overflow-hidden height-320px">
-                                        <img src="${fclass.image1}" alt="꽃"
-                                             class="card-img-top  scale-up">
-                                    </div>
-                                </a>
+                            <div class="box">
+                                <div class="square">
+                                    <a href="/admin/fclass/detail?idx=${fclass.idx}">
+                                        <input type="hidden" name="idx" value="${fclass.idx}">
+
+                                        <div class="overflow-hidden height-320px inner">
+                                            <img src="${fclass.image1}" alt="꽃"
+                                                 class="card-img-top  scale-up">
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                             <div class="fw-bold mb-2">${fclass.name}</div>
                             <div class="mb-2">
