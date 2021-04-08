@@ -73,7 +73,7 @@
                                                     <span>가격</span>
                                                     <span>
                                                             <fmt:formatNumber value="${oitem.price}" pattern="#,### 원"/>
-                                                        </span>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
