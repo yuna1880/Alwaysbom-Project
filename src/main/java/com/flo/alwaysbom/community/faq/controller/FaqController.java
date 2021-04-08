@@ -18,14 +18,14 @@ import java.util.List;
 public class FaqController {
     private final FaqService service;
 
-    @GetMapping("/goFaq")
+    @GetMapping("/community/goFaq")
     public String goFaq(FaqVo vo, Model model) {
         List<String> cateList = service.faqCategory();
         model.addAttribute("category", cateList);
         return "community/faq";
     }
 
-    @PostMapping("/gogoFaq")
+    @PostMapping("/community/api/gogoFaq")
     @ResponseBody
     public List<FaqVo> gogoFaq(FaqVo vo){
         System.out.println(vo.getCategory());

@@ -1,0 +1,198 @@
+package com.flo.alwaysbom.order.controller;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.flo.alwaysbom.order.service.OrderPriceService;
+import com.flo.alwaysbom.order.vo.*;
+import com.flo.alwaysbom.member.vo.MemberVO;
+import com.flo.alwaysbom.order.service.OrdersService;
+import com.flo.alwaysbom.util.MailSend;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@Controller
+@RequiredArgsConstructor
+@SessionAttributes(value = {"ordersVo","oitemList","member"})
+public class OrdersController {
+
+    private final OrderPriceService orderPriceService;
+    private final OrdersService ordersService;
+    private final MailSend mail;
+
+    //주문 시작!
+    @PostMapping("/order/letter")
+
+    public String startOrder(String data, Model model) throws JsonProcessingException {
+        System.out.println(">>startOrder() 주문시작!");
+
+        ObjectMapper mapper = new ObjectMapper();
+//        List<OitemVo> list = mapper.readValue(data, new TypeReference<List<OitemVo>>() {});
+        CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, OitemVo.class);
+        List<OitemVo> list = mapper.readValue(data, collectionType);
+        list.forEach(System.out::println);
+
+        System.out.println("oitemList : " + list);
+        model.addAttribute("oitemList", list);
+
+        return "order/letter";
+    }
+
+    //편지 (letter_contents값 가지고)-> 배송지입력
+    @PostMapping("/oitem/checkOut")
+    public String checkOut(@SessionAttribute("oitemList") List<OitemVo> olist, Model model, String data) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Letter.class);
+        List<Letter> list = mapper.readValue(data, collectionType);
+
+        System.out.println("oitemList : " + olist);
+
+        //편지 내용들 출력해보고, 각 인덱스에 맞는 편지내용 저장!
+        for (Letter letter : list) {
+            System.out.println("편지 : " + letter.getContent());
+            olist.get(letter.getIdx()).setLetterContent(letter.getContent());
+        }
+
+        //편지 내용 저장 후 oitemList
+        System.out.println("oitemList : " + olist);
+
+        return "order/checkout";
+    }
+
+    //배송지입력 후 -> 결제전 확인 페이지
+    @PostMapping("/order/payment")
+    public String goPayment(@SessionAttribute("oitemList") List<OitemVo> olist , OrdersVo ordersVo,@SessionAttribute("member") MemberVO member, Model model) {
+
+        //세션값 가져오기
+        System.out.println("orderVo = " + ordersVo); //orderList
+        System.out.println("OitemList = " + olist); //oitemList
+
+//        //id 임시 설정
+//        mvo = MemberVO.builder()
+//                .id("yuna1880")
+//                .grade("자스민")
+//                .point(1000)
+//                .build();
+
+        model.addAttribute("member", member);
+        model.addAttribute("oitemList", olist);
+        model.addAttribute("orderPrice", orderPriceService.getOrderPrice(olist, member));
+
+        ordersVo.setMemberId(member.getId());
+        model.addAttribute("ordersVo", ordersVo); //orderVo 세션
+        System.out.println("ordersVo : " + ordersVo);
+        return "order/payment";
+    }
+
+    //배송지 찾기
+    @PostMapping("/order/findAddress")
+    @ResponseBody
+    public DeliveryInfoVo findAddress(@SessionAttribute("member") MemberVO member) {
+        System.out.println("findAddress()");
+        System.out.println("member : " + member);
+        DeliveryInfoVo dvo = ordersService.findAddress(member);
+        System.out.println("찾은 주소 : " + dvo);
+        return dvo;
+    }
+
+    //주문 전 확인창 (결제 정보 입력) -> 주문 완료
+    @PostMapping("/order/complete")
+    public String completeOrder (@SessionAttribute("oitemList") List<OitemVo> olist, OrdersVo ordersVo, Model model) {
+
+        System.out.println("OrdersController.completeOrder");
+        System.out.println("oitemList : " + olist);
+        System.out.println("orderVo : " + ordersVo);
+
+        //주문상태 변경 (신용카드 -> 결제완료 / 무통장입금 -> 입금대기)
+        if (ordersVo.getPayType().equals("무통장입금")) {
+            ordersVo.setStatus("입금대기");
+        } else {
+            ordersVo.setStatus("결제완료");
+        }
+
+        //주문상품, 주문자 정보 모두 가지고 DB insert
+        ordersService.insertOrder(ordersVo, olist);
+
+        //배송지 저장 눌렀을때 ? -> 저장해주기
+        if (ordersVo.isSaveAddress()) {
+            ordersService.saveDelivery(ordersVo);
+        }
+
+        //mail.sendMail("xzllxz456@naver.com");
+
+        model.addAttribute("oitemList", olist);
+        model.addAttribute("ordersVo",ordersVo);
+        return "/order/order_ok";
+    }
+
+    //주문정보 + 주문한 상품내역 조회 (회원용)
+    @GetMapping("/orders")
+    public String findByMember(@SessionAttribute(required = false) MemberVO member, Model model) {
+        if (member == null) {
+            member = MemberVO.builder().id("yuna1880").build();
+        }
+
+        OrdersSearchOptionDto searchOption = OrdersSearchOptionDto.builder()
+                .memberId(member.getId()) // admin 일땐 이게 없어야 함.
+                //.status("입금대기") //회원으로 조회는 상태값 필요없다.
+                .build();
+
+        List<OrdersVo> ordersList = ordersService.findBySearchOption(searchOption);
+
+        model.addAttribute("searchOption", searchOption);
+        model.addAttribute("ordersList",ordersList);
+        return "/order/orderList";
+    }
+
+    //=========================================================================================================================================================
+
+    //주문정보 + 주문한 상품내역 조회 (관리자용)
+    @GetMapping("/admin/orders")
+    public String findOrder(@SessionAttribute(required = false) MemberVO member, Model model) {
+        if (member == null) {
+            member = MemberVO.builder().id("yuna1880").build();
+        }
+
+        OrdersSearchOptionDto searchOption = OrdersSearchOptionDto.builder()
+                //.memberId(member.getId()) // admin 일땐 이게 없어야 함.
+                .status("입금대기")
+                .build();
+
+        List<OrdersVo> ordersList = ordersService.findBySearchOption(searchOption);
+        //주문에 대한 총 개수 구하기
+        OrdersStatusCount statusCount = ordersService.findStatusCount();
+
+        model.addAttribute("statusCount", statusCount);
+        model.addAttribute("searchOption", searchOption);
+        model.addAttribute("ordersList",ordersList);
+        return "/order/b_orderList";
+    }
+
+    //해당 status에 대한 주문정보 찾기 (만들어둔 DTO이용)
+    @GetMapping("/admin/api/orders")
+    public String findOrdersByStatus(OrdersSearchOptionDto searchOption, Model model) {
+        //라디오 버튼에서 선택한 ststus 값으로 주문 찾기
+        List<OrdersVo> orders = ordersService.findBySearchOption(searchOption);
+        model.addAttribute("searchOption", searchOption);
+        model.addAttribute("ordersList", orders);
+        return "/order/b_orderListContent";
+    }
+
+    //해당 인덱스의 상태값 update
+    @RequestMapping("/admin/api/orders/{idx}/status")
+    @ResponseBody
+    public boolean updateStatus(@RequestBody String status, @PathVariable Integer idx) {
+        OrdersVo orders = OrdersVo.builder()
+                .idx(idx)
+                .status(status)
+                .build();
+
+        return ordersService.updateStatus(orders);
+    }
+}

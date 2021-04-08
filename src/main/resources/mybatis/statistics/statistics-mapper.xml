@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="statistics">
+
+    <select id="findSubsByMonth" resultType="com.flo.alwaysbom.statistics.vo.SubsByMonthVo">
+        <![CDATA[
+        select NVL(X.cnt, 0) as value, D.mt as label
+        from (
+                 select TO_CHAR(SYSDATE - (interval '1' month) * (level - 1), 'YY/MM') as mt
+                 from dual
+                 connect by level <= 6
+             ) D
+                 LEFT JOIN
+             (
+                 select count(I.idx) cnt, to_char(O.odate, 'YY/MM') as odate
+                 from oitem I
+                          inner join orders O on I.orders_idx = O.idx
+                 where O.odate between TO_DATE(TO_CHAR(SYSDATE - (interval '5' month), 'YY/MM'), 'YY/MM') and SYSDATE
+                   and I.category = '정기구독'
+                 group by to_CHAR(O.odate, 'YY/MM')
+             ) X
+             ON D.mt = X.odate
+        order by D.mt
+        ]]>
+    </select>
+
+    <select id="findSubsBySize" resultType="com.flo.alwaysbom.statistics.vo.SubsByMonthVo">
+        <![CDATA[
+        select fsize as label, count(idx) as value from oitem
+        where category = '정기구독'
+        group by fsize
+        order by decode(fsize, 'S', 1, 'M', 2, 'L', 3, 'XL', 4)
+        ]]>
+    </select>
+</mapper>
