@@ -42,12 +42,9 @@ public class OrdersDao {
         return sqlSessionTemplate.selectOne("orders-mapper.getPoint",mvo);
     }
 
-
     public List<OrdersVo> findByMember(MemberVO vo) {
         return sqlSessionTemplate.selectList("orders-mapper.findByMember",vo);
     }
-
-
 
     public List<OitemVo> findByOrderIdx(Integer idx) {
         return sqlSessionTemplate.selectList("orders-mapper.findByOrderIdx",idx);
@@ -67,5 +64,14 @@ public class OrdersDao {
 
     public void updatePoint(MemberVO member) {
         sqlSessionTemplate.update("orders-mapper.updatePoint", member);
+    }
+
+    //정기구독 주문리스트 조회
+    public List<OrdersVo> findBySubs(MemberVO member) {
+        return sqlSessionTemplate.selectList("orders-mapper.findBySubs", member);
+    }
+    //소품샵, 꽃다발 주문조회
+    public List<OrdersVo> findByFlower(MemberVO member) {
+        return sqlSessionTemplate.selectList("orders-mapper.findByFlower", member);
     }
 }

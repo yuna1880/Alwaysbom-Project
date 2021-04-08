@@ -151,6 +151,29 @@ public class OrdersController {
         return "/order/orderList";
     }
 
+    // (정기구독)으로 조회
+    @GetMapping("/orders/subsList")
+    public String findBySubs (@SessionAttribute(required = false) MemberVO member, Model model) {
+        if (member == null) {
+            member = MemberVO.builder().id("yuna1880").build();
+        }
+        List<OrdersVo> ordersList = ordersService.findBySubs(member);
+
+        model.addAttribute("ordersList", ordersList);
+        return "/order/subsList";
+    }
+
+    // (꽃다발, 소품샵) 으로 조회
+    @GetMapping("/orders/flowerList")
+    public String findByFlower (@SessionAttribute(required = false) MemberVO member, Model model) {
+        if (member == null) {
+            member = MemberVO.builder().id("yuna1880").build();
+        }
+        List<OrdersVo> ordersList = ordersService.findByFlower(member);
+
+        model.addAttribute("ordersList", ordersList);
+        return "/order/orderList";
+    }
 
     // status (주문상태 = 배송완료) 로 조회하기 (동호)
     @GetMapping("/orders/status")
@@ -170,7 +193,7 @@ public class OrdersController {
         System.out.println("orderList : " + ordersList);
         model.addAttribute("searchOption", searchOption);
         model.addAttribute("ordersList",ordersList);
-        return "";
+        return "/order/orderStatus";
     }
 
 

@@ -56,10 +56,18 @@
         WHERE ORDERS.MEMBER_ID = #{id}
         ORDER BY ORDERS.IDX DESC
     </select>
-    <select id="findByStatus" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultMap="OrdersMap">
+    <select id="findBySubs" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultMap="OrdersMap">
         SELECT * FROM ORDERS
                           INNER JOIN OITEM ON(OITEM.ORDERS_IDX = ORDERS.IDX)
-        WHERE ORDERS.STATUS = #{status}
+        WHERE OITEM.CATEGORY = '정기구독'
+          AND orders.member_id = #{id}
+        ORDER BY ORDERS.IDX DESC
+    </select>
+    <select id="findByFlower" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultMap="OrdersMap">
+        SELECT * FROM ORDERS
+                          INNER JOIN OITEM ON(OITEM.ORDERS_IDX = ORDERS.IDX)
+        WHERE OITEM.CATEGORY IN ('꽃다발','소품샵')
+          AND orders.member_id = #{id}
         ORDER BY ORDERS.IDX DESC
     </select>
 

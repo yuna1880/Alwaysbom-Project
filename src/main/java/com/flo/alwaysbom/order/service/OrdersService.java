@@ -27,4 +27,8 @@ public interface OrdersService {
     boolean updateStatus(OrdersVo orders);
 
     void updatePoint(MemberVO member);
+
+    List<OrdersVo> findBySubs(MemberVO member);
+
+    List<OrdersVo> findByFlower(MemberVO member);
 }
