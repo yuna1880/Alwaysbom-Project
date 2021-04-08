@@ -42,6 +42,16 @@
 
 <!-- 메인 컨테이너 -->
 <div id="container" class="mx-auto d-flex flex-column">
+
+    <!-- 메뉴 경로 표시 -->
+    <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb mb-3">
+            <li class="breadcrumb-item"><a href="/">HOME</a></li>
+            <li class="breadcrumb-item"><a href="/fclass/classList">플라워클래스</a></li>
+            <li class="breadcrumb-item active" aria-current="page">${fclassVo.name}</li>
+        </ol>
+    </nav>
+
     <!-- 상품 썸네일과 주문 정보 -->
     <div class="d-flex justify-content-between thumb-order">
         <!-- 사진 썸네일 -->

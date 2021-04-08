@@ -24,6 +24,11 @@
 #pt-70 {
     padding-top: 70px;
 }
+#bread-nav {
+    display: flex;
+    font-size: 15px;
+    padding-top: 50px;
+}
 #bread-nav a {
     color: #4D4D4D;
     text-decoration: none;
