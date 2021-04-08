@@ -35,7 +35,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="statistics">
                             <li><a class="dropdown-item" href="/admin/statistics/subs">정기 구독</a></li>
-                            <li><a class="dropdown-item" href="#">매출 통계</a></li>
+                            <li><a class="dropdown-item" href="/admin/statistics/sales">매출 통계</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

@@ -25,31 +25,6 @@
             </label>
         </div>
 
-        <!-- 성별, 매출처 -->
-        <div class="col-6 d-flex px-3 row-cols-2">
-            <div class="pe-1">
-                <select class="form-select col" aria-label="gender group">
-                    <option selected>성별</option>
-                    <option value="male">남</option>
-                    <option value="female">여</option>
-                </select>
-            </div>
-            <div class="ps-1">
-                <select class="form-select col" aria-label="sales group">
-                    <option selected>매출처</option>
-                    <option value="정기구독">정기구독</option>
-                    <option value="꽃다발">꽃다발</option>
-                    <option value="소품샵">소품샵</option>
-                    <option value="클래스">플라워클래스</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- 검색버튼 -->
-        <div class="col-2 d-flex">
-            <button class="col btn btn-primary" onclick="searchSales()">검색</button>
-        </div>
-
     </div>
 
     <!-- 매출 현황 그래프 -->

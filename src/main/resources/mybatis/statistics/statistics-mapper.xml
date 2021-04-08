@@ -29,7 +29,7 @@
         <![CDATA[
         select fsize as label, count(idx) as value
         from oitem
-        where category = 'SUBS_AMOUNT'
+        where category = '정기구독'
         group by fsize
         order by decode(fsize, 'S', 1, 'M', 2, 'L', 3, 'XL', 4)
         ]]>
