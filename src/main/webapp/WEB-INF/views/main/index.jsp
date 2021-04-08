@@ -66,7 +66,7 @@
                 <span class="fs-3 ls-narrower ps-3">꽃이 필요한 순간,</span>
                 <span class="fs-3 fw-bolder ls-narrower ps-3">새늘봄 꽃다발</span>
             </div>
-            <span class="cursor-pointer" onclick="location.href='/flower'">더보기</span>
+            <span class="cursor-pointer hover-color" onclick="location.href='/flower'">더보기</span>
         </div>
 
         <!----------------------------------------->
