@@ -143,6 +143,7 @@ public class ReviewController {
         service.likeCheck(memberId, reviewIdx);
         return true;
     }
+
 //
 //    @GetMapping("/community/event/eventreview")
 //    public String gogoRiview(@SessionAttribute(required = false) MemberVO member){
@@ -152,5 +153,16 @@ public class ReviewController {
 //
 //        return "member/mypage_review";
 //    }
+
+
+    @GetMapping("/community/event/eventreview")
+    public String gogoRiview(@SessionAttribute(required = false) MemberVO member){
+        if (member == null) {
+            // 없을 때 임시
+            return "member/login";
+        }
+
+        return "member/mypage_review";
+    }
 
 }

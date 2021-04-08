@@ -60,6 +60,7 @@ public class EventController {
     @PostMapping("/api/community/eco/ecommentUpdateSend")
     @ResponseBody
     public Boolean ecommentUpdateSend(EcommentVo vo) {
+
         ecommentService.ecommentUpdate(vo);
         return true;
     }
@@ -77,5 +78,6 @@ public class EventController {
         ecommentService.ecommentReport(idx);
         return true;
     }
+
 
 }
