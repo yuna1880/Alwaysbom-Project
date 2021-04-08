@@ -103,6 +103,16 @@
 </div>
 <%@ include file="../main/b_footer.jspf"%>
 <script>
+    /**
+     * @param {String} html representing a single element
+     * @return {ChildNode}
+     */
+    function htmlToElement(html) {
+        const template = document.createElement("template");
+        template.innerHTML = html.trim();
+        return template.content.firstChild;
+    }
+
     let myChart;
 
     searchSales().then(function (result) {
@@ -114,13 +124,13 @@
         return fetch("/statistics/api/sales").then(response => {
             return response.json().then(result => {
                 console.log(result);
-                const periods = result.map(v => v.period);
-                const salesCounts = result.map(v => v.salesCount);
-                const subsAmounts = result.map(v => v.subsAmount);
-                const flowerAmounts = result.map(v => v.flowerAmount);
-                const productAmounts = result.map(v => v.productAmount);
-                const classAmounts = result.map(v => v.classAmount);
-                const totalAmounts = result.map(v => v.totalAmount);
+                const periods = result.map(({period}) => period);
+                const salesCounts = result.map(({salesCount}) => salesCount);
+                const subsAmounts = result.map(({subsAmount}) => subsAmount);
+                const flowerAmounts = result.map(({flowerAmount}) => flowerAmount);
+                const productAmounts = result.map(({productAmount}) => productAmount);
+                const classAmounts = result.map(({classAmount}) => classAmount);
+                const totalAmounts = result.map(({totalAmount}) => totalAmount);
                 console.log(salesCounts);
                 const data = {
                     labels: periods,
@@ -200,13 +210,6 @@
                             title: {
                                 display: true,
                                 text: '매출 통계'
-                            },
-                            datalabels: {
-                                font: {
-                                    size: 20
-                                },
-                                color: '#000000',
-                                display: false
                             }
                         }
                     }
@@ -217,10 +220,6 @@
             })
         });
     }
-
-
-
-
 </script>
 </body>
 </html>

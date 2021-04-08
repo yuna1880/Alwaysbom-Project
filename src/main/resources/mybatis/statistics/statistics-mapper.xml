@@ -49,7 +49,8 @@
                      NVL(P.FLOWER_AMOUNT, 0)                                                                     AS FLOWER_AMOUNT,
                      NVL(P.PRODUCT_AMOUNT, 0)                                                                    AS PRODUCT_AMOUNT,
                      NVL(F.CLASS_AMOUNT, 0)                                                                      AS CLASS_AMOUNT,
-                     NVL(SUBS_AMOUNT, 0) + NVL(FLOWER_AMOUNT, 0) + NVL(PRODUCT_AMOUNT, 0) + NVL(CLASS_AMOUNT, 0) AS TOTAL_AMOUNT
+                     NVL(SUBS_AMOUNT, 0) + NVL(FLOWER_AMOUNT, 0) + NVL(PRODUCT_AMOUNT, 0) +
+                     NVL(CLASS_AMOUNT, 0)                                                                        AS TOTAL_AMOUNT
               FROM (SELECT TO_CHAR(O.ODATE, 'YY/MM')                   AS PERIOD,
                            COUNT(I.IDX)                                AS SALES_COUNT,
                            SUM(DECODE(I.CATEGORY, '정기구독', I.PRICE, 0)) AS SUBS_AMOUNT,
@@ -70,7 +71,7 @@
                  RIGHT JOIN
              (SELECT TO_CHAR(SYSDATE - (INTERVAL '1' MONTH) * (LEVEL - 1), 'YY/MM') AS MT
               FROM DUAL
-        <![CDATA[CONNECT BY LEVEL <= 6)]]> DUMMY
+              CONNECT BY LEVEL &lt;= 6) DUMMY
              ON D.PERIOD = DUMMY.MT
         ORDER BY DUMMY.MT
     </select>
