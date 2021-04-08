@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <title>새늘봄 / 매출분석 - 정기구독</title>
     <%@ include file="../main/b_import.jspf"%>
+    <script src="/static/chartjs/dist/chart.js"></script>
+    <script src="/static/chartjs/dist/chartjs-plugin-datalabels.js"></script>
+<%--    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>--%>
+<%--    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>--%>
+
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
@@ -18,32 +23,36 @@
 </div>
 <%@ include file="../main/b_footer.jspf"%>
 <script>
-
     fetch("/statistics/api/subsByMonth").then(response => {
         response.json().then(result => {
             console.log(result);
-
-            const labels = result.map((v, i) => v.month);
-            const datas = result.map((v, i) => v.subsCount);
-
+            const labels = result.map(v => v.label);
+            const values = result.map(v => v.value);
             const data = {
                 labels: labels,
                 datasets: [{
-                    label: "월별 구독 수 추이",
+                    label: '월별 구독 수 추이',
                     backgroundColor: '#ff6384',
                     border: 'none',
-                    data: datas
+                    data: values
                 }]
             }
 
             const config = {
                 type: 'bar',
-                data,
+                data: data,
+                plugins: [ChartDataLabels],
                 options: {
                     plugins: {
                         title: {
                             display: true,
                             text: '월별 구독 수 추이'
+                        },
+                        datalabels: {
+                            font: {
+                                size: 20
+                            },
+                            color: '#FFFFFF'
                         }
                     }
                 }
@@ -53,61 +62,56 @@
             const subsByMonth = new Chart(ctxMonth, config);
 
         })
-    })
+    });
 
-    // const labels = Array.from({length: 6}, (v, i) => (((new Date().getMonth() + 1) - (5 - i) + 12 - 1) % 12 + 1) + "월")
-    //
-    // const data = {
-    //     labels: labels,
-    //     datasets: [{
-    //         label: "월별 구독 수 추이",
-    //         backgroundColor: '#ff6384',
-    //         border: 'none',
-    //         data: [1, 10, 5, 2, 20, 30]
-    //     }]
-    // }
-    //
-    // const config = {
-    //     type: 'bar',
-    //     data,
-    //     options: {
-    //         plugins: {
-    //             title: {
-    //                 display: true,
-    //                 text: '월별 구독 수 추이'
-    //             }
-    //         }
-    //     }
-    // }
-    //
-    // const ctxMonth = document.querySelector("#subsByMonth");
-    // const subsByMonth = new Chart(ctxMonth, config);
-
-    const sizeLabels = ['Small', 'Medium', 'Large'];
-    const sizeData = {
-        labels: sizeLabels,
-        datasets: [
-            {
-                backgroundColor: ['rgb(127,145,232)', 'rgb(97,198,73)', 'rgb(226,224,94)'],
-                border: 'none',
-                data: [20, 30, 60]
+    fetch("/statistics/api/subsBySize").then(response => {
+        response.json().then(result => {
+            console.log(result);
+            const labels = result.map(v => v.label);
+            const values = result.map(v => v.value);
+            const total = values.reduce((prev, curr) => prev + curr, 0);
+            const data = {
+                labels: labels,
+                datasets: [
+                    {
+                        backgroundColor: ['rgb(127,145,232)', 'rgb(97,198,73)', 'rgb(226,224,94)', 'rgb(35,69,226)'],
+                        border: 'none',
+                        data: values
+                    }
+                ]
             }
-        ]
-    }
-    const sizeConfig = {
-        type: 'doughnut',
-        data: sizeData,
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: '사이즈별 구독 수량'
+            const sizeConfig = {
+                type: 'doughnut',
+                data: data,
+                plugins: [ChartDataLabels],
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '사이즈별 구독 수량'
+                        },
+                        datalabels: {
+                            font: {
+                                size: 20
+                            },
+                            color: function (ctx) {
+                                if (ctx.dataIndex !== 2) {
+                                    return '#FFFFFF';
+                                } else {
+                                    return '#333333';
+                                }
+                            },
+                            formatter: function (value, ctx) {
+                                return ctx.chart.data.labels[ctx.dataIndex];
+                            }
+                        }
+                    }
                 }
             }
-        }
-    }
-    const ctxSize = document.querySelector("#subsBySize");
-    const subsMySize = new Chart(ctxSize, sizeConfig);
+            const ctxSize = document.querySelector("#subsBySize");
+            const subsMySize = new Chart(ctxSize, sizeConfig);
+        });
+    });
 </script>
 </body>
 </html>

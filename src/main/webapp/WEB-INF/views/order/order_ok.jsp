@@ -18,7 +18,7 @@
         <div class="checkout_kukka_complete">
             <div class="inbox">
                 <div class="checkout_note">
-                    <h3 class="thank"><span class="name">고객이름</span>님의<br>주문이 완료되었습니다.</h3>
+                    <h3 class="thank"><span class="name">${sessionScope.member.name}</span>님의<br>주문이 완료되었습니다.</h3>
                     <p class="desc">새늘봄이 행복을 가득 담아 보내드릴게요!</p>
                     <p class="order_no">주문번호 : #${ordersVo.idx}</p>
 

@@ -2,17 +2,8 @@
     width: 100vw;
     height: auto;
 }
-.w-1280 {
-    width: 1280px;
-}
-.mt-100 {
-    margin-top: 100px;
-}
-.fs-19 {
-    font-size: 19px;
-}
-.ts-narrower {
-    text-space: -0.075px;
+.ls-narrower {
+    letter-spacing: -0.1px;
 }
 .subs-btn {
     background-color: #efeeeb;
@@ -34,4 +25,10 @@
 }
 .fclass-wrap {
     padding: 100px 0;
+}
+.see-more:hover {
+    color: #7DAF3B;
+}
+.height-400px {
+    height: 400px;
 }

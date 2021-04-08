@@ -65,17 +65,17 @@
                         <div class="mb-3">
                             <label for="formGroupExampleInput" class="form-label">지점명</label>
                             <input type="text" name="name" value="${branch.name}" class="form-control"
-                                   id="formGroupExampleInput" placeholder="Example input placeholder">
+                                   id="formGroupExampleInput" placeholder="Example input placeholder" required>
                         </div>
                         <div class="mb-3">
                             <label for="formGroupExampleInput2" class="form-label">지점컬러</label>
                             <input type="text" name="color" value="${branch.color}" class="form-control" onchange="changeBg(this)"
-                                   id="formGroupExampleInput2" placeholder="Another input placeholder"  style="background-color: ${branch.color}">
+                                   id="formGroupExampleInput2" placeholder="Another input placeholder"  style="background-color: ${branch.color}" required>
                         </div>
                         <div class="mb-3">
                             <label for="formGroupExampleInput3" class="form-label">지점위치</label>
                             <input type="text" name="addr" value="${branch.addr}" class="form-control"
-                                   id="formGroupExampleInput3" placeholder="Another input placeholder">
+                                   id="formGroupExampleInput3" placeholder="Another input placeholder" required>
                         </div>
                     </div>
                     <div class="file-wrap">
@@ -83,7 +83,7 @@
                             <img src="${branch.mapImage}" width="300px" class="imageBox">
                         </div>
                         <input type="hidden" name="mapImage" value="${branch.mapImage}">
-                        <input type="file" name="file" class="bmap" onchange="preview(this)"/>
+                        <input type="file" name="file" class="bmap" onchange="preview(this)" required/>
                         <div>
                             <button type="button" class="btn btn-secondary"
                                     onclick="goUpdate(this.form, ${branch.idx})">수정
@@ -105,23 +105,23 @@
                 <div class="mb-3">
                     <label for="name" class="form-label">지점명</label>
                     <input type="text" name="name"  class="form-control"
-                           id="name" placeholder="추가할 지점명을 입력하세요">
+                           id="name" placeholder="추가할 지점명을 입력하세요" required>
                 </div>
                 <div class="mb-3">
                     <label for="demo" class="form-label">지점컬러</label>
-                    <input id="demo" type="text" name="color" class="form-control mb-1" placeholder="지점컬러" onchange="changeBg(this)">
+                    <input id="demo" type="text" name="color" class="form-control mb-1" placeholder="지점컬러" onchange="changeBg(this)" required>
                     <div class="colorpicker d-flex" style="height: 15px"></div>
                 </div>
                 <div class="mb-3">
                     <label for="addr" class="form-label">지점위치</label>
                     <input type="text" name="addr"  class="form-control"
-                           id="addr" placeholder="추가할 지점주소를 입력하세요">
+                           id="addr" placeholder="추가할 지점주소를 입력하세요" required>
                 </div>
                 <div class="file-wrap">
                     <div class="overflow-hidden" style="height:200px">
                         <img id="preImg" src="" width="300px" class="imageBox invisible">
                     </div>
-                    <input type="file" name="file" class="bmap" onchange="preview(this)"/>
+                    <input type="file" name="file" class="bmap" onchange="preview(this)" required/>
                     <button type="button" class="btn btn-secondary" onclick="branchUpload(this.form)">추가합니다</button>
                 </div>
             </div>
