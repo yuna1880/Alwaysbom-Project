@@ -23,36 +23,7 @@ public class MemberService {
 
     //회원가입
     public void insertMember(MemberVO memberVO) {
-
         dao.insertMember(memberVO);
-    }
-    // 로그인
-    public MemberVO login(MemberVO memberVO, HttpServletResponse response) throws Exception {
-        response.setContentType("text/html;charset=utf-8");
-        PrintWriter out = response.getWriter();
-        // 등록된 아이디가 없으면
-        if(dao.idCheck(memberVO.getId()) == 0) {
-            out.println("<script>");
-            out.println("alert('등록된 아이디가 없습니다.');");
-            out.println("history.go(-1);");
-            out.println("</script>");
-            out.close();
-            return null;
-        } else {
-            String pw = memberVO.getPw();
-            memberVO = dao.login(memberVO.getId());
-            // 비밀번호가 다를 경우
-            if(!memberVO.getPw().equals(pw)) {
-                out.println("<script>");
-                out.println("alert('비밀번호가 다릅니다.');");
-                out.println("history.go(-1);");
-                out.println("</script>");
-                out.close();
-                return null;
-            }else {
-                return memberVO;
-            }
-        }
     }
 
     //로그인

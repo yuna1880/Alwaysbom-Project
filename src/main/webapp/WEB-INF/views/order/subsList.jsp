@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>새늘봄 - 주문내역조회</title>
+    <title>새늘봄 - 정기구독 내역조회</title>
     <%@ include file="../main/import.jspf" %>
     <link rel="stylesheet" href="/static/css/order/orderstyle_back.css">
 </head>
@@ -14,7 +14,7 @@
     <div class="h-85 d-flex">
         <%@ include file="../member/mypage_menu.jspf" %>
         <div class="col-10 border-info d-flex justify-content-center p-4">
-            <div class="col-12" id="contentPane">
+            <div class="col-12 h-100" id="contentPane">
                 <div class="h5 col-12 d-flex flex-column text-secondary">
                     <div class="d-flex">
                         <span class="fw-bold name-color">${sessionScope.member.name}</span>

@@ -21,6 +21,7 @@
                         } else {
                         document.getElementById('findAddr').click();
                         document.getElementById('find-name').value = data.receiverName;
+                        document.getElementById('find-phone').value = data.receiverPhone;
                         document.getElementById('find-zipcode').value = data.receiverZipcode;
                         document.getElementById('find-address').value = data.receiverAddrBase;
                         document.getElementById('find-address-details').value = data.receiverAddrDetail;
@@ -33,8 +34,6 @@
                 });
             });
         });
-
-
     </script>
 </head>
 <body>
@@ -310,6 +309,12 @@
                                 </span>
                             </div>
                             <div class="detail">
+                                <span class="th">수령인 연락처</span>
+                                <span class="td">
+                                    <input name="receiving_phone" id="find-phone" type="text" readonly>
+                                </span>
+                            </div>
+                            <div class="detail">
                                 <span class="th">우편번호</span>
                                 <span class="td">
                                     <input type="text" class="saved_address" id="find-zipcode" name="receiving_zipcode" readonly>
@@ -436,16 +441,25 @@
     }
     function selectAddress() {
         let name = document.getElementById('find-name').value;
+        let phone = document.getElementById('find-phone').value;
         let zip = document.getElementById('find-zipcode').value;
         let addr = document.getElementById('find-address').value;
-        let addrDeatil = document.getElementById('find-address-details').value;
+        let addrDetail = document.getElementById('find-address-details').value;
         let addrExtra = document.getElementById('find-address-extra').value;
+
+        let phone1 = phone.substr(0,3);
+        let phone2 = phone.substr(4,4);
+        let phone3 = phone.substr(9,4);
 
         document.getElementById('receiving_name').value = name;
         document.getElementById('receiving_postcode').value = zip;
         document.getElementById('receiving_address_1').value = addr;
-        document.getElementById('receiving_address_2').value = addrDeatil;
+        document.getElementById('receiving_address_2').value = addrDetail;
         document.getElementById('receiving_address_3').value = addrExtra;
+        document.getElementById('receiving_phone1').value = phone1;
+        document.getElementById('receiving_phone2').value = phone2;
+        document.getElementById('receiving_phone3').value = phone3;
+
         document.getElementById('close-button').click();
 
     }
