@@ -18,8 +18,8 @@
             <img src="/static/image/flower/flower_banner_1280.jpg" alt="꽃다발배너" class="col-12">
         </div>
         <div class="banner-text w-1280 position-absolute mx-auto">
-            <div class="banner-title fw500 mb-4 ms-2">새늘봄 꽃 정기구독</div>
-            <div class="banner-summary fw-light ms-2">
+            <div class="banner-title fw-500 mb-4 ms-2 ls-narrower">새늘봄 꽃 정기구독</div>
+            <div class="banner-summary fw-light ms-2 ls-narrower">
                 2주에 한 번, 매번 새로운 꽃으로 당신의 일상을 행복으로 채울게요.
             </div>
         </div>
@@ -28,7 +28,7 @@
 <!-- 컨테이너 -->
 <div id="container" class="mx-auto">
     <!-- 상품 버튼 -->
-    <div class="d-flex justify-content-center my-5">
+    <div class="d-flex justify-content-center my-5" id="btn_margin">
         <div class="row">
             <div class="btn-group">
                 <input type="radio" class="btn-check" id="btnradio1" checked onclick="subsList()">
@@ -41,56 +41,40 @@
         </div>
     </div>
 
-    <div class="subs_list justify-content-center">
-    <!-- 정기구독 상품 4개 리스트 -->
-    <c:forEach var="subsVo" items="${subsList}" varStatus="status">
-
-        <c:if test="${empty subsVo}">
-            <h3>판매중인 정기구독 상품이 없습니다.</h3>
-        </c:if>
-
-        <c:if test="${not empty subsVo}">
-
-            <c:if test="${status.index == 0 || status.index == 2}">
-                <div class="row my-5 align-middle">
-                    <div class="col-6">
-                        <a href="/subs/${subsVo.idx}">
-                            <img src="${subsVo.image1}" alt="${subsVo.name}" class="w-100" height="580px"/>
-                        </a>
+    <div id="subs_list">
+        <div class="subs_list d-flex flex-column justify-content-center">
+        <!-- 정기구독 상품 4개 리스트 -->
+        <c:forEach var="subsVo" items="${subsList}" varStatus="status">
+            <div class="d-flex py-4 border-bottom">
+                <c:if test="${empty subsVo}">
+                    <h3>판매중인 정기구독 상품이 없습니다.</h3>
+                </c:if>
+                <c:if test="${not empty subsVo}">
+                    <div class="order-${status.index % 2} thumbnails-wrap col-6 position-relative d-flex justify-content-end">
+                        <input type="hidden" name="idx" value="${subsVo.idx}">
+                        <div class="overflow-hidden">
+                            <div class="flex-row thumbnails d-flex justify-content-center scale-up">
+                                <!-- 이미지 클릭시, 상세 페이지로 이동 -->
+                                <a href="/subs/${subsVo.idx}">
+                                    <img src="${subsVo.image1}" alt="${subsVo.name}" class="w-100" height="580px"/>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-6" id="subs_infos">
+                    <!-- 홀수index text-end pe-5 / 짝수index ps-5 -->
+                    <div class="${status.index % 2 == 1 ? "text-end pe-5" : "ps-5"} col-6 flex-row justify-content-start" id="subs_infos">
                         <h4 class="fw-normal text-secondary">${subsVo.subheader}</h4>
                         <h2 class="py-2">${subsVo.name}</h2>
                         <h2 class="py-3">${subsVo.price} ~</h2>
                         <div class="w-95">
-                        <h5 class="py-3 fw-lighter lh-lg">${subsVo.content}</h5>
+                            <h5 class="py-3 fw-lighter lh-lg">${subsVo.content}</h5>
                         </div>
                         <h5 class="py-3"><span class="badge rounded-pill bg-light text-dark">무료배송</span></h5>
                     </div>
-                </div>
-                <hr>
-            </c:if>
-            <c:if test="${status.index == 1 || status.index == 3}">
-                <div class="row my-5 text-end">
-                    <div class="col-6" id="subs_infos2">
-                        <h4 class="fw-normal text-secondary">${subsVo.subheader}</h4>
-                        <h2 class="py-2">${subsVo.name}</h2>
-                        <h2 class="py-3">${subsVo.price} ~</h2>
-                        <div class="w-110">
-                        <h5 class="py-3 fw-lighter lh-lg">${subsVo.content}</h5>
-                        </div>
-                        <h5 class="py-3"><span class="badge rounded-pill bg-light text-dark">무료배송</span></h5>
-                    </div>
-                    <div class="col-6">
-                        <a href="/subs/${subsVo.idx}">
-                            <img src="${subsVo.image1}" alt="${subsVo.name}" class="w-100" height="580px"/>
-                        </a>
-                    </div>
-                </div>
-                <hr>
-            </c:if>
-        </c:if>
-    </c:forEach>
+                </c:if>
+            </div>
+        </c:forEach>
+        </div>
     </div>
 
 <%--    이용방법 --%>
@@ -146,14 +130,14 @@
         subsList();
     }
     function subsList() {
-        document.querySelector('.subs_list').style.display = 'block';
+        document.querySelector('#subs_list').style.display = 'block';
         document.querySelector('.subscription_how_to').style.display = 'none';
         document.querySelector('#sub_btn2').style.borderBottom = 'none';
         document.querySelector('#sub_btn1').style.borderBottom = '4px solid #ffcd32';
 
     }
     function subsInfo() {
-        document.querySelector('.subs_list').style.display = 'none';
+        document.querySelector('#subs_list').style.display = 'none';
         document.querySelector('.subscription_how_to').style.display = 'block';
         document.querySelector('#sub_btn1').style.borderBottom = 'none';
         document.querySelector('#sub_btn2').style.borderBottom = '4px solid #ffcd32';

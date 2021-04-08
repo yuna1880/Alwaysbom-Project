@@ -5,9 +5,9 @@
 <head>
     <title>꽃다발 상세페이지</title>
     <%@ include file="../main/import.jspf"%>
-    <link rel="stylesheet" href="../../../static/css/item/detail.css">
-    <link rel="stylesheet" href="../../../static/bootstrap-datepicker/bootstrap-datepicker.css">
-    <script src="../../../static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" href="/static/css/item/detail.css">
+    <link rel="stylesheet" href="/static/bootstrap-datepicker/bootstrap-datepicker.css">
+    <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 </head>
 <body>
 <%@ include file="../main/header.jspf"%>
@@ -31,20 +31,24 @@
     </nav>
 
     <!-- 상품 썸네일과 주문 정보 -->
-    <div class="d-flex justify-content-between thumb-order">
+    <div class="d-flex justify-content-between mb-5em">
         <!-- 사진 썸네일 -->
-        <div class="thumbnails d-flex flex-column justify-content-start">
-            <div id="item-thumbnails" class="carousel slide carousel-fade mb-4" data-bs-interval="0" data-bs-ride="carousel">
+        <div class="w-45 d-flex flex-column justify-content-start">
+            <div id="item-thumbnails" class="carousel slide mb-4" data-bs-interval="0" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="${flowerVo.image1}" class="d-block w-100" alt="대표 썸네일">
                     </div>
+                    <c:if test="${not empty flowerVo.image2}">
                     <div class="carousel-item">
                         <img src="${flowerVo.image2}" class="d-block w-100" alt="대표 썸네일">
                     </div>
+                    </c:if>
+                    <c:if test="${not empty flowerVo.image3}">
                     <div class="carousel-item">
                         <img src="${flowerVo.image3}" class="d-block w-100" alt="대표 썸네일">
                     </div>
+                    </c:if>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#item-thumbnails" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -63,22 +67,22 @@
                     <img src="${flowerVo.image1}" alt="썸네일1" class="w-100">
                 </button>
                 <c:if test="${not empty flowerVo.image2}">
-                <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="1"
-                        class="col-4 p-0 ps-2 pe-2 border-0 bg-transparent m-0" aria-label="Slide 2">
-                    <img src="${flowerVo.image2}" alt="썸네일2" class="w-100">
-                </button>
+                    <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="1"
+                            class="col-4 p-0 ps-2 pe-2 border-0 bg-transparent m-0" aria-label="Slide 2">
+                        <img src="${flowerVo.image2}" alt="썸네일2" class="w-100">
+                    </button>
                 </c:if>
                 <c:if test="${not empty flowerVo.image3}">
-                <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="2"
-                        class="col-4 p-0 ps-3 border-0 bg-transparent m-0" aria-label="Slide 3">
-                    <img src="${flowerVo.image3}" alt="썸네일3" class="w-100">
-                </button>
+                    <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="2"
+                            class="col-4 p-0 ps-3 border-0 bg-transparent m-0" aria-label="Slide 3">
+                        <img src="${flowerVo.image3}" alt="썸네일3" class="w-100">
+                    </button>
                 </c:if>
             </div>
         </div> <!-- 사진 썸네일 닫기 -->
 
         <!-- 주문 정보 -->
-        <div class="order-info d-flex flex-column">
+        <div class="w-46 d-flex flex-column">
             <span class="subheader">${flowerVo.subheader}</span>
             <span class="item-name">${flowerVo.name}</span>
 
@@ -101,7 +105,7 @@
             </div>
 
             <!-- 구매옵션 -->
-            <div class="inputs-wrap mb-4">
+            <div class="fs-19 mb-4">
                 <!-- 수령일 선택 옵션 -->
                 <div class="row mb-4">
                     <label for="requestDate" class="col-3 fw-500 pt-1">수령일</label>
@@ -314,8 +318,7 @@
                         <span class="col-2 text-center c-666 fw-light">작성일</span>
                     </div>
                 </div>
-                <div id="reviewContent2" class="accordion-collapse collapse border-0" aria-labelledby="review2"
-                     data-bs-parent="#bestReview">
+                <div id="reviewContent2" class="accordion-collapse collapse border-0" aria-labelledby="review2" data-bs-parent="#bestReview">
                     <div class="accordion-body bb-1">
                         <div class="col-5 d-flex flex-column ms-13">
                             <img src="../../../static/image/flower/vase3-1.jpg" alt="dummy" class="col-9">
@@ -326,7 +329,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> <!-- #bestReview 닫기 -->
 
         <!-- 이 상품의 리뷰 게시판 -->
         <div id="thisReview" class="d-none">
@@ -389,8 +392,6 @@
                 </div>
             </div>
         </div>
-
-
 
 
     </div> <!-- 리뷰게시판 닫기 -->
@@ -762,6 +763,7 @@
         frm.action = "/order/letter";
         frm.submit();
     }
+
 
     /* 상품설명/리뷰/배송안내 탭 누르면 스크롤 이동 */
     function animateScroll(locationStr) {

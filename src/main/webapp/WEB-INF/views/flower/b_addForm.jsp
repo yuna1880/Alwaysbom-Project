@@ -10,8 +10,8 @@
         <title>꽃다발 상품 수정</title>
     </c:if>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="../../../static/css/item/b_addForm.css">
-    <script src="../../../static/ckeditor5-build-classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="/static/css/item/b_addForm.css">
+    <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
@@ -394,6 +394,6 @@
         frm.submit();
     }
 </script>
-<script src="../../../static/js/imageUploader.js"></script>
+<script src="/static/js/imageUploader.js"></script>
 </body>
 </html>
