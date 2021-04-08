@@ -25,6 +25,7 @@ public class EcommentService {
         return ecommentDao.findByIdx(vo);
     }
 
+
     public void ecommentUpdate(EcommentVo vo) {
         ecommentDao.ecommentUpdate(vo);
     }
@@ -36,4 +37,5 @@ public class EcommentService {
     public void ecommentReport(Integer idx){
         ecommentDao.ecommentReport(idx);
     }
+
 }

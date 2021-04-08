@@ -121,6 +121,7 @@
             "idx": idx,
             "content": content,
             "memberId": memid
+
         }
         $.ajax({
             url: '/api/community/eco/ecommentUpdate',
@@ -152,6 +153,7 @@
         });
     }
 
+
     
     function fn_updateReply(rid){
 
@@ -163,6 +165,7 @@
             "idx": rid,
             "content": replyEditContent,
             "memberId": memid
+
         }
 
         $.ajax({
@@ -171,6 +174,7 @@
             type: 'post',
             dataType: 'json',
             success: function (result) {
+
                 console.log(result);
                 showReplyList();
             }
@@ -208,6 +212,7 @@
             success: function (result) {
                 console.log(result);
                 alert("게시글 확인 후 처리하겠습니다.")
+
                 showReplyList();
             }
         });

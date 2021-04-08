@@ -24,6 +24,7 @@ public class EcommentDao {
         return sqlSessionTemplate.selectOne("ecomment.findByIdx", vo);
     }
 
+
     public void ecommentUpdate(EcommentVo vo) {
         sqlSessionTemplate.update("ecomment.ecommentUpdate",vo);
     }
@@ -35,6 +36,5 @@ public class EcommentDao {
     public void ecommentReport(Integer idx) {
         sqlSessionTemplate.delete("ecomment.ecommentReport", idx);
     }
-
 
 }
