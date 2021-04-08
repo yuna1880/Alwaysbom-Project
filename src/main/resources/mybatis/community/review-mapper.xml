@@ -12,12 +12,21 @@
         WHERE RN BETWEEN 1 and 10
     </select>
 
-    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
+    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">
         SELECT *
         FROM REVIEW
         <where>
-            <if test="category != null">
-                CATEGORY = #{category}
+            <if test="category == '클래스'">
+                CATEGORY = #{category} AND FCLASS_IDX = #{idx}
+            </if>
+            <if test="category == '꽃다발'">
+                CATEGORY = #{category} AND FLOWER_IDX = #{idx}
+            </if>
+            <if test="category == '소품'">
+                CATEGORY = #{category} AND PRODUCT_IDX = #{idx}
+            </if>
+            <if test="category == '정기구독'">
+                CATEGORY = #{category} AND SUBS_IDX = #{idx}
             </if>
         </where>
         ORDER BY REG_DATE DESC
@@ -72,6 +81,32 @@
         )
         WHERE RN BETWEEN #{startIndex} and #{endIndex}
     </select>
+
+    <select id="searchReview" parameterType="string" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT *
+        FROM (
+        SELECT ROW_NUMBER() over (ORDER BY REG_DATE DESC) as RN, I.*
+        FROM REVIEW I
+            WHERE (CATEGORY LIKE '%' || #{search} || '%') OR
+                (NAME LIKE '%' || #{search} || '%') OR
+                (NAME LIKE '%' || #{search} || '%') OR
+                (MEMBER_ID LIKE '%' || #{search} || '%') OR
+                (CONTENT LIKE '%' || #{search} || '%')
+        )
+    </select>
+
+    <delete id="deleteReview" parameterType="int">
+        DELETE FROM REVIEW WHERE IDX = #{idx}
+    </delete>
+
+    <select id="likeCount" parameterType="int" resultType="int">
+        SELECT LIKE_COUNT FROM REVIEW WHERE IDX = #{reviewIdx}
+    </select>
+
+    <update id="likeUpdate" parameterType="map">
+        UPDATE REVIEW SET LIKE_COUNT = #{review}
+        WHERE IDX = #{reviewIdx}
+    </update>
 <!--    <select id="utilReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">-->
 <!--        SELECT *-->
 <!--        FROM REVIEW-->

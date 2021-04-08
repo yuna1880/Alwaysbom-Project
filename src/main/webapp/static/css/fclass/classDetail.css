@@ -24,6 +24,11 @@
 #pt-70 {
     padding-top: 70px;
 }
+#bread-nav {
+    display: flex;
+    font-size: 15px;
+    padding-top: 50px;
+}
 #bread-nav a {
     color: #4D4D4D;
     text-decoration: none;
@@ -143,7 +148,7 @@ input[type=radio]:checked + .btn-show {
 }
 
 
-/* 상품설명 */
+/* 클래스설명 */
 #detail-area {
     /*height: 2000px;*/
     margin-bottom: 4em;
@@ -162,7 +167,6 @@ input[type=radio]:checked + .btn-show {
 }
 .review-category {
     border-bottom: 1px solid #dbdbdb;
-    margin: 2em 0;
 }
 .btn-rev {
     font-size: 20px;
@@ -182,4 +186,54 @@ input[type=radio]:checked + .btn-rev {
 
 .branchBtn:hover {
     background-color: #f1a417;
+}
+
+.review-row {
+    border-bottom: 1px solid #e8e8e8;
+    border-top: 1px solid #e8e8e8;
+}
+
+.review-row:hover {
+    background-color: #f1f0f0;
+}
+
+/* 이미지 정사각형 처리 */
+.square {
+    position: relative;
+}
+
+.square::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.square.wide::after {
+    content: "";
+    display: block;
+    padding-bottom: 50%;
+}
+
+.square.wide70::after {
+    content: "";
+    display: block;
+    padding-bottom: 70%;
+}
+
+.square.wide80::after {
+    content: "";
+    display: block;
+    padding-bottom: 80%;
+}
+
+.square > .inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.inner > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

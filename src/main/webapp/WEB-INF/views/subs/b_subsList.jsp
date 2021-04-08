@@ -10,6 +10,7 @@
 <body>
 <%@ include file="../main/b_header.jspf"%>
 <div id="container" class="mx-auto">
+    <form>
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-8em">
             <li class="breadcrumb-item" onclick="location.href='/admin/main'">관리자 홈</li>
@@ -25,8 +26,6 @@
             <c:if test="${empty subsVo}">
                 <h3>판매중인 정기구독 상품이 없습니다.</h3>
                 </c:if>
-
-
                 <c:if test="${not empty subsVo}">
                 <div class="order-${status.index % 2} thumbnails-wrap col-6 position-relative d-flex justify-content-end">
                     <button type="button" class="btn-close-style" data-bs-toggle="modal"
@@ -50,11 +49,13 @@
                         </div>
                     </div> <!-- Modal 끝 -->
                     <input type="hidden" name="idx" value="${subsVo.idx}">
-                    <div class="flex-row thumbnails d-flex justify-content-center">
-                        <!-- 이미지 클릭시, 수정 페이지로 이동 -->
-                        <a href="/admin/subsUpdateForm/${subsVo.idx}">
-                            <img src="${subsVo.image1}" alt="${subsVo.name}" class="w-100" height="580px"/>
-                        </a>
+                    <div class="overflow-hidden">
+                        <div class="flex-row thumbnails d-flex justify-content-center scale-up">
+                            <!-- 이미지 클릭시, 수정 페이지로 이동 -->
+                            <a href="/admin/subsUpdateForm/${subsVo.idx}">
+                                <img src="${subsVo.image1}" alt="${subsVo.name}" class="w-100" height="580px"/>
+                            </a>
+                        </div>
                     </div>
                 </div>
                     <!-- 홀수index text-end pe-5 / 짝수index ps-5 -->
@@ -71,11 +72,11 @@
             </div>
         </c:forEach>
     </div>
+    </form>
 </div>
 <%@ include file="../main/b_footer.jspf"%>
 <script>
     function deleteItem(frm) {
-        alert("여기");
         frm.action = "/admin/deleteSubs";
         frm.submit();
     }

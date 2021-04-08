@@ -18,8 +18,8 @@
     </select>
 
     <!-- 아이디 중복 확인 -->
-    <select parameterType="String" id="CheckId" resultType="com.flo.alwaysbom.member.vo.MemberVO">
-        SELECT id FROM MEMBER WHERE id = #{id}
+    <select id="idCheck" parameterType="String" resultType="int">
+        SELECT count(id) FROM MEMBER where ID=#{id}
     </select>
 
     <!-- 회원 정보 수정 -->
@@ -30,5 +30,24 @@
             PHONE = #{phone},
             BIRTH = #{birth}
         WHERE ID = #{id}
+    </update>
+
+    <!-- 회원 탈퇴 -->
+    <delete id="deleteMember">
+        DELETE FROM MEMBER
+        WHERE ID = #{id}
+            AND PW = #{pw}
+    </delete>
+
+    <!-- 아이디 찾기 -->
+    <select id="found_id" parameterType="String" resultType="String">
+        SELECT ID
+        FROM MEMBER
+        WHERE PHONE = #{phone}
+    </select>
+
+    <!-- 비밀번호 변경 -->
+    <update id="update_pw" parameterType="com.flo.alwaysbom.member.vo.MemberVO">
+        UPDATE MEMBER SET PW = #{pw} WHERE ID = #{id}
     </update>
 </mapper>

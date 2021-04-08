@@ -16,8 +16,13 @@ public class StatisticsController {
     private final StatisticsService statisticsService;
 
     @GetMapping("/admin/statistics/subs")
-    public String goStatistics() {
+    public String goStatisticsSubs() {
         return "statistics/subs";
+    }
+
+    @GetMapping("/admin/statistics/sales")
+    public String goStatisticsSales() {
+        return "statistics/sales";
     }
 
     @GetMapping("/statistics/api/subsByMonth")
@@ -25,5 +30,12 @@ public class StatisticsController {
     public List<SubsByMonthVo> getSubsByMonth() {
         System.out.println("StatisticsController.getSubsByMonth");
         return statisticsService.findSubsByMonth();
+    }
+
+    @GetMapping("/statistics/api/subsBySize")
+    @ResponseBody
+    public List<SubsByMonthVo> getSubsBySize() {
+        System.out.println("StatisticsController.getSubsBySize");
+        return statisticsService.findSubsBySize();
     }
 }

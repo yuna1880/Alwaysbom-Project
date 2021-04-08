@@ -10,7 +10,7 @@
             <li>
                 <c:choose>
                     <c:when test="${sessionScope.member == null}">
-                        <a href="/memberLogin">로그인</a>
+                        <a href="/login">로그인</a>
                     </c:when>
                     <c:otherwise>
                         ${sessionScope.member.name}님 반갑습니다:-)
@@ -34,7 +34,7 @@
                 새늘봄 홈
             </div>
             <ul class="h-menu-wrap d-flex justify-content-end my-auto">
-                <li class="h-menu ${typePath eq '/community' ? 'menu-active' : ''}">
+                <li class="h-menu ${typePath eq '/subs' ? 'menu-active' : ''}">
                     <a href="/subs" id="subs">꽃 정기구독</a>
                     <div class="under-bar" id="under-bar1"></div>
                 </li>
@@ -53,17 +53,27 @@
                 <li class="h-menu ms-3 me-4 ${typePath eq '/community' ? 'menu-active' : ''}">
                     <a href="#" id="community">커뮤니티</a>
                     <ul class="h-submenu d-flex flex-column justify-content-center">
-                        <li><a href="#">이벤트</a></li>
+                        <li><a href="/community/event/eventlist">이벤트</a></li>
                         <li><a href="/community/goReview">리뷰게시판</a></li>
                         <li><a href="/community/goFaq">FAQ</a></li>
                         <li class="mb-2"><a href="#">1:1문의</a></li>
                     </ul>
+                    <div class="under-bar" id="under-bar5"></div>
                 </li>
 
                 <li class="h-menu-icon ms-5">
                     <a href="#">
-                        <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"
-                             title="마이페이지" onclick="location.href='/myPage'" >
+                        <c:choose>
+                            <c:when test="${sessionScope.member != null}">
+                            <a href="#">
+                                <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"
+                                     title="마이페이지" onclick="location.href='/myPage'" >
+                            </c:when>
+                            <c:otherwise>
+                                <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"
+                                     title="마이페이지" onclick="alert('로그인이 필요합니다.'); location.href='/login'" >
+                            </c:otherwise>
+                        </c:choose>
                     </a>
                 </li>
                 <li class="h-menu-icon">

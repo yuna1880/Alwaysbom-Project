@@ -27,6 +27,18 @@ public class BackFlowerController {
         return "flower/b_flowerManager";
     }
 
+    /* 배너 등록/수정으로 이동 */
+    @GetMapping("/admin/flowerBanner")
+    public String goBanner() {
+        return "flower/b_banner";
+    }
+
+    @PostMapping("/admin/addBanner")
+    public String addBanner() {
+
+        return "flower/b_flowerManager";
+    }
+
     /* 상품 등록페이지로 이동 */
     @GetMapping("/admin/flowerAddForm")
     public String goInsertForm() {

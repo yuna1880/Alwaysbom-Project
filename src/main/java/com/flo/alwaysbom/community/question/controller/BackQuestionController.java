@@ -2,6 +2,7 @@ package com.flo.alwaysbom.community.question.controller;
 
 import com.flo.alwaysbom.community.question.service.QuestionServise;
 import com.flo.alwaysbom.community.question.vo.QuestionVo;
+import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.util.MailSend;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
 import java.util.List;
 
 @Controller
@@ -16,6 +19,7 @@ import java.util.List;
 public class BackQuestionController {
     private final QuestionServise servise;
     private final MailSend mail;
+
 //    MailSend mail = new MailSend();
     // 여기부터는 로그인 회원 정보 받기
     @GetMapping("/admin/community/question")
@@ -46,12 +50,19 @@ public class BackQuestionController {
     // 1:1문의 관리자 답변
     @PostMapping("/admin/question/api/addAnswer")
     @ResponseBody
-    public boolean addAnswer(QuestionVo vo){
+    public boolean addAnswer(@SessionAttribute(required = false) MemberVO member, QuestionVo vo){
+        if (member == null) {
+            // 없을 때 임시
+            member = new MemberVO();
+            member.setId("ee@test.com");
+        }
+
         servise.updateAnswer(vo);
         Integer mailCheck = servise.mailCheckIdx(vo.getIdx());
         System.out.println(mailCheck);
         if(mailCheck == 1){
-            mail.sendMail("xzllxz456@naver.com");
+            mail.sendMail(member.getId(), "<h3>안녕하세요</h3>\n <h4>안녕하세요 새늘봄입니다 :) \n 문의하신 내용에 답변을 하였습니다.</h4>\n <h4>꽃같은 하루 되시길 바랍니다.</h4> \n",
+                    "안녕하세요 새늘봄입니다 :) 문의하신 내용에 답변을 하였습니다.");
         }
         return true;
     }

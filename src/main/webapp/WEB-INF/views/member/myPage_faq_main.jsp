@@ -3,104 +3,82 @@
 <head>
     <title>1:1문의</title>
     <%@ include file="../main/import.jspf" %>
-    <style>
-        .h-5 {
-            height: 5% !important;
-        }
-
-        .h-10 {
-            height: 10% !important;
-        }
-
-        .h-85 {
-            height: 85% !important;
-        }
-        .bg-pink {
-            background-color: #f5b0cf;
-        }
-        .name-color {
-            color: #d869db;
-        }
-        .bannerName-color {
-            color: #f7ebf1;
-        }
-        a {
-            text-decoration: none;
-        }
-        hr {
-            color: white;
-        }
-        .list-group-item {
-            border: none;
-            font-size: 15px;
-        }
-        .btn-warning {
-            width: 200px;
-            height: 60px;
-            color: #2c3034;
-        }
-    </style>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto d-flex flex-column h-100 user-select-none">
     <%@ include file="../member/mypage_header.jspf" %>
-    <div class="d-flex h-5">
-        <div class="col-2"></div>
-        <div class="col-10 d-flex justify-content-center px-5 pt-4">
-        </div>
-    </div>
     <div class="h-85 d-flex">
         <%@ include file="../member/mypage_menu.jspf" %>
         <div class="col-10 border-info d-flex justify-content-center p-4">
-            <div class="col-12">
-                <div class="h5 col-12 d-flex flex-column text-secondary">
-                    <div class="d-flex">
-                        <span class="fw-bold name-color">${sessionScope.member.name}</span>
-                        <span>님의 문의 내역입니다.</span>
-                        <hr>
+            <div class="col-12 h-100" id="contentPane">
+                <div class="col-12 border-info d-flex justify-content-center p-4">
+                    <div class="col-12">
+                        <div class="d-flex text-secondary">
+                            <span class="h5 fw-bold name-color">${sessionScope.member.name}</span>
+                            <span>님의 문의 내역입니다.</span>
+                        </div>
+                        <hr class="hr1"/>
+                        <p>
+                        <span>- 1:1 문의 게시판 운영 시간 : 월 ~ 금 10:00 ~18:00</span>
+                        </p>
+                        <p>
+                        <span>- 운영 시간 내에는 2시간 이내에 답변을 드리나, 문의가 많을 때는 다소 지연될 수 있습니다.</span>
+                        </p>
+                        <div class="btn">
+                            <button type="button" class="btn btn-warning" onclick="location.href='/community/goFaq'">자주 묻는 질문</button>
+                            <button type="button" class="btn btn-warning" onclick="location.href='/question/create'">1:1 문의하기</button>
+                        </div>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">번호</th>
+                                <th scope="col">작성일</th>
+                                <th scope="col">제목</th>
+                                <th scope="col">상태</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>2021.03.29</td>
+                                <td>안녕하세요^^</td>
+                                <td>답변완료</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>2021.03.29</td>
+                                <td>궁금합니다.</td>
+                                <td>확인중</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>2021.03.30</td>
+                                <td>주문 수정 문의합니다.</td>
+                                <td>확인중</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <span>- 1:1 문의 게시판 운영 시간 : 월 ~ 금 10:00 ~18:00</span>
-                    <span>- 운영 시간 내에는 2시간 이내에 답변을 드리나, 문의가 많을 때는 다소 지연될 수 있습니다.</span>
                 </div>
-                <div class="btn">
-                    <button type="button" class="btn btn-warning" onclick="location.href='/community/goFaq'">자주 묻는 질문</button>
-                    <button type="button" class="btn btn-warning" onclick="location.href='/question/create'">1:1 문의하기</button>
-                </div>
-                <table class="table table-striped table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">번호</th>
-                        <th scope="col">작성일</th>
-                        <th scope="col">제목</th>
-                        <th scope="col">상태</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>2021.03.29</td>
-                        <td>안녕하세요^^</td>
-                        <td>답변완료</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>2021.03.29</td>
-                        <td>궁금합니다.</td>
-                        <td>확인중</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>2021.03.30</td>
-                        <td>주문 수정 문의합니다.</td>
-                        <td>확인중</td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
 </div>
 <%@ include file="../main/footer.jspf" %>
+<script>
+    async function goMyClassList(e) {
+        e.preventDefault();
+        let $contentPane = document.querySelector("#contentPane");
+
+        let response = await fetch("/fclass/orders");
+        $contentPane.innerHTML = await response.text();
+        let $innerScript = $contentPane.querySelector("#innerScript");
+
+        let $script = document.createElement("script");
+        $script.appendChild(document.createTextNode($innerScript.innerHTML));
+        $innerScript.replaceWith($script);
+    }
+</script>
 </body>
 </html>
