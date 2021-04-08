@@ -41,6 +41,7 @@ public class MailSend {
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.socketFactory.fallback", "false");
 
+
         try {
             // 메일 서버  인증 계정 설정
             Authenticator auth = new Authenticator() {
