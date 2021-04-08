@@ -44,5 +44,10 @@
         WHERE IDX = #{idx}
     </update>
 
-
+    <!-- 이름으로 아이디 찾기-->
+    <select id="findByName" parameterType="String" resultType="int">
+        SELECT IDX
+        FROM SUBS
+        WHERE NAME = #{name}
+    </select>
 </mapper>

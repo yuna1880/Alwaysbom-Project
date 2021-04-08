@@ -71,4 +71,11 @@
         WHERE   IDX = #{idx}
     </update>
 
+    <!-- 이름으로 찾기 -->
+    <select id="findByname" parameterType="String" resultType="int">
+        SELECT IDX
+        FROM FLOWER
+        WHERE NAME = #{name}
+    </select>
+
 </mapper>

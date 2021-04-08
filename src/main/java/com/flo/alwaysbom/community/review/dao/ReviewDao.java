@@ -120,4 +120,21 @@ public class ReviewDao {
     }
 
 
+    public void addReview(ReviewDto vo, Integer idx) {
+        if(vo.getCategory().equals("꽃다발")){
+            sqlSessionTemplate.insert("review.addFloIdx",vo);
+        }
+        else if(vo.getCategory().equals("정기구독")){
+            sqlSessionTemplate.insert("review.addSubIdx", vo);
+        }
+        else if(vo.getCategory().equals("소품")){
+            sqlSessionTemplate.insert("review.addProIdx", vo);
+        }
+        else if(vo.getCategory().equals("클래스")){
+            sqlSessionTemplate.insert("review.addclsIdx", vo);
+        }
+        sqlSessionTemplate.update("review.reviewCheck", idx);
+        sqlSessionTemplate.update("review.memberPoint", vo);
+
+    }
 }

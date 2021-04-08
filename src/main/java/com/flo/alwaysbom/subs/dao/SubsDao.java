@@ -33,4 +33,8 @@ public class SubsDao {
     public void deleteSubs(Integer idx) {
         sqlSessionTemplate.delete("SUBS.deleteSubs",idx);
     }
+
+    public Integer findByName(String name) {
+        return sqlSessionTemplate.selectOne("SUBS.findByName", name);
+    }
 }

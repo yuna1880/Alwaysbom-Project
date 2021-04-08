@@ -22,13 +22,13 @@ import java.util.Map;
 public class MyPageReviewController {
     private final ReviewService service;
 
-    @GetMapping("/community/com_mypage_review")
-    public String goReview(@SessionAttribute(required = false) MemberVO member, Model model){
-        List<OrdersVo> orderList = service.reviewPossible(member.getId());
-        System.out.println(orderList);
-        model.addAttribute("orderList", orderList);
-        return "community/com_mypage_review";
-    }
+//    @GetMapping("/community/com_mypage_review")
+//    public String goReview(@SessionAttribute(required = false) MemberVO member, Model model){
+//        List<OrdersVo> orderList = service.reviewPossible(member.getId());
+//        System.out.println(orderList);
+//        model.addAttribute("orderList", orderList);
+//        return "community/com_mypage_review";
+//    }
 
 
 }
