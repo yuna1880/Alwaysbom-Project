@@ -5,6 +5,7 @@
 <head>
     <title>클래스 상세페이지</title>
     <%@ include file="../main/import.jspf"%>
+    <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
     <link rel="stylesheet" href="/static/css/fclass/classDetail.css">
     <link rel="stylesheet" href="/static/bootstrap-datepicker/bootstrap-datepicker.css">
 <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
@@ -256,7 +257,6 @@
                 <span class="fs-2 fw-500 py-3 pe-5">리뷰</span>
                 <span class="fs-5 c-666">리뷰 작성 시 200P 적립 (사진 등록 시 300P)</span>
             </div>
-            <span class="fs-17"><a href="#" class="fw-500">리뷰 쓰기</a></span>
         </div>
 
         <!-- 리뷰 카테고리 -->
@@ -271,7 +271,7 @@
             </label>
         </div>
 
-        <div id="bestReview" class="accordion accordion-flush">
+        <div id="bestReview" class="accordion accordion-flush mb-5">
             <c:forEach var="best" items="${bestReview}" varStatus="status">
                 <div class="accordion-item">
                     <div class="accordion-header" id="flush-heading${status.index}" role="button">
@@ -315,9 +315,12 @@
                     </div>
                 </div>
             </c:forEach>
+            <div class="d-flex flex-column align-items-center">
+            <button type="button" id="moreReviews" class="btn btn-dark px-5">리뷰 더보기</button>
+            </div>
         </div>
 
-        <div id="thisReview" class="accordion accordion-flush d-none">
+        <div id="thisReview" class="accordion accordion-flush d-none mb-5">
             <c:forEach var="all" items="${allReview}" varStatus="status">
                 <div class="accordion-item">
                     <div class="accordion-header" id="flush-heading${status.index}" role="button">
@@ -362,6 +365,27 @@
                 </div>
             </c:forEach>
         </div>
+
+        <!-- 리뷰 작성란 -->
+        <c:if test="${not empty reviewableList}">
+        <div class="d-flex">
+            <div class="col-10">
+                <label for="content" style="color: #afafaf"></label>
+                <textarea class="form-control" placeholder="리뷰를 남겨주세요"
+                          id="content" style="height:150px; resize: none"></textarea>
+            </div>
+            <div class="col-2 d-flex flex-column ps-3">
+                <div class="pb-3 d-flex flex-column">
+                    <button type="button" class="btn btn-dark">등록</button>
+                </div>
+                <select class="form-select">
+                    <c:forEach var="reviewable" items="${reviewableList}" varStatus="status">
+                    <option>${status.count}. 수강시작일 : ${reviewable.scheduleDate}, 주문일 : ${reviewable.orderDate}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        </c:if>
     </div>
 
     <!-- 배송안내 -->
@@ -573,6 +597,7 @@
     }
 
 </script>
+<script src="/static/js/imageUploader.js"></script>
 </body>
 </html>
 <style>

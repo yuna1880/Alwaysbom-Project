@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,7 +65,8 @@ public class FclassController {
     }
 
     @GetMapping("/fclass/classList/{idx}")
-    public String classDetail(@PathVariable("idx") Integer idx, Model model) {
+    public String classDetail(@PathVariable("idx") Integer idx,
+                              @SessionAttribute(required = false) MemberVO member, Model model) {
         FclassVo fclassVo = fclassService.findByIdx(idx);
         List<BranchVo> branchList = fclassVo.getBranchList();
         //전체리뷰 값 가져오기
@@ -72,13 +74,23 @@ public class FclassController {
         //베스트리뷰 값 가져오기
         List<ReviewDto> bestReview = reviewService.allReview("클래스", "best", idx);
 
+        List<OclassVo> oclassList;
+        if (member != null) {
+            oclassList = oclassService.findReviewable(OclassVo.builder()
+                    .memberId(member.getId())
+                    .fclassIdx(idx)
+                    .build());
+        } else {
+            oclassList = new ArrayList<>();
+        }
+
         model.addAttribute("fclassVo", fclassVo);
         model.addAttribute("branchList", branchList);
         model.addAttribute("allReview", allReview);
         model.addAttribute("bestReview", bestReview);
+        model.addAttribute("reviewableList", oclassList);
 
         return "fclass/flowerClassDetail";
-        //return "fclass/detail_temp";
     }
 
     @GetMapping("/fclass/payment")
