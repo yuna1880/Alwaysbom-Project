@@ -37,7 +37,7 @@
         <button type="submit" class="mt-4 py-3 btn-warning mb-3 text-center" id="login-btn">로그인</button>
         <div class="d-flex justify-content-center">
             <a href="/find_id" class="p-2 text-decoration-none text-secondary">아이디 찾기</a>
-            <a href="/findPwd" class="p-2 text-decoration-none text-secondary">비밀번호 찾기</a>
+            <a href="/find_pw" class="p-2 text-decoration-none text-secondary">비밀번호 찾기</a>
         </div>
         <a href="/goMemberJoin" class="mt-4 py-3 btn-secondary text-center text-decoration-none" id="join-btn">회원가입</a>
         <p class="text-center mt-2">지금 회원가입 하시면<b class="p-2 text-center text-info">1,000p</b>바로 지급!</p>

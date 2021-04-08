@@ -5,10 +5,10 @@ import com.flo.alwaysbom.coupon.vo.CouponVo;
 import com.flo.alwaysbom.member.service.MemberService;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -101,18 +101,30 @@ public class MemberController {
         model.addAttribute("id", memberService.found_id(response, phone));
         return "/member/found_id";
     }
-
-    //비밀번호 찾기
-    @GetMapping("/findPwd")
-    public String findPwd() {
-        return "member/find_password";
+    // 비밀번호 찾기 폼
+    @RequestMapping(value = "/find_pw")
+    public String find_pw() throws Exception{
+        return "/member/find_pw";
     }
 
-    //찾은 비밀번호
-    @GetMapping("/foundPwd")
-    public String foundPwd() {
-        return "member/found_password";
+    // 비밀번호 찾기
+    @RequestMapping(value = "/found_pw", method = RequestMethod.POST)
+    public void found_pw(@ModelAttribute MemberVO memberVO, HttpServletResponse response) throws Exception{
+        memberService.find_pw(response, memberVO);
     }
+
+//    //비밀번호 찾기
+//    @GetMapping("/findPwd")
+//    public String findPwd() {
+//        return "member/find_password";
+//    }
+
+//    //찾은 비밀번호
+//    @GetMapping("/foundPwd")
+//    public String foundPwd() {
+//        return "member/found_password";
+//    }
+
 
     //마이페이지 메인
     @GetMapping("/myPage")
