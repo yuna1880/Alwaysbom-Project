@@ -96,7 +96,7 @@
                         </li>
                         <li class="nav-item">
 <%--                            <a href="#" onclick='goAllList("best", "소품샵")'>소품샵</a>--%>
-                            <a href="#" onclick='goCateBest("소품샵")'>소품샵</a>
+                            <a href="#" onclick='goCateBest("소품")'>소품</a>
                         </li>
                         <!-- 검색 폼 영역 -->
                         <form class="d-flex">
