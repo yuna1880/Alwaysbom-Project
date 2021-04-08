@@ -5,8 +5,8 @@
 <head>
     <title>시작페이지(메인)</title>
     <%@ include file="import.jspf"%>
-    <link rel="stylesheet" href="../../../static/css/item/list.css">
-    <link rel="stylesheet" href="../../../static/css/main.css">
+    <link rel="stylesheet" href="/static/css/item/list.css">
+    <link rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>
 <%@ include file="header.jspf"%>
@@ -19,13 +19,13 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="../../../static/image/main/main_sample2.jpg" class="d-block w-100 main-img" alt="메인배너">
+            <img src="/static/image/main/main_sample2.jpg" class="d-block w-100 main-img" alt="메인배너">
         </div>
         <div class="carousel-item">
-            <img src="../../../static/image/main/main_sample.jpg" class="d-block w-100 main-img" alt="메인배너">
+            <img src="/static/image/main/main_sample.jpg" class="d-block w-100 main-img" alt="메인배너">
         </div>
         <div class="carousel-item">
-            <img src="../../../static/image/main/main_sample3.jpg" class="d-block w-100 main-img" alt="메인배너">
+            <img src="/static/image/main/main_sample3.jpg" class="d-block w-100 main-img" alt="메인배너">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#mainSlide" data-bs-slide="prev">
