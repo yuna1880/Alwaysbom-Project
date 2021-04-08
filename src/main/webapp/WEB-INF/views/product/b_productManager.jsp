@@ -21,11 +21,10 @@
         </div>
         <div class="btn-circle d-flex justify-content-center align-items-center"
              onclick="location.href='/admin/productAddForm'">
-            상품 등록
+            소품샵 상품 등록
         </div>
-        <div class="btn-circle d-flex justify-content-center align-items-center"
-             onclick="location.href='/admin/productList'">
-            상품 조회/수정/삭제
+        <div class="btn-circle d-flex justify-content-center align-items-center text-center"
+             onclick="location.href='/admin/productList'">소품샵 상품<br>조회/수정/삭제
         </div>
     </div>
 </div>
