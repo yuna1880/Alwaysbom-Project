@@ -5,21 +5,32 @@
 
     <select id="findSubsByMonth" resultType="com.flo.alwaysbom.statistics.vo.SubsByMonthVo">
         <![CDATA[
-        select NVL(SUM(S.cnt), 0) as subs_count, TO_CHAR(D.dummy, 'YY/MM') as month
-        from (select count(oitem.idx) cnt, TO_DATE(orders.odate, 'YY/MM/DD') as odate
-              from oitem
-                       inner join orders on
-                  oitem.orders_idx = orders.idx
-              where oitem.category = '정기구독'
-              group by TO_DATE(orders.odate, 'YY/MM/DD')) S
-                 RIGHT JOIN
-             (select to_date('20/11/01', 'YY/MM/DD') - 1 + LEVEL as dummy
-              from dual
-              connect by LEVEL <= (SYSDATE - TO_DATE('20/11/01', 'YY/MM/DD') + 1)) D
-             ON S.odate = D.dummy
-        group by TO_CHAR(D.dummy, 'YY/MM')
-        order by TO_CHAR(D.dummy, 'YY/MM')
+        select NVL(X.cnt, 0) as value, D.mt as label
+        from (
+                 select TO_CHAR(SYSDATE - (interval '1' month) * (level - 1), 'YY/MM') as mt
+                 from dual
+                 connect by level <= 6
+             ) D
+                 LEFT JOIN
+             (
+                 select count(I.idx) cnt, to_char(O.odate, 'YY/MM') as odate
+                 from oitem I
+                          inner join orders O on I.orders_idx = O.idx
+                 where O.odate between TO_DATE(TO_CHAR(SYSDATE - (interval '5' month), 'YY/MM'), 'YY/MM') and SYSDATE
+                   and I.category = '정기구독'
+                 group by to_CHAR(O.odate, 'YY/MM')
+             ) X
+             ON D.mt = X.odate
+        order by D.mt
         ]]>
+    </select>
 
+    <select id="findSubsBySize" resultType="com.flo.alwaysbom.statistics.vo.SubsByMonthVo">
+        <![CDATA[
+        select fsize as label, count(idx) as value from oitem
+        where category = '정기구독'
+        group by fsize
+        order by decode(fsize, 'S', 1, 'M', 2, 'L', 3, 'XL', 4)
+        ]]>
     </select>
 </mapper>

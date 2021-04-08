@@ -100,9 +100,7 @@
     </div>
 
     <!-- 2. 주요 정보 기입용 input 태그들 -->
-    <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">
-        2. 주요 정보
-    </div>
+    <div class="fs-5 p-1 my-5 d-block border-bottom border-secondary">2. 주요 정보</div>
     <div class="inputs-wrap mx-auto">
         <div class="row g-2">
             <!-- 상품명 입력 -->
@@ -118,7 +116,8 @@
                     <label for="itemName">상품명 (한글 50자 미만)</label>
                 </div>
             </div>
-
+        </div>
+        <div class="row g-2">
             <!-- 상품 가격 -->
             <div class="col-md">
                 <div class="form-floating my-2">
@@ -133,8 +132,30 @@
                     <label for="itemPrice">상품 가격</label>
                 </div>
             </div>
+            <!-- 꽃 사이즈 선택 S/M/L/XL -->
+            <div class="col-md">
+                <div class="form-floating my-2">
+                    <c:if test="${empty subsVo}">
+                    <select name="fsize" id="selectFsize" class="form-select p-2 ps-3" aria-label="form-select example">
+                        <option>정기구독 꽃 사이즈 선택</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                    </c:if>
+                    <c:if test="${not empty subsVo}">
+                        <select name="fsize" id="selectFsize" class="form-select p-2 ps-3" aria-label="form-select example">
+                            <option value="${subsVo.fsize}">${subsVo.fsize}</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </c:if>
+                </div>
+            </div>
         </div>
-
             <!-- 서브헤더 입력 -->
         <div class="row g-2">
             <div class="col-md">

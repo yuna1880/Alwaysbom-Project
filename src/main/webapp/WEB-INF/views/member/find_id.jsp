@@ -7,7 +7,7 @@
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto d-flex flex-column align-items-center">
-<form role="form" action="/loginMember" method="post" class="col-5 d-flex flex-column">
+<form role="form" action="/found_id" method="post" class="col-5 d-flex flex-column">
 <h5 class="page_title text-center p-2 mt-5 text-secondary m-0 p-4 border-bottom border-secondary">아이디 찾기</h5>
     <div class="login_box">
         <div class="inner">
@@ -18,31 +18,10 @@
                     전화번호를 입력해주세요.
                 </p>
                 <div class="row">
-                    <span class="col" style="width: 30%;">
-                        <select class="ipt" name="phone_1">
-                            <option value="010">010</option>
-                            <option value="011">011</option>
-                            <option value="016">016</option>
-                            <option value="017">017</option>
-                            <option value="018">018</option>
-                            <option value="019">019</option>
-                        </select>
-                    </span>
-                    <span class="col" style="width: 5%;">
-                        <span class="ipt">-</span>
-                    </span>
-                    <span class="col" style="width: 30%;">
-                        <input type="tel" name="phone_2" class="ipt" maxlength="4" minlength="1" required value>
-                    </span>
-                    <span class="col" style="width: 5%;">
-                        <span class="ipt">-</span>
-                    </span>
-                    <span class="col" style="width: 30%;">
-                        <input type="tel" name="phone_3" class="ipt" maxlength="4" minlength="1" required value>
-                    </span>
+                    <input type="text" id="phone" class="ipt mb-3 col-12" name="phone" placeholder="예시 : 010-1234-5678" value>
                 </div>
             </div>
-                <button type="button" class="login" onclick="location.href='/foundId'">확인</button>
+                <button type="submit" class="login">확인</button>
             <p class="login_under_noti">
                 -확인이 되지 않으시면 1:1문의를 남겨주세요.
                 <br>

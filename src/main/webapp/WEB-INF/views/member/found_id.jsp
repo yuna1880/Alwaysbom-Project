@@ -18,7 +18,7 @@
                         ID(이메일)입니다.
                     </p>
                     <p class="row d-flex justify-content-center">
-                        <span class="login_id_find_results mb-3 col-12">찾은아이디(이메일)</span>
+                        <span class="login_id_find_results mb-3 col-12">${id}</span>
                     </p>
                 </div>
                     <button type="button" class="login" onclick="location.href='/memberLogin'">로그인</button>

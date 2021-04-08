@@ -16,4 +16,8 @@ public class StatisticsDao {
     public List<SubsByMonthVo> findSubsByMonth() {
         return sessionTemplate.selectList("statistics.findSubsByMonth");
     }
+
+    public List<SubsByMonthVo> findSubsBySize() {
+        return sessionTemplate.selectList("statistics.findSubsBySize");
+    }
 }
