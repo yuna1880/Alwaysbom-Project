@@ -26,4 +26,11 @@ public class StatisticsController {
         System.out.println("StatisticsController.getSubsByMonth");
         return statisticsService.findSubsByMonth();
     }
+
+    @GetMapping("/statistics/api/subsBySize")
+    @ResponseBody
+    public List<SubsByMonthVo> getSubsBySize() {
+        System.out.println("StatisticsController.getSubsBySize");
+        return statisticsService.findSubsBySize();
+    }
 }

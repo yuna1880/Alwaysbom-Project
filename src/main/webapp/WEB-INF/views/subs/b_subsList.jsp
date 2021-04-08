@@ -10,6 +10,7 @@
 <body>
 <%@ include file="../main/b_header.jspf"%>
 <div id="container" class="mx-auto">
+    <form>
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-8em">
             <li class="breadcrumb-item" onclick="location.href='/admin/main'">관리자 홈</li>
@@ -71,11 +72,11 @@
             </div>
         </c:forEach>
     </div>
+    </form>
 </div>
 <%@ include file="../main/b_footer.jspf"%>
 <script>
     function deleteItem(frm) {
-        alert("여기");
         frm.action = "/admin/deleteSubs";
         frm.submit();
     }

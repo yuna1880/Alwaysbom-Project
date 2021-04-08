@@ -5,7 +5,7 @@
 
     <select id="findSubsByMonth" resultType="com.flo.alwaysbom.statistics.vo.SubsByMonthVo">
         <![CDATA[
-        select NVL(X.cnt, 0) as subsCount, D.mt as month
+        select NVL(X.cnt, 0) as value, D.mt as label
         from (
                  select TO_CHAR(SYSDATE - (interval '1' month) * (level - 1), 'YY/MM') as mt
                  from dual
@@ -23,6 +23,14 @@
              ON D.mt = X.odate
         order by D.mt
         ]]>
+    </select>
 
+    <select id="findSubsBySize" resultType="com.flo.alwaysbom.statistics.vo.SubsByMonthVo">
+        <![CDATA[
+        select fsize as label, count(idx) as value from oitem
+        where category = '정기구독'
+        group by fsize
+        order by decode(fsize, 'S', 1, 'M', 2, 'L', 3, 'XL', 4)
+        ]]>
     </select>
 </mapper>

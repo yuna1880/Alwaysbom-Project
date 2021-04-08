@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -40,13 +41,12 @@ public class MemberController {
     @PostMapping("/member_join")
     public String member_join(MemberVO memberVO) {
         //System.out.println("memberVO = " + memberVO);
-
         memberService.insertMember(memberVO);
         return "member/login";
     }
 
     //로그인(get)
-    @GetMapping("/memberLogin")
+    @GetMapping("/login")
     public String memberLogin() {
         return "member/login";
     }
@@ -59,7 +59,7 @@ public class MemberController {
     }
 
     //로그인(post)
-    @PostMapping("/loginMember")
+    @PostMapping("/login")
     public String loginProc(@RequestParam String id, @RequestParam String pw, Model model) throws Exception {
         //System.out.println("아이디 : " + id + ", 패스워드 : " + pw);
 
@@ -90,15 +90,16 @@ public class MemberController {
     }
 
     //아이디 찾기
-    @GetMapping("/findId")
-    public String findId() {
+    @RequestMapping(value = "/find_id")
+    public String find_id() throws Exception {
         return "member/find_id";
     }
 
-    //찾은 아이디
-    @GetMapping("/foundId")
-    public String foundId() {
-        return "member/found_id";
+    //아이디 찾기
+    @RequestMapping(value = "/found_id", method = RequestMethod.POST)
+    public String found_id(HttpServletResponse response, @RequestParam("phone") String phone, Model model) throws Exception{
+        model.addAttribute("id", memberService.found_id(response, phone));
+        return "/member/found_id";
     }
 
     //비밀번호 찾기
@@ -163,27 +164,18 @@ public class MemberController {
         return "member/member_point";
     }
 
-    // 회원 탈퇴 get
-    @GetMapping(value="/memberDeleteView")
-    public String memberDeleteView() throws Exception{ return "member/member_delete"; }
+    //회원 탈퇴(get)
+    @GetMapping("/member_delete")
+    public String member_delete() {
+        return "member/member_delete";
+    }
 
-    // 회원 탈퇴 post
-    @RequestMapping(value="/deleteMember", method = RequestMethod.POST)
-    public String deleteMember(MemberVO memberVO, HttpSession session, RedirectAttributes rttr) throws Exception{
-
-        // 세션에 있는 member를 가져와 member변수에 넣어줍니다.
-        MemberVO session_mem = (MemberVO) session.getAttribute("session_mem");
-        // 세션에있는 비밀번호
-        String sessionPass = session_mem.getPw();
-        // vo로 들어오는 비밀번호
-        String voPass = memberVO.getPw();
-
-        if(!(sessionPass.equals(voPass))) {
-            rttr.addFlashAttribute("msg", false);
-            return "member/member_delete";
-        }
-        memberService.deleteMember(memberVO);
-        session.invalidate();
+    //회원 탈퇴(post)
+    @RequestMapping(value="/member_delete", method = RequestMethod.POST)
+    public String member_delete(MemberVO memberVO, Model model, HttpSession session) throws Exception{
+        memberService.deleteMember(memberVO, session);
+        model.addAttribute("member", null);
         return "redirect:/";
     }
+
 }

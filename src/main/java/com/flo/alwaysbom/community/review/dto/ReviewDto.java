@@ -23,4 +23,6 @@ public class ReviewDto {
       private double star;
       private Integer likeCount;
 
+      private boolean hasReview;
+
 }
