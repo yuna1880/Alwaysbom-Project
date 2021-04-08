@@ -90,8 +90,6 @@
                         </c:forEach>
                     </div>
 
-
-
                     <!-- 담은 수만큼 생성 -->
                     <%--                        <c:forEach var="order" items="${ordersList}" varStatus="status">--%>
                     <%--                            <table id="o${order.idx}" class="table">--%>
