@@ -3,12 +3,10 @@ package com.flo.alwaysbom.order.dao;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.vo.*;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -57,12 +55,15 @@ public class OrdersDao {
         return sqlSessionTemplate.selectList("orders-mapper.findBySearchOption", searchOption);
     }
 
-
     public OrdersStatusCount findStatusCount() {
         return sqlSessionTemplate.selectOne("orders-mapper.findStatusCount");
     }
 
     public boolean updateStatus(OrdersVo orders) {
         return sqlSessionTemplate.update("orders-mapper.updateStatus", orders) > 0;
+    }
+
+    public void updatePoint(MemberVO member) {
+        sqlSessionTemplate.update("orders-mapper.updatePoint", member);
     }
 }
