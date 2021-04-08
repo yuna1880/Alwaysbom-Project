@@ -11,6 +11,9 @@ body {
 }
 
 /* 가로 폭 */
+.w-1280 {
+    width: 1280px;
+}
 .w-45 {
     width: 45%;
 }
@@ -57,11 +60,16 @@ body {
 }
 
 /* margin & padding */
+.mt-100 {
+    margin-top: 100px;
+}
 .ms-13 {
     margin-left: 13.5em;
 }
 .mb-5em {
     margin-bottom: 5em;
 }
-
+.mb-8em {
+    margin-bottom: 8em;
+}
 
