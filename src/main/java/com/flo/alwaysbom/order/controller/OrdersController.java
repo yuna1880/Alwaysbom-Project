@@ -94,7 +94,7 @@ public class OrdersController {
 
     //주문 전 확인창 (결제 정보 입력) -> 주문 완료
     @PostMapping("/order/complete")
-    public String completeOrder (@SessionAttribute("oitemList") List<OitemVo> olist, OrdersVo ordersVo, Model model) {
+    public String completeOrder (@SessionAttribute("oitemList") List<OitemVo> olist, @SessionAttribute("member") MemberVO member, OrdersVo ordersVo, Model model) {
 
         System.out.println("OrdersController.completeOrder");
         System.out.println("oitemList : " + olist);
@@ -116,6 +116,16 @@ public class OrdersController {
         }
         //mail.sendMail("xzllxz456@naver.com");
 
+        System.out.println("최종 ordersVo: " + ordersVo);
+
+        //주문 후 회원 포인트 업데이트
+        if (ordersVo.getDiscountPoint() != 0) {
+            Integer updatedPoint = (member.getPoint() - ordersVo.getDiscountPoint());
+            member.setPoint(updatedPoint);
+            ordersService.updatePoint(member);
+        }
+
+        model.addAttribute("member", member);
         model.addAttribute("oitemList", olist);
         model.addAttribute("ordersVo",ordersVo);
         return "/order/order_ok";

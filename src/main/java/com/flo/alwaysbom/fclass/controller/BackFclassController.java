@@ -69,10 +69,17 @@ public class BackFclassController {
 
     @PostMapping("/admin/fclass/updateClass")
     public String updateClass(FclassVo vo, Integer[] branches, List<MultipartFile> file) throws IOException {
+        String oldImg = vo.getImage1();
         vo.setImage1(fileHandler.uploadFile(file.get(0), vo.getImage1(), "/fclass/class"));
         vo.setImage2(fileHandler.uploadFile(file.get(1), vo.getImage2(), "/fclass/class"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "/fclass/class"));
+        String newImg = vo.getImage1();
+        int classIdx = vo.getIdx();
         fclassService.updateFclass(vo, branches);
+        if (!oldImg.equals(newImg)) {
+            System.out.println("여기오냐?");
+            oclassService.updateClassImg(newImg, classIdx);
+        }
 
         return "redirect:/admin/fclass/b_classList";
     }
