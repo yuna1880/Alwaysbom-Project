@@ -16,8 +16,13 @@ public class StatisticsController {
     private final StatisticsService statisticsService;
 
     @GetMapping("/admin/statistics/subs")
-    public String goStatistics() {
+    public String goStatisticsSubs() {
         return "statistics/subs";
+    }
+
+    @GetMapping("/admin/statistics/sales")
+    public String goStatisticsSales() {
+        return "statistics/sales";
     }
 
     @GetMapping("/statistics/api/subsByMonth")
