@@ -1,11 +1,14 @@
 package com.flo.alwaysbom.member.service;
 
+import com.flo.alwaysbom.community.question.vo.QuestionVo;
 import com.flo.alwaysbom.member.dao.MemberDAO;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -114,13 +117,8 @@ public class MemberService {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
         // 아이디가 없으면
-        if(dao.idCheck(memberVO.getId()) == 0) {
-            out.print("아이디가 없습니다.");
-            out.close();
-        }
-        // 가입에 사용한 이메일이 아니면
-        if(!memberVO.getId().equals(dao.login(memberVO.getId()))) {
-            out.print("가입된 ID(이메일)이 아닙니다.");
+        if(memberVO.getId() == null) {
+            out.print("가입된 ID(이메일)가 아닙니다.");
             out.close();
         }else {
             // 임시 비밀번호 생성

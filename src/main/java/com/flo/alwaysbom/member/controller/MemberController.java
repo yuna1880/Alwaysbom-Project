@@ -113,6 +113,8 @@ public class MemberController {
         memberService.find_pw(response, memberVO);
     }
 
+
+
 //    //비밀번호 찾기
 //    @GetMapping("/findPwd")
 //    public String findPwd() {
