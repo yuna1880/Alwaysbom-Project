@@ -242,7 +242,7 @@
 
     <!-- 상품설명 -->
     <div id="detail-area" class="overflow-auto d-flex justify-content-center mb-5">
-        <div class="w-auto">${flowerVo.content}</div>
+        <div class="mx-auto w-806">${flowerVo.content}</div>
     </div>
 
     <!-- 리뷰게시판 -->

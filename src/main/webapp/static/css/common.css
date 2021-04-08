@@ -8,11 +8,15 @@ body {
     width: 1280px !important;
     background-color: #ffffff;
     padding: 0 3em 6em 3em;
+    min-height: 1000px;
 }
 
 /* 가로 폭 */
 .w-1280 {
     width: 1280px;
+}
+.w-806 {
+    width: 806px;
 }
 .w-45 {
     width: 45%;
