@@ -7,7 +7,7 @@
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto d-flex flex-column align-items-center">
-    <form role="form" action="/found_pw" method="post" class="col-5 d-flex flex-column">
+    <form role="form" action="/found_pw" method="post" class="col-5 d-flex flex-column" onSubmit="return checkVal(this.form)">
         <h5 class="page_title text-center p-2 mt-5 text-secondary m-0 p-4 border-bottom border-secondary">비밀번호 찾기</h5>
         <div class="login_box">
             <div class="inner">
@@ -18,7 +18,7 @@
                         메일로 인증번호가 발송됩니다.
                     </p>
                     <p class="row d-flex justify-content-center">
-                        <input type="email" id="id" class="ipt mb-3 col-12" name="pwd_request_email" placeholder="이메일 (예시 : alwaysbom@bom.kr)" value>
+                        <input type="email" id="id" class="ipt mb-3 col-12" name="id" placeholder="이메일 (예시 : alwaysbom@bom.kr)" value>
                     </p>
                 </div>
                     <button type="submit" class="login text-decoration-none text-center">확인</button>
@@ -36,6 +36,16 @@
     </form>
     <%@ include file="../main/footer.jspf"%>
 </div>
+<script>
+    function checkVal(){
+        let id = document.querySelector("#id");
+
+        if (id.value === "") {
+            alert("아이디를 입력해주세요.");
+            return false;
+        }
+    }
+</script>
 </body>
 </html>
 <style>

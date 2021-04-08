@@ -11,7 +11,7 @@
     <div class="h-85 d-flex">
         <%@ include file="../member/mypage_menu.jspf" %>
             <div class="col-10 border-info d-flex justify-content-center p-4">
-                <div class="col-12 h-100" id="contentPane">
+                <div class="col-12" id="contentPane">
                     <div class="col-12 border-info d-flex justify-content-center p-4">
                         <div class="col-12">
                             <div class="d-flex flex-column text-secondary">

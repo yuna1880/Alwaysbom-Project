@@ -118,7 +118,6 @@
                 console.log(result);
                 if (result) {
                     alert("변경되었습니다.");
-                    alert("변경되었습니다.");
                     const table = document.querySelector("table#o" + idx);
                     table.remove();
                     const complete = document.querySelector("#btnGroup input[value=취소완료] + label > span");

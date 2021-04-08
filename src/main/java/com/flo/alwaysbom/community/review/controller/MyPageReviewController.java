@@ -23,7 +23,7 @@ public class MyPageReviewController {
 
     @GetMapping("/community/com_mypage_review")
     public String goReview(@SessionAttribute(required = false) MemberVO member, Model model){
-
+        service.reviewPassible(member.getId());
         return "community/com_mypage_review";
     }
 

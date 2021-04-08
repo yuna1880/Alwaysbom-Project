@@ -6,6 +6,9 @@
     <title>새늘봄 - 주문내역조회</title>
     <%@ include file="../main/import.jspf" %>
     <link rel="stylesheet" href="/static/css/order/orderstyle_back.css">
+    <script>
+
+    </script>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -14,14 +17,13 @@
     <div class="h-85 d-flex">
         <%@ include file="../member/mypage_menu.jspf" %>
         <div class="col-10 border-info d-flex justify-content-center p-4">
-            <div class="col-12 h-100" id="contentPane">
+            <div class="col-12" id="contentPane">
                 <div class="h5 col-12 d-flex flex-column text-secondary">
                     <div class="d-flex">
                         <span class="fw-bold name-color">${sessionScope.member.name}</span>
                         <span>님의 주문내역</span>
                         <hr>
                     </div>
-
                     <div id="ordersListContent" class="fs-6">
                         <!-- 담은 수만큼 생성 -->
                         <c:forEach var="order" items="${ordersList}" varStatus="status">
@@ -29,14 +31,15 @@
                                 <li class="d-flex align-items-center border-bottom py-3 bg-light">
                                     <div class="col-7 d-flex align-items-center">
                                         주문번호 : ${order.idx}
+                                        <!-- 주문상태에 따라 버튼 텍스트 변경 -->
                                         <c:if test="${order.status eq '입금대기' && order.status eq '결제완료'}">
-                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" onclick="CancelOrder(this)">주문취소</button>
+                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" onclick="changeStatus()">주문취소</button>
                                         </c:if>
                                         <c:if test="${order.status eq '주문취소'}">
                                             <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button">취소요청중</button>
                                         </c:if>
                                         <c:if test="${order.status eq '배송중'}">
-                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" onclick="ConfirmOrder(this)">구매확정</button>
+                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" onclick="changeStatus()>구매확정</button>
                                         </c:if>
                                         <c:if test="${order.status eq '배송완료'}">
                                             <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" onclick="">리뷰작성</button>
@@ -72,8 +75,8 @@
                                                 <div>
                                                     <span>가격</span>
                                                     <span>
-                                                            <fmt:formatNumber value="${oitem.price}" pattern="#,### 원"/>
-                                                        </span>
+                                                        <fmt:formatNumber value="${oitem.price}" pattern="#,### 원"/>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -82,7 +85,9 @@
                                             <div class="fst-italic">수령인 연락처 : ${order.receiverPhone}</div>
                                             <div>[수령 요청일] : ${oitem.requestDate}</div>
                                             <div>결제방법 : ${order.payType}</div>
+                                            <br>
                                             <div class="fw-bold">주문상태 : ${order.status}</div>
+                                            <input type="hidden" value="${order.status}" id="orderStatus">
                                         </div>
                                     </li>
                                 </c:forEach>

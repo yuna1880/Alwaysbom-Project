@@ -73,4 +73,11 @@ public class ReviewService {
     public void likeCheck(String memberId, Integer reviewIdx) {
         reviewDao.likeCheck(memberId, reviewIdx);
     }
+
+    public void reviewPassible(String id) {
+//        List<Integer> orderIdx =
+    }
+
+    //마이페이지 리뷰 작성체크
+
 }
