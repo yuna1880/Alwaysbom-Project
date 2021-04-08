@@ -50,4 +50,5 @@ public class EventDao {
     public List<EventVo> eventOldList() {
         return sqlSessionTemplate.selectList("event.oldeventList");
     }
+
 }

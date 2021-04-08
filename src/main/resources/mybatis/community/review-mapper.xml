@@ -19,7 +19,7 @@
             <if test="category != null">
                 CATEGORY = #{category}
                 <if test="idx != null">
-                    AND IDX = #{IDX}
+                    AND SUBS_IDX = #{IDX} OR FLOWER_IDX = #{IDX} OR FCLASS_IDX = #{IDX} OR PRODUCT_IDX = #{IDX}
                 </if>
             </if>
         </where>
