@@ -13,50 +13,41 @@
 <div id="container" class="mx-auto d-flex flex-column p-3 bg-white">
     <!-- 버튼 영역 -->
     <div class="d-flex">
-        <!-- 월간/분기/연간 -->
-        <div class="col-4 d-flex row-cols-3">
-            <div>
-                <button class="col-12 btn btn-secondary">월간</button>
-            </div>
-            <div class="px-1">
-                <button class="col-12 btn btn-secondary">분기</button>
-            </div>
-            <div>
-                <button class="col-12 btn btn-secondary">연간</button>
-            </div>
+        <!-- 최근6개월 / 이번달 -->
+        <div class="col-4 d-flex row-cols-2 btn-group" role="group">
+            <label class="row-cols-1 pe-1">
+                <input type="radio" class="btn-check" name="period" checked>
+                <span class="col btn btn-outline-secondary">최근 6개월</span>
+            </label>
+            <label class="row-cols-1 ps-1">
+                <input type="radio" class="btn-check" name="period">
+                <span class="col btn btn-outline-secondary">이번 달</span>
+            </label>
         </div>
 
-        <!-- 연령층, 성별, 매출처 -->
-        <div class="col-6 d-flex px-3 row-cols-3">
-            <div>
-                <select class="form-select col" aria-label="age group">
-                    <option selected>연령</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="px-1">
+        <!-- 성별, 매출처 -->
+        <div class="col-6 d-flex px-3 row-cols-2">
+            <div class="pe-1">
                 <select class="form-select col" aria-label="gender group">
                     <option selected>성별</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="male">남</option>
+                    <option value="female">여</option>
                 </select>
             </div>
-            <div>
+            <div class="ps-1">
                 <select class="form-select col" aria-label="sales group">
                     <option selected>매출처</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="정기구독">정기구독</option>
+                    <option value="꽃다발">꽃다발</option>
+                    <option value="소품샵">소품샵</option>
+                    <option value="클래스">플라워클래스</option>
                 </select>
             </div>
         </div>
 
         <!-- 검색버튼 -->
         <div class="col-2 d-flex">
-            <button class="col btn btn-primary">검색</button>
+            <button class="col btn btn-primary" onclick="searchSales()">검색</button>
         </div>
 
     </div>
@@ -137,46 +128,59 @@
 </div>
 <%@ include file="../main/b_footer.jspf"%>
 <script>
-    fetch("/statistics/api/subsByMonth").then(response => {
-        response.json().then(result => {
-            const labels = result.map(v => v.label);
-            const values = result.map(v => v.value);
-            const data = {
-                labels: labels,
-                datasets: [{
-                    label: '월별 구독 수 추이',
-                    backgroundColor: '#ff6384',
-                    border: 'none',
-                    data: values
-                }]
-            }
 
-            const config = {
-                type: 'bar',
-                data: data,
-                plugins: [ChartDataLabels],
-                options: {
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: '월별 구독 수 추이'
-                        },
-                        datalabels: {
-                            font: {
-                                size: 20
+    let myChart;
+
+    searchSales().then(function (result) {
+        myChart = result;
+        console.log(result);
+    });
+
+    async function searchSales() {
+        return fetch("/statistics/api/subsByMonth").then(response => {
+            return response.json().then(result => {
+                const labels = result.map(v => v.label);
+                const values = result.map(v => v.value);
+                const data = {
+                    labels: labels,
+                    datasets: [{
+                        label: '월별 구독 수 추이',
+                        backgroundColor: '#ff6384',
+                        border: 'none',
+                        data: values
+                    }]
+                }
+
+                const config = {
+                    type: 'bar',
+                    data: data,
+                    plugins: [ChartDataLabels],
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: '월별 구독 수 추이'
                             },
-                            color: '#FFFFFF'
+                            datalabels: {
+                                font: {
+                                    size: 20
+                                },
+                                color: '#FFFFFF'
+                            }
                         }
                     }
                 }
-            }
 
-            const ctxMonth = document.querySelector("#salesChart");
-            const subsByMonth = new Chart(ctxMonth, config);
+                const ctxMonth = document.querySelector("#salesChart");
+                return new Chart(ctxMonth, config);
+            })
+        });
+    }
 
-        })
-    });
+
+
+
 </script>
 </body>
 </html>
