@@ -161,7 +161,6 @@ public class ReviewController {
             // 없을 때 임시
             return "member/login";
         }
-
         return "member/mypage_review";
     }
 

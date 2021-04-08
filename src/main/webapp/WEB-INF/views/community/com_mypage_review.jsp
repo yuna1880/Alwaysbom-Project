@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>1:1문의</title>
@@ -35,13 +37,14 @@
 
                         <div class="col-11 h-100">
                             <%--내용 반복문--%>
-                            <div class="d-flex justify-content-center pt-2">
-                                <span class="pe-2">
-                                    <a class="">dd</a>
-                                </span>
-                                <span class="pe-2">
-                                    <a class="">dd</a>
-                                </span>
+                            <div class="d-flex justify-content-center pt-2" id="bord-color">
+                                <c:forEach var="order" items="${orderList}" varStatus="status">
+                                    <c:forEach var="oitem" items="${orderList.get(status.index).olist}">
+                                        <span class="pe-2">
+                                            <p class="">${oitem.name}</p>
+                                        </span>
+                                    </c:forEach>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
@@ -65,5 +68,11 @@
         $innerScript.replaceWith($script);
     }
 </script>
+
 </body>
+<style>
+    #bord-color{
+        background-color: #808080;
+    }
+</style>
 </html>

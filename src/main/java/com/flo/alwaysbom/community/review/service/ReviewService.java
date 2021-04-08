@@ -3,9 +3,15 @@ package com.flo.alwaysbom.community.review.service;
 import com.flo.alwaysbom.community.review.dao.ReviewDao;
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
+import com.flo.alwaysbom.order.dao.OrdersDao;
+import com.flo.alwaysbom.order.vo.OitemVo;
+import com.flo.alwaysbom.order.vo.OrdersSearchOptionDto;
+import com.flo.alwaysbom.order.vo.OrdersVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewDao reviewDao;
+    private final OrdersDao ordersDao;
 
     public List<ReviewDto> allBestReview(String memberId) {
         List<ReviewDto> reviews = reviewDao.allBestReview();
@@ -74,10 +81,9 @@ public class ReviewService {
         reviewDao.likeCheck(memberId, reviewIdx);
     }
 
-    public void reviewPassible(String id) {
-//        List<Integer> orderIdx =
+    //마이페이지 order 가져오기
+    public List<OrdersVo> reviewPossible(String id) {
+        return reviewDao.findByStatus(id);
     }
-
-    //마이페이지 리뷰 작성체크
 
 }

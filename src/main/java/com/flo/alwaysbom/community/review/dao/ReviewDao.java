@@ -2,6 +2,7 @@ package com.flo.alwaysbom.community.review.dao;
 
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
+import com.flo.alwaysbom.order.vo.OrdersVo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -109,9 +110,14 @@ public class ReviewDao {
         }
     }
 
+    public List<OrdersVo> findByStatus(String id){
+        return sqlSessionTemplate.selectList("orders-mapper.findId",id);
+    }
 
     public boolean hasReviewLike(ReviewLikeVo reviewLikeVo) {
         int count = sqlSessionTemplate.selectOne("reviewLike.hasReview", reviewLikeVo);
         return count > 0;
     }
+
+
 }
