@@ -4,13 +4,10 @@ import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.vo.*;
 
 import java.util.List;
-import java.util.Map;
 
 public interface OrdersService {
 
     OrdersVo insertOrder(OrdersVo vo, List<OitemVo> olist);
-    void updateOrder(OrdersVo vo);
-    void deleteOrder(OrdersVo vo);
 
     DeliveryInfoVo findAddress(MemberVO vo);
 
@@ -28,4 +25,6 @@ public interface OrdersService {
     OrdersStatusCount findStatusCount();
 
     boolean updateStatus(OrdersVo orders);
+
+    void updatePoint(MemberVO member);
 }
