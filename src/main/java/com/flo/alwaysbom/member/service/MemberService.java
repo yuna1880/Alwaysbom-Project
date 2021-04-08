@@ -101,24 +101,16 @@ public class MemberService {
         }
     }
 
-    // 인증키 생성
-    public String create_key() throws Exception {
-        String key = "";
-        Random rd = new Random();
-
-        for (int i = 0; i < 8; i++) {
-            key += rd.nextInt(10);
-        }
-        return key;
-    }
-
     // 비밀번호 찾기
     public void find_pw(HttpServletResponse response, MemberVO memberVO) throws Exception {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
         // 아이디가 없으면
-        if(memberVO.getId() == null) {
-            out.print("가입된 ID(이메일)가 아닙니다.");
+        if (dao.idCheck(memberVO.getId()) == 0) {
+            out.println("<script>");
+            out.print("alert('가입된 ID(이메일)가 아닙니다');");
+            out.println("history.go(-1);");
+            out.println("</script>");
             out.close();
         }else {
             // 임시 비밀번호 생성
@@ -132,8 +124,6 @@ public class MemberService {
             // 비밀번호 변경 메일 발송
             send_mail(memberVO, "find_pw");
 
-            out.print("이메일로 임시 비밀번호를 발송하였습니다.");
-            out.close();
         }
     }
 
@@ -142,7 +132,7 @@ public class MemberService {
         // Mail Server 설정
         String charSet = "utf-8"; //인코딩 설정
         String hostSMTP = "smtp.naver.com";
-        String hostSMTPid = "dasom_tech@naver.com";
+        String hostSMTPid = "dasom_tech";
         String hostSMTPpwd = "tosmfqha1!";
 
         // 보내는 사람 EMail, 제목, 내용

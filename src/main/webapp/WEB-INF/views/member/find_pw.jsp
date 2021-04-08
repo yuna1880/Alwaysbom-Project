@@ -18,7 +18,7 @@
                         메일로 인증번호가 발송됩니다.
                     </p>
                     <p class="row d-flex justify-content-center">
-                        <input type="email" id="id" class="ipt mb-3 col-12" name="pwd_request_email" placeholder="이메일 (예시 : alwaysbom@bom.kr)" value>
+                        <input type="email" id="id" class="ipt mb-3 col-12" name="id" placeholder="이메일 (예시 : alwaysbom@bom.kr)" value>
                     </p>
                 </div>
                     <button type="submit" class="login text-decoration-none text-center">확인</button>

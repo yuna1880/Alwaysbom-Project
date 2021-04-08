@@ -89,7 +89,7 @@ public class MemberController {
         return "member/login";
     }
 
-    //아이디 찾기
+    //아이디 찾기 form
     @RequestMapping(value = "/find_id")
     public String find_id() throws Exception {
         return "member/find_id";
@@ -101,7 +101,7 @@ public class MemberController {
         model.addAttribute("id", memberService.found_id(response, phone));
         return "/member/found_id";
     }
-    // 비밀번호 찾기 폼
+    // 비밀번호 찾기 form
     @RequestMapping(value = "/find_pw")
     public String find_pw() throws Exception{
         return "/member/find_pw";
@@ -109,24 +109,10 @@ public class MemberController {
 
     // 비밀번호 찾기
     @RequestMapping(value = "/found_pw", method = RequestMethod.POST)
-    public void found_pw(@ModelAttribute MemberVO memberVO, HttpServletResponse response) throws Exception{
+    public String found_pw(@ModelAttribute MemberVO memberVO, HttpServletResponse response) throws Exception{
         memberService.find_pw(response, memberVO);
+        return "/member/found_pw";
     }
-
-
-
-//    //비밀번호 찾기
-//    @GetMapping("/findPwd")
-//    public String findPwd() {
-//        return "member/find_password";
-//    }
-
-//    //찾은 비밀번호
-//    @GetMapping("/foundPwd")
-//    public String foundPwd() {
-//        return "member/found_password";
-//    }
-
 
     //마이페이지 메인
     @GetMapping("/myPage")
