@@ -23,8 +23,8 @@ public class ReviewService {
         return reviews;
     }
 
-    public List<ReviewDto> allReview(String category, String tab) {
-        return reviewDao.allReview(category, tab);
+    public List<ReviewDto> allReview(String category, String tab, Integer idx) {
+        return reviewDao.allReview(category, tab, idx);
     }
 
     public List<ReviewDto> cateBestReview(String category, String memberId) {

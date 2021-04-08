@@ -19,4 +19,18 @@
         WHERE IDX = #{idx}
     </select>
 
+    <update id="ecommentUpdate" parameterType="com.flo.alwaysbom.community.event.vo.EcommentVo">
+        UPDATE ECOMMENT SET CONTENT = #{content}
+        WHERE IDX = #{idx}
+    </update>
+
+    <delete id="ecommentDelete" parameterType="int">
+        DELETE FROM ECOMMENT WHERE IDX = #{idx}
+    </delete>
+
+    <update id="ecommentReport" parameterType="com.flo.alwaysbom.community.event.vo.EcommentVo">
+        UPDATE ECOMMENT SET REPORT = REPORT+1
+        WHERE IDX = #{idx}
+    </update>
+
 </mapper>

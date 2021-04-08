@@ -23,15 +23,19 @@ public class ReviewDao {
         return list;
     }
 
-    public List<ReviewDto> allReview(String category, String tab) {
+    public List<ReviewDto> allReview(String category, String tab, Integer idx) {
         List<ReviewDto> list = null;
+        Map<String, Object> map = new HashMap<>();
         if(category.equals("")){
             category = null;
         }
+        map.put("category", category);
+        map.put("tab", category);
+        map.put("idx", idx);
         if(tab.equals("best")){
-            list = sqlSessionTemplate.selectList("review.cateBestReview", category);
+            list = sqlSessionTemplate.selectList("review.cateBestReview", map);
         } else if(tab.equals("allList")) {
-            list = sqlSessionTemplate.selectList("review.allReview", category);
+            list = sqlSessionTemplate.selectList("review.allReview", map);
         }
         for (ReviewDto vo : list) {
             vo.setRegDate(vo.getRegDate().substring(0,10));

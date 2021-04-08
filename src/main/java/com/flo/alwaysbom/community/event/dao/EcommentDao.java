@@ -23,4 +23,16 @@ public class EcommentDao {
     public EcommentVo findByIdx(EcommentVo vo) {
         return sqlSessionTemplate.selectOne("ecomment.findByIdx", vo);
     }
+
+    public void ecommentUpdate(EcommentVo vo) {
+        sqlSessionTemplate.update("ecomment.ecommentUpdate",vo);
+    }
+
+    public void ecommentDelete(Integer idx) {
+        sqlSessionTemplate.delete("ecomment.ecommentDelete", idx);
+    }
+
+    public void ecommentReport(Integer idx) {
+        sqlSessionTemplate.delete("ecomment.ecommentReport", idx);
+    }
 }

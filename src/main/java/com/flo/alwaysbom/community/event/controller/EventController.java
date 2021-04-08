@@ -60,7 +60,22 @@ public class EventController {
     @PostMapping("/api/community/eco/ecommentUpdateSend")
     @ResponseBody
     public Boolean ecommentUpdateSend(EcommentVo vo) {
-        System.out.println(vo);
+        ecommentService.ecommentUpdate(vo);
         return true;
     }
+
+    @PostMapping("/api/community/eco/ecommentDeleteSend")
+    @ResponseBody
+    public Boolean ecommentDeleteSend(EcommentVo vo) {
+        ecommentService.ecommentDelete(vo.getIdx());
+        return true;
+    }
+
+    @PostMapping("/api/community/eco/ecommentReport")
+    @ResponseBody
+    public Boolean ecommentReport(Integer idx){
+        ecommentService.ecommentReport(idx);
+        return true;
+    }
+
 }

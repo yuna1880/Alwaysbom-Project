@@ -24,4 +24,16 @@ public class EcommentService {
     public EcommentVo findByIdx(EcommentVo vo) {
         return ecommentDao.findByIdx(vo);
     }
+
+    public void ecommentUpdate(EcommentVo vo) {
+        ecommentDao.ecommentUpdate(vo);
+    }
+
+    public void ecommentDelete(Integer idx) {
+        ecommentDao.ecommentDelete(idx);
+    }
+
+    public void ecommentReport(Integer idx){
+        ecommentDao.ecommentReport(idx);
+    }
 }

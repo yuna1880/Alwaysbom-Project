@@ -12,12 +12,15 @@
         WHERE RN BETWEEN 1 and 10
     </select>
 
-    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
+    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">
         SELECT *
         FROM REVIEW
         <where>
             <if test="category != null">
                 CATEGORY = #{category}
+                <if test="idx != null">
+                    AND IDX = #{IDX}
+                </if>
             </if>
         </where>
         ORDER BY REG_DATE DESC
