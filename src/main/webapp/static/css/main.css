@@ -5,6 +5,9 @@
 .ls-narrower {
     letter-spacing: -0.1px;
 }
+.hover-color:hover {
+    color: #7DAF3B;
+}
 .subs-btn {
     background-color: #efeeeb;
     border: none;
