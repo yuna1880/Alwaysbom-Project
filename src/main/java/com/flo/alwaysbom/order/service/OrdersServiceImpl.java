@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -47,14 +46,6 @@ public class OrdersServiceImpl implements OrdersService {
         //남은 일
 
         return ordersVo;
-    }
-
-    @Override
-    public void updateOrder(OrdersVo vo) {
-
-    }
-    @Override
-    public void deleteOrder(OrdersVo vo) {
     }
 
     // 배송지 불러오기
@@ -105,4 +96,20 @@ public class OrdersServiceImpl implements OrdersService {
     public boolean updateStatus(OrdersVo orders) {
         return orderDao.updateStatus(orders);
     }
+
+    @Override
+    public void updatePoint(MemberVO member) {
+        orderDao.updatePoint(member);
+    }
+
+    @Override
+    public List<OrdersVo> findBySubs(MemberVO member) {
+        return orderDao.findBySubs(member);
+    }
+
+    @Override
+    public List<OrdersVo> findByFlower(MemberVO member) {
+        return orderDao.findByFlower(member);
+    }
+
 }

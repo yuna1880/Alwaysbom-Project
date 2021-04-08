@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="/static/bootstrap-5.0.0/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="/static/fontawesome/css/all.min.css">
 <link rel="stylesheet" href="/static/css/b_header_footer.css">
+<link rel="stylesheet" href="/static/css/common.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 
@@ -12,9 +13,9 @@
     body {
         font-family: "Noto Sans KR", sans-serif !important;
     }
-    #container {
-        width: 1280px;
-        background-color: #ececec; /* 임시 배경 음영. 나중에 지울 것 */
-        padding-bottom: 6em;
-    }
+    /*#container {*/
+    /*    width: 1280px;*/
+    /*    background-color: #ececec; !* 임시 배경 음영. 나중에 지울 것 *!*/
+    /*    padding-bottom: 6em;*/
+    /*}*/
 </style>

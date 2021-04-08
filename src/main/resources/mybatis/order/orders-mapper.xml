@@ -56,6 +56,20 @@
         WHERE ORDERS.MEMBER_ID = #{id}
         ORDER BY ORDERS.IDX DESC
     </select>
+    <select id="findBySubs" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultMap="OrdersMap">
+        SELECT * FROM ORDERS
+                          INNER JOIN OITEM ON(OITEM.ORDERS_IDX = ORDERS.IDX)
+        WHERE OITEM.CATEGORY = '정기구독'
+          AND orders.member_id = #{id}
+        ORDER BY ORDERS.IDX DESC
+    </select>
+    <select id="findByFlower" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultMap="OrdersMap">
+        SELECT * FROM ORDERS
+                          INNER JOIN OITEM ON(OITEM.ORDERS_IDX = ORDERS.IDX)
+        WHERE OITEM.CATEGORY IN ('꽃다발','소품샵')
+          AND orders.member_id = #{id}
+        ORDER BY ORDERS.IDX DESC
+    </select>
 
     <select id="findId" parameterType="String" resultMap="OrdersMap">
         SELECT * FROM ORDERS
@@ -105,4 +119,12 @@
         SET STATUS = #{status}
         WHERE IDX = #{idx}
     </update>
+
+    <update id="updatePoint" parameterType="com.flo.alwaysbom.member.vo.MemberVO">
+        UPDATE MEMBER
+        SET POINT = #{point}
+        WHERE ID = #{id}
+    </update>
+
+
 </mapper>

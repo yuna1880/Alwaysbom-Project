@@ -35,4 +35,5 @@ public class BranchDao {
     public List<BranchVo> findBranchByClassIdx(Integer classIdx) {
         return sqlSessionTemplate.selectList("fclass.findConnectedBranchList", classIdx);
     }
+
 }

@@ -12,7 +12,7 @@
                 , #{discountGrade}, #{discountPoint},
         #{fclassName}, #{branchName}, #{branchAddr}, #{fclassImage}, #{scheduleDate},
         #{scheduleStartTime}, #{scheduleEndTime}, #{fclassCount}, #{status}, #{reviewCheck},
-        #{discountTotalPrice}, #{fclassIdx}, #{scheduleIdx})
+        #{discountTotalPrice}, #{fclassIdx}, #{scheduleIdx}, SYSDATE)
     <selectKey keyProperty="idx" resultType="int" order="AFTER">
         SELECT OCLASS_SEQ.currval FROM DUAL
     </selectKey>
@@ -58,5 +58,11 @@
         DELETE FROM OCLASS
         WHERE IDX = #{idx}
     </delete>
+
+    <update id="updateClassImg" parameterType="com.flo.alwaysbom.fclass.vo.OclassVo">
+        UPDATE OCLASS
+        SET FCLASS_IMAGE = #{fclassImage}
+        WHERE FCLASS_IDX = #{fclassIdx}
+    </update>
 
 </mapper>

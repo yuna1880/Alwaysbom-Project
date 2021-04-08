@@ -20,7 +20,7 @@ public class ReviewDto {
       private String image;
       private String content;
       private String regDate;
-      private Integer star;
+      private double star;
       private Integer likeCount;
       private boolean hasReview;
 

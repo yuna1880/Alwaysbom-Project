@@ -7,7 +7,7 @@
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto d-flex flex-column align-items-center">
-    <form role="form" action="/loginMember" method="post" class="col-5 d-flex flex-column">
+    <form role="form" action="/found_pw" method="post" class="col-5 d-flex flex-column">
         <h5 class="page_title text-center p-2 mt-5 text-secondary m-0 p-4 border-bottom border-secondary">비밀번호 찾기</h5>
         <div class="login_box">
             <div class="inner">
@@ -21,7 +21,7 @@
                         <input type="email" id="id" class="ipt mb-3 col-12" name="pwd_request_email" placeholder="이메일 (예시 : alwaysbom@bom.kr)" value>
                     </p>
                 </div>
-                    <button type="button" class="login text-decoration-none text-center" onclick="location.href='/foundPwd'">확인</button>
+                    <button type="submit" class="login text-decoration-none text-center">확인</button>
                 <p class="login_under_noti">
                     - 유효 메일이 아니거나 휴면 상태일 경우 수신 어려움.
                     <br>

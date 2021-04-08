@@ -9,6 +9,7 @@ import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.service.OrdersService;
 import com.flo.alwaysbom.util.MailSend;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +51,6 @@ public class OrdersController {
         ObjectMapper mapper = new ObjectMapper();
         CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Letter.class);
         List<Letter> list = mapper.readValue(data, collectionType);
-
         System.out.println("oitemList : " + olist);
 
         //편지 내용들 출력해보고, 각 인덱스에 맞는 편지내용 저장!
@@ -61,7 +61,6 @@ public class OrdersController {
 
         //편지 내용 저장 후 oitemList
         System.out.println("oitemList : " + olist);
-
         return "order/checkout";
     }
 
@@ -72,13 +71,6 @@ public class OrdersController {
         //세션값 가져오기
         System.out.println("orderVo = " + ordersVo); //orderList
         System.out.println("OitemList = " + olist); //oitemList
-
-//        //id 임시 설정
-//        mvo = MemberVO.builder()
-//                .id("yuna1880")
-//                .grade("자스민")
-//                .point(1000)
-//                .build();
 
         model.addAttribute("member", member);
         model.addAttribute("oitemList", olist);
@@ -103,7 +95,7 @@ public class OrdersController {
 
     //주문 전 확인창 (결제 정보 입력) -> 주문 완료
     @PostMapping("/order/complete")
-    public String completeOrder (@SessionAttribute("oitemList") List<OitemVo> olist, OrdersVo ordersVo, Model model) {
+    public String completeOrder (@SessionAttribute("oitemList") List<OitemVo> olist, @SessionAttribute("member") MemberVO member, OrdersVo ordersVo, Model model) {
 
         System.out.println("OrdersController.completeOrder");
         System.out.println("oitemList : " + olist);
@@ -123,9 +115,18 @@ public class OrdersController {
         if (ordersVo.isSaveAddress()) {
             ordersService.saveDelivery(ordersVo);
         }
-
         //mail.sendMail("xzllxz456@naver.com");
 
+        System.out.println("최종 ordersVo: " + ordersVo);
+
+        //주문 후 회원 포인트 업데이트
+        if (ordersVo.getDiscountPoint() != 0) {
+            Integer updatedPoint = (member.getPoint() - ordersVo.getDiscountPoint());
+            member.setPoint(updatedPoint);
+            ordersService.updatePoint(member);
+        }
+
+        model.addAttribute("member", member);
         model.addAttribute("oitemList", olist);
         model.addAttribute("ordersVo",ordersVo);
         return "/order/order_ok";
@@ -150,49 +151,50 @@ public class OrdersController {
         return "/order/orderList";
     }
 
-    //=========================================================================================================================================================
+    // (정기구독)으로 조회
+    @GetMapping("/orders/subsList")
+    public String findBySubs (@SessionAttribute(required = false) MemberVO member, Model model) {
+        if (member == null) {
+            member = MemberVO.builder().id("yuna1880").build();
+        }
+        List<OrdersVo> ordersList = ordersService.findBySubs(member);
 
-    //주문정보 + 주문한 상품내역 조회 (관리자용)
-    @GetMapping("/admin/orders")
-    public String findOrder(@SessionAttribute(required = false) MemberVO member, Model model) {
+        model.addAttribute("ordersList", ordersList);
+        return "/order/subsList";
+    }
+
+    // (꽃다발, 소품샵) 으로 조회
+    @GetMapping("/orders/flowerList")
+    public String findByFlower (@SessionAttribute(required = false) MemberVO member, Model model) {
+        if (member == null) {
+            member = MemberVO.builder().id("yuna1880").build();
+        }
+        List<OrdersVo> ordersList = ordersService.findByFlower(member);
+
+        model.addAttribute("ordersList", ordersList);
+        return "/order/orderList";
+    }
+
+    // status (주문상태 = 배송완료) 로 조회하기 (동호)
+    @GetMapping("/orders/status")
+    public String findByStatus(@SessionAttribute(required = false) MemberVO member, Model model) {
+
         if (member == null) {
             member = MemberVO.builder().id("yuna1880").build();
         }
 
         OrdersSearchOptionDto searchOption = OrdersSearchOptionDto.builder()
-                //.memberId(member.getId()) // admin 일땐 이게 없어야 함.
-                .status("입금대기")
+                .memberId(member.getId()) // 현재 로그인된 회원 아이디
+                .status("배송완료") // 배송완료 상태값
                 .build();
 
         List<OrdersVo> ordersList = ordersService.findBySearchOption(searchOption);
-        //주문에 대한 총 개수 구하기
-        OrdersStatusCount statusCount = ordersService.findStatusCount();
 
-        model.addAttribute("statusCount", statusCount);
+        System.out.println("orderList : " + ordersList);
         model.addAttribute("searchOption", searchOption);
         model.addAttribute("ordersList",ordersList);
-        return "/order/b_orderList";
+        return "/order/orderStatus";
     }
 
-    //해당 status에 대한 주문정보 찾기 (만들어둔 DTO이용)
-    @GetMapping("/admin/api/orders")
-    public String findOrdersByStatus(OrdersSearchOptionDto searchOption, Model model) {
-        //라디오 버튼에서 선택한 ststus 값으로 주문 찾기
-        List<OrdersVo> orders = ordersService.findBySearchOption(searchOption);
-        model.addAttribute("searchOption", searchOption);
-        model.addAttribute("ordersList", orders);
-        return "/order/b_orderListContent";
-    }
 
-    //해당 인덱스의 상태값 update
-    @RequestMapping("/admin/api/orders/{idx}/status")
-    @ResponseBody
-    public boolean updateStatus(@RequestBody String status, @PathVariable Integer idx) {
-        OrdersVo orders = OrdersVo.builder()
-                .idx(idx)
-                .status(status)
-                .build();
-
-        return ordersService.updateStatus(orders);
-    }
 }

@@ -113,7 +113,7 @@
                     </div>
                 </div> <!-- Modal 끝 -->
                 <input type="hidden" name="idx" value="${productVo.idx}">
-                <div class="overflow-hidden mb-3">
+                <div class="overflow-hidden mb-3 thumbnails">
                     <a href="/admin/product/${productVo.idx}">
                         <img src="${productVo.image1}" class="col-12" alt="소품샵 썸네일">
                     </a>
