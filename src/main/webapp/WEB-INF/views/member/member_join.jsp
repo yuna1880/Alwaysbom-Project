@@ -130,23 +130,25 @@
     <input type="text" name="name" value="${kakao_name}" class="col-12 mb-4" maxlength="255" placeholder="이름을 입력해주세요." />
 
     <label class="my-2">휴대폰번호 입력</label>
-    <input type="text" name="phone" id="phone" class="col-12 mb-4" maxlength="15" minlength="9" placeholder="예) 010-1234-5678"
-           title="전화번호를 입력하세요"/>
+    <div class="d-flex flex-column mb-4">
+        <input type="text" name="phone" id="phone" class="col-12 mb-4" maxlength="15" minlength="9" placeholder="예) 010-1234-5678" title="전화번호를 입력하세요"/>
+        <div class="hidden warning">※ 사용중인 휴대폰 번호가 있습니다.</div>
+    </div>
 
     <label class="my-2">생년월일</label>
     <input type="date" name="birth" id="birth" class="col-12 mb-4" placeholder="달력에서 선택해주세요."/>
 
     <label class="my-2">성별</label>
-    <div class="d-grid gap-2 d-flex col-12 gender-area">
-        <label class="col-6">
+    <div class="gap-2 d-flex col-12 btn-group" role="group">
+        <label class="col-6 d-flex flex-column">
             <input type="radio" name="gender" value="female" ${kakao_gender eq 'female' ? "checked" : ""}
-                   class="d-none" ${empty kakao_gender ? "" : "disabled"}>
-            <span class="col-12 d-block p-3 btn btn-gender">여성</span>
+                   class="d-none btn-check ${empty kakao_gender ? "" : "disabled"}" ${empty kakao_gender ? "" : "onclick='return(false);'"} >
+            <span class="btn btn-outline-secondary">여성</span>
         </label>
-        <label class="col-6">
+        <label class="col-6 d-flex flex-column">
             <input type="radio" name="gender" value="male" ${kakao_gender eq 'male' ? "checked" : ""}
-                   class="d-none" ${empty kakao_gender ? "" : "disabled"}>
-            <span class="col-12 d-block p-3 btn btn-gender">남성</span>
+                   class="d-none btn-check ${empty kakao_gender ? "" : "disabled"}" ${empty kakao_gender ? "" : "onclick='return(false);'"} >
+            <span class="btn btn-outline-secondary">남성</span>
         </label>
     </div>
     <div class="d-grid col-3 mx-auto">
@@ -181,21 +183,10 @@
 </body>
 </html>
 <style>
-    .btn-gender,
-    .gender-area input[type=radio]:not([checked])[disabled] + .btn-gender:hover {
-        background-color: darkgrey;
-        color: white;
-    }
-
-    .gender-area input[type=radio] + .btn-gender:hover {
-        background-color: grey;
-        color: white;
-    }
-
-    .gender-area input[type=radio]:checked + .btn-gender,
-    .gender-area input[type=radio][checked] + .btn-gender {
-        background-color: grey;
-        color: white;
+    .disabled + .btn:hover {
+        background-color: white;
+        color: #6c757d;
+        cursor: not-allowed;
     }
     .red-border {
         border: 1px solid red;

@@ -10,7 +10,7 @@
             <li>
                 <c:choose>
                     <c:when test="${sessionScope.member == null}">
-                        <a href="/memberLogin">로그인</a>
+                        <a href="/login">로그인</a>
                     </c:when>
                     <c:otherwise>
                         ${sessionScope.member.name}님 반갑습니다:-)
@@ -62,8 +62,17 @@
 
                 <li class="h-menu-icon ms-5">
                     <a href="#">
-                        <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"
-                             title="마이페이지" onclick="location.href='/myPage'" >
+                        <c:choose>
+                            <c:when test="${sessionScope.member != null}">
+                            <a href="#">
+                                <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"
+                                     title="마이페이지" onclick="location.href='/myPage'" >
+                            </c:when>
+                            <c:otherwise>
+                                <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"
+                                     title="마이페이지" onclick="alert('로그인이 필요합니다.'); location.href='/login'" >
+                            </c:otherwise>
+                        </c:choose>
                     </a>
                 </li>
                 <li class="h-menu-icon">

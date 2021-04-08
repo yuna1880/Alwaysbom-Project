@@ -34,8 +34,20 @@
 
     <!-- 회원 탈퇴 -->
     <delete id="deleteMember">
-        DELETE FROM KEY_MEMBER
+        DELETE FROM MEMBER
         WHERE ID = #{id}
-        AND PW = #{pw}
+            AND PW = #{pw}
     </delete>
+
+    <!-- 아이디 찾기 -->
+    <select id="found_id" parameterType="String" resultType="String">
+        SELECT ID
+        FROM MEMBER
+        WHERE PHONE = #{phone}
+    </select>
+
+    <!-- 비밀번호 변경 -->
+    <update id="update_pw" parameterType="com.flo.alwaysbom.member.vo.MemberVO">
+        UPDATE MEMBER SET PW = #{pw} WHERE ID = #{id}
+    </update>
 </mapper>
