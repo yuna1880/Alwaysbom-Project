@@ -7,19 +7,16 @@
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto d-flex flex-column align-items-center">
-    <form role="form" action="/loginMember" method="post" class="col-5 d-flex flex-column">
+    <form role="form" action="/login" method="post" class="col-5 d-flex flex-column">
         <h5 class="page_title text-center p-2 mt-5 text-secondary m-0 p-4 border-bottom border-secondary">비밀번호 찾기</h5>
         <div class="login_box">
             <div class="inner">
                 <div class="login_user_input">
                     <p class="text-center text-secondary mb-4">
-                        메일로 보내드린 인증번호를 입력해주세요.
-                    </p>
-                    <p class="row d-flex justify-content-center">
-                        <input type="email" id="id" class="ipt mb-3 col-12" name="pwd_request_email" placeholder="인증번호를 입력해주세요." value>
+                        메일로 임시 비밀번호를 보내드렸습니다. 감사합니다:-)
                     </p>
                 </div>
-                <button type="button" class="login text-decoration-none text-center" onclick="location.href='/memberLogin'">로그인</button>
+                <button type="submit" class="login text-decoration-none text-center">로그인</button>
                 <p class="login_under_noti">
                     - 유효 메일이 아니거나 휴면 상태일 경우 수신 어려움.
                     <br>

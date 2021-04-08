@@ -21,7 +21,7 @@
                         <span class="login_id_find_results mb-3 col-12">${id}</span>
                     </p>
                 </div>
-                    <button type="button" class="login" onclick="location.href='/memberLogin'">로그인</button>
+                    <button type="button" class="login" onclick="location.href='/login'">로그인</button>
                 <div class="justify-content-center text-center mt-3">
                     <a href="/findPwd" class="text-decoration-none text-secondary">비밀번호 찾기</a>
                 </div>
