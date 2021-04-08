@@ -13,6 +13,8 @@
             cursor: initial;
         }
     </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <script>
         window.onload = function () {
             creditCard();
@@ -65,6 +67,15 @@
                 point.value="";
             }
         }
+        function payment(frm) {
+            alert("yeyeye");
+            if (document.frm.payType.value === "카카오페이") {
+                alert("kakao Pay");
+            }
+            if (document.frm.payType.value === "신용카드(직접입력)") {
+                alert("신용카드 직접");
+            }
+        }
     </script>
 </head>
 
@@ -84,9 +95,8 @@
     <div class="checkout_content">
         <div class="process">
             <div class="step" id="okCheckout">
-
                 <!-- 폼 시작-->
-                <form action="/order/complete" method="post">
+                <form action="/order/complete" method="post" name="frm">
                     <input type="hidden" name="orderIdx" value="">
                 <div class="information_box">
                     <div class="checkout_finals">
@@ -252,7 +262,7 @@
                                            autocomplete="off" checked>
                                     <label class="btn btn-outline-primary" for="btnradio1" onclick="creditCard()">신용카드</label>
 
-                                    <input type="radio" class="btn-check" name="payType" id="btnradio2" value="신용카드"
+                                    <input type="radio" class="btn-check" name="payType" id="btnradio2" value="신용카드(직접입력)"
                                            autocomplete="off">
                                     <label class="btn btn-outline-primary" for="btnradio2" onclick="creditCardInput()">신용카드(직접입력)</label>
 
@@ -369,13 +379,10 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                     <div class="complete">
-                        <button type="submit" class="info_btn next" id="purchase_submit">결제 하기</button>
+                        <button type="submit" class="info_btn next" id="purchase_submit" onclick="payment(this.form)">결제 하기</button>
                         <button type="button" class="info_btn back" onclick="history.back()">이전 단계로</button>
                     </div>
                 </div>
