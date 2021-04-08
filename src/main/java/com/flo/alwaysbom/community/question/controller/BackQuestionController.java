@@ -16,6 +16,7 @@ import java.util.List;
 public class BackQuestionController {
     private final QuestionServise servise;
     private final MailSend mail;
+
 //    MailSend mail = new MailSend();
     // 여기부터는 로그인 회원 정보 받기
     @GetMapping("/admin/community/question")

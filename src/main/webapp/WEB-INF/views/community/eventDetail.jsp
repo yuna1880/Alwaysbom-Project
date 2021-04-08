@@ -119,7 +119,9 @@
         let memid = '${member.id}';
         let eidx = {
             "idx": idx,
-            "content": content
+            "content": content,
+            "memberId": memid
+
         }
         $.ajax({
             url: '/api/community/eco/ecommentUpdate',
@@ -151,12 +153,19 @@
         });
     }
 
+
+    
     function fn_updateReply(rid){
+
+        let memid = '${member.id}';
         let replyEditContent = $('#editContent').val();
+        console.log(rid);
         console.log(replyEditContent);
         let sendData = {
             "idx": rid,
-            "content": replyEditContent
+            "content": replyEditContent,
+            "memberId": memid
+
         }
 
         $.ajax({
@@ -165,6 +174,45 @@
             type: 'post',
             dataType: 'json',
             success: function (result) {
+
+                console.log(result);
+                showReplyList();
+            }
+        });
+    }
+
+    function fn_deleteReply(rid){
+        let memid = '${member.id}';
+        let sendData = {
+            "idx": rid,
+            "memberId": memid
+        };
+        $.ajax({
+            url: '/api/community/eco/ecommentDeleteSend',
+            data: sendData,
+            type: 'post',
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                showReplyList();
+            }
+        });
+    }
+    function fn_reportReply(idx) {
+        let memid = '${member.id}';
+        let sendData = {
+            "idx": idx,
+            "memberId": memid
+        };
+        $.ajax({
+            url: '/api/community/eco/ecommentReport',
+            data: sendData,
+            type: 'post',
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                alert("게시글 확인 후 처리하겠습니다.")
+
                 showReplyList();
             }
         });
