@@ -34,7 +34,7 @@
                 새늘봄 홈
             </div>
             <ul class="h-menu-wrap d-flex justify-content-end my-auto">
-                <li class="h-menu ${typePath eq '/community' ? 'menu-active' : ''}">
+                <li class="h-menu ${typePath eq '/subs' ? 'menu-active' : ''}">
                     <a href="/subs" id="subs">꽃 정기구독</a>
                     <div class="under-bar" id="under-bar1"></div>
                 </li>
