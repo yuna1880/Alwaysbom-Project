@@ -9,12 +9,12 @@
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
-<div id="container" class="mx-auto d-flex flex-column h-100 user-select-none">
+<div id="container" class="mx-auto d-flex flex-column user-select-none">
     <%@ include file="../member/mypage_header.jspf" %>
     <div class="h-85 d-flex">
         <%@ include file="../member/mypage_menu.jspf" %>
         <div class="col-10 border-info d-flex justify-content-center p-4">
-            <div class="col-12 h-100" id="contentPane">
+            <div class="col-12" id="contentPane">
                 <div class="h5 col-12 d-flex flex-column text-secondary">
                     <div class="d-flex">
                         <span class="fw-bold name-color">${sessionScope.member.name}</span>
