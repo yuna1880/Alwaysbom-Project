@@ -55,4 +55,8 @@ public class OclassService {
 
         return oclassDao.deleteOrder(idx);
     }
+
+    public void updateClassImg(String newImg, int idx) {
+        oclassDao.updateClassImg(newImg, idx);
+    }
 }
