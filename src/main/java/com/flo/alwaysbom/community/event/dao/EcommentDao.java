@@ -37,4 +37,3 @@ public class EcommentDao {
         sqlSessionTemplate.delete("ecomment.ecommentReport", idx);
     }
 }
-
