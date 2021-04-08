@@ -260,9 +260,4 @@
 </script>
 </body>
 <%@ include file="../main/footer.jspf" %>
-<<<<<<< HEAD
 </html>
-=======
-</html>
-
->>>>>>> d95df5c12d518f2d09aa0195c31d75af2b93d23e

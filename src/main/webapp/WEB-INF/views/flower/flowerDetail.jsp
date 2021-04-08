@@ -5,9 +5,9 @@
 <head>
     <title>꽃다발 상세페이지</title>
     <%@ include file="../main/import.jspf"%>
-    <link rel="stylesheet" href="../../../static/css/item/detail.css">
-    <link rel="stylesheet" href="../../../static/bootstrap-datepicker/bootstrap-datepicker.css">
-    <script src="../../../static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" href="/static/css/item/detail.css">
+    <link rel="stylesheet" href="/static/bootstrap-datepicker/bootstrap-datepicker.css">
+    <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 </head>
 <body>
 <%@ include file="../main/header.jspf"%>
@@ -31,9 +31,9 @@
     </nav>
 
     <!-- 상품 썸네일과 주문 정보 -->
-    <div class="d-flex justify-content-between thumb-order">
+    <div class="d-flex justify-content-between mb-5em">
         <!-- 사진 썸네일 -->
-        <div class="thumbnails d-flex flex-column justify-content-start">
+        <div class="w-45 d-flex flex-column justify-content-start">
             <div id="item-thumbnails" class="carousel slide mb-4" data-bs-interval="0" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -82,7 +82,7 @@
         </div> <!-- 사진 썸네일 닫기 -->
 
         <!-- 주문 정보 -->
-        <div class="order-info d-flex flex-column">
+        <div class="w-46 d-flex flex-column">
             <span class="subheader">${flowerVo.subheader}</span>
             <span class="item-name">${flowerVo.name}</span>
 
@@ -105,7 +105,7 @@
             </div>
 
             <!-- 구매옵션 -->
-            <div class="inputs-wrap mb-4">
+            <div class="fs-19 mb-4">
                 <!-- 수령일 선택 옵션 -->
                 <div class="row mb-4">
                     <label for="requestDate" class="col-3 fw-500 pt-1">수령일</label>

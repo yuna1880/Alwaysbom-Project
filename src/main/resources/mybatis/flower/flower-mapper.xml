@@ -32,6 +32,21 @@
     </select>
 
 
+    <!-- (R) 최근 업로드된 4개의 상품 조회 -->
+    <select id="findRecent4" resultType="com.flo.alwaysbom.flower.vo.FlowerVo">
+        SELECT  ROWNUM, F.*
+        FROM    (
+                SELECT *
+                FROM FLOWER
+                WHERE DEL_STATUS IS NULL
+                ORDER BY IDX DESC
+                ) F
+        <![CDATA[
+        WHERE   ROWNUM < 5
+        ]]>
+    </select>
+
+
     <!-- (U) 관리자가 상품 수정 -->
     <update id="updateFlower" parameterType="com.flo.alwaysbom.flower.vo.FlowerVo">
         UPDATE  FLOWER

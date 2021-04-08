@@ -17,7 +17,7 @@ public class MainController {
 
     @GetMapping("/")
     public String main(Model model) {
-        List<FlowerVo> flowerList = flowerService.findAll();
+        List<FlowerVo> flowerList = flowerService.findRecent4();
         model.addAttribute("flowerList", flowerList);
         return "main/index";
     }
