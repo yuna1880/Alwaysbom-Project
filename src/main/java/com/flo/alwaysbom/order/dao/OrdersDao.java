@@ -47,6 +47,8 @@ public class OrdersDao {
         return sqlSessionTemplate.selectList("orders-mapper.findByMember",vo);
     }
 
+
+
     public List<OitemVo> findByOrderIdx(Integer idx) {
         return sqlSessionTemplate.selectList("orders-mapper.findByOrderIdx",idx);
     }

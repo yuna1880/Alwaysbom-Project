@@ -16,10 +16,10 @@ public interface OrdersService {
     //주문 완료시 저장
     OrdersVo saveDelivery(OrdersVo ordersVo);
 
-    //주문내역 조회
+    //주문내역 조회 (회원 아이디로 조회)
     List<OrdersVo> findByMember(MemberVO vo);
 
-
+   // 아이디, 배송지 정보로 찾기
     List<OrdersVo> findBySearchOption(OrdersSearchOptionDto status);
 
     OrdersStatusCount findStatusCount();

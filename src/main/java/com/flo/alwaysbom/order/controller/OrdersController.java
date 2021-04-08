@@ -9,6 +9,7 @@ import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.service.OrdersService;
 import com.flo.alwaysbom.util.MailSend;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -149,4 +150,28 @@ public class OrdersController {
         model.addAttribute("ordersList",ordersList);
         return "/order/orderList";
     }
+
+
+    // status (주문상태 = 배송완료) 로 조회하기 (동호)
+    @GetMapping("/orders/status")
+    public String findByStatus(@SessionAttribute(required = false) MemberVO member, Model model) {
+
+        if (member == null) {
+            member = MemberVO.builder().id("yuna1880").build();
+        }
+
+        OrdersSearchOptionDto searchOption = OrdersSearchOptionDto.builder()
+                .memberId(member.getId()) // 현재 로그인된 회원 아이디
+                .status("배송완료") // 배송완료 상태값
+                .build();
+
+        List<OrdersVo> ordersList = ordersService.findBySearchOption(searchOption);
+
+        System.out.println("orderList : " + ordersList);
+        model.addAttribute("searchOption", searchOption);
+        model.addAttribute("ordersList",ordersList);
+        return "";
+    }
+
+
 }

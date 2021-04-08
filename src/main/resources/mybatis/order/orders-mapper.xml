@@ -56,6 +56,12 @@
         WHERE ORDERS.MEMBER_ID = #{id}
         ORDER BY ORDERS.IDX DESC
     </select>
+    <select id="findByStatus" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultMap="OrdersMap">
+        SELECT * FROM ORDERS
+                          INNER JOIN OITEM ON(OITEM.ORDERS_IDX = ORDERS.IDX)
+        WHERE ORDERS.STATUS = #{status}
+        ORDER BY ORDERS.IDX DESC
+    </select>
 
     <select id="findByOrderIdx" parameterType="int" resultType="com.flo.alwaysbom.order.vo.OitemVo">
         SELECT
