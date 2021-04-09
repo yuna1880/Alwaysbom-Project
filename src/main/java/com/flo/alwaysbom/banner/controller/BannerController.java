@@ -25,7 +25,9 @@ public class BannerController {
     public String goBanner(@PathVariable String category, Model model) {
         BannerVo banner = bannerService.findByCategory(category)
                 .orElseThrow(() -> new IllegalStateException("해당 카테고리의 기존 배너가 존재하지 않습니다."));
-        model.addAttribute("bannerVo", banner);
+        if (banner != null) {
+            model.addAttribute("bannerVo", banner);
+        }
         return "flower/b_banner";
     }
 

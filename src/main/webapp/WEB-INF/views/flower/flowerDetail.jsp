@@ -699,7 +699,7 @@
         console.log(result);
 
         if (result) {
-            // location.href = "/cart/list";
+            location.href = "/cart/list";
         }
     }
 
