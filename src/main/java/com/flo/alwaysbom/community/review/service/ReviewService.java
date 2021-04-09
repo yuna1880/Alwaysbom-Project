@@ -74,7 +74,7 @@ public class ReviewService {
         reviewDao.likeCheck(memberId, reviewIdx);
     }
 
-    public void reviewPassible(String id) {
+    public void reviewPossible(String id) {
 //        List<Integer> orderIdx =
     }
 

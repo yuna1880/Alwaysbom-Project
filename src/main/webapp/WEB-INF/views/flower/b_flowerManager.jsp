@@ -21,11 +21,10 @@
         </div>
         <div class="btn-circle d-flex justify-content-center align-items-center"
              onclick="location.href='/admin/flowerAddForm'">
-            상품 등록
+            꽃다발 상품 등록
         </div>
-        <div class="btn-circle d-flex justify-content-center align-items-center"
-             onclick="location.href='/admin/flowerList'">
-            상품 조회/수정/삭제
+        <div class="btn-circle d-flex justify-content-center align-items-center text-center"
+             onclick="location.href='/admin/flowerList'">꽃다발 상품<br>조회/수정/삭제
         </div>
     </div>
 </div>
