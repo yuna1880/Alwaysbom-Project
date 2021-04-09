@@ -130,8 +130,8 @@ public class ReviewController {
     }
 
     @GetMapping("/community/category/deleteReview")
-    public String deleteReview(Integer idx){
-        service.deleteReview(idx);
+    public String deleteReview(@SessionAttribute(required = false) MemberVO member, Integer idx){
+        service.deleteReview(idx, member);
         return "redirect:/community/goReview";
     }
 

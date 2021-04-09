@@ -46,7 +46,7 @@ public class FlowerController {
         // 추가옵션상품 불러오기
         List<ProductVo> productList = productService.findAll();
         // 꽃다발 카테고리 베스트 리뷰 불러오기
-        List<ReviewDto> bestReviewList = reviewService.allReview("꽃다발", "best", idx);
+        List<ReviewDto> bestReviewList = flowerService.findBestReview();
         // 이 상품의 리뷰 불러오기
         List<ReviewDto> thisReviewList = flowerService.findReviewByIdx(idx);
 

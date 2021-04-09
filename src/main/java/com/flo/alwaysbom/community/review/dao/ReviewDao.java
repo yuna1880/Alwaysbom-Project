@@ -2,6 +2,7 @@ package com.flo.alwaysbom.community.review.dao;
 
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
+import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.vo.OitemVo;
 import com.flo.alwaysbom.order.vo.OrdersVo;
 import lombok.RequiredArgsConstructor;
@@ -83,9 +84,15 @@ public class ReviewDao {
         return list;
     }
 
-    public void searchReview(Integer idx) {
+    public void searchReview(Integer idx, MemberVO member) {
+        ReviewDto dto = sqlSessionTemplate.selectOne("review.findByIdx", idx);
         sqlSessionTemplate.delete("review.deleteReview", idx);
-        OitemVo ovo = sqlSessionTemplate.selectOne("review.oitemPick", idx);
+        sqlSessionTemplate.update("review.oitemPick", idx);
+        if(dto.getImage() != null){
+            sqlSessionTemplate.update("review.imageHas", dto.getMemberId());
+        }else {
+            sqlSessionTemplate.update("review.imageDontHas", dto.getMemberId());
+        }
     }
 
     public List<ReviewLikeVo> likeList() {

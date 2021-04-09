@@ -102,7 +102,8 @@
                             + '<span class="pe-2"> 이름 :' + oli.name + '</span>'
                             + '<span class="pe-2"> 가격 :' + oli.price + '</span>'
                             + '<span class="pe-2"> 상품 :' + oli.options + '</span>'
-                            + '<span class="pe-2"> 주문날짜 : ' + oli.requestDate + '</span>'
+                            + '<span class="pe-2"> 주문날짜 : ' + oli.
+                                + '</span>'
                             + '</a></div>';
                         }
                     });

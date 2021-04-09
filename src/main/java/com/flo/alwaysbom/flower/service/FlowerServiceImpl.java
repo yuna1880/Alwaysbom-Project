@@ -36,6 +36,11 @@ public class FlowerServiceImpl implements FlowerService {
     }
 
     @Override
+    public List<ReviewDto> findBestReview() {
+        return dao.findBestReview();
+    }
+
+    @Override
     public List<ReviewDto> findReviewByIdx(Integer idx) {
         return dao.findReviewByIdx(idx);
     }

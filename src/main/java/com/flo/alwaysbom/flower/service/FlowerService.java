@@ -16,6 +16,8 @@ public interface FlowerService {
 
     List<FlowerVo> findRecent4();
 
+    List<ReviewDto> findBestReview();
+
     List<ReviewDto> findReviewByIdx(Integer idx);
 
     Integer updateFlower(FlowerVo vo);
