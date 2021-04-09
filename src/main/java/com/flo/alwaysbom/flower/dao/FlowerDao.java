@@ -32,6 +32,10 @@ public class FlowerDao {
         return sqlSessionTemplate.selectList("FLOWER.findRecent4");
     }
 
+    public List<ReviewDto> findBestReview() {
+        return sqlSessionTemplate.selectList("FLOWER.findBestReview");
+    }
+
     public List<ReviewDto> findReviewByIdx(Integer idx) {
         return sqlSessionTemplate.selectList("FLOWER.findReviewByIdx", idx);
     }

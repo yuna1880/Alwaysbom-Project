@@ -47,6 +47,22 @@
     </select>
 
 
+    <!-- (R) 꽃다발 베스트 리뷰 찾기 -->
+    <select id="findBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT  RN, FF.*
+        FROM    (
+                SELECT  ROWNUM RN, F.*
+                FROM    (
+                        SELECT   *
+                        FROM     REVIEW
+                        WHERE    CATEGORY = '꽃다발'
+                        ORDER BY LIKE_COUNT DESC
+                        ) F
+                ) FF
+        WHERE   RN BETWEEN 1 AND 10
+    </select>
+
+
     <!-- (R) 해당 상품 인덱스의 리뷰 찾기 -->
     <select id="findReviewByIdx" parameterType="Integer" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
         SELECT  *
