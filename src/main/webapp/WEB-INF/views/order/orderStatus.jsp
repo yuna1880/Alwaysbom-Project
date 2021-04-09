@@ -9,7 +9,7 @@
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
-<div id="container" class="mx-auto d-flex flex-column user-select-none">
+<div id="container" class="mx-auto d-flex flex-column h-100 user-select-none">
     <%@ include file="../member/mypage_header.jspf" %>
     <div class="h-85 d-flex">
         <%@ include file="../member/mypage_menu.jspf" %>

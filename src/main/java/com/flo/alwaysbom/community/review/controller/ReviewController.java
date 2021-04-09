@@ -1,10 +1,11 @@
 package com.flo.alwaysbom.community.review.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.service.ReviewService;
 import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
 import com.flo.alwaysbom.member.vo.MemberVO;
+import com.flo.alwaysbom.order.vo.OrdersVo;
+import com.flo.alwaysbom.util.CloudFileHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +24,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewService service;
+    private final CloudFileHandler fileHandler;
 
     @GetMapping("/community/goReview")
     public String goReview(@SessionAttribute(required = false) MemberVO member, Model model){
@@ -144,25 +148,31 @@ public class ReviewController {
         return true;
     }
 
-//
-//    @GetMapping("/community/event/eventreview")
-//    public String gogoRiview(@SessionAttribute(required = false) MemberVO member){
-//        if (member == null) {
-//            // 없을 때 임시
-//        }
-//
-//        return "member/mypage_review";
-//    }
+    @GetMapping("/community/com_mypage_review")
+    public String myPageReview(@SessionAttribute(required = false) MemberVO member, Model model){
+        List<OrdersVo> orderList = service.reviewPossible(member.getId());
+        System.out.println(orderList);
+        model.addAttribute("orderList", orderList);
+        return "community/com_mypage_review";
+    }
 
+    @GetMapping("/community/event/reviewWrite")
+    public String revieWrite(String category, String name, Integer idx, Model model){
+        ReviewDto dto = service.revieWrite(category, name);
+        model.addAttribute("reviewDto", dto);
+        model.addAttribute("oidx", idx);
+        return "community/rv_Writer";
+    }
 
-    @GetMapping("/community/event/eventreview")
-    public String gogoRiview(@SessionAttribute(required = false) MemberVO member){
-        if (member == null) {
-            // 없을 때 임시
-            return "member/login";
-        }
-
-        return "member/mypage_review";
+    @PostMapping("/admin/community/addReview")
+    public String addReview(@SessionAttribute(required = false) MemberVO member, ReviewDto vo, MultipartFile file, Integer comment, Integer oIdx) throws IOException {
+        System.out.println(vo + "  " + file + "  " + comment);
+        vo.setImage(fileHandler.uploadFile(file, vo.getImage(), "review"));
+        vo.setStar(comment);
+        vo.setMemberId(member.getId());
+        System.out.println(oIdx);
+        service.addReview(vo, oIdx);
+        return "redirect:/community/com_mypage_review";
     }
 
 }

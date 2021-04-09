@@ -102,4 +102,14 @@ public class OrdersServiceImpl implements OrdersService {
         orderDao.updatePoint(member);
     }
 
+    @Override
+    public List<OrdersVo> findBySubs(MemberVO member) {
+        return orderDao.findBySubs(member);
+    }
+
+    @Override
+    public List<OrdersVo> findByFlower(MemberVO member) {
+        return orderDao.findByFlower(member);
+    }
+
 }
