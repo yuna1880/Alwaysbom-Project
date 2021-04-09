@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>새늘봄 - 주문내역조회</title>
+    <title>새늘봄 - 정기구독 내역조회</title>
     <%@ include file="../main/import.jspf" %>
     <link rel="stylesheet" href="/static/css/order/orderstyle_back.css">
 </head>
@@ -14,7 +14,7 @@
     <div class="h-85 d-flex">
         <%@ include file="../member/mypage_menu.jspf" %>
         <div class="col-10 border-info d-flex justify-content-center p-4">
-            <div class="col-12" id="contentPane">
+            <div class="col-12 h-100" id="contentPane">
                 <div class="h5 col-12 d-flex flex-column text-secondary">
                     <div class="d-flex">
                         <span class="fw-bold name-color">${sessionScope.member.name}</span>
@@ -24,19 +24,19 @@
 
                     <div id="ordersListContent" class="fs-6">
                         <!-- 담은 수만큼 생성 -->
-                        <c:forEach var="order" items="${ordersList}" varStatus="status">
+                        <c:forEach var="order" items="${ordersList}" varStatus="statusFirst">
                             <ul id="o${order.idx}" class="d-flex flex-column list-unstyled m-0 p-0">
                                 <li class="d-flex align-items-center border-bottom py-3 bg-light">
                                     <div class="col-7 d-flex align-items-center">
                                         주문번호 : ${order.idx}
-                                        <c:if test="${order.status eq '입금대기' && order.status eq '결제완료'}">
-                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" onclick="CancelOrder(this)">주문취소</button>
+                                        <c:if test="${order.status eq '입금대기' || order.status eq '결제완료'}">
+                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" data-index="${statusFirst.index}" onclick="CancelOrder(this, ${statusFirst.index})">주문취소</button>
                                         </c:if>
                                         <c:if test="${order.status eq '주문취소'}">
                                             <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button">취소요청중</button>
                                         </c:if>
                                         <c:if test="${order.status eq '배송중'}">
-                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" onclick="ConfirmOrder(this)">구매확정</button>
+                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" data-index="${statusFirst.index}" onclick="ConfirmOrder(this ,${statusFirst.index})">구매확정</button>
                                         </c:if>
                                         <c:if test="${order.status eq '배송완료'}">
                                             <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" onclick="">리뷰작성</button>
@@ -46,7 +46,7 @@
                                         <span class="badge bg-secondary" id="order-date">주문일 : ${order.odate}</span>
                                     </div>
                                 </li>
-                                <c:forEach var="oitem" items="${ordersList.get(status.index).olist}">
+                                <c:forEach var="oitem" items="${ordersList.get(status.index).olist}" varStatus="status">
                                     <li class="d-flex border-bottom py-3">
                                         <div style="background-color: white" class="col-7 d-flex">
                                             <div class="overflow-hidden">
@@ -72,8 +72,8 @@
                                                 <div>
                                                     <span>가격</span>
                                                     <span>
-                                                            <fmt:formatNumber value="${oitem.price}" pattern="#,### 원"/>
-                                                        </span>
+                                                        <fmt:formatNumber value="${oitem.price}" pattern="#,### 원"/>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -82,7 +82,10 @@
                                             <div class="fst-italic">수령인 연락처 : ${order.receiverPhone}</div>
                                             <div>[수령 요청일] : ${oitem.requestDate}</div>
                                             <div>결제방법 : ${order.payType}</div>
-                                            <div class="fw-bold">주문상태 : ${order.status}</div>
+                                            <div class="fw-bold">주문상태 :
+                                                <i id="status" data-index="${statusFirst.index}">${order.status}</i>
+                                            </div>
+                                            <input type="hidden" id="orderStatus" value="${order.status}">
                                         </div>
                                     </li>
                                 </c:forEach>
@@ -181,7 +184,6 @@
                     <%--                                    </tbody>--%>
                     <%--                            </table>--%>
                     <%--                        </c:forEach>--%>
-
                 </div>
             </div>
         </div>
@@ -189,7 +191,7 @@
 </div>
 <script>
     //주문취소 -> 취소요청중
-    function CancelOrder(btn) {
+    function CancelOrder(btn, index) {
         const idx = btn.dataset.orderIdx;
 
         const option = {
@@ -207,7 +209,10 @@
                 console.log(result);
                 if (result) {
                     alert("주문 취소 요청이 완료되었습니다. 관리자 승인 후 취소처리됩니다.");
+                    document.querySelector("#status[data-index='" + index + "']").innerText = '취소요청중';
+                    document.querySelector("#order-button[data-index='" + index + "']").innerText = '취소요청중';
 
+                    //document.querySelector("#status-text").innerText = '취소요청중';
                 } else {
                     alert("실패입니다");
                 }
@@ -216,7 +221,7 @@
     }
 
     //배송중 -> 배송완료
-    function ConfirmOrder(btn) {
+    function ConfirmOrder(btn, index) {
         const idx = btn.dataset.orderIdx;
 
         const option = {
@@ -234,7 +239,8 @@
                 console.log(result);
                 if (result) {
                     alert("상품을 받으셨나요? 리뷰를 작성해주세요.");
-
+                    document.querySelector("#status[data-index='" + index + "']").innerText = '배송완료';
+                    document.querySelector("#order-button[data-index='" + index + "']").innerText = '배송완료';
                 } else {
                     alert("실패입니다");
                 }

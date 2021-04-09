@@ -18,6 +18,11 @@
                             <span class="h5">포인트</span>
                         </div>
                         <hr class="hr1"/>
+                        <div class="d-flex text-secondary">
+                            <span class="h5">현재 사용 가능한 적립금</span>
+                            <hr>
+                            <span class="h4"><b class="text-danger">${sessionScope.member.point}</b>원</span>
+                        </div>
                     </div>
                 </div>
             </div>

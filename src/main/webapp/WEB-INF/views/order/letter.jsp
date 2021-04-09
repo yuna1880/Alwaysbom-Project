@@ -15,18 +15,19 @@
         }
 
         //메세지 체크박스 선택 안했는데 메세지 비어있을때!
-        function checkForm() {
-
-            let message = document.querySelector("#message");
-            let check = document.letter_form.letter_none.checked;
-
-            if (message.value === "" && !check) {
-                alert("메세지를 입력해주세요.\n메세지 없이 카드만 받고싶으시면 선택해주세요.");
-                return false;
-            } else {
-                submitForm();
-            }
-        }
+        // function checkForm() {
+        //     alert("ddd");
+        //     let message = document.querySelector("#message");
+        //     let check = document.letter_form.letter_none.checked;
+        //
+        //     if (message.value === "" && !check) {
+        //         // alert("메세지를 입력해주세요.\n메세지 없이 카드만 받고싶으시면 선택해주세요.");
+        //         // return false;
+        //     } else {
+        //         submitForm();
+        //     }
+        //     submitForm();
+        // }
 
         function submitForm() {
 
@@ -67,10 +68,9 @@
                 message.value = 'null';
             } else {
                 btn.form.querySelector('#letter_input_form').style.display = 'block';
+                message.value = '';
             }
         }
-
-
 
     </script>
 </head>
@@ -112,7 +112,8 @@
                                     <div class="col-12">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" id="letter_none" name="letter_none" value="letterNone" onclick="letterNone(event, this)"/>
+                                                <input class="form-check-input" type="checkbox" id="letter_none" name="letter_none"
+                                                       value="letterNone" onclick="letterNone(event, this)" data-index="${status.index}"/>
                                                 메세지 없이 카드만 받을게요
                                             </label>
                                         </div>
@@ -147,7 +148,7 @@
                             <button type="button" class="btn btn-outline-secondary btn-lg"
                                     onclick="history.back()">이전 화면으로</button>
                             <!-- 여기서 받은 데이터를 submitForm() -->
-                            <button type="button" class="btn btn btn-secondary btn-lg" onclick="checkForm()">다음 단계로</button>
+                            <button type="button" class="btn btn btn-secondary btn-lg" onclick="submitForm()">다음 단계로</button>
                         </div>
                         <br>
                         </div>
