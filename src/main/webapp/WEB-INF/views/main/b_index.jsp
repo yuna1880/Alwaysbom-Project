@@ -7,165 +7,62 @@
     <title>백 오피스 메인</title>
     <%@ include file="b_import.jspf"%>
     <style>
-        #container {
-            width: 1280px;
-            display: flex;
-            margin: 0 auto;
-            flex-direction: column;
-            align-items: flex-start;
-            color: #404040;
+        .square-2x1 {
+            position: relative;
         }
 
-        .form {
-            width: 100%;
+        .square-2x1::after {
+            content: "";
+            display: block;
+            padding-bottom: 50%;
         }
 
-        .form-row {
-            margin: 0;
-            border: none;
-            border-top: 1px solid black;
-            display: flex;
-            width: 100%;
-            font-size: 11pt;
-        }
-
-        .form-row:last-child {
-            border-bottom: 1px solid black;
-        }
-
-        .form-row .form-header {
-            flex-basis: 15%;
-            background-color: #DDDDDD;
-            padding: 10px;
-
-        }
-
-        .form-row .form-content {
-            flex-basis: 85%;
-            padding: 10px;
-
-        }
-
-        .image-ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            margin: 0;
-            padding: 0;
-        }
-
-        .image-ul-item {
-            flex-basis: 33.33%;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .right-top-buttons {
+        .square-2x1 > .inner {
             position: absolute;
-            right: 10px;
-            top: 10px;
-            color: #aaaaaa;
-        }
-
-        .b6 {
-            color: #bbbbbb;
-        }
-
-        .my-box {
             width: 100%;
-            height: 100px;
+            height: 100%;
         }
 
-        .my-icon {
-            font-size: 24pt;
+        .inner > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-
-        .p-10px {
-            padding: 0 10px;
-        }
-
-        .btn {
-            color: #888888;
-        }
-
     </style>
 </head>
 <body>
 <%@ include file="b_header.jspf" %>
-<div id="container">
-    <h2>메인 페이지 관리</h2>
-    <form enctype="multipart/form-data" class="form d-flex flex-column align-items-center">
-        <div class="form-row">
-            <div class="form-header">
-                <div>메인 이미지 등록</div>
-            </div>
-            <div class="form-content">
-                <ul class="image-ul">
-                    <c:forEach var="index" begin="0" end="5" varStatus="status">
-                    <li class="image-ul-item">
-                        <div class="btn btn-outline-secondary my-box">
-                            <%--<div class="${empty images ? "d-none" : ""} exist w-100 h-100 position-relative">
-                                <img src="" alt="사진" width="100%" height="100%">
-                                <div class="right-top-buttons">
-                                    <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#myModal" onclick="loadData(${})">연결페이지</button>
-                                    <input type="hidden" name="link">
-                                    <button type="button" class="btn btn-light btn-sm" onclick="deleteImage(${status.index + 1})">삭제</button>
-                                </div>
-                            </div>
-                            <div class="${empty images ? "" : "d-none"} empty w-100 h-100 d-flex flex-column align-items-center justify-content-center"
-                                 onclick="this.children.file.click()">
-                                <i class="fa fa-plus my-icon"></i>
-                                <span>이미지 추가</span>
-                                <input type="file" class="d-none" name="file" onchange="changeImage(this, ${status.index + 1})">
-                            </div>--%>
+<div id="container" class="mx-auto bg-warning d-flex flex-column">
+    <div>
+        <h2 class="m-0 p-0">메인 페이지 관리</h2>
+    </div>
+    <form enctype="multipart/form-data" class="d-flex flex-column">
+        <div class="d-flex">
+            <div class="col-2 p-3">메인 이미지 등록</div>
+            <ul class="col-10 list-unstyled m-0 p-0 d-flex flex-wrap">
+                <c:forEach var="index" begin="0" end="5" varStatus="status">
+                <li class="col-6 p-3">
+                    <div class="square-2x1 d-flex">
+                        <div class="inner">
+                            <img class="inner-img" alt="..." src="/static/image/homeimg.jpg">
                         </div>
-                        <span class="b6">${status.count}</span>
-                    </li>
-                    </c:forEach>
-                </ul>
-            </div>
+                    </div>
+                </li>
+                </c:forEach>
+            </ul>
         </div>
-        <div class="form-row">
-            <div class="form-header">
-                <div>꽃다발 상품 썸네일</div>
-                <div>정렬 기준</div>
-            </div>
-            <div class="form-content d-flex align-items-center">
-                <div class="p-10px">
-                    <input class="form-check-input" type="radio" name="orderStandard" id="r1" checked>
-                    <label class="form-check-label" for="r1">
-                        누적 판매량이 높은 순
-                    </label>
-                </div>
-                <div class="p-10px">
-                    <input class="form-check-input" type="radio" name="orderStandard" id="r2">
-                    <label class="form-check-label" for="r2">
-                        최근 한 달간 판매량이 높은 순
-                    </label>
-                </div>
-                <div class="p-10px">
-                    <input class="form-check-input" type="radio" name="orderStandard" id="r3">
-                    <label class="form-check-label" for="r3">
-                        최신 등록 순
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-header">
+        <div class="d-flex">
+            <div class="col-2 p-3">
                 <div>플라워 클래스</div>
-                <div>수업 선택</div>
             </div>
-            <div class="form-content d-flex align-items-center">
-                <div class="d-flex flex-column col-md-3 me-3 p-10px">
+            <div class="col-10 p-3 d-flex">
+                <div class="d-flex flex-column">
                     <label for="thumb_bg">썸네일 대형</label>
                     <select class="form-select" id="thumb_bg">
                         <option selected disabled>썸네일 대형</option>
                     </select>
                 </div>
-                <div class="d-flex flex-column col-md-3 p-10px">
+                <div class="d-flex flex-column">
                     <label for="thumb_sm">썸네일 소형</label>
                     <select class="form-select" id="thumb_sm">
                         <option selected disabled>썸네일 소형</option>
