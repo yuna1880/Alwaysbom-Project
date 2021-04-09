@@ -42,7 +42,7 @@
 
     <update id="updateCouponStatus" parameterType="com.flo.alwaysbom.coupon.vo.CouponVo">
         UPDATE COUPON
-        SET STATUS = "1"
+        SET STATUS = #{status}
         WHERE IDX = #{idx}
     </update>
 </mapper>

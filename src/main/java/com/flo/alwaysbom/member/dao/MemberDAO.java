@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.member.dao;
 
+import com.flo.alwaysbom.coupon.vo.CouponVo;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -62,5 +63,11 @@ public class MemberDAO{
     public int update_pw(MemberVO memberVO) throws Exception{
         return sessionTemplate.update("member.update_pw", memberVO);
     }
+
+    //쿠폰 사용 포인트 증가
+    public void raisePoint(CouponVo couponVO) {
+        sessionTemplate.update("member.raisePoint", couponVO);
+    }
+
 
 }

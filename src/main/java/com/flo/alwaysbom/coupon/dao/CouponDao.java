@@ -29,6 +29,10 @@ public class CouponDao {
         sessionTemplate.update("coupon.updateCoupon", couponVo);
     }
 
+    public void updateCouponStatus(CouponVo couponVo) {
+        sessionTemplate.update("coupon.updateCouponStatus", couponVo);
+    }
+
     public boolean deleteCoupon(Integer idx) {
         return sessionTemplate.delete("coupon.deleteByIdx", idx) > 0;
     }

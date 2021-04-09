@@ -66,13 +66,15 @@
                         <td id="couponName${status.index}">${coupon.name}</td>
                         <td>${coupon.point}</td>
                         <c:if test="${coupon.status eq '0'}">
-                        <td><button type="button" class="btn btn-danger" onclick="useCoupon()">사용하기</button></td>
+                        <td>
+                            <button type="button" class="btn btn-danger" onclick="useCoupon(this)">사용하기</button>
+                            <input type="hidden" name="idx" value="${coupon.idx}" id="idx${status.index}">
+                        </td>
                         </c:if>
                         <c:if test="${coupon.status eq '1'}">
-                            <td><button type="button" class="btn btn-danger" disabled>사용하기</button></td>
+                            <td><button type="button" class="btn btn-danger" disabled>사용완료</button></td>
                         </c:if>
                     </tr>
-                        <input type="hidden" name="idx" value="${coupon.idx}" id="idx${status.index}">
                 </c:forEach>
                 </tbody>
             </table>
@@ -95,15 +97,21 @@
         $innerScript.replaceWith($script);
     }
 
-    async function useCoupon(){
-        let idx = document.querySelector("#idx${status.index}").value
+    async function useCoupon(btn) {
+        let idx = btn.nextElementSibling.value;
+        //console.log("idx: " + idx);
 
         let option = {
             method: "post",
-            body: idx
-        }
-        let response = await fetch("api/useCoupon", option)
-        let result = await response.json()
+            body: idx,
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+        };
+
+        let response = await fetch("/api/useCoupon", option);
+        let result = await response.json();
+        //console.log(result);
 
     }
 </script>

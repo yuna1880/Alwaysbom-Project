@@ -1,25 +1,24 @@
 package com.flo.alwaysbom.member.service;
 
-import com.flo.alwaysbom.community.question.vo.QuestionVo;
+import com.flo.alwaysbom.coupon.dao.CouponDao;
+import com.flo.alwaysbom.coupon.vo.CouponVo;
 import com.flo.alwaysbom.member.dao.MemberDAO;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
 
     private final MemberDAO dao;
+    private final CouponDao couponDao;
 
     //회원가입
     public void insertMember(MemberVO memberVO) {
@@ -140,6 +139,11 @@ public class MemberService {
         } catch (Exception e) {
             System.out.println("메일발송 실패 : " + e);
         }
+    }
+
+    // 쿠폰 사용 후 회원의 point 증가
+    public void raisePoint(CouponVo couponVo) {
+        dao.raisePoint(couponVo);
     }
 
 }

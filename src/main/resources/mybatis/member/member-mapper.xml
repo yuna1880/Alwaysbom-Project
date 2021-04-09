@@ -52,7 +52,7 @@
     </update>
 
     <!-- 쿠폰 사용 -->
-    <update id="useCoupon" parameterType="com.flo.alwaysbom.coupon.vo.CouponVo">
+    <update id="raisePoint" parameterType="com.flo.alwaysbom.coupon.vo.CouponVo">
         UPDATE MEMBER
         SET POINT = POINT + #{point}
         WHERE ID = #{memberId}
