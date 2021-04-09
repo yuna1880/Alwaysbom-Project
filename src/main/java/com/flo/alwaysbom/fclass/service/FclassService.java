@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.fclass.service;
 
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.fclass.dao.FclassDao;
 import com.flo.alwaysbom.fclass.vo.FclassVo;
 import lombok.RequiredArgsConstructor;
@@ -44,5 +45,9 @@ public class FclassService {
 
     public List<FclassVo> findClassByCategory(String category) {
         return dao.findClassByCategory(category);
+    }
+
+    public List<ReviewDto> findReviewsByOption(Integer idx, Integer startIndex, Integer endIndex) {
+        return dao.findReviewsByOption(idx, startIndex, endIndex);
     }
 }

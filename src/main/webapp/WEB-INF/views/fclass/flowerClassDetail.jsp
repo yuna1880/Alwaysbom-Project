@@ -54,6 +54,7 @@
 
 <!-- 메인 컨테이너 -->
 <div id="container" class="mx-auto d-flex flex-column">
+    <input type="hidden" value="${fclassVo.idx}" id="fclassIdx">
 
     <!-- 메뉴 경로 표시 -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -315,13 +316,10 @@
                     </div>
                 </div>
             </c:forEach>
-            <div class="d-flex flex-column align-items-center">
-            <button data-last="1" type="button" id="moreBtn" class="btn btn-dark px-5 py-3 fs-5" onclick="moreReviews(1)">리뷰 더보기</button>
-            </div>
         </div>
 
         <div id="thisReview" class="accordion accordion-flush d-none mb-5">
-            <c:forEach var="all" items="${allReview}" varStatus="status">
+            <c:forEach var="thisReview" items="${thisReviews}" varStatus="status">
                 <div class="accordion-item">
                     <div class="accordion-header" id="flush-heading${status.index}" role="button">
                         <div class="reviewList review-row collapsed d-flex justify-content-between p-4 fs-5"
@@ -330,12 +328,12 @@
                             <span class="col-2 fs-17 c-star ls-narrower text-warning">
                                 <c:forEach begin="1" end="5" var="count">
                                     <c:set var="halfStar" value="${true}"/>
-                                    <c:if test="${all.star >= count}">
+                                    <c:if test="${thisReview.star >= count}">
                                         <c:set var="faClassName" value="fas fa-star"/>
                                     </c:if>
-                                    <c:if test="${all.star < count}">
+                                    <c:if test="${thisReview.star < count}">
                                         <c:set var="faClassName" value="far fa-star"/>
-                                        <c:if test="${all.star + 1 > count and all.star % 1 > 0 and halfStar}">
+                                        <c:if test="${thisReview.star + 1 > count and thisReview.star % 1 > 0 and halfStar}">
                                             <c:set var="halfStar" value="${false}"/>
                                             <c:set var="faClassName" value="fas fa-star-half-alt"/>
                                         </c:if>
@@ -344,26 +342,29 @@
                                 </c:forEach>
                             </span>
                             <span class="col-5 fs-17">
-                                ${all.name}
-                                <c:if test="${all.image != null}">
+                                ${thisReview.name}
+                                <c:if test="${thisReview.image != null}">
                                 <span class="c-bbb ms-2">
                                     <i class="fas fa-images"></i>
                                 </span>
                                 </c:if>
                             </span>
-                            <span class="col-2 text-center fs-6 fw-light c-666">${all.memberId}</span>
-                            <span class="col-2 text-center fs-6 fw-light c-666">${all.regDate}</span>
+                            <span class="col-2 text-center fs-6 fw-light c-666">${thisReview.memberId}</span>
+                            <span class="col-2 text-center fs-6 fw-light c-666">${thisReview.regDate}</span>
                         </div>
                     </div>
                     <div id="collapse${status.index}" class="accordion-collapse collapse border-0"
                          aria-labelledby="flush-heading${status.index}" data-bs-parent="#bestReview"
                          style="padding-left: 196px;">
                         <div class="accordion-body px-5">
-                            <span>${all.content}</span>
+                            <span>${thisReview.content}</span>
                         </div>
                     </div>
                 </div>
             </c:forEach>
+        </div>
+        <div class="d-flex flex-column align-items-center">
+            <button data-last="${thisReviews.size()}" type="button" id="moreBtn" class="btn btn-dark px-5 py-3 fs-5" onclick="moreReviews(2)">리뷰 더보기</button>
         </div>
 
         <!-- 리뷰 작성란 -->
@@ -426,133 +427,87 @@
 <%@ include file="../main/footer.jspf"%>
 
 <script>
+    /**
+     * @param {String} html representing a single element
+     * @return {ChildNode}
+     */
+    function htmlToElement(html) {
+        const template = document.createElement("template");
+        template.innerHTML = html.trim();
+        return template.content.firstChild;
+    }
+
     const totalPriceEl = document.querySelector("#totalPrice");
     const moreBtn = document.querySelector("#moreBtn");
+    const fclassIdx = parseInt(document.querySelector("#fclassIdx").value);
 
-    function moreReviews(reviewCount) {
-/*        let $moreBtn = document.querySelector("#moreBtn");*/
-        let startReview = 1;
-        let endReview = parseInt(moreBtn.dataset.last);
-        let $rows = document.querySelectorAll(".reviewList:nth-child(n+" + (1 + endReview) + ")");
-        moreBtn.dataset.last = startReview + reviewCount;
-        console.log($rows);
-        allReviewList(startReview, reviewCount, endReview);
-        $rows.forEach((v, i) => {
+    async function moreReviews(moreCount) {
+        // 현재 라스트 행번호를 가져오기
+        const last = parseInt(moreBtn.dataset.last);
 
-            if (i < reviewCount) {
-                if (v.classList.contains("d-none")) {
-                    v.classList.remove("d-none");
-                }
-            }
-        });
-    }
-    function allReviewList(startReview, reviewCount, endReview) {
-        let allReviewCount = ${allReviewCount};
-        console.log(${allReviewCount});
+        // 가져올 범위
+        const startIndex = last + 1;
+        const endIndex = startIndex + moreCount - 1;
 
-        moreBtn.click(function(e){
+        // ajax 이용해서 리뷰 받아오기
+        const response = await fetch("/fclass/api/classList/" + fclassIdx + "/reviews?startIndex=" + startIndex + "&endIndex=" + endIndex);
+        const result = await response.json();
+        console.log(result);
 
-            e.stopImmediatePropagation();
-            startReview = 1;
-            endReview += reviewCount;
-            console.log("처음댓글 인덱스" + startReview + "더 볼 댓글 갯수 :" + reviewCount);
-
-            getMoreReviews(startReview, endReview);
-            if(endReview >= startReview) {
-                moreBtn.css("display", "none");
-            }
-        });
-
-        async function getMoreReviews(index, endReview){
-            let reviewList = new Array();
-            <c:forEach var="like" items="${likeList}">
-            reviewList.push({idx: ${like.idx}
-                ,reviewIdx: ${like.reviewIdx}
-                ,memberId: "${like.memberId}"});
-            </c:forEach>
-            for(let i=0; i<reviewList.length; i++){
-                console.log(reviewList[i].idx);
-                console.log(reviewList[i].memberId);
-                console.log(reviewList[i].reviewIdx);
-            };
-            let id = '${member.id}';
-
-            let data = {
-                category: '클래스',
-                startIndex: startReview,
-                endIndex: endReview
-            }
-            let option = {
-                type: 'post',
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-Type": "application/json;charset=utf-8"
-                }
-            }
-
-            let response = await fetch("/fclass/api/getAllReview", option);
-            let result = response.json();
-
-            if (result){
-                let reviewHtml = "";
-                result.forEach(function(){
-                    reviewHtml += '<div class="accordion-item">';
-                    reviewHtml += '<div class="accordion-header" id="flush-heading${status.index}" role="button">';
-                    reviewHtml += '<div class="reviewList review-row collapsed d-flex justify-content-between p-4 fs-5"';
-                    reviewHtml += 'data-bs-toggle="collapse" data-bs-target="#collapse${status.index}"';
-                    reviewHtml += 'aria-expanded="false" aria-controls="collapse${status.index}">';
-                    reviewHtml += '<span class="col-2 fs-17 c-star ls-narrower text-warning">';
-                    reviewHtml += '';
-                    reviewHtml += '';
-                    reviewHtml += '';
-                    reviewHtml += '';
-                });
-
-                /*<div class="accordion-item">
-                    <div class="accordion-header" id="flush-heading${status.index}" role="button">
-                        <div class="reviewList review-row collapsed d-flex justify-content-between p-4 fs-5"
-                             data-bs-toggle="collapse" data-bs-target="#collapse${status.index}"
-                             aria-expanded="false" aria-controls="collapse${status.index}">
-                            <span class="col-2 fs-17 c-star ls-narrower text-warning">
-                                <c:forEach begin="1" end="5" var="count">
-                                    <c:set var="halfStar" value="${true}"/>
-                                    <c:if test="${all.star >= count}">
-                                        <c:set var="faClassName" value="fas fa-star"/>
-                                    </c:if>
-                                    <c:if test="${all.star < count}">
-                                        <c:set var="faClassName" value="far fa-star"/>
-                                        <c:if test="${all.star + 1 > count and all.star % 1 > 0 and halfStar}">
-                                            <c:set var="halfStar" value="${false}"/>
-                                            <c:set var="faClassName" value="fas fa-star-half-alt"/>
-                                        </c:if>
-                                    </c:if>
-                                    <i class="${faClassName} fs-6"></i>
-                                </c:forEach>
-                            </span>
-                            <span class="col-5 fs-17">
-                                ${all.name}
-                                <c:if test="${all.image != null}">
-                                <span class="c-bbb ms-2">
-                                    <i class="fas fa-images"></i>
-                                </span>
-                                </c:if>
-                            </span>
-                            <span class="col-2 text-center fs-6 fw-light c-666">${all.memberId}</span>
-                            <span class="col-2 text-center fs-6 fw-light c-666">${all.regDate}</span>
-                        </div>
-                    </div>
-                    <div id="collapse${status.index}" class="accordion-collapse collapse border-0"
-                         aria-labelledby="flush-heading${status.index}" data-bs-parent="#bestReview"
-                         style="padding-left: 196px;">
-                        <div class="accordion-body px-5">
-                            <span>${all.content}</span>
-                        </div>
-                    </div>
-                </div>*/
-            }
+        // 받아온 데이터로 for loop 돌리면서 리뷰 행 태그 생성
+        const $thisReview = document.querySelector("#thisReview");
+        for (let rowObject of result) {
+            let $row = makeReviewRow(rowObject);
+            // 기존 ul 에 append Child
+            $thisReview.appendChild($row);
         }
 
+        moreBtn.dataset.last = (last + result.length).toString();
     }
+
+    function makeReviewRow(rowObject) {
+        const idx = rowObject.idx;
+        const $accordionItem = htmlToElement("<div class='accordion-item'></div>");
+        const $accordionHeader = htmlToElement("<div class='accordion-header' id='flush-heading" + idx + "' role='button'></div>");
+        $accordionItem.appendChild($accordionHeader);
+
+        // reviewList 영역에 들어갈 애들
+        const $reviewList = htmlToElement('<div class="reviewList review-row collapsed d-flex justify-content-between p-4 fs-5"' +
+            ' data-bs-toggle="collapse" data-bs-target="#collapse' + idx + '"' +
+            ' aria-expanded="false" aria-controls="collapse' + idx + '">');
+
+        const $starSpan = htmlToElement('<span class="col-2 fs-17 c-star ls-narrower text-warning"></span>')
+        const star = rowObject.star;
+        for (let i = 1; i <= 5; i++) {
+            let className = "fas fa-star";
+            if (star < i) {
+                className = "far fa-star";
+            }
+            const $star = htmlToElement('<i class="' + className + '"></i>')
+            $starSpan.appendChild($star);
+        }
+        const $reviewImage = htmlToElement('<span class="col-5 fs-17">' + rowObject.name + '</span>')
+        if (rowObject.image != null) {
+            const $imageIcon = htmlToElement('<span class="c-bbb ms-2"><i class="fas fa-images"></i></span>')
+            $reviewImage.appendChild($imageIcon);
+        }
+        const $memberId = htmlToElement('<span class="col-2 text-center fs-6 fw-light c-666">' + rowObject.memberId + '</span>')
+        const $regDate = htmlToElement('<span class="col-2 text-center fs-6 fw-light c-666">' + rowObject.regDate + '</span>')
+
+        $reviewList.append($starSpan, $reviewImage, $memberId, $regDate);
+        $accordionHeader.appendChild($reviewList);
+        // reviewList 끝
+
+        const $accordionCollapse = htmlToElement('<div id="collapse' + idx + '" class="accordion-collapse collapse border-0"' +
+            ' aria-labelledby="flush-heading'+ idx +'" data-bs-parent="#bestReview" style="padding-left: 196px;"> </div>');
+
+        const $content = htmlToElement('<div class="accordion-body px-5"><span>' + rowObject.content + '</span></div>');
+        $accordionCollapse.appendChild($content);
+        $accordionItem.appendChild($accordionCollapse);
+        return $accordionItem;
+    }
+
+
 
     function checkRegCount() {
         const optionEl = document.querySelector("#scheduleSelect option:checked");
@@ -723,7 +678,9 @@
     }
 
 </script>
+<c:if test="${not empty reviewableList}">
 <script src="/static/js/imageUploader.js"></script>
+</c:if>
 </body>
 </html>
 <style>
