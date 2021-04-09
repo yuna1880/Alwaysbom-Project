@@ -112,6 +112,7 @@
         let response = await fetch("/api/useCoupon", option);
         let result = await response.json();
         //console.log(result);
+        location.reload();
 
     }
 </script>
