@@ -162,9 +162,27 @@
         WHERE IDX = #{idx}
     </update>
 
-    <select id="findByIdx" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
-        SELECT * FROM REVIEW WHERE IDX = #{reviewIdx}, REG_DATE = {regDate}
+    <select id="findByIdx" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="int">
+        SELECT * FROM REVIEW WHERE IDX = #{reviewIdx}
     </select>
+
+    <update id="oitemPick" parameterType="int">
+        UPDATE OITEM
+           SET REVIEW_CHECK = 0
+        WHERE REVIEW_IDX = #{idx}
+    </update>
+
+    <update id="imageHas" parameterType="string">
+        UPDATE MEMBER
+        SET POINT = POINT-300
+        WHERE ID = #{getMemberId}
+    </update>
+    <update id="imageDontHas" parameterType="string">
+        UPDATE MEMBER
+        SET POINT = POINT-200
+        WHERE ID = #{getMemberId}
+    </update>
+
 <!--    <select id="utilReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">-->
 <!--        SELECT *-->
 <!--        FROM REVIEW-->
