@@ -212,7 +212,12 @@
                 <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
 
             <%--memberId, category, flowerIdx, image, fsize 임의로 넣어주기--%>
-                <input type="hidden" name="memberId" value="test@test.com">
+                <c:if test="${not empty sessionScope.member}">
+                <input type="hidden" name="memberId" value="${sessionScope.member.id}">
+                </c:if>
+                <c:if test="${empty sessionScope.member}">
+                <input type="hidden" name="memberId" value="">
+                </c:if>
                 <input type="hidden" name="category" value="꽃다발">
                 <input type="hidden" name="flowerIdx" value="${flowerVo.idx}">
                 <input type="hidden" name="image" value="${flowerVo.image1}">

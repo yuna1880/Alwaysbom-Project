@@ -16,7 +16,7 @@
     </nav>
     <div class="mt-100 d-flex justify-content-center">
         <div class="btn-circle d-flex justify-content-center align-items-center"
-             onclick="location.href='/admin/flowerBanner'">
+             onclick="location.href='/admin/banner/flower'">
             배너 등록/수정
         </div>
         <div class="btn-circle d-flex justify-content-center align-items-center"
