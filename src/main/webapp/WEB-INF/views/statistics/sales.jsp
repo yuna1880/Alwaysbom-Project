@@ -36,69 +36,16 @@
     <div class="pt-3 d-flex flex-column">
         <!-- 헤더 -->
         <div class="d-flex text-center bg-secondary text-white">
-            <div class="col-2 d-flex">
-                <span class="col p-3 border-end">기간</span>
-            </div>
-            <div class="col-1 d-flex">
-                <span class="col p-3 border-end">판매수</span>
-            </div>
-            <div class="col-8 d-flex row-cols-5">
-                <span class="p-3 border-end">정기구독</span>
-                <span class="p-3 border-end">꽃다발</span>
-                <span class="p-3 border-end">원데이클래스</span>
-                <span class="p-3 border-end">플로리스트</span>
-                <span class="p-3 border-end">소품샵</span>
-            </div>
-            <div class="col-1 d-flex">
-                <span class="col p-3">총계</span>
-            </div>
+            <span class="col-1 p-3 border-end">기간</span>
+            <span class="col-1 p-3 border-end">판매수</span>
+            <span class="col-2 p-3 border-end">정기구독</span>
+            <span class="col-2 p-3 border-end">꽃다발</span>
+            <span class="col-2 p-3 border-end">클래스</span>
+            <span class="col-2 p-3 border-end">소품샵</span>
+            <span class="col-2 p-3">총계</span>
         </div>
     </div>
-    <ul class="list-unstyled p-0 m-0 d-flex flex-column text-center">
-        <li class="border border-top-0 border-secondary d-flex">
-            <div class="col-2 d-flex border-end border-secondary">
-                <div class="col p-3 d-flex flex-column">
-                    <span>2020-01-01</span>
-                    <span>~</span>
-                    <span>2020-01-30</span>
-                </div>
-            </div>
-            <div class="col-1 d-flex border-end border-secondary align-items-center">
-                <span class="col p-3">30</span>
-            </div>
-            <div class="col-8 d-flex row-cols-5">
-                <span class="p-3 border-end border-secondary d-flex justify-content-center align-items-center">20</span>
-                <span class="p-3 border-end border-secondary d-flex justify-content-center align-items-center">10</span>
-                <span class="p-3 border-end border-secondary d-flex justify-content-center align-items-center">30</span>
-                <span class="p-3 border-end border-secondary d-flex justify-content-center align-items-center">10</span>
-                <span class="p-3 border-end border-secondary d-flex justify-content-center align-items-center">5</span>
-            </div>
-            <div class="col-1 d-flex align-items-center">
-                <span class="col p-3">75</span>
-            </div>
-        </li>
-        <li class="border border-top-0 border-secondary d-flex">
-            <div class="col-2 d-flex border-end border-secondary">
-                <div class="col p-3 d-flex flex-column">
-                    <span>2020-02-01</span>
-                    <span>~</span>
-                    <span>2020-02-28</span>
-                </div>
-            </div>
-            <div class="col-1 d-flex border-end border-secondary align-items-center">
-                <span class="col p-3">30</span>
-            </div>
-            <div class="col-8 d-flex row-cols-5">
-                <span class="p-3 border-end border-secondary d-flex justify-content-center align-items-center">20</span>
-                <span class="p-3 border-end border-secondary d-flex justify-content-center align-items-center">10</span>
-                <span class="p-3 border-end border-secondary d-flex justify-content-center align-items-center">30</span>
-                <span class="p-3 border-end border-secondary d-flex justify-content-center align-items-center">10</span>
-                <span class="p-3 border-end border-secondary d-flex justify-content-center align-items-center">5</span>
-            </div>
-            <div class="col-1 d-flex align-items-center">
-                <span class="col p-3">75</span>
-            </div>
-        </li>
+    <ul id="salesTable" class="list-unstyled p-0 m-0 d-flex flex-column text-center">
     </ul>
 </div>
 <%@ include file="../main/b_footer.jspf"%>
@@ -199,8 +146,29 @@
 
     function search(fn) {
         fn().then(function (result) {
-            myChart = result;
+            console.log(result);
+            makeTable(result);
         })
+    }
+
+    function makeTable(result) {
+        const $salesTable = document.querySelector("#salesTable");
+        $salesTable.innerHTML = "";
+        for (let row of result) {
+
+            let li = "" +
+                "<li class='border border-top-0 border-secondary d-flex'>" +
+                "    <span class='col-1 p-3 border-end border-secondary d-flex justify-content-center align-items-center'>" + row.period + "</span>" +
+                "    <span class='col-1 p-3 border-end border-secondary d-flex justify-content-center align-items-center'>" + row.salesCount + "</span>" +
+                "    <span class='col-2 p-3 border-end border-secondary d-flex justify-content-center align-items-center'>" + row.subsAmount.toLocaleString('ko-KR') + "</span>" +
+                "    <span class='col-2 p-3 border-end border-secondary d-flex justify-content-center align-items-center'>" + row.flowerAmount.toLocaleString('ko-KR') + "</span>" +
+                "    <span class='col-2 p-3 border-end border-secondary d-flex justify-content-center align-items-center'>" + row.classAmount.toLocaleString('ko-KR') + "</span>" +
+                "    <span class='col-2 p-3 border-end border-secondary d-flex justify-content-center align-items-center'>" + row.productAmount.toLocaleString('ko-KR') + "</span>" +
+                "    <span class='col-2 p-3 d-flex justify-content-center align-items-center'>" + row.totalAmount.toLocaleString('ko-KR') + "</span>" +
+                "</li>";
+
+            $salesTable.appendChild(htmlToElement(li));
+        }
     }
 
     search(searchSales);
@@ -213,16 +181,6 @@
         const productAmounts = result.map(({productAmount}) => productAmount);
         const classAmounts = result.map(({classAmount}) => classAmount);
         const totalAmounts = result.map(({totalAmount}) => totalAmount);
-        console.log(salesCounts);
-        let dataset = {
-            labels: periods,
-            salesCounts: salesCounts,
-            subsAmounts: subsAmounts,
-            flowerAmounts: flowerAmounts,
-            productAmounts: productAmounts,
-            classAmounts: classAmounts,
-            totalAmounts: totalAmounts
-        };
 
         data.labels = periods;
         data.datasets[0].data = salesCounts;
@@ -233,24 +191,22 @@
         data.datasets[5].data = totalAmounts;
 
         myChart.update();
-
-        return dataset;
     }
 
     function searchSales() {
         return fetch("/statistics/api/sales").then(response => {
             return response.json().then(result => {
-                console.log(result);
                 updateChart(result);
+                return result;
             });
         });
     }
 
     function searchThisMonth() {
-        fetch("/statistics/api/sales?type=thisMonth").then(response => {
-            response.json().then(result => {
-                console.log(result);
+        return fetch("/statistics/api/sales?type=thisMonth").then(response => {
+            return response.json().then(result => {
                 updateChart(result);
+                return result;
             });
         });
     }
