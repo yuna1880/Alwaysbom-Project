@@ -210,7 +210,7 @@
                 console.log(result);
                 if (result) {
                     alert("주문 취소 요청이 완료되었습니다. 관리자 승인 후 취소처리됩니다.");
-                    document.querySelector("#status[data-index='" + index + "']").innerText = '취소요청중';
+                    document.querySelector("#status[data-index='" + index + "']").innerText = '주문취소';
                     document.querySelector("#order-button[data-index='" + index + "']").value = '취소요청중';
                     location.reload();
                     //document.querySelector("#status-text").innerText = '취소요청중';
