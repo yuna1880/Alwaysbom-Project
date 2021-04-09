@@ -71,6 +71,12 @@
         ORDER BY ORDERS.IDX DESC
     </select>
 
+    <select id="findId" parameterType="String" resultMap="OrdersMap">
+        SELECT * FROM ORDERS
+            WHERE MEMBER_ID = #{memberId} AND STATUS = '배송완료'
+        ORDER BY IDX DESC
+    </select>
+
     <select id="findByOrderIdx" parameterType="int" resultType="com.flo.alwaysbom.order.vo.OitemVo">
         SELECT
             *
@@ -119,5 +125,6 @@
         WHERE ID = #{id}
     </update>
 
+ 
 
 </mapper>

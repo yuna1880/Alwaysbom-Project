@@ -107,6 +107,55 @@
         UPDATE REVIEW SET LIKE_COUNT = #{review}
         WHERE IDX = #{reviewIdx}
     </update>
+
+<!--    <update id="addIdx" parameterType="int">-->
+<!--        UPDATE REVIEW SET addFloIdx = #{fIdx}-->
+<!--        WHERE IDX = #{reviewIdx}-->
+<!--    </update>-->
+
+    <insert id="addFloIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        INSERT INTO REVIEW (IDX, CATEGORY, FLOWER_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (NULL, #{category}, #{flowerIdx}, #{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT REVIEW_SEQ.currval from DUAL
+        </selectKey>
+    </insert>
+    <insert id="addSubIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        INSERT INTO REVIEW (IDX, CATEGORY, SUBS_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (NULL, #{category}, #{subsIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT REVIEW_SEQ.currval from DUAL
+        </selectKey>
+    </insert>
+    <insert id="addProIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        INSERT INTO REVIEW (IDX, CATEGORY, PRODUCT_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (NULL, #{category}, #{productIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT REVIEW_SEQ.currval from DUAL
+        </selectKey>
+    </insert>
+    <insert id="addclsIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        INSERT INTO REVIEW (IDX, CATEGORY, FCLASS_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (NULL, #{category}, #{fclassIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT REVIEW_SEQ.currval from DUAL
+        </selectKey>
+    </insert>
+    <update id="reviewCheck" parameterType="map">
+        UPDATE OITEM
+        SET REVIEW_CHECK = 1, REVIEW_IDX = #{reviewIdx}
+        WHERE IDX = #{idx}
+    </update>
+    <update id="memberPoint" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        UPDATE MEMBER
+        <if test="image != null">
+            SET POINT = POINT+200
+        </if>
+        <if test="image == null">
+            SET POINT = POINT+300
+        </if>
+        WHERE ID = #{memberId}
+    </update>
 <!--    <select id="utilReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">-->
 <!--        SELECT *-->
 <!--        FROM REVIEW-->
