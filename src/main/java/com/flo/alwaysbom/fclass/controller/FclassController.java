@@ -38,7 +38,7 @@ public class FclassController {
     @GetMapping("/fclass/orders")
     public String goMyClassList(@SessionAttribute(required = false) MemberVO member, Model model) {
         OclassSearchOptionDto searchOption = new OclassSearchOptionDto();
-        searchOption.setMemberId(member != null ? member.getId() : "minho1030@naver.com");
+        //searchOption.setMemberId(member != null ? member.getId() : "minho1030@naver.com");
 
         List<OclassVo> orders = oclassService.findBySearchOption(searchOption);
         model.addAttribute("orders", orders);
@@ -171,6 +171,7 @@ public class FclassController {
         }
         ovo.setFclassIdx(fvo.getIdx());
         ovo.setScheduleIdx(svo.getIdx());
+        System.out.println("ovo = " + ovo);
         oclassService.addOclass(ovo, svo);
 
         if(svo.getTotalCount() < svo.getRegCount() + ovo.getRegCount() ) {
@@ -185,8 +186,8 @@ public class FclassController {
         model.addAttribute("order", ovo);
 
         /*MemberVO member = new MemberVO();
-        member.setName("임하나");
-        model.addAttribute("member", member);*/
+        member.setName("임하나");*/
+        model.addAttribute("member", member);
 
         return "/fclass/completePayment";
     }

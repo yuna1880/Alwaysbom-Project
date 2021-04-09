@@ -30,12 +30,19 @@
     }
 
     function classReservation(form) {
+        if(document.querySelector("#scheduleDate").value == null || document.querySelector("#scheduleDate").value == ""){
+            alert("수강일을 선택해주세요");
+            form.preventDefault();
+        } else {
+            form.submit("/fclass/payment");
+        }
         if (${member.id == null}) {
             alert("로그인이 필요한 페이지입니다.");
             location.href="/login";
         } else {
             form.submit("/fclass/payment");
         }
+
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -303,7 +310,7 @@
                         </span>
                         </c:if>
                     </span>
-                            <span class="col-2 text-center fs-6 fw-light c-666">${best.memberId}</span>
+                            <span class="col-2 text-center fs-6 fw-light c-666">${best.memberId.substring(0,4)}***님</span>
                             <span class="col-2 text-center fs-6 fw-light c-666">${best.regDate}</span>
                         </div>
                     </div>
@@ -349,8 +356,8 @@
                                 </span>
                                 </c:if>
                             </span>
-                            <span class="col-2 text-center fs-6 fw-light c-666">${thisReview.memberId}</span>
-                            <span class="col-2 text-center fs-6 fw-light c-666">${thisReview.regDate}</span>
+                            <span class="col-2 text-center fs-6 fw-light c-666">${thisReview.memberId.substring(0,4)}***님</span>
+                            <span class="col-2 text-center fs-6 fw-light c-666">${thisReview.regDate.substring(0,10)}</span>
                         </div>
                     </div>
                     <div id="collapse${status.index}" class="accordion-collapse collapse border-0"
@@ -564,7 +571,6 @@
         } else {
             $scheduleSelect.setAttribute("disabled", "true");
         }
-
     }
 
     function dateToString(dateString) { // YY-MM-DD 형태로 변환
