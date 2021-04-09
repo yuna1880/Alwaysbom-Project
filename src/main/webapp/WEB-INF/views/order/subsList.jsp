@@ -212,7 +212,7 @@
                     alert("주문 취소 요청이 완료되었습니다. 관리자 승인 후 취소처리됩니다.");
                     document.querySelector("#status[data-index='" + index + "']").innerText = '취소요청중';
                     document.querySelector("#order-button[data-index='" + index + "']").value = '취소요청중';
-
+                    location.reload();
                     //document.querySelector("#status-text").innerText = '취소요청중';
                 } else {
                     alert("실패입니다");
@@ -242,6 +242,7 @@
                     alert("상품을 받으셨나요? 리뷰를 작성해주세요.");
                     document.querySelector("#status[data-index='" + index + "']").innerText = '배송완료';
                     document.querySelector("#order-button[data-index='" + index + "']").innerText = '배송완료';
+                    location.reload();
                 } else {
                     alert("실패입니다");
                 }
