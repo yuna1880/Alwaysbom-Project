@@ -209,7 +209,9 @@ public class BackFclassController {
     @ResponseBody
     public List<ScheduleVo> searchSchedule(@RequestBody ScheduleVo vo) {
         System.out.println("searchSchedule : vo = " + vo);
-        return scheduleService.searchSchedule(vo);
+
+            return scheduleService.searchSchedule(vo);
+
     }
 
     @PostMapping("/admin/fclass/api/deleteScheduleByIdx")
