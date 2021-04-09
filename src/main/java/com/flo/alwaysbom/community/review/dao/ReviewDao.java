@@ -110,6 +110,9 @@ public class ReviewDao {
         }
     }
 
+
+
+
     public List<OrdersVo> findByStatus(String id){
         return sqlSessionTemplate.selectList("orders-mapper.findId",id);
     }
@@ -121,19 +124,23 @@ public class ReviewDao {
 
 
     public void addReview(ReviewDto vo, Integer idx) {
+        Map<String, Integer> map = new HashMap<>();
+        Integer reviewIdx = null;
         if(vo.getCategory().equals("꽃다발")){
-            sqlSessionTemplate.insert("review.addFloIdx",vo);
+           reviewIdx = sqlSessionTemplate.insert("review.addFloIdx",vo);
         }
         else if(vo.getCategory().equals("정기구독")){
-            sqlSessionTemplate.insert("review.addSubIdx", vo);
+            reviewIdx = sqlSessionTemplate.insert("review.addSubIdx", vo);
         }
         else if(vo.getCategory().equals("소품")){
-            sqlSessionTemplate.insert("review.addProIdx", vo);
+            reviewIdx = sqlSessionTemplate.insert("review.addProIdx", vo);
         }
         else if(vo.getCategory().equals("클래스")){
-            sqlSessionTemplate.insert("review.addclsIdx", vo);
+            reviewIdx = sqlSessionTemplate.insert("review.addclsIdx", vo);
         }
-        sqlSessionTemplate.update("review.reviewCheck", idx);
+        map.put("idx", idx);
+        map.put("reviewIdx", reviewIdx);
+        sqlSessionTemplate.update("review.reviewCheck", map);
         sqlSessionTemplate.update("review.memberPoint", vo);
 
     }

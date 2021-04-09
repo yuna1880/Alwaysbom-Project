@@ -5,6 +5,7 @@
 <head>
     <title>1:1문의</title>
     <%@ include file="../main/import.jspf" %>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -35,22 +36,23 @@
                             <button type="button" class="btn btn-warning col-2" onclick="location.href='/question/create'">1:1 문의</button>
                         </div>
 
-                        <div class="col-11 h-100">
+                        <div class="col-11 h-100" id="orderList">
                             <%--내용 반복문--%>
-                                <c:forEach var="order" items="${orderList}" varStatus="status">
-                                    <c:forEach var="oitem" items="${orderList.get(status.index).olist}">
-                                        <c:if test="oitem."></c:if>
-                                        <div class="" id="bord-color">
-                                            <a href="javascript:void(0);" onClick="goWrite('${oitem.category}', '${oitem.name}', ${oitem.idx}); return false" class="d-flex justify-content-center pe-2">
-                                                <span class="pe-2">${oitem.idx}</span>
-                                                <span class="pe-2"> 이름 : ${oitem.name}</span>
-                                                <span class="pe-2"> 가격 : ${oitem.price}</span>
-                                                <span class="pe-2"> 상품 : ${oitem.options}</span>
-                                                <span class="pe-2"> 주문날짜 : ${oitem.requestDate}</span>
-                                            </a>
-                                        </div>
-                                    </c:forEach>
+                            <c:forEach var="order" items="${orderList}" varStatus="status">
+                                <c:forEach var="oitem" items="${orderList.get(status.index).olist}">
+                                 <c:if test="${oitem.reviewCheck != 1}">
+                                    <div class="" id="bord-color">
+                                        <a href="javascript:void(0);" onClick="goWrite('${oitem.category}', '${oitem.name}', ${oitem.idx}); return false" class="d-flex justify-content-center pe-2">
+                                            <span class="pe-2">${oitem.idx}</span>
+                                            <span class="pe-2"> 이름 : ${oitem.name}</span>
+                                            <span class="pe-2"> 가격 : ${oitem.price}</span>
+                                            <span class="pe-2"> 상품 : ${oitem.options}</span>
+                                            <span class="pe-2"> 주문날짜 : ${oitem.requestDate}</span>
+                                        </a>
+                                    </div>
+                                 </c:if>
                                 </c:forEach>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
@@ -73,16 +75,47 @@
         $innerScript.replaceWith($script);
     }
 
-    function goWrite(category, name, idx){
-        alert(idx);
+    function goWrite(category, name, idx, reviewIdx){
         console.log(category + idx  + name);
-        location.href = "/community/event/reviewWrite?category=" + category + "&oIdx=" + idx + "&name=" + name;
+        location.href = "/community/event/reviewWrite?category=" + category + "&idx=" + idx + "&name=" + name + "&reviewIdx=" + reviewIdx;
+    }
+    function updateWrite(category, name, idx, reviewIdx){
+        console.log(category + idx  + name);
+        location.href = "/community/event/updateWrite?category=" + category + "&idx=" + idx + "&name=" + name + "&reviewIdx=" + reviewIdx;
     }
 
-    function goReview(){
-
+    function goReview() {
+        $.ajax({
+            url: '/community/api/myPageReviewe',
+            type: 'get',
+            dataType: 'json',
+            success: function (data){
+                let htmls = '';
+                $.each(data, function (i, item) {
+                    console.log(this.olist);
+                    $.each(this.olist, function (j, oli) {
+                        console.log(this.name);
+                        if(this.reviewCheck == 1){
+                            htmls += '<div class="" id="bord-color">'
+                            + '<a href="javascript:void(0);" onClick="updateWrite(`' + oli.category + '`, `' + oli.name + '`, `' + oli.idx + '`, `' + oli.reviewIdx + '`); return false" class="d-flex justify-content-center pe-2">'
+                            + '<span class="pe-2">' + oli.idx + '</span>'
+                            + '<span class="pe-2"> 이름 :' + oli.name + '</span>'
+                            + '<span class="pe-2"> 가격 :' + oli.price + '</span>'
+                            + '<span class="pe-2"> 상품 :' + oli.options + '</span>'
+                            + '<span class="pe-2"> 주문날짜 : ' + oli.requestDate + '</span>'
+                            + '</a></div>';
+                        }
+                    });
+                });
+                $("#orderList").html(htmls);
+            }
+        });
     }
 </script>
+
+
+
+    </a>
 
 </body>
 <style>
