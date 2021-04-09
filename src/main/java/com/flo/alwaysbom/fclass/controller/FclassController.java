@@ -107,38 +107,39 @@ public class FclassController {
     }
 
     @GetMapping("/fclass/payment")
-    public String goPayment(Integer scheduleIdx, Integer regCount, Model model) {
+    public String goPayment(@SessionAttribute(required = false) MemberVO member, Integer scheduleIdx, Integer regCount, Model model) {
         // member는 아마도.. 세션에서 꺼내올거야
         // 지금은 임시로 객체를 여기서 생성한다
-        MemberVO memberVO = new MemberVO();
+ /*       MemberVO memberVO = new MemberVO();
         memberVO.setId("dlagksk64@naver.com");
         memberVO.setPoint(2000);
         memberVO.setGrade("자스민");
-        memberVO.setName("임하나");
+        memberVO.setName("임하나");*/
         //////////////////////////////////////////
 
         ScheduleVo scheduleVo = scheduleService.findByIdx(scheduleIdx);
         BranchVo branchVo = branchService.findByIdx(scheduleVo.getBranchIdx());
         FclassVo fclassVo = fclassService.findByIdx(scheduleVo.getFclassIdx());
 
+
         model.addAttribute("scheduleVo", scheduleVo);
         model.addAttribute("branchVo", branchVo);
         model.addAttribute("fclassVo", fclassVo);
         model.addAttribute("regCount", regCount);
-        model.addAttribute("memberVo", memberVO);
+        model.addAttribute("memberVo", member);
 
         System.out.println("FclassController.goPayment");
         System.out.println("scheduleVo = " + scheduleVo);
         System.out.println("branchList = " + branchVo);
         System.out.println("fclassVo = " + fclassVo);
         System.out.println("regCount = " + regCount);
-        System.out.println("memberVO = " + memberVO);
+        System.out.println("memberVO = " + member);
 
         return "/fclass/payment";
     }
 
-    @GetMapping ("/fclass/completePayment")
-    public String completePayment(Integer scheduleIdx, OclassVo ovo, Model model) {
+    @PostMapping ("/fclass/completePayment")
+    public String completePayment(@SessionAttribute(required = false) MemberVO member, Integer scheduleIdx, OclassVo ovo, Model model) {
         // @RequestParam("pay-type") String payType, Integer payTotal, String payDate, Integer discountGrade, Integer discountPoint, Model model
         System.out.println("ovo = " + ovo);
 
@@ -183,9 +184,9 @@ public class FclassController {
 
         model.addAttribute("order", ovo);
 
-        MemberVO member = new MemberVO();
+        /*MemberVO member = new MemberVO();
         member.setName("임하나");
-        model.addAttribute("member", member);
+        model.addAttribute("member", member);*/
 
         return "/fclass/completePayment";
     }
