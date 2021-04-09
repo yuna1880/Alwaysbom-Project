@@ -15,20 +15,27 @@
         }
 
         //메세지 체크박스 선택 안했는데 메세지 비어있을때!
-        // function checkForm() {
-        //     alert("ddd");
-        //     let message = document.querySelector("#message");
-        //     let check = document.letter_form.letter_none.checked;
-        //
-        //     if (message.value === "" && !check) {
-        //         // alert("메세지를 입력해주세요.\n메세지 없이 카드만 받고싶으시면 선택해주세요.");
-        //         // return false;
-        //     } else {
-        //         submitForm();
-        //     }
-        //     submitForm();
-        // }
+        function checkForm() {
+            //flower_letter form을 전부 선택해준다. (배열로)
+            const $forms = document.querySelectorAll(".flower_letter");
 
+            //선택한 폼들을 하나씩 돌려주면서...
+            for (const $form of $forms) {
+                // 돌려주면서 폼 안에서 message, check 를 선택해준다.
+                const $message = $form.querySelector("#message");
+                const check = $form.querySelector("#letter_none").checked;
+
+                //편지 1개 -> 안의 폼 안에 값들 (message, check)를 하나씩 비교하면서 if 조건 비교 후 reture or submit 해준다.
+                if ($message.value === "" && !check) {
+                    alert("메세지를 입력해주세요.\n메세지 없이 카드만 받고싶으시면 선택해주세요.");
+                    $message.focus();
+                    return false;
+                }
+            }
+            submitForm();
+        }
+
+        //편지값 전송
         function submitForm() {
 
             //class="flower_letter"의 폼을 전부 선택.
@@ -76,7 +83,6 @@
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
-
     <div class="container">
         <!-- 헤더 -->
         <div class="checkout_wrap">
@@ -87,7 +93,6 @@
                     <div class="step"><span class="order"><b>3</b><span class="desc">결제</span></span></div>
                 </ul>
             </div>
-
             <!-- 편지 폼 -->
             <div class="checkout_letter_add">
                 <div class="head">
@@ -148,11 +153,12 @@
                             <button type="button" class="btn btn-outline-secondary btn-lg"
                                     onclick="history.back()">이전 화면으로</button>
                             <!-- 여기서 받은 데이터를 submitForm() -->
-                            <button type="button" class="btn btn btn-secondary btn-lg" onclick="submitForm()">다음 단계로</button>
+                            <button type="button" class="btn btn btn-secondary btn-lg" onclick="checkForm()">다음 단계로</button>
                         </div>
                         <br>
                         </div>
                     </div>
+    </div>
 <%@ include file="../main/footer.jspf"%>
 </body>
 </html>
