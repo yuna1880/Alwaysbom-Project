@@ -93,21 +93,22 @@
                      NVL(SUBS_AMOUNT, 0) + NVL(FLOWER_AMOUNT, 0) + NVL(PRODUCT_AMOUNT, 0) +
                      NVL(CLASS_AMOUNT, 0)                          AS TOTAL_AMOUNT
               FROM (SELECT TO_CHAR(O.ODATE, 'YY/MM/DD')                AS PERIOD,
-                           SUM(I.IDX)                                  AS SALES_COUNT,
+                           COUNT(I.IDX)                                AS SALES_COUNT,
                            SUM(DECODE(I.CATEGORY, '정기구독', I.PRICE, 0)) AS SUBS_AMOUNT,
                            SUM(DECODE(I.CATEGORY, '꽃다발', I.PRICE, 0))  AS FLOWER_AMOUNT,
                            SUM(DECODE(I.CATEGORY, '소품샵', I.PRICE, 0))  AS PRODUCT_AMOUNT
                     FROM OITEM I
                              INNER JOIN ORDERS O ON I.ORDERS_IDX = O.IDX
                     WHERE O.ODATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'YY/MM'), 'YY/MM') AND SYSDATE
-                    GROUP BY TO_CHAR(O.ODATE, 'YY/MM/DD')) P
+                    GROUP BY TO_CHAR(O.ODATE, 'YY/MM/DD')
+                   ) P
                        FULL OUTER JOIN
                    (SELECT TO_CHAR(ORDER_DATE, 'YY/MM/DD') AS PERIOD,
-                           SUM(IDX)                        AS SALES_COUNT,
+                           COUNT(IDX)                      AS SALES_COUNT,
                            SUM(DISCOUNT_TOTAL_PRICE)       AS CLASS_AMOUNT
                     FROM OCLASS
                     GROUP BY TO_CHAR(ORDER_DATE, 'YY/MM/DD')
-                    ORDER BY ORDER_DATE) F
+                    ORDER BY TO_CHAR(ORDER_DATE, 'YY/MM/DD')) F
                    ON P.PERIOD = F.PERIOD) D
                  RIGHT JOIN
              (SELECT TO_CHAR(SYSDATE - (INTERVAL '1' DAY) * (LEVEL - 1), 'YY/MM/DD') AS MT

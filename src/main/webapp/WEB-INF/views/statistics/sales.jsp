@@ -214,6 +214,15 @@
         const classAmounts = result.map(({classAmount}) => classAmount);
         const totalAmounts = result.map(({totalAmount}) => totalAmount);
         console.log(salesCounts);
+        let dataset = {
+            labels: periods,
+            salesCounts: salesCounts,
+            subsAmounts: subsAmounts,
+            flowerAmounts: flowerAmounts,
+            productAmounts: productAmounts,
+            classAmounts: classAmounts,
+            totalAmounts: totalAmounts
+        };
 
         data.labels = periods;
         data.datasets[0].data = salesCounts;
@@ -224,13 +233,13 @@
         data.datasets[5].data = totalAmounts;
 
         myChart.update();
-        console.log("updated");
-        console.log(myChart);
+
+        return dataset;
     }
 
     function searchSales() {
-        fetch("/statistics/api/sales").then(response => {
-            response.json().then(result => {
+        return fetch("/statistics/api/sales").then(response => {
+            return response.json().then(result => {
                 console.log(result);
                 updateChart(result);
             });
