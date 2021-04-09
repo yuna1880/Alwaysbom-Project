@@ -22,6 +22,10 @@ public class CouponService {
         return couponDao.findBySearchOption(option);
     }
 
+    public CouponVo findByIdx(Integer idx) {
+        return couponDao.findByIdx(idx);
+    }
+
     public CouponVo updateCoupon(CouponVo couponVo) {
         couponDao.updateCoupon(couponVo);
         return couponDao.findByIdx(couponVo.getIdx());
@@ -29,5 +33,10 @@ public class CouponService {
 
     public boolean deleteCoupon(Integer idx) {
         return couponDao.deleteCoupon(idx);
+    }
+
+    public CouponVo updateCouponStatus(CouponVo couponVo) {
+        couponDao.updateCouponStatus(couponVo);
+        return couponDao.findByIdx(couponVo.getIdx());
     }
 }

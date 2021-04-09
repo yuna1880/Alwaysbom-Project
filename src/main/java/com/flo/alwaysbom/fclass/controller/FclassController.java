@@ -2,6 +2,7 @@ package com.flo.alwaysbom.fclass.controller;
 
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.service.ReviewService;
+import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
 import com.flo.alwaysbom.fclass.service.BranchService;
 import com.flo.alwaysbom.fclass.service.FclassService;
 import com.flo.alwaysbom.fclass.service.OclassService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,56 +66,80 @@ public class FclassController {
     }
 
     @GetMapping("/fclass/classList/{idx}")
-    public String classDetail(@PathVariable("idx") Integer idx, Model model) {
+    public String classDetail(@PathVariable("idx") Integer idx,
+                              @SessionAttribute(required = false) MemberVO member, Model model) {
         FclassVo fclassVo = fclassService.findByIdx(idx);
         List<BranchVo> branchList = fclassVo.getBranchList();
         //전체리뷰 값 가져오기
-        List<ReviewDto> allReview = reviewService.allReview("클래스", "allList", idx);
+//        List<ReviewDto> thisReview = reviewService.thisReview("클래스", "allList", idx);
+        List<ReviewDto> thisReview = fclassService.findReviewsByOption(idx, 1, 5);
+
         //베스트리뷰 값 가져오기
         List<ReviewDto> bestReview = reviewService.allReview("클래스", "best", idx);
 
+        List<OclassVo> oclassList;
+        if (member != null) {
+            oclassList = oclassService.findReviewable(OclassVo.builder()
+                    .memberId(member.getId())
+                    .fclassIdx(idx)
+                    .build());
+        } else {
+            oclassList = new ArrayList<>();
+        }
+
         model.addAttribute("fclassVo", fclassVo);
         model.addAttribute("branchList", branchList);
-        model.addAttribute("allReview", allReview);
+        //리뷰 불러오기
+        model.addAttribute("thisReviews", thisReview);
         model.addAttribute("bestReview", bestReview);
+        //리뷰작성 자격있는 클래스리스트
+        model.addAttribute("reviewableList", oclassList);
+        //allReviewCount = 해당 클래스의 전체리뷰 갯수
+        int allReviewCount = reviewService.oldCateListCnt("클래스");
+        model.addAttribute("allReviewCount", allReviewCount);
+        //게시글 좋아요 갯수
+        List<ReviewLikeVo> likeList = reviewService.likeList();
+        model.addAttribute("likeList", likeList);
+
+
 
         return "fclass/flowerClassDetail";
-        //return "fclass/detail_temp";
     }
 
     @GetMapping("/fclass/payment")
-    public String goPayment(Integer scheduleIdx, Integer regCount, Model model) {
+    public String goPayment(@SessionAttribute(required = false) MemberVO member, Integer scheduleIdx, Integer regCount, Model model) {
         // member는 아마도.. 세션에서 꺼내올거야
         // 지금은 임시로 객체를 여기서 생성한다
-        MemberVO memberVO = new MemberVO();
+ /*       MemberVO memberVO = new MemberVO();
         memberVO.setId("dlagksk64@naver.com");
         memberVO.setPoint(2000);
         memberVO.setGrade("자스민");
-        memberVO.setName("임하나");
+        memberVO.setName("임하나");*/
         //////////////////////////////////////////
 
         ScheduleVo scheduleVo = scheduleService.findByIdx(scheduleIdx);
         BranchVo branchVo = branchService.findByIdx(scheduleVo.getBranchIdx());
         FclassVo fclassVo = fclassService.findByIdx(scheduleVo.getFclassIdx());
 
+
         model.addAttribute("scheduleVo", scheduleVo);
         model.addAttribute("branchVo", branchVo);
         model.addAttribute("fclassVo", fclassVo);
         model.addAttribute("regCount", regCount);
-        model.addAttribute("memberVo", memberVO);
+        model.addAttribute("memberVo", member);
 
         System.out.println("FclassController.goPayment");
         System.out.println("scheduleVo = " + scheduleVo);
         System.out.println("branchList = " + branchVo);
         System.out.println("fclassVo = " + fclassVo);
         System.out.println("regCount = " + regCount);
-        System.out.println("memberVO = " + memberVO);
+        System.out.println("memberVO = " + member);
 
         return "/fclass/payment";
     }
 
     @PostMapping ("/fclass/completePayment")
-    public String completePayment(Integer scheduleIdx, OclassVo ovo, Model model) {
+    public String completePayment(@SessionAttribute(required = false) MemberVO member, Integer scheduleIdx, OclassVo ovo, Model model) {
         // @RequestParam("pay-type") String payType, Integer payTotal, String payDate, Integer discountGrade, Integer discountPoint, Model model
         System.out.println("ovo = " + ovo);
 
@@ -158,9 +184,9 @@ public class FclassController {
 
         model.addAttribute("order", ovo);
 
-        MemberVO member = new MemberVO();
+        /*MemberVO member = new MemberVO();
         member.setName("임하나");
-        model.addAttribute("member", member);
+        model.addAttribute("member", member);*/
 
         return "/fclass/completePayment";
     }
@@ -177,4 +203,9 @@ public class FclassController {
         return branchService.findByIdx(idx);
     }
 
+    @GetMapping("/fclass/api/classList/{idx}/reviews")
+    @ResponseBody
+    public List<ReviewDto> getReviewsByOption(@PathVariable Integer idx, Integer startIndex, Integer endIndex) {
+        return fclassService.findReviewsByOption(idx, startIndex, endIndex);
+    }
 }

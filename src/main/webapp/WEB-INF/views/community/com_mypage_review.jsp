@@ -40,7 +40,7 @@
                             <%--내용 반복문--%>
                             <c:forEach var="order" items="${orderList}" varStatus="status">
                                 <c:forEach var="oitem" items="${orderList.get(status.index).olist}">
-                                 <c:if test="${oitem.reviewCheck != 1}">
+                                 <c:if test="${oitem.reviewCheck == 0}">
                                     <div class="" id="bord-color">
                                         <a href="javascript:void(0);" onClick="goWrite('${oitem.category}', '${oitem.name}', ${oitem.idx}); return false" class="d-flex justify-content-center pe-2">
                                             <span class="pe-2">${oitem.idx}</span>
@@ -75,9 +75,9 @@
         $innerScript.replaceWith($script);
     }
 
-    function goWrite(category, name, idx, reviewIdx){
+    function goWrite(category, name, idx){
         console.log(category + idx  + name);
-        location.href = "/community/event/reviewWrite?category=" + category + "&idx=" + idx + "&name=" + name + "&reviewIdx=" + reviewIdx;
+        location.href = "/community/event/reviewWrite?category=" + category + "&idx=" + idx + "&name=" + name;
     }
     function updateWrite(category, name, idx, reviewIdx){
         console.log(category + idx  + name);
@@ -102,7 +102,8 @@
                             + '<span class="pe-2"> 이름 :' + oli.name + '</span>'
                             + '<span class="pe-2"> 가격 :' + oli.price + '</span>'
                             + '<span class="pe-2"> 상품 :' + oli.options + '</span>'
-                            + '<span class="pe-2"> 주문날짜 : ' + oli.requestDate + '</span>'
+                            + '<span class="pe-2"> 주문날짜 : ' + oli.
+                                + '</span>'
                             + '</a></div>';
                         }
                     });

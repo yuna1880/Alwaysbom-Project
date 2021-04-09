@@ -12,7 +12,7 @@
                 , #{discountGrade}, #{discountPoint},
         #{fclassName}, #{branchName}, #{branchAddr}, #{fclassImage}, #{scheduleDate},
         #{scheduleStartTime}, #{scheduleEndTime}, #{fclassCount}, #{status}, #{reviewCheck},
-        #{discountTotalPrice}, #{fclassIdx}, #{scheduleIdx}, SYSDATE)
+        #{discountTotalPrice}, #{fclassIdx}, #{scheduleIdx}, SYSDATE, #{reviewIdx})
     <selectKey keyProperty="idx" resultType="int" order="AFTER">
         SELECT OCLASS_SEQ.currval FROM DUAL
     </selectKey>
@@ -64,5 +64,14 @@
         SET FCLASS_IMAGE = #{fclassImage}
         WHERE FCLASS_IDX = #{fclassIdx}
     </update>
+
+    <select id="findReviewable" parameterType="com.flo.alwaysbom.fclass.vo.OclassVo" resultType="com.flo.alwaysbom.fclass.vo.OclassVo">
+        SELECT * FROM OCLASS
+        WHERE MEMBER_ID = #{memberId}
+          AND   FCLASS_IDX = #{fclassIdx}
+          AND   STATUS = '결제완료'
+          AND   REVIEW_CHECK = 0
+        ORDER BY SCHEDULE_DATE, ORDER_DATE
+    </select>
 
 </mapper>

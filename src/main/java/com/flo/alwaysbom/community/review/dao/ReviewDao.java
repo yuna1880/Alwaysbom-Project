@@ -2,6 +2,8 @@ package com.flo.alwaysbom.community.review.dao;
 
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
+import com.flo.alwaysbom.member.vo.MemberVO;
+import com.flo.alwaysbom.order.vo.OitemVo;
 import com.flo.alwaysbom.order.vo.OrdersVo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -82,8 +84,15 @@ public class ReviewDao {
         return list;
     }
 
-    public void searchReview(Integer idx) {
+    public void searchReview(Integer idx, MemberVO member) {
+        ReviewDto dto = sqlSessionTemplate.selectOne("review.findByIdx", idx);
         sqlSessionTemplate.delete("review.deleteReview", idx);
+        sqlSessionTemplate.update("review.oitemPick", idx);
+        if(dto.getImage() != null){
+            sqlSessionTemplate.update("review.imageHas", dto.getMemberId());
+        }else {
+            sqlSessionTemplate.update("review.imageDontHas", dto.getMemberId());
+        }
     }
 
     public List<ReviewLikeVo> likeList() {
@@ -125,23 +134,29 @@ public class ReviewDao {
 
     public void addReview(ReviewDto vo, Integer idx) {
         Map<String, Integer> map = new HashMap<>();
-        Integer reviewIdx = null;
         if(vo.getCategory().equals("꽃다발")){
-           reviewIdx = sqlSessionTemplate.insert("review.addFloIdx",vo);
+           sqlSessionTemplate.insert("review.addFloIdx",vo);
         }
         else if(vo.getCategory().equals("정기구독")){
-            reviewIdx = sqlSessionTemplate.insert("review.addSubIdx", vo);
+            sqlSessionTemplate.insert("review.addSubIdx", vo);
         }
         else if(vo.getCategory().equals("소품")){
-            reviewIdx = sqlSessionTemplate.insert("review.addProIdx", vo);
+            sqlSessionTemplate.insert("review.addProIdx", vo);
         }
         else if(vo.getCategory().equals("클래스")){
-            reviewIdx = sqlSessionTemplate.insert("review.addclsIdx", vo);
+            sqlSessionTemplate.insert("review.addclsIdx", vo);
         }
         map.put("idx", idx);
-        map.put("reviewIdx", reviewIdx);
+        map.put("reviewIdx", vo.getIdx());
         sqlSessionTemplate.update("review.reviewCheck", map);
         sqlSessionTemplate.update("review.memberPoint", vo);
+    }
 
+    public ReviewDto findByIdx(Integer reviewIdx) {
+        return sqlSessionTemplate.selectOne("review.findByIdx", reviewIdx);
+    }
+
+    public void updateReview(ReviewDto vo) {
+        sqlSessionTemplate.update("review.updateReview", vo);
     }
 }

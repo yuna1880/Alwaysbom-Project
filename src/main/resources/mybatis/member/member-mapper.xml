@@ -50,4 +50,11 @@
     <update id="update_pw" parameterType="com.flo.alwaysbom.member.vo.MemberVO">
         UPDATE MEMBER SET PW = #{pw} WHERE ID = #{id}
     </update>
+
+    <!-- 쿠폰 사용 -->
+    <update id="raisePoint" parameterType="com.flo.alwaysbom.coupon.vo.CouponVo">
+        UPDATE MEMBER
+        SET POINT = POINT + #{point}
+        WHERE ID = #{memberId}
+    </update>
 </mapper>

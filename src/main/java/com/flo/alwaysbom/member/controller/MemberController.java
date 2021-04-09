@@ -9,6 +9,7 @@ import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -69,10 +70,17 @@ public class MemberController {
         member = memberService.login(member);
         List<CouponVo> coupons = couponService.findBySearchOption(CouponVo.builder().memberId(id).build());
 
+        int count = 0;
+        for (CouponVo coupon:coupons) {
+            if (coupon.getStatus() == 0) {
+                count++;
+            }
+        }
+        System.out.println(count);
+
         model.addAttribute("coupons", coupons);
-        model.addAttribute("couponCount", coupons.size());
+        model.addAttribute("couponCount", count);
         System.out.println("coupons = " + coupons);
-        System.out.println("coupons.size() = " + coupons.size());
         model.addAttribute("member", member);
         return "redirect:/";
     }
@@ -176,6 +184,40 @@ public class MemberController {
         memberService.deleteMember(memberVO, session);
         model.addAttribute("member", null);
         return "redirect:/";
+    }
+
+    //쿠폰 사용
+    @PostMapping("/api/useCoupon")
+    @ResponseBody
+    public CouponVo useCoupon(@RequestBody Integer idx, Model model, @SessionAttribute MemberVO member){
+        // 넘겨받은 couponVo 의 idx 를 사용해서 쿠폰 vo 찾기
+        CouponVo couponVo = couponService.findByIdx(idx);
+        couponVo.setStatus(1);
+
+        // coupon 사용 후 회원의 포인트 증가
+        memberService.raisePoint(couponVo);
+        // coupon 디비에도 업데이트를 해야되니까
+        couponService.updateCouponStatus(couponVo);
+
+        List<CouponVo> coupons = couponService.findBySearchOption(
+                CouponVo.builder()
+                        .memberId(couponVo.getMemberId())
+                        .build());
+
+        int count = 0;
+        for (CouponVo coupon:coupons) {
+            if (coupon.getStatus() == 0) {
+                count++;
+            }
+        }
+        System.out.println(count);
+        model.addAttribute("coupons", coupons);
+        model.addAttribute("couponCount", count);
+
+        member.setPoint(member.getPoint() + couponVo.getPoint());
+        model.addAttribute("member", member);
+
+        return couponVo;
     }
 
 }

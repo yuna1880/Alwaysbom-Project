@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex pt-3 align-items-end" style="font-size: 11pt">
+        <div class="d-flex pt-3 align-items-end" style="font-weight: 200; font-size: 11pt">
             <div class="col-9 d-flex flex-column" style="color:#d3d3d3">
                 <div class="d-flex">
                     <span class="pe-2 border-end">상호명: (주)새늘봄(Alwaysbom)</span>
@@ -48,7 +48,7 @@
                 <span class="pe-2">이용약관</span>
                 <span class="px-2">개인정보</span>
                 <span class="px-2">처리방침</span>
-                <span class="ps-2">제휴안내</span>
+                <span class="ps-2" onclick="location.href='/admin/main'">제휴안내</span>
             </div>
         </div>
     </div>
