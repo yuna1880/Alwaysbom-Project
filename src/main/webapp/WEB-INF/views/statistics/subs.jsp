@@ -25,7 +25,6 @@
 <script>
     fetch("/statistics/api/subsByMonth").then(response => {
         response.json().then(result => {
-            console.log(result);
             const labels = result.map(v => v.label);
             const values = result.map(v => v.value);
             const data = {
@@ -66,10 +65,8 @@
 
     fetch("/statistics/api/subsBySize").then(response => {
         response.json().then(result => {
-            console.log(result);
             const labels = result.map(v => v.label);
             const values = result.map(v => v.value);
-            const total = values.reduce((prev, curr) => prev + curr, 0);
             const data = {
                 labels: labels,
                 datasets: [
