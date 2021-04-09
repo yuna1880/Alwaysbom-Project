@@ -24,7 +24,7 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("/cart/list")
-    public String getCart(@SessionAttribute(required = false) MemberVO member, Model model,) {
+    public String getCart(@SessionAttribute(required = false) MemberVO member, Model model) {
         if (member == null) {
             member = MemberVO.builder().id("test").build();
         }
