@@ -77,6 +77,7 @@ public class ReviewService {
 
     public void deleteReview(Integer idx) {
         reviewDao.searchReview(idx);
+
     }
 
     public List<ReviewLikeVo> likeList() {
@@ -147,5 +148,13 @@ public class ReviewService {
             return dto;
         }
         return dto;
+    }
+
+    public ReviewDto findByIdx(Integer reviewIdx) {
+        return reviewDao.findByIdx(reviewIdx);
+    }
+
+    public void updateReview(ReviewDto vo, Integer idx) {
+        reviewDao.updateReview(vo);
     }
 }
