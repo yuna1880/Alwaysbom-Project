@@ -113,25 +113,37 @@
         WHERE IDX = #{reviewIdx}
     </update>
 
-    <insert id="addFloIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
-        INSERT INTO REVIEW (CATEGORY, FLOWER_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
-        VALUES (#{category}, #{flowerIdx}, #{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+    <insert id="addFloIdx" parameterType="com.flo.alwaysbom.community.review.vo.ReviewVo">
+        INSERT INTO REVIEW (IDX, CATEGORY, FLOWER_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (NULL, #{category},#{flowerIdx}, #{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT REVIEW_SEQ.currval from DUAL
+        </selectKey>
     </insert>
-    <insert id="addSubIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
-        INSERT INTO REVIEW (CATEGORY, SUBS_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
-        VALUES (#{category}, #{subsIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+    <insert id="addSubIdx" parameterType="com.flo.alwaysbom.community.review.vo.ReviewVo" useGeneratedKeys="true" keyProperty="idx">
+        INSERT INTO REVIEW (IDX, CATEGORY, SUBS_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (NULL, #{category}, #{subsIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT REVIEW_SEQ.currval from DUAL
+        </selectKey>
     </insert>
     <insert id="addProIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
-        INSERT INTO REVIEW (CATEGORY, PRODUCT_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
-        VALUES (#{category}, #{productIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+        INSERT INTO REVIEW (IDX, CATEGORY, PRODUCT_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (NULL, #{category}, #{productIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT REVIEW_SEQ.currval from DUAL
+        </selectKey>
     </insert>
     <insert id="addclsIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
-        INSERT INTO REVIEW (CATEGORY, FCLASS_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
-        VALUES (#{category}, #{fclassIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+        INSERT INTO REVIEW (IDX, CATEGORY, FCLASS_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (NULL, #{category}, #{fclassIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT REVIEW_SEQ.currval from DUAL
+        </selectKey>
     </insert>
-    <update id="reviewCheck" parameterType="int">
+    <update id="reviewCheck" parameterType="map">
         UPDATE OITEM
-        SET REVIEW_CHECK = 1
+        SET REVIEW_CHECK = 1, REVIEW_IDX = #{reviewIdx}
         WHERE IDX = #{idx}
     </update>
     <update id="memberPoint" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
@@ -144,6 +156,15 @@
         </if>
         WHERE ID = #{memberId}
     </update>
+    <update id="updateReview" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        UPDATE REVIEW
+        SET NAME = #{name}, IMAGE = #{image}, CONTENT = #{content}
+        WHERE IDX = #{idx}
+    </update>
+
+    <select id="findByIdx" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT * FROM REVIEW WHERE IDX = #{reviewIdx}, REG_DATE = {regDate}
+    </select>
 <!--    <select id="utilReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">-->
 <!--        SELECT *-->
 <!--        FROM REVIEW-->

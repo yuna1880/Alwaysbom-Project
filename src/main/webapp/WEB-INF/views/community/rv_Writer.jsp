@@ -60,12 +60,11 @@
     <h2>리뷰 작성</h2>
     <div>
         <form class="row g-3" method="post" action="/admin/community/addReview" enctype="multipart/form-data">
-
             <div class="md-3">
                 <label class="form-label">${reviewDto.category}</label>
                 <input type="hidden" class="form-control" name="memberId" id="memberId" value="${member.id}">
                 <input type="hidden" class="form-control" name="category" id="category" value="${reviewDto.category}">
-                <input type="hidden" class="form-control" name="oidx" id="oidx" value="${param.oidx}">
+                <input type="hidden" class="form-control" name="oidx" id="oidx" value="${oidx}">
                 <c:if test="${reviewDto.category == '꽃다발'}">
                     <input type="hidden" class="form-control" name="flowerIdx" id="flowerIdx" value="${reviewDto.flowerIdx}">
                 </c:if>

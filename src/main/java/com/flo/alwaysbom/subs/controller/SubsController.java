@@ -1,5 +1,7 @@
 package com.flo.alwaysbom.subs.controller;
 
+import com.flo.alwaysbom.banner.service.BannerService;
+import com.flo.alwaysbom.banner.vo.BannerVo;
 import com.flo.alwaysbom.product.service.ProductServiceImpl;
 import com.flo.alwaysbom.product.vo.ProductVo;
 import com.flo.alwaysbom.subs.service.SubsService;
@@ -16,13 +18,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SubsController {
 
+    private final BannerService bannerService;
     private final SubsService subsService;
     private final ProductServiceImpl productService;
 
     @GetMapping("/subs")
     public String goIndex(Model model) {
+        BannerVo banner = bannerService.findByCategory("subs");
         List<SubsVo> list = subsService.findAll();
         model.addAttribute("subsList", list);
+        model.addAttribute("bannerVo", banner);
         return "subs/subsMain";
     }
 

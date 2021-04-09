@@ -3,7 +3,7 @@
 <head>
     <title>꽃다발 관리 인덱스</title>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="../../../static/css/item/b_itemManager.css">
+    <link rel="stylesheet" href="/static/css/item/b_itemManager.css">
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
@@ -16,16 +16,15 @@
     </nav>
     <div class="mt-100 d-flex justify-content-center">
         <div class="btn-circle d-flex justify-content-center align-items-center"
-             onclick="location.href='#'">
+             onclick="location.href='/admin/banner/flower'">
             배너 등록/수정
         </div>
         <div class="btn-circle d-flex justify-content-center align-items-center"
              onclick="location.href='/admin/flowerAddForm'">
-            상품 등록
+            꽃다발 상품 등록
         </div>
-        <div class="btn-circle d-flex justify-content-center align-items-center"
-             onclick="location.href='/admin/flowerList'">
-            상품 조회/수정/삭제
+        <div class="btn-circle d-flex justify-content-center align-items-center text-center"
+             onclick="location.href='/admin/flowerList'">꽃다발 상품<br>조회/수정/삭제
         </div>
     </div>
 </div>

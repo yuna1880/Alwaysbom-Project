@@ -6,18 +6,23 @@
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
-<div id="container" class="mx-auto d-flex flex-column h-100 user-select-none">
+<div id="container" class="mx-auto d-flex flex-column user-select-none">
     <%@ include file="../member/mypage_header.jspf" %>
     <div class="h-85 d-flex">
         <%@ include file="../member/mypage_menu.jspf" %>
         <div class="col-10 border-info d-flex justify-content-center p-4">
-            <div class="col-12 h-100" id="contentPane">
+            <div class="col-12" id="contentPane">
                 <div class="col-12 border-info d-flex justify-content-center p-4">
                     <div class="col-12">
                         <div class="d-flex text-secondary">
                             <span class="h5">포인트</span>
                         </div>
                         <hr class="hr1"/>
+                        <div class="d-flex text-secondary">
+                            <span class="h5">현재 사용 가능한 적립금</span>
+                            <hr>
+                            <span class="h4"><b class="text-danger">${sessionScope.member.point}</b>원</span>
+                        </div>
                     </div>
                 </div>
             </div>

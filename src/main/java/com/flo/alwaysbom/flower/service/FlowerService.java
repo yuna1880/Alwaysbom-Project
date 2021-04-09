@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.flower.service;
 
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.flower.vo.FlowerVo;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public interface FlowerService {
     Optional<FlowerVo> findByIdx(Integer idx);
 
     List<FlowerVo> findRecent4();
+
+    List<ReviewDto> findReviewByIdx(Integer idx);
 
     Integer updateFlower(FlowerVo vo);
 

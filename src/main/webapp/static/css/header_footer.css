@@ -4,7 +4,7 @@ header {
     top: 0;
     z-index: 9999;
     background-color: #ffffff;
-    border-bottom: 1px solid #7DAF3B;
+    border-bottom: 1px solid #ffc107;
 }
 
 /* 로그인 바 */
@@ -32,9 +32,6 @@ header {
 .login-bar li {
     padding: 0 0.6em;
 }
-.point-color {
-    color: #7DAF3B;
-}
 
 /* 메뉴 바 */
 .h-menu-bar {
@@ -50,7 +47,7 @@ header {
     color: #222222;
 }
 .h-menu-bar a:hover {
-    color: #7DAF3B;
+    color: #ffc107;
     transition: all 0.3s;
 }
 .logo {
@@ -86,7 +83,7 @@ header {
     height: 27px;
 }
 .under-bar {
-    border-top: 4px solid #7DAF3B;
+    border-top: 4px solid #ffc107;
     position: absolute;
     pointer-events: none;
     opacity: 0;
@@ -116,7 +113,7 @@ header {
     position: absolute;
     background-color: #fff;
     border: 1px solid #979e97;
-    border-top: 4px solid #7DAF3B;
+    border-top: 4px solid #ffc107;
     left: 50%;
     transform: translate(-55px, 10px);
     opacity: 0;
@@ -132,7 +129,7 @@ header {
     font-size: 17px;
 }
 .h-submenu a:hover {
-    color: #7DAF3B;
+    color: #ffc107;
     font-weight: 500;
 }
 .h-menu:hover .h-submenu {
@@ -146,11 +143,11 @@ header {
 
 /* 헤더 메뉴에 active 표시 */
 .menu-active {
-    color: #7DAF3B !important;
+    color: #ffc107 !important;
 }
 .menu-active a {
-    font-weight: 500;
-    color: #7DAF3B !important;
+    /*font-weight: 500;*/
+    color: #ffc107 !important;
 }
 .menu-active .under-bar {
     opacity: 1;
@@ -162,10 +159,11 @@ header {
 footer {
     z-index: 100;
     background-color: #303030;
-    width: 100vw;
-    height: 300px;
-    color: #d4d4d4;
+    width: 100%;
+    color: #bdbdbd;
+    margin-bottom: 0 !important;
 }
 .footer-container {
     width: 1280px;
+    padding: 4em 2.8em 4em 2.8em;
 }

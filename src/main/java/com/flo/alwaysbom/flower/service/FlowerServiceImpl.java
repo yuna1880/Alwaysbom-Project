@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.flower.service;
 
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.flower.dao.FlowerDao;
 import com.flo.alwaysbom.flower.vo.FlowerVo;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,11 @@ public class FlowerServiceImpl implements FlowerService {
     @Override
     public List<FlowerVo> findRecent4() {
         return dao.findRecent4();
+    }
+
+    @Override
+    public List<ReviewDto> findReviewByIdx(Integer idx) {
+        return dao.findReviewByIdx(idx);
     }
 
     @Override

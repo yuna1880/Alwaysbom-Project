@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flo.alwaysbom.cart.service.CartService;
 import com.flo.alwaysbom.cart.vo.CartVo;
+import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.vo.Letter;
 import lombok.*;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,12 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("/cart/list")
-    public String getCart(Model model, String memberId) {
-        if (memberId == null) {
-            memberId = "test";
+    public String getCart(@SessionAttribute(required = false) MemberVO member, Model model) {
+        if (member == null) {
+            member = MemberVO.builder().id("test").build();
         }
-        List<CartVo> list = cartService.findCartsByMember(memberId);
+
+        List<CartVo> list = cartService.findCartsByMember(member.getId());
 
         int totalSum = list.stream().mapToInt(CartVo::getTotalPrice).sum();
 

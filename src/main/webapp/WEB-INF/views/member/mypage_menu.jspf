@@ -5,10 +5,10 @@
             <hr>
         </li>
         <li class="list-group-item">
-            <a href="/orders" class="link-secondary">주문 내역</a>
+            <a href="/orders/flowerList" class="link-secondary">주문 내역</a>
         </li>
         <li class="list-group-item">
-            <a href="" class="link-secondary">정기 구독</a>
+            <a href="/orders/subsList" class="link-secondary">정기 구독</a>
         </li>
         <li class="list-group-item">
             <a href="" class="link-secondary" onclick="goMyClassList(event)">수강 내역</a>

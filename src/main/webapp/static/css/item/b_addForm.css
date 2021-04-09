@@ -60,3 +60,28 @@
 .options-label {
     font-size: 14px;
 }
+
+
+/* 닫기 버튼 */
+.btn-close-style {
+    z-index: 150;
+    position: absolute;
+    border-radius: 12px;
+    padding: 0.4em 1.1em;
+    margin: 0.6em 0.6em;
+    border: 2px solid #303030;
+    font-size: 15px;
+    color: #303030;
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    -webkit-transition: all 0.2s ease-in-out;
+}
+.img-card:hover .btn-close-style {
+    cursor: pointer;
+    opacity: 1;
+    -webkit-transition: all 0.2s ease-in-out;
+}
+.btn-close-style:hover {
+    background-color: rgba(255, 255, 255, 0.45);
+    -webkit-transition: all 0.2s ease-in-out;
+}

@@ -157,22 +157,58 @@ public class ReviewController {
     }
 
     @GetMapping("/community/event/reviewWrite")
-    public String revieWrite(String category, String name, Integer idx, Model model){
+    public String revieWrite(String category, String name, Integer idx, Model model, Integer reviewIdx){
+        System.out.println("reviewIdx =" + reviewIdx);
         ReviewDto dto = service.revieWrite(category, name);
         model.addAttribute("reviewDto", dto);
         model.addAttribute("oidx", idx);
+        model.addAttribute("reviewIdx", reviewIdx);
         return "community/rv_Writer";
     }
 
     @PostMapping("/admin/community/addReview")
-    public String addReview(@SessionAttribute(required = false) MemberVO member, ReviewDto vo, MultipartFile file, Integer comment, Integer oIdx) throws IOException {
+    public String addReview(@SessionAttribute(required = false) MemberVO member, ReviewDto vo, MultipartFile file, Integer comment, Integer oidx) throws IOException {
         System.out.println(vo + "  " + file + "  " + comment);
         vo.setImage(fileHandler.uploadFile(file, vo.getImage(), "review"));
         vo.setStar(comment);
         vo.setMemberId(member.getId());
-        System.out.println(oIdx);
-        service.addReview(vo, oIdx);
+        System.out.println(oidx);
+        service.addReview(vo, oidx);
         return "redirect:/community/com_mypage_review";
+    }
+
+    @GetMapping("/community/api/myPageReviewe")
+    @ResponseBody
+    public List<OrdersVo> myPageReviewe(@SessionAttribute(required = false) MemberVO member, Model model){
+    List<OrdersVo> orderList = service.reviewPossible(member.getId());
+        System.out.println(orderList);
+        model.addAttribute("orderList", orderList);
+        return orderList;
+    }
+
+    @GetMapping("/community/event/updateWrite")
+    public String updateWrite(String category, String name, Integer idx, Model model, Integer reviewIdx){
+        System.out.println(reviewIdx);
+        ReviewDto dto = service.findByIdx(reviewIdx);
+        model.addAttribute("reviewDto", dto);
+        return "community/rvUpdater";
+    }
+
+    @PostMapping("/admin/community/updateReview")
+    public String updateReview(@SessionAttribute(required = false) MemberVO member, ReviewDto vo, MultipartFile file, Integer comment, Integer idx) throws IOException {
+        vo.setImage(fileHandler.uploadFile(file, vo.getImage(), "review"));
+        vo.setStar(comment);
+        vo.setMemberId(member.getId());
+        System.out.println(vo.getIdx());
+        service.updateReview(vo, idx);
+        return "redirect:/community/com_mypage_review";
+    }
+
+    @PostMapping("/community/event/updateWrite")
+    public ReviewDto updateApiWrite(String category, String name, Integer idx, Model model, Integer reviewIdx) {
+        ReviewDto dto = service.findByIdx(reviewIdx);
+        model.addAttribute("reviewDto", dto);
+        return dto;
     }
 
 }
