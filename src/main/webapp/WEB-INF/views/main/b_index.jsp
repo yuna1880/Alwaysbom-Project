@@ -7,23 +7,24 @@
     <title>백 오피스 메인</title>
     <%@ include file="b_import.jspf"%>
     <style>
-        .square-2x1 {
+        .square {
             position: relative;
         }
 
-        .square-2x1::after {
+        .square::after {
             content: "";
             display: block;
-            padding-bottom: 50%;
+            padding-bottom: 100%;
         }
 
-        .square-2x1 > .inner {
+        .square.wide::after {
+            content: "";
+            display: block;
+            padding-bottom: 40%;
+        }
+
+        .square > .inner {
             position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .inner > img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -42,10 +43,8 @@
             <ul class="col-10 list-unstyled m-0 p-0 d-flex flex-wrap">
                 <c:forEach var="index" begin="0" end="5" varStatus="status">
                 <li class="col-6 p-3">
-                    <div class="square-2x1 d-flex">
-                        <div class="inner">
-                            <img class="inner-img" alt="..." src="/static/image/homeimg.jpg">
-                        </div>
+                    <div class="col-12 square wide d-flex">
+                        <img class="inner" alt="..." src="/static/image/homeimg.jpg">
                     </div>
                 </li>
                 </c:forEach>
@@ -56,13 +55,13 @@
                 <div>플라워 클래스</div>
             </div>
             <div class="col-10 p-3 d-flex">
-                <div class="d-flex flex-column">
+                <div class="col-3 d-flex flex-column me-3">
                     <label for="thumb_bg">썸네일 대형</label>
                     <select class="form-select" id="thumb_bg">
                         <option selected disabled>썸네일 대형</option>
                     </select>
                 </div>
-                <div class="d-flex flex-column">
+                <div class="col-3 d-flex flex-column">
                     <label for="thumb_sm">썸네일 소형</label>
                     <select class="form-select" id="thumb_sm">
                         <option selected disabled>썸네일 소형</option>
