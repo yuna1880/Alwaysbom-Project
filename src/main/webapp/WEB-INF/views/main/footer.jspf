@@ -1,89 +1,55 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
-<footer class="d-flex justify-content-center align-items-center">
-    <div class="footer-container">
-        footer입니다.
-        <div>
-            <a href="/admin/main">백오피스 바로가기</a>
-                <nav class="navi_mobile is_flow_footer" id="footer_nav_mobile">
+<footer class="footer d-flex justify-content-center align-items-center mb-0" id="footer">
+    <div class="footer-container d-flex flex-column">
+<%--        <div>--%>
+<%--            <a href="/admin/main">백오피스 바로가기</a>--%>
+<%--        </div>--%>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <p class="blind">모바일 네비게이션</p>
-                    <ul class="link">
-                        <!--
-                        <li class="list">
-                          <a href="#" class="d1 home"><span>홈</span></a>
-                        </li>
-                        -->
-                        <li class="list"><!-- 선택 시 + .active -->
-                            <a href="#" class="d1 menu" id="mobileLnbOpener"><span>카테고리</span></a>
-                        </li>
-                        <li class="list">
-                            <a href="/event/?next=/" class="d1 event"><span>이벤트</span></a>
-                        </li>
-                        <li class="list">
-                            <a href="/account/dashboard/?next=/" class="d1 my"><span>마이꾸까</span></a>
-                        </li>
-                        <li class="list">
-                            <a href="/cart/?next=/" class="d1 cart">
-                                <span>장바구니</span>
-                                <span class="blind">보기, 담긴상품 개 수:</span>
-                                <span class="count" id="update_cart_count_in_base_temp2" style="display: none;">0</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="footer_wrap">
-                    <div class="footer_inner">
-                        <nav class="sect_sns">
-                            <a href="https://ko-kr.facebook.com/kukka.kr/" target="_blank" class="sns f"><span class="blind">Facebook</span></a>
-                            <a href="https://www.instagram.com/kukkakorea/" target="_blank" class="sns i"><span class="blind">Instagram</span></a>
-                            <a href="https://www.youtube.com/channel/UC_zQakXCUPvjcfsU067zyCQ?view_as=subscriber" target="_blank" class="sns y"><span class="blind">Youtube</span></a>
-                        </nav>
-
-                        <dl class="contact">
-                            <dt>꾸까 고객센터</dt>
-                            <dd class="f"><span class="blind">유선전화번호 : </span>1661-1031</dd>
-                            <dd class="s"><span class="blind">운영시간 안내 : </span>(평일 10:00 - 13:00, 14:00 - 18:00 / 주말 &amp; 공휴일 제외)</dd>
-                        </dl>
-
-                        <nav class="faq">
-                            <a href="/faq/?next=/" class="link">자주 묻는 질문</a>
-                            <a href="/account/question/?next=/" class="link">1:1 문의하기</a>
-                        </nav>
-
-                        <dl class="about">
-                            <dt class="logo"><span class="blind">꾸까</span></dt>
-                            <dd>상호명: 꾸까(kukka)</dd>
-                            <dd>사업자 등록번호: 264-81-32594</dd>
-                            <dd class="end">대표자: 박춘화</dd>
-                            <br class="only_pc">
-                            <dd><address>소재지: 서울시 서초구 남부순환로333길 10 kukka</address></dd>
-                            <dd><a href="/disclosure/?next=/">기업공시</a></dd>
-                            <dd class="end">통신판매신고번호 2018-서울서초-1692</dd>
-                            <br class="only_pc">
-                            <dd><copy>© 2014-2021 kukka, Inc. All rights reserved.</copy></dd>
-                        </dl>
-
-                        <nav class="tems">
-                            <a href="/agreement/?next=/" class="link">이용약관</a>
-                            <a href="/privacy/?next=/" class="link">개인정보 처리방침</a>
-                            <a href="https://partners.kukka.kr/" target="_blank" class="link">제휴안내</a>
-                        </nav>
+        <div class="d-flex border-bottom border-white pb-3">
+            <div class="col-10 d-flex flex-column">
+                <div class="d-flex pb-2">
+                    <i class="fab fa-facebook-square fa-3x"></i>
+                    <i class="fab fa-instagram-square fa-3x px-3"></i>
+                    <i class="fab fa-youtube-square fa-3x"></i>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span class="fs-4">새늘봄 고객센터</span>
+                    <span class="ps-3 pe-2 fs-4">1161-1031</span>
+                    <span class="text-secondary" style="font-size: 10pt">(평일 10:00 - 13:00, 14:00 - 18:00 / 주말 & 공휴일 제외)</span>
+                    <div class="px-3">
+                        <button class="btn btn-outline-secondary" style="border-radius: 30px">자주 묻는 질문</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-secondary" style="border-radius: 30px">1:1 문의하기</button>
                     </div>
                 </div>
-            </footer>
+            </div>
+            <div class="col-2 d-flex justify-content-end align-items-end">
+                <div class="logo bg-warning text-dark d-flex justify-content-center align-items-center" onclick="location.href='/'">
+                    새늘봄 로고
+                </div>
+            </div>
+        </div>
+        <div class="d-flex pt-3 align-items-end" style="font-size: 11pt">
+            <div class="col-9 d-flex flex-column" style="color:#d3d3d3">
+                <div class="d-flex">
+                    <span class="pe-2 border-end">상호명: (주)새늘봄(Alwaysbom)</span>
+                    <span class="px-2 border-end">사업자 등록번호: 264-81-32594</span>
+                    <span class="ps-2">대표자: 권하솜영</span>
+                </div>
+                <div class="py-1 d-flex">
+                    <span class="pe-2 border-end">소재지: 서울시 서초구 남부순환로333길 10 kukka</span>
+                    <span class="px-2 border-end">기업공시</span>
+                    <span class="ps-2">통신판매신고번호 2018-서울서초-1692</span>
+                </div>
+                <div>© 2014-2021 Alwaysbom, Inc. All rights reserved.</div>
+            </div>
+            <div class="col-3 d-flex justify-content-end">
+                <span class="pe-2">이용약관</span>
+                <span class="px-2">개인정보</span>
+                <span class="px-2">처리방침</span>
+                <span class="ps-2">제휴안내</span>
+            </div>
         </div>
     </div>
 </footer>
