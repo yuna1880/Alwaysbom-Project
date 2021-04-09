@@ -240,7 +240,6 @@
                 </li>
             </ul>
            <button id="searchMoreNotify" class="btn btn-outline-primary btn-block col-sm-10 mx-auto" style="display: none">더 보기</button>
-
        </div>
     </div>
 </div>
@@ -259,8 +258,8 @@
     //
     // });
 
-    function goUpdate(form, idx) {
-        console.log(form + idx);
+    function goUpdate(form, reviewIdx) {
+       location.href = "/community/event/updateWrite?reviewIdx=" + reviewIdx;
     }
 
     function goLike(memberId, reviewIdx, bt) {

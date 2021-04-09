@@ -53,12 +53,7 @@
     }
 
 </style>
-    <script>
-        $(function (){
-            let star = '${reviewDto.star}';
-            $("input:radio[name='fruits']:radio[value='사과']").prop('checked', true);
-        });
-    </script>
+
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
@@ -137,6 +132,7 @@
     </div>
 </div>
 <%@ include file="../main/b_footer.jspf" %>
+
 <script>
     function preview(file, id) {
         let img = document.querySelector("#" + id);
@@ -220,9 +216,20 @@
         // create the events listeners
         createRatingEventListeners();
     }
+
+
 </script>
 
-<script src="/static/js/imageUploader.js"></script>
 
+<script src="/static/js/imageUploader.js"></script>
+<script>
+    $(function (){
+        let star = '${reviewDto.star}';
+        star = Math.floor(star);
+        document.querySelector("input[type=radio].star"+star).checked = true;
+        let checkedValue = document.querySelector('input[name="comment"]:checked').value;
+        addClickedStar(star);
+    });
+</script>
 </body>
 </html>
