@@ -21,8 +21,8 @@
                 </div>
             </div>
             <div class="col-2 d-flex justify-content-end align-items-end">
-                <div class="logo bg-warning text-dark d-flex justify-content-center align-items-center" onclick="location.href='/'">
-                    새늘봄 로고
+                <div class="logo d-flex justify-content-center align-items-center" onclick="location.href='/'">
+                    <img src="/static/image/main/logo_reverse.svg" alt="logo" class="w-100">
                 </div>
             </div>
         </div>
