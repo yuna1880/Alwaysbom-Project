@@ -42,7 +42,11 @@ public class StatisticsController {
 
     @GetMapping("/statistics/api/sales")
     @ResponseBody
-    public List<StatisticsVo> findStatisticsTable() {
-        return statisticsService.findStatisticsTable();
+    public List<StatisticsVo> findStatisticsTable(String type) {
+        if("thisMonth".equals(type)) {
+            return statisticsService.findStatisticsThisMonth();
+        } else {
+            return statisticsService.findStatisticsTable();
+        }
     }
 }

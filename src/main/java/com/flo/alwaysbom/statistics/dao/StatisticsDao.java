@@ -25,4 +25,8 @@ public class StatisticsDao {
     public List<StatisticsVo> findStatisticsTable() {
         return sessionTemplate.selectList("statistics.findStatisticsTable");
     }
+
+    public List<StatisticsVo> findStatisticsThisMonth() {
+        return sessionTemplate.selectList("statistics.findStatisticsThisMonth");
+    }
 }

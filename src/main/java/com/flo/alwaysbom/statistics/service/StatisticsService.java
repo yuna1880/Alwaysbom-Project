@@ -25,4 +25,8 @@ public class StatisticsService {
     public List<StatisticsVo> findStatisticsTable() {
         return statisticsDao.findStatisticsTable();
     }
+
+    public List<StatisticsVo> findStatisticsThisMonth() {
+        return statisticsDao.findStatisticsThisMonth();
+    }
 }

@@ -20,7 +20,7 @@
                 <span class="col btn btn-outline-secondary">최근 6개월</span>
             </label>
             <label class="row-cols-1 ps-1">
-                <input type="radio" class="btn-check" name="period" onchange="search(searchSalesThisMonth)">
+                <input type="radio" class="btn-check" name="period" onchange="search(searchThisMonth)">
                 <span class="col btn btn-outline-secondary">이번 달</span>
             </label>
         </div>
@@ -205,33 +205,47 @@
 
     search(searchSales);
 
-    async function searchSales() {
-        return fetch("/statistics/api/sales").then(response => {
-            return response.json().then(result => {
+    function updateChart(result) {
+        const periods = result.map(({period}) => period);
+        const salesCounts = result.map(({salesCount}) => salesCount);
+        const subsAmounts = result.map(({subsAmount}) => subsAmount);
+        const flowerAmounts = result.map(({flowerAmount}) => flowerAmount);
+        const productAmounts = result.map(({productAmount}) => productAmount);
+        const classAmounts = result.map(({classAmount}) => classAmount);
+        const totalAmounts = result.map(({totalAmount}) => totalAmount);
+        console.log(salesCounts);
+
+        data.labels = periods;
+        data.datasets[0].data = salesCounts;
+        data.datasets[1].data = subsAmounts;
+        data.datasets[2].data = flowerAmounts;
+        data.datasets[3].data = productAmounts;
+        data.datasets[4].data = classAmounts;
+        data.datasets[5].data = totalAmounts;
+
+        myChart.update();
+        console.log("updated");
+        console.log(myChart);
+    }
+
+    function searchSales() {
+        fetch("/statistics/api/sales").then(response => {
+            response.json().then(result => {
                 console.log(result);
-                const periods = result.map(({period}) => period);
-                const salesCounts = result.map(({salesCount}) => salesCount);
-                const subsAmounts = result.map(({subsAmount}) => subsAmount);
-                const flowerAmounts = result.map(({flowerAmount}) => flowerAmount);
-                const productAmounts = result.map(({productAmount}) => productAmount);
-                const classAmounts = result.map(({classAmount}) => classAmount);
-                const totalAmounts = result.map(({totalAmount}) => totalAmount);
-                console.log(salesCounts);
-
-                data.labels = periods;
-                data.datasets[0].data = salesCounts;
-                data.datasets[1].data = subsAmounts;
-                data.datasets[2].data = flowerAmounts;
-                data.datasets[3].data = productAmounts;
-                data.datasets[4].data = classAmounts;
-                data.datasets[5].data = totalAmounts;
-
-                myChart.update();
-                console.log("updated");
-                console.log(myChart);
-            })
+                updateChart(result);
+            });
         });
     }
+
+    function searchThisMonth() {
+        fetch("/statistics/api/sales?type=thisMonth").then(response => {
+            response.json().then(result => {
+                console.log(result);
+                updateChart(result);
+            });
+        });
+    }
+
 </script>
 </body>
 </html>
