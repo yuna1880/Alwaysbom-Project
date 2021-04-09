@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.product.dao;
 
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.product.vo.ProductVo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -31,6 +32,10 @@ public class ProductDao {
         return Optional.ofNullable(sqlSessionTemplate.selectOne("PRODUCT.findByIdx", idx));
     }
 
+    public List<ReviewDto> findReviewByIdx(Integer idx) {
+        return sqlSessionTemplate.selectList("PRODUCT.findReviewByIdx", idx);
+    }
+
     public Integer updateProduct(ProductVo vo) {
         sqlSessionTemplate.update("PRODUCT.updateProduct", vo);
         return vo.getIdx();
@@ -40,4 +45,7 @@ public class ProductDao {
         return sqlSessionTemplate.update("PRODUCT.deleteProduct", idx);
     }
 
+    public Integer findByName(String name) {
+        return sqlSessionTemplate.selectOne("PRODUCT.findByName", name);
+    }
 }

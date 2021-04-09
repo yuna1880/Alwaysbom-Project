@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.flower.dao;
 
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.flower.vo.FlowerVo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -31,6 +32,14 @@ public class FlowerDao {
         return sqlSessionTemplate.selectList("FLOWER.findRecent4");
     }
 
+    public List<ReviewDto> findBestReview() {
+        return sqlSessionTemplate.selectList("FLOWER.findBestReview");
+    }
+
+    public List<ReviewDto> findReviewByIdx(Integer idx) {
+        return sqlSessionTemplate.selectList("FLOWER.findReviewByIdx", idx);
+    }
+
     public Integer updateFlower(FlowerVo vo) {
         sqlSessionTemplate.update("FLOWER.updateFlower", vo);
         return vo.getIdx();
@@ -38,5 +47,9 @@ public class FlowerDao {
 
     public void deleteFlower(Integer idx) {
         sqlSessionTemplate.update("FLOWER.deleteFlower", idx);
+    }
+
+    public Integer findByname(String name) {
+        return sqlSessionTemplate.selectOne("FLOWER.findByname", name);
     }
 }

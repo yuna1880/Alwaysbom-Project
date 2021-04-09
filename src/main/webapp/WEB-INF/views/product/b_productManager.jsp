@@ -16,16 +16,16 @@
     </nav>
 
     <div class="mt-100 d-flex justify-content-center">
-        <div class="btn-circle d-flex justify-content-center align-items-center">
+        <div class="btn-circle d-flex justify-content-center align-items-center"
+             onclick="location.href='/admin/banner/product'">
             배너 등록/수정
         </div>
         <div class="btn-circle d-flex justify-content-center align-items-center"
              onclick="location.href='/admin/productAddForm'">
-            상품 등록
+            소품샵 상품 등록
         </div>
-        <div class="btn-circle d-flex justify-content-center align-items-center"
-             onclick="location.href='/admin/productList'">
-            상품 조회/수정/삭제
+        <div class="btn-circle d-flex justify-content-center align-items-center text-center"
+             onclick="location.href='/admin/productList'">소품샵 상품<br>조회/수정/삭제
         </div>
     </div>
 </div>

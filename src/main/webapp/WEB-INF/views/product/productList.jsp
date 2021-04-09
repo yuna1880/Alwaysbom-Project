@@ -13,12 +13,12 @@
 <!-- 배너 이미지와 글귀 -->
 <div class="banner-wrap d-flex align-items-center justify-content-center">
     <div class="w-1280 mx-auto">
-        <img src="/static/image/product/product_banner_1280.jpg" alt="꽃다발배너" class="col-12">
+        <img src="${bannerVo.image}" alt="꽃다발배너" class="col-12">
     </div>
     <div class="banner-text w-1280 position-absolute mx-auto">
-        <div class="banner-title fw-500 mb-4 ms-2 ls-narrower">새늘봄 소품샵</div>
+        <div class="banner-title fw-500 mb-4 ms-2 ls-narrower">${bannerVo.title}</div>
         <div class="banner-summary fw-light ms-2 ls-narrower">
-            꽃과 함께하는 시간을 더 행복하게<br>만들어 줄 소품들을 만나보세요.
+            ${bannerVo.content}
         </div>
     </div>
 </div>

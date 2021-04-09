@@ -53,18 +53,20 @@
     }
 
 </style>
+
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto">
     <h2>리뷰 작성</h2>
     <div>
-        <form class="row g-3" method="post" action="/admin/community/addReview" enctype="multipart/form-data">
+        <form class="row g-3" method="post" action="/admin/community/updateReview" enctype="multipart/form-data">
             <div class="md-3">
                 <label class="form-label">${reviewDto.category}</label>
                 <input type="hidden" class="form-control" name="memberId" id="memberId" value="${member.id}">
                 <input type="hidden" class="form-control" name="category" id="category" value="${reviewDto.category}">
                 <input type="hidden" class="form-control" name="oidx" id="oidx" value="${oidx}">
+                <input type="hidden" class="form-control" name="idx" id="idx" value="${reviewDto.idx}">
                 <c:if test="${reviewDto.category == '꽃다발'}">
                     <input type="hidden" class="form-control" name="flowerIdx" id="flowerIdx" value="${reviewDto.flowerIdx}">
                 </c:if>
@@ -95,11 +97,11 @@
                     <label for="file1">썸네일이미지</label>
                     <input type="file" name="file" class="form-control text-secondary" id="file1" onchange="preview(this, 'img1')">
                 </div>
-                <img src="" alt="사진" class="card-img-bottom d-none text-secondary" id="img1">
+                <img src="${reviewDto.image}" alt="사진" class="card-img-bottom d-none text-secondary" id="img1">
             </div>
             <div class="md-3">
                 <label class="form-label" for="content">내용</label>
-                <textarea class="form-control" name="content" id="content"></textarea>
+                <textarea class="form-control" name="content" id="content">${reviewDto.content}</textarea>
             </div>
             <div class="ratingDiv">
                 <label>별점</label>
@@ -123,13 +125,14 @@
 
             <div class="md-3">
                 <%--onclick="faqUpload(this.form)--%>
-                <button type="submit" class="btn btn-secondary me-2">추가</button>
+                <button type="submit" class="btn btn-secondary me-2">수정</button>
                 <button type="button" class="btn btn-secondary" onclick="location.href='/myPage'">취소</button>
             </div>
         </form>
     </div>
 </div>
 <%@ include file="../main/b_footer.jspf" %>
+
 <script>
     function preview(file, id) {
         let img = document.querySelector("#" + id);
@@ -213,9 +216,20 @@
         // create the events listeners
         createRatingEventListeners();
     }
+
+
 </script>
 
-<script src="/static/js/imageUploader.js"></script>
 
+<script src="/static/js/imageUploader.js"></script>
+<script>
+    $(function (){
+        let star = '${reviewDto.star}';
+        star = Math.floor(star);
+        document.querySelector("input[type=radio].star"+star).checked = true;
+        let checkedValue = document.querySelector('input[name="comment"]:checked').value;
+        addClickedStar(star);
+    });
+</script>
 </body>
 </html>

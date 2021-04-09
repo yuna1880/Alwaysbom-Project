@@ -47,4 +47,8 @@ public class OclassDao {
         System.out.println("build = " + build);
         sqlSessionTemplate.update("oclass.updateClassImg", build);
     }
+
+    public List<OclassVo> findReviewable(OclassVo oclassVo) {
+        return sqlSessionTemplate.selectList("oclass.findReviewable", oclassVo);
+    }
 }

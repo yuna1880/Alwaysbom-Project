@@ -1,6 +1,6 @@
 /* 배너 관련 */
 .banner-wrap {
-    width: 100vw;
+    width: 100%;
     background-color: #efeeeb;
 }
 .banner-text {

@@ -84,7 +84,7 @@
 .main-button {
     width: 49%;
     border-radius: 10px;
-    background-color: #90c757;
+    background-color: #ffc107;
 }
 .datepicker {
     border: 1px solid #dbdbdb;
@@ -124,7 +124,7 @@ input[type=radio]:checked + .btn-show {
     margin : 4em 0;
 }
 #review-area a, #review-area a:hover {
-    color: #7DAF3B;
+    color: #ffc107;
 }
 .c-star {
     color: #ffdc4d;
