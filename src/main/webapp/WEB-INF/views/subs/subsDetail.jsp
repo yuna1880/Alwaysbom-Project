@@ -731,7 +731,13 @@
 
     /* 바로구매 클릭시 */
     function goPay(frm) {
-        alert("goPay()실행");
+
+        if (${member.id eq null}) {
+            alert("로그인이 필요합니다.");
+            location.href = "/login";
+            return false;
+        }
+
         const $input = document.getElementsByTagName("input");
         const $selectMonth = document.querySelector("#selectMonth");
         const $choices = document.querySelectorAll(".choice-price-box");

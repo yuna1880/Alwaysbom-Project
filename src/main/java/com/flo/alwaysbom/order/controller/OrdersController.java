@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,7 +32,7 @@ public class OrdersController {
     //주문 시작!
     @PostMapping("/order/letter")
 
-    public String startOrder(String data, Model model) throws JsonProcessingException {
+    public String startOrder(@SessionAttribute("member") MemberVO member, String data, Model model) throws JsonProcessingException {
         System.out.println(">>startOrder() 주문시작!");
 
         ObjectMapper mapper = new ObjectMapper();
@@ -41,6 +43,7 @@ public class OrdersController {
 
         System.out.println("oitemList : " + list);
         model.addAttribute("oitemList", list);
+        model.addAttribute("member", member);
 
         return "order/letter";
     }
@@ -158,6 +161,12 @@ public class OrdersController {
             member = MemberVO.builder().id("yuna1880").build();
         }
         List<OrdersVo> ordersList = ordersService.findBySubs(member);
+        ordersList.forEach(ordersVo -> {
+            ordersVo.setOlist(ordersVo.getOlist().stream().filter(oitemVo -> {
+                String category = oitemVo.getCategory();
+                return category.equals("정기구독");
+            }).collect(Collectors.toList()));
+        });
 
         model.addAttribute("ordersList", ordersList);
         return "/order/subsList";
@@ -170,6 +179,13 @@ public class OrdersController {
             member = MemberVO.builder().id("yuna1880").build();
         }
         List<OrdersVo> ordersList = ordersService.findByFlower(member);
+        ordersList.forEach(ordersVo -> {
+            ordersVo.setOlist(ordersVo.getOlist().stream().filter(oitemVo -> {
+                String category = oitemVo.getCategory();
+                return category.equals("꽃다발") || category.equals("소품샵");
+            }).collect(Collectors.toList()));
+        });
+
 
         model.addAttribute("ordersList", ordersList);
         return "/order/orderList";
