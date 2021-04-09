@@ -101,7 +101,7 @@
 
             <!-- 무료배송 알림 -->
             <div class="fd-announcement d-flex justify-content-start py-3 my-4">
-                3만원 이상 구매시, <span class="point-color fw-500 ps-1">무료배송!</span>
+                3만원 이상 구매시, <span class="green-color fw-500 ps-1">무료배송!</span>
             </div>
 
             <!-- 구매옵션 -->

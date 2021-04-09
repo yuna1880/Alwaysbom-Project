@@ -26,11 +26,14 @@ body {
 }
 
 /* 글씨 색 */
-.point-color {
+.green-color {
     color: #7DAF3B;
 }
+.point-color {
+    color: #ffc107;
+}
 .bg-point-color {
-    background-color: #7DAF3B;
+    background-color: #ffc107;
 }
 .c-666 {
     color: #666666;
