@@ -48,7 +48,7 @@ public class FlowerController {
         // 꽃다발 카테고리 베스트 리뷰 불러오기
         List<ReviewDto> bestReviewList = reviewService.allReview("꽃다발", "best", idx);
         // 이 상품의 리뷰 불러오기
-        List<ReviewDto> thisReviewList = reviewService.allReview("꽃다발", "allList", idx);
+        List<ReviewDto> thisReviewList = flowerService.findReviewByIdx(idx);
 
         model.addAttribute("flowerVo", flower);
         model.addAttribute("productList", productList);
@@ -57,12 +57,5 @@ public class FlowerController {
 
         return "flower/flowerDetail";
     }
-
-//    @GetMapping("/flower/{idx}/get")
-//    @ResponseBody
-//    public FlowerVo findFlowerByIdx(@PathVariable("idx") Integer idx) {
-//        return flowerService.findByIdx(idx)
-//                .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
-//    }
 
 }

@@ -37,7 +37,7 @@ public class ProductController {
         // 소품샵 카테고리 베스트 리뷰 불러오기
         List<ReviewDto> bestReviewList = reviewService.allReview("소품샵", "best", idx);
         // 이 상품의 리뷰 불러오기
-        List<ReviewDto> thisReviewList = reviewService.allReview("소품샵", "allList", idx);
+        List<ReviewDto> thisReviewList = productService.findReviewByIdx(idx);
         model.addAttribute("idx", idx);
         model.addAttribute("productVo", product);
         model.addAttribute("bestReviewList", bestReviewList);

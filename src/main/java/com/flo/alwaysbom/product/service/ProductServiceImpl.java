@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.product.service;
 
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.product.dao.ProductDao;
 import com.flo.alwaysbom.product.vo.ProductVo;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Optional<ProductVo> findByIdx(Integer idx) {
         return dao.findByIdx(idx);
+    }
+
+    @Override
+    public List<ReviewDto> findReviewByIdx(Integer idx) {
+        return dao.findReviewByIdx(idx);
     }
 
     @Override

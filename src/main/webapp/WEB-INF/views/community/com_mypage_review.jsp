@@ -77,7 +77,7 @@
 
     function goWrite(category, name, idx, reviewIdx){
         console.log(category + idx  + name);
-        location.href = "/community/event/reviewWrite?category=" + category + "&idx=" + idx + "&name=" + name + "&reviewIdx=" + reviewIdx;
+        location.href = "/community/event/reviewWrite?category=" + category + "&idx=" + idx + "&name=" + name;
     }
     function updateWrite(category, name, idx, reviewIdx){
         console.log(category + idx  + name);
