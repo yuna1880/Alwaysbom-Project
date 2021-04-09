@@ -27,7 +27,8 @@
 
     <select id="findSubsBySize" resultType="com.flo.alwaysbom.statistics.vo.SubsByMonthVo">
         <![CDATA[
-        select fsize as label, count(idx) as value from oitem
+        select fsize as label, count(idx) as value
+        from oitem
         where category = '정기구독'
         group by fsize
         order by decode(fsize, 'S', 1, 'M', 2, 'L', 3, 'XL', 4)
@@ -35,42 +36,85 @@
     </select>
 
     <select id="findStatisticsTable" resultType="com.flo.alwaysbom.statistics.vo.StatisticsVo">
-        SELECT DUMMY.MT     AS 기간,
-               NVL(판매수, 0)  AS 판매수,
-               NVL(정기구독, 0) AS 정기구독,
-               NVL(꽃다발, 0)  AS 꽃다발,
-               NVL(소품샵, 0)  AS 소품샵,
-               NVL(클래스, 0)  AS 클래스,
-               NVL(총계, 0)   AS 총계
-        FROM (SELECT NVL(P.기간, F.기간)                                        AS 기간,
-                     NVL(P.판매수, 0) + NVL(F.판매수, 0)                          AS 판매수,
-                     NVL(P.정기구독, 0)                                         AS 정기구독,
-                     NVL(P.꽃다발, 0)                                          AS 꽃다발,
-                     NVL(P.소품샵, 0)                                          AS 소품샵,
-                     NVL(F.클래스, 0)                                          AS 클래스,
-                     NVL(정기구독, 0) + NVL(꽃다발, 0) + NVL(소품샵, 0) + NVL(클래스, 0) AS 총계
-              FROM (SELECT TO_CHAR(O.ODATE, 'YY/MM')                   AS 기간,
-                           COUNT(I.IDX)                                AS 판매수,
-                           SUM(DECODE(I.CATEGORY, '정기구독', I.PRICE, 0)) AS 정기구독,
-                           SUM(DECODE(I.CATEGORY, '꽃다발', I.PRICE, 0))  AS 꽃다발,
-                           SUM(DECODE(I.CATEGORY, '소품샵', I.PRICE, 0))  AS 소품샵
+        SELECT DUMMY.MT               AS PERIOD,
+               NVL(SALES_COUNT, 0)    AS SALES_COUNT,
+               NVL(SUBS_AMOUNT, 0)    AS SUBS_AMOUNT,
+               NVL(FLOWER_AMOUNT, 0)  AS FLOWER_AMOUNT,
+               NVL(PRODUCT_AMOUNT, 0) AS PRODUCT_AMOUNT,
+               NVL(CLASS_AMOUNT, 0)   AS CLASS_AMOUNT,
+               NVL(TOTAL_AMOUNT, 0)   AS TOTAL_AMOUNT
+        FROM (SELECT NVL(P.PERIOD, F.PERIOD)                                                                     AS PERIOD,
+                     NVL(P.SALES_COUNT, 0) + NVL(F.SALES_COUNT, 0)                                               AS SALES_COUNT,
+                     NVL(P.SUBS_AMOUNT, 0)                                                                       AS SUBS_AMOUNT,
+                     NVL(P.FLOWER_AMOUNT, 0)                                                                     AS FLOWER_AMOUNT,
+                     NVL(P.PRODUCT_AMOUNT, 0)                                                                    AS PRODUCT_AMOUNT,
+                     NVL(F.CLASS_AMOUNT, 0)                                                                      AS CLASS_AMOUNT,
+                     NVL(SUBS_AMOUNT, 0) + NVL(FLOWER_AMOUNT, 0) + NVL(PRODUCT_AMOUNT, 0) +
+                     NVL(CLASS_AMOUNT, 0)                                                                        AS TOTAL_AMOUNT
+              FROM (SELECT TO_CHAR(O.ODATE, 'YY/MM')                   AS PERIOD,
+                           COUNT(I.IDX)                                AS SALES_COUNT,
+                           SUM(DECODE(I.CATEGORY, '정기구독', I.PRICE, 0)) AS SUBS_AMOUNT,
+                           SUM(DECODE(I.CATEGORY, '꽃다발', I.PRICE, 0))  AS FLOWER_AMOUNT,
+                           SUM(DECODE(I.CATEGORY, '소품샵', I.PRICE, 0))  AS PRODUCT_AMOUNT
                     FROM OITEM I
                              INNER JOIN ORDERS O ON I.ORDERS_IDX = O.IDX
                     WHERE O.ODATE BETWEEN TO_DATE(TO_CHAR(SYSDATE - (INTERVAL '5' MONTH), 'YY/MM'), 'YY/MM') AND SYSDATE
                     GROUP BY TO_CHAR(O.ODATE, 'YY/MM')) P
                        FULL OUTER JOIN
-                   (SELECT TO_CHAR(ORDER_DATE, 'YY/MM') AS 기간,
-                           COUNT(IDX)                   AS 판매수,
-                           SUM(DISCOUNT_TOTAL_PRICE)    AS 클래스
+                   (SELECT TO_CHAR(ORDER_DATE, 'YY/MM') AS PERIOD,
+                           COUNT(IDX)                   AS SALES_COUNT,
+                           SUM(DISCOUNT_TOTAL_PRICE)    AS CLASS_AMOUNT
                     FROM OCLASS
                     GROUP BY TO_CHAR(ORDER_DATE, 'YY/MM')
                     ORDER BY TO_CHAR(ORDER_DATE, 'YY/MM')) F
-                   ON P.기간 = F.기간) D
+                   ON P.PERIOD = F.PERIOD) D
                  RIGHT JOIN
              (SELECT TO_CHAR(SYSDATE - (INTERVAL '1' MONTH) * (LEVEL - 1), 'YY/MM') AS MT
               FROM DUAL
-        <![CDATA[CONNECT BY LEVEL <= 6)]]> DUMMY
-             ON D.기간 = DUMMY.MT
+              CONNECT BY LEVEL &lt;= 6) DUMMY
+             ON D.PERIOD = DUMMY.MT
+        ORDER BY DUMMY.MT
+    </select>
+
+    <select id="findStatisticsThisMonth" resultType="com.flo.alwaysbom.statistics.vo.StatisticsVo">
+        SELECT DUMMY.MT               AS PERIOD,
+               NVL(SALES_COUNT, 0)    AS SALES_COUNT,
+               NVL(SUBS_AMOUNT, 0)    AS SUBS_AMOUNT,
+               NVL(FLOWER_AMOUNT, 0)  AS FLOWER_AMOUNT,
+               NVL(PRODUCT_AMOUNT, 0) AS PRODUCT_AMOUNT,
+               NVL(CLASS_AMOUNT, 0)   AS CLASS_AMOUNT,
+               NVL(TOTAL_AMOUNT, 0)   AS TOTAL_AMOUNT
+        FROM (SELECT NVL(P.PERIOD, F.PERIOD)                       AS PERIOD,
+                     NVL(P.SALES_COUNT, 0) + NVL(F.SALES_COUNT, 0) AS SALES_COUNT,
+                     NVL(P.SUBS_AMOUNT, 0)                         AS SUBS_AMOUNT,
+                     NVL(P.FLOWER_AMOUNT, 0)                       AS FLOWER_AMOUNT,
+                     NVL(P.PRODUCT_AMOUNT, 0)                      AS PRODUCT_AMOUNT,
+                     NVL(F.CLASS_AMOUNT, 0)                        AS CLASS_AMOUNT,
+                     NVL(SUBS_AMOUNT, 0) + NVL(FLOWER_AMOUNT, 0) + NVL(PRODUCT_AMOUNT, 0) +
+                     NVL(CLASS_AMOUNT, 0)                          AS TOTAL_AMOUNT
+              FROM (SELECT TO_CHAR(O.ODATE, 'YY/MM/DD')                AS PERIOD,
+                           COUNT(I.IDX)                                AS SALES_COUNT,
+                           SUM(DECODE(I.CATEGORY, '정기구독', I.PRICE, 0)) AS SUBS_AMOUNT,
+                           SUM(DECODE(I.CATEGORY, '꽃다발', I.PRICE, 0))  AS FLOWER_AMOUNT,
+                           SUM(DECODE(I.CATEGORY, '소품샵', I.PRICE, 0))  AS PRODUCT_AMOUNT
+                    FROM OITEM I
+                             INNER JOIN ORDERS O ON I.ORDERS_IDX = O.IDX
+                    WHERE O.ODATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'YY/MM'), 'YY/MM') AND SYSDATE
+                    GROUP BY TO_CHAR(O.ODATE, 'YY/MM/DD')
+                   ) P
+                       FULL OUTER JOIN
+                   (SELECT TO_CHAR(ORDER_DATE, 'YY/MM/DD') AS PERIOD,
+                           COUNT(IDX)                      AS SALES_COUNT,
+                           SUM(DISCOUNT_TOTAL_PRICE)       AS CLASS_AMOUNT
+                    FROM OCLASS
+                    GROUP BY TO_CHAR(ORDER_DATE, 'YY/MM/DD')
+                    ORDER BY TO_CHAR(ORDER_DATE, 'YY/MM/DD')) F
+                   ON P.PERIOD = F.PERIOD) D
+                 RIGHT JOIN
+             (SELECT TO_CHAR(SYSDATE - (INTERVAL '1' DAY) * (LEVEL - 1), 'YY/MM/DD') AS MT
+              FROM DUAL
+              CONNECT BY LEVEL &lt;= TO_CHAR(SYSDATE, 'DD')) DUMMY
+             ON D.PERIOD = DUMMY.MT
         ORDER BY DUMMY.MT
     </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.flo.alwaysbom.statistics.service;
 
 import com.flo.alwaysbom.statistics.dao.StatisticsDao;
+import com.flo.alwaysbom.statistics.vo.StatisticsVo;
 import com.flo.alwaysbom.statistics.vo.SubsByMonthVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,13 @@ public class StatisticsService {
 
     public List<SubsByMonthVo> findSubsBySize() {
         return statisticsDao.findSubsBySize();
+    }
+
+    public List<StatisticsVo> findStatisticsTable() {
+        return statisticsDao.findStatisticsTable();
+    }
+
+    public List<StatisticsVo> findStatisticsThisMonth() {
+        return statisticsDao.findStatisticsThisMonth();
     }
 }
