@@ -315,9 +315,11 @@
                     </div>
                 </div>
             </c:forEach>
+
             <div class="d-flex flex-column align-items-center">
             <button data-last="1" type="button" id="moreBtn" class="btn btn-dark px-5 py-3 fs-5" onclick="moreReviews(1)">리뷰 더보기</button>
             </div>
+
         </div>
 
         <div id="thisReview" class="accordion accordion-flush d-none mb-5">
