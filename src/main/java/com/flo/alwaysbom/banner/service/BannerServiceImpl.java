@@ -5,7 +5,6 @@ import com.flo.alwaysbom.banner.vo.BannerVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +18,7 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public Optional<BannerVo> findByCategory(String category) {
+    public BannerVo findByCategory(String category) {
         return dao.findByCategory(category);
     }
 

@@ -1,5 +1,7 @@
 package com.flo.alwaysbom.flower.controller;
 
+import com.flo.alwaysbom.banner.service.BannerService;
+import com.flo.alwaysbom.banner.vo.BannerVo;
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.service.ReviewService;
 import com.flo.alwaysbom.flower.service.FlowerService;
@@ -18,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FlowerController {
 
+    private final BannerService bannerService;
     private final FlowerService flowerService;
     private final ProductService productService;
     private final ReviewService reviewService;
@@ -29,7 +32,9 @@ public class FlowerController {
 
     @GetMapping("/flower")
     public String getList(Model model) {
+        BannerVo banner = bannerService.findByCategory("flower");
         List<FlowerVo> list = flowerService.findAll();
+        model.addAttribute("bannerVo", banner);
         model.addAttribute("list", list);
         return "flower/flowerList";
     }

@@ -23,12 +23,13 @@ public class BannerController {
     /* 배너 등록/수정으로 이동 */
     @GetMapping("/admin/banner/{category}")
     public String goBanner(@PathVariable String category, Model model) {
-        BannerVo banner = bannerService.findByCategory(category)
-                .orElseThrow(() -> new IllegalStateException("해당 카테고리의 기존 배너가 존재하지 않습니다."));
+        BannerVo banner = bannerService.findByCategory(category);
         if (banner != null) {
             model.addAttribute("bannerVo", banner);
+        } else {
+            model.addAttribute("category", category);
         }
-        return "flower/b_banner";
+        return "banner/b_banner";
     }
 
     /* 배너 등록 처리 */
@@ -36,7 +37,7 @@ public class BannerController {
     public String addBanner(BannerVo vo, MultipartFile file) throws IOException {
         vo.setImage(fileHandler.uploadFile(file, null, "banner"));
         bannerService.addBanner(vo);
-        return "flower/b_flowerManager";
+        return "redirect:/admin/" + vo.getCategory();
     }
 
     /* '수정완료' 버튼 눌렀을 때 처리 */

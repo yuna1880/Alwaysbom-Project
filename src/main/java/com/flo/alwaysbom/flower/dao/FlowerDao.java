@@ -39,4 +39,8 @@ public class FlowerDao {
     public void deleteFlower(Integer idx) {
         sqlSessionTemplate.update("FLOWER.deleteFlower", idx);
     }
+
+    public Integer findByname(String name) {
+        return sqlSessionTemplate.selectOne("FLOWER.findByname", name);
+    }
 }

@@ -23,7 +23,7 @@
         UPDATE  BANNER
         SET     IMAGE = #{image},
                 TITLE = #{title},
-                CONTENT = #{content},
+                CONTENT = #{content}
         WHERE   CATEGORY = #{category}
     </update>
 

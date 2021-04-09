@@ -99,7 +99,7 @@
 
         <!-- 무료배송 알림 -->
         <div class="fd-announcement d-flex justify-content-start py-3 my-4">
-            정기구독은 무조건, <span class="point-color fw-500 ps-1">무료배송!</span>
+            정기구독은 무조건, <span class="green-color fw-500 ps-1">무료배송!</span>
         </div>
 
         <!-- 구매옵션 -->
