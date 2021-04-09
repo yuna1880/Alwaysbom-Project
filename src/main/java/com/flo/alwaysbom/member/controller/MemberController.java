@@ -9,6 +9,7 @@ import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -176,6 +177,15 @@ public class MemberController {
         memberService.deleteMember(memberVO, session);
         model.addAttribute("member", null);
         return "redirect:/";
+    }
+
+    //쿠폰 사용
+    @PostMapping("/api/useCoupon")
+    public int useCoupon(@SessionAttribute(required = false)MemberVO memberVO, CouponVo couponVo){
+        CouponVo cvo = couponService.updateCoupon(couponVo);
+        if(cvo != null) {
+            memberService.useCoupon(couponVo.getMemberId(), couponVo.getPoint());
+        }
     }
 
 }
