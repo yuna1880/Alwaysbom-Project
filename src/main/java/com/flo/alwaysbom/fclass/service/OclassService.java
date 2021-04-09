@@ -2,7 +2,6 @@ package com.flo.alwaysbom.fclass.service;
 
 import com.flo.alwaysbom.fclass.dao.OclassDao;
 import com.flo.alwaysbom.fclass.dao.ScheduleDao;
-import com.flo.alwaysbom.fclass.vo.BranchVo;
 import com.flo.alwaysbom.fclass.vo.OclassSearchOptionDto;
 import com.flo.alwaysbom.fclass.vo.OclassVo;
 import com.flo.alwaysbom.fclass.vo.ScheduleVo;
@@ -58,5 +57,9 @@ public class OclassService {
 
     public void updateClassImg(String newImg, int idx) {
         oclassDao.updateClassImg(newImg, idx);
+    }
+
+    public List<OclassVo> findReviewable(OclassVo oclassVo) {
+        return oclassDao.findReviewable(oclassVo);
     }
 }
