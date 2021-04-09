@@ -18,9 +18,9 @@
         <div class="checkout_kukka_complete">
             <div class="inbox">
                 <div class="checkout_note">
-                    <h3 class="thank"><span class="name">${sessionScope.member.name}</span>님의<br>주문이 완료되었습니다.</h3>
-                    <p class="desc">새늘봄이 행복을 가득 담아 보내드릴게요!</p>
-                    <p class="order_no">주문번호 : #${ordersVo.idx}</p>
+                    <h3 class="thank"><span class="name">${sessionScope.member.name}</span>님의 주문이 완료되었습니다.</h3>
+                    <p class="desc fw-normal">새늘봄이 행복을 가득 담아 보내드릴게요!</p>
+                    <p class="order_no fw-bold">${sessionScope.member.name} 님의 주문내역 입니다.</p>
 
                     
                     <c:if test="${ordersVo.payType == '무통장입금'}">
@@ -30,8 +30,9 @@
                             <span>다음계좌로 입금해주시면 주문이 완료됩니다.</span>
                         </dt>
                         <dd class="td">
-                            <span class="line">
-                                <b class="prop">계좌번호</b>
+                             <span class="line"><b class="prop">주문번호</b>
+                            <span class="val">#${ordersVo.idx}</span></span>
+                            <span class="line"><b class="prop">계좌번호</b>
                             <span class="val">새늘은행 274-072066-01-041</span></span>
                             <span class="line">
                                     <b class="prop">예금주</b><span class="val">(주)새늘봄</span></span>
@@ -62,7 +63,7 @@
                             </dd>
                         </dl>
                     </c:if>
-                    <p class="more">상세내역은 아래 주문내역조회에서<br>확인하실 수 있습니다.</p>
+                    <p class="more fw-normal">상세내역은 아래 주문내역조회에서 확인하실 수 있습니다.</p>
                 </div>
                 <div class="checkout_next">
                     <div class="content_bottom_button">

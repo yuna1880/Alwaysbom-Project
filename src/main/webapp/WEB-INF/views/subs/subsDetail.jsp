@@ -99,7 +99,7 @@
 
         <!-- 무료배송 알림 -->
         <div class="fd-announcement d-flex justify-content-start py-3 my-4">
-            정기구독은 무조건, <span class="point-color fw-500 ps-1">무료배송!</span>
+            정기구독은 무조건, <span class="green-color fw-500 ps-1">무료배송!</span>
         </div>
 
         <!-- 구매옵션 -->
@@ -222,7 +222,7 @@
                 <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
 
             <%--memberId, category, flowerIdx, quantity, letter 임의로 넣어주기--%>
-                <input type="hidden" name="memberId" value="test">
+                <input type="hidden" name="memberId" value="${empty member ? "test" : member.id}">
                 <input type="hidden" name="category" value="정기구독">
                 <input type="hidden" name="subsIdx" value="${subsVo.idx}">
 

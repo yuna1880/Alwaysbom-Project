@@ -5,9 +5,6 @@
 .ls-narrower {
     letter-spacing: -0.1px;
 }
-.hover-color:hover {
-    color: #7DAF3B;
-}
 .subs-btn {
     background-color: #efeeeb;
     border: none;
@@ -30,7 +27,7 @@
     padding: 100px 0;
 }
 .see-more:hover {
-    color: #7DAF3B;
+    color: #ffc107;
 }
 .height-400px {
     height: 400px;

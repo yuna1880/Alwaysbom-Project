@@ -45,10 +45,4 @@ public class FlowerVo {
     public int getLetterPrice() {
         return 2500;
     }
-
-//    public static void main(String[] args) {
-//        String aaa = "/flower/21/4548";
-//        String substring = aaa.substring(0, aaa.indexOf("/", 1) > 0 ? aaa.indexOf("/", 1) : aaa.length());
-//        System.out.println("substring = " + substring);
-//    }
 }

@@ -4,6 +4,7 @@ import com.flo.alwaysbom.community.review.dao.ReviewDao;
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
 import com.flo.alwaysbom.flower.dao.FlowerDao;
+import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.dao.OrdersDao;
 import com.flo.alwaysbom.order.vo.OitemVo;
 import com.flo.alwaysbom.order.vo.OrdersSearchOptionDto;
@@ -75,8 +76,8 @@ public class ReviewService {
         return reviews;
     }
 
-    public void deleteReview(Integer idx) {
-        reviewDao.searchReview(idx);
+    public void deleteReview(Integer idx, MemberVO member) {
+        reviewDao.searchReview(idx, member);
 
     }
 

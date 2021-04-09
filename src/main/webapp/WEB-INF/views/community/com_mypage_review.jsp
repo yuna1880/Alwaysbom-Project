@@ -114,9 +114,6 @@
 </script>
 
 
-
-    </a>
-
 </body>
 <style>
     #bord-color{

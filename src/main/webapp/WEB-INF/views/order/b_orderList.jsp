@@ -65,7 +65,7 @@
     });
 
     //입금대기 -> 결제완료
-    function payConfirm(btn) {
+    function payConfirm(btn, index) {
         const idx = btn.dataset.orderIdx;
 
         const option = {
@@ -84,14 +84,16 @@
                 if (result) {
                     alert("변경되었습니다.");
                     //화면 변경 처리 (일단 원래있던 테이블 삭제)
-                    const table = document.querySelector("table#o" + idx);
-                    table.remove();
+                    const $ul = document.querySelector("ul#o" + idx);
+                    $ul.remove();
                     // 입금확인 버튼 누를시, 입금확인 -1 결제완료 +1
                     const complete = document.querySelector("#btnGroup input[value=결제완료] + label > span");
                     complete.innerHTML = (parseInt(complete.innerHTML) + 1).toString();
                     const wait = document.querySelector("#btnGroup input[value=입금대기] + label > span");
                     wait.innerHTML = (parseInt(wait.innerHTML) - 1).toString();
 
+                    document.querySelector("#status[data-index='" + index + "']").innerText = '결제완료';
+                    document.querySelector("#order-button[data-index='" + index + "']").innerText = '배송출발';
                 } else {
                     alert("실패입니다");
                 }
@@ -118,9 +120,8 @@
                 console.log(result);
                 if (result) {
                     alert("변경되었습니다.");
-                    alert("변경되었습니다.");
-                    const table = document.querySelector("table#o" + idx);
-                    table.remove();
+                    const $ul = document.querySelector("ul#o" + idx);
+                    $ul.remove();
                     const complete = document.querySelector("#btnGroup input[value=취소완료] + label > span");
                     complete.innerHTML = (parseInt(complete.innerHTML) + 1).toString();
                     const wait = document.querySelector("#btnGroup input[value=주문취소] + label > span");
@@ -151,8 +152,8 @@
                 console.log(result);
                 if (result) {
                     alert("변경되었습니다.");
-                    const table = document.querySelector("table#o" + idx);
-                    table.remove();
+                    const $ul = document.querySelector("ul#o" + idx);
+                    $ul.remove();
                     const complete = document.querySelector("#btnGroup input[value=배송중] + label > span");
                     complete.innerHTML = (parseInt(complete.innerHTML) + 1).toString();
                     const wait = document.querySelector("#btnGroup input[value=결제완료] + label > span");
