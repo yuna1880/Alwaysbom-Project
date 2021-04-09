@@ -316,7 +316,7 @@
                 </div>
             </c:forEach>
             <div class="d-flex flex-column align-items-center">
-            <button type="button" id="moreReviews" class="btn btn-dark px-5">리뷰 더보기</button>
+            <button data-last="1" type="button" id="moreBtn" class="btn btn-dark px-5 py-3 fs-5" onclick="moreReviews(1)">리뷰 더보기</button>
             </div>
         </div>
 
@@ -324,7 +324,7 @@
             <c:forEach var="all" items="${allReview}" varStatus="status">
                 <div class="accordion-item">
                     <div class="accordion-header" id="flush-heading${status.index}" role="button">
-                        <div class="review-row collapsed d-flex justify-content-between p-4 fs-5"
+                        <div class="reviewList review-row collapsed d-flex justify-content-between p-4 fs-5"
                              data-bs-toggle="collapse" data-bs-target="#collapse${status.index}"
                              aria-expanded="false" aria-controls="collapse${status.index}">
                             <span class="col-2 fs-17 c-star ls-narrower text-warning">
@@ -427,6 +427,132 @@
 
 <script>
     const totalPriceEl = document.querySelector("#totalPrice");
+    const moreBtn = document.querySelector("#moreBtn");
+
+    function moreReviews(reviewCount) {
+/*        let $moreBtn = document.querySelector("#moreBtn");*/
+        let startReview = 1;
+        let endReview = parseInt(moreBtn.dataset.last);
+        let $rows = document.querySelectorAll(".reviewList:nth-child(n+" + (1 + endReview) + ")");
+        moreBtn.dataset.last = startReview + reviewCount;
+        console.log($rows);
+        allReviewList(startReview, reviewCount, endReview);
+        $rows.forEach((v, i) => {
+
+            if (i < reviewCount) {
+                if (v.classList.contains("d-none")) {
+                    v.classList.remove("d-none");
+                }
+            }
+        });
+    }
+    function allReviewList(startReview, reviewCount, endReview) {
+        let allReviewCount = ${allReviewCount};
+        console.log(${allReviewCount});
+
+        moreBtn.click(function(e){
+
+            e.stopImmediatePropagation();
+            startReview = 1;
+            endReview += reviewCount;
+            console.log("처음댓글 인덱스" + startReview + "더 볼 댓글 갯수 :" + reviewCount);
+
+            getMoreReviews(startReview, endReview);
+            if(endReview >= startReview) {
+                moreBtn.css("display", "none");
+            }
+        });
+
+        async function getMoreReviews(index, endReview){
+            let reviewList = new Array();
+            <c:forEach var="like" items="${likeList}">
+            reviewList.push({idx: ${like.idx}
+                ,reviewIdx: ${like.reviewIdx}
+                ,memberId: "${like.memberId}"});
+            </c:forEach>
+            for(let i=0; i<reviewList.length; i++){
+                console.log(reviewList[i].idx);
+                console.log(reviewList[i].memberId);
+                console.log(reviewList[i].reviewIdx);
+            };
+            let id = '${member.id}';
+
+            let data = {
+                category: '클래스',
+                startIndex: startReview,
+                endIndex: endReview
+            }
+            let option = {
+                type: 'post',
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8"
+                }
+            }
+
+            let response = await fetch("/fclass/api/getAllReview", option);
+            let result = response.json();
+
+            if (result){
+                let reviewHtml = "";
+                result.forEach(function(){
+                    reviewHtml += '<div class="accordion-item">';
+                    reviewHtml += '<div class="accordion-header" id="flush-heading${status.index}" role="button">';
+                    reviewHtml += '<div class="reviewList review-row collapsed d-flex justify-content-between p-4 fs-5"';
+                    reviewHtml += 'data-bs-toggle="collapse" data-bs-target="#collapse${status.index}"';
+                    reviewHtml += 'aria-expanded="false" aria-controls="collapse${status.index}">';
+                    reviewHtml += '<span class="col-2 fs-17 c-star ls-narrower text-warning">';
+                    reviewHtml += '';
+                    reviewHtml += '';
+                    reviewHtml += '';
+                    reviewHtml += '';
+                });
+
+                /*<div class="accordion-item">
+                    <div class="accordion-header" id="flush-heading${status.index}" role="button">
+                        <div class="reviewList review-row collapsed d-flex justify-content-between p-4 fs-5"
+                             data-bs-toggle="collapse" data-bs-target="#collapse${status.index}"
+                             aria-expanded="false" aria-controls="collapse${status.index}">
+                            <span class="col-2 fs-17 c-star ls-narrower text-warning">
+                                <c:forEach begin="1" end="5" var="count">
+                                    <c:set var="halfStar" value="${true}"/>
+                                    <c:if test="${all.star >= count}">
+                                        <c:set var="faClassName" value="fas fa-star"/>
+                                    </c:if>
+                                    <c:if test="${all.star < count}">
+                                        <c:set var="faClassName" value="far fa-star"/>
+                                        <c:if test="${all.star + 1 > count and all.star % 1 > 0 and halfStar}">
+                                            <c:set var="halfStar" value="${false}"/>
+                                            <c:set var="faClassName" value="fas fa-star-half-alt"/>
+                                        </c:if>
+                                    </c:if>
+                                    <i class="${faClassName} fs-6"></i>
+                                </c:forEach>
+                            </span>
+                            <span class="col-5 fs-17">
+                                ${all.name}
+                                <c:if test="${all.image != null}">
+                                <span class="c-bbb ms-2">
+                                    <i class="fas fa-images"></i>
+                                </span>
+                                </c:if>
+                            </span>
+                            <span class="col-2 text-center fs-6 fw-light c-666">${all.memberId}</span>
+                            <span class="col-2 text-center fs-6 fw-light c-666">${all.regDate}</span>
+                        </div>
+                    </div>
+                    <div id="collapse${status.index}" class="accordion-collapse collapse border-0"
+                         aria-labelledby="flush-heading${status.index}" data-bs-parent="#bestReview"
+                         style="padding-left: 196px;">
+                        <div class="accordion-body px-5">
+                            <span>${all.content}</span>
+                        </div>
+                    </div>
+                </div>*/
+            }
+        }
+
+    }
 
     function checkRegCount() {
         const optionEl = document.querySelector("#scheduleSelect option:checked");

@@ -2,6 +2,7 @@ package com.flo.alwaysbom.fclass.controller;
 
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.service.ReviewService;
+import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
 import com.flo.alwaysbom.fclass.service.BranchService;
 import com.flo.alwaysbom.fclass.service.FclassService;
 import com.flo.alwaysbom.fclass.service.OclassService;
@@ -86,9 +87,19 @@ public class FclassController {
 
         model.addAttribute("fclassVo", fclassVo);
         model.addAttribute("branchList", branchList);
+        //리뷰 불러오기
         model.addAttribute("allReview", allReview);
         model.addAttribute("bestReview", bestReview);
+        //리뷰작성 자격있는 클래스리스트
         model.addAttribute("reviewableList", oclassList);
+        //allReviewCount = 해당 클래스의 전체리뷰 갯수
+        int allReviewCount = reviewService.oldCateListCnt("클래스");
+        model.addAttribute("allReviewCount", allReviewCount);
+        //게시글 좋아요 갯수
+        List<ReviewLikeVo> likeList = reviewService.likeList();
+        model.addAttribute("likeList", likeList);
+
+
 
         return "fclass/flowerClassDetail";
     }
