@@ -26,6 +26,7 @@ public class OitemVo {
     private Integer quantity;
     private Integer cartIdx;
     private String fsize;
+    private Integer reviewIdx;
 
     //비즈니스 로직 관련 데이터..
     private boolean hasLetter;

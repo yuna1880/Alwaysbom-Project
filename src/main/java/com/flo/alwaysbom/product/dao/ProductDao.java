@@ -40,4 +40,7 @@ public class ProductDao {
         return sqlSessionTemplate.update("PRODUCT.deleteProduct", idx);
     }
 
+    public Integer findByName(String name) {
+        return sqlSessionTemplate.selectOne("PRODUCT.findByName", name);
+    }
 }

@@ -52,7 +52,6 @@
     </resultMap>
     <select id="findByMember" parameterType="com.flo.alwaysbom.member.vo.MemberVO" resultMap="OrdersMap">
         SELECT * FROM ORDERS
-                    INNER JOIN OITEM ON(OITEM.ORDERS_IDX = ORDERS.IDX)
         WHERE ORDERS.MEMBER_ID = #{id}
         ORDER BY ORDERS.IDX DESC
     </select>
@@ -68,6 +67,13 @@
                           INNER JOIN OITEM ON(OITEM.ORDERS_IDX = ORDERS.IDX)
         WHERE OITEM.CATEGORY IN ('꽃다발','소품샵')
           AND orders.member_id = #{id}
+        ORDER BY ORDERS.IDX DESC
+    </select>
+
+    <select id="findId" parameterType="String" resultMap="OrdersMap">
+        SELECT * FROM ORDERS
+
+        WHERE ORDERS.MEMBER_ID = #{id} AND ORDERS.STATUS = '배송완료'
         ORDER BY ORDERS.IDX DESC
     </select>
 
@@ -119,5 +125,6 @@
         WHERE ID = #{id}
     </update>
 
+ 
 
 </mapper>
