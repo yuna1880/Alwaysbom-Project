@@ -1,5 +1,7 @@
 package com.flo.alwaysbom.product.controller;
 
+import com.flo.alwaysbom.banner.service.BannerService;
+import com.flo.alwaysbom.banner.vo.BannerVo;
 import com.flo.alwaysbom.product.service.ProductService;
 import com.flo.alwaysbom.product.vo.ProductVo;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +13,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ProductController {
 
+    private final BannerService bannerService;
     private final ProductService productService;
 
     @GetMapping("/product")
     public String getList(Model model) {
         BackProductController.getProductList(model, productService.findAll(), productService.findByCategory("vase"),
                 productService.findByCategory("goods"));
+        BannerVo banner = bannerService.findByCategory("product");
+        model.addAttribute("bannerVo", banner);
         return "/product/productList";
     }
 

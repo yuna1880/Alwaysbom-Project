@@ -16,7 +16,15 @@
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-xxl-5">
             <li class="breadcrumb-item" onclick="location.href='/admin/main'">관리자 홈</li>
-            <li class="breadcrumb-item" onclick="location.href='/admin/flower'">꽃다발 관리</li>
+            <c:if test="${category eq 'subs'}">
+                <li class="breadcrumb-item" onclick="location.href='/admin/subs'">정기구독 관리</li>
+            </c:if>
+            <c:if test="${category eq 'flower'}">
+                <li class="breadcrumb-item" onclick="location.href='/admin/flower'">꽃다발 관리</li>
+            </c:if>
+            <c:if test="${category eq 'product'}">
+                <li class="breadcrumb-item" onclick="location.href='/admin/product'">소품샵 관리</li>
+            </c:if>
             <li class="breadcrumb-item active" aria-current="page">배너 등록/수정</li>
         </ol>
     </nav>
@@ -37,7 +45,13 @@
                 <div>배너 이미지 (1280 * 300 px)</div>
             </a>
             <input type="file" name="file" class="d-none" id="file1" onchange="preview(this, 'img1')">
-            <img src="" alt="사진" class="w-100 m-0 p-0 card-img-overlay d-none" id="img1">
+            <c:if test="${empty bannerVo}">
+                <img src="" alt="사진" class="m-0 p-0 w-100 card-img-overlay d-none" id="img1">
+            </c:if>
+            <c:if test="${not empty bannerVo}">
+                <img src="${bannerVo.image}" alt="사진" class="m-0 p-0 w-100 card-img-overlay" id="img1">
+                <input type="hidden" name="image" value="${bannerVo.image}">
+            </c:if>
         </div>
     </div>
 
@@ -50,7 +64,13 @@
         <div class="row">
             <div class="col-md">
                 <div class="form-floating my-2">
+                    <c:if test="${not empty bannerVo}">
+                    <input type="text" name="title" class="form-control" id="bannerTitle" placeholder="상품명 입력"
+                           value="${bannerVo.title}" autocomplete="off">
+                    </c:if>
+                    <c:if test="${empty bannerVo}">
                     <input type="text" name="title" class="form-control" id="bannerTitle" placeholder="상품명 입력" autocomplete="off">
+                    </c:if>
                     <label for="bannerTitle">배너 제목 (한글 25자 미만)</label>
                 </div>
             </div>
@@ -60,18 +80,39 @@
         <div class="row">
             <div class="col-md">
                 <div class="form-floating my-2">
-                    <input type="text" name="content" class="form-control" id="bannerContent" placeholder="한줄 설명" autocomplete="off">
+                    <c:if test="${not empty bannerVo}">
+                    <input type="text" name="content" class="form-control" id="bannerContent" placeholder="한줄 설명"
+                           value="${bannerVo.content}" autocomplete="off">
+                    </c:if>
+                    <c:if test="${empty bannerVo}">
+                    <input type="text" name="content" class="form-control" id="bannerContent" placeholder="한줄 설명"
+                           value="" autocomplete="off">
+                    </c:if>
                     <label for="bannerContent">배너 제목에 상응하는 설명 텍스트 (한글 50자 미만)</label>
                 </div>
             </div>
         </div>
         <!-- 배너 카테고리 -->
-        <input type="hidden" name="category" value="flower">
+        <c:if test="${category eq 'subs'}">
+            <input type="hidden" name="category" value="subs">
+        </c:if>
+        <c:if test="${category eq 'flower'}">
+            <input type="hidden" name="category" value="flower">
+        </c:if>
+        <c:if test="${category eq 'product'}">
+            <input type="hidden" name="category" value="product">
+        </c:if>
     </div> <!-- inputs-wrap 닫기 -->
 
     <div class="d-flex justify-content-center my-lg-5">
+        <c:if test="${not empty bannerVo}">
+        <input type="button" value="등록/수정하기" class="btn btn-lg btn-dark py-lg-3 px-lg-5"
+               onclick="updateBanner(this.form)">
+        </c:if>
+        <c:if test="${empty bannerVo}">
         <input type="button" value="등록/수정하기" class="btn btn-lg btn-dark py-lg-3 px-lg-5"
                onclick="addBanner(this.form)">
+        </c:if>
         <input type="button" value="이전으로" class="btn btn-lg btn-secondary py-lg-3 px-lg-5 ms-3"
                onclick="history.back()">
     </div>
@@ -95,6 +136,10 @@
     /* 폼데이터 전송후 창 이동 */
     function addBanner(frm) {
         frm.action = "/admin/addBanner";
+        frm.submit();
+    }
+    function updateBanner(frm) {
+        frm.action = "/admin/updateBanner";
         frm.submit();
     }
 </script>

@@ -15,12 +15,12 @@
 <%@ include file="../main/header.jspf" %>
     <div class="banner-wrap d-flex align-items-center justify-content-center">
         <div class="w-1280 mx-auto">
-            <img src="/static/image/flower/flower_banner_1280.jpg" alt="꽃다발배너" class="col-12">
+            <img src="${bannerVo.image}" alt="꽃다발배너" class="col-12">
         </div>
         <div class="banner-text w-1280 position-absolute mx-auto">
-            <div class="banner-title fw-500 mb-4 ms-2 ls-narrower">새늘봄 꽃 정기구독</div>
+            <div class="banner-title fw-500 mb-4 ms-2 ls-narrower">${bannerVo.title}</div>
             <div class="banner-summary fw-light ms-2 ls-narrower">
-                2주에 한 번, 매번 새로운 꽃으로 당신의 일상을 행복으로 채울게요.
+                ${bannerVo.content}
             </div>
         </div>
     </div>

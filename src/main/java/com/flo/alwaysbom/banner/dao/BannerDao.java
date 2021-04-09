@@ -5,8 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 @RequiredArgsConstructor
 public class BannerDao {
@@ -18,8 +16,9 @@ public class BannerDao {
         return vo;
     }
 
-    public Optional<BannerVo> findByCategory(String category) {
-        return Optional.ofNullable(sqlSessionTemplate.selectOne("BANNER.findByCategory", category));
+    public BannerVo findByCategory(String category) {
+        BannerVo vo = sqlSessionTemplate.selectOne("BANNER.findByCategory", category);
+        return vo;
     }
 
     public String updateBanner(BannerVo vo) {
