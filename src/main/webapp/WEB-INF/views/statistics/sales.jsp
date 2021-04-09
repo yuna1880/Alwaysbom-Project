@@ -16,11 +16,11 @@
         <!-- 최근6개월 / 이번달 -->
         <div class="col-4 d-flex row-cols-2 btn-group" role="group">
             <label class="row-cols-1 pe-1">
-                <input type="radio" class="btn-check" name="period" checked>
+                <input type="radio" class="btn-check" name="period" checked onchange="search(searchSales)">
                 <span class="col btn btn-outline-secondary">최근 6개월</span>
             </label>
             <label class="row-cols-1 ps-1">
-                <input type="radio" class="btn-check" name="period">
+                <input type="radio" class="btn-check" name="period" onchange="search(searchSalesThisMonth)">
                 <span class="col btn btn-outline-secondary">이번 달</span>
             </label>
         </div>
@@ -113,12 +113,97 @@
         return template.content.firstChild;
     }
 
-    let myChart;
+    document.querySelectorAll("[name=period]").forEach($period => {
+        $period.addEventListener("change", function () {
 
-    searchSales().then(function (result) {
-        myChart = result;
-        console.log(result);
-    });
+        })
+    })
+
+    const data = {
+        labels: "",
+        datasets: [
+            {
+                label: '판매량',
+                backgroundColor: '#c237ff',
+                borderColor: '#c237ff',
+                yAxisID: 'right-y-axis'
+            },
+            {
+                label: '정기구독 판매금액',
+                backgroundColor: '#4983e5',
+                borderColor: '#4983e5',
+                yAxisID: 'left-y-axis'
+            },
+            {
+                label: '꽃다발 판매금액',
+                backgroundColor: '#4ef1d1',
+                borderColor: '#4ef1d1',
+                yAxisID: 'left-y-axis'
+            },
+            {
+                label: '소품샵 판매금액',
+                backgroundColor: '#84ea43',
+                borderColor: '#84ea43',
+                yAxisID: 'left-y-axis'
+            },
+            {
+                label: '클래스 판매금액',
+                backgroundColor: '#ffc531',
+                borderColor: '#ffc531',
+                yAxisID: 'left-y-axis'
+            },
+            {
+                label: '총계',
+                backgroundColor: '#FF6631',
+                borderColor: '#FF6631',
+                yAxisID: 'left-y-axis'
+            },
+        ]
+    }
+
+    const config = {
+        type: 'line',
+        data: data,
+        plugins: [],
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                'left-y-axis': {
+                    display: true,
+                    type: 'linear',
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: '판매금액'
+                    }
+                },
+                'right-y-axis': {
+                    display: true,
+                    type: 'linear',
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: '판매량'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: '매출 통계'
+                }
+            }
+        }
+    }
+    let myChart = new Chart(document.querySelector("#salesChart"), config);
+
+    function search(fn) {
+        fn().then(function (result) {
+            myChart = result;
+        })
+    }
+
+    search(searchSales);
 
     async function searchSales() {
         return fetch("/statistics/api/sales").then(response => {
@@ -132,91 +217,18 @@
                 const classAmounts = result.map(({classAmount}) => classAmount);
                 const totalAmounts = result.map(({totalAmount}) => totalAmount);
                 console.log(salesCounts);
-                const data = {
-                    labels: periods,
-                    datasets: [
-                        {
-                            label: '판매량',
-                            backgroundColor: '#c237ff',
-                            borderColor: '#c237ff',
-                            data: salesCounts,
-                            yAxisID: 'right-y-axis'
-                        },
-                        {
-                            label: '정기구독 판매금액',
-                            backgroundColor: '#4983e5',
-                            borderColor: '#4983e5',
-                            data: subsAmounts,
-                            yAxisID: 'left-y-axis'
-                        },
-                        {
-                            label: '꽃다발 판매금액',
-                            backgroundColor: '#4ef1d1',
-                            borderColor: '#4ef1d1',
-                            data: flowerAmounts,
-                            yAxisID: 'left-y-axis'
-                        },
-                        {
-                            label: '소품샵 판매금액',
-                            backgroundColor: '#84ea43',
-                            borderColor: '#84ea43',
-                            data: productAmounts,
-                            yAxisID: 'left-y-axis'
-                        },
-                        {
-                            label: '클래스 판매금액',
-                            backgroundColor: '#ffc531',
-                            borderColor: '#ffc531',
-                            data: classAmounts,
-                            yAxisID: 'left-y-axis'
-                        },
-                        {
-                            label: '총계',
-                            backgroundColor: '#FF6631',
-                            borderColor: '#FF6631',
-                            data: totalAmounts,
-                            yAxisID: 'left-y-axis'
-                        },
-                    ]
-                }
 
-                const config = {
-                    type: 'line',
-                    data: data,
-                    plugins: [],
-                    options: {
-                        maintainAspectRatio: false,
-                        scales: {
-                            'left-y-axis': {
-                                display: true,
-                                type: 'linear',
-                                position: 'left',
-                                title: {
-                                    display: true,
-                                    text: '판매금액'
-                                }
-                            },
-                            'right-y-axis': {
-                                display: true,
-                                type: 'linear',
-                                position: 'right',
-                                title: {
-                                    display: true,
-                                    text: '판매량'
-                                }
-                            }
-                        },
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: '매출 통계'
-                            }
-                        }
-                    }
-                }
+                data.labels = periods;
+                data.datasets[0].data = salesCounts;
+                data.datasets[1].data = subsAmounts;
+                data.datasets[2].data = flowerAmounts;
+                data.datasets[3].data = productAmounts;
+                data.datasets[4].data = classAmounts;
+                data.datasets[5].data = totalAmounts;
 
-                const ctxSales = document.querySelector("#salesChart");
-                return new Chart(ctxSales, config);
+                myChart.update();
+                console.log("updated");
+                console.log(myChart);
             })
         });
     }
