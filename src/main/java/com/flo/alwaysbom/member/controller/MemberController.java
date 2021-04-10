@@ -5,11 +5,9 @@ import com.flo.alwaysbom.coupon.vo.CouponVo;
 import com.flo.alwaysbom.member.service.MemberService;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.SessionScope;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -130,8 +128,9 @@ public class MemberController {
 
     //1:1문의
     @GetMapping("/myPage_faq_main")
-    public String myPage_faq_main() {
-        return "member/myPage_faq_main";
+    public String myPage_faq_main(@SessionAttribute(required = false) MemberVO member) {
+        //회원 로그인 정보 받아오기
+        return "myPage_faq_main";
     }
 
     //카카오 회원가입
