@@ -5,8 +5,6 @@
     <title>새늘봄 - checkout</title>
     <%@ include file="../main/import.jspf" %>
     <link rel="stylesheet" href="/static/css/order/orderstyle.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
         //배송지목록 찾기 -> 모달
@@ -181,26 +179,34 @@
                                         </div>
                                         <!-- 주의사항-->
                                         <span class="unknow_txt modify_0724">
-                                                <span class="l"><i>*</i><b>익명으로 보내기를 선택할 경우, 주의할 것이 있어요.</b>
-                                                    <br>보내는 분의 성함이 기재되지 않아 받는 분이 수령을 거부하기도 해요.<br>
-                                                    이 경우 환불이나 교환이 어려우니 꼭 확인하신 후 체크 부탁드릴게요.</span>
-                                                <span class="l"><i>*</i><b>토요일 수령 선택 시 주의사항</b>
-                                                    <br>토요일 수령을 선택하실 경우, 회사 주소는 배송이 어려워요.
-                                                    <br>자택이나 수령인이 직접 받으실 수 있는 주소지로 입력 부탁드릴게요.
-                                                </span>
+                                            <span class="l"><i>*</i><b>익명으로 보내기를 선택할 경우, 주의할 것이 있어요.</b>
+                                                <br>보내는 분의 성함이 기재되지 않아 받는 분이 수령을 거부하기도 해요.<br>
+                                                이 경우 환불이나 교환이 어려우니 꼭 확인하신 후 체크 부탁드릴게요.</span>
+                                            <span class="l"><i>*</i><b>토요일 수령 선택 시 주의사항</b>
+                                                <br>토요일 수령을 선택하실 경우, 회사 주소는 배송이 어려워요.
+                                                <br>자택이나 수령인이 직접 받으실 수 있는 주소지로 입력 부탁드릴게요.
                                             </span>
+                                        </span>
                                     </div>
-
-                <div class="complete">
-                    <button type="submit" class="info_btn next" id="purchase_submit">
-                        <span>결제하기</span>
-                    </button>
-                    <button type="button" class="info_btn back" onclick="history.back()">
-                        <span>이전 단계로</span>
-                    </button>
+                                        <div class="complete">
+                                            <button type="submit" class="info_btn next" id="purchase_submit">
+                                                <span>결제하기</span>
+                                            </button>
+                                            <button type="button" class="info_btn back" onclick="history.back()">
+                                                <span>이전 단계로</span>
+                                            </button>
+                                        </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
+
+
+
+
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -260,7 +266,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- 주소지 없을때의 Modal -->
     <div class="modal fade" id="noneModal" tabindex="-1">

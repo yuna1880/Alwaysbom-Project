@@ -106,9 +106,9 @@
                                                     <span class="label">수령일</span>
                                                         <c:if test="${oitem.category eq '정기구독'}">
                                                             <span class="val">첫번째 수령일</span>
-                                                            <span class="val">${oitem.osubsList.get(1).deliveryDate}</span>
+                                                            <span class="val">${oitem.osubsList.get(0).deliveryDate}</span>
                                                             <br>
-                                                            <span class="val">[${oitem.osubsList.get(1).month}개월 구독]</span>
+                                                            <span class="val">[${oitem.osubsList.get(0).month}개월 구독]</span>
 
                                                         </c:if>
                                                         <c:if test="${oitem.category ne '정기구독'}">
