@@ -104,7 +104,8 @@
 
                         <!-- 주문내역 -->
                         <div class="checkout_cartlist">
-                            <div class="head"><span class="delivery">수령일</span>
+                            <div class="head">
+                                <span class="delivery">수령일</span>
                                 <span class="product">상품명</span>
                                 <span class="price">가격</span>
                             </div>
