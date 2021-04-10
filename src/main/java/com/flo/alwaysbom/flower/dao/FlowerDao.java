@@ -50,6 +50,7 @@ public class FlowerDao {
     }
 
     public Integer findByname(String name) {
-        return sqlSessionTemplate.selectOne("FLOWER.findByname", name);
+        FlowerVo vo = sqlSessionTemplate.selectOne("FLOWER.findByName", name);
+        return vo.getIdx();
     }
 }

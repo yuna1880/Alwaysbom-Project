@@ -97,8 +97,8 @@
 
 
     <!-- 이름으로 찾기 -->
-    <select id="findByName" parameterType="String" resultType="int">
-        SELECT IDX
+    <select id="findByName" parameterType="string" resultType="com.flo.alwaysbom.flower.vo.FlowerVo">
+        SELECT *
         FROM FLOWER
         WHERE NAME = #{name}
     </select>
