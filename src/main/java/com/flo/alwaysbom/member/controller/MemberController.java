@@ -76,11 +76,11 @@ public class MemberController {
                 count++;
             }
         }
-        System.out.println(count);
+        //System.out.println(count);
 
         model.addAttribute("coupons", coupons);
         model.addAttribute("couponCount", count);
-        System.out.println("coupons = " + coupons);
+        //System.out.println("coupons = " + coupons);
         model.addAttribute("member", member);
         return "redirect:/";
     }
@@ -196,7 +196,7 @@ public class MemberController {
 
         // coupon 사용 후 회원의 포인트 증가
         memberService.raisePoint(couponVo);
-        // coupon 디비에도 업데이트를 해야되니까
+        // coupon 디비에도 업데이트를 해야되니까 쿠폰 status 업데이트
         couponService.updateCouponStatus(couponVo);
 
         List<CouponVo> coupons = couponService.findBySearchOption(
@@ -204,13 +204,14 @@ public class MemberController {
                         .memberId(couponVo.getMemberId())
                         .build());
 
+        //미사용 쿠폰만 count
         int count = 0;
         for (CouponVo coupon:coupons) {
             if (coupon.getStatus() == 0) {
                 count++;
             }
         }
-        System.out.println(count);
+        //System.out.println(count);
         model.addAttribute("coupons", coupons);
         model.addAttribute("couponCount", count);
 
@@ -219,5 +220,4 @@ public class MemberController {
 
         return couponVo;
     }
-
 }

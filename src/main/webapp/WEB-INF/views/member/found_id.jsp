@@ -7,7 +7,7 @@
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto d-flex flex-column align-items-center">
-    <form role="form" action="/loginMember" method="post" class="col-5 d-flex flex-column">
+    <form role="form" action="/login" method="post" class="col-5 d-flex flex-column">
         <h5 class="page_title text-center p-2 mt-5 text-secondary m-0 p-4 border-bottom border-secondary">아이디 찾기</h5>
         <div class="login_box">
             <div class="inner">
@@ -23,7 +23,7 @@
                 </div>
                     <button type="button" class="login" onclick="location.href='/login'">로그인</button>
                 <div class="justify-content-center text-center mt-3">
-                    <a href="/findPwd" class="text-decoration-none text-secondary">비밀번호 찾기</a>
+                    <a href="/find_pw" class="text-decoration-none text-secondary">비밀번호 찾기</a>
                 </div>
                 <p class="login_under_noti">
                     - 개인정보 보호를 위해 아이디의 일부만 보여집니다.
@@ -35,8 +35,8 @@
             </div>
         </div>
     </form>
-    <%@ include file="../main/footer.jspf"%>
 </div>
+<%@ include file="../main/footer.jspf"%>
 </body>
 </html>
 <style>
