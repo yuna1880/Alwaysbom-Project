@@ -34,7 +34,6 @@ public class MemberService {
     public void logout(HttpSession session, Model model) {
         session.invalidate();
         model.addAttribute("member", null);
-
     }
 
     //아이디 중복 확인
@@ -112,7 +111,7 @@ public class MemberService {
         String msg = "";
 
         if(div.equals("find_pw")) {
-            subject = "새늘봄 비밀번호 찾기 임시 비밀번호를 보내드립니다:-)";
+            subject = "새늘봄에서 고객님의 임시 비밀번호를 보내드립니다:-)";
             msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
             msg += "<h3 style='color: blue;'>";
             msg += memberVO.getId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";

@@ -19,7 +19,7 @@
                             님, 환영합니다. 언제나 늘 새로운 꽃이 가득한 새늘봄입니다-
                         </div>
                         <hr class="hr1"/>
-                        <img src="/static/image/mypageMain_flower.jpg" alt="메인페이지 꽃 사진" class="w-100">
+                        <img src="/static/image/mypageFlower.jpg" alt="메인페이지꽃" class="w-100">
                     </div>
                 </div>
             </div>
