@@ -7,6 +7,7 @@
     <%@ include file="import.jspf"%>
     <link rel="stylesheet" href="/static/css/item/list.css">
     <link rel="stylesheet" href="/static/css/main.css">
+
 </head>
 <body>
 <%@ include file="header.jspf"%>
@@ -43,27 +44,48 @@
     <div class="col-4 d-flex flex-column pt-2 ps-4">
         <span class="fs-3 ls-narrower ps-3">2주에 한번, 나를 위한 행복</span>
         <span class="fs-3 fw-bolder ls-narrower ps-3">새늘봄 꽃 정기구독</span>
-        <span class="mt-3 mb-2 fs-19 fw-light ls-narrower ps-3">
+        <span class="mt-3 mb-3 fs-19 fw-light ls-narrower ps-3">
             이 계절 가장 이쁜 꽃으로 구성된 구독 꽃이예요!
         </span>
         <!-- size 표시 -->
         <div class="my-2 ps-3 d-flex">
             <span class="me-1 badge rounded-pill bg-warning size-unit">S</span>
-            <span class="item-size me-2">size</span>
+            <span class="item-size me-3">size</span>
             <span class="me-1 badge rounded-pill bg-warning size-unit">M</span>
-            <span class="item-size me-2">size</span>
+            <span class="item-size me-3">size</span>
             <span class="me-1 badge rounded-pill bg-warning size-unit">L</span>
-            <span class="item-size me-2">size</span>
+            <span class="item-size me-3">size</span>
             <span class="me-1 badge rounded-pill bg-warning size-unit">XL</span>
-            <span class="item-size me-2">size</span>
+            <span class="item-size me-3">size</span>
         </div>
         <!-- 정기구독 더 알아보기 버튼 -->
         <button type="button" class="mt-4 py-3 subs-btn col-8" onclick="location.href='/subs'">정기구독 더 알아보기</button>
     </div>
-    <div class="col-7 d-flex justify-content-end">
-        <div class="me-2 w-45 bg-point-color"></div>
-        <div class="ms-3 w-45 bg-point-color"></div>
+    <!-- 정기구독 상품 썸네일 2개 + 2개 -->
+    <div class="col-6 border-1 border-danger">
+        <div class="slide-wrapper">
+            <ul class="slides">
+                <c:forEach var="subsVo" items="${subsList}" varStatus="status">
+                <c:if test="${not empty subsVo}">
+                <li class="${status.index > 2 ? "" : "me-15"}">
+                    <img src="${subsVo.image1}" alt="subs" class="mb-2">
+                    <div class="d-flex flex-column">
+                        <span class="subheader">${subsVo.subheader}</span>
+                        <span class="item-name">${subsVo.name}</span>
+                        <div class="price-wrap">
+                            <span class="discount-rate">1회 기준</span>
+                            <span class="final-price">
+                                <fmt:formatNumber value="${subsVo.price}" pattern="#,###원~"/>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                </c:if>
+                </c:forEach>
+            </ul>
+        </div>
     </div>
+    <!-- 화살표 -->
     <div class="col-1 d-flex align-items-center justify-content-center">
         <i class="fas fa-chevron-right fs-1 next-btn"></i>
     </div>
@@ -157,5 +179,29 @@
 
 
 <%@ include file="footer.jspf"%>
+<script>
+    /* 슬라이드 이미지 */
+    let slides = document.querySelector(".slides"),
+        currentIdx = 0,
+        slideCount = 2,
+        slideWidth = 710,
+        slideMargin = 0,
+        btn = document.querySelector(".next-btn");
+
+    slides.style.width = (slideWidth * slideCount) +
+                            slideMargin * (slideCount - 1) + "px";
+
+    function moveSlide(num) {
+        slides.style.left = (-num * 710) + "px";
+        currentIdx = num;
+    }
+    btn.addEventListener("click", function(){
+        if (currentIdx === 0) {
+            moveSlide(1);
+        } else {
+            moveSlide(0);
+        }
+    });
+</script>
 </body>
 </html>

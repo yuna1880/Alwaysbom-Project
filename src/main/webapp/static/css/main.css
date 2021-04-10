@@ -11,7 +11,9 @@
     border-radius: 30px;
 }
 .next-btn {
-    color: #efeeeb;
+    color: #cdcdcd;
+    transform: translateY(-70px);
+    cursor: pointer;
 }
 .flower-wrap {
     background-color: #efeeeb;
@@ -35,4 +37,28 @@
     font-size: 14px;
     font-weight: 300;
     color: #707070;
+}
+.me-15 {
+    margin-right: 15px;
+}
+.slide-wrapper {
+    position: relative;
+    width: 710px;
+    margin: 0; padding: 0;
+    height: 500px;
+    overflow: hidden;
+}
+.slides {
+    position: absolute;
+    margin: 0; padding: 0;
+    left: 0; top: 0;
+    width: 1420px;
+    transition: left 1s ease-in-out;
+}
+.slides li {
+    list-style-type: none;
+    float: left;
+}
+.slides img {
+    width: 340px;
 }
