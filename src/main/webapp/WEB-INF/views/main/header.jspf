@@ -30,8 +30,8 @@
 <header>
     <div class="d-flex justify-content-center">
         <div class="h-menu-bar d-flex justify-content-between align-items-center">
-            <div class="logo d-flex justify-content-center align-items-center" onclick="location.href='/'">
-                새늘봄 홈
+            <div class="logo d-flex justify-content-center align-items-center" onclick="location.href='/'" style="width: 130px; height: auto;">
+                <img src="/static/image/main/logo.svg" alt="logo" class="w-100">
             </div>
             <ul class="h-menu-wrap d-flex justify-content-end my-auto">
                 <li class="h-menu ${typePath eq '/subs' ? 'menu-active' : ''}">
