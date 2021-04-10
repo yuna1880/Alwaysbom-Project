@@ -26,20 +26,20 @@
                     </div>
                     <div class="right">
                         <span>
-                        <b>·</b>
-                        [배송완료] 기준으로 등급이 산정됩니다.
-                        <br><br>
-                    </span>
+                            <b>·</b>
+                            <strong>${sessionScope.member.name}</strong>
+                            님의 쿠폰 적립 및 사용 내역입니다.
+                            <br><br>
+                        </span>
                         <span>
-                        <b>·</b>
-                        등급 산정에 클래스 이용 내역은 반영되지 않습니다.
-                        <br><br>
-                    </span>
+                            <b>·</b>
+                            사용하기 클릭시 해당 금액만큼 포인트가 적립됩니다.
+                            <br><br>
+                        </span>
                         <span>
-                        <b>·</b>
-                        <strong>매월 1일</strong>
-                        새로운 등급이 부여됩니다.
-                    </span>
+                            <b>·</b>
+                            결제시 포인트 사용 가능합니다.
+                        </span>
                     </div>
                 </div>
             </div>

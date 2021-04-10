@@ -12,7 +12,7 @@
                 , #{discountGrade}, #{discountPoint},
         #{fclassName}, #{branchName}, #{branchAddr}, #{fclassImage}, #{scheduleDate},
         #{scheduleStartTime}, #{scheduleEndTime}, #{fclassCount}, #{status}, #{reviewCheck},
-        #{discountTotalPrice}, #{fclassIdx}, #{scheduleIdx}, SYSDATE)
+        #{discountTotalPrice}, #{fclassIdx}, #{scheduleIdx}, SYSDATE, #{reviewIdx})
     <selectKey keyProperty="idx" resultType="int" order="AFTER">
         SELECT OCLASS_SEQ.currval FROM DUAL
     </selectKey>
