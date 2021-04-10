@@ -59,8 +59,6 @@ public class ProductController {
             map.put("memberId", member.getId());
             oitemList = productService.findAvailableOitemToReview(map);
         }
-        System.out.println("oitemList : " + oitemList);
-
         model.addAttribute("idx", idx);
         model.addAttribute("productVo", product);
         model.addAttribute("bestReviewList", bestReviewList);
@@ -77,15 +75,15 @@ public class ProductController {
                 .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
     }
 
-    @PostMapping("product/api/chkAvailability")
-    @ResponseBody
-    public Boolean isPossibleToWrite(@RequestBody Integer idx, @SessionAttribute MemberVO member) {
-        Map<String, String> map = new HashMap<>();
-        map.put("idx", idx + "");
-        map.put("memberId", member.getId());
-        List<OitemVo> list = productService.findAvailableOitemToReview(map);
-        return list.size() > 0;
-    }
+//    @PostMapping("product/api/chkAvailability")
+//    @ResponseBody
+//    public Boolean isPossibleToWrite(@RequestBody Integer idx, @SessionAttribute MemberVO member) {
+//        Map<String, String> map = new HashMap<>();
+//        map.put("idx", idx + "");
+//        map.put("memberId", member.getId());
+//        List<OitemVo> list = productService.findAvailableOitemToReview(map);
+//        return list.size() > 0;
+//    }
 
     @PostMapping(value = "/product/{idx}/reviews", produces = {"application/json;charset=utf-8"})
     @ResponseBody
@@ -97,11 +95,7 @@ public class ProductController {
             newReview.setMemberId(member.getId());
             newReview.setCategory("소품샵");
             newReview.setImage(fileHandler.uploadFile(newReview.getImageFile(), null, "/product/reviews"));
-
-            System.out.println("add 전 reviewDto = " + newReview);
             reviewDto = itemService.addReview(newReview);
-            System.out.println("add 후 reviewDto = " + reviewDto);
-
             return reviewDto;
         } catch (Exception e) {
             e.printStackTrace();

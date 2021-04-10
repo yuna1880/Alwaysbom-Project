@@ -156,16 +156,18 @@
         <!-- 상품 썸네일 리스트 -->
         <!----------------------------------------->
         <div class="px-4 mx-2">
-            <div class="mb-5 d-flex justify-content-between">
+            <div class="mb-5 d-flex justify-content-start">
                 <div class="col-6 pe-2 overflow-hidden height-400px">
-                    <img src="/static/image/flower/flower2.jpg" alt="썸네일" class="w-100">
+                    <img src="${fclassBig.image1}" alt="썸네일" class="w-100">
                 </div>
-                <div class="col-6 ps-2 d-flex flex-column justify-content-between">
-                    <div>
-
+                <div class="col-6 ps-4 d-flex justify-content-between">
+                    <div class="col-6">
+                        <img src="${fclassSmall.image1}" alt="썸네일" class="w-100">
                     </div>
-                    <div>
-
+                    <div class="col-5 d-flex flex-column">
+                        <span>${fclassSmall.subheader}</span>
+                        <span>${fclassSmall.name}</span>
+                        <span>${fclassSmall.finalPrice}</span>
                     </div>
                 </div>
             </div>

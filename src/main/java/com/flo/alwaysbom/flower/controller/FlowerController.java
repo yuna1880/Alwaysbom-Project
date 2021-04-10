@@ -67,8 +67,6 @@ public class FlowerController {
             map.put("memberId", member.getId());
             oitemList = flowerService.findAvailableOitemToReview(map);
         }
-        System.out.println("oitemList : " + oitemList);
-
         model.addAttribute("flowerVo", flower);
         model.addAttribute("productList", productList);
         model.addAttribute("bestReviewList", bestReviewList);
@@ -88,11 +86,7 @@ public class FlowerController {
             newReview.setMemberId(member.getId());
             newReview.setCategory("꽃다발");
             newReview.setImage(fileHandler.uploadFile(newReview.getImageFile(), null, "/flower/reviews"));
-
-            System.out.println("add 전 reviewDto = " + newReview);
             reviewDto = itemService.addReview(newReview);
-            System.out.println("add 후 reviewDto = " + reviewDto);
-
             return reviewDto;
         } catch (Exception e) {
             e.printStackTrace();
