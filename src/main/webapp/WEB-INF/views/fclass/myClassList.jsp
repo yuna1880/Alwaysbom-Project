@@ -7,7 +7,7 @@
         <!-- 입금상태(status)로 검색하기 -->
         <div class="d-flex m-0 p-0" role="group">
             <label>
-                <input type="radio" class="btn-check" name="status" value="전체" onchange="searchByStatus(this.value)" checked>
+                <input type="radio" class="btn-check" name="status" value="전체" onchange="searchByStatus(this.value)">
                 <span class="btn btn-outline-warning btn-sm text-dark">전체</span>
             </label>
             <label class="mx-1">
