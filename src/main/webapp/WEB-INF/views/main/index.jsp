@@ -40,7 +40,7 @@
 </div>
 
 <!-- 새늘봄 꽃 정기구독 -->
-<div class="w-1280 mx-auto mt-100 mb-5 d-flex justify-content-between">
+<div class="w-1280 mx-auto mt-100 mb-5 d-flex justify-content-between pt-4">
     <div class="col-4 d-flex flex-column pt-2 ps-4">
         <span class="fs-3 ls-narrower ps-3">2주에 한번, 나를 위한 행복</span>
         <span class="fs-3 fw-bolder ls-narrower ps-3">새늘봄 꽃 정기구독</span>
