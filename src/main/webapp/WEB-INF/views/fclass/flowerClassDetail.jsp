@@ -380,7 +380,7 @@
 
         <!-- 리뷰 작성란 -->
         <c:if test="${not empty reviewableList}">
-        <div class="d-flex">
+        <div id="reviewWriteArea" class="d-flex">
             <div class="col-10 d-flex flex-column">
                 <!-- 리뷰제목이랑 리뷰별점 -->
                 <div class="col-12 d-flex align-items-end mb-3">
@@ -493,6 +493,7 @@
 
     moreReviews(5);
 
+    <!-- 별 클릭시 1~5 체크 -->
     let $stars = document.querySelectorAll("[name=starPoint]");
     let $starIcons = document.querySelectorAll("[name=starPoint] + i");
     for (const $star of $stars) {
@@ -543,7 +544,22 @@
             console.log(err);
         })
 
+        document.querySelector("#reviewTitle").value = "";
 
+        let fiveStar = document.querySelectorAll("#reviewWriteArea [name=starPoint]")[4];
+        fiveStar.checked = true;
+        let $stars = document.querySelectorAll("[name=starPoint] + i");
+        for (let $star of $stars) {
+            $star.className = "fas fa-star";
+        }
+
+        document.querySelector("#reviewImage").value = "";
+        document.querySelector("#reviewWriteArea option:checked").remove();
+        myEditor.setData("");
+
+        if (!document.querySelector("#reviewWriteArea option")) {
+            document.querySelector("#reviewWriteArea").classList.add("d-none");
+        }
     }
 
     async function moreReviews(moreCount) {
@@ -613,11 +629,11 @@
                         '     aria-labelledby="flush-heading' + idx + '" data-bs-parent="#bestReview" style="padding-left: 196px">';
         collapseHtml += '   <div class="accordion-body px-5">';
         if (rowObject.image) {
-            collapseHtml += '   <div>';
+            collapseHtml += '   <div class="pb-3">';
             collapseHtml += '       <img src="' + rowObject.image + '" alt="사진" style="max-width: 50%;">';
             collapseHtml += '   </div>';
         }
-        collapseHtml += '       <span>' + rowObject.content + '</span>';
+        collapseHtml += '       <div class="editor-content">' + rowObject.content + '</div>';
         collapseHtml += '   </div>';
         collapseHtml += '</div>';
         const $accordionCollapse = htmlToElement(collapseHtml);
@@ -814,5 +830,9 @@
 
 .btn-radio:hover {
     color: #ffcc3c;
+}
+
+.editor-content img {
+    max-width: 100%;
 }
 </style>
