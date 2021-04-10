@@ -77,9 +77,9 @@
                                                    data-bs-toggle="modal" data-bs-target="#noneModal">
 
                                             <label class="btn btn-outline-primary" for="btnradio2">배송지 목록</label>
-                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
-                                                   onclick="addSender()" autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="btnradio3">받는 분이 입력</label>
+<%--                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3"--%>
+<%--                                                   onclick="addSender()" autocomplete="off">--%>
+<%--                                            <label class="btn btn-outline-primary" for="btnradio3">받는 분이 입력</label>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -191,96 +191,6 @@
                                             </span>
                                     </div>
 
-                                    <!-------------------------------------받는분이 입력하는 란----------------------------------------------------------------------->
-
-                                    <div class="role_tabpanel" tabindex="-1" role="tabpanel" id="sender_input" aria-labelledby="tabpanel_address_to">
-                                        <div>
-                                            <div class="unknow_address">
-                                                <h4 class="tit">받는 분의 주소를 모르셔도 괜찮아요.<br>
-                                                    kukka가 대신 여쭤볼게요 :-)</h4>
-                                                <ul class="noti_txt">
-                                                    <li class="color_red">기재해주신 연락처로 배송지를 입력할 수 있는 URL이 발송됩니다.</li>
-                                                    <li class="color_red">입력 기간은 3일이며, 기한 내에 입력이 완료되지 않으면 주문은 취소됩니다.</li>
-                                                    <li class="color_red">혹시 오류로 인해 문자가 가지 않는다면 [마이페이지-주문내역]에서 [다시 전송] 버튼을 눌러 주세요.</li>
-                                                    <li class="color_red">받아보시는 분의 주소는 기존 배송지 목록에 추가되지 않습니다.</li>
-                                                </ul>
-                                            </div>
-                                            <%--                                                <div>--%>
-                                            <%--                                                    <ul class="list-unstyled m-0 p-0 text-secondary">--%>
-                                            <%--                                                        <li class="d-flex py-2">--%>
-                                            <%--                                                            <div class="col-3">수령인 이름</div>--%>
-                                            <%--                                                            <div class="col-9">--%>
-                                            <%--                                                                <input class="w-100 border border-secondary text-secondary" type="text" value="권유나">--%>
-                                            <%--                                                            </div>--%>
-                                            <%--                                                        </li>--%>
-                                            <%--                                                        <li class="d-flex py-2">--%>
-                                            <%--                                                            <div class="col-3">수령인 연락처</div>--%>
-                                            <%--                                                            <div class="col-9 d-flex">--%>
-                                            <%--                                                                <select id="receiving_phone1_gift" name="receiving_phone1_gift" class="border border-secondary text-secondary" style="flex: 0 0 auto; width: 32%;">--%>
-                                            <%--                                                                    <option value="010">010</option>--%>
-                                            <%--                                                                    <option value="011">011</option>--%>
-                                            <%--                                                                    <option value="016">016</option>--%>
-                                            <%--                                                                    <option value="017">017</option>--%>
-                                            <%--                                                                    <option value="018">018</option>--%>
-                                            <%--                                                                    <option value="019">019</option>--%>
-                                            <%--                                                                </select>--%>
-                                            <%--                                                                <span class="text-center" style="flex: 0 0 auto; width:2%;">-</span>--%>
-                                            <%--                                                                <input class="border border-secondary text-secondary" style="flex: 0 0 auto; width: 32%;" type="text">--%>
-                                            <%--                                                                <span class="text-center" style="flex: 0 0 auto; width:2%;">-</span>--%>
-                                            <%--                                                                <input class="border border-secondary text-secondary" style="flex: 0 0 auto; width: 32%;" type="text">--%>
-                                            <%--                                                            </div>--%>
-                                            <%--                                                        </li>--%>
-                                            <%--                                                    </ul>--%>
-                                            <%--                                                </div>--%>
-                                            <table class="address_input_table">
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="detail">
-                                                            <span class="th">수령인 이름</span>
-                                                            <span class="td">
-                                                                        <input maxlength="255" id="receiving_name_gift" name="receiving_name_gift" type="text" value="권유나" autocomplete="off">
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="detail">
-                                                            <span class="th">수령인 연락처</span>
-                                                            <div class="td_phone">
-                                                                <div>
-                                                                    <select id="receiving_phone1_gift" name="receiving_phone1_gift">
-                                                                        <option value="010">010</option>
-                                                                        <option value="011">011</option>
-                                                                        <option value="016">016</option>
-                                                                        <option value="017">017</option>
-                                                                        <option value="018">018</option>
-                                                                        <option value="019">019</option>
-                                                                    </select>
-                                                                </div>
-                                                                <span class="d">-</span>
-                                                                <div id="id_form-0-phone_2_form-group">
-                                                                    <input type="text" maxlength="4" id="receiving_phone2_gift" name="receiving_phone2_gift" value="" pattern="[0-9]{4}" autocomplete="off">
-                                                                </div>
-                                                                <span class="d">-</span>
-                                                                <div>
-                                                                    <input type="text" maxlength="4" class="form-control form-control-small" id="receiving_phone3_gift" name="receiving_phone3_gift" value="" pattern="[0-9]{4}" autocomplete="off">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <!-- 여기 -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="complete">
                     <button type="submit" class="info_btn next" id="purchase_submit">
                         <span>결제하기</span>
@@ -370,7 +280,6 @@
         </div>
     </div>
 </div>
-<%@ include file="../main/footer.jspf" %>
 <script>
     //라디오버튼 화면 변경
     window.onload = function () {
@@ -484,5 +393,6 @@
         }
     }
 </script>
+<%@ include file="../main/footer.jspf" %>
 </body>
 </html>

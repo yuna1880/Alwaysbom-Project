@@ -16,10 +16,8 @@
 
         //메세지 체크박스 선택 안했는데 메세지 비어있을때!
         function checkForm() {
-            alert("여기");
             //flower_letter form을 전부 선택해준다. (배열로)
             const $forms = document.querySelectorAll(".flower_letter");
-            alert("ddd : ");
 
             <%--if (${member.id == null}) {--%>
             <%--    alert("로그인이 필요합니다.");--%>

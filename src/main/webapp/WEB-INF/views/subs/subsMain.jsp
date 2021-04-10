@@ -63,13 +63,17 @@
                     </div>
                     <!-- 홀수index text-end pe-5 / 짝수index ps-5 -->
                     <div class="${status.index % 2 == 1 ? "text-end pe-5" : "ps-5"} col-6 flex-row justify-content-start" id="subs_infos">
-                        <h4 class="fw-normal text-secondary">${subsVo.subheader}</h4>
+                        <h4 class="fw-normal text-secondary fs-4">${subsVo.subheader}</h4>
                         <h2 class="py-2">${subsVo.name}</h2>
-                        <h2 class="py-3">${subsVo.price} ~</h2>
-                        <div class="w-95">
-                            <h5 class="py-3 fw-lighter lh-lg">${subsVo.content}</h5>
+                        <h2 class="py-3">
+                            <fmt:formatNumber value="${subsVo.price}" pattern="#,###원"/> ~
+                        </h2>
+                        <div class="w-100">
+                            <h5 class="py-3 fw-lighter lh-base">${subsVo.content}</h5>
                         </div>
-                        <h5 class="py-3"><span class="badge rounded-pill bg-light text-dark">무료배송</span></h5>
+                        <span class="badge rounded-pill bg-light text-dark size-unit">무료배송</span>
+                        <span class="me-1 badge rounded-pill bg-warning size-unit">${subsVo.fsize}</span>
+                        <span class="item-size me-2">size</span>
                     </div>
                 </c:if>
             </div>

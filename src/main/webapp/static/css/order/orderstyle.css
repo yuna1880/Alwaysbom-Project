@@ -5,7 +5,10 @@
     z-index: 999999;
 }
 
-
+#finalPrice {
+    outline: none;
+    cursor: initial;
+}
 
 
 /* 3/28  주문완료 페이지 스타일*/
@@ -216,7 +219,7 @@ span.unknow_noti {
 }
 
 .photo {
-    width: 160px; height: 130px;
+    width: 150px; height: 150px;
 }
 
 .image_size {
@@ -286,10 +289,6 @@ span.unknow_noti {
 .save_delivery {
     vertical-align: 0px;
     margin-left: 0px;"
-}
-
-.photo {
-    width: 160px; height: 130px;
 }
 
 /* 기존 꾸까 스타일 */
@@ -1360,18 +1359,20 @@ span.unknow_noti {
     }
 
     .information_box .checkout_cartlist .head > span.delivery {
-        width: 13%;
+        width: 20%;
         max-width: 275px
     }
 
     .information_box .checkout_cartlist .head > span.product {
-        width: 47%;
+        width: 80%;
         max-width: 560px
     }
 
     .information_box .checkout_cartlist .head > span.price {
-        width: 15%;
+        width: 90%;
         max-width: 191px;
+        text-align: end;
+        margin-left: 150px;
     }
 
     .information_box .checkout_cartlist .head > span.charge {
@@ -1411,10 +1412,10 @@ span.unknow_noti {
     .information_box .checkout_cartlist .cartlist_wrap .delivery_date {
         border-top: none;
         float: left;
-        width: 13%;
+        width: 20%;
         max-width: 275px;
         padding: 0;
-        padding-top: 45px
+        padding-top: 25px
     }
 
     .information_box .checkout_cartlist .cartlist_wrap .delivery_date .label {
@@ -1507,7 +1508,7 @@ span.unknow_noti {
 
     .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_checkout {
         float: left;
-        width: 63%
+        width: 80%
     }
 
     .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_price {
@@ -1519,7 +1520,7 @@ span.unknow_noti {
         line-height: 20px;
         font-weight: bold;
         color: #246c6a;
-        text-align: center
+        text-align: end
     }
 
     .information_box .checkout_cartlist .cartlist_wrap .delivery_goods .list_good_price.list_class_price .quantity_warp .count input {
@@ -2251,7 +2252,7 @@ body.pc.IE11 .checkout_letter_add .letterbox .letter .noti {
 
 @media (min-width:1280px) {
     .checkout_address_input {
-        padding: 0 0 20px 310px;
+        padding: 0 0 20px 350px;
         border-top: #dedede 1px solid;
         border-bottom: #dedede 1px solid;
     }

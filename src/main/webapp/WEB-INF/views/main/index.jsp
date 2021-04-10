@@ -3,11 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>시작페이지(메인)</title>
+    <title>새늘봄 | 언제나 새롭게 꽃과 만나요</title>
     <%@ include file="import.jspf"%>
     <link rel="stylesheet" href="/static/css/item/list.css">
     <link rel="stylesheet" href="/static/css/main.css">
-<%--    <link rel="stylesheet" href="/static/css/footer.css">--%>
 </head>
 <body>
 <%@ include file="header.jspf"%>
@@ -47,12 +46,23 @@
         <span class="mt-3 mb-2 fs-19 fw-light ls-narrower ps-3">
             이 계절 가장 이쁜 꽃으로 구성된 구독 꽃이예요!
         </span>
-        <span class="my-2 ps-3">M size M size M size M size</span>
+        <!-- size 표시 -->
+        <div class="my-2 ps-3 d-flex">
+            <span class="me-1 badge rounded-pill bg-warning size-unit">S</span>
+            <span class="item-size me-2">size</span>
+            <span class="me-1 badge rounded-pill bg-warning size-unit">M</span>
+            <span class="item-size me-2">size</span>
+            <span class="me-1 badge rounded-pill bg-warning size-unit">L</span>
+            <span class="item-size me-2">size</span>
+            <span class="me-1 badge rounded-pill bg-warning size-unit">XL</span>
+            <span class="item-size me-2">size</span>
+        </div>
+        <!-- 정기구독 더 알아보기 버튼 -->
         <button type="button" class="mt-4 py-3 subs-btn col-8" onclick="location.href='/subs'">정기구독 더 알아보기</button>
     </div>
     <div class="col-7 d-flex justify-content-end">
-        <div class="me-2 thumbnails"></div>
-        <div class="ms-3 thumbnails"></div>
+        <div class="me-2 w-45 bg-point-color"></div>
+        <div class="ms-3 w-45 bg-point-color"></div>
     </div>
     <div class="col-1 d-flex align-items-center justify-content-center">
         <i class="fas fa-chevron-right fs-1 next-btn"></i>
