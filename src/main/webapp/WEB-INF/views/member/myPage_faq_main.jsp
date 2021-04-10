@@ -29,40 +29,108 @@
                             <button type="button" class="btn btn-outline-secondary" onclick="location.href='/community/goFaq'">자주 묻는 질문</button>
                             <button type="button" class="btn btn-outline-secondary" onclick="location.href='/question/create'">1:1 문의하기</button>
                         </div>
-                        <table class="table table-striped text-center">
-                            <thead>
-                            <tr>
-                                <th scope="col" class="col-2">번호</th>
-                                <th scope="col" class="col-2">작성일</th>
-                                <th scope="col" class="col-3">제목</th>
-                                <th scope="col" class="col-3">상태</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach var="coupon" items="${coupons}" varStatus="status">
-                                <tr>
-                                    <td scope="row">${coupon.cdate}</td>
-                                    <c:if test="${coupon.status eq '0'}">
-                                        <td>적립</td>
-                                    </c:if>
-                                    <c:if test="${coupon.status eq '1'}">
-                                        <td>사용</td>
-                                    </c:if>
-                                    <td id="couponName${status.index}">${coupon.name}</td>
-                                    <td>${coupon.point}</td>
-                                    <c:if test="${coupon.status eq '0'}">
-                                        <td>
-                                            <button type="button" class="btn btn-danger" onclick="useCoupon(this)">사용하기</button>
-                                            <input type="hidden" name="idx" value="${coupon.idx}" id="idx${status.index}">
-                                        </td>
-                                    </c:if>
-                                    <c:if test="${coupon.status eq '1'}">
-                                        <td><button type="button" class="btn btn-danger" disabled>사용완료</button></td>
-                                    </c:if>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                        <div class="mx-5">
+                            <ul class="nav justify-content-around reviewBox">
+                                <li class="nav-item-3">
+                                    <a class="nav-link" id="${param.category}" href="#" onclick='goAnswer("")'>미답변</a>
+                                </li>
+                                <li class="nav-item-3">
+                                    <a class="nav-link" id="${param.category}" href="#" onclick='goAnswer("answer")'>답변</a>
+                                </li>
+                            </ul>
+                            <div class="row row-cols-6 mx-auto bottom-line reBoard">
+                                <span class="text-center col-2 nopadding">번호</span>
+                                <span class="text-center col-2 nopadding">작성일</span>
+                                <span class="text-center col-5 nopadding">제목</span>
+                                <span class="text-center col-3 nopadding">상태</span>
+                            </div>
+
+                            <ul class="nav row table mx-auto">
+                                <c:forEach var="quList" items="${questlist}">
+                                    <li>
+
+                                        <div class="row row-cols-5 mx-auto bottom-line accoque reBoard">
+                                            <span class="text-center col-2 nopadding">${quList.idx}</span>
+                                            <span class="text-center col-2 nopadding">${quList.questionDate}</span>
+                                            <span class="text-center col-5 nopadding">${quList.name}</span>
+                                            <c:if test="${empty quList.answer}">
+                                                <span class="text-center col-2 nopadding">미답변</span>
+                                            </c:if>
+                                            <c:if test="${not empty quList.answer}">
+                                                <span class="text-center col-2 nopadding">답변</span>
+                                            </c:if>
+                                            <span class="text-center col-1 nopadding"><img src="/static/icons/up.svg"
+                                                                                           class="rounded- mx-auto checkv" alt="V"
+                                                                                           title="V"></span>
+                                        </div>
+
+                                        <div class="row bottom-line text-center toggleBtn disflex" style="display: none">
+                                            <c:if test="${not empty quList.image}">
+                                                <div class="col">
+                                                    <img src="${quList.image}" class="rounded-" alt="questimg" title="문의사진" style="height: 400px; width: 600px;">
+                                                </div>
+                                            </c:if>
+                                            <div class="col">
+                                                <span>${quList.content}</span>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="row row-cols-5 mx-auto bottom-line accoque reBoard nopadding">
+                                <span class="text-center col-2 nopadding">
+                                    <img src="/static/icons/right.svg" alt="answer" title="화살표">
+                                </span>
+                                                <span class="text-center col-2 nopadding">${quList.answerDate}</span>
+                                                <span class="text-center col-5 nopadding">${quList.answerTitle}</span>
+                                                <c:if test="${empty quList.answer}">
+                                                    <span class="text-center col-2 nopadding">미답변</span>
+                                                </c:if>
+                                                <c:if test="${not empty quList.answer}">
+                                                    <span class="text-center col-2 nopadding">답변완료</span>
+                                                </c:if>
+                                                <span class="text-center col-1 nopadding"><img src="/static/icons/up.svg"
+                                                                                               class="rounded- mx-auto checkv" alt="V"
+                                                                                               title="V"></span>
+                                            </div>
+                                            <form  method="get" class="form-floating bottom-line toggleBtn">
+                                                <div class="row d-flex mb-2">
+                                                    <c:if test="${not empty quList.answer}">
+                                                        <div class="col form-floating">
+                                                            <span>${quList.answer}</span>
+                                                        </div>
+                                                    </c:if>
+                                                    <div class="col justify-content-center">
+                                                        <div>
+                                                            <c:if test="${empty quList.answer}">
+
+                                                            </c:if>
+                                                            <c:if test="${not empty quList.answer}">
+                                                                <div class="mb-3">
+                                                                    <label for="title" class="form-label">제목</label>
+                                                                    <input id="title" type="text" name="answerTitle" class="form-control mb-1" placeholder="제목"
+                                                                           value="${quList.answerTitle}" style="width: 500px;">
+                                                                </div>
+                                                            </c:if>
+                                                        </div>
+                                                        <div>
+                                                            <label for="answer">Answer</label>
+                                                            <textarea class="form-control" placeholder="내용을 입력하세요" id="answer"
+                                                                      name="answer" style="height: 200px; width: 500px;">${quList.answer}
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
             </div>
