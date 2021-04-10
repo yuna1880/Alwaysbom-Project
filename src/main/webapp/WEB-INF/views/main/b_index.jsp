@@ -58,7 +58,7 @@
                                     <button type="button" class="btn btn-warning btn-sm me-2"
                                             onclick="clickFileButton(${status.index})">수정</button>
                                     <button type="button" class="btn btn-danger btn-sm"
-                                            onclick="deleteImage(${status.index})">삭제</button>
+                                            onclick="showDeleteModal(${status.index})">삭제</button>
                                     <input type="hidden" name="deleted" value="false">
                                 </div>
                             </div>
@@ -101,12 +101,55 @@
 </div>
 <%@ include file="b_footer.jspf"%>
 
+<!-- 삭제 팝업 -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">삭제하시겠습니까?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button id="deleteConfirm" type="button" class="btn btn-danger" data-bs-dismiss="modal">삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 저장 완료 팝업 -->
+<div class="modal fade" id="saveModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">변경사항이 저장되었습니다</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     function clickFileButton(index) {
         let box = document.querySelectorAll(".image-box")[index];
         let file = box.querySelector("input[type=file]");
 
         file.click();
+    }
+
+    function showDeleteModal(index) {
+        const $deleteModal = document.querySelector("#deleteModal")
+        const $modal = new bootstrap.Modal($deleteModal);
+        const $deleteConfirm = document.querySelector("#deleteConfirm");
+        $deleteConfirm.onclick = function () {
+            deleteImage(index);
+        }
+        $modal.show();
     }
 
     function deleteImage(index) {
@@ -169,12 +212,11 @@
         fetch("/api/admin/configs", option).then(response => {
             response.json().then(result => {
                 console.log(result);
+                new bootstrap.Modal(document.querySelector("#saveModal")).show();
             })
         }).catch(err => {
             console.log(err);
         })
-
-
     }
 </script>
 </body>
