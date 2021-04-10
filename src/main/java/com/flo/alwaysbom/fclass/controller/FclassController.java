@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class FclassController {
     @GetMapping("/fclass/orders")
     public String goMyClassList(@SessionAttribute(required = false) MemberVO member, Model model) {
         OclassSearchOptionDto searchOption = new OclassSearchOptionDto();
-        searchOption.setMemberId(member != null ? member.getId() : "minho1030@naver.com");
+        //searchOption.setMemberId(member != null ? member.getId() : "minho1030@naver.com");
 
         List<OclassVo> orders = oclassService.findBySearchOption(searchOption);
         model.addAttribute("orders", orders);
@@ -72,9 +73,9 @@ public class FclassController {
         List<BranchVo> branchList = fclassVo.getBranchList();
         //전체리뷰 값 가져오기
 //        List<ReviewDto> thisReview = reviewService.thisReview("클래스", "allList", idx);
-        List<ReviewDto> thisReview = fclassService.findReviewsByOption(idx, 1, 5);
+        FclassReviewDto reviewDto = fclassService.findReviewsByOption(idx, 1, 5);
 
-        //베스트리뷰 값 가져오기
+                //베스트리뷰 값 가져오기
         List<ReviewDto> bestReview = reviewService.allReview("클래스", "best", idx);
 
         List<OclassVo> oclassList;
@@ -90,7 +91,7 @@ public class FclassController {
         model.addAttribute("fclassVo", fclassVo);
         model.addAttribute("branchList", branchList);
         //리뷰 불러오기
-        model.addAttribute("thisReviews", thisReview);
+        model.addAttribute("reviewDto", reviewDto);
         model.addAttribute("bestReview", bestReview);
         //리뷰작성 자격있는 클래스리스트
         model.addAttribute("reviewableList", oclassList);
@@ -171,6 +172,7 @@ public class FclassController {
         }
         ovo.setFclassIdx(fvo.getIdx());
         ovo.setScheduleIdx(svo.getIdx());
+        System.out.println("ovo = " + ovo);
         oclassService.addOclass(ovo, svo);
 
         if(svo.getTotalCount() < svo.getRegCount() + ovo.getRegCount() ) {
@@ -185,8 +187,8 @@ public class FclassController {
         model.addAttribute("order", ovo);
 
         /*MemberVO member = new MemberVO();
-        member.setName("임하나");
-        model.addAttribute("member", member);*/
+        member.setName("임하나");*/
+        model.addAttribute("member", member);
 
         return "/fclass/completePayment";
     }
@@ -205,7 +207,35 @@ public class FclassController {
 
     @GetMapping("/fclass/api/classList/{idx}/reviews")
     @ResponseBody
-    public List<ReviewDto> getReviewsByOption(@PathVariable Integer idx, Integer startIndex, Integer endIndex) {
+    public FclassReviewDto getReviewsByOption(@PathVariable Integer idx, Integer startIndex, Integer endIndex) {
         return fclassService.findReviewsByOption(idx, startIndex, endIndex);
+    }
+
+    @PostMapping(value = "/fclass/api/classList/{idx}/reviews", produces = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public ReviewDto addReview(@ModelAttribute FclassReviewForm newReview, @PathVariable Integer idx,
+                               @SessionAttribute MemberVO member) throws IOException {
+
+        ReviewDto reviewDto = null;
+        try {
+            System.out.println("FclassController.addReview");
+            System.out.println("newReview = " + newReview);
+            System.out.println("idx = " + idx);
+            System.out.println("member = " + member);
+
+            newReview.setMemberId(member.getId());
+            newReview.setFclassIdx(idx);
+            newReview.setImage(fileHandler.uploadFile(newReview.getImageFile(), null, "/fclass/reviews"));
+
+            System.out.println("add 전 reviewDto = " + newReview);
+
+            reviewDto = oclassService.addReview(newReview);
+            System.out.println("add 후 reviewDto = " + reviewDto);
+            return reviewDto;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }
