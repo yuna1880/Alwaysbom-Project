@@ -1,6 +1,6 @@
 /* 배너 이미지와 글귀 */
 .banner-wrap {
-    width: 100vw;
+    width: 100%;
     background-color: #efeeeb;
 }
 .w-1280 {

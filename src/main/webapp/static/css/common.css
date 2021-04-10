@@ -8,11 +8,15 @@ body {
     width: 1280px !important;
     background-color: #ffffff;
     padding: 0 3em 6em 3em;
+    min-height: 800px;
 }
 
 /* 가로 폭 */
 .w-1280 {
     width: 1280px;
+}
+.w-806 {
+    width: 806px;
 }
 .w-45 {
     width: 45%;
@@ -22,11 +26,14 @@ body {
 }
 
 /* 글씨 색 */
-.point-color {
+.green-color {
     color: #7DAF3B;
 }
+.point-color {
+    color: #ffc107;
+}
 .bg-point-color {
-    background-color: #7DAF3B;
+    background-color: #ffc107;
 }
 .c-666 {
     color: #666666;

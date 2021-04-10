@@ -101,7 +101,7 @@
 
             <!-- 무료배송 알림 -->
             <div class="fd-announcement d-flex justify-content-start py-3 my-4">
-                3만원 이상 구매시, <span class="point-color fw-500 ps-1">무료배송!</span>
+                3만원 이상 구매시, <span class="green-color fw-500 ps-1">무료배송!</span>
             </div>
 
             <!-- 구매옵션 -->
@@ -212,7 +212,12 @@
                 <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
 
             <%--memberId, category, flowerIdx, image, fsize 임의로 넣어주기--%>
-                <input type="hidden" name="memberId" value="test@test.com">
+                <c:if test="${not empty sessionScope.member}">
+                <input type="hidden" name="memberId" value="${sessionScope.member.id}">
+                </c:if>
+                <c:if test="${empty sessionScope.member}">
+                <input type="hidden" name="memberId" value="">
+                </c:if>
                 <input type="hidden" name="category" value="꽃다발">
                 <input type="hidden" name="flowerIdx" value="${flowerVo.idx}">
                 <input type="hidden" name="image" value="${flowerVo.image1}">
@@ -242,7 +247,7 @@
 
     <!-- 상품설명 -->
     <div id="detail-area" class="overflow-auto d-flex justify-content-center mb-5">
-        <div class="w-auto">${flowerVo.content}</div>
+        <div class="mx-auto">${flowerVo.content}</div>
     </div>
 
     <!-- 리뷰게시판 -->
@@ -270,128 +275,109 @@
 
         <!-- 꽃다발 베스트 리뷰 게시판 -->
         <div id="bestReview">
+            <c:forEach var="bestReviewVo" items="${bestReviewList}">
+            <c:if test="${not empty bestReviewVo}">
             <div class="review-item">
-                <div class="accordion-header" id="review1">
+                <div class="accordion-header" id="best${bestReviewVo.idx}">
                     <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
-                         data-bs-toggle="collapse" data-bs-target="#reviewContent1"
-                         aria-expanded="false" aria-controls="reviewContent1">
+                         data-bs-toggle="collapse" data-bs-target="#bestContent${bestReviewVo.idx}"
+                         aria-expanded="false" aria-controls="bestContent${bestReviewVo.idx}">
                         <span class="col-2 fs-17 c-star ls-narrower">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <c:forEach begin="1" end="5" var="count">
+                            <c:set var="halfStar" value="${true}"/>
+                            <c:if test="${bestReviewVo.star >= count}">
+                                <c:set var="faClassName" value="fas fa-star"/>
+                            </c:if>
+                            <c:if test="${bestReviewVo.star < count}">
+                                <c:set var="faClassName" value="far fa-star"/>
+                                <c:if test="${bestReviewVo.star + 1 > count and bestReviewVo.star % 1 > 0 and halfStar}">
+                                    <c:set var="halfStar" value="${false}"/>
+                                    <c:set var="faClassName" value="fas fa-star-half-alt"/>
+                                </c:if>
+                            </c:if>
+                            <i class="${faClassName} fs-6"></i>
+                            </c:forEach>
                         </span>
                         <span class="col-5 fs-17">
-                            정말 마음에 들어요!<span class="c-bbb ms-2"><i class="fas fa-images"></i></span>
+                            ${bestReviewVo.name}
+                            <c:if test="${not empty bestReviewVo.image}">
+                                <span class="c-bbb ms-2"><i class="fas fa-images"></i></span>
+                            </c:if>
                         </span>
-                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
-                        <span class="col-2 text-center c-666 fw-light">작성일</span>
+                        <span class="col-2 text-center c-666 fw-light">${bestReviewVo.memberId.substring(0,4)}***님</span>
+                        <span class="col-2 text-center c-666 fw-light">${bestReviewVo.regDate}</span>
                     </div>
                 </div>
-                <div id="reviewContent1" class="accordion-collapse collapse border-0" aria-labelledby="review1"
+                <div id="bestContent${bestReviewVo.idx}" class="accordion-collapse collapse border-0" aria-labelledby="best${bestReviewVo.idx}"
                      data-bs-parent="#bestReview">
                     <div class="accordion-body bb-1">
                         <div class="col-5 d-flex flex-column ms-13">
-                        <img src="../../../static/image/flower/flower1.jpg" alt="dummy" class="col-9">
+                        <c:if test="${not empty bestReviewVo.image}">
+                        <img src="${bestReviewVo.image}" alt="image" class="col-9">
+                        </c:if>
                         <div class="my-4">
-                            리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
+                            ${bestReviewVo.content}
                         </div>
                     </div>
                     </div>
                 </div>
             </div>
-            <div class="review-item">
-                <div class="accordion-header" id="review2">
-                    <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
-                         data-bs-toggle="collapse" data-bs-target="#reviewContent2"
-                         aria-expanded="false" aria-controls="reviewContent2">
-                        <span class="col-2 fs-17 c-star ls-narrower">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </span>
-                        <span class="col-5 fs-17">배송이 빨랐어요.<span class="c-bbb ms-2"><i class="fas fa-images"></i></span></span>
-                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
-                        <span class="col-2 text-center c-666 fw-light">작성일</span>
-                    </div>
-                </div>
-                <div id="reviewContent2" class="accordion-collapse collapse border-0" aria-labelledby="review2" data-bs-parent="#bestReview">
-                    <div class="accordion-body bb-1">
-                        <div class="col-5 d-flex flex-column ms-13">
-                            <img src="../../../static/image/flower/vase3-1.jpg" alt="dummy" class="col-9">
-                            <div class="my-4">
-                                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </c:if>
+            </c:forEach>
         </div> <!-- #bestReview 닫기 -->
 
         <!-- 이 상품의 리뷰 게시판 -->
         <div id="thisReview" class="d-none">
+            <c:forEach var="thisReviewVo" items="${thisReviewList}">
+            <c:if test="${not empty thisReviewVo}">
             <div class="review-item">
-                <div class="accordion-header" id="thisReview1">
+                <div class="accordion-header" id="this${thisReviewVo.idx}">
                     <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
-                         data-bs-toggle="collapse" data-bs-target="#thisReviewContent1"
-                         aria-expanded="false" aria-controls="thisReviewContent1">
+                         data-bs-toggle="collapse" data-bs-target="#thisContent${thisReviewVo.idx}"
+                         aria-expanded="false" aria-controls="thisContent${thisReviewVo.idx}">
                         <span class="col-2 fs-17 c-star ls-narrower">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
+                            <c:forEach begin="1" end="5" var="count">
+                            <c:set var="halfStar" value="${true}"/>
+                            <c:if test="${thisReviewVo.star >= count}">
+                                <c:set var="faClassName" value="fas fa-star"/>
+                            </c:if>
+                            <c:if test="${thisReviewVo.star < count}">
+                                <c:set var="faClassName" value="far fa-star"/>
+                                <c:if test="${thisReviewVo.star + 1 > count and thisReviewVo.star % 1 > 0 and halfStar}">
+                                    <c:set var="halfStar" value="${false}"/>
+                                    <c:set var="faClassName" value="fas fa-star-half-alt"/>
+                                </c:if>
+                            </c:if>
+                            <i class="${faClassName} fs-6"></i>
+                            </c:forEach>
                         </span>
-                        <span class="col-5 fs-17">리뷰 제목<span class="c-bbb ms-2"><i class="fas fa-images"></i></span></span>
-                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
-                        <span class="col-2 text-center c-666 fw-light">작성일</span>
+                        <span class="col-5 fs-17">
+                            ${thisReviewVo.name}
+                            <c:if test="${not empty thisReviewVo.image}">
+                                <span class="c-bbb ms-2"><i class="fas fa-images"></i></span>
+                            </c:if>
+                        </span>
+                        <span class="col-2 text-center c-666 fw-light">${thisReviewVo.memberId.substring(0,4)}***님</span>
+                        <span class="col-2 text-center c-666 fw-light">${thisReviewVo.regDate}</span>
                     </div>
                 </div>
-                <div id="thisReviewContent1" class="accordion-collapse collapse border-0" aria-labelledby="thisReview1"
+                <div id="thisContent${thisReviewVo.idx}" class="accordion-collapse collapse border-0" aria-labelledby="this${thisReviewVo.idx}"
                      data-bs-parent="#thisReview">
                     <div class="accordion-body bb-1">
                         <div class="col-5 d-flex flex-column ms-13">
-                            <img src="../../../static/image/flower/vase3-2.jpg" alt="dummy" class="col-9">
+                            <c:if test="${not empty thisReviewVo.image}">
+                                <img src="${thisReviewVo.image}" alt="image" class="col-9">
+                            </c:if>
                             <div class="my-4">
-                                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
+                                ${thisReviewVo.content}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="review-item">
-                <div class="accordion-header" id="thisReview2">
-                    <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
-                         data-bs-toggle="collapse" data-bs-target="#thisReviewContent2"
-                         aria-expanded="false" aria-controls="thisReviewContent2">
-                        <span class="col-2 fs-17 c-star ls-narrower">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </span>
-                        <span class="col-5 fs-17">리뷰 제목<span class="c-bbb ms-2"><i class="fas fa-images"></i></span></span>
-                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
-                        <span class="col-2 text-center c-666 fw-light">작성일</span>
-                    </div>
-                </div>
-                <div id="thisReviewContent2" class="accordion-collapse collapse border-0" aria-labelledby="thisReview2"
-                     data-bs-parent="#thisReview">
-                    <div class="accordion-body bb-1">
-                        <div class="col-5 d-flex flex-column ms-13">
-                            <img src="../../../static/image/flower/flower2.jpg" alt="dummy" class="col-9">
-                            <div class="my-4">
-                                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </c:if>
+            </c:forEach>
+        </div> <!-- #thisReview 닫기 -->
 
 
     </div> <!-- 리뷰게시판 닫기 -->
@@ -706,7 +692,7 @@
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8'
             }
-        }
+        };
 
         const response = await fetch("/api/carts", option);
         const result = await response.json();

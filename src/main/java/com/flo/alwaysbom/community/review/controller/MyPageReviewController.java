@@ -30,5 +30,4 @@ public class MyPageReviewController {
 //        return "community/com_mypage_review";
 //    }
 
-
 }

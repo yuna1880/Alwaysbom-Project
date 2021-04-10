@@ -4,6 +4,7 @@ import com.flo.alwaysbom.community.review.dao.ReviewDao;
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
 import com.flo.alwaysbom.flower.dao.FlowerDao;
+import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.dao.OrdersDao;
 import com.flo.alwaysbom.order.vo.OitemVo;
 import com.flo.alwaysbom.order.vo.OrdersSearchOptionDto;
@@ -75,8 +76,9 @@ public class ReviewService {
         return reviews;
     }
 
-    public void deleteReview(Integer idx) {
-        reviewDao.searchReview(idx);
+    public void deleteReview(Integer idx, MemberVO member) {
+        reviewDao.searchReview(idx, member);
+
     }
 
     public List<ReviewLikeVo> likeList() {
@@ -114,11 +116,46 @@ public class ReviewService {
         else if(category.equals("클래스")){
             return null;
         }
+
+
         return dto;
     }
 
 
     public void addReview(ReviewDto vo, Integer idx) {
         reviewDao.addReview(vo, idx);
+    }
+
+    public ReviewDto updateWrite(String category, String name, Integer reviewIdx) {
+        ReviewDto dto = new ReviewDto();
+        if(category.equals("꽃다발")){
+            Integer fIdx = flowerDao.findByname(name);
+            dto.setCategory(category);
+            dto.setFlowerIdx(fIdx);
+            System.out.println(dto);
+        }
+        else if(category.equals("정기구독")){
+            Integer sIdx = subDao.findByName(name);
+            dto.setCategory(category);
+            dto.setSubsIdx(sIdx);
+        }
+        else if(category.equals("소품")){
+            Integer pIdx = productDao.findByName(name);
+            dto.setCategory(category);
+            dto.setProductIdx(pIdx);
+        }
+
+        else if(category.equals("클래스")){
+            return dto;
+        }
+        return dto;
+    }
+
+    public ReviewDto findByIdx(Integer reviewIdx) {
+        return reviewDao.findByIdx(reviewIdx);
+    }
+
+    public void updateReview(ReviewDto vo, Integer idx) {
+        reviewDao.updateReview(vo);
     }
 }

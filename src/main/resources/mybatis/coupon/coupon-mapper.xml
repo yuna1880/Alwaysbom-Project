@@ -39,4 +39,10 @@
         DELETE FROM COUPON
         WHERE IDX = #{idx}
     </delete>
+
+    <update id="updateCouponStatus" parameterType="com.flo.alwaysbom.coupon.vo.CouponVo">
+        UPDATE COUPON
+        SET STATUS = #{status}
+        WHERE IDX = #{idx}
+    </update>
 </mapper>

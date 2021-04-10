@@ -33,4 +33,5 @@ public class OclassVo {
     private Integer fclassIdx;
     private Integer scheduleIdx;
     private Date orderDate;
+    private Integer reviewIdx;
 }

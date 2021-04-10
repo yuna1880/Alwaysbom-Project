@@ -21,7 +21,6 @@
                         <span>님의 주문내역</span>
                         <hr>
                     </div>
-
                     <div id="ordersListContent" class="fs-6">
                         <!-- 담은 수만큼 생성 -->
                         <c:forEach var="order" items="${ordersList}" varStatus="status">
@@ -29,14 +28,14 @@
                                 <li class="d-flex align-items-center border-bottom py-3 bg-light">
                                     <div class="col-7 d-flex align-items-center">
                                         주문번호 : ${order.idx}
-                                        <c:if test="${order.status eq '입금대기' && order.status eq '결제완료'}">
-                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" onclick="CancelOrder(this)">주문취소</button>
+                                        <c:if test="${order.status eq '입금대기' || order.status eq '결제완료'}">
+                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" data-index="${status.index}" onclick="CancelOrder(this, ${status.index})">주문취소</button>
                                         </c:if>
                                         <c:if test="${order.status eq '주문취소'}">
                                             <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button">취소요청중</button>
                                         </c:if>
                                         <c:if test="${order.status eq '배송중'}">
-                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" onclick="ConfirmOrder(this)">구매확정</button>
+                                            <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" data-index="${status.index}" onclick="ConfirmOrder(this ,${status.index})">구매확정</button>
                                         </c:if>
                                         <c:if test="${order.status eq '배송완료'}">
                                             <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" onclick="">리뷰작성</button>
@@ -46,7 +45,7 @@
                                         <span class="badge bg-secondary" id="order-date">주문일 : ${order.odate}</span>
                                     </div>
                                 </li>
-                                <c:forEach var="oitem" items="${ordersList.get(status.index).olist}">
+                                <c:forEach var="oitem" items="${ordersList.get(status.index).olist}" varStatus="nextStatus">
                                     <li class="d-flex border-bottom py-3">
                                         <div style="background-color: white" class="col-7 d-flex">
                                             <div class="overflow-hidden">
@@ -72,17 +71,22 @@
                                                 <div>
                                                     <span>가격</span>
                                                     <span>
-                                                            <fmt:formatNumber value="${oitem.price}" pattern="#,### 원"/>
-                                                        </span>
+                                                        <fmt:formatNumber value="${oitem.price}" pattern="#,### 원"/>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="background-color: white" class="col-5 d-flex flex-column">
+                                        <div style="background-color: white" class="col-5 d-flex flex-column lh-base">
                                             <div>수령인 이름 : ${order.senderName}</div>
                                             <div class="fst-italic">수령인 연락처 : ${order.receiverPhone}</div>
                                             <div>[수령 요청일] : ${oitem.requestDate}</div>
                                             <div>결제방법 : ${order.payType}</div>
-                                            <div class="fw-bold">주문상태 : ${order.status}</div>
+                                            <br>
+                                            <div class="fw-bold" >주문상태 :
+<%--                                                <i id="status" data-index="${status.index}">${order.status}</i>--%>
+                                                <span class="badge bg-warning text-dark" id="status" data-index="${status.index}">${order.status}</span>
+                                            </div>
+                                            <input type="hidden" id="orderStatus" value="${order.status}">
                                         </div>
                                     </li>
                                 </c:forEach>
@@ -181,7 +185,6 @@
                     <%--                                    </tbody>--%>
                     <%--                            </table>--%>
                     <%--                        </c:forEach>--%>
-
                 </div>
             </div>
         </div>
@@ -189,9 +192,9 @@
 </div>
 <script>
     //주문취소 -> 취소요청중
-    function CancelOrder(btn) {
+    function CancelOrder(btn, index) {
         const idx = btn.dataset.orderIdx;
-
+        console.log("인덱스 들어오녀ㅑ?? : "+index);
         const option = {
             method: 'put',
             body: '주문취소',
@@ -207,7 +210,10 @@
                 console.log(result);
                 if (result) {
                     alert("주문 취소 요청이 완료되었습니다. 관리자 승인 후 취소처리됩니다.");
-
+                    document.querySelector("#status[data-index='" + index + "']").innerText = '취소요청중';
+                    document.querySelector("#order-button[data-index='" + index + "']").value = '취소요청중';
+                    location.reload();
+                    //document.querySelector("#status-text").innerText = '취소요청중';
                 } else {
                     alert("실패입니다");
                 }
@@ -216,7 +222,7 @@
     }
 
     //배송중 -> 배송완료
-    function ConfirmOrder(btn) {
+    function ConfirmOrder(btn, index) {
         const idx = btn.dataset.orderIdx;
 
         const option = {
@@ -234,7 +240,9 @@
                 console.log(result);
                 if (result) {
                     alert("상품을 받으셨나요? 리뷰를 작성해주세요.");
-
+                    document.querySelector("#status[data-index='" + index + "']").innerText = '배송완료';
+                    document.querySelector("#order-button[data-index='" + index + "']").innerText = '배송완료';
+                    location.reload();
                 } else {
                     alert("실패입니다");
                 }

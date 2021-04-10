@@ -47,6 +47,30 @@
     </select>
 
 
+    <!-- (R) 꽃다발 베스트 리뷰 찾기 -->
+    <select id="findBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT  RN, FF.*
+        FROM    (
+                SELECT  ROWNUM RN, F.*
+                FROM    (
+                        SELECT   *
+                        FROM     REVIEW
+                        WHERE    CATEGORY = '꽃다발'
+                        ORDER BY LIKE_COUNT DESC
+                        ) F
+                ) FF
+        WHERE   RN BETWEEN 1 AND 10
+    </select>
+
+
+    <!-- (R) 해당 상품 인덱스의 리뷰 찾기 -->
+    <select id="findReviewByIdx" parameterType="Integer" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT  *
+        FROM    REVIEW
+        WHERE   CATEGORY = '꽃다발' AND FLOWER_IDX = #{idx}
+    </select>
+
+
     <!-- (U) 관리자가 상품 수정 -->
     <update id="updateFlower" parameterType="com.flo.alwaysbom.flower.vo.FlowerVo">
         UPDATE  FLOWER
@@ -71,8 +95,9 @@
         WHERE   IDX = #{idx}
     </update>
 
+
     <!-- 이름으로 찾기 -->
-    <select id="findByname" parameterType="String" resultType="int">
+    <select id="findByName" parameterType="String" resultType="int">
         SELECT IDX
         FROM FLOWER
         WHERE NAME = #{name}
