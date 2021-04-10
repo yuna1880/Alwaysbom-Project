@@ -59,7 +59,6 @@ public class SubsController {
             map.put("memberId", member.getId());
             oitemList = subsService.findAvailableOitemToReview(map);
         }
-        System.out.println("oitemList : " + oitemList);
         model.addAttribute("subsVo",subs);
         model.addAttribute("productList", productList);
         model.addAttribute("bestReviewList", bestReviewList);
@@ -79,11 +78,7 @@ public class SubsController {
             newReview.setMemberId(member.getId());
             newReview.setCategory("정기구독");
             newReview.setImage(fileHandler.uploadFile(newReview.getImageFile(), null, "/subs/reviews"));
-
-            System.out.println("add 전 reviewDto = " + newReview);
             reviewDto = itemService.addReview(newReview);
-            System.out.println("add 후 reviewDto = " + reviewDto);
-
             return reviewDto;
         } catch (Exception e) {
             e.printStackTrace();

@@ -14,20 +14,21 @@
 <!-- 메인 슬라이드 이미지 -->
 <div id="mainSlide" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-        <button type="button" data-bs-target="#mainSlide" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#mainSlide" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#mainSlide" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <c:forEach var="images" items="${mainVo.images}" varStatus="status">
+    <c:if test="${not empty images.path}">
+        <button type="button" data-bs-target="#mainSlide" data-bs-slide-to="${status.index}" class=${status.index == 0 ? "active" : ""}
+                aria-current=${status.index == 0 ? "true" : ""} aria-label="Slide ${status.index + 1}"></button>
+    </c:if>
+    </c:forEach>
     </div>
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="/static/image/main/main_sample2.jpg" class="d-block w-100 main-img" alt="메인배너">
+        <c:forEach var="images" items="${mainVo.images}" varStatus="status">
+        <c:if test="${not empty images.path}">
+        <div class="carousel-item ${status.index == 0 ? "active" : ""}">
+            <a href="${images.link}"><img src="${images.path}" class="d-block w-100 main-img" alt="메인배너"></a>
         </div>
-        <div class="carousel-item">
-            <img src="/static/image/main/main_sample.jpg" class="d-block w-100 main-img" alt="메인배너">
-        </div>
-        <div class="carousel-item">
-            <img src="/static/image/main/main_sample3.jpg" class="d-block w-100 main-img" alt="메인배너">
-        </div>
+        </c:if>
+        </c:forEach>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#mainSlide" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -68,10 +69,10 @@
                 <c:forEach var="subsVo" items="${subsList}" varStatus="status">
                 <c:if test="${not empty subsVo}">
                 <li class="${status.index > 2 ? "" : "me-15"}">
-                    <img src="${subsVo.image1}" alt="subs" class="mb-2">
+                    <a href="/subs/${subsVo.idx}"><img src="${subsVo.image1}" alt="subs" class="mb-2"></a>
                     <div class="d-flex flex-column">
                         <span class="subheader">${subsVo.subheader}</span>
-                        <span class="item-name">${subsVo.name}</span>
+                        <span class="item-name"><a href="/subs/${subsVo.idx}">${subsVo.name}</a></span>
                         <div class="price-wrap">
                             <span class="discount-rate">1회 기준</span>
                             <span class="final-price">
@@ -155,16 +156,18 @@
         <!-- 상품 썸네일 리스트 -->
         <!----------------------------------------->
         <div class="px-4 mx-2">
-            <div class="mb-5 d-flex justify-content-between">
+            <div class="mb-5 d-flex justify-content-start">
                 <div class="col-6 pe-2 overflow-hidden height-400px">
-                    <img src="/static/image/flower/flower2.jpg" alt="썸네일" class="w-100">
+                    <img src="${fclassBig.image1}" alt="썸네일" class="w-100">
                 </div>
-                <div class="col-6 ps-2 d-flex flex-column justify-content-between">
-                    <div>
-
+                <div class="col-6 ps-4 d-flex justify-content-between">
+                    <div class="col-6">
+                        <img src="${fclassSmall.image1}" alt="썸네일" class="w-100">
                     </div>
-                    <div>
-
+                    <div class="col-5 d-flex flex-column">
+                        <span>${fclassSmall.subheader}</span>
+                        <span>${fclassSmall.name}</span>
+                        <span>${fclassSmall.finalPrice}</span>
                     </div>
                 </div>
             </div>
