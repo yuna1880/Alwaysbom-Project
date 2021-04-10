@@ -60,6 +60,10 @@ public class FclassDao {
         return fclassVos;
     }
 
+    public Integer findReviewsCount(Integer idx) {
+        return sqlSessionTemplate.selectOne("fclass.findReviewsCount", idx);
+    }
+
     public List<ReviewDto> findReviewsByOption(Integer idx, Integer startIndex, Integer endIndex) {
         Map<String, Integer> map = new HashMap<>();
         map.put("idx", idx);

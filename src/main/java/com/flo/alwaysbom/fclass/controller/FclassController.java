@@ -72,9 +72,9 @@ public class FclassController {
         List<BranchVo> branchList = fclassVo.getBranchList();
         //전체리뷰 값 가져오기
 //        List<ReviewDto> thisReview = reviewService.thisReview("클래스", "allList", idx);
-        List<ReviewDto> thisReview = fclassService.findReviewsByOption(idx, 1, 5);
+        FclassReviewDto reviewDto = fclassService.findReviewsByOption(idx, 1, 5);
 
-        //베스트리뷰 값 가져오기
+                //베스트리뷰 값 가져오기
         List<ReviewDto> bestReview = reviewService.allReview("클래스", "best", idx);
 
         List<OclassVo> oclassList;
@@ -90,7 +90,7 @@ public class FclassController {
         model.addAttribute("fclassVo", fclassVo);
         model.addAttribute("branchList", branchList);
         //리뷰 불러오기
-        model.addAttribute("thisReviews", thisReview);
+        model.addAttribute("reviewDto", reviewDto);
         model.addAttribute("bestReview", bestReview);
         //리뷰작성 자격있는 클래스리스트
         model.addAttribute("reviewableList", oclassList);
@@ -206,7 +206,7 @@ public class FclassController {
 
     @GetMapping("/fclass/api/classList/{idx}/reviews")
     @ResponseBody
-    public List<ReviewDto> getReviewsByOption(@PathVariable Integer idx, Integer startIndex, Integer endIndex) {
+    public FclassReviewDto getReviewsByOption(@PathVariable Integer idx, Integer startIndex, Integer endIndex) {
         return fclassService.findReviewsByOption(idx, startIndex, endIndex);
     }
 }
