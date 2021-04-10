@@ -11,19 +11,13 @@
             position: relative;
         }
 
-        .square::after {
-            content: "";
-            display: block;
-            padding-bottom: 100%;
-        }
-
         .square.wide::after {
             content: "";
             display: block;
             padding-bottom: 40%;
         }
 
-        .square > .inner {
+        .square .inner {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -33,83 +27,91 @@
 </head>
 <body>
 <%@ include file="b_header.jspf" %>
-<div id="container" class="mx-auto bg-warning d-flex flex-column">
-    <div>
+<div id="container" class="mx-auto bg-white d-flex flex-column p-3">
+    <div class="pb-3">
         <h2 class="m-0 p-0">메인 페이지 관리</h2>
     </div>
-    <form enctype="multipart/form-data" class="d-flex flex-column">
+    <form enctype="multipart/form-data" class="d-flex flex-column border border-secondary col-12">
         <div class="d-flex">
-            <div class="col-2 p-3">메인 이미지 등록</div>
-            <ul class="col-10 list-unstyled m-0 p-0 d-flex flex-wrap">
-                <c:forEach var="index" begin="0" end="5" varStatus="status">
-                <li class="col-6 p-3">
-                    <div class="col-12 square wide d-flex">
-                        <img class="inner" alt="..." src="/static/image/homeimg.jpg">
+            <div class="col-2 border-bottom border-end border-secondary bg-warning p-3">메인 이미지 등록</div>
+            <ul class="col-10 list-unstyled m-0 p-0 d-flex flex-wrap border-bottom border-secondary">
+                <c:forEach var="image" items="${mainConfig.images}" varStatus="status">
+                <li class="col-6 p-3 image-box">
+                    <input type="file" name="image" class="visually-hidden"
+                           onchange="changeImage(this, ${status.index})">
+                    <div class="position-relative col-12 square wide">
+                        <button type="button" onclick="clickFileButton(${status.index})"
+                                class="inner empty btn btn-outline-warning ${not empty image.path ? "d-none" : ""}">
+                            등록
+                        </button>
+                        <div class="inner exist ${empty image.path ? "d-none" : ""}">
+                            <img src="${not empty image.path ? image.path : ""}" alt="" class="inner">
+                            <div class="position-absolute end-0 top-0">
+                                <div class="d-flex p-3">
+                                    <select name="link" class="me-2" ${empty image.path ? "disabled" : ""}>
+                                        <option value="/subs" ${image.link eq "/subs" ? "selected" : ""}>정기구독</option>
+                                        <option value="/flower" ${image.link eq "/flower" ? "selected" : ""}>꽃다발</option>
+                                        <option value="/product" ${image.link eq "/product" ? "selected" : ""}>소품샵</option>
+                                        <option value="/fclass" ${image.link eq "/fclass" ? "selected" : ""}>클래스</option>
+                                        <option value="/community" ${image.link eq "/community" ? "selected" : ""}>커뮤니티</option>
+                                    </select>
+                                    <button type="button" class="btn btn-warning btn-sm me-2"
+                                            onclick="clickFileButton('image${status.index}')">수정</button>
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="deleteImage(${status.index})">삭제</button>
+                                    <input type="hidden" name="deleted" value="false">
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </li>
                 </c:forEach>
             </ul>
         </div>
-        <div class="d-flex">
-            <div class="col-2 p-3">
+        <div class="d-flex border-bottom border-secondary">
+            <div class="col-2 p-3 border-secondary border-end bg-warning">
                 <div>플라워 클래스</div>
             </div>
             <div class="col-10 p-3 d-flex">
                 <div class="col-3 d-flex flex-column me-3">
-                    <label for="thumb_bg">썸네일 대형</label>
-                    <select class="form-select" id="thumb_bg">
-                        <option selected disabled>썸네일 대형</option>
+                    <label for="fclassIdxBig">썸네일 대형</label>
+                    <select class="form-select" id="fclassIdxBig">
+                        <c:forEach var="fclass" items="${classes}">
+                            <option value="${fclass.idx}" ${fclass.idx == mainConfig.fclassIdxBig ? "selected" : ""}>${fclass.name}</option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="col-3 d-flex flex-column">
-                    <label for="thumb_sm">썸네일 소형</label>
-                    <select class="form-select" id="thumb_sm">
-                        <option selected disabled>썸네일 소형</option>
+                    <label for="fclassIdxSmall">썸네일 소형</label>
+                    <select class="form-select" id="fclassIdxSmall">
+                        <c:forEach var="fclass" items="${classes}">
+                            <option value="${fclass.idx}" ${fclass.idx == mainConfig.fclassIdxSmall ? "selected" : ""}>${fclass.name}</option>
+                        </c:forEach>
                     </select>
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-secondary gap-2 col-4 mt-3 align-self-center text-white">변경사항 저장</button>
-    </form>
-</div>
-
-<div class="modal fade" id="myModal" data-bs-backdrop="static"
-     data-bs-keyboard="false"
-     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">해당 이미지 클릭시 이동할 메뉴 페이지 지정</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="link" id="ra1" value="/subs/" checked>
-                    <label class="form-check-label" for="ra1">꽃 정기구독</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="link" id="ra2" value="/flower/">
-                    <label class="form-check-label" for="ra2">꽃다발</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="link" id="ra3" value="/">
-                    <label class="form-check-label" for="ra3">main</label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Understood</button>
-            </div>
+        <div class="p-3 d-flex flex-column align-items-center bg-secondary">
+            <button type="button" class="btn btn-dark col-4"
+                    onclick="saveConfig(this.form)">변경사항 저장
+            </button>
         </div>
-    </div>
+    </form>
 </div>
 <%@ include file="b_footer.jspf"%>
 
 <script>
-    function deleteImage(current) {
-        let box = document.querySelector(".image-ul-item:nth-child(" + current + ") .my-box");
-        let file = box.querySelector("input[type='file']");
+    function clickFileButton(index) {
+        let box = document.querySelectorAll(".image-box")[index];
+        let file = box.querySelector("input[type=file]");
+
+        file.click();
+    }
+
+    function deleteImage(index) {
+        let box = document.querySelectorAll(".image-box")[index];
+        let file = box.querySelector("input[type=file]");
         file.value = "";
 
         let img = box.querySelector("img");
@@ -120,17 +122,14 @@
 
         let empty = box.querySelector(".empty");
         empty.classList.remove("d-none");
-
-        box.classList.add("btn");
-        box.classList.add("btn-outline-secondary");
-
+        box.querySelector("select").setAttribute("disabled", "true");
+        let deleted = box.querySelector("[name=deleted]");
+        deleted.value = "true";
     }
 
-    function changeImage(file, current) {
+    function changeImage(file, index) {
         let fileReader = new FileReader();
-        let box = document.querySelector(".image-ul-item:nth-child(" + current + ") .my-box");
-        console.log(box);
-
+        let box = document.querySelectorAll(".image-box")[index];
 
         fileReader.onload = function (e) {
             let img = box.querySelector("img");
@@ -141,13 +140,41 @@
 
             let empty = box.querySelector(".empty");
             empty.classList.add("d-none");
-
-            box.classList.remove("btn");
-            box.classList.remove("btn-outline-secondary");
         }
 
         fileReader.readAsDataURL(file.files[0])
-        console.log(current);
+
+        if (file.files[0]) {
+            box.querySelector("select").removeAttribute("disabled");
+        }
+    }
+
+    function saveConfig(form) {
+        let formData = new FormData();
+        // let file = document.querySelector("[type=file]").files[0];
+        let files = document.querySelectorAll("[type=file]");
+        files.forEach((file, index) => {
+            formData.append("image", file.files[0] || new Blob());
+            formData.append("link", form.link[index].value);
+            formData.append("deleted", form.deleted[index].value);
+        });
+        formData.append("fclassIdxBig", document.querySelector("#fclassIdxBig").value);
+        formData.append("fclassIdxSmall", document.querySelector("#fclassIdxSmall").value);
+
+        const option = {
+            method: "POST",
+            body: formData,
+        };
+
+        fetch("/api/admin/configs", option).then(response => {
+            response.json().then(result => {
+                console.log(result);
+            })
+        }).catch(err => {
+            console.log(err);
+        })
+
+
     }
 </script>
 </body>

@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.main.dao;
 
+import com.flo.alwaysbom.main.vo.MainImage;
 import com.flo.alwaysbom.main.vo.MainVo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -13,21 +14,20 @@ public class MainDao {
 
     private final SqlSessionTemplate sessionTemplate;
 
-    public void addImage(MainVo mainVo) {
-        sessionTemplate.insert("main.addImage", mainVo);
+
+    public MainVo getConfig() {
+        return sessionTemplate.selectOne("main.getConfig");
     }
 
-    public void updateImage(MainVo mainVo) {
-        sessionTemplate.update("main.updateImage", mainVo);
+    public List<MainImage> getImages() {
+        return sessionTemplate.selectList("main.getImages");
     }
 
-    public void deleteImage(int imageNum) {
-        sessionTemplate.delete("main.deleteImage", imageNum);
+    public void updateConfig(MainVo mainVo) {
+        sessionTemplate.update("main.updateConfig", mainVo);
     }
 
-    public List<MainVo> findImages() {
-        return sessionTemplate.selectList("main.findImages");
+    public void updateImages(MainImage image) {
+        sessionTemplate.update("main.updateImages", image);
     }
-
-
 }

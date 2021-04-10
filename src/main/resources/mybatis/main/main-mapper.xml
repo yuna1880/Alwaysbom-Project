@@ -3,25 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="main">
-    <insert id="addImage" parameterType="com.flo.alwaysbom.main.vo.MainVo">
-        insert into MAIN
-        values (#{imageNum}, #{imageName})
-    </insert>
+    <select id="getImages" resultType="com.flo.alwaysbom.main.vo.MainImage">
+        SELECT * FROM MAIN_IMAGE
+    </select>
 
-    <update id="updateImage" parameterType="com.flo.alwaysbom.main.vo.MainVo">
-        update MAIN
-        SET IMAGE_NAME = #{imageName}
-        WHERE IMAGE_NUM = #{imageNum}
+    <select id="getConfig" resultType="com.flo.alwaysbom.main.vo.MainVo">
+        SELECT NVL(FCLASS_IDX_BIG, 0) as FCLASS_IDX_BIG, NVL(FCLASS_IDX_SMALL, 0) as FCLASS_IDX_SMALL FROM MAIN
+    </select>
+
+    <update id="updateConfig" parameterType="com.flo.alwaysbom.main.vo.MainVo">
+        UPDATE MAIN
+        SET FCLASS_IDX_BIG = #{fclassIdxBig}, FCLASS_IDX_SMALL = #{fclassIdxSmall}
     </update>
 
-    <delete id="deleteImage" parameterType="int">
-        delete from MAIN
-        where IMAGE_NUM = #{imageNum}
-    </delete>
+    <update id="updateImages" parameterType="com.flo.alwaysbom.main.vo.MainImage">
+        UPDATE MAIN_IMAGE
+        SET PATH = #{path}, LINK = #{link}
+        WHERE IDX = #{idx}
+    </update>
 
-    <select id="findImages" resultType="com.flo.alwaysbom.main.vo.MainVo">
-        SELECT * FROM MAIN
-        ORDER BY IMAGE_NUM
-    </select>
 
 </mapper>
