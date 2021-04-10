@@ -420,8 +420,8 @@
         $('.allBoxes').remove();
         $("#searchMoreNotify").css("display", "block");
         let startIndex = 1;	// 인덱스 초기값
-        let searchStep = 1;	// 5개씩 로딩
-        let _endIndex = 1;
+        let searchStep = 5;	// 5개씩 로딩
+        let _endIndex = 5;
         goApiAllList(startIndex, searchStep, _endIndex);
         // $(".accordion_count").css("display", "none");
     }
