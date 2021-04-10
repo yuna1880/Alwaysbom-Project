@@ -200,7 +200,7 @@
                         <input type="hidden" name="memberId" value="">
                     </c:if>
                     <input type="hidden" name="category" value="소품샵">
-                    <input type="hidden" name="productIdx" value="${productVo.idx}">
+                    <input type="hidden" name="productIdx" value="${productVo.idx}" id="productIdx">
                     <input type="hidden" name="image" value="${productVo.image1}">
                     <input type="hidden" id="fsize" name="fsize" value="${productVo.fsize}">
                     <%----------------------------------------------------------------%>
@@ -239,7 +239,137 @@
                     <span class="fs-2 fw-500 py-3 pe-5">리뷰</span>
                     <span class="fs-5 c-666">리뷰 작성 시 200P 적립 (사진 등록 시 300P)</span>
                 </div>
-                <span class="fs-17"><a href="#" class="fw-500">리뷰 쓰기</a></span>
+                <!-- 리뷰작성이 가능한 케이스 -->
+                <c:if test="${not empty oitemList}">
+                <c:forEach var="oitemVo" items="${oitemList}" varStatus="status">
+                <c:if test="${status.index == 0}">
+                <input type="hidden" name="oitemIdx" value="${oitemVo.idx}" id="oitemIdx">
+                <span class="fs-17"><a class="fw500" data-bs-toggle="modal" href="#reviewPossible" role="button">리뷰 쓰기</a></span>
+                    <div class="modal fade" id="reviewPossible" aria-hidden="true" aria-labelledby="..." tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="fs-19 p-5 mb-5">
+                                    ${sessionScope.member.name} 고객님께서는 이미 해당 상품을<br>
+                                    구매하신 이력이 있습니다.<br><br>
+                                    상품이 마음에 드셨나요?<br><br>
+                                    리뷰를 작성해주시면 200포인트를 적립해드려요.<br>
+                                    (사진 첨부시 +100P!)
+                                </div>
+                                <div class="modal-footer">
+                                    <!-- Toggle to second dialog -->
+                                    <button class="btn btn-dark fs-19" data-bs-target="#writingReview" data-bs-toggle="modal"
+                                            data-bs-dismiss="modal">리뷰 쓰기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Second modal dialog (리뷰 쓰기 창) -->
+                    <div class="modal fade " id="writingReview" tabindex="-1" aria-labelledby="writingReviewLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered ">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="writingReviewLabel">리뷰 쓰기</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <!-- 리뷰 제목-->
+                                        <div class="mb-3">
+                                            <label for="review-title" class="col-form-label">리뷰 제목</label>
+                                            <input type="text" class="form-control" id="review-title">
+                                        </div>
+                                        <!-- 사진 첨부 -->
+                                        <div class="mb-3">
+                                            <label for="review-file" class="col-form-label">사진 첨부</label>
+                                            <input type="file" class="form-control text-secondary" id="review-file" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                        </div>
+                                        <!-- 리뷰 내용 -->
+                                        <div class="mb-3">
+                                            <label for="review-content" class="col-form-label">내용</label>
+                                            <textarea class="form-control" id="review-content" rows="5"></textarea>
+                                        </div>
+                                        <!-- 별점 선택하기 -->
+                                        <div class="mb-3">
+                                            <label for="review-star" class="col-form-label">별점</label>
+                                            <div class="d-flex btn-group text-warning fs-2 ps-3 pb-1" role="group" id="review-star">
+                                                <label class="btn-radio">
+                                                    <input type="radio" class="btn-check" name="starPoint" value="1" autocomplete="off">
+                                                    <i class="fas fa-star"></i>
+                                                </label>
+                                                <label class="btn-radio">
+                                                    <input type="radio" class="btn-check" name="starPoint" value="2" autocomplete="off">
+                                                    <i class="fas fa-star"></i>
+                                                </label>
+                                                <label class="btn-radio">
+                                                    <input type="radio" class="btn-check" name="starPoint" value="3" autocomplete="off">
+                                                    <i class="fas fa-star"></i>
+                                                </label>
+                                                <label class="btn-radio">
+                                                    <input type="radio" class="btn-check" name="starPoint" value="4" autocomplete="off">
+                                                    <i class="fas fa-star"></i>
+                                                </label>
+                                                <label class="btn-radio">
+                                                    <input type="radio" class="btn-check" name="starPoint" value="5" autocomplete="off" checked>
+                                                    <i class="fas fa-star"></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-dark fs-19" onclick="addReview()">리뷰 등록하기</button>
+                                    <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+                </c:forEach>
+                </c:if>
+                <!-- 구매이력이 없어 리뷰 작성 불가 -->
+                <c:if test="${empty oitemList && not empty sessionScope.member}">
+                    <span class="fs-17"><a href="#" class="fw-500" data-bs-toggle="modal" data-bs-target="#reviewImpossible">리뷰 쓰기</a></span>
+                    <!-- Modal -->
+                    <div class="modal fade" id="reviewImpossible" tabindex="-1" aria-labelledby="reviewImpossibleLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="reviewImpossibleLabel">리뷰 작성 불가</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body fs-19 p-3 mb-5">
+                                    상품 구매가 확정된 후 이용가능한 서비스입니다.<br>
+                                    구매 후 리뷰를 작성해주시면 포인트를 드립니다.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-dark fs-19" data-bs-dismiss="modal">계속 쇼핑</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+                <!-- 로그인 세션이 없어 리뷰 작성 불가 -->
+                <c:if test="${empty sessionScope.member}">
+                    <span class="fs-17"><a href="#" class="fw-500" data-bs-toggle="modal" data-bs-target="#loginModal">리뷰 쓰기</a></span>
+                    <!-- Modal -->
+                    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="loginModalLabel">새늘봄의 회원이신가요?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body fs-19 p-3 mb-5">
+                                    로그인 이후 이용 가능한 서비스입니다.<br>로그인 화면으로 이동하시려면 '이동'을 눌러주세요.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-dark fs-19" onclick="location.href='/login'">이동</button>
+                                    <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
             </div>
 
             <!-- 리뷰 카테고리 -->
@@ -309,55 +439,57 @@
 
             <!-- 이 상품의 리뷰 게시판 -->
             <div id="thisReview" class="d-none">
-                <c:forEach var="thisReviewVo" items="${thisReviewList}">
-                    <c:if test="${not empty thisReviewVo}">
-                        <div class="review-item">
-                            <div class="accordion-header" id="this${thisReviewVo.idx}">
-                                <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
-                                     data-bs-toggle="collapse" data-bs-target="#thisContent${thisReviewVo.idx}"
-                                     aria-expanded="false" aria-controls="thisContent${thisReviewVo.idx}">
-                        <span class="col-2 fs-17 c-star ls-narrower">
-                            <c:forEach begin="1" end="5" var="count">
-                                <c:set var="halfStar" value="${true}"/>
-                                <c:if test="${thisReviewVo.star >= count}">
-                                    <c:set var="faClassName" value="fas fa-star"/>
-                                </c:if>
-                                <c:if test="${thisReviewVo.star < count}">
-                                    <c:set var="faClassName" value="far fa-star"/>
-                                    <c:if test="${thisReviewVo.star + 1 > count and thisReviewVo.star % 1 > 0 and halfStar}">
-                                        <c:set var="halfStar" value="${false}"/>
-                                        <c:set var="faClassName" value="fas fa-star-half-alt"/>
+                <div id="thisReviewBox">
+                    <c:forEach var="thisReviewVo" items="${thisReviewList}">
+                        <c:if test="${not empty thisReviewVo}">
+                            <div class="review-item">
+                                <div class="accordion-header" id="this${thisReviewVo.idx}">
+                                    <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
+                                         data-bs-toggle="collapse" data-bs-target="#thisContent${thisReviewVo.idx}"
+                                         aria-expanded="false" aria-controls="thisContent${thisReviewVo.idx}">
+                            <span class="col-2 fs-17 c-star ls-narrower">
+                                <c:forEach begin="1" end="5" var="count">
+                                    <c:set var="halfStar" value="${true}"/>
+                                    <c:if test="${thisReviewVo.star >= count}">
+                                        <c:set var="faClassName" value="fas fa-star"/>
                                     </c:if>
-                                </c:if>
-                                <i class="${faClassName} fs-6"></i>
-                            </c:forEach>
-                        </span>
-                                    <span class="col-5 fs-17">
-                            ${thisReviewVo.name}
-                            <c:if test="${not empty thisReviewVo.image}">
-                                <span class="c-bbb ms-2"><i class="fas fa-images"></i></span>
-                            </c:if>
-                        </span>
-                                    <span class="col-2 text-center c-666 fw-light">${thisReviewVo.memberId.substring(0,4)}***님</span>
-                                    <span class="col-2 text-center c-666 fw-light">${thisReviewVo.regDate}</span>
-                                </div>
-                            </div>
-                            <div id="thisContent${thisReviewVo.idx}" class="accordion-collapse collapse border-0" aria-labelledby="this${thisReviewVo.idx}"
-                                 data-bs-parent="#thisReview">
-                                <div class="accordion-body bb-1">
-                                    <div class="col-5 d-flex flex-column ms-13">
-                                        <c:if test="${not empty thisReviewVo.image}">
-                                            <img src="${thisReviewVo.image}" alt="image" class="col-9">
+                                    <c:if test="${thisReviewVo.star < count}">
+                                        <c:set var="faClassName" value="far fa-star"/>
+                                        <c:if test="${thisReviewVo.star + 1 > count and thisReviewVo.star % 1 > 0 and halfStar}">
+                                            <c:set var="halfStar" value="${false}"/>
+                                            <c:set var="faClassName" value="fas fa-star-half-alt"/>
                                         </c:if>
-                                        <div class="my-4">
-                                                ${thisReviewVo.content}
+                                    </c:if>
+                                    <i class="${faClassName} fs-6"></i>
+                                </c:forEach>
+                            </span>
+                                        <span class="col-5 fs-17">
+                                ${thisReviewVo.name}
+                                <c:if test="${not empty thisReviewVo.image}">
+                                    <span class="c-bbb ms-2"><i class="fas fa-images"></i></span>
+                                </c:if>
+                            </span>
+                                        <span class="col-2 text-center c-666 fw-light">${thisReviewVo.memberId.substring(0,4)}***님</span>
+                                        <span class="col-2 text-center c-666 fw-light">${thisReviewVo.regDate}</span>
+                                    </div>
+                                </div>
+                                <div id="thisContent${thisReviewVo.idx}" class="accordion-collapse collapse border-0" aria-labelledby="this${thisReviewVo.idx}"
+                                     data-bs-parent="#thisReview">
+                                    <div class="accordion-body bb-1">
+                                        <div class="col-5 d-flex flex-column ms-13">
+                                            <c:if test="${not empty thisReviewVo.image}">
+                                                <img src="${thisReviewVo.image}" alt="image" class="col-9">
+                                            </c:if>
+                                            <div class="my-4">
+                                                    ${thisReviewVo.content}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:if>
-                </c:forEach>
+                        </c:if>
+                    </c:forEach>
+                </div>
             </div> <!-- #thisReview 닫기 -->
 
 
@@ -450,6 +582,30 @@
 <script>
     const letterOptionsEl = document.getElementsByName("letterOptions");
     const totalPriceEl = document.querySelector("#totalPrice");
+
+    /* 별점 클릭하면 별 색깔 바뀌기 */
+    let $stars = document.querySelectorAll("[name=starPoint]");
+    let $starIcons = document.querySelectorAll("[name=starPoint] + i");
+    for (const $star of $stars) {
+        $star.onchange = function(){
+            console.log(this.value);
+            const starPoint = parseInt(this.value);
+            $starIcons.forEach(($starIcon, index) => {
+                let className = "fas fa-star";
+                if (starPoint <= index) {
+                    className = "far fa-star";
+                }
+                $starIcon.className = className;
+            })
+        }
+    }
+
+    /* template 만들기 */
+    function htmlToElement(html) {
+        const template = document.createElement("template");
+        template.innerHTML = html.trim();
+        return template.content.firstChild;
+    }
 
     /* 편지 추가, 추가안함 */
     function checkRadioBtn(isAdded) {
@@ -582,7 +738,6 @@
         frm.submit();
     }
 
-
     /* 상품설명/리뷰/배송안내 탭 누르면 스크롤 이동 */
     function animateScroll(locationStr) {
         let headerHeight = document.querySelector("header").offsetHeight;
@@ -604,7 +759,127 @@
     function switchCategory(prev, next) {
         document.querySelector(prev).classList.add('d-none');
         document.querySelector(next).classList.remove('d-none');
+        if (next === '#bestReview') {
+            location.reload();
+        }
     }
+
+    /* 리뷰 쓰기 클릭했을 때 리뷰쓰기가 가능한지 체크 */
+    async function chkAvailability() {
+        const idx = ${productVo.idx};
+        const option = {
+            method: 'post',
+            body: idx,
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+        }
+        const response = await fetch("/product/api/chkAvailability", option);
+        const result = await response.json();
+        console.log(result);
+
+        if (result) {
+            location.href = "/cart/list";
+        }
+    }
+
+    /* 리뷰 등록하기 버튼 눌렀을 때 */
+    async function addReview() {
+        let star = document.querySelector("[name=starPoint]:checked").value;
+        let name = document.querySelector("#review-title").value;
+        let $image = document.querySelector("#review-file");
+        let content = document.querySelector("#review-content").value;
+        let productIdx = document.querySelector("#productIdx").value;
+        let oitemIdx = document.querySelector("#oitemIdx").value;
+
+        let formData = new FormData();
+
+        formData.append('name', name);
+        formData.append('productIdx', productIdx);
+        formData.append('oitemIdx', oitemIdx);
+        if ($image.files[0]) {
+            formData.append('imageFile', $image.files[0]);
+        }
+        formData.append('content', content);
+        formData.append('star', star);
+
+        console.log(formData);
+
+        let options = {
+            method: 'post',
+            body: formData
+        };
+
+        fetch("/product/" + productIdx.toString() + "/reviews", options).then(response => {
+            response.json().then(result => {
+                console.log(result);
+                const $newReview = makeReviewRow(result);
+                const $thisReviewBox = document.querySelector("#thisReviewBox");
+                $thisReviewBox.prepend($newReview);
+                location.reload();
+                animateScroll('#reviewArea');
+                switchCategory('#bestReview', '#thisReview');
+            }).catch(err => {
+                console.log(err);
+            })
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    /* 리뷰 등록한 뒤 리뷰 행 추가 */
+    function makeReviewRow(rowObject) {
+        const idx = rowObject.idx;
+        const $accordionItem = htmlToElement("<div class='accordion-item'></div>");
+        const $accordionHeader = htmlToElement("<div class='accordion-header' id='flush-heading" + idx + "' role='button'></div>");
+        $accordionItem.appendChild($accordionHeader);
+
+        // reviewList 영역에 들어갈 애들
+        const $reviewList = htmlToElement('<div class="reviewList review-row collapsed d-flex justify-content-between p-4 fs-5"' +
+            ' data-bs-toggle="collapse" data-bs-target="#collapse' + idx + '"' +
+            ' aria-expanded="false" aria-controls="collapse' + idx + '">');
+
+        const $starSpan = htmlToElement('<span class="col-2 fs-17 c-star ls-narrower d-flex align-items-center text-warning"></span>')
+        const star = rowObject.star;
+        for (let i = 1; i <= 5; i++) {
+            let className = "fas fa-star fs-6";
+            if (star < i) {
+                className = "far fa-star fs-6";
+            }
+            const $star = htmlToElement('<i class="' + className + ' pe-1"></i>')
+            $starSpan.appendChild($star);
+        }
+        const $reviewImage = htmlToElement('<span class="col-5 fs-17">' + rowObject.name + '</span>')
+        if (rowObject.image != null) {
+            const $imageIcon = htmlToElement('<span class="c-bbb ms-2"><i class="fas fa-images"></i></span>')
+            $reviewImage.appendChild($imageIcon);
+        }
+        const $memberId = htmlToElement('<span class="col-2 text-center fs-6 fw-light c-666">' + rowObject.memberId.substring(0, 4)+ '***님' + '</span>')
+        const $regDate = htmlToElement('<span class="col-2 text-center fs-6 fw-light c-666">' + rowObject.regDate.substring(0, 10) + '</span>')
+
+        $reviewList.append($starSpan, $reviewImage, $memberId, $regDate);
+        $accordionHeader.appendChild($reviewList);
+        // reviewList 끝
+
+        let collapseHtml = '';
+        collapseHtml += '<div id="collapse' + idx + '" class="accordion-collapse collapse border-0"' +
+            '     aria-labelledby="flush-heading' + idx + '" data-bs-parent="#bestReview" style="padding-left: 196px">';
+        collapseHtml += '   <div class="accordion-body px-5">';
+        if (rowObject.image) {
+            collapseHtml += '   <div>';
+            collapseHtml += '       <img src="' + rowObject.image + '" alt="사진" style="max-width: 50%;">';
+            collapseHtml += '   </div>';
+        }
+        collapseHtml += '       <span>' + rowObject.content + '</span>';
+        collapseHtml += '   </div>';
+        collapseHtml += '</div>';
+        const $accordionCollapse = htmlToElement(collapseHtml);
+
+        $accordionItem.appendChild($accordionCollapse);
+        return $accordionItem;
+    }
+
+
 </script>
 </body>
 </html>

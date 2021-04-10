@@ -772,6 +772,9 @@
     function switchCategory(prev, next) {
         document.querySelector(prev).classList.add('d-none');
         document.querySelector(next).classList.remove('d-none');
+        if (next === '#bestReview') {
+            location.reload();
+        }
     }
 </script>
 </body>
