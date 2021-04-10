@@ -7,7 +7,7 @@
 </head>
 <body>
 <%@ include file="../main/b_header.jspf" %>
-<div id="container" class="mx-auto">
+<div id="container" class="mx-auto pt-5">
     <div class="d-flex justify-content-center align-items-center pt-5">
         <span class="fs-2 fw-bold">클래스 등록 조회</span>
     </div>
