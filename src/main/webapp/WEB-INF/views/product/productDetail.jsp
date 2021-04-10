@@ -244,7 +244,7 @@
                 <c:forEach var="oitemVo" items="${oitemList}" varStatus="status">
                 <c:if test="${status.index == 0}">
                 <input type="hidden" name="oitemIdx" value="${oitemVo.idx}" id="oitemIdx">
-                <span class="fs-17"><a class="fw500" data-bs-toggle="modal" href="#reviewPossible" role="button">리뷰 쓰기</a></span>
+                <span class="fs-17"><a class="fw-500" data-bs-toggle="modal" href="#reviewPossible" role="button">리뷰 쓰기</a></span>
                     <div class="modal fade" id="reviewPossible" aria-hidden="true" aria-labelledby="..." tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -491,7 +491,6 @@
                     </c:forEach>
                 </div>
             </div> <!-- #thisReview 닫기 -->
-
 
         </div> <!-- 리뷰게시판 닫기 -->
 

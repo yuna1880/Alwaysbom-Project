@@ -52,13 +52,12 @@ public class SubsController {
         // 이 상품의 리뷰 불러오기
         List<ReviewDto> thisReviewList = subsService.findReviewByIdx(idx);
         // 리뷰 쓸 수 있는지 체크
-        int cnt = 0;
         List<OitemVo> oitemList = null;
         if (member != null) {
             Map<String, String> map = new HashMap<>();
             map.put("subsIdx", idx + "");
             map.put("memberId", member.getId());
-            oitemList = productService.findAvailableOitemToReview(map);
+            oitemList = subsService.findAvailableOitemToReview(map);
         }
         System.out.println("oitemList : " + oitemList);
         model.addAttribute("subsVo",subs);
