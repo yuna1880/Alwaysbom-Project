@@ -1,4 +1,5 @@
 .main-img {
+    min-width: 1280px;
     width: 100vw;
     height: auto;
 }
