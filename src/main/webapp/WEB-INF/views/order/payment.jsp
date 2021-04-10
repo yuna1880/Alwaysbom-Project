@@ -60,6 +60,8 @@
                         return false;
                     }
                 });
+            } else {
+                document.frm.submit();
             }
         }
     </script>
