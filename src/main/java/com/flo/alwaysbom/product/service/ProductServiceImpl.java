@@ -62,8 +62,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<OitemVo> countAvailableReviewToWrite(Map<String, String> map) {
-        return dao.countAvailableReviewToWrite(map);
+    public List<OitemVo> findAvailableOitemToReview(Map<String, String> map) {
+        return dao.findAvailableOitemToReview(map);
     }
 
     @Override
@@ -71,10 +71,5 @@ public class ProductServiceImpl implements ProductService {
         return null;
 
     }
-//    public ReviewDto addReview(FclassReviewForm newReview) {
-//        oclassDao.addReview(newReview);
-//        oclassDao.updateReviewCheck(newReview);
-//        return reviewDao.findByIdx(newReview.getIdx());
-//    }
 
 }

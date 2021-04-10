@@ -57,7 +57,7 @@ public class ProductController {
             Map<String, String> map = new HashMap<>();
             map.put("productIdx", idx + "");
             map.put("memberId", member.getId());
-            oitemList = productService.countAvailableReviewToWrite(map);
+            oitemList = productService.findAvailableOitemToReview(map);
         }
         System.out.println("oitemList : " + oitemList);
 
@@ -83,7 +83,7 @@ public class ProductController {
         Map<String, String> map = new HashMap<>();
         map.put("idx", idx + "");
         map.put("memberId", member.getId());
-        List<OitemVo> list = productService.countAvailableReviewToWrite(map);
+        List<OitemVo> list = productService.findAvailableOitemToReview(map);
         return list.size() > 0;
     }
 

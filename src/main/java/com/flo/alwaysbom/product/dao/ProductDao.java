@@ -56,8 +56,8 @@ public class ProductDao {
         return sqlSessionTemplate.selectOne("PRODUCT.findByName", name);
     }
 
-    public List<OitemVo> countAvailableReviewToWrite(Map<String, String> map) {
-        return sqlSessionTemplate.selectList("PRODUCT.countAvailableReviewToWrite", map);
+    public List<OitemVo> findAvailableOitemToReview(Map<String, String> map) {
+        return sqlSessionTemplate.selectList("PRODUCT.findAvailableOitemToReview", map);
     }
 
 }

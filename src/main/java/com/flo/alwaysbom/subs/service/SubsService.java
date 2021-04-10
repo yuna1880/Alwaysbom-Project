@@ -1,6 +1,7 @@
 package com.flo.alwaysbom.subs.service;
 
 
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.subs.vo.SubsVo;
 
 import java.util.List;
@@ -17,4 +18,8 @@ public interface SubsService {
     Integer updateSubs(SubsVo svo);
 
     void deleteSubs(Integer idx);
+
+    List<ReviewDto> findReviewByIdx(Integer idx);
+
+    List<ReviewDto> findBestReview();
 }

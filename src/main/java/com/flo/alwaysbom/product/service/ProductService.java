@@ -27,7 +27,7 @@ public interface ProductService {
 
     void deleteProduct(Integer idx);
 
-    List<OitemVo> countAvailableReviewToWrite(Map<String, String> map);
+    List<OitemVo> findAvailableOitemToReview(Map<String, String> map);
 
     ReviewDto addReview(ItemReviewForm newReview);
 }

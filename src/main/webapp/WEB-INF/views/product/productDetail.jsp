@@ -416,7 +416,7 @@
                             </c:if>
                         </span>
                                     <span class="col-2 text-center c-666 fw-light">${bestReviewVo.memberId.substring(0,4)}***님</span>
-                                    <span class="col-2 text-center c-666 fw-light">${bestReviewVo.regDate}</span>
+                                    <span class="col-2 text-center c-666 fw-light">${bestReviewVo.regDate.substring(0,10)}</span>
                                 </div>
                             </div>
                             <div id="bestContent${bestReviewVo.idx}" class="accordion-collapse collapse border-0" aria-labelledby="best${bestReviewVo.idx}"
@@ -470,7 +470,7 @@
                                 </c:if>
                             </span>
                                         <span class="col-2 text-center c-666 fw-light">${thisReviewVo.memberId.substring(0,4)}***님</span>
-                                        <span class="col-2 text-center c-666 fw-light">${thisReviewVo.regDate}</span>
+                                        <span class="col-2 text-center c-666 fw-light">${thisReviewVo.regDate.substring(0,10)}</span>
                                     </div>
                                 </div>
                                 <div id="thisContent${thisReviewVo.idx}" class="accordion-collapse collapse border-0" aria-labelledby="this${thisReviewVo.idx}"
@@ -817,8 +817,6 @@
                 const $thisReviewBox = document.querySelector("#thisReviewBox");
                 $thisReviewBox.prepend($newReview);
                 location.reload();
-                animateScroll('#reviewArea');
-                switchCategory('#bestReview', '#thisReview');
             }).catch(err => {
                 console.log(err);
             })

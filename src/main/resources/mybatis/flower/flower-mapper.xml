@@ -68,6 +68,31 @@
         SELECT  *
         FROM    REVIEW
         WHERE   CATEGORY = '꽃다발' AND FLOWER_IDX = #{idx}
+        ORDER BY REG_DATE DESC
+    </select>
+
+
+    <!-- (R) 현재 로그인한 유저가 해당 상품의 리뷰를 쓸 수 있는지 확인하는 쿼리 -->
+    <select id="findAvailableOitemToReview" parameterType="map" resultType="com.flo.alwaysbom.order.vo.OitemVo">
+        SELECT REV.*
+        FROM
+            (
+                SELECT OITEM.*
+                FROM OITEM
+                         LEFT JOIN ORDERS
+                                   ON ORDERS_IDX = ORDERS.IDX
+                WHERE REVIEW_IDX IS NULL
+                  AND CATEGORY = '꽃다발'
+                  AND ORDERS_IDX IN
+                      (
+                          SELECT IDX
+                          FROM ORDERS
+                          WHERE MEMBER_ID = #{memberId} AND STATUS = '배송완료'
+                      )
+            ) REV
+                LEFT JOIN FLOWER F
+                          ON REV.NAME = F.NAME
+        WHERE F.IDX = #{flowerIdx}
     </select>
 
 

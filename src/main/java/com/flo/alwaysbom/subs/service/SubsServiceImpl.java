@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.subs.service;
 
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.subs.dao.SubsDao;
 import com.flo.alwaysbom.subs.vo.SubsVo;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,15 @@ public class SubsServiceImpl implements SubsService{
     @Override
     public void deleteSubs(Integer idx) {
         dao.deleteSubs(idx);
+    }
+
+    @Override
+    public List<ReviewDto> findReviewByIdx(Integer idx) {
+        return dao.findReviewByIdx(idx);
+    }
+
+    @Override
+    public List<ReviewDto> findBestReview() {
+        return dao.findBestReview();
     }
 }

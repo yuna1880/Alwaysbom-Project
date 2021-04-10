@@ -79,17 +79,7 @@ public class BackProductController {
         vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "product"));
         System.out.println("productVo = " + vo);
         Integer idx = productService.updateProduct(vo);
-        return "redirect:/admin/product/" + idx;
-    }
-
-    /* 상세페이지 조회 */
-    @GetMapping("/admin/product/{idx}")
-    public String getOne(@PathVariable("idx") Integer idx, Model model) {
-        ProductVo product = productService.findByIdx(idx)
-                .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
-        model.addAttribute("idx", idx);
-        model.addAttribute("productVo", product);
-        return "product/b_productDetail";
+        return "redirect:/admin/productList";
     }
 
     /* 상품 삭제 */

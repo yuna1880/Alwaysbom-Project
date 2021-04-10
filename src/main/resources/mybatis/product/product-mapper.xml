@@ -43,16 +43,16 @@
 
     <!-- (R) 소품샵 베스트 리뷰 찾기 -->
     <select id="findBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
-        SELECT  RN, FF.*
+        SELECT  RN, PP.*
         FROM    (
-                    SELECT  ROWNUM RN, F.*
+                    SELECT  ROWNUM RN, P.*
                     FROM    (
                                 SELECT   *
                                 FROM     REVIEW
                                 WHERE    CATEGORY = '소품샵'
                                 ORDER BY LIKE_COUNT DESC
-                            ) F
-                ) FF
+                            ) P
+                ) PP
         WHERE   RN BETWEEN 1 AND 10
     </select>
 
@@ -62,6 +62,7 @@
         SELECT  *
         FROM    REVIEW
         WHERE   CATEGORY = '소품샵' AND PRODUCT_IDX = #{idx}
+        ORDER BY REG_DATE DESC
     </select>
 
 
@@ -99,7 +100,7 @@
 
 
     <!-- (R) 현재 로그인한 유저가 해당 상품의 리뷰를 쓸 수 있는지 확인하는 쿼리 -->
-    <select id="countAvailableReviewToWrite" parameterType="map" resultType="com.flo.alwaysbom.order.vo.OitemVo">
+    <select id="findAvailableOitemToReview" parameterType="map" resultType="com.flo.alwaysbom.order.vo.OitemVo">
         SELECT REV.*
         FROM
             (

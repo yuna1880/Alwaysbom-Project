@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.subs.dao;
 
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.subs.vo.SubsVo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -36,5 +37,13 @@ public class SubsDao {
 
     public Integer findByName(String name) {
         return sqlSessionTemplate.selectOne("SUBS.findByName", name);
+    }
+
+    public List<ReviewDto> findReviewByIdx(Integer idx) {
+        return sqlSessionTemplate.selectList("SUBS.findReviewByIdx", idx);
+    }
+
+    public List<ReviewDto> findBestReview() {
+        return sqlSessionTemplate.selectList("SUBS.findBestReview");
     }
 }

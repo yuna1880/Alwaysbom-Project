@@ -98,7 +98,7 @@ public class ReviewService {
     public ReviewDto revieWrite(String category, String name) {
         ReviewDto dto = new ReviewDto();
         if(category.equals("꽃다발")){
-           Integer fIdx = flowerDao.findByname(name);
+           Integer fIdx = flowerDao.findByName(name);
            dto.setCategory(category);
            dto.setFlowerIdx(fIdx);
             System.out.println(dto);
@@ -130,7 +130,7 @@ public class ReviewService {
     public ReviewDto updateWrite(String category, String name, Integer reviewIdx) {
         ReviewDto dto = new ReviewDto();
         if(category.equals("꽃다발")){
-            Integer fIdx = flowerDao.findByname(name);
+            Integer fIdx = flowerDao.findByName(name);
             dto.setCategory(category);
             dto.setFlowerIdx(fIdx);
             System.out.println(dto);
