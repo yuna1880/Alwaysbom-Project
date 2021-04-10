@@ -18,7 +18,7 @@
                 <div class="h5 col-12 d-flex flex-column text-secondary">
                     <div class="d-flex">
                         <span class="fw-bold name-color">${sessionScope.member.name}</span>
-                        <span>님의 주문내역</span>
+                        <span>님의 정기구독 내역</span>
                         <hr>
                     </div>
                     <div id="ordersListContent" class="fs-6">
@@ -197,7 +197,6 @@
     //주문취소 -> 취소요청중
     function CancelOrder(btn, index) {
         const idx = btn.dataset.orderIdx;
-        console.log("인덱스 들어오녀ㅑ?? : "+index);
         const option = {
             method: 'put',
             body: '주문취소',

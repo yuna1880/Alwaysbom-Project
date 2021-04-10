@@ -280,7 +280,6 @@
         </div>
     </div>
 </div>
-<%@ include file="../main/footer.jspf" %>
 <script>
     //라디오버튼 화면 변경
     window.onload = function () {
@@ -394,5 +393,6 @@
         }
     }
 </script>
+<%@ include file="../main/footer.jspf" %>
 </body>
 </html>

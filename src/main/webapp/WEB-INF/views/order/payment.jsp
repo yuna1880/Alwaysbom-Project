@@ -7,73 +7,59 @@
     <title>새늘봄 - checkout</title>
     <%@ include file="../main/import.jspf"%>
     <link rel="stylesheet" href="/static/css/order/orderstyle.css">
-    <style>
-        #finalPrice {
-            outline: none;
-            cursor: initial;
-        }
-    </style>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <script>
-        window.onload = function () {
-            creditCard();
-        }
-        //신용카드
-        function creditCard() {
-            document.getElementById('credit_card_input').style.display = 'none';
-            document.getElementById('mootong').style.display = 'none';
-        }
-        //신용카드 직접입력
-        function creditCardInput() {
-            document.getElementById('credit_card_input').style.display = 'block';
-            document.getElementById('mootong').style.display = 'none';
-        }
-        //무통장입금
-        function mootong() {
-            document.getElementById('credit_card_input').style.display = 'none';
-            document.getElementById('mootong').style.display = 'block';
-        }
-        function kakaoPay() {
-            document.getElementById('credit_card_input').style.display = 'none';
-            document.getElementById('mootong').style.display = 'none';
-        }
-        function Point() {
-            let inputPoint = document.querySelector('#input_my_point');
-            let usePoint = document.querySelector('#pointHere');
-            let $discountPoint = document.querySelector("#pointHere + input");
-            let finalPrice = document.querySelector('#finalPrice');
-            let originalPrice = finalPrice.getAttribute('data-original-price');
-            let discountPoint;
-
-            if (inputPoint.value !== '' || inputPoint.value.length > 0) {
-                discountPoint = inputPoint.value;
-            } else {
-                discountPoint = 0;
-            }
-            usePoint.textContent = '- ' + discountPoint.toLocaleString('ko-KR') + '원';
-            $discountPoint.value = discountPoint;
-            let finalAmount = originalPrice - discountPoint;
-            finalPrice.value = finalAmount.toLocaleString('ko-KR') + "원";
-        }
-        function compareWithPoint(point) {
-            //사용자가 입력한 포인트가 현재 포인트보다 크면?..
-            if (point.value < 0) {
-                alert("포인트는 0원 이상부터 사용 가능합니다.");
-                point.value="";
-            }
-            if (point.value > ${member.point}) {
-                alert("${member.name} 회원님께서 사용 가능한 포인트는 <fmt:formatNumber value="${member.point}" pattern="#,###"/> 입니다.");
-                point.value="";
-            }
-        }
+        //결제 -> 결제완료
         function payment(frm) {
-            alert("yeyeye");
+            alert("결제시작");
+
+            let totalPrice = document.querySelector("#finalPrice").value;
+
             if (document.frm.payType.value === "카카오페이") {
                 alert("kakao Pay");
             }
-            if (document.frm.payType.value === "신용카드(직접입력)") {
-                alert("신용카드 직접");
+            if (document.frm.payType.value === "간편결제") {
+                alert("신용카드 테스트중" + "<c:out value='${orderPrice.finalPrice}'/>" + "원" );
+
+                IMP.init('imp49204009');
+
+                IMP.request_pay({ // param
+                    pg: "inicis",
+                    pay_method: "card",
+                    merchant_uid: "merchant_" + new Date().getTime(),
+                    name: "(주)Alwaysbom 결제",
+                    //amount: "<c:out value='${orderPrice.finalPrice}'/>",
+                    amount: 1000,
+                    buyer_email: "<c:out value='${sessionScope.member.id}'/>",
+                    buyer_name: "<c:out value='${sessionScope.member.name}'/>",
+                    buyer_tel: "<c:out value='${sessionScope.member.phone}'/>"
+
+                }, function (rsp) { // callback
+                    if (rsp.success) {
+                        // 결제 성공 시 로직,
+                        alert("결제 성공!");
+                        document.frm.submit();
+
+                        jQuery.ajax({
+                            url: "http://www.myservice.com/payments/complete",
+                            method: "POST",
+                            headers: {"Content-Type": "application/json"},
+                            data: {
+                                imp_uid: rsp.imp_uid,
+                                merchant_uid: rsp.merchant_uid
+                            }
+                        }).done(function(data){
+                            //성공
+                        })
+                    } else {
+                        // 결제 실패 시 로직,
+                        alert("실패!" + rsp.error_msg);
+                        return false;
+                    }
+                });
             }
         }
     </script>
@@ -101,7 +87,6 @@
                 <div class="information_box">
                     <div class="checkout_finals">
                         <div class="check_row"><span class="label">마지막으로 다시 한 번 주문내역을 확인해보세요.</span></div>
-
                         <!-- 주문내역 -->
                         <div class="checkout_cartlist">
                             <div class="head">
@@ -257,11 +242,11 @@
                         <div class="check_row_method" id="check_row_method">
                             <div class="row"><span class="label">결제 수단 선택</span><span class="val">
                                 <b class="total"></b></span></div>
-                            <div class="row" style="width: 700px;">
+                            <div class="row" style="width: 1280px;">
                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check" name="payType" id="btnradio1" value="신용카드"
+                                    <input type="radio" class="btn-check" name="payType" id="btnradio1" value="간편결제"
                                            autocomplete="off" checked>
-                                    <label class="btn btn-outline-primary" for="btnradio1" onclick="creditCard()">신용카드</label>
+                                    <label class="btn btn-outline-primary" for="btnradio1" onclick="creditCard()">간편결제</label>
 
                                     <input type="radio" class="btn-check" name="payType" id="btnradio2" value="신용카드(직접입력)"
                                            autocomplete="off">
@@ -270,10 +255,6 @@
                                     <input type="radio" class="btn-check" name="payType" id="btnradio3" value="무통장입금"
                                            autocomplete="off">
                                     <label class="btn btn-outline-primary" for="btnradio3" onclick="mootong()">무통장입금</label>
-
-                                    <input type="radio" class="btn-check" name="payType" id="btnradio4" value="카카오페이"
-                                           autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="btnradio4" onclick="kakaoPay()">카카오페이</label>
                                 </div>
                             </div>
 
@@ -281,7 +262,7 @@
 
                             <!-- 신용카드 -->
                             <div class="checkout_method_card" id="credit_card_input">
-                                <div class="more">* 신용카드 정보를 직접 입력하여 간편하게 결제하실 수 있습니다. <br>* 꾸까에서는 절대 카드 정보를 직접 저장하지
+                                <div class="more">* 신용카드 정보를 직접 입력하여 간편하게 결제하실 수 있습니다. <br>* 새늘봄에서는 절대 카드 정보를 직접 저장하지
                                     않습니다. <br>* 나이스 정보통신의 결제 기능을 사용합니다. <br>* 기명 법인카드의 경우, 소유하신 분의 주민등록번호 앞자리를
                                     입력해주세요. <br>* 무기명 법인카드의 경우, 사업자 등록번호를 입력해 주세요.</div>
                                 <table class="address_input_table in_s4 w450">
@@ -383,7 +364,7 @@
                         </div>
                     </div>
                     <div class="complete">
-                        <button type="submit" class="info_btn next" id="purchase_submit" onclick="payment(this.form)">결제 하기</button>
+                        <button type="button" class="info_btn next" id="purchase_submit" onclick="payment(this.form)">결제 하기</button>
                         <button type="button" class="info_btn back" onclick="history.back()">이전 단계로</button>
                     </div>
                 </div>
@@ -394,5 +375,55 @@
 </div>
 </div>
 <%@ include file="../main/footer.jspf"%>
+<script>
+    window.onload = function () {
+        creditCard();
+    }
+    //간편결제
+    function creditCard() {
+        document.querySelector('#credit_card_input').style.display = 'none';
+        document.querySelector('#mootong').style.display = 'none';
+    }
+    //신용카드 직접입력
+    function creditCardInput() {
+        document.getElementById('credit_card_input').style.display = 'block';
+        document.getElementById('mootong').style.display = 'none';
+    }
+    //무통장입금
+    function mootong() {
+        document.getElementById('credit_card_input').style.display = 'none';
+        document.getElementById('mootong').style.display = 'block';
+    }
+
+    function Point() {
+        let inputPoint = document.querySelector('#input_my_point');
+        let usePoint = document.querySelector('#pointHere');
+        let $discountPoint = document.querySelector("#pointHere + input");
+        let finalPrice = document.querySelector('#finalPrice');
+        let originalPrice = finalPrice.getAttribute('data-original-price');
+        let discountPoint;
+
+        if (inputPoint.value !== '' || inputPoint.value.length > 0) {
+            discountPoint = inputPoint.value;
+        } else {
+            discountPoint = 0;
+        }
+        usePoint.textContent = '- ' + discountPoint.toLocaleString('ko-KR') + '원';
+        $discountPoint.value = discountPoint;
+        let finalAmount = originalPrice - discountPoint;
+        finalPrice.value = finalAmount.toLocaleString('ko-KR') + "원";
+    }
+    function compareWithPoint(point) {
+        //사용자가 입력한 포인트가 현재 포인트보다 크면?..
+        if (point.value < 0) {
+            alert("포인트는 0원 이상부터 사용 가능합니다.");
+            point.value="";
+        }
+        if (point.value > ${member.point}) {
+            alert("${member.name} 회원님께서 사용 가능한 포인트는 <fmt:formatNumber value="${member.point}" pattern="#,###"/> 입니다.");
+            point.value="";
+        }
+    }
+</script>
 </body>
 </html>

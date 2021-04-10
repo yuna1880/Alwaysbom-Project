@@ -5,7 +5,10 @@
     z-index: 999999;
 }
 
-
+#finalPrice {
+    outline: none;
+    cursor: initial;
+}
 
 
 /* 3/28  주문완료 페이지 스타일*/
