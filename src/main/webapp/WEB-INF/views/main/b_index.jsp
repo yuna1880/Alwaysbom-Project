@@ -56,7 +56,7 @@
                                         <option value="/community" ${image.link eq "/community" ? "selected" : ""}>커뮤니티</option>
                                     </select>
                                     <button type="button" class="btn btn-warning btn-sm me-2"
-                                            onclick="clickFileButton('image${status.index}')">수정</button>
+                                            onclick="clickFileButton(${status.index})">수정</button>
                                     <button type="button" class="btn btn-danger btn-sm"
                                             onclick="deleteImage(${status.index})">삭제</button>
                                     <input type="hidden" name="deleted" value="false">
