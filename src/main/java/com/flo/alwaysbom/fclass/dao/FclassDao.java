@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.fclass.dao;
 
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.fclass.vo.FclassVo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -57,5 +58,14 @@ public class FclassDao {
         List<FclassVo> fclassVos = sqlSessionTemplate.selectList("fclass.findClassByCategory", category);
         System.out.println("fclassVos = " + fclassVos);
         return fclassVos;
+    }
+
+    public List<ReviewDto> findReviewsByOption(Integer idx, Integer startIndex, Integer endIndex) {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("idx", idx);
+        map.put("startIndex", startIndex);
+        map.put("endIndex", endIndex);
+
+        return sqlSessionTemplate.selectList("fclass.findReviewsByOption", map);
     }
 }

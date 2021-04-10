@@ -58,12 +58,13 @@ public class BackProductController {
         vo.setImage2(fileHandler.uploadFile(file.get(1), null, "product"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), null, "product"));
         System.out.println("productVo = " + vo);
-        productService.addProduct(vo);
-        return "redirect:/admin/productList";
+        vo = productService.addProduct(vo);
+        return "redirect:/admin/product/" + vo.getIdx();
     }
 
-    @GetMapping("/admin/goUpdate")
-    public String goUpdate(Integer idx, Model model) {
+    /* 상품 수정페이지로 이동 */
+    @GetMapping("/admin/productUpdateForm/{idx}")
+    public String goUpdate(@PathVariable Integer idx, Model model) {
         ProductVo product = productService.findByIdx(idx)
                 .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
         model.addAttribute("productVo", product);
@@ -77,8 +78,8 @@ public class BackProductController {
         vo.setImage2(fileHandler.uploadFile(file.get(1), vo.getImage2(), "product"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "product"));
         System.out.println("productVo = " + vo);
-        productService.updateProduct(vo);
-        return "redirect:/admin/productList";
+        Integer idx = productService.updateProduct(vo);
+        return "redirect:/admin/product/" + idx;
     }
 
     /* 상세페이지 조회 */

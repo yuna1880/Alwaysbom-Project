@@ -7,16 +7,7 @@
     <%@ include file="../main/import.jspf"%>
     <link rel="stylesheet" href="/static/css/item/detail.css">
     <link rel="stylesheet" href="/static/bootstrap-datepicker/bootstrap-datepicker.css">
-<script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-<script>
-    function moveToTop() {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
-    }
-</script>
+    <script src="/static/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 </head>
 <body>
 <%@ include file="../main/header.jspf"%>
@@ -40,25 +31,58 @@
     </nav>
 
     <!-- 상품 썸네일과 주문 정보 -->
-    <div class="d-flex justify-content-between thumb-order">
+    <div class="d-flex justify-content-between mb-5em">
         <!-- 사진 썸네일 -->
-        <div class="thumbnails d-flex flex-column justify-content-start">
-            <div class="mb-4">
-                <img src="${flowerVo.image1}" alt="대표 썸네일" class="col-12">
-            </div>
+        <div class="w-45 d-flex flex-column justify-content-start">
+            <div id="item-thumbnails" class="carousel slide mb-4" data-bs-interval="0" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="${flowerVo.image1}" class="d-block w-100" alt="대표 썸네일">
+                    </div>
+                    <c:if test="${not empty flowerVo.image2}">
+                    <div class="carousel-item">
+                        <img src="${flowerVo.image2}" class="d-block w-100" alt="대표 썸네일">
+                    </div>
+                    </c:if>
+                    <c:if test="${not empty flowerVo.image3}">
+                    <div class="carousel-item">
+                        <img src="${flowerVo.image3}" class="d-block w-100" alt="대표 썸네일">
+                    </div>
+                    </c:if>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#item-thumbnails" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#item-thumbnails" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div> <!-- id="item-thumbnails" 닫기 -->
+
+            <!-- 3개 한 줄에 일렬로 나오는 썸네일 -->
             <div class="d-flex">
-                <img src="${flowerVo.image1}" alt="썸네일1" class="col-4 pe-2">
+                <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="0"
+                        class="active col-4 p-0 pe-3 border-0 bg-transparent m-0" aria-current="true" aria-label="Slide 1">
+                    <img src="${flowerVo.image1}" alt="썸네일1" class="w-100">
+                </button>
                 <c:if test="${not empty flowerVo.image2}">
-                <img src="${flowerVo.image2}" alt="썸네일2" class="col-4 ps-1 pe-1">
+                    <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="1"
+                            class="col-4 p-0 ps-2 pe-2 border-0 bg-transparent m-0" aria-label="Slide 2">
+                        <img src="${flowerVo.image2}" alt="썸네일2" class="w-100">
+                    </button>
                 </c:if>
                 <c:if test="${not empty flowerVo.image3}">
-                <img src="${flowerVo.image3}" alt="썸네일3" class="col-4 ps-2">
+                    <button type="button" data-bs-target="#item-thumbnails" data-bs-slide-to="2"
+                            class="col-4 p-0 ps-3 border-0 bg-transparent m-0" aria-label="Slide 3">
+                        <img src="${flowerVo.image3}" alt="썸네일3" class="w-100">
+                    </button>
                 </c:if>
             </div>
-        </div>
+        </div> <!-- 사진 썸네일 닫기 -->
 
         <!-- 주문 정보 -->
-        <div class="order-info d-flex flex-column">
+        <div class="w-46 d-flex flex-column">
             <span class="subheader">${flowerVo.subheader}</span>
             <span class="item-name">${flowerVo.name}</span>
 
@@ -70,30 +94,30 @@
                         <fmt:formatNumber value="${flowerVo.price}" pattern="#,###원 >"/>
                 </span>
                 </c:if>
-                <span class="fs-3 fw500" data-flower-finalPrice>
+                <span class="fs-3 fw-500" data-flower-finalPrice>
                     <fmt:formatNumber value="${flowerVo.finalPrice}" pattern="#,###원"/>
                 </span>
             </div>
 
             <!-- 무료배송 알림 -->
             <div class="fd-announcement d-flex justify-content-start py-3 my-4">
-                3만원 이상 구매시, <span class="point-color fw500 ps-1">무료배송!</span>
+                3만원 이상 구매시, <span class="point-color fw-500 ps-1">무료배송!</span>
             </div>
 
             <!-- 구매옵션 -->
-            <div class="inputs-wrap mb-4">
+            <div class="fs-19 mb-4">
                 <!-- 수령일 선택 옵션 -->
                 <div class="row mb-4">
-                    <div class="col-3 fw500 pt-1">수령일</div>
+                    <label for="requestDate" class="col-3 fw-500 pt-1">수령일</label>
                     <div class="col-9">
-                        <input type="text" name="requestDate" placeholder="수령일을 선택해주세요."
+                        <input type="text" name="requestDate" id="requestDate" placeholder="수령일을 선택해주세요."
                                class="datepicker col-12 p-2 ps-3 fs-6" autocomplete="off"/>
                     </div>
                 </div>
 
                 <!-- 수량 선택 옵션 -->
                 <div class="row mb-4">
-                    <div class="col-3 fw500">수량</div>
+                    <div class="col-3 fw-500">수량</div>
                     <div class="col-9 count d-flex justify-content-start align-items-center">
                         <button type="button" class="border-0 bg-transparent" onclick="adjustQuantity(false)">
                             <i class="fas fa-minus-circle"></i>
@@ -107,12 +131,12 @@
 
                 <!-- 편지 추가 옵션 -->
                 <div class="row mb-4 d-flex align-items-baseline">
-                    <div class="col-3 fw500">편지 추가</div>
+                    <div class="col-3 fw-500">편지 추가</div>
                     <div class="col-9">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="letterOptions"
                                    id="withLetter" value="1" checked onclick="checkRadioBtn(true)">
-                            <label class="form-check-label text-dark fw500" for="withLetter">추가할게요.(+2,500원)</label>
+                            <label class="form-check-label text-dark fw-500" for="withLetter">추가할게요.(+2,500원)</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="letterOptions"
@@ -124,7 +148,7 @@
 
                 <!-- 소품샵 아이템 추가 옵션 -->
                 <div class="row mb-4">
-                    <div class="col-3 fw500">추가 옵션</div>
+                    <div class="col-3 fw-500">추가 옵션</div>
                     <div class="col-9">
                         <select name="selectOptions" class="form-select p-2 ps-3" aria-label="form-select example"
                                 onchange="addChoices(this)">
@@ -140,14 +164,14 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> <!-- 구매옵션 닫기 -->
 
             <!-- price box 그룹 -->
             <div class="price-box-wrap">
                 <!-- 상품가격 price box -->
                 <div class="d-flex justify-content-between p-4 mx-2 mb-3 price-box">
-                    <span class="fw500">상품가격</span>
-                    <span class="fw500">
+                    <span class="fw-500">상품가격</span>
+                    <span class="fw-500">
                         <fmt:formatNumber value="${flowerVo.finalPrice}" pattern="#,###원"/>
                     </span>
                 </div>
@@ -155,25 +179,27 @@
                 <!-- 편지추가 price box -->
                 <div id="addLetter" class="p-4 mx-2 mb-3 price-box">
                     <div class="d-flex justify-content-between pb-1">
-                        <span class="fw500">추가상품 : 편지추가</span>
+                        <span class="fw-500">추가상품 : 편지추가</span>
                         <button type="button" class="btn-close btn-close-style" onclick="closeLetter(this)"></button>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <span class="fw500" data-letter-price>
+                        <span class="fw-500" data-letter-price>
                             <fmt:formatNumber value="${flowerVo.letterPrice}" pattern="#,###원"/>
                         </span>
                     </div>
                 </div>
             </div> <!-- price-box-wrap 닫기 -->
 
-            <!-- 총 주문금액 -->
+            <!-- 무료배송일때만 붙는 badge -->
             <div class="d-flex justify-content-end mb-1 mt-3 me-2">
-            <c:if test="${not empty flowerVo.freeDeliveryMessage}">
-                <span class="badge rounded-pill price-box text-dark fw500">
+                <c:if test="${not empty flowerVo.freeDeliveryMessage}">
+                <span class="badge rounded-pill price-box text-dark fw-500">
                     ${flowerVo.freeDeliveryMessage}
                 </span>
-            </c:if>
+                </c:if>
             </div>
+
+            <!-- 총 주문금액 -->
             <div class="d-flex justify-content-end align-items-baseline me-2 mb-4">
                 <span class="me-3">총 주문금액</span>
                 <span id="totalPrice" class="fw-bold fs-3">
@@ -181,16 +207,18 @@
                 </span>
             </div>
 
-            <!-- 장바구니/결제 버튼 -->
+            <!-- 장바구니/바로구매 버튼 -->
             <div class="d-flex justify-content-center mt-5">
-                <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart(true, this.form)">장바구니</button>
+                <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
 
-            <%--memberId, category, flowerIdx, quantity, letter 임의로 넣어주기--%>
-                <input type="hidden" name="memberId" value="test">
+            <%--memberId, category, flowerIdx, image, fsize 임의로 넣어주기--%>
+                <input type="hidden" name="memberId" value="test@test.com">
                 <input type="hidden" name="category" value="꽃다발">
                 <input type="hidden" name="flowerIdx" value="${flowerVo.idx}">
-
-                <button type="button" class="btn main-button fw-bold py-3" onclick="addCart(false, this.form)">바로구매</button>
+                <input type="hidden" name="image" value="${flowerVo.image1}">
+                <input type="hidden" id="fsize" name="fsize" value="${flowerVo.fsize}">
+            <%----------------------------------------------------------------%>
+                <button type="button" class="btn main-button fw-bold py-3" onclick="goPay(this.form)">바로구매</button>
             </div>
 
         </div> <!-- 주문 정보 닫기 -->
@@ -199,7 +227,7 @@
     <!-- 상품설명/리뷰/배송안내 Tabs -->
     <div class="d-flex showType-wrap">
         <label class="col-4">
-            <input type="radio" name="showType" class="d-none" checked="">
+            <input type="radio" name="showType" class="d-none" id="showTypeContent" checked="">
             <span class="d-block text-center p-3 btn-show" onclick="animateScroll('#detail-area')">상품설명</span>
         </label>
         <label class="col-4">
@@ -213,20 +241,240 @@
     </div>
 
     <!-- 상품설명 -->
-    <div id="detail-area">
-        ${flowerVo.content}
-        <br>
-        여기에 상품 설명 들어감
+    <div id="detail-area" class="overflow-auto d-flex justify-content-center mb-5">
+        <div class="w-auto">${flowerVo.content}</div>
     </div>
 
     <!-- 리뷰게시판 -->
-    <hr>
-    <div id="review-area">리뷰게시판!!!</div>
+    <div id="review-area" class="p-3">
+        <!-- 리뷰게시판 타이틀 -->
+        <div class="d-flex justify-content-between align-items-end">
+            <div class="d-flex align-items-baseline">
+                <span class="fs-2 fw-500 py-3 pe-5">리뷰</span>
+                <span class="fs-5 c-666">리뷰 작성 시 200P 적립 (사진 등록 시 300P)</span>
+            </div>
+            <span class="fs-17"><a href="#" class="fw-500">리뷰 쓰기</a></span>
+        </div>
+
+        <!-- 리뷰 카테고리 -->
+        <div class="d-flex align-items-baseline review-category col-12">
+            <label>
+                <input type="radio" name="reviewCategory" class="d-none" checked="" onclick="switchCategory('#thisReview', '#bestReview')">
+                <span class="d-block text-center py-3 px-4 btn-rev">꽃다발 베스트 리뷰</span>
+            </label>
+            <label>
+                <input type="radio" name="reviewCategory" class="d-none" onclick="switchCategory('#bestReview', '#thisReview')">
+                <span class="d-block text-center py-3 px-4 btn-rev">이 상품의 리뷰</span>
+            </label>
+        </div>
+
+        <!-- 꽃다발 베스트 리뷰 게시판 -->
+        <div id="bestReview">
+            <div class="review-item">
+                <div class="accordion-header" id="review1">
+                    <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
+                         data-bs-toggle="collapse" data-bs-target="#reviewContent1"
+                         aria-expanded="false" aria-controls="reviewContent1">
+                        <span class="col-2 fs-17 c-star ls-narrower">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </span>
+                        <span class="col-5 fs-17">
+                            정말 마음에 들어요!<span class="c-bbb ms-2"><i class="fas fa-images"></i></span>
+                        </span>
+                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
+                        <span class="col-2 text-center c-666 fw-light">작성일</span>
+                    </div>
+                </div>
+                <div id="reviewContent1" class="accordion-collapse collapse border-0" aria-labelledby="review1"
+                     data-bs-parent="#bestReview">
+                    <div class="accordion-body bb-1">
+                        <div class="col-5 d-flex flex-column ms-13">
+                        <img src="../../../static/image/flower/flower1.jpg" alt="dummy" class="col-9">
+                        <div class="my-4">
+                            리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-item">
+                <div class="accordion-header" id="review2">
+                    <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
+                         data-bs-toggle="collapse" data-bs-target="#reviewContent2"
+                         aria-expanded="false" aria-controls="reviewContent2">
+                        <span class="col-2 fs-17 c-star ls-narrower">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </span>
+                        <span class="col-5 fs-17">배송이 빨랐어요.<span class="c-bbb ms-2"><i class="fas fa-images"></i></span></span>
+                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
+                        <span class="col-2 text-center c-666 fw-light">작성일</span>
+                    </div>
+                </div>
+                <div id="reviewContent2" class="accordion-collapse collapse border-0" aria-labelledby="review2" data-bs-parent="#bestReview">
+                    <div class="accordion-body bb-1">
+                        <div class="col-5 d-flex flex-column ms-13">
+                            <img src="../../../static/image/flower/vase3-1.jpg" alt="dummy" class="col-9">
+                            <div class="my-4">
+                                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- #bestReview 닫기 -->
+
+        <!-- 이 상품의 리뷰 게시판 -->
+        <div id="thisReview" class="d-none">
+            <div class="review-item">
+                <div class="accordion-header" id="thisReview1">
+                    <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
+                         data-bs-toggle="collapse" data-bs-target="#thisReviewContent1"
+                         aria-expanded="false" aria-controls="thisReviewContent1">
+                        <span class="col-2 fs-17 c-star ls-narrower">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                        <span class="col-5 fs-17">리뷰 제목<span class="c-bbb ms-2"><i class="fas fa-images"></i></span></span>
+                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
+                        <span class="col-2 text-center c-666 fw-light">작성일</span>
+                    </div>
+                </div>
+                <div id="thisReviewContent1" class="accordion-collapse collapse border-0" aria-labelledby="thisReview1"
+                     data-bs-parent="#thisReview">
+                    <div class="accordion-body bb-1">
+                        <div class="col-5 d-flex flex-column ms-13">
+                            <img src="../../../static/image/flower/vase3-2.jpg" alt="dummy" class="col-9">
+                            <div class="my-4">
+                                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-item">
+                <div class="accordion-header" id="thisReview2">
+                    <div class="collapsed d-flex justify-content-between p-4 bb-1 review-row"
+                         data-bs-toggle="collapse" data-bs-target="#thisReviewContent2"
+                         aria-expanded="false" aria-controls="thisReviewContent2">
+                        <span class="col-2 fs-17 c-star ls-narrower">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                        <span class="col-5 fs-17">리뷰 제목<span class="c-bbb ms-2"><i class="fas fa-images"></i></span></span>
+                        <span class="col-2 text-center c-666 fw-light">작성자 이름</span>
+                        <span class="col-2 text-center c-666 fw-light">작성일</span>
+                    </div>
+                </div>
+                <div id="thisReviewContent2" class="accordion-collapse collapse border-0" aria-labelledby="thisReview2"
+                     data-bs-parent="#thisReview">
+                    <div class="accordion-body bb-1">
+                        <div class="col-5 d-flex flex-column ms-13">
+                            <img src="../../../static/image/flower/flower2.jpg" alt="dummy" class="col-9">
+                            <div class="my-4">
+                                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div> <!-- 리뷰게시판 닫기 -->
 
     <!-- 배송안내 -->
-    <hr>
-    <div id="delivery-area">배송안내</div>
+    <div id="delivery-area" class="ps-3 my-4">
+        <div class="fs-2 fw-500 py-3">배송안내</div>
+        <div class="c-666 d-flex flex-column">
+            <hr>
+            <div class="fs-5 fw-500 mt-3">1. 배송 정보<br>1-1. 배송비 정책</div>
+            <p>
+                [공통] 구매 금액 합산 30,000원 이상일 경우 배송비는 무료입니다.<br>
+                [유의사항] 정기구독 상품 및 일부 3만원 미만의 배송비 무료 상품은 구매금액 합산에 포함되지 않습니다.
+            </p>
 
+            <span class="fs-5 fw-500">1-2. 일반배송 (택배배송)</span>
+            <p>
+                [배송일] 선택하신 수령일 전날 발송되어 해당 일에 수령합니다.<br>
+                [배송방법] 우체국 택배를 통해서 배송되며, 카카오톡 알림톡을 통해 주문하신 분께 송장 번호를 개별적으로 공지합니다.<br>
+                [배송지역]  전국 모든 지역에 배송이 가능합니다. (제주도 및 도서 산간 지역은 1~2일 늦어질 수 있습니다.)<br>
+                [배송시간] 택배로 배송 당일 정확한 배송 시간 안내는 어려운 점 양해 부탁드려요.<br>
+                해당 주소지에 평소 우체국택배 집배원님이 배송 가시는 시간에 받아보실 수 있습니다.
+            </p>
+
+            <span class="fs-5 fw-500">1-3. 새벽배송</span>
+            <p>
+                [배송지역] 서울/경기 일부지역에만 제공되며, 섬/공단/학교/학교기숙사/병원/관공서는 배송이 불가합니다.<br>
+                [배송방법] 새벽배송 가능지역은 오전 7시 이전까지 작성하신 배송지로 배송되며, 그 외 지역은 일반배송 (택배배송)으로 발송됩니다.<br>
+                [배송시간] 오후 2시 이전 주문완료건에 대하여 다음날 오전 7시 이전까지 배송받을 수 있습니다.<br>
+                [배송비 정책] 새벽배송 가능지역일 경우, 추가비용없이 배송됩니다.<br>
+                [유의사항]<br>
+                - 새벽배송은 저온의 온도를 유지하기 위해 단열재 없이 배송됩니다.<br>
+                - 결제시, 공동현관 비밀번호 기입이 필수이며, 미기입시 1층 현관에 배송됩니다.
+            </p>
+
+            <span class="fs-5 fw-500">▶ 새벽배송 가능지역 ◀</span>
+            <p>
+                1) 전지역 가능<br>
+                서울, 안양시, 부천시, 구리시, 성남시, 수원시, 광명시, 의정부시, 안산시, 시흥시 (안산/시흥 공단지역 제외)<br>
+                <br>
+                2) 일부지역가능<br>
+                <u>광주시</u>  오포읍<br>
+                <br>
+                <u>고양시</u><br>
+                덕양구 – 성사동(성사1~2동), 화정동(화정1~2동), 행신동(행신1~3동), 주교동, 토당동, 도내동, 삼송동, 원흥동, 흥도동, 능곡동, 행주동<br>
+                일산동구 – 장항동(장항1~2동), 마두동(마두1~2동), 백석동(백석1~2동), 식사동, 풍동, 중산동, 정발산동, 풍산동<br>
+                일산서구 – 일산동(일산1~3동), 주엽동(주엽1~2동), 가좌동, 덕이동, 대화동, 탄현동, 송산동, 송포동<br>
+                <br>
+                <u>과천시</u>   관문동 제외 전지역<br>
+                <br>
+                <u>용인시</u>   수지구 고기동, 처인구 제외 전지역<br>
+                <br>
+                <u>인천광역시</u>   계양구, 부평구, 남동구, 연수구, 미추홀구, 서구<br>
+                <br>
+                <u>하남시</u><br>
+                미사동(미사1~2동), 신장동(신장1~2동), 덕풍동(덕풍1~3동), 망월동, 선동, 풍산동, 창우동, 천현동, 학암동, 위례동<br>
+                <br>
+                <u>파주시</u><br>
+                금촌동(금촌1~3동), 운정1~3동, 야동동, 다율동, 와동동, 목동동, 동패동, 문발동, 야당동, 교하동<br>
+                <br>
+                <u>화성시</u><br>
+                병점동(병점1~2동), 동탄1~6동, 진안동, 반월동, 기산동, 능동, 반송동, 석우동, 영천동, 청계동, 오산동, 목동, 산척동<br>
+                <br>
+                <u>의왕시</u>   내손동(내손1~2동), 포일동, 오전동, 고천동<br>
+                <br>
+                <u>군포시</u>   군포1~2동, 산본동(산본1~2동), 금정동, 당동, 당정동, 부곡동, 광정동, 궁내동, 수리동, 재궁동, 오금동<br>
+                <br>
+                <u>김포시</u>   양촌읍, 고촌읍, 운양동, 장기동, 구래동, 마산동, 걸포동, 감정동, 사우동, 북변동, 풍무동<br>
+                <br>
+                <u>남양주시</u><br>
+                진전읍, 진건읍, 와부읍, 별내면, 퇴계원면, 다산동(다산1~2동), 별내동, 평내동, 호평동, 금곡동, 이패동, 도농동, 지금동
+            </p>
+
+            <span class="fs-5 fw-500">2. 교환 및 환불 정책</span>
+            <p>
+                [결제 완료] 상태라면 언제든지 홈페이지 및 고객센터를 통해 해지 가능합니다. (마이페이지 > 주문내역)<br>
+                [발송 준비] 단계에서는 주문 내역 변경 및 주문 취소가 불가합니다.<br>
+                [배송 완료] 배송 이후에는 원칙적으로 환불이 불가하며, 100% happiness program에 따라<br>
+                꽃 신선도, 배송 상태(꽃 부러짐) 등 문제가 있는 경우에는 동일 꽃 혹은 동일 크기의 꽃으로 다시 보내드립니다.<br>
+                [기타] 무통장 결제의 환불은 주문취소요청이 확인된 날짜 기준으로 다음날(휴일 제외)에 일괄적으로 이루어집니다.
+            </p>
+        </div>
+    </div> <!-- 배송안내 닫기 -->
 </form>
 </div> <!-- #container 닫기 -->
 
@@ -239,12 +487,12 @@
     /* 편지 추가, 추가안함 */
     function checkRadioBtn(isAdded) {
         if (isAdded) { // 편지 추가 O
-            letterOptionsEl[1].nextElementSibling.classList.remove("text-dark", "fw500");
-            letterOptionsEl[0].nextElementSibling.classList.add("text-dark", "fw500");
+            letterOptionsEl[1].nextElementSibling.classList.remove("text-dark", "fw-500");
+            letterOptionsEl[0].nextElementSibling.classList.add("text-dark", "fw-500");
             document.querySelector("#addLetter").classList.remove("d-none");
         } else { // 편지 추가 X
-            letterOptionsEl[0].nextElementSibling.classList.remove("text-dark", "fw500");
-            letterOptionsEl[1].nextElementSibling.classList.add("text-dark", "fw500");
+            letterOptionsEl[0].nextElementSibling.classList.remove("text-dark", "fw-500");
+            letterOptionsEl[1].nextElementSibling.classList.add("text-dark", "fw-500");
             document.querySelector("#addLetter").classList.add("d-none");
         }
         configTotal();
@@ -321,6 +569,7 @@
     /* 수령일 선택 */
     $(function () {
         $('.datepicker').datepicker({
+            autoclose: true,
             format: 'yyyy-mm-dd',
             showOtherMonths: false,
             startDate: 'noBefore',
@@ -373,14 +622,16 @@
         }
     }
 
+    /* 추가옵션 선택시 choice-price-box 를 새로 생성하고 append 해주기  */
     function makeNewPriceBox(pvo) {
         const priceBoxWrap = document.querySelector(".price-box-wrap");
         let newDiv = document.createElement("div");
 
         newDiv.className =  "choice-price-box p-4 mx-2 mb-3 price-box";
         newDiv.setAttribute("data-product-idx", pvo.idx);
+        newDiv.setAttribute("data-product-name", pvo.name);
         newDiv.innerHTML =  "<div class='d-flex justify-content-between pb-1'>"
-                            + "<span class='fw500'>추가상품 : " + pvo.name + "</span>"
+                            + "<span class='fw-500'>추가상품 : " + pvo.name + "</span>"
                             + "<button type='button' class='btn-close btn-close-style' "
                             + "onclick='deleteChoice(this)'></button></div>"
                             + "<div class='d-flex justify-content-between'>"
@@ -390,7 +641,7 @@
                             + "<span class='quantity col-1 text-center'>1</span>"
                             + "<button type='button' class='border-0 bg-transparent' onclick='adjustChoiceQuantity(true, this)'>"
                             + "<i class='fas fa-plus-circle'></i></button></div>"
-                            + "<span class='fw500' data-choice-price=" + pvo.finalPrice + ">" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
+                            + "<span class='fw-500' data-choice-price=" + pvo.finalPrice + ">" + pvo.finalPrice.toLocaleString('ko-KR') + "원</span>"
                             + "</div>";
 
         // 이미 만들어진 애들 중에 동일 인덱스 있나 보고, 있으면 기존것에 수량만 합치고 없으면 따로 추가
@@ -401,7 +652,7 @@
             for (let i = 0; i < $choices.length; i++) {
                 let productIdx = Number($choices[i].dataset["productIdx"]);
                 if (pvo.idx === productIdx) {
-                    console.log("pvo.idx= " + pvo.idx + ", productidx= " + productIdx);
+                    console.log("pvo.idx= " + pvo.idx + ", productIdx= " + productIdx);
                     console.log("중복값이 존재합니다.");
                     btnUp = $choices[i].getElementsByTagName('button')[2];
                     choiceExists = true;
@@ -427,7 +678,7 @@
     }
 
     /* 장바구니 보내기 */
-    async function addCart(goCart, frm) {
+    async function addCart() {
         const $inputs = document.getElementsByTagName("input");
         const $choices = document.querySelectorAll(".choice-price-box");
         const $flowerQuantity = document.querySelector("[data-flower-quantity]");
@@ -461,106 +712,81 @@
         const result = await response.json();
         console.log(result);
 
-        if (goCart && result) {
+        if (result) {
             location.href = "/cart/list";
-        } else if (!goCart && result) {
-            // 이때 사실 cartList 에 담긴 result 를 지워줘야하는데 말이지..?
-            goPay(result, frm);
         }
     }
 
-    function goPay(cartVo, frm) {
-        console.log("goPay()실행. cartVo: " + cartVo);
+    /* 바로구매 클릭 */
+    function goPay(frm) {
+        const $inputs = document.getElementsByTagName("input");
+        const $choices = document.querySelectorAll(".choice-price-box");
+
+        const choices = [...$choices].map((choice) => {
+            return {
+                productName: choice.dataset.productName,
+                quantity: choice.querySelector(".quantity").textContent
+            }
+        });
+
+        // CartVo 에 있는 메소드 getOption()을 javascript 에서 구현 -> 옵션상품명1 : 3개, 상품명2 : 1개, ... 이런식으로 출력되게
+        let optionStr = "";
+        for (let i = 0; i < choices.length; i++) {
+            optionStr += choices[i].productName + " : " + choices[i].quantity + "개, ";
+        }
+        optionStr = optionStr.substring(0, optionStr.length - 2);
+
         const oitemVoList = [
-            {hasLetter: letterOptionsEl[0].checked},
-            {name: cartVo.name},
-            {price: cartVo.totalPrice},
-            {options: cartVo.options},
-            {image: cartVo.image},
-            {requestDate: cartVo.requestDate},
-            {category: cartVo.category},
-            {quantity: cartVo.quantity},
-            {reviewCheck: 0}
+            {
+                hasLetter: letterOptionsEl[0].checked,
+                name: document.querySelector(".item-name").textContent,
+                price: totalPriceEl.textContent.replace("원", "").replaceAll(",", ""),
+                options: optionStr,
+                image: $inputs.image.value,
+                requestDate: $inputs.requestDate.value,
+                category: $inputs.category.value,
+                quantity: document.querySelector("[data-flower-quantity]").textContent,
+                reviewCheck: 0,
+                fsize: document.querySelector("#fsize").value
+            }
         ];
 
         let data = document.createElement("input");
+        data.classList.add("visually-hidden");
         data.type = "text";
         data.name = "data";
         data.value = JSON.stringify(oitemVoList);
 
-        console.log("data.value: " + data.value);
-
-        // deleteFromCart(cartVo.idx);
+        // console.log("data.value: " + data.value);
 
         frm.appendChild(data);
         frm.action = "/order/letter";
         frm.submit();
     }
 
-    // function deleteFromCart(idx) {
-    //     console.log(idx);
-    //     fetch("/api/cart/removeByIdx", {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json;charset=UTF-8'
-    //         },
-    //         body: JSON.stringify({
-    //             idx: idx
-    //         })
-    //     }).then(
-    //         (response) => console.log(response)
-    //     ).then(
-    //         (result) => console.log(result)
-    //     ).catch(function (err) {
-    //         alert(err);
-    //     });
-    // }
 
-
+    /* 상품설명/리뷰/배송안내 탭 누르면 스크롤 이동 */
     function animateScroll(locationStr) {
         let headerHeight = document.querySelector("header").offsetHeight;
         let targetScrollVal = document.querySelector(locationStr).offsetTop;
         window.scrollTo({top:targetScrollVal - headerHeight, behavior:'smooth'});
     }
 
-
-
-
-
-
-    <%--
-    async function getDetail() {
-        let response = await fetch("/flower/${idx}/get");
-        let result = await response.json();
-        makeDetail(result);
-    }
-
-    fetch("/flower/${idx}/get")
-        .then(function (response) {
-            console.log(response);
-            response.json().then(function (result) {
-                console.log(result);
-                makeDetail(result);
-            });
-        })
-        .catch(function (err) {
-            alert(err);
+    /* 최상단으로 스크롤 이동 */
+    function moveToTop() {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
         });
-
-    function makeDetail(vo) {
-        let mainFlower = document.querySelector("#flower");
-        let html = "<span>" + vo.name + "</span>";
-        html += "<span>" + vo.subheader + "</span>";
-        html += "<img src='"+ vo.image1+ "'>";
-
-        mainFlower.innerHTML = html;
+        document.querySelector('#showTypeContent').checked = true;
     }
-    --%>
 
-
+    /* 리뷰 카테고리(베스트리뷰/해당 상품리뷰) 탭으로 바꾸기 */
+    function switchCategory(prev, next) {
+        document.querySelector(prev).classList.add('d-none');
+        document.querySelector(next).classList.remove('d-none');
+    }
 </script>
 </body>
 </html>
-<style>
-
-</style>

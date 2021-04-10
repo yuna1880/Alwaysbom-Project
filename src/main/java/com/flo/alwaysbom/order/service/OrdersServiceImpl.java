@@ -4,9 +4,7 @@ package com.flo.alwaysbom.order.service;
 import com.flo.alwaysbom.cart.dao.CartDao;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.dao.OrdersDao;
-import com.flo.alwaysbom.order.vo.DeliveryInfoVo;
-import com.flo.alwaysbom.order.vo.OitemVo;
-import com.flo.alwaysbom.order.vo.OrdersVo;
+import com.flo.alwaysbom.order.vo.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,33 +45,9 @@ public class OrdersServiceImpl implements OrdersService {
 
         //남은 일
 
-
         return ordersVo;
     }
 
-    @Override
-    public void updateOrder(OrdersVo vo) {
-
-    }
-    @Override
-    public void deleteOrder(OrdersVo vo) {
-    }
-    @Override
-    public OrdersVo getOrder(OrdersVo vo) {
-        return null;
-    }
-
-    @Override
-    public List<OrdersVo> getOrderList() {
-        return null;
-    }
-
-    @Override
-    public List<OrdersVo> getOrderList(OrdersVo vo) {
-        return null;
-    }
-
-    
     // 배송지 불러오기
     @Override
     public DeliveryInfoVo findAddress(MemberVO vo) {
@@ -92,6 +66,50 @@ public class OrdersServiceImpl implements OrdersService {
         return ordersVo;
     }
 
-   
+    @Override
+    public List<OrdersVo> findByMember(MemberVO vo) {
+
+        //여기서는 ordersList들만 뽑아줌
+        List<OrdersVo> ordersList = orderDao.findByMember(vo);
+/*
+        // 찾은 orderList안의 oitemList를 orderIdx가 동일한 것만 찾아오기(내가 한 것)
+        for(OrdersVo order : ordersList) {
+            // ordersVo의 olist를 (orderDao에서 찾은 idx값의 값으로 set 해줌) (그래서 orderIdx만 필요!!)
+            order.setOlist(orderDao.findByOrderIdx(order.getIdx()));
+        }
+        System.out.println("orderList =" + ordersList);
+ */
+        return ordersList;
+    }
+
+    @Override
+    public List<OrdersVo> findBySearchOption(OrdersSearchOptionDto searchOption) {
+        return orderDao.findBySearchOption(searchOption);
+    }
+
+    @Override
+    public OrdersStatusCount findStatusCount() {
+        return orderDao.findStatusCount();
+    }
+
+    @Override
+    public boolean updateStatus(OrdersVo orders) {
+        return orderDao.updateStatus(orders);
+    }
+
+    @Override
+    public void updatePoint(MemberVO member) {
+        orderDao.updatePoint(member);
+    }
+
+    @Override
+    public List<OrdersVo> findBySubs(MemberVO member) {
+        return orderDao.findBySubs(member);
+    }
+
+    @Override
+    public List<OrdersVo> findByFlower(MemberVO member) {
+        return orderDao.findByFlower(member);
+    }
 
 }

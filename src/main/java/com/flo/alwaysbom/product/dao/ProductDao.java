@@ -31,13 +31,16 @@ public class ProductDao {
         return Optional.ofNullable(sqlSessionTemplate.selectOne("PRODUCT.findByIdx", idx));
     }
 
-    public int updateProduct(ProductVo vo) {
+    public Integer updateProduct(ProductVo vo) {
         sqlSessionTemplate.update("PRODUCT.updateProduct", vo);
         return vo.getIdx();
     }
 
-    public int deleteProduct(Integer idx) {
+    public Integer deleteProduct(Integer idx) {
         return sqlSessionTemplate.update("PRODUCT.deleteProduct", idx);
     }
 
+    public Integer findByName(String name) {
+        return sqlSessionTemplate.selectOne("PRODUCT.findByName", name);
+    }
 }

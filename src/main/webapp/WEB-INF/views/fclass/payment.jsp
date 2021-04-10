@@ -34,8 +34,8 @@
         const discountGradeEl = document.querySelector("#discountGradeHidden");
         const discountTotalPriceEl = document.querySelector("#discountTotalPriceHidden");
 
-
-        let originalPrice = finalPriceEl.getAttribute("data-original-price");
+        /*let originalPrice = finalPriceEl.getAttribute("data-original-price");*/
+        let originalPrice = finalPriceEl.dataset.originalPrice;
         let discountPoint;
 
         if (inputPointEl.value !== "" || inputPointEl.value.length > 0) {
@@ -52,10 +52,13 @@
        // grade.setAttribute("discountGrade");
         finalPriceEl.textContent = finalPrice.toLocaleString('ko-KR') + " 원";
         discountTotalPriceEl.value= finalPrice;
-
     }
 
     function compareWithPoint(point) {
+        if (point.value < 0) {
+            alert("포인트는 0원 이상부터 사용 가능합니다.");
+            point.value="";
+        }
         if (point.value > ${memberVo.point}) {
             alert("${memberVo.name}님께서 사용 가능한 포인트는 <fmt:formatNumber value="${memberVo.point}" pattern="#,###"/> 입니다.")
             point.value="";
@@ -95,7 +98,7 @@
             <div class="d-flex flex-column ps-2">
                 <span>[ ${branchVo.name} ] ${fclassVo.category}_${fclassVo.name}</span>
                 <span>수강인원 : ${regCount}</span>
-                <span>수강시간 : ${scheduleVo.startTime}</span>
+                <span>수강시간 : ${scheduleVo.startTime} ~ ${scheduleVo.endTime}</span>
             </div>
         </div>
 
@@ -224,7 +227,7 @@
                 <div class="d-flex flex-column">
                     <div class="col-6 d-flex align-items-center">
                         <span>입금자명</span>
-                        <input type="text" class="mx-2" style="width:80px">
+                        <input type="text" class="mx-2" style="width:80px" aria-label="name">
                         <span>미기재시 주문자명으로 자동 반영</span>
                     </div>
                     <div class="py-4">

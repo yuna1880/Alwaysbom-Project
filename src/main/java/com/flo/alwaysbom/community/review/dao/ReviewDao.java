@@ -1,7 +1,8 @@
 package com.flo.alwaysbom.community.review.dao;
 
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
-import com.flo.alwaysbom.community.review.vo.ReviewVo;
+import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
+import com.flo.alwaysbom.order.vo.OrdersVo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,15 +24,19 @@ public class ReviewDao {
         return list;
     }
 
-    public List<ReviewDto> allReview(String category, String tab) {
+    public List<ReviewDto> allReview(String category, String tab, Integer idx) {
         List<ReviewDto> list = null;
+        Map<String, Object> map = new HashMap<>();
         if(category.equals("")){
             category = null;
         }
+        map.put("category", category);
+        map.put("tab", category);
+        map.put("idx", idx);
         if(tab.equals("best")){
-            list = sqlSessionTemplate.selectList("review.cateBestReview", category);
+            list = sqlSessionTemplate.selectList("review.cateBestReview", map);
         } else if(tab.equals("allList")) {
-            list = sqlSessionTemplate.selectList("review.allReview", category);
+            list = sqlSessionTemplate.selectList("review.allReview", map);
         }
         for (ReviewDto vo : list) {
             vo.setRegDate(vo.getRegDate().substring(0,10));
@@ -67,5 +72,69 @@ public class ReviewDao {
             vo.setRegDate(vo.getRegDate().substring(0,10));
         }
         return list;
+    }
+
+    public List<ReviewDto> searchReview(String opt, String search) {
+        List<ReviewDto> list = sqlSessionTemplate.selectList("review.searchReview", search);
+        for (ReviewDto vo : list) {
+            vo.setRegDate(vo.getRegDate().substring(0,10));
+        }
+        return list;
+    }
+
+    public void searchReview(Integer idx) {
+        sqlSessionTemplate.delete("review.deleteReview", idx);
+    }
+
+    public List<ReviewLikeVo> likeList() {
+        return sqlSessionTemplate.selectList("reviewLike.allLikeList");
+    }
+
+    public void likeCheck(String memberId, Integer reviewIdx) {
+        List<ReviewLikeVo> list = null;
+        int review=0;
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberId", memberId);
+        map.put("reviewIdx", reviewIdx);
+        list = sqlSessionTemplate.selectList("reviewLike.likeSearch", map);
+        if(list != null && list.size() > 0){
+            sqlSessionTemplate.delete("reviewLike.likedelete" ,map);
+            review = sqlSessionTemplate.selectOne("review.likeCount", reviewIdx);
+            map.put("review", --review);
+            sqlSessionTemplate.update("review.likeUpdate", map);
+        } else{
+            sqlSessionTemplate.insert("reviewLike.likeinsert", map);
+            review = sqlSessionTemplate.selectOne("review.likeCount", reviewIdx);
+            map.put("review", ++review);
+            sqlSessionTemplate.update("review.likeUpdate", map);
+        }
+    }
+
+    public List<OrdersVo> findByStatus(String id){
+        return sqlSessionTemplate.selectList("orders-mapper.findId",id);
+    }
+
+    public boolean hasReviewLike(ReviewLikeVo reviewLikeVo) {
+        int count = sqlSessionTemplate.selectOne("reviewLike.hasReview", reviewLikeVo);
+        return count > 0;
+    }
+
+
+    public void addReview(ReviewDto vo, Integer idx) {
+        if(vo.getCategory().equals("꽃다발")){
+            sqlSessionTemplate.insert("review.addFloIdx",vo);
+        }
+        else if(vo.getCategory().equals("정기구독")){
+            sqlSessionTemplate.insert("review.addSubIdx", vo);
+        }
+        else if(vo.getCategory().equals("소품")){
+            sqlSessionTemplate.insert("review.addProIdx", vo);
+        }
+        else if(vo.getCategory().equals("클래스")){
+            sqlSessionTemplate.insert("review.addclsIdx", vo);
+        }
+        sqlSessionTemplate.update("review.reviewCheck", idx);
+        sqlSessionTemplate.update("review.memberPoint", vo);
+
     }
 }

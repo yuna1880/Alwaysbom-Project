@@ -1,6 +1,9 @@
 package com.flo.alwaysbom.main.vo;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -8,11 +11,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MainVo {
-    private Integer imageNum;
-    private String imageName;
-    private String link;
-    private String orderStandard;
     private Integer fclassIdxBig;
     private Integer fclassIdxSmall;
+    private List<MainImage> images;
+
 
 }

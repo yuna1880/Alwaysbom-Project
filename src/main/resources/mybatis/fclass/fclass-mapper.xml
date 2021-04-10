@@ -35,11 +35,13 @@
     <select id="findConnectedBranchList" resultType="com.flo.alwaysbom.fclass.vo.BranchVo" parameterType="int">
         SELECT B.* from BRANCH B inner join FCB on B.IDX = FCB.BRANCH_IDX
         where FCB.FCLASS_IDX = #{idx}
+        ORDER BY B.NAME
     </select>
 
     <select id="findByIdx" parameterType="int" resultMap="fclassMap">
         SELECT * FROM FCLASS
         WHERE IDX = #{idx}
+        ORDER BY IDX
     </select>
 
     <select id="findAll" resultMap="fclassMap">
@@ -61,4 +63,13 @@
         INSERT INTO FCB
         VALUES (#{fclassIdx}, #{branchIdx})
     </insert>
+
+    <select id="findReviewsByOption" parameterType="map" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        select *
+        from (select ROW_NUMBER() OVER (ORDER BY IDX DESC) as rn, R.*
+              from review R
+              where fclass_idx = #{idx})
+        where RN between #{startIndex}
+                  and #{endIndex}
+    </select>
 </mapper>

@@ -158,4 +158,20 @@ public class CartVo {
         }
         return totalPrice;
     }
+
+    public String getFsize() {
+        String fsize = "";
+        try {
+            if ("정기구독".equals(category)) {
+                fsize = subsVo.getFsize();
+            } else if ("꽃다발".equals(category)) {
+                fsize = flowerVo.getFsize();
+            } else if ("소품샵".equals(category)) {
+                fsize = productVo.getFsize();
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Item Final Price : 상품 카테고리에 해당하는 vo가 존재하지 않습니다");
+        }
+        return fsize;
+    }
 }

@@ -27,4 +27,20 @@ public class FlowerDao {
         return Optional.ofNullable(sqlSessionTemplate.selectOne("FLOWER.findByIdx", idx));
     }
 
+    public List<FlowerVo> findRecent4() {
+        return sqlSessionTemplate.selectList("FLOWER.findRecent4");
+    }
+
+    public Integer updateFlower(FlowerVo vo) {
+        sqlSessionTemplate.update("FLOWER.updateFlower", vo);
+        return vo.getIdx();
+    }
+
+    public void deleteFlower(Integer idx) {
+        sqlSessionTemplate.update("FLOWER.deleteFlower", idx);
+    }
+
+    public Integer findByname(String name) {
+        return sqlSessionTemplate.selectOne("FLOWER.findByname", name);
+    }
 }

@@ -13,12 +13,23 @@ public class CouponDao {
 
     private final SqlSessionTemplate sessionTemplate;
 
-    public CouponVo addCoupon(CouponVo couponVo) {
+    public void addCoupon(CouponVo couponVo) {
         sessionTemplate.insert("coupon.addCoupon", couponVo);
-        return couponVo;
     }
 
-    public List<CouponVo> findAll() {
-        return sessionTemplate.selectList("coupon.findAll");
+    public List<CouponVo> findBySearchOption(CouponVo option) {
+        return sessionTemplate.selectList("coupon.findBySearchOption", option);
+    }
+
+    public CouponVo findByIdx(Integer idx) {
+        return sessionTemplate.selectOne("coupon.findByIdx", idx);
+    }
+
+    public void updateCoupon(CouponVo couponVo) {
+        sessionTemplate.update("coupon.updateCoupon", couponVo);
+    }
+
+    public boolean deleteCoupon(Integer idx) {
+        return sessionTemplate.delete("coupon.deleteByIdx", idx) > 0;
     }
 }

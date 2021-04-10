@@ -34,8 +34,8 @@
                             매출 분석
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="statistics">
-                            <li><a class="dropdown-item" href="#">정기 구독</a></li>
-                            <li><a class="dropdown-item" href="#">매출 통계</a></li>
+                            <li><a class="dropdown-item" href="/admin/statistics/subs">정기 구독</a></li>
+                            <li><a class="dropdown-item" href="/admin/statistics/sales">매출 통계</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -44,7 +44,7 @@
                             주문 내역
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="orders">
-                            <li><a class="dropdown-item" href="#">상품 주문 내역</a></li>
+                            <li><a class="dropdown-item" href="/admin/orders">상품 주문 내역</a></li>
                             <li><a class="dropdown-item" href="/admin/fclass/orders">클래스 주문 내역</a></li>
                         </ul>
                     </li>
@@ -76,8 +76,8 @@
                             커뮤니티
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="community">
-                            <li><a class="dropdown-item" href="#">이벤트</a></li>
-                            <li><a class="dropdown-item" href="#">리뷰</a></li>
+                            <li><a class="dropdown-item" href="/admin/community/eventList">이벤트</a></li>
+                            <li><a class="dropdown-item" href="/community/event/eventreview">리뷰</a></li>
                             <li><a class="dropdown-item" href="/adnin/community/goFaq">FAQ</a></li>
                             <li><a class="dropdown-item" href="#">1:1 문의</a></li>
                         </ul>

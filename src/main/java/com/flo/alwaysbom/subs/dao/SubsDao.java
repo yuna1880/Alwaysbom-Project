@@ -26,5 +26,15 @@ public class SubsDao {
     public Optional<SubsVo> findByIdx(Integer idx) {
         return Optional.ofNullable(sqlSessionTemplate.selectOne("SUBS.findByIdx",idx));
     }
+    public Integer updateSubs(SubsVo svo) {
+        sqlSessionTemplate.update("SUBS.updateSubs",svo);
+        return svo.getIdx();
+    }
+    public void deleteSubs(Integer idx) {
+        sqlSessionTemplate.delete("SUBS.deleteSubs",idx);
+    }
 
+    public Integer findByName(String name) {
+        return sqlSessionTemplate.selectOne("SUBS.findByName", name);
+    }
 }

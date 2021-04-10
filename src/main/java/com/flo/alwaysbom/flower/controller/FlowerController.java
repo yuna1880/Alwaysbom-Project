@@ -1,18 +1,14 @@
 package com.flo.alwaysbom.flower.controller;
 
 import com.flo.alwaysbom.flower.service.FlowerService;
-import com.flo.alwaysbom.flower.service.FlowerServiceImpl;
 import com.flo.alwaysbom.flower.vo.FlowerVo;
-import com.flo.alwaysbom.product.controller.ProductController;
 import com.flo.alwaysbom.product.service.ProductService;
-import com.flo.alwaysbom.product.service.ProductServiceImpl;
 import com.flo.alwaysbom.product.vo.ProductVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -21,11 +17,11 @@ import java.util.List;
 public class FlowerController {
 
     private final FlowerService flowerService;
-    private final ProductServiceImpl productService;
+    private final ProductService productService;
 
     @GetMapping("/flower/test")
     public String goTest(){
-        return "flower/test";
+        return "flower/imgThumbTest";
     }
 
     @GetMapping("/flower")

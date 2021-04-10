@@ -96,7 +96,7 @@ ClassicEditor
             ]
         },
 
-        toolbar: ['heading', '|', 'fontFamily', 'bold', 'imageUpload', 'insertTable', 'imageStyle:full', 'imageStyle:alignLeft', 'imageStyle:alignRight'],
+        toolbar: ['heading', '|', 'bold', 'imageUpload', 'insertTable', 'imageStyle:full'],
 
         heading: {
             options: [

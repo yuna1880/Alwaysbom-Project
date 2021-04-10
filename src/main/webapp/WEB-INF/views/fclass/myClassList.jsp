@@ -79,7 +79,7 @@
     </ul>
 </div>
 <script id="innerScript" defer>
-    console.log('동작좀 하면 안되니');
+    /*console.log('동작좀 하면 안되니');*/
 
     async function searchByStatus(status) {
         let response = await fetch("/api/fclass/orders?status=" + status);

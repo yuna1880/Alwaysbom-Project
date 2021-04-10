@@ -74,7 +74,7 @@
         // let formData = $("#question-form").serialize();
         let formData = new FormData(document.querySelector("#question-form"));
         $.ajax({
-            url: '/question/api/writeQuest',
+            url: '/admin/question/api/writeQuest',
             method: "post",
             processData: false,
             contentType: false,

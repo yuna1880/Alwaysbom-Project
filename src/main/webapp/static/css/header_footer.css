@@ -15,6 +15,7 @@ header {
     height: 40px;
     font-size: 14px;
     line-height: 40px;
+    padding: 0 3em;
     /*border: 2px solid yellowgreen;*/
 }
 .login-bar a {
@@ -41,6 +42,7 @@ header {
     width: 1280px;
     height: 79px;
     font-size: 17px;
+    padding: 0 3em;
     /*border: 1px solid greenyellow;*/
 }
 .h-menu-bar a {
@@ -102,6 +104,9 @@ header {
 }
 #under-bar4 {
     width: 46px;
+}
+#under-bar5 {
+    width: 65px;
 }
 .h-submenu {
     width: 130px;

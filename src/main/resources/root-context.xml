@@ -35,4 +35,6 @@
     </bean>
 
     <bean id="fileHandler" class="com.flo.alwaysbom.util.CloudFileHandler"/>
+
+    <bean id="mail" class="com.flo.alwaysbom.util.MailSend"/>
 </beans>

@@ -1,21 +1,13 @@
 package com.flo.alwaysbom.order.service;
 
 import com.flo.alwaysbom.member.vo.MemberVO;
-import com.flo.alwaysbom.order.vo.DeliveryInfoVo;
-import com.flo.alwaysbom.order.vo.OitemVo;
-import com.flo.alwaysbom.order.vo.OrdersVo;
+import com.flo.alwaysbom.order.vo.*;
 
 import java.util.List;
 
 public interface OrdersService {
 
     OrdersVo insertOrder(OrdersVo vo, List<OitemVo> olist);
-    void updateOrder(OrdersVo vo);
-    void deleteOrder(OrdersVo vo);
-    OrdersVo getOrder(OrdersVo vo);
-
-    List<OrdersVo> getOrderList();
-    List<OrdersVo> getOrderList(OrdersVo vo);
 
     DeliveryInfoVo findAddress(MemberVO vo);
 
@@ -24,4 +16,19 @@ public interface OrdersService {
     //주문 완료시 저장
     OrdersVo saveDelivery(OrdersVo ordersVo);
 
+    //주문내역 조회 (회원 아이디로 조회)
+    List<OrdersVo> findByMember(MemberVO vo);
+
+   // 아이디, 배송지 정보로 찾기
+    List<OrdersVo> findBySearchOption(OrdersSearchOptionDto status);
+
+    OrdersStatusCount findStatusCount();
+
+    boolean updateStatus(OrdersVo orders);
+
+    void updatePoint(MemberVO member);
+
+    List<OrdersVo> findBySubs(MemberVO member);
+
+    List<OrdersVo> findByFlower(MemberVO member);
 }

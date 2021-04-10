@@ -2,20 +2,17 @@ package com.flo.alwaysbom.fclass.controller;
 
 import com.flo.alwaysbom.fclass.service.BranchService;
 import com.flo.alwaysbom.fclass.service.FclassService;
+import com.flo.alwaysbom.fclass.service.OclassService;
 import com.flo.alwaysbom.fclass.service.ScheduleService;
-import com.flo.alwaysbom.fclass.vo.BranchVo;
-import com.flo.alwaysbom.fclass.vo.FclassVo;
-import com.flo.alwaysbom.fclass.vo.ScheduleVo;
+import com.flo.alwaysbom.fclass.vo.*;
+import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.util.FileHandler;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -31,12 +28,15 @@ public class BackFclassController {
     private final BranchService branchService;
     private final FclassService fclassService;
     private final ScheduleService scheduleService;
+    private final OclassService oclassService;
     private final FileHandler fileHandler;
     private static final Logger logger = LoggerFactory.getLogger(BackFclassController.class);
     private ServletContext context;
 
     @GetMapping("admin/fclass/orders")
-    public String goOrders() {
+    public String goOrders(Model model) {
+        List<String> branchNames = oclassService.findAllBranch();
+        model.addAttribute("branchList", branchNames);
         return "fclass/b_orders";
     }
 
@@ -44,9 +44,11 @@ public class BackFclassController {
     public String goList(Model model) {
         List<FclassVo> classList = fclassService.findAll();
         List<BranchVo> branchList = branchService.findAll();
+
         System.out.println("classList = " + classList);
         model.addAttribute("classList", classList);
         model.addAttribute("branchList", branchList);
+
         return "fclass/b_classList";
     }
 
@@ -67,10 +69,17 @@ public class BackFclassController {
 
     @PostMapping("/admin/fclass/updateClass")
     public String updateClass(FclassVo vo, Integer[] branches, List<MultipartFile> file) throws IOException {
+        String oldImg = vo.getImage1();
         vo.setImage1(fileHandler.uploadFile(file.get(0), vo.getImage1(), "/fclass/class"));
         vo.setImage2(fileHandler.uploadFile(file.get(1), vo.getImage2(), "/fclass/class"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "/fclass/class"));
+        String newImg = vo.getImage1();
+        int classIdx = vo.getIdx();
         fclassService.updateFclass(vo, branches);
+        if (!oldImg.equals(newImg)) {
+            System.out.println("여기오냐?");
+            oclassService.updateClassImg(newImg, classIdx);
+        }
 
         return "redirect:/admin/fclass/b_classList";
     }
@@ -123,6 +132,37 @@ public class BackFclassController {
         return "fclass/b_manageSchedule";
     }
 
+    @GetMapping("/admin/fclass/api/orders")
+    public String getOrders(Model model, OclassSearchOptionDto searchOption) {
+        List<OclassVo> orders = oclassService.findBySearchOption(searchOption);
+        model.addAttribute("orders", orders);
+        return "fclass/b_orderListContent";
+    }
+
+    @GetMapping("/admin/fclass/api/orders/{idx}")
+    public String getOrder(Model model, @PathVariable Integer idx) {
+        OclassVo oclass = oclassService.findByIdx(idx);
+        model.addAttribute("order", oclass);
+        return "fclass/b_orderListContentRow";
+    }
+
+    @RequestMapping(value = "/admin/fclass/api/orders/{idx}", method = RequestMethod.PUT)
+    @ResponseBody
+    public OclassVo updateOrderStatus(@RequestBody String status, @PathVariable Integer idx) {
+        OclassVo oclassVo = OclassVo.builder()
+                .status(status)
+                .idx(idx)
+                .build();
+        return oclassService.updateOrderStatus(oclassVo);
+    }
+
+    @RequestMapping(value = "/admin/fclass/api/orders/{idx}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public boolean deleteOrder(@PathVariable Integer idx) {
+        /*oclassService.deleteOrder(idx);*/
+        return oclassService.deleteOrder(idx);
+    }
+
     @GetMapping("admin/fclass/api/findClassByCategory")
     @ResponseBody
     public List<FclassVo> findClassByCategory(String category) {
@@ -168,8 +208,10 @@ public class BackFclassController {
     @PostMapping("/admin/fclass/api/searchSchedule")
     @ResponseBody
     public List<ScheduleVo> searchSchedule(@RequestBody ScheduleVo vo) {
-        System.out.println("vo = " + vo);
-        return scheduleService.searchSchedule(vo);
+        System.out.println("searchSchedule : vo = " + vo);
+
+            return scheduleService.searchSchedule(vo);
+
     }
 
     @PostMapping("/admin/fclass/api/deleteScheduleByIdx")

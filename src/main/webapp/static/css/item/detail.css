@@ -10,14 +10,7 @@
     border: none;
 }
 
-#container {
-    background-color: #ffffff;
-}
-.thumb-order {
-    margin-bottom: 5em;
-}
-
-/*--- 상세페이지 ---*/
+/* 유저 이동경로 */
 #bread-nav {
     display: flex;
     font-size: 15px;
@@ -31,20 +24,8 @@
     text-decoration: underline;
     color: #4D4D4D;
 }
-.scale-up:hover {
-    transform: scale(1.05);
-    transition-duration: 0.5s;
-}
-
-/* 썸네일 이미지 */
-.thumbnails {
-    width: 46%;
-}
 
 /* 주문 정보 */
-.order-info {
-    width: 46%;
-}
 .subheader {
     font-size: 16px;
     font-weight: 300;
@@ -73,30 +54,21 @@
     border-top: 1px solid #d4d4d4;
     border-bottom: 1px solid #d4d4d4;
 }
-.point-color {
-    color: #7DAF3B;
-}
-.inputs-wrap {
-    font-size: 19px;
-}
 .count i {
     color: #c0c0c0;
-    font-size: 25px;
+    font-size: 23px;
 }
 .count i:hover {
     color: #9a9a9a;
     transition-duration: 0.3s;
     cursor: pointer;
 }
-.fw500 {
-    font-weight: 500;
-}
 .form-check-label {
     font-size: 15px;
     color: #808080;
 }
 .price-box {
-    background-color: #e0e0e0;
+    background-color: #eeeeee;
     border-radius: 18px;
 }
 .btn-close-style {
@@ -128,7 +100,7 @@
 .btn-show {
     border-right: 1px solid #e1e1e1;
     border-top: 1px solid #e1e1e1;
-    border-bottom: 2px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
     font-size: 18px;
     color: #707070;
 }
@@ -136,7 +108,7 @@
     cursor: pointer;
 }
 input[type=radio]:checked + .btn-show {
-    border-bottom: 3px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
     border-top: 3px solid #030303;
     color: #030303;
 }
@@ -144,17 +116,51 @@ input[type=radio]:checked + .btn-show {
 
 /* 상품설명 */
 #detail-area {
-    height: 2000px;
+    margin-bottom: 4em;
 }
 
 /* 리뷰 */
 #review-area {
-    height: 2000px;
+    margin : 4em 0;
+}
+#review-area a, #review-area a:hover {
+    color: #7DAF3B;
+}
+.c-star {
+    color: #ffdc4d;
+}
+.ls-narrower {
+    letter-spacing: -1.3px;
+}
+
+/* 리뷰 카테고리(꽃다발 베스트리뷰/이 상품의 리뷰) */
+#review-area {
+    margin-bottom: 4em;
+}
+.review-category {
+    border-bottom: 1px solid #dbdbdb;
+    margin-top: 2em;
+}
+.btn-rev {
+    font-size: 20px;
+    color: #707070;
+}
+.btn-rev:hover {
+    cursor: pointer;
+}
+input[type=radio]:checked + .btn-rev {
+    border-bottom: 3px solid #030303;
+    color: #030303;
+    font-weight: 500;
+}
+
+
+/* 베스트 리뷰 게시판 */
+.review-row:hover {
+    background-color: #f4f4f4;
+    cursor: pointer;
 }
 
 /* 배송안내 */
-#delivery-area {
-    height: 2000px;
-}
 
 

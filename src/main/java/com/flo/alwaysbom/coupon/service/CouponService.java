@@ -14,10 +14,20 @@ public class CouponService {
     private final CouponDao couponDao;
 
     public CouponVo addCoupon(CouponVo couponVo) {
-        return couponDao.addCoupon(couponVo);
+        couponDao.addCoupon(couponVo);
+        return couponDao.findByIdx(couponVo.getIdx());
     }
 
-    public List<CouponVo> findAll() {
-        return couponDao.findAll();
+    public List<CouponVo> findBySearchOption(CouponVo option) {
+        return couponDao.findBySearchOption(option);
+    }
+
+    public CouponVo updateCoupon(CouponVo couponVo) {
+        couponDao.updateCoupon(couponVo);
+        return couponDao.findByIdx(couponVo.getIdx());
+    }
+
+    public boolean deleteCoupon(Integer idx) {
+        return couponDao.deleteCoupon(idx);
     }
 }

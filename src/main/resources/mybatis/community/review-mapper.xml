@@ -12,12 +12,21 @@
         WHERE RN BETWEEN 1 and 10
     </select>
 
-    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="string">
+    <select id="allReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">
         SELECT *
         FROM REVIEW
         <where>
-            <if test="category != null">
-                CATEGORY = #{category}
+            <if test="category == '클래스'">
+                CATEGORY = #{category} AND FCLASS_IDX = #{idx}
+            </if>
+            <if test="category == '꽃다발'">
+                CATEGORY = #{category} AND FLOWER_IDX = #{idx}
+            </if>
+            <if test="category == '소품'">
+                CATEGORY = #{category} AND PRODUCT_IDX = #{idx}
+            </if>
+            <if test="category == '정기구독'">
+                CATEGORY = #{category} AND SUBS_IDX = #{idx}
             </if>
         </where>
         ORDER BY REG_DATE DESC
@@ -72,6 +81,69 @@
         )
         WHERE RN BETWEEN #{startIndex} and #{endIndex}
     </select>
+
+    <select id="searchReview" parameterType="string" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT *
+        FROM (
+        SELECT ROW_NUMBER() over (ORDER BY REG_DATE DESC) as RN, I.*
+        FROM REVIEW I
+            WHERE (CATEGORY LIKE '%' || #{search} || '%') OR
+                (NAME LIKE '%' || #{search} || '%') OR
+                (NAME LIKE '%' || #{search} || '%') OR
+                (MEMBER_ID LIKE '%' || #{search} || '%') OR
+                (CONTENT LIKE '%' || #{search} || '%')
+        )
+    </select>
+
+    <delete id="deleteReview" parameterType="int">
+        DELETE FROM REVIEW WHERE IDX = #{idx}
+    </delete>
+
+    <select id="likeCount" parameterType="int" resultType="int">
+        SELECT LIKE_COUNT FROM REVIEW WHERE IDX = #{reviewIdx}
+    </select>
+
+    <update id="likeUpdate" parameterType="map">
+        UPDATE REVIEW SET LIKE_COUNT = #{review}
+        WHERE IDX = #{reviewIdx}
+    </update>
+
+    <update id="addIdx" parameterType="int">
+        UPDATE REVIEW SET addFloIdx = #{fIdx}
+        WHERE IDX = #{reviewIdx}
+    </update>
+
+    <insert id="addFloIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        INSERT INTO REVIEW (CATEGORY, FLOWER_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (#{category}, #{flowerIdx}, #{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+    </insert>
+    <insert id="addSubIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        INSERT INTO REVIEW (CATEGORY, SUBS_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (#{category}, #{subsIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+    </insert>
+    <insert id="addProIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        INSERT INTO REVIEW (CATEGORY, PRODUCT_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (#{category}, #{productIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+    </insert>
+    <insert id="addclsIdx" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        INSERT INTO REVIEW (CATEGORY, FCLASS_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, REG_DATE, STAR, LIKE_COUNT)
+        VALUES (#{category}, #{fclassIdx},#{name}, #{memberId}, #{image}, #{content}, SYSDATE, #{star}, 0)
+    </insert>
+    <update id="reviewCheck" parameterType="int">
+        UPDATE OITEM
+        SET REVIEW_CHECK = 1
+        WHERE IDX = #{idx}
+    </update>
+    <update id="memberPoint" parameterType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        UPDATE MEMBER
+        <if test="image != null">
+            SET POINT = POINT+200
+        </if>
+        <if test="image == null">
+            SET POINT = POINT+300
+        </if>
+        WHERE ID = #{memberId}
+    </update>
 <!--    <select id="utilReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto" parameterType="map">-->
 <!--        SELECT *-->
 <!--        FROM REVIEW-->

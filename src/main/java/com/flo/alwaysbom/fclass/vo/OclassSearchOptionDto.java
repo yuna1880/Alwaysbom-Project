@@ -13,4 +13,5 @@ public class OclassSearchOptionDto {
     private String memberId;
     private String status;
     private String className;
+    private String branchName;
 }

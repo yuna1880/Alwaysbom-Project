@@ -10,7 +10,7 @@
 <body>
 <%@ include file="../main/b_header.jspf"%>
 <div id="container" class="mx-auto">
-<form action="/admin/goUpdate">
+<form action="/admin/productUpdateForm">
     <!-- 메뉴 이동 경로 -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-8em">
