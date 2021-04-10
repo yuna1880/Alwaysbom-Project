@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -208,5 +209,33 @@ public class FclassController {
     @ResponseBody
     public FclassReviewDto getReviewsByOption(@PathVariable Integer idx, Integer startIndex, Integer endIndex) {
         return fclassService.findReviewsByOption(idx, startIndex, endIndex);
+    }
+
+    @PostMapping(value = "/fclass/api/classList/{idx}/reviews", produces = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public ReviewDto addReview(@ModelAttribute FclassReviewForm newReview, @PathVariable Integer idx,
+                               @SessionAttribute MemberVO member) throws IOException {
+
+        ReviewDto reviewDto = null;
+        try {
+            System.out.println("FclassController.addReview");
+            System.out.println("newReview = " + newReview);
+            System.out.println("idx = " + idx);
+            System.out.println("member = " + member);
+
+            newReview.setMemberId(member.getId());
+            newReview.setFclassIdx(idx);
+            newReview.setImage(fileHandler.uploadFile(newReview.getImageFile(), null, "/fclass/reviews"));
+
+            System.out.println("add 전 reviewDto = " + newReview);
+
+            reviewDto = oclassService.addReview(newReview);
+            System.out.println("add 후 reviewDto = " + reviewDto);
+            return reviewDto;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }

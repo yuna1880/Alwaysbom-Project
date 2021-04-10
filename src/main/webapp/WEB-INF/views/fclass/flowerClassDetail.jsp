@@ -374,25 +374,64 @@
 <%--                <button data-last="${reviewDto.reviews.size()}" type="button" id="moreBtn"--%>
 <%--                        class="btn btn-dark px-5 py-3 fs-5 ${reviewDto.isFinish ? "d-none" : ""}" onclick="moreReviews(2)">리뷰 더보기</button>--%>
                 <button data-last="0" type="button" id="moreBtn"
-                        class="btn btn-dark px-5 py-3 fs-5 ${empty reviewDto.reviews ? "d-none" : ""}" onclick="moreReviews(2)">리뷰 더보기</button>
+                        class="btn btn-dark px-5 py-3 fs-5 ${empty reviewDto.reviews ? "d-none" : ""}" onclick="moreReviews(3)">리뷰 더보기</button>
             </div>
         </div>
 
         <!-- 리뷰 작성란 -->
         <c:if test="${not empty reviewableList}">
         <div class="d-flex">
-            <div class="col-10">
-                <label for="content" style="color: #afafaf"></label>
-                <textarea class="form-control" placeholder="리뷰를 남겨주세요"
-                          id="content" style="height:150px; resize: none"></textarea>
-            </div>
-            <div class="col-2 d-flex flex-column ps-3">
-                <div class="pb-3 d-flex flex-column">
-                    <button type="button" class="btn btn-dark">등록</button>
+            <div class="col-10 d-flex flex-column">
+                <!-- 리뷰제목이랑 리뷰별점 -->
+                <div class="col-12 d-flex align-items-end mb-3">
+                    <!-- 리뷰제목 -->
+                    <div class="col-6">
+                        <label for="reviewTitle" class="form-label">리뷰 제목</label>
+                        <input type="text" class="form-control" id="reviewTitle" placeholder="리뷰제목을 작성해주세요" required>
+                    </div>
+                    <!-- 리뷰별점 -->
+                    <div class="d-flex btn-group text-warning fs-2 ps-3 pb-1" role="group">
+                        <label class="btn-radio">
+                            <input type="radio" class="btn-check" name="starPoint" value="1" autocomplete="off">
+                            <i class="fas fa-star"></i>
+                        </label>
+                        <label class="btn-radio">
+                            <input type="radio" class="btn-check" name="starPoint" value="2" autocomplete="off">
+                            <i class="fas fa-star"></i>
+                        </label>
+                        <label class="btn-radio">
+                            <input type="radio" class="btn-check" name="starPoint" value="3" autocomplete="off">
+                            <i class="fas fa-star"></i>
+                        </label>
+                        <label class="btn-radio">
+                            <input type="radio" class="btn-check" name="starPoint" value="4" autocomplete="off">
+                            <i class="fas fa-star"></i>
+                        </label>
+                        <label class="btn-radio">
+                            <input type="radio" class="btn-check" name="starPoint" value="5" autocomplete="off" checked>
+                            <i class="fas fa-star"></i>
+                        </label>
+                    </div>
                 </div>
-                <select class="form-select">
+                <!-- 리뷰이미지 업로드 -->
+                <div class="d-flex col-6 mb-3">
+                    <input type="file" class="form-control text-secondary" id="reviewImage" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                    <%--<button class="btn btn-outline-secondary" type="button" id="reviewImageBtn">사진선택</button>--%>
+                </div>
+                <!-- 리뷰텍스트 영역 -->
+                <div class="col-12">
+                    <label for="content" style="color: #afafaf"></label>
+                    <textarea class="form-control" placeholder="리뷰를 남겨주세요"
+                              id="content"></textarea>
+                </div>
+            </div>
+            <div class="col-2 d-flex flex-column ps-3 pt-4">
+                <div class="pb-3 d-flex flex-column">
+                    <button type="button" class="btn btn-dark" onclick="addReview()">등록</button>
+                </div>
+                <select id="oclassIdx" class="form-select">
                     <c:forEach var="reviewable" items="${reviewableList}" varStatus="status">
-                    <option>${status.count}. 수강시작일 : ${reviewable.scheduleDate}, 주문일 : ${reviewable.orderDate}</option>
+                    <option value="${reviewable.idx}">${status.count}. 수강시작일 : ${reviewable.scheduleDate}, 주문일 : ${reviewable.orderDate}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -454,6 +493,59 @@
 
     moreReviews(5);
 
+    let $stars = document.querySelectorAll("[name=starPoint]");
+    let $starIcons = document.querySelectorAll("[name=starPoint] + i");
+    for (const $star of $stars) {
+        $star.onchange = function(){
+            console.log(this.value);
+            const starPoint = parseInt(this.value);
+            $starIcons.forEach(($starIcon, index) =>{
+                let className = "fas fa-star";
+                if (starPoint <= index) {
+                    className = "far fa-star";
+                }
+                $starIcon.className = className;
+            })
+        }
+    }
+
+    function addReview() {
+        let star = document.querySelector("[name=starPoint]:checked").value;
+        let name = document.querySelector("#reviewTitle").value;
+        let $image = document.querySelector("#reviewImage");
+        let oclassIdx = document.querySelector("#oclassIdx").value;
+
+        let formData = new FormData();
+        formData.append('name', name);
+        if ($image.files[0]) {
+            formData.append('imageFile', $image.files[0]);
+        }
+        formData.append('content', myEditor.getData());
+        formData.append('star', star);
+        formData.append('oclassIdx', oclassIdx);
+
+        let options = {
+            method: 'post',
+            body: formData
+        };
+
+        fetch("/fclass/api/classList/" + fclassIdx.toString() + "/reviews", options).then(response => {
+            response.json().then(result => {
+                console.log(result);
+                const $newReview = makeReviewRow(result);
+                const $thisReviewBox = document.querySelector("#thisReviewBox");
+                $thisReviewBox.prepend($newReview);
+
+            }).catch(err => {
+                console.log(err);
+            })
+        }).catch(err => {
+            console.log(err);
+        })
+
+
+    }
+
     async function moreReviews(moreCount) {
         // 현재 라스트 행번호를 가져오기
         const last = parseInt(moreBtn.dataset.last);
@@ -509,18 +601,33 @@
             const $imageIcon = htmlToElement('<span class="c-bbb ms-2"><i class="fas fa-images"></i></span>')
             $reviewImage.appendChild($imageIcon);
         }
-        const $memberId = htmlToElement('<span class="col-2 text-center fs-6 fw-light c-666">' + rowObject.memberId + '</span>')
-        const $regDate = htmlToElement('<span class="col-2 text-center fs-6 fw-light c-666">' + rowObject.regDate + '</span>')
+        const $memberId = htmlToElement('<span class="col-2 text-center fs-6 fw-light c-666">' + rowObject.memberId.substring(0, 4)+ '***님' + '</span>')
+        const $regDate = htmlToElement('<span class="col-2 text-center fs-6 fw-light c-666">' + rowObject.regDate.substring(0, 10) + '</span>')
 
         $reviewList.append($starSpan, $reviewImage, $memberId, $regDate);
         $accordionHeader.appendChild($reviewList);
         // reviewList 끝
 
+        let collapseHtml = '';
+        collapseHtml += '<div id="collapse' + idx + '" class="accordion-collapse collapse border-0"' +
+                        '     aria-labelledby="flush-heading' + idx + '" data-bs-parent="#bestReview" style="padding-left: 196px">';
+        collapseHtml += '   <div class="accordion-body px-5">';
+        if (rowObject.image) {
+            collapseHtml += '   <div>';
+            collapseHtml += '       <img src="' + rowObject.image + '" alt="사진" style="max-width: 50%;">';
+            collapseHtml += '   </div>';
+        }
+        collapseHtml += '       <span>' + rowObject.content + '</span>';
+        collapseHtml += '   </div>';
+        collapseHtml += '</div>';
+        const $accordionCollapse = htmlToElement(collapseHtml);
+
+        /*
         const $accordionCollapse = htmlToElement('<div id="collapse' + idx + '" class="accordion-collapse collapse border-0"' +
             ' aria-labelledby="flush-heading'+ idx +'" data-bs-parent="#bestReview" style="padding-left: 196px;"> </div>');
-
         const $content = htmlToElement('<div class="accordion-body px-5"><span>' + rowObject.content + '</span></div>');
         $accordionCollapse.appendChild($content);
+        */
         $accordionItem.appendChild($accordionCollapse);
         return $accordionItem;
     }
@@ -701,5 +808,11 @@
 </body>
 </html>
 <style>
+.btn-radio {
+    cursor: pointer;
+}
 
+.btn-radio:hover {
+    color: #ffcc3c;
+}
 </style>
