@@ -79,7 +79,7 @@
                             <li><a class="dropdown-item" href="/admin/community/eventList">이벤트</a></li>
                             <li><a class="dropdown-item" href="/community/event/eventreview">리뷰</a></li>
                             <li><a class="dropdown-item" href="/adnin/community/goFaq">FAQ</a></li>
-                            <li><a class="dropdown-item" href="#">1:1 문의</a></li>
+                            <li><a class="dropdown-item" href="/admin/community/question">1:1 문의</a></li>
                         </ul>
                     </li>
                 </ul>

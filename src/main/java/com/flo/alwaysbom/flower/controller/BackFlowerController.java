@@ -59,7 +59,7 @@ public class BackFlowerController {
         vo.setImage2(fileHandler.uploadFile(file.get(1), vo.getImage2(), "flower"));
         vo.setImage3(fileHandler.uploadFile(file.get(2), vo.getImage3(), "flower"));
         Integer idx = flowerService.updateFlower(vo);
-        return "redirect:/admin/flower/" + idx;
+        return "redirect:/admin/flowerList";
     }
 
     /* 꽃다발 상품 리스트 조회 */
@@ -68,15 +68,6 @@ public class BackFlowerController {
         List<FlowerVo> list = flowerService.findAll();
         model.addAttribute("list", list);
         return "flower/b_flowerList";
-    }
-
-    /* 상품 인덱스로 상세페이지 조회 */
-    @GetMapping("/admin/flower/{idx}")
-    public String findByIdx(@PathVariable Integer idx, Model model) {
-        FlowerVo flower = flowerService.findByIdx(idx)
-                .orElseThrow(() -> new IllegalStateException("해당 상품 인덱스가 존재하지 않습니다"));
-        model.addAttribute("flowerVo", flower);
-        return "flower/b_flowerDetail";
     }
 
     /* 상품 삭제 */

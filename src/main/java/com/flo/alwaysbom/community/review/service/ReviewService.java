@@ -3,6 +3,7 @@ package com.flo.alwaysbom.community.review.service;
 import com.flo.alwaysbom.community.review.dao.ReviewDao;
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
+import com.flo.alwaysbom.fclass.vo.OclassVo;
 import com.flo.alwaysbom.flower.dao.FlowerDao;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.dao.OrdersDao;
@@ -97,7 +98,7 @@ public class ReviewService {
     public ReviewDto revieWrite(String category, String name) {
         ReviewDto dto = new ReviewDto();
         if(category.equals("꽃다발")){
-           Integer fIdx = flowerDao.findByname(name);
+           Integer fIdx = flowerDao.findByName(name);
            dto.setCategory(category);
            dto.setFlowerIdx(fIdx);
             System.out.println(dto);
@@ -129,7 +130,7 @@ public class ReviewService {
     public ReviewDto updateWrite(String category, String name, Integer reviewIdx) {
         ReviewDto dto = new ReviewDto();
         if(category.equals("꽃다발")){
-            Integer fIdx = flowerDao.findByname(name);
+            Integer fIdx = flowerDao.findByName(name);
             dto.setCategory(category);
             dto.setFlowerIdx(fIdx);
             System.out.println(dto);
@@ -157,5 +158,9 @@ public class ReviewService {
 
     public void updateReview(ReviewDto vo, Integer idx) {
         reviewDao.updateReview(vo);
+    }
+
+    public List<OclassVo> reviewOclass(String id, Integer checkNum) {
+        return reviewDao.reviewOclass(id, checkNum);
     }
 }

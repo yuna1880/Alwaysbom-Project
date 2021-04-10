@@ -1,5 +1,6 @@
 /* 배너 관련 */
 .banner-wrap {
+    min-width: 1280px;
     width: 100%;
     background-color: #efeeeb;
 }

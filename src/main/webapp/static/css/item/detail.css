@@ -161,6 +161,15 @@ input[type=radio]:checked + .btn-rev {
     cursor: pointer;
 }
 
+/* 별점주기 버튼 */
+.btn-radio {
+    cursor: pointer;
+}
+.btn-radio:hover {
+    color: #ffcc3c;
+}
+
+
 /* 배송안내 */
 
 

@@ -84,6 +84,10 @@
         location.href = "/community/event/updateWrite?category=" + category + "&idx=" + idx + "&name=" + name + "&reviewIdx=" + reviewIdx;
     }
 
+    function updateFclassWrite(category, name, reviewIdx, idx) {
+        location.href = "/community/event/updateFclassWrite?category=" + category + "&idx=" + idx + "&reviewIdx=" + reviewIdx;
+    }
+
     function goReview() {
         $.ajax({
             url: '/community/api/myPageReviewe',
@@ -102,16 +106,57 @@
                             + '<span class="pe-2"> 이름 :' + oli.name + '</span>'
                             + '<span class="pe-2"> 가격 :' + oli.price + '</span>'
                             + '<span class="pe-2"> 상품 :' + oli.options + '</span>'
-                            + '<span class="pe-2"> 주문날짜 : ' + oli.requestDate + '<span>'
+                            + '<span class="pe-2"> 주문날짜 : ' + oli.requestDate
                                 + '</span>'
                             + '</a></div>';
                         }
                     });
                 });
                 $("#orderList").html(htmls);
+                oFclassList(1);
             }
         });
     }
+
+    function classWrite(category, fidx, idx) {
+        location.href = "/community/classWriter?category=" + category + "&fidx="+fidx + "&idx=" + idx;
+    }
+    $(function (){
+        let check = 0;
+        oFclassList(check)
+    });
+
+    function oFclassList(checkNum) {
+        let sendData = {
+            "check": checkNum
+        }
+        $.ajax({
+            url: '/community/api/myPageReviewFclass',
+            type: 'get',
+            dataType: 'json',
+            data: sendData,
+            success: function (data){
+                let htmls = '';
+                $.each(data, function (j, oli) {
+                    htmls += '<div class="" id="bord-color">';
+                    if(checkNum == 0) {
+                       htmls += '<a href="javascript:void(0);" onClick="classWrite(`클래스` ,`' + oli.fclassIdx + '`,`' + oli.idx + '`); return false" class="d-flex justify-content-center pe-2">';
+                    } else {
+                        htmls += '<a href="javascript:void(0);" onClick="updateFclassWrite(`클래스` ,`' + oli.fclassIdx + '`,`' + oli.reviewIdx + '`,`' + oli.idx + '`); return false" class="d-flex justify-content-center pe-2">';
+                    }
+                        htmls += '<span class="pe-2">' + oli.idx + '</span>'
+                        + '<span class="pe-2"> 지점 :' + oli.branchName + '</span>'
+                        + '<span class="pe-2"> 가격 :' + oli.payTotal + '</span>'
+                        + '<span class="pe-2"> 상품 :' + oli.fclassName + '</span>'
+                        + '<span class="pe-2"> 주문날짜 : ' + oli.payDate
+                        + '</span>'
+                        + '</a></div>';
+                });
+                $("#orderList").append(htmls);
+            }
+        });
+    }
+
 </script>
 
 
