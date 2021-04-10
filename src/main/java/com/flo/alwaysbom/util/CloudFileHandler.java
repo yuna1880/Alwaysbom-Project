@@ -29,7 +29,7 @@ public class CloudFileHandler implements FileHandler {
     }
 
     public String uploadFile(MultipartFile file, String dbName, String uploadFolder) throws IOException {
-        if (!file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
 
             String oriName = file.getOriginalFilename();
             int dotIndex = oriName.lastIndexOf(".");

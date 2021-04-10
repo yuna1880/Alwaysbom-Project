@@ -64,6 +64,12 @@
         VALUES (#{fclassIdx}, #{branchIdx})
     </insert>
 
+    <select id="findReviewsCount" parameterType="int" resultType="int">
+        SELECT COUNT(IDX)
+        FROM REVIEW
+        WHERE FCLASS_IDX = #{idx}
+    </select>
+
     <select id="findReviewsByOption" parameterType="map" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
         select *
         from (select ROW_NUMBER() OVER (ORDER BY IDX DESC) as rn, R.*

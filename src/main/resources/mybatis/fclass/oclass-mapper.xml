@@ -74,4 +74,18 @@
         ORDER BY SCHEDULE_DATE, ORDER_DATE
     </select>
 
+    <insert id="addReview" parameterType="com.flo.alwaysbom.fclass.vo.FclassReviewForm">
+        INSERT INTO REVIEW(IDX, CATEGORY, FCLASS_IDX, NAME, MEMBER_ID, IMAGE, CONTENT, STAR)
+        VALUES(null, '클래스', #{fclassIdx}, #{name}, #{memberId}, #{image}, #{content}, #{star})
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT REVIEW_SEQ.currval FROM DUAL
+        </selectKey>
+    </insert>
+
+    <update id="updateReviewCheck" parameterType="com.flo.alwaysbom.fclass.vo.FclassReviewForm">
+        UPDATE OCLASS
+        SET REVIEW_CHECK = 1, REVIEW_IDX = #{idx}
+        WHERE IDX = #{oclassIdx}
+    </update>
+
 </mapper>
