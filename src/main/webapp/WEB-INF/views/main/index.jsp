@@ -68,10 +68,10 @@
                 <c:forEach var="subsVo" items="${subsList}" varStatus="status">
                 <c:if test="${not empty subsVo}">
                 <li class="${status.index > 2 ? "" : "me-15"}">
-                    <img src="${subsVo.image1}" alt="subs" class="mb-2">
+                    <a href="/subs/${subsVo.idx}"><img src="${subsVo.image1}" alt="subs" class="mb-2"></a>
                     <div class="d-flex flex-column">
                         <span class="subheader">${subsVo.subheader}</span>
-                        <span class="item-name">${subsVo.name}</span>
+                        <span class="item-name"><a href="/subs/${subsVo.idx}">${subsVo.name}</a></span>
                         <div class="price-wrap">
                             <span class="discount-rate">1회 기준</span>
                             <span class="final-price">
