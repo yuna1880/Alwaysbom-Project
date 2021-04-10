@@ -39,4 +39,8 @@ public class CartDao {
     public boolean removeByIdx(Integer idx) {
         return sqlSessionTemplate.delete("cart.removeByIdx", idx) > 0;
     }
+
+    public int removeByIdxes(List<Integer> idxes) {
+        return sqlSessionTemplate.delete("cart.removeByIdxes", idxes);
+    }
 }

@@ -7,26 +7,28 @@
     <%@ include file="import.jspf"%>
     <link rel="stylesheet" href="/static/css/item/list.css">
     <link rel="stylesheet" href="/static/css/main.css">
+
 </head>
 <body>
 <%@ include file="header.jspf"%>
 <!-- 메인 슬라이드 이미지 -->
 <div id="mainSlide" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-        <button type="button" data-bs-target="#mainSlide" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#mainSlide" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#mainSlide" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <c:forEach var="images" items="${mainVo.images}" varStatus="status">
+    <c:if test="${not empty images.path}">
+        <button type="button" data-bs-target="#mainSlide" data-bs-slide-to="${status.index}" class=${status.index == 0 ? "active" : ""}
+                aria-current=${status.index == 0 ? "true" : ""} aria-label="Slide ${status.index + 1}"></button>
+    </c:if>
+    </c:forEach>
     </div>
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="/static/image/main/main_sample2.jpg" class="d-block w-100 main-img" alt="메인배너">
+        <c:forEach var="images" items="${mainVo.images}" varStatus="status">
+        <c:if test="${not empty images.path}">
+        <div class="carousel-item ${status.index == 0 ? "active" : ""}">
+            <a href="${images.link}"><img src="${images.path}" class="d-block w-100 main-img" alt="메인배너"></a>
         </div>
-        <div class="carousel-item">
-            <img src="/static/image/main/main_sample.jpg" class="d-block w-100 main-img" alt="메인배너">
-        </div>
-        <div class="carousel-item">
-            <img src="/static/image/main/main_sample3.jpg" class="d-block w-100 main-img" alt="메인배너">
-        </div>
+        </c:if>
+        </c:forEach>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#mainSlide" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -39,31 +41,52 @@
 </div>
 
 <!-- 새늘봄 꽃 정기구독 -->
-<div class="w-1280 mx-auto mt-100 mb-5 d-flex justify-content-between">
+<div class="w-1280 mx-auto mt-100 mb-5 d-flex justify-content-between pt-4">
     <div class="col-4 d-flex flex-column pt-2 ps-4">
         <span class="fs-3 ls-narrower ps-3">2주에 한번, 나를 위한 행복</span>
         <span class="fs-3 fw-bolder ls-narrower ps-3">새늘봄 꽃 정기구독</span>
-        <span class="mt-3 mb-2 fs-19 fw-light ls-narrower ps-3">
+        <span class="mt-3 mb-3 fs-19 fw-light ls-narrower ps-3">
             이 계절 가장 이쁜 꽃으로 구성된 구독 꽃이예요!
         </span>
         <!-- size 표시 -->
         <div class="my-2 ps-3 d-flex">
             <span class="me-1 badge rounded-pill bg-warning size-unit">S</span>
-            <span class="item-size me-2">size</span>
+            <span class="item-size me-3">size</span>
             <span class="me-1 badge rounded-pill bg-warning size-unit">M</span>
-            <span class="item-size me-2">size</span>
+            <span class="item-size me-3">size</span>
             <span class="me-1 badge rounded-pill bg-warning size-unit">L</span>
-            <span class="item-size me-2">size</span>
+            <span class="item-size me-3">size</span>
             <span class="me-1 badge rounded-pill bg-warning size-unit">XL</span>
-            <span class="item-size me-2">size</span>
+            <span class="item-size me-3">size</span>
         </div>
         <!-- 정기구독 더 알아보기 버튼 -->
         <button type="button" class="mt-4 py-3 subs-btn col-8" onclick="location.href='/subs'">정기구독 더 알아보기</button>
     </div>
-    <div class="col-7 d-flex justify-content-end">
-        <div class="me-2 w-45 bg-point-color"></div>
-        <div class="ms-3 w-45 bg-point-color"></div>
+    <!-- 정기구독 상품 썸네일 2개 + 2개 -->
+    <div class="col-6 border-1 border-danger">
+        <div class="slide-wrapper">
+            <ul class="slides">
+                <c:forEach var="subsVo" items="${subsList}" varStatus="status">
+                <c:if test="${not empty subsVo}">
+                <li class="${status.index > 2 ? "" : "me-15"}">
+                    <a href="/subs/${subsVo.idx}"><img src="${subsVo.image1}" alt="subs" class="mb-2"></a>
+                    <div class="d-flex flex-column">
+                        <span class="subheader">${subsVo.subheader}</span>
+                        <span class="item-name"><a href="/subs/${subsVo.idx}">${subsVo.name}</a></span>
+                        <div class="price-wrap">
+                            <span class="discount-rate">1회 기준</span>
+                            <span class="final-price">
+                                <fmt:formatNumber value="${subsVo.price}" pattern="#,###원~"/>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                </c:if>
+                </c:forEach>
+            </ul>
+        </div>
     </div>
+    <!-- 화살표 -->
     <div class="col-1 d-flex align-items-center justify-content-center">
         <i class="fas fa-chevron-right fs-1 next-btn"></i>
     </div>
@@ -133,16 +156,18 @@
         <!-- 상품 썸네일 리스트 -->
         <!----------------------------------------->
         <div class="px-4 mx-2">
-            <div class="mb-5 d-flex justify-content-between">
+            <div class="mb-5 d-flex justify-content-start">
                 <div class="col-6 pe-2 overflow-hidden height-400px">
-                    <img src="/static/image/flower/flower2.jpg" alt="썸네일" class="w-100">
+                    <img src="${fclassBig.image1}" alt="썸네일" class="w-100">
                 </div>
-                <div class="col-6 ps-2 d-flex flex-column justify-content-between">
-                    <div>
-
+                <div class="col-6 ps-4 d-flex justify-content-between">
+                    <div class="col-6">
+                        <img src="${fclassSmall.image1}" alt="썸네일" class="w-100">
                     </div>
-                    <div>
-
+                    <div class="col-5 d-flex flex-column">
+                        <span>${fclassSmall.subheader}</span>
+                        <span>${fclassSmall.name}</span>
+                        <span>${fclassSmall.finalPrice}</span>
                     </div>
                 </div>
             </div>
@@ -157,5 +182,29 @@
 
 
 <%@ include file="footer.jspf"%>
+<script>
+    /* 슬라이드 이미지 */
+    let slides = document.querySelector(".slides"),
+        currentIdx = 0,
+        slideCount = 2,
+        slideWidth = 710,
+        slideMargin = 0,
+        btn = document.querySelector(".next-btn");
+
+    slides.style.width = (slideWidth * slideCount) +
+                            slideMargin * (slideCount - 1) + "px";
+
+    function moveSlide(num) {
+        slides.style.left = (-num * 710) + "px";
+        currentIdx = num;
+    }
+    btn.addEventListener("click", function(){
+        if (currentIdx === 0) {
+            moveSlide(1);
+        } else {
+            moveSlide(0);
+        }
+    });
+</script>
 </body>
 </html>

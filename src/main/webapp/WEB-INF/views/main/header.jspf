@@ -5,8 +5,8 @@
 <div class="d-flex justify-content-center">
     <div class="login-bar">
         <ul class="d-flex justify-content-end">
-            <li><a href="#" class="text-decoration-none">오늘의 꽃은?</a></li>
-            <li>|</li>
+<%--            <li><a href="#" class="text-decoration-none">오늘의 꽃은?</a></li>--%>
+<%--            <li>|</li>--%>
             <li>
                 <c:choose>
                     <c:when test="${sessionScope.member == null}">
@@ -78,8 +78,17 @@
                 </li>
                 <li class="h-menu-icon">
                     <a href="#">
-                        <img src="/static/icons/cart.svg" class="h-menu-svg" alt="cart"
-                             title="장바구니" onclick="location.href='/cart/list'">
+                        <c:choose>
+                        <c:when test="${sessionScope.member != null}">
+                        <a href="#">
+                            <img src="/static/icons/cart.svg" class="h-menu-svg" alt="cart"
+                                 title="장바구니" onclick="location.href='/cart/list'">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="/static/icons/cart.svg" class="h-menu-svg" alt="cart"
+                                 title="장바구니" onclick="alert('로그인이 필요합니다.'); location.href='/login'" >
+                        </c:otherwise>
+                        </c:choose>
                     </a>
                 </li>
             </ul>

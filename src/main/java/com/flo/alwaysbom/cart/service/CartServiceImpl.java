@@ -56,4 +56,12 @@ public class CartServiceImpl implements CartService {
     public boolean removeByIdx(Integer idx) {
         return cartDao.removeByIdx(idx);
     }
+
+    @Override
+    public List<CartVo> removeByIdxes(List<Integer> idxes) {
+        List<CartVo> targetList = cartDao.findByIdxArray(idxes.toArray(new Integer[0]));
+        int i = cartDao.removeByIdxes(idxes);
+        System.out.println(i + "건의 행이 삭제되었습니다");
+        return targetList;
+    }
 }

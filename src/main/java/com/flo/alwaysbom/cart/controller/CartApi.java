@@ -4,10 +4,7 @@ import com.flo.alwaysbom.cart.service.CartService;
 import com.flo.alwaysbom.cart.vo.CartVo;
 import com.flo.alwaysbom.order.vo.OitemVo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,6 +45,12 @@ public class CartApi {
     public CartVo addCart(@RequestBody CartVo cartVo) {
         cartService.addCart(cartVo);
         return cartService.findById(cartVo.getIdx()).orElse(null);
+    }
+
+    @RequestMapping(value = "/api/carts", method = RequestMethod.DELETE)
+    public List<CartVo> deleteCarts(@RequestBody List<Integer> idxes) {
+        System.out.println("idxes = " + idxes);
+        return cartService.removeByIdxes(idxes);
     }
 
     @PostMapping("/api/cart/updateQuantity")

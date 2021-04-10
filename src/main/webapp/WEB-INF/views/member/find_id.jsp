@@ -7,7 +7,7 @@
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto d-flex flex-column align-items-center">
-<form role="form" action="/found_id" method="post" class="col-5 d-flex flex-column">
+<form role="form" action="/found_id" method="post" class="col-5 d-flex flex-column" onSubmit="return checkVal()">
 <h5 class="page_title text-center p-2 mt-5 text-secondary m-0 p-4 border-bottom border-secondary">아이디 찾기</h5>
     <div class="login_box">
         <div class="inner">
@@ -30,8 +30,23 @@
         </div>
     </div>
 </form>
-<%@ include file="../main/footer.jspf"%>
 </div>
+<%@ include file="../main/footer.jspf"%>
+<script>
+    function checkVal(){
+        let phone = document.querySelector("#phone");
+        var reg = /[0,1,6,7,8,9]{3}[-]+[0-9]{4}[-]+[0-9]{4}/; //숫자만 입력하는 정규식
+
+        if (phone.value === "") {
+            alert("가입시 입력한 휴대폰 번호를 입력해주세요.");
+            return false;
+        }
+        if (!reg.test(phone.value)) {
+            alert("전화번호는 숫자만 사용하여 010-1234-5678 형식으로 입력해주세요.");
+            return false;
+        }
+    }
+</script>
 </body>
 </html>
 <style>

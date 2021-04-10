@@ -50,4 +50,51 @@
         FROM SUBS
         WHERE NAME = #{name}
     </select>
+
+    <!-- (R) 베스트 리뷰 찾기 -->
+    <select id="findBestReview" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT  RN, SS.*
+        FROM    (
+                    SELECT  ROWNUM RN, S.*
+                    FROM    (
+                                SELECT   *
+                                FROM     REVIEW
+                                WHERE    CATEGORY = '정기구독'
+                                ORDER BY LIKE_COUNT DESC
+                            ) S
+                ) SS
+        WHERE   RN BETWEEN 1 AND 10
+    </select>
+
+    <!-- (R) 해당 상품 인덱스의 리뷰 찾기 -->
+    <select id="findReviewByIdx" parameterType="Integer" resultType="com.flo.alwaysbom.community.review.dto.ReviewDto">
+        SELECT  *
+        FROM    REVIEW
+        WHERE   CATEGORY = '정기구독' AND SUBS_IDX = #{idx}
+        ORDER BY REG_DATE DESC
+    </select>
+
+    <!-- (R) 현재 로그인한 유저가 해당 상품의 리뷰를 쓸 수 있는지 확인하는 쿼리 -->
+    <select id="findAvailableOitemToReview" parameterType="map" resultType="com.flo.alwaysbom.order.vo.OitemVo">
+        SELECT REV.*
+        FROM
+            (
+                SELECT OITEM.*
+                FROM OITEM
+                         LEFT JOIN ORDERS
+                                   ON ORDERS_IDX = ORDERS.IDX
+                WHERE REVIEW_IDX IS NULL
+                  AND CATEGORY = '정기구독'
+                  AND ORDERS_IDX IN
+                      (
+                          SELECT IDX
+                          FROM ORDERS
+                          WHERE MEMBER_ID = #{memberId} AND STATUS = '배송완료'
+                      )
+            ) REV
+                LEFT JOIN SUBS S
+                          ON REV.NAME = S.NAME
+        WHERE S.IDX = #{subsIdx}
+    </select>
+
 </mapper>

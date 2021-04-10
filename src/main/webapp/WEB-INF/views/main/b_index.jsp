@@ -7,213 +7,154 @@
     <title>백 오피스 메인</title>
     <%@ include file="b_import.jspf"%>
     <style>
-        #container {
-            width: 1280px;
-            display: flex;
-            margin: 0 auto;
-            flex-direction: column;
-            align-items: flex-start;
-            color: #404040;
+        .square {
+            position: relative;
         }
 
-        .form {
-            width: 100%;
+        .square.wide::after {
+            content: "";
+            display: block;
+            padding-bottom: 40%;
         }
 
-        .form-row {
-            margin: 0;
-            border: none;
-            border-top: 1px solid black;
-            display: flex;
-            width: 100%;
-            font-size: 11pt;
-        }
-
-        .form-row:last-child {
-            border-bottom: 1px solid black;
-        }
-
-        .form-row .form-header {
-            flex-basis: 15%;
-            background-color: #DDDDDD;
-            padding: 10px;
-
-        }
-
-        .form-row .form-content {
-            flex-basis: 85%;
-            padding: 10px;
-
-        }
-
-        .image-ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            margin: 0;
-            padding: 0;
-        }
-
-        .image-ul-item {
-            flex-basis: 33.33%;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .right-top-buttons {
+        .square .inner {
             position: absolute;
-            right: 10px;
-            top: 10px;
-            color: #aaaaaa;
-        }
-
-        .b6 {
-            color: #bbbbbb;
-        }
-
-        .my-box {
             width: 100%;
-            height: 100px;
+            height: 100%;
+            object-fit: cover;
         }
-
-        .my-icon {
-            font-size: 24pt;
-        }
-
-        .p-10px {
-            padding: 0 10px;
-        }
-
-        .btn {
-            color: #888888;
-        }
-
     </style>
 </head>
 <body>
 <%@ include file="b_header.jspf" %>
-<div id="container">
-    <h2>메인 페이지 관리</h2>
-    <form enctype="multipart/form-data" class="form d-flex flex-column align-items-center">
-        <div class="form-row">
-            <div class="form-header">
-                <div>메인 이미지 등록</div>
-            </div>
-            <div class="form-content">
-                <ul class="image-ul">
-                    <c:forEach var="index" begin="0" end="5" varStatus="status">
-                    <li class="image-ul-item">
-                        <div class="btn btn-outline-secondary my-box">
-                            <%--<div class="${empty images ? "d-none" : ""} exist w-100 h-100 position-relative">
-                                <img src="" alt="사진" width="100%" height="100%">
-                                <div class="right-top-buttons">
-                                    <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#myModal" onclick="loadData(${})">연결페이지</button>
-                                    <input type="hidden" name="link">
-                                    <button type="button" class="btn btn-light btn-sm" onclick="deleteImage(${status.index + 1})">삭제</button>
+<div id="container" class="mx-auto bg-white d-flex flex-column p-3">
+    <div class="pb-3">
+        <h2 class="m-0 p-0">메인 페이지 관리</h2>
+    </div>
+    <form enctype="multipart/form-data" class="d-flex flex-column border border-secondary col-12">
+        <div class="d-flex">
+            <div class="col-2 border-bottom border-end border-secondary bg-warning p-3">메인 이미지 등록</div>
+            <ul class="col-10 list-unstyled m-0 p-0 d-flex flex-wrap border-bottom border-secondary">
+                <c:forEach var="image" items="${mainConfig.images}" varStatus="status">
+                <li class="col-6 p-3 image-box">
+                    <input type="file" name="image" class="visually-hidden"
+                           onchange="changeImage(this, ${status.index})">
+                    <div class="position-relative col-12 square wide">
+                        <button type="button" onclick="clickFileButton(${status.index})"
+                                class="inner empty btn btn-outline-warning ${not empty image.path ? "d-none" : ""}">
+                            등록
+                        </button>
+                        <div class="inner exist ${empty image.path ? "d-none" : ""}">
+                            <img src="${not empty image.path ? image.path : ""}" alt="" class="inner">
+                            <div class="position-absolute end-0 top-0">
+                                <div class="d-flex p-3">
+                                    <select name="link" class="me-2" ${empty image.path ? "disabled" : ""}>
+                                        <option value="/subs" ${image.link eq "/subs" ? "selected" : ""}>정기구독</option>
+                                        <option value="/flower" ${image.link eq "/flower" ? "selected" : ""}>꽃다발</option>
+                                        <option value="/product" ${image.link eq "/product" ? "selected" : ""}>소품샵</option>
+                                        <option value="/fclass" ${image.link eq "/fclass" ? "selected" : ""}>클래스</option>
+                                        <option value="/community" ${image.link eq "/community" ? "selected" : ""}>커뮤니티</option>
+                                    </select>
+                                    <button type="button" class="btn btn-warning btn-sm me-2"
+                                            onclick="clickFileButton(${status.index})">수정</button>
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="showDeleteModal(${status.index})">삭제</button>
+                                    <input type="hidden" name="deleted" value="false">
                                 </div>
                             </div>
-                            <div class="${empty images ? "" : "d-none"} empty w-100 h-100 d-flex flex-column align-items-center justify-content-center"
-                                 onclick="this.children.file.click()">
-                                <i class="fa fa-plus my-icon"></i>
-                                <span>이미지 추가</span>
-                                <input type="file" class="d-none" name="file" onchange="changeImage(this, ${status.index + 1})">
-                            </div>--%>
                         </div>
-                        <span class="b6">${status.count}</span>
-                    </li>
-                    </c:forEach>
-                </ul>
-            </div>
+                    </div>
+
+                </li>
+                </c:forEach>
+            </ul>
         </div>
-        <div class="form-row">
-            <div class="form-header">
-                <div>꽃다발 상품 썸네일</div>
-                <div>정렬 기준</div>
-            </div>
-            <div class="form-content d-flex align-items-center">
-                <div class="p-10px">
-                    <input class="form-check-input" type="radio" name="orderStandard" id="r1" checked>
-                    <label class="form-check-label" for="r1">
-                        누적 판매량이 높은 순
-                    </label>
-                </div>
-                <div class="p-10px">
-                    <input class="form-check-input" type="radio" name="orderStandard" id="r2">
-                    <label class="form-check-label" for="r2">
-                        최근 한 달간 판매량이 높은 순
-                    </label>
-                </div>
-                <div class="p-10px">
-                    <input class="form-check-input" type="radio" name="orderStandard" id="r3">
-                    <label class="form-check-label" for="r3">
-                        최신 등록 순
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-header">
+        <div class="d-flex border-bottom border-secondary">
+            <div class="col-2 p-3 border-secondary border-end bg-warning">
                 <div>플라워 클래스</div>
-                <div>수업 선택</div>
             </div>
-            <div class="form-content d-flex align-items-center">
-                <div class="d-flex flex-column col-md-3 me-3 p-10px">
-                    <label for="thumb_bg">썸네일 대형</label>
-                    <select class="form-select" id="thumb_bg">
-                        <option selected disabled>썸네일 대형</option>
+            <div class="col-10 p-3 d-flex">
+                <div class="col-3 d-flex flex-column me-3">
+                    <label for="fclassIdxBig">썸네일 대형</label>
+                    <select class="form-select" id="fclassIdxBig">
+                        <c:forEach var="fclass" items="${classes}">
+                            <option value="${fclass.idx}" ${fclass.idx == mainConfig.fclassIdxBig ? "selected" : ""}>${fclass.name}</option>
+                        </c:forEach>
                     </select>
                 </div>
-                <div class="d-flex flex-column col-md-3 p-10px">
-                    <label for="thumb_sm">썸네일 소형</label>
-                    <select class="form-select" id="thumb_sm">
-                        <option selected disabled>썸네일 소형</option>
+                <div class="col-3 d-flex flex-column">
+                    <label for="fclassIdxSmall">썸네일 소형</label>
+                    <select class="form-select" id="fclassIdxSmall">
+                        <c:forEach var="fclass" items="${classes}">
+                            <option value="${fclass.idx}" ${fclass.idx == mainConfig.fclassIdxSmall ? "selected" : ""}>${fclass.name}</option>
+                        </c:forEach>
                     </select>
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-secondary gap-2 col-4 mt-3 align-self-center text-white">변경사항 저장</button>
+        <div class="p-3 d-flex flex-column align-items-center bg-secondary">
+            <button type="button" class="btn btn-dark col-4"
+                    onclick="saveConfig(this.form)">변경사항 저장
+            </button>
+        </div>
     </form>
 </div>
+<%@ include file="b_footer.jspf"%>
 
-<div class="modal fade" id="myModal" data-bs-backdrop="static"
-     data-bs-keyboard="false"
-     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- 삭제 팝업 -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">해당 이미지 클릭시 이동할 메뉴 페이지 지정</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="link" id="ra1" value="/subs/" checked>
-                    <label class="form-check-label" for="ra1">꽃 정기구독</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="link" id="ra2" value="/flower/">
-                    <label class="form-check-label" for="ra2">꽃다발</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="link" id="ra3" value="/">
-                    <label class="form-check-label" for="ra3">main</label>
-                </div>
+                <h5 class="modal-title">삭제하시겠습니까?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Understood</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button id="deleteConfirm" type="button" class="btn btn-danger" data-bs-dismiss="modal">삭제</button>
             </div>
         </div>
     </div>
 </div>
-<%@ include file="b_footer.jspf"%>
+
+<!-- 저장 완료 팝업 -->
+<div class="modal fade" id="saveModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">변경사항이 저장되었습니다</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
-    function deleteImage(current) {
-        let box = document.querySelector(".image-ul-item:nth-child(" + current + ") .my-box");
-        let file = box.querySelector("input[type='file']");
+    function clickFileButton(index) {
+        let box = document.querySelectorAll(".image-box")[index];
+        let file = box.querySelector("input[type=file]");
+
+        file.click();
+    }
+
+    function showDeleteModal(index) {
+        const $deleteModal = document.querySelector("#deleteModal")
+        const $modal = new bootstrap.Modal($deleteModal);
+        const $deleteConfirm = document.querySelector("#deleteConfirm");
+        $deleteConfirm.onclick = function () {
+            deleteImage(index);
+        }
+        $modal.show();
+    }
+
+    function deleteImage(index) {
+        let box = document.querySelectorAll(".image-box")[index];
+        let file = box.querySelector("input[type=file]");
         file.value = "";
 
         let img = box.querySelector("img");
@@ -224,17 +165,14 @@
 
         let empty = box.querySelector(".empty");
         empty.classList.remove("d-none");
-
-        box.classList.add("btn");
-        box.classList.add("btn-outline-secondary");
-
+        box.querySelector("select").setAttribute("disabled", "true");
+        let deleted = box.querySelector("[name=deleted]");
+        deleted.value = "true";
     }
 
-    function changeImage(file, current) {
+    function changeImage(file, index) {
         let fileReader = new FileReader();
-        let box = document.querySelector(".image-ul-item:nth-child(" + current + ") .my-box");
-        console.log(box);
-
+        let box = document.querySelectorAll(".image-box")[index];
 
         fileReader.onload = function (e) {
             let img = box.querySelector("img");
@@ -245,13 +183,40 @@
 
             let empty = box.querySelector(".empty");
             empty.classList.add("d-none");
-
-            box.classList.remove("btn");
-            box.classList.remove("btn-outline-secondary");
         }
 
         fileReader.readAsDataURL(file.files[0])
-        console.log(current);
+
+        if (file.files[0]) {
+            box.querySelector("select").removeAttribute("disabled");
+        }
+    }
+
+    function saveConfig(form) {
+        let formData = new FormData();
+        // let file = document.querySelector("[type=file]").files[0];
+        let files = document.querySelectorAll("[type=file]");
+        files.forEach((file, index) => {
+            formData.append("image", file.files[0] || new Blob());
+            formData.append("link", form.link[index].value);
+            formData.append("deleted", form.deleted[index].value);
+        });
+        formData.append("fclassIdxBig", document.querySelector("#fclassIdxBig").value);
+        formData.append("fclassIdxSmall", document.querySelector("#fclassIdxSmall").value);
+
+        const option = {
+            method: "POST",
+            body: formData,
+        };
+
+        fetch("/api/admin/configs", option).then(response => {
+            response.json().then(result => {
+                console.log(result);
+                new bootstrap.Modal(document.querySelector("#saveModal")).show();
+            })
+        }).catch(err => {
+            console.log(err);
+        })
     }
 </script>
 </body>

@@ -34,8 +34,8 @@
             </div>
         </div>
     </form>
-    <%@ include file="../main/footer.jspf"%>
 </div>
+<%@ include file="../main/footer.jspf"%>
 <script>
     function checkVal(){
         let id = document.querySelector("#id");

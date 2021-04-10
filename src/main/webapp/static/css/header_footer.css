@@ -2,9 +2,10 @@
 header {
     position: sticky;
     top: 0;
-    z-index: 9999;
+    z-index: 30;
     background-color: #ffffff;
     border-bottom: 1px solid #ffc107;
+    min-width: 1280px;
 }
 
 /* 로그인 바 */
@@ -53,18 +54,14 @@ header {
 .logo {
     width: 155px;
     height: 67px;
-    /*background-color: #e6dbb9;*/
-    /*transform: translateY(2px);*/
 }
 .logo:hover {
     cursor: pointer;
 }
 .h-menu-wrap {
     list-style: none;
-    /*border: 1px solid blue;*/
 }
 .h-menu {
-    /*border: 1px solid red;*/
     margin-top: 10px;
     padding: 1em 1em 1.2em 1em;
     position: relative;
@@ -74,7 +71,6 @@ header {
     padding-right: 3em;
 }
 .h-menu-icon {
-    /*border: 1px solid red;*/
     margin-top: 10px;
     padding: 0.8em 0.8em 0.5em 0.5em;
 }
@@ -157,6 +153,7 @@ header {
 
 /*--- footer ---*/
 footer {
+    min-width: 1280px;
     z-index: 100;
     background-color: #303030;
     width: 100%;

@@ -5,11 +5,9 @@ import com.flo.alwaysbom.coupon.vo.CouponVo;
 import com.flo.alwaysbom.member.service.MemberService;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.SessionScope;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -76,11 +74,11 @@ public class MemberController {
                 count++;
             }
         }
-        System.out.println(count);
+        //System.out.println(count);
 
         model.addAttribute("coupons", coupons);
         model.addAttribute("couponCount", count);
-        System.out.println("coupons = " + coupons);
+        //System.out.println("coupons = " + coupons);
         model.addAttribute("member", member);
         return "redirect:/";
     }
@@ -130,8 +128,9 @@ public class MemberController {
 
     //1:1문의
     @GetMapping("/myPage_faq_main")
-    public String myPage_faq_main() {
-        return "member/myPage_faq_main";
+    public String myPage_faq_main(@SessionAttribute(required = false) MemberVO member) {
+        //회원 로그인 정보 받아오기
+        return "myPage_faq_main";
     }
 
     //카카오 회원가입
@@ -196,7 +195,7 @@ public class MemberController {
 
         // coupon 사용 후 회원의 포인트 증가
         memberService.raisePoint(couponVo);
-        // coupon 디비에도 업데이트를 해야되니까
+        // coupon 디비에도 업데이트를 해야되니까 쿠폰 status 업데이트
         couponService.updateCouponStatus(couponVo);
 
         List<CouponVo> coupons = couponService.findBySearchOption(
@@ -204,13 +203,14 @@ public class MemberController {
                         .memberId(couponVo.getMemberId())
                         .build());
 
+        //미사용 쿠폰만 count
         int count = 0;
         for (CouponVo coupon:coupons) {
             if (coupon.getStatus() == 0) {
                 count++;
             }
         }
-        System.out.println(count);
+        //System.out.println(count);
         model.addAttribute("coupons", coupons);
         model.addAttribute("couponCount", count);
 
@@ -219,5 +219,4 @@ public class MemberController {
 
         return couponVo;
     }
-
 }

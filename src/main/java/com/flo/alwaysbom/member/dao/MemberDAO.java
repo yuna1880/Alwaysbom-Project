@@ -18,7 +18,6 @@ public class MemberDAO{
 
     //회원 가입
     public void insertMember(MemberVO memberVO) {
-
         sessionTemplate.insert("member.insertMember",memberVO);
     }
     // 로그인 검사
@@ -33,7 +32,6 @@ public class MemberDAO{
 
     //로그아웃
     public void logout(HttpSession session){
-
     }
 
     // 아이디 중복 확인
@@ -64,7 +62,7 @@ public class MemberDAO{
         return sessionTemplate.update("member.update_pw", memberVO);
     }
 
-    //쿠폰 사용 포인트 증가
+    //쿠폰 사용 후 포인트 증가
     public void raisePoint(CouponVo couponVO) {
         sessionTemplate.update("member.raisePoint", couponVO);
     }

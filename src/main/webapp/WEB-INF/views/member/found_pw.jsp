@@ -16,7 +16,7 @@
                         메일로 임시 비밀번호를 보내드렸습니다. 감사합니다:-)
                     </p>
                 </div>
-                <button type="submit" class="login text-decoration-none text-center">로그인</button>
+                <button type="button" class="login text-decoration-none text-center" onclick="location.href='/login'">로그인</button>
                 <p class="login_under_noti">
                     - 유효 메일이 아니거나 휴면 상태일 경우 수신 어려움.
                     <br>
@@ -29,8 +29,8 @@
             </div>
         </div>
     </form>
-    <%@ include file="../main/footer.jspf"%>
 </div>
+<%@ include file="../main/footer.jspf"%>
 </body>
 </html>
 <style>

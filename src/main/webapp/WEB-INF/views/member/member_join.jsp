@@ -20,6 +20,13 @@
             join_form.id.focus();
             return false;
         }
+        var idCheck =/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-z]{2,3}$/;
+
+        if(!idCheck.test(id.value)) {
+            alert("아이디를 이메일 형식에 맞게 입력해주세요.");
+            join_form.id.focus();
+            return false;
+        }
         if(!document.join_form.pw.value){
             alert("비밀번호를 입력해주세요.");
             return false;
@@ -115,7 +122,8 @@
 
     <label class="my-2">이메일 (아이디)</label>
     <div class="d-flex flex-column mb-4">
-        <input type="text" id="id" name="id" value="${kakao_id}" class="col-12 mr-3" maxlength="255" placeholder="6~30자 이메일 형식(특수문자 사용불가)" pattern="^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-z]{2,3}$" />
+        <!--<input type="text" id="id" name="id" value="${kakao_id}" class="col-12 mr-3" maxlength="255" placeholder="6~30자 이메일 형식(특수문자 사용불가)" pattern="^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-z]{2,3}$" />-->
+        <input type="text" id="id" name="id" value="${kakao_id}" class="col-12 mr-3" maxlength="255" placeholder="6~30자 이메일 형식(특수문자 사용불가)"/>
         <div class="hidden warning">※ 이미 사용중인 아이디입니다.</div>
     </div>
 

@@ -1,9 +1,7 @@
 package com.flo.alwaysbom.fclass.dao;
 
-import com.flo.alwaysbom.fclass.vo.BranchVo;
-import com.flo.alwaysbom.fclass.vo.OclassSearchOptionDto;
-import com.flo.alwaysbom.fclass.vo.OclassVo;
-import com.flo.alwaysbom.fclass.vo.ScheduleVo;
+import com.flo.alwaysbom.community.review.dto.ReviewDto;
+import com.flo.alwaysbom.fclass.vo.*;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -50,5 +48,14 @@ public class OclassDao {
 
     public List<OclassVo> findReviewable(OclassVo oclassVo) {
         return sqlSessionTemplate.selectList("oclass.findReviewable", oclassVo);
+    }
+
+    public ReviewDto addReview(FclassReviewForm newReview) {
+        sqlSessionTemplate.insert("oclass.addReview", newReview);
+        return newReview;
+    }
+
+    public void updateReviewCheck(FclassReviewForm newReview) {
+        sqlSessionTemplate.update("oclass.updateReviewCheck", newReview);
     }
 }
