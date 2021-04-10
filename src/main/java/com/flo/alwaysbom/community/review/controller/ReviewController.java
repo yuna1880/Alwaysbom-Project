@@ -3,6 +3,7 @@ package com.flo.alwaysbom.community.review.controller;
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.service.ReviewService;
 import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
+import com.flo.alwaysbom.fclass.vo.OclassVo;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.vo.OrdersVo;
 import com.flo.alwaysbom.util.CloudFileHandler;
@@ -211,4 +212,31 @@ public class ReviewController {
         return dto;
     }
 
+    @GetMapping("/community/api/myPageReviewFclass")
+    @ResponseBody
+    public List<OclassVo> reviewOclass(@SessionAttribute(required = false) MemberVO member, Integer check){
+        List<OclassVo> OclassList = service.reviewOclass(member.getId(), check);
+        System.out.println(OclassList);
+        return OclassList;
+    }
+
+    @GetMapping("/community/classWriter")
+    public String classWriter(String category, Integer fidx, Integer idx,Model model){
+        System.out.println(category + "  " + fidx);
+        ReviewDto dto = new ReviewDto();
+        dto.setCategory(category);
+        dto.setFclassIdx(fidx);
+        model.addAttribute("reviewDto", dto);
+        model.addAttribute("oidx", idx);
+        model.addAttribute("reviewIdx", idx);
+        return "community/rv_Writer";
+    }
+
+    @GetMapping("/community/event/updateFclassWrite")
+    public String updateFclassWrite(String category, Integer idx, Model model, Integer reviewIdx){
+        System.out.println(reviewIdx);
+        ReviewDto dto = service.findByIdx(reviewIdx);
+        model.addAttribute("reviewDto", dto);
+        return "community/rvUpdater";
+    }
 }

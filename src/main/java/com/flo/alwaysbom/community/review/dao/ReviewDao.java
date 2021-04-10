@@ -2,6 +2,7 @@ package com.flo.alwaysbom.community.review.dao;
 
 import com.flo.alwaysbom.community.review.dto.ReviewDto;
 import com.flo.alwaysbom.community.review.vo.ReviewLikeVo;
+import com.flo.alwaysbom.fclass.vo.OclassVo;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import com.flo.alwaysbom.order.vo.OitemVo;
 import com.flo.alwaysbom.order.vo.OrdersVo;
@@ -88,6 +89,7 @@ public class ReviewDao {
         ReviewDto dto = sqlSessionTemplate.selectOne("review.findByIdx", idx);
         sqlSessionTemplate.delete("review.deleteReview", idx);
         sqlSessionTemplate.update("review.oitemPick", idx);
+        sqlSessionTemplate.update("review.oclassPick", idx);
         if(dto.getImage() != null){
             sqlSessionTemplate.update("review.imageHas", dto.getMemberId());
         }else {
@@ -145,6 +147,10 @@ public class ReviewDao {
         }
         else if(vo.getCategory().equals("클래스")){
             sqlSessionTemplate.insert("review.addclsIdx", vo);
+            map.put("idx", idx);
+            map.put("reviewIdx", vo.getIdx());
+            sqlSessionTemplate.update("review.classCheck", map);
+            return;
         }
         map.put("idx", idx);
         map.put("reviewIdx", vo.getIdx());
@@ -158,5 +164,13 @@ public class ReviewDao {
 
     public void updateReview(ReviewDto vo) {
         sqlSessionTemplate.update("review.updateReview", vo);
+    }
+
+    public List<OclassVo> reviewOclass(String id, Integer checkNum) {
+        Map<String, Object> map = new HashMap<>();
+        System.out.println(id + "  " + checkNum);
+        map.put("id", id);
+        map.put("check", checkNum);
+        return sqlSessionTemplate.selectList("review.findFclass", map);
     }
 }
