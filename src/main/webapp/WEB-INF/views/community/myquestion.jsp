@@ -68,14 +68,10 @@
 </body>
 <script>
 
-    // JSON.stringify(obj)  =>  {"a":"hi", "b":,"hello"}
-    // new URLSearchParams(obj) => a=hi&b=hello
-    import {al} from "../../../static/chartjs/dist/chunks/helpers.segment";
-
     function questionUpload() {
-        // let formData = $("#question-form").serialize();
-        alert("ddd");
         let formData = new FormData(document.querySelector("#question-form"));
+            // $("#question-form").serialize();
+        // let formData = $('form').serialize();
             // new FormData(document.querySelector("#question-form"));
             // $(form).serialize();
         $.ajax({
@@ -86,7 +82,7 @@
             data: formData,
             dataType: "json",
             success: function(result) {
-                alert("ddd");
+                // alert("result");
                 location.href = "/myPage_faq_main";
             }
         });

@@ -70,12 +70,13 @@ public class ReviewController {
 
     }
 
-    @GetMapping("/admin/question/searchReview")
+    @PostMapping("/question/searchReview")
     @ResponseBody
     public List<ReviewDto> searchReview(@SessionAttribute(required = false) MemberVO member, String opt, String search, Model model){
         if (member == null) {
             // 없을 때 임시
             member = new MemberVO();
+            member.setId("ee@test.com");
         }
 
         List<ReviewDto> list = service.searchReview(opt, search, member.getId());
