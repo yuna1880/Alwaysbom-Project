@@ -70,9 +70,14 @@
 
     // JSON.stringify(obj)  =>  {"a":"hi", "b":,"hello"}
     // new URLSearchParams(obj) => a=hi&b=hello
+    import {al} from "../../../static/chartjs/dist/chunks/helpers.segment";
+
     function questionUpload() {
         // let formData = $("#question-form").serialize();
+        alert("ddd");
         let formData = new FormData(document.querySelector("#question-form"));
+            // new FormData(document.querySelector("#question-form"));
+            // $(form).serialize();
         $.ajax({
             url: '/admin/question/api/writeQuest',
             method: "post",
@@ -81,7 +86,8 @@
             data: formData,
             dataType: "json",
             success: function(result) {
-                alert("성공" + result);
+                alert("ddd");
+                location.href = "/myPage_faq_main";
             }
         });
     }
