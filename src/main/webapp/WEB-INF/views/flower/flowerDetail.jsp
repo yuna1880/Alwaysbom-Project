@@ -277,6 +277,30 @@
                 <c:if test="${not empty sessionScope.member}">
                 <button type="button" class="btn main-button fw-bold py-3" onclick="goPay(this.form)">바로구매</button>
                 </c:if>
+
+                <!-- 수령일 미선택시 뜨는 Modal -->
+                <div>
+                    <button type="button" class="visually-hidden btn main-button fw-bold py-3" data-bs-toggle="modal"
+                            data-bs-target="#chkModal" id="chkModalBtn"></button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="chkModal" tabindex="-1" aria-labelledby="chkModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="chkModalLabel">수령일을 선택해주세요.</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body fs-19 p-3 mb-5">
+                                    희망하는 수령일을 선택해주세요.<br>선택 후 결제 페이지로 이동할 수 있습니다.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div> <!-- 주문 정보 닫기 -->
@@ -872,11 +896,21 @@
         configTotal();
     }
 
+    /* Modal 창 만들기 */
+    function makeModal(alertString) {
+
+    }
+
     /* 장바구니 보내기 */
     async function addCart() {
         const $inputs = document.getElementsByTagName("input");
         const $choices = document.querySelectorAll(".choice-price-box");
         const $flowerQuantity = document.querySelector("[data-flower-quantity]");
+
+        if ($inputs.requestDate.value == "") {
+            document.getElementById("chkModalBtn").click();
+            return;
+        }
 
         const choices = [...$choices].map((choice) => {
             return {
@@ -916,6 +950,11 @@
     function goPay(frm) {
         const $inputs = document.getElementsByTagName("input");
         const $choices = document.querySelectorAll(".choice-price-box");
+
+        if ($inputs.requestDate.value == "") {
+            document.getElementById("chkModalBtn").click();
+            return;
+        }
 
         const choices = [...$choices].map((choice) => {
             return {

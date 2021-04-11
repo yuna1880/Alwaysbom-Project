@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice("/")
+@ControllerAdvice
 public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
 
     public CommonExceptionHandler() {
@@ -18,6 +18,7 @@ public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler
     public ModelAndView handleException(Exception e) {
         System.out.println("저기요...");
+        e.printStackTrace();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("exception", e);
         modelAndView.setViewName("/error/commonError");

@@ -34,7 +34,7 @@
                     <div class="d-flex flex-column text-start">
                         <span>새늘봄은행 274-072066-01-041</span>
                         <span>(주)새늘봄</span>
-                        <span><fmt:formatNumber value="${order.discountTotalPrice}" pattern="#,###"/></span>
+                        <span><fmt:formatNumber value="${order.discountTotalPrice}" pattern="#,###원"/></span>
                         <span>주문일 기준 다음날 오전 9시까지</span>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                     <div class="d-flex flex-column text-start">
                         <span>${order.fclassName}</span>
                         <span>${order.branchName}</span>
-                        <span><fmt:formatNumber value="${order.discountTotalPrice}" pattern="#,###"/></span>
+                        <span><fmt:formatNumber value="${order.discountTotalPrice}" pattern="#,###원"/></span>
                         <span>${order.scheduleDate}</span>
                         <span>${order.scheduleStartTime} ~ ${order.scheduleEndTime}</>
                     </div>
@@ -69,8 +69,27 @@
     <div class="mt-2 text-center">
         <span>상세내역은 주문내역조회에서 확인하실 수 있습니다. </span>
     </div>
+    <div class="pt-5 d-flex flex-column">
+        <div class="d-flex justify-content-center">
+            <div class="btns">
+                <a href="/fclass/classList" class="btn btn-outline-dark">쇼핑 계속하기</a>
+            </div>
+            <div class="btns">
+                <a href="/myPage" class="btn btn-outline-dark">클래스예약 조회</a>
+            </div>
+        </div>
+    </div>
 </div>
 <%@ include file="../main/footer.jspf"%>
 
 </body>
+<style>
+    .btns {
+        width: 150px;
+        cursor: pointer;
+    }
+    .btns:hover {
+        color: whitesmoke;
+    }
+</style>
 </html>

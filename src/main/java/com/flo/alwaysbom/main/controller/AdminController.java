@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.main.controller;
 
+import com.flo.alwaysbom.main.vo.AdminVo;
 import com.flo.alwaysbom.fclass.service.FclassService;
 import com.flo.alwaysbom.fclass.vo.FclassVo;
 import com.flo.alwaysbom.main.service.MainService;
@@ -15,11 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@SessionAttributes({"admin"})
 public class AdminController {
 
     private final MainService mainService;
@@ -37,6 +38,22 @@ public class AdminController {
 //        System.out.println("classes = " + classes);
 
         return "main/b_index";
+    }
+
+
+    @GetMapping("/admin/login")
+    public String goLogin() {
+        return "/admin/login";
+    }
+
+    @PostMapping("/admin/login")
+    public String loginProc(AdminVo adminVo, Model model) {
+        if (adminVo.getId().equals(adminVo.getPassword()) && adminVo.getId().equals("admin")) {
+            model.addAttribute("admin", adminVo);
+            return "redirect:/admin/main";
+        } else {
+            return "redirect:/admin/login";
+        }
     }
 
 //    @RequestMapping(value = "/api/admin/configs", method = RequestMethod.PUT)

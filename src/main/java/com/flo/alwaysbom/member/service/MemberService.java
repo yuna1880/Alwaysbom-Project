@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.member.service;
 
+import com.flo.alwaysbom.community.question.vo.QuestionVo;
 import com.flo.alwaysbom.coupon.dao.CouponDao;
 import com.flo.alwaysbom.coupon.vo.CouponVo;
 import com.flo.alwaysbom.member.dao.MemberDAO;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -145,4 +147,7 @@ public class MemberService {
         dao.raisePoint(couponVo);
     }
 
+    public List<QuestionVo> myQuestion(String id) {
+       return dao.myQuestion(id);
+    }
 }

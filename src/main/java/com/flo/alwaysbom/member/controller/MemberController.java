@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.member.controller;
 
+import com.flo.alwaysbom.community.question.vo.QuestionVo;
 import com.flo.alwaysbom.coupon.service.CouponService;
 import com.flo.alwaysbom.coupon.vo.CouponVo;
 import com.flo.alwaysbom.member.service.MemberService;
@@ -126,18 +127,26 @@ public class MemberController {
         return "member/myPage";
     }
 
-    //1:1문의 구현중
-//    @GetMapping("/myPage_faq_main")
-//    public String myPage_faq_main(@SessionAttribute(required = false) MemberVO member) {
-//        //회원 로그인 정보 받아오기
-//        return "member/myPage_faq_main";
-//    }
-    
-    //1:1문의(테스트전)
+    //1:1문의 구현중->요기 하다 말았음
     @GetMapping("/myPage_faq_main")
-    public String myPage_faq_main() {
+    public String myPage_faq_main(@SessionAttribute(required = false) MemberVO member, Model model) {
+        //회원 로그인 정보 받아오기
+        if (member == null) {
+            return "member/login";
+        }
+        System.out.println(member.getId() + "memberid");
+        List<QuestionVo> qlist = memberService.myQuestion(member.getId());
+
+        model.addAttribute("quList", qlist);
+        System.out.println("qList test = " + qlist);
         return "member/myPage_faq_main";
     }
+    
+//    //1:1문의(테스트전)
+//    @GetMapping("/myPage_faq_main")
+//    public String myPage_faq_main() {
+//        return "member/myPage_faq_main";
+//    }
 
     //카카오 회원가입
     @GetMapping("/kakao_join")
