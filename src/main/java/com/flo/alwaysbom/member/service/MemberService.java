@@ -147,7 +147,13 @@ public class MemberService {
         dao.raisePoint(couponVo);
     }
 
+    //1:1문의 목록
     public List<QuestionVo> myQuestion(String id) {
-       return dao.myQuestion(id);
+        return dao.myQuestion(id);
+    }
+
+    //회원 목록
+    public List<MemberVO> b_memList() {
+        return dao.b_memList();
     }
 }

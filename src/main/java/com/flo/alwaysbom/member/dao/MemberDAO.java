@@ -69,8 +69,27 @@ public class MemberDAO{
         sessionTemplate.update("member.raisePoint", couponVO);
     }
 
+    //1:1문의 리스트
     public List<QuestionVo> myQuestion(String id) {
         return sessionTemplate.selectList("member.myQuestion", id);
     }
+    
+    //회원 목록
+    public List<MemberVO> b_memList() {
+        return sessionTemplate.selectList("member.b_memList");
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

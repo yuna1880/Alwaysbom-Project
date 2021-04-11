@@ -64,4 +64,12 @@
         SELECT * FROM MYQ
         WHERE MEMBER_ID = #{id}
     </select>
+
+    <!--회원 목록-->
+    <select id="b_memList" resultType="com.flo.alwaysbom.member.vo.MemberVO">
+        SELECT id, name, birth, gender, phone, grade, point
+        FROM member
+        WHERE QUIT_STATUS = 0
+        ORDER BY name
+    </select>
 </mapper>
