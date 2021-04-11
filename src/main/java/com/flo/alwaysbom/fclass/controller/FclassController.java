@@ -38,17 +38,21 @@ public class FclassController {
 
     @GetMapping("/fclass/orders")
     public String goMyClassList(@SessionAttribute(required = false) MemberVO member, Model model) {
+/*
         OclassSearchOptionDto searchOption = new OclassSearchOptionDto();
         //searchOption.setMemberId(member != null ? member.getId() : "minho1030@naver.com");
 
         List<OclassVo> orders = oclassService.findBySearchOption(searchOption);
         model.addAttribute("orders", orders);
+*/
         return "fclass/myClassList";
     }
 
     @GetMapping("/api/fclass/orders")
     public String getOrders(@SessionAttribute(required = false) MemberVO member, Model model, OclassSearchOptionDto searchOption) {
         searchOption.setMemberId(member != null ? member.getId() : "minho1030@naver.com");
+        System.out.println("member = " + member);
+        System.out.println("searchOption = " + searchOption);
         List<OclassVo> orders = oclassService.findBySearchOption(searchOption);
         model.addAttribute("orders", orders);
         return "fclass/myClassListContent";

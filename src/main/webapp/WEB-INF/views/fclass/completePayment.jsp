@@ -75,7 +75,7 @@
                 <a href="/fclass/classList" class="btn btn-outline-dark">쇼핑 계속하기</a>
             </div>
             <div class="btns">
-                <a href="/member/myPage" class="btn btn-outline-dark">클래스예약 조회</a>
+                <a href="/myPage" class="btn btn-outline-dark">클래스예약 조회</a>
             </div>
         </div>
     </div>
