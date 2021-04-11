@@ -81,6 +81,10 @@
             alert("비밀번호를 입력해주세요.");
             return false;
         }
+        if (${msg == false}) {
+            alert("비밀번호를 입력해주세요.");
+            return false;
+        }
     }
 </script>
 <%@ include file="../main/footer.jspf"%>
