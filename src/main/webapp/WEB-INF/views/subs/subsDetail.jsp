@@ -93,7 +93,8 @@
         </div>
         <!-- 꽃 사이즈 정보 -->
         <div class="d-flex justify-content-start align-items-center my-3">
-            <h5><span class="badge rounded-pill bg-light text-dark" id="fsize" value="${subsVo.fsize}">${subsVo.fsize} 사이즈</span></h5>
+            <h5><span class="badge rounded-pill bg-light text-dark" value="${subsVo.fsize}">${subsVo.fsize}사이즈</span></h5>
+            <input type="hidden" id="fsize" name="fsize" value="${subsVo.fsize}">
         </div>
 
         <!-- 무료배송 알림 -->
@@ -944,6 +945,7 @@
         // 정기구독
         const month = $selectMonth.value;
         const deliveryStartDate = new Date($input.requestDate.value).getTime();
+        const fsize = document.querySelector('#fsize');
 
         let osubsList = [];
         for (let i = 0; i < month * 2; i++) {
@@ -975,7 +977,7 @@
                 category: $input.category.value,
                 quantity: document.querySelector("[data-subs-quantity]").textContent,
                 reviewCheck: 0,
-                fsize: document.querySelector("#fsize").value,
+                fsize: document.querySelector('#fsize').value,
                 osubsList: osubsList
             }
         ];
