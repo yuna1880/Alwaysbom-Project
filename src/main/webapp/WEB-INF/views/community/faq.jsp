@@ -83,7 +83,10 @@
 <%@ include file="../main/header.jspf" %>
 <div class="d-flex justify-content-center">
     <div id="container">
-        <h2>자주 묻는 질문</h2>
+        <div>
+                <h2 class="mx-auto d-inline-block col-9">자주 묻는 질문</h2>
+                <a href="/myPage_faq_main" class="mx-auto d-inline-block col-2 btn btn-dark">1:1 문의하기</a><%--로그인 처리--%>
+        </div>
         <div>
             <ul class="nav justify-content-around faqBox">
                 <c:forEach var="category" items="${category}">
@@ -99,9 +102,7 @@
             <div class="accordion accordion-flush" id="accordionFlushExample">
 
             </div>
-            <div>
-                <a href="#" class="btn">1:1 문의하기</a><%--로그인 처리--%>
-            </div>
+
         </div>
     </div>
 </div>

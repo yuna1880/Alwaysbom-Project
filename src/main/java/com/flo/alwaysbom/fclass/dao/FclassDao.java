@@ -22,7 +22,6 @@ public class FclassDao {
     }
 
     public int updateFclass(FclassVo vo) {
-        System.out.println("Dao : vo = " + vo);
         sqlSessionTemplate.update("fclass.updateFclass", vo);
 
         // FCB 테이블에서 현재 fclass에 해당하는 행을 다 지운다
@@ -56,7 +55,6 @@ public class FclassDao {
 
     public List<FclassVo> findClassByCategory(String category) {
         List<FclassVo> fclassVos = sqlSessionTemplate.selectList("fclass.findClassByCategory", category);
-        System.out.println("fclassVos = " + fclassVos);
         return fclassVos;
     }
 

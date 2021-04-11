@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <%@ include file="../main/b_import.jspf" %>
+
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         async function goFaqList(faqType) {
@@ -26,14 +27,14 @@
 
             let dispHtml = "";
             for (let data of result) {
-                dispHtml += '<ul class="dropdown-menu">';
-                dispHtml += "<li>";
+                dispHtml += '<ul class="dropdown-menu listnone">';
+                dispHtml += "<li class='listnone'>";
                 dispHtml += data.answer;
                 dispHtml += "</li>";
                 dispHtml += "</ul>";
                 dispHtml += "</div>";
 
-                dispHtml += "<li>";
+                dispHtml += "<li class='listnone'>";
                 dispHtml += "<p>" + data.question + "</p>";
                 dispHtml += '<p><label for="idx' + data.idx +'">';
                 dispHtml += '<input type="radio" name="idx" value="' + data.idx + '"id="idx' + data.idx +'">' + data.answer;
@@ -49,6 +50,11 @@
             goFaqList(startFaqType);
         });
     </script>
+    <style>
+        .listnone {
+            list-style: none;
+        }
+    </style>
 </head>
 
 
@@ -66,16 +72,18 @@
                     </li>
                 </c:forEach>
             </ul>
-                <div class="accordion accordion-flush" id="accordionFlushExample"></div>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+
+                </div>
                 <div>
+                    <button type="button" class="btn btn-outline-secondary"
+                            onclick="goWrite()">추가
+                    </button>
                     <button type="button" class="btn btn-secondary"
                             onclick="goUpdate(this.form)">수정
                     </button>
                     <button type="button" class="btn btn-outline-danger"
                             onclick="goDelete(this.form)">삭제
-                    </button>
-                    <button type="button" class="btn btn-outline-danger"
-                            onclick="goWrite()">추가
                     </button>
                 </div>
             </form>
@@ -85,6 +93,11 @@
 
 <%@ include file="../main/b_footer.jspf"%>
 </body>
+<style>
+    .listnone{
+        list-style: none;
+    }
+</style>
 <script>
 // JSON.stringify(obj)  =>  {"a":"hi", "b":,"hello"}
 // new URLSearchParams(obj) => a=hi&b=hello
@@ -120,5 +133,6 @@ function goUpdate(form) {
 
 
 </script>
+
 </html>
 

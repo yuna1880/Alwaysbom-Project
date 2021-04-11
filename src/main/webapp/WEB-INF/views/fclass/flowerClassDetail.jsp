@@ -317,7 +317,12 @@
                          aria-labelledby="flush-heading${status.index}" data-bs-parent="#bestReview"
                          style="padding-left: 196px;">
                         <div class="accordion-body px-5">
-                            <span>${best.content}</span>
+                            <c:if test="${best.image != null}">
+                            <div class="pb-3">
+                                <img src="${best.image}" alt="사진" style="max-width: 50%;">
+                            </div>
+                            </c:if>
+                            <div class="editor-content">${best.content}</div>
                         </div>
                     </div>
                 </div>
@@ -684,7 +689,7 @@
             }
         }
 
-        const response = await fetch("/admin/fclass/api/searchSchedule", option)
+        const response = await fetch("/fclass/api/searchSchedule", option)
         const result = await response.json();
         const $scheduleSelect = document.querySelector("#scheduleSelect");
         $scheduleSelect.innerHTML = "";
@@ -692,10 +697,12 @@
         result.forEach(function (schedule) {
             const $option = document.createElement("option");
             const remainCount = schedule.totalCount - schedule.regCount;
+            if (remainCount > 0) {
                 $option.dataset.remainCount = remainCount.toString(); //data-remain-count 속성의 값으로 들어갑니다
                 $option.value = schedule.idx;
                 $option.innerText = schedule.startTime + " ~ " + schedule.endTime + "(" + remainCount + "명 가능)";
                 $scheduleSelect.appendChild($option);
+            }
         })
 
         if (result.length) {
@@ -743,7 +750,7 @@
             }
         };
 
-        let response = await fetch("/admin/fclass/api/searchSchedule", option);
+        let response = await fetch("/fclass/api/searchSchedule", option);
         let result = await response.json();
 
         for (let scheduleVo of result) {
@@ -833,6 +840,6 @@
 }
 
 .editor-content img {
-    max-width: 100%;
+    max-width: 70%;
 }
 </style>

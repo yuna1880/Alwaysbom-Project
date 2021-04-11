@@ -19,7 +19,7 @@ public class MailSend {
         String subject = jemok; // 메일 제목
         String fromEmail = "birdalwayspring@gmail.com";
         String fromUsername = "새늘봄 메니저";        //보내는 이름
-        String toEmail = mail; // 콤마(,)로 여러개 나열    받는사람
+        String toEmail = mail + ""; // 콤마(,)로 여러개 나열    받는사람
 
         final String username = "birdalwayspring@gmail.com";
         final String password = "dgnjhqhbajatauee";

@@ -59,7 +59,7 @@ public class BackProductController {
         vo.setImage3(fileHandler.uploadFile(file.get(2), null, "product"));
         System.out.println("productVo = " + vo);
         vo = productService.addProduct(vo);
-        return "redirect:/admin/product/" + vo.getIdx();
+        return "redirect:/admin/productList";
     }
 
     /* 상품 수정페이지로 이동 */

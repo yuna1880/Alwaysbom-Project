@@ -102,9 +102,9 @@
                         <form class="d-flex">
                             <li id='liSearchOption' class="col list-group list-group-horizontal nav-item">
                                 <div class="row">
-                                    <select id='selSearchOption' name="opt">
+                                  <%--  <select id='selSearchOption' name="opt">
                                         <option value='S'>전체</option>
-                                    </select>
+                                    </select>--%>
 <%--                                    <input id='txtKeyWord' type="text" name="searchtxt" value=""/>
                                     <input type='button' value='검색'/>--%>
                                 </div>
@@ -204,7 +204,7 @@
                                     <div class="d-flex justify-content-center">
                                         <c:if test="${not empty bestAllList.image}">
                                             <div>
-                                                <img src="/static/upload/community/review/${bestAllList.image}" alt="아아아아악">
+                                                <img src="${bestAllList.image}" alt="사진">
                                             </div>
                                         </c:if>
                                     </div>
@@ -263,12 +263,13 @@
     }
 
     function goLike(memberId, reviewIdx, bt) {
-        // console.log(bt.children(".fas"));
+        if(memberId == null || memberId == ''){
+            alert("로그인이 필요합니다.");
+            return;
+        }
         if($("this").children("button").hasClass("fas")){
-            alert("ddddddd");
         }
         if($("this").children("button").hasClass("far")){
-            alert("ddddddd");
         }
         if($(this).hasClass("toggleStyle")) {
             $(this).removeClass("toggleStyle");
@@ -383,7 +384,7 @@
                         + '<div>';
                     if(this.image != null) {
                         dispHtml += '<div>'
-                            + '<img src="/static/upload/community/review/' + this.image + '" alt="아아아아악">'
+                            + '<img src="' + this.image + '" alt="사진">'
                             + '</div>';
                     }
                     dispHtml += "</div>";
@@ -553,7 +554,7 @@
                             + '<div>';
                         if(this.image != null) {
                             dispHtml += '<div>'
-                                + '<img src="/static/upload/community/review/' + this.image + '" alt="아아아아악">'
+                                + '<img src="' + this.image + '" alt="사진">'
                                 + '</div>';
                         }
                         dispHtml += "</div>";
@@ -680,7 +681,7 @@
                         + '<div>';
                     if(this.image != null) {
                         dispHtml += '<div>'
-                            + '<img src="/static/upload/community/review/' + this.image + '" alt="아아아아악">'
+                            + '<img src="' + this.image + '" alt="사진">'
                             + '</div>';
                     }
                     dispHtml += "</div>";

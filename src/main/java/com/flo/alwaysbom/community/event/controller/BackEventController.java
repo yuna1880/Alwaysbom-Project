@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,6 +46,7 @@ public class BackEventController {
 
     @PostMapping("/admin/community/addEvent")
     public String addEventContent(EventVo vo, List<MultipartFile> file) throws IOException {
+        System.out.println(vo);
         vo.setThumb(fileHandler.uploadFile(file.get(0), null, "event"));
         vo.setImage1(fileHandler.uploadFile(file.get(1), null, "event"));
         vo.setImage2(fileHandler.uploadFile(file.get(2), null, "event"));
@@ -57,9 +57,9 @@ public class BackEventController {
     @PostMapping("/admin/community/eventDelete")
     public String eventDelete(Integer idx){
         EventVo vo = servise.eventDelete(idx);
-        fileHandler.deleteFile(vo.getThumb());
-        fileHandler.deleteFile(vo.getImage1());
-        fileHandler.deleteFile(vo.getImage2());
+//        fileHandler.deleteFile(vo.getThumb());
+//        fileHandler.deleteFile(vo.getImage1());
+//        fileHandler.deleteFile(vo.getImage2());
         return "redirect:/admin/community/eventList";
     }
 

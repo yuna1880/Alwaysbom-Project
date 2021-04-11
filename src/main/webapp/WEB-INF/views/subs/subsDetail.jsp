@@ -20,7 +20,6 @@
 <!-- 메인 컨테이너 -->
 <div id="container" class="mx-auto">
 <form method="post">
-
     <!-- 메뉴 경로 표시 -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-3">
@@ -94,12 +93,17 @@
         </div>
         <!-- 꽃 사이즈 정보 -->
         <div class="d-flex justify-content-start align-items-center my-3">
-            <h5><span class="badge rounded-pill bg-light text-dark" id="fsize" value="${subsVo.fsize}">${subsVo.fsize} 사이즈</span></h5>
+            <h5><span class="badge rounded-pill bg-light text-dark" value="${subsVo.fsize}">${subsVo.fsize}사이즈</span></h5>
+            <input type="hidden" id="fsize" name="fsize" value="${subsVo.fsize}">
         </div>
 
         <!-- 무료배송 알림 -->
-        <div class="fd-announcement d-flex justify-content-start py-3 my-4">
+        <div class="fd-announcements d-flex justify-content-start pt-3">
             정기구독은 무조건, <span class="green-color fw-500 ps-1">무료배송!</span>
+
+        </div>
+        <div class="fd-announce d-flex justify-content-start pb-3 mb-3">
+            서울/경기/인천 일부지역은<span class="fw-500 ps-1 px-1" style="color: #97a5ff">새벽배송으로 신선하게</span>배송됩니다.
         </div>
 
         <!-- 구매옵션 -->
@@ -109,7 +113,7 @@
                 <div class="col-3 fw-500 pt-1">수령일</div>
                 <div class="col-9">
                     <input type="text" name="requestDate" placeholder="수령일을 선택해주세요."
-                           class="datepicker col-12 p-2 ps-3 fs-6" autocomplete="off"/>
+                           class="datepicker col-12 p-2 ps-3 fs-6" id="requestDate" autocomplete="off"/>
                 </div>
             </div>
 
@@ -217,18 +221,55 @@
             </span>
         </div>
 
-            <!-- 장바구니/결제 버튼 -->
-            <div class="d-flex justify-content-center mt-5">
-                <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
+        <!-- 장바구니/결제 버튼 -->
+        <div class="d-flex justify-content-center mt-5">
 
-            <%--memberId, category, subsIdx, quantity, letter 임의로 넣어주기--%>
-                <input type="hidden" name="memberId" value="${empty member ? "test" : member.id}">
-                <input type="hidden" name="category" value="정기구독">
-                <input type="hidden" name="subsIdx" value="${subsVo.idx}" id="subsIdx">
+        <!-- 로그인 세션이 없을 때 장바구니를 클릭하면 -->
+        <c:if test="${empty sessionScope.member}">
+            <!-- 클릭 버튼 -->
+            <button type="button" class="btn sub-button fw-bold py-3 me-2" data-bs-toggle="modal" data-bs-target="#loginModal">장바구니</button>
 
-                <button type="button" class="btn main-button fw-bold py-3" onclick="goPay(this.form)">바로구매</button>
+            <!-- 로그인 유도 Modal 창 -->
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel2" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="loginModalLabel2">새늘봄의 회원이신가요?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body fs-19 p-3 mb-5">
+                            로그인 이후 이용 가능한 서비스입니다.<br>로그인 화면으로 이동하시려면 '이동'을 눌러주세요.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark fs-19" onclick="location.href='/login'">이동</button>
+                            <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </c:if>
 
+        <!-- 로그인 세션이 있을 때 장바구니를 클릭하면 (원래 짜놓은 로직대로 ~ )-->
+        <c:if test="${not empty sessionScope.member}">
+            <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
+        </c:if>
+
+        <%--memberId, category, subsIdx, quantity, letter 임의로 넣어주기--%>
+            <input type="hidden" name="memberId" value="${empty member ? "test" : member.id}">
+            <input type="hidden" name="category" value="정기구독">
+            <input type="hidden" name="subsIdx" value="${subsVo.idx}" id="subsIdx">
+
+            <!-- 로그인 세션이 없을 때 장바구니를 클릭하면 -->
+            <c:if test="${empty sessionScope.member}">
+                <!-- 클릭 버튼 -->
+                <button type="button" class="btn main-button fw-bold py-3" data-bs-toggle="modal" data-bs-target="#loginModal">바로구매</button>
+            </c:if>
+            <!-- 로그인 세션이 있을 때 장바구니를 클릭하면 (원래 짜놓은 로직대로 ~ )-->
+            <c:if test="${not empty sessionScope.member}">
+                <button type="button" class="btn main-button fw-bold py-3" onclick="goPay(this.form)">바로구매</button>
+            </c:if>
+
+        </div>
         </div> <!-- 주문 정보 닫기 -->
     </div> <!-- 상품 썸네일 & 주문 정보 닫기 -->
 
@@ -249,7 +290,7 @@
     </div>
 
     <!-- 상품설명 -->
-    <div id="detail-area" class="d-flex justify-content-center">
+    <div id="detail-area" class="d-flex justify-content-center text-center lh-lg">
         <div>${subsVo.content}</div>
     </div>
 
@@ -401,7 +442,7 @@
                 <span class="d-block text-center py-3 px-4 btn-rev">정기구독 베스트 리뷰</span>
             </label>
             <label>
-                <input type="radio" name="reviewCategory" class="d-none" onclick="switchCategory('#bestReview', '#thisReview')">
+                <input type="radio" name="reviewCategory" class="d-none" onclick="switchCategory('#bestReview', '#thisReview')" id="thisReviewRadio">
                 <span class="d-block text-center py-3 px-4 btn-rev">이 상품의 리뷰</span>
             </label>
         </div>
@@ -584,7 +625,6 @@
                     <u>남양주시</u><br>
                     진전읍, 진건읍, 와부읍, 별내면, 퇴계원면, 다산동(다산1~2동), 별내동, 평내동, 호평동, 금곡동, 이패동, 도농동, 지금동
                 </p>
-
                 <span class="fs-5 fw-500">2. 교환 및 환불 정책</span>
                 <p>
                     [결제 완료] 상태라면 언제든지 홈페이지 및 고객센터를 통해 해지 가능합니다. (마이페이지 > 주문내역)<br>
@@ -595,10 +635,9 @@
                 </p>
             </div>
         </div> <!-- 배송안내 닫기 -->
-    </div>
-</form>
+    </form>
 
-</div> <!-- #container 닫기 -->
+    </div> <!-- #container 닫기 -->
 
 <%@ include file="../main/footer.jspf"%>
 
@@ -824,6 +863,16 @@
 
     /* 장바구니 보내기 */
     async function addCart() {
+
+        if (document.querySelector('#requestDate').value == null || document.querySelector('#requestDate').value == '') {
+            alert("수령일을 선택해주세요.");
+            return false;
+        }
+        if (document.querySelector('#selectMonth').value == '구독 기간을 선택해주세요.') {
+            alert("구독기간을 선택해주세요.");
+            return false;
+        }
+
         const $inputs = document.getElementsByTagName("input");
         const $selectMonth = document.querySelector("#selectMonth");
         const $choices = document.querySelectorAll(".choice-price-box");
@@ -869,9 +918,12 @@
     /* 바로구매 클릭시 */
     function goPay(frm) {
 
-        if (${member.id eq null}) {
-            alert("로그인이 필요합니다.");
-            location.href = "/login";
+        if (document.querySelector('#requestDate').value == null || document.querySelector('#requestDate').value == '') {
+            alert("수령일을 선택해주세요.");
+            return false;
+        }
+        if (document.querySelector('#selectMonth').value == '구독 기간을 선택해주세요.') {
+            alert("구독기간을 선택해주세요.");
             return false;
         }
 
@@ -897,6 +949,7 @@
         // 정기구독
         const month = $selectMonth.value;
         const deliveryStartDate = new Date($input.requestDate.value).getTime();
+        const fsize = document.querySelector('#fsize');
 
         let osubsList = [];
         for (let i = 0; i < month * 2; i++) {
@@ -928,7 +981,7 @@
                 category: $input.category.value,
                 quantity: document.querySelector("[data-subs-quantity]").textContent,
                 reviewCheck: 0,
-                fsize: document.querySelector("#fsize").value,
+                fsize: document.querySelector('#fsize').value,
                 osubsList: osubsList
             }
         ];
@@ -998,13 +1051,19 @@
             body: formData
         };
 
+        const $reviewModal = document.querySelector('#writingReview');
+        let reviewModal = bootstrap.Modal.getInstance($reviewModal);
+
         fetch("/subs/" + subsIdx.toString() + "/reviews", options).then(response => {
             response.json().then(result => {
                 console.log(result);
                 const $newReview = makeReviewRow(result);
                 const $thisReviewBox = document.querySelector("#thisReviewBox");
                 $thisReviewBox.prepend($newReview);
-                location.reload();
+                reviewModal.hide();
+                animateScroll("#review-area");
+                switchCategory('#bestReview', '#thisReview');
+                document.getElementById('thisReviewRadio').checked = true;
             }).catch(err => {
                 console.log(err);
             })
@@ -1021,11 +1080,11 @@
         $accordionItem.appendChild($accordionHeader);
 
         // reviewList 영역에 들어갈 애들
-        const $reviewList = htmlToElement('<div class="reviewList review-row collapsed d-flex justify-content-between p-4 fs-5"' +
+        const $reviewList = htmlToElement('<div class="reviewList bb-1 review-row collapsed d-flex justify-content-between p-4 fs-5"' +
             ' data-bs-toggle="collapse" data-bs-target="#collapse' + idx + '"' +
             ' aria-expanded="false" aria-controls="collapse' + idx + '">');
 
-        const $starSpan = htmlToElement('<span class="col-2 fs-17 c-star ls-narrower d-flex align-items-center text-warning"></span>')
+        const $starSpan = htmlToElement('<span class="col-2 fs-17 c-star ls-narrower d-flex align-items-center"></span>')
         const star = rowObject.star;
         for (let i = 1; i <= 5; i++) {
             let className = "fas fa-star fs-6";
@@ -1049,16 +1108,15 @@
 
         let collapseHtml = '';
         collapseHtml += '<div id="collapse' + idx + '" class="accordion-collapse collapse border-0"' +
-            '     aria-labelledby="flush-heading' + idx + '" data-bs-parent="#bestReview" style="padding-left: 196px">';
-        collapseHtml += '   <div class="accordion-body px-5">';
+            '     aria-labelledby="flush-heading' + idx + '" data-bs-parent="#bestReview">';
+        collapseHtml += '   <div class="accordion-body bb-1">';
+        collapseHtml += '       <div class="col-5 d-flex flex-column ms-13">';
         if (rowObject.image) {
-            collapseHtml += '   <div>';
-            collapseHtml += '       <img src="' + rowObject.image + '" alt="사진" style="max-width: 50%;">';
-            collapseHtml += '   </div>';
+            collapseHtml += '       <img src="' + rowObject.image + '" alt="사진" class="col-9">';
         }
-        collapseHtml += '       <span>' + rowObject.content + '</span>';
+        collapseHtml += '           <div class="my-4">' + rowObject.content + '</div>';
+        collapseHtml += '       </div>';
         collapseHtml += '   </div>';
-        collapseHtml += '</div>';
         const $accordionCollapse = htmlToElement(collapseHtml);
 
         $accordionItem.appendChild($accordionCollapse);

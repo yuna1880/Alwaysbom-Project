@@ -38,7 +38,7 @@
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
-<div class="container">
+<div id=“container” class=“mx-auto”>
     <!-- 헤더 -->
     <div class="checkout_wrap">
         <div class="navi" tabindex="-1">
@@ -99,7 +99,7 @@
                                                 </c:forEach>
                                                 <span class="th">수령인 이름</span>
                                                 <div class="td">
-                                                    <input maxlength="255" id="receiving_name" name="receiverName" type="text" value="유나" autocomplete="off">
+                                                    <input maxlength="255" id="receiving_name" name="receiverName" type="text" value="${sessionScope.member.name}" autocomplete="off">
                                                 </div>
                                             </div>
                                             <div class="detail">
@@ -158,7 +158,7 @@
                                             </div>
                                             <div class="detail">
                                                 <span class="th">발신인</span>
-                                                <span class="td_unknown"><input type="text" maxlength="64" autocomplete="off" id="sender_name" name="senderName" value="Yuna">
+                                                <span class="td_unknown"><input type="text" maxlength="64" autocomplete="off" id="sender_name" name="senderName" value="${sessionScope.member.name}">
                                                     <span class="unknow_noti">
                                                         <input type="checkbox" name="sender_unknown" id="sender_unknown" class="lb_unknow_name_new" onchange="unknownName()">
                                                         <label for="sender_unknown">익명으로 보내기</label>
@@ -285,22 +285,6 @@
 </div>
 <%@ include file="../main/footer.jspf" %>
 <script>
-    //라디오버튼 화면 변경
-    window.onload = function () {
-        addDelivery();
-    }
-    function addDelivery() {
-        document.getElementById('sender_input').style.display = 'none';
-        document.getElementById('input_info').style.display = 'block';
-    }
-    function addSender() {
-        document.getElementById('input_info').style.display = 'none';
-        document.getElementById('sender_input').style.display = 'block';
-    }
-    function findDelivery() {
-        document.getElementById('sender_input').style.display = 'none';
-        document.getElementById('input_info').style.display = 'block';
-    }
     function unknownName() {
         let unknown = document.getElementById('sender_unknown');
         if (unknown.checked == true) {

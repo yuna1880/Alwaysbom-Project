@@ -45,7 +45,6 @@ public class BackFclassController {
         List<FclassVo> classList = fclassService.findAll();
         List<BranchVo> branchList = branchService.findAll();
 
-        System.out.println("classList = " + classList);
         model.addAttribute("classList", classList);
         model.addAttribute("branchList", branchList);
 
@@ -77,7 +76,6 @@ public class BackFclassController {
         int classIdx = vo.getIdx();
         fclassService.updateFclass(vo, branches);
         if (!oldImg.equals(newImg)) {
-            System.out.println("여기오냐?");
             oclassService.updateClassImg(newImg, classIdx);
         }
 
@@ -191,8 +189,6 @@ public class BackFclassController {
     @PostMapping("admin/fclass/api/updateBranch")
     @ResponseBody
     public BranchVo updateBranch(BranchVo vo, MultipartFile file) throws IOException {
-        System.out.println("vo = " + vo);
-        System.out.println("file = " + file);
         vo.setMapImage(fileHandler.uploadFile(file, vo.getMapImage(), "fclass/branch"));
         branchService.updateBranch(vo);
         return vo;
@@ -205,19 +201,9 @@ public class BackFclassController {
         return scheduleService.addSchedule(scheduleVo);
     }
 
-    @PostMapping("/admin/fclass/api/searchSchedule")
-    @ResponseBody
-    public List<ScheduleVo> searchSchedule(@RequestBody ScheduleVo vo) {
-        System.out.println("searchSchedule : vo = " + vo);
-
-            return scheduleService.searchSchedule(vo);
-
-    }
-
     @PostMapping("/admin/fclass/api/deleteScheduleByIdx")
     @ResponseBody
     public boolean deleteSchedule(@RequestBody List<Integer> idx) {
-        System.out.println("idx = " + idx);
         return scheduleService.deleteSchedule(idx);
     }
 

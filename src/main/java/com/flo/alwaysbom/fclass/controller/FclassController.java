@@ -51,8 +51,6 @@ public class FclassController {
     @GetMapping("/api/fclass/orders")
     public String getOrders(@SessionAttribute(required = false) MemberVO member, Model model, OclassSearchOptionDto searchOption) {
         searchOption.setMemberId(member != null ? member.getId() : "minho1030@naver.com");
-        System.out.println("member = " + member);
-        System.out.println("searchOption = " + searchOption);
         List<OclassVo> orders = oclassService.findBySearchOption(searchOption);
         model.addAttribute("orders", orders);
         return "fclass/myClassListContent";
@@ -64,7 +62,6 @@ public class FclassController {
     public String goList(Model model) {
         List<FclassVo> classList = fclassService.findAll();
         List<BranchVo> branchList = branchService.findAll();
-        System.out.println("classList = " + classList);
         model.addAttribute("classList", classList);
         model.addAttribute("branchList", branchList);
         return "fclass/classList";
@@ -126,19 +123,11 @@ public class FclassController {
         BranchVo branchVo = branchService.findByIdx(scheduleVo.getBranchIdx());
         FclassVo fclassVo = fclassService.findByIdx(scheduleVo.getFclassIdx());
 
-
         model.addAttribute("scheduleVo", scheduleVo);
         model.addAttribute("branchVo", branchVo);
         model.addAttribute("fclassVo", fclassVo);
         model.addAttribute("regCount", regCount);
         model.addAttribute("memberVo", member);
-
-        System.out.println("FclassController.goPayment");
-        System.out.println("scheduleVo = " + scheduleVo);
-        System.out.println("branchList = " + branchVo);
-        System.out.println("fclassVo = " + fclassVo);
-        System.out.println("regCount = " + regCount);
-        System.out.println("memberVO = " + member);
 
         return "/fclass/payment";
     }
@@ -146,20 +135,9 @@ public class FclassController {
     @PostMapping ("/fclass/completePayment")
     public String completePayment(@SessionAttribute(required = false) MemberVO member, Integer scheduleIdx, OclassVo ovo, Model model) {
         // @RequestParam("pay-type") String payType, Integer payTotal, String payDate, Integer discountGrade, Integer discountPoint, Model model
-        System.out.println("ovo = " + ovo);
-
-        System.out.println("scheduleIdx = " + scheduleIdx);
         ScheduleVo svo = scheduleService.findByIdx(scheduleIdx);
-
-        System.out.println("fclassIdx = " + svo.getFclassIdx());
         FclassVo fvo = fclassService.findByIdx(svo.getFclassIdx());
-
-        System.out.println("branchIdx = " + svo.getBranchIdx());
         BranchVo bvo = branchService.findByIdx(svo.getBranchIdx());
-
-        System.out.println("svo = " + svo);
-        System.out.println("fvo = " + fvo);
-        System.out.println("bvo = " + bvo);
 
         ovo.setFclassName(fvo.getName());
         ovo.setBranchName(bvo.getName());
@@ -176,8 +154,6 @@ public class FclassController {
         }
         ovo.setFclassIdx(fvo.getIdx());
         ovo.setScheduleIdx(svo.getIdx());
-        System.out.println("ovo = " + ovo);
-        oclassService.addOclass(ovo, svo);
 
         if(svo.getTotalCount() < svo.getRegCount() + ovo.getRegCount() ) {
             throw new IllegalStateException("등록 인원수가 큽니다");
@@ -186,6 +162,7 @@ public class FclassController {
             svo.setRegCount(svo.getRegCount() + ovo.getRegCount());
         }*/
 
+        oclassService.addOclass(ovo, svo);
         scheduleService.updateSchedule(svo);
 
         model.addAttribute("order", ovo);
@@ -222,23 +199,21 @@ public class FclassController {
 
         ReviewDto reviewDto = null;
         try {
-            System.out.println("FclassController.addReview");
-            System.out.println("newReview = " + newReview);
-            System.out.println("idx = " + idx);
-            System.out.println("member = " + member);
-
             newReview.setMemberId(member.getId());
             newReview.setFclassIdx(idx);
             newReview.setImage(fileHandler.uploadFile(newReview.getImageFile(), null, "/fclass/reviews"));
 
-            System.out.println("add 전 reviewDto = " + newReview);
-
             reviewDto = oclassService.addReview(newReview);
-            System.out.println("add 후 reviewDto = " + reviewDto);
             return reviewDto;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @PostMapping("/fclass/api/searchSchedule")
+    @ResponseBody
+    public List<ScheduleVo> searchSchedule(@RequestBody ScheduleVo vo) {
+        return scheduleService.searchSchedule(vo);
     }
 }

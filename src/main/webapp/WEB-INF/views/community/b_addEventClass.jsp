@@ -81,6 +81,7 @@
 <script>
       $(function (){
         $('.register-datepicker').datepicker({
+            autoclose: true,
             format: 'yyyy-mm-dd',
             showOtherMonths: false,
             startDate: 'noBefore',

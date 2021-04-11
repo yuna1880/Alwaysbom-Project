@@ -18,7 +18,6 @@ public class CartApi {
 
     @GetMapping("/api/cart/list")
     public List<CartVo> findByIdxArray(Integer[] idx) {
-        System.out.println("idx = " + Arrays.toString(idx));
         return cartService.findByIdxArray(idx);
     }
 

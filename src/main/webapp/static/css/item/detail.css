@@ -54,6 +54,15 @@
     border-top: 1px solid #d4d4d4;
     border-bottom: 1px solid #d4d4d4;
 }
+.fd-announcements {
+    font-size: 18px;
+    border-top: 1px solid #d4d4d4;
+}
+
+.fd-announce {
+    font-size: 18px;
+    border-bottom: 1px solid #d4d4d4;
+}
 .count i {
     color: #c0c0c0;
     font-size: 23px;

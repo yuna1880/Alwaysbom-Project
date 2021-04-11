@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>정기구독 상품 조회</title>
@@ -62,9 +63,11 @@
                 <div class="${status.index % 2 == 1 ? "text-end pe-5" : "ps-5"} col-6 flex-row justify-content-start" id="subs_infos">
                     <h4 class="fw-normal text-secondary">${subsVo.subheader}</h4>
                     <h2 class="py-2">${subsVo.name}</h2>
-                    <h2 class="py-3">${subsVo.price} ~</h2>
+                    <h2 class="py-3">
+                        <fmt:formatNumber value="${subsVo.price}" pattern="#,###원"/> ~
+                    </h2>
                     <div class="w-95">
-                        <h5 class="py-3 fw-lighter lh-lg">${subsVo.content}</h5>
+                        <h5 class="py-3 fw-lighter lh-lg">${subsVo.summary}</h5>
                     </div>
                     <h5 class="py-3"><span class="badge rounded-pill bg-light text-dark">무료배송</span></h5>
                 </div>

@@ -144,7 +144,7 @@
 <!-- 새늘봄 플라워클래스 -->
 <div class="fclass-wrap">
     <div class="w-1280 mx-auto">
-        <div class="px-4 me-3 mb-5 d-flex justify-content-between align-items-end">
+        <div class="px-4 me-3 mb-4 d-flex justify-content-between align-items-end">
             <div>
                 <span class="fs-3 ls-narrower ps-3">꽃과 함께 하는 일상,</span>
                 <span class="fs-3 fw-bolder ls-narrower ps-3">플라워클래스</span>
@@ -156,17 +156,43 @@
         <!----------------------------------------->
         <div class="px-4 mx-2">
             <div class="mb-5 d-flex justify-content-start">
-                <div class="col-6 pe-2 overflow-hidden height-400px">
-                    <img src="${fclassBig.image1}" alt="썸네일" class="w-100">
-                </div>
-                <div class="col-6 ps-4 d-flex justify-content-between">
-                    <div class="col-6">
-                        <img src="${fclassSmall.image1}" alt="썸네일" class="w-100">
+                <div class="col-6 pe-2 position-relative overflow-hidden height-400px d-flex justify-content-start
+                            align-items-end">
+                    <div class="position-absolute p-4 d-flex flex-column cursor-pointer"
+                         onclick="location.href='/fclass/classList/${fclassBig.idx}'">
+                        <span class="fs-5 fw-light text-white">2021년에도 새늘봄 클래스와 함께</span>
+                        <span class="fs-3 fw-bolder text-white">4월 플라워 클래스 > </span>
                     </div>
-                    <div class="col-5 d-flex flex-column">
-                        <span>${fclassSmall.subheader}</span>
-                        <span>${fclassSmall.name}</span>
-                        <span>${fclassSmall.finalPrice}</span>
+                    <a href="/fclass/classList/${fclassBig.idx}">
+                        <img src="${fclassBig.image1}" alt="썸네일" class="w-100">
+                    </a>
+                </div>
+                <div class="col-6 ps-3 d-flex justify-content-start">
+                    <div class="col-6">
+                        <a href="/fclass/classList/${fclassSmall.idx}">
+                            <img src="${fclassSmall.image1}" alt="썸네일" class="w-100">
+                        </a>
+                    </div>
+                    <div class="col-5 ps-3 d-flex flex-column">
+                        <span class="item-name cursor-pointer" onclick="location.href='/fclass/classList/${fclassSmall.idx}'">
+                            ${fclassSmall.name}
+                        </span>
+                        <div class="price-wrap">
+                            <c:if test="${not empty fclassSmall.discountRate && fclassSmall.discountRate > 0}">
+                                <span class="discount-rate">${fclassSmall.discountRate}%</span>
+                                <span class="original-price">
+                                    <fmt:formatNumber value="${fclassSmall.price}" pattern="#,###원"/>
+                                </span>
+                            </c:if>
+                            <div class="final-price mt-1 mb-3">
+                                <fmt:formatNumber value="${fclassSmall.finalPrice}" pattern="#,###원"/>
+                            </div>
+                            <ul class="border-0 d-flex m-0 p-0">
+                                <c:forEach var="bvo" items="${fclassSmall.branchList}">
+                                    <li class="branch-box list-unstyled p-1 me-1 fw-bold"  style="color: ${bvo.color}; border: 2px solid ${bvo.color}; border-radius: 12px; font-size: 0.75rem; width: 60px; text-align: center;">${bvo.name}</li>
+                                </c:forEach>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
