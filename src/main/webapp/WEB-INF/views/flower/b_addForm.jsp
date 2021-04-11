@@ -427,6 +427,10 @@
             alert("가격에 숫자가 아닌 문자열이 섞여 있습니다.");
             isValidate = false;
         }
+        else if (!myEditor.getData()) {
+            alert("상품을 상세설명을 입력해주세요.");
+            isValidate = false;
+        }
         return isValidate;
     }
 
