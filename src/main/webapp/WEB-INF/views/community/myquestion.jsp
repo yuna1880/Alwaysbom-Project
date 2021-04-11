@@ -70,7 +70,7 @@
 
     // JSON.stringify(obj)  =>  {"a":"hi", "b":,"hello"}
     // new URLSearchParams(obj) => a=hi&b=hello
-    import {al} from "../../../static/chartjs/dist/chunks/helpers.segment";
+    // import {al} from "../../../static/chartjs/dist/chunks/helpers.segment";
 
     function questionUpload() {
         // let formData = $("#question-form").serialize();
