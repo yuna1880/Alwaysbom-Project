@@ -10,7 +10,7 @@
         <div class="d-flex justify-content-center align-items-center py-5">
             <span class="fs-2 fw-bold">관리할 클래스 선택</span>
         </div>
-    <div class="h-30 d-flex justify-content-between">
+    <div class="d-flex justify-content-between">
         <div class="col-4 d-flex justify-content-center align-items-center p-5">
             <select class="form-select form-select-lg lh-lg" aria-label="select"
                     id="category" name="category" onchange="findByCategory(this.value)">
@@ -37,7 +37,7 @@
             </select>
         </div>
     </div>
-    <div class="h-50 d-flex justify-content-center pt-5">
+    <div class="d-flex justify-content-center pt-5">
         <div class="col-4 d-flex justify-content-center align-items-baseline p-5">
             <button id="nextBtn" type="submit" class="btn btn-dark btn-lg px-5" disabled>다음으로</button>
         </div>

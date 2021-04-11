@@ -16,8 +16,8 @@
 </head>
 <body>
 <%@ include file="../main/b_header.jspf" %>
-<div id="container" class="mx-auto d-flex h-100 p-4 pt-5">
-    <div class="col-8 h-100 d-flex flex-column px-4 grayBoard"> <%--border-warning border-end--%>
+<div id="container" class="mx-auto d-flex p-4 pt-5">
+    <div class="col-8 d-flex flex-column px-4 grayBoard"> <%--border-warning border-end--%>
         <div class="w-100 d-flex justify-content-center align-items-center p-3 position-relative">
             <div class="position-absolute top-0 start-0 bg-light text-secondary rounded-3 px-3">
                 <span>${fclass.category}</span> /
@@ -26,7 +26,7 @@
             </div>
             <span class="fs-2 fw-bold pt-5">클래스 조회</span>
         </div>
-        <div class="h-100 w-100 d-flex flex-column align-items-center">
+        <div class="w-100 d-flex flex-column align-items-center">
             <div>
             <label class="form-label">
                 <input type="text" placeholder="조회하실 클래스의 날짜를 선택해주세요" id="dataForm" class="bgColor select-datepicker form-floating p-4" onclick="checkValidDate()" required="required"/>
@@ -39,11 +39,11 @@
             </table>
         </div>
     </div>
-    <div class="col-4 h-100 d-flex flex-column px-4">
+    <div class="col-4 d-flex flex-column px-4">
         <div class="w-100 d-flex justify-content-center align-items-center p-3">
             <span class="fs-2 fw-bold pt-5">수강등록</span>
         </div>
-        <div class="h-100 w-100 d-flex flex-column align-items-center">
+        <div class="w-100 d-flex flex-column align-items-center">
             <div><input type="text" placeholder="등록할 수강일을 선택해주세요" id="classDate" class="bgColor register-datepicker form-floating p-2 mb-2 dataForm2" required="required" aria-label="수강일"/></div>
             <div class="mb-2"><input type="time" id="startTime" class="bgColor dataForm2 form-floating p-2" placeholder="시작시간" value="10:00" required="required" aria-label="시작시간"/></div>
             <div class="mb-2"><input type="time" id="endTime" class="bgColor dataForm2 form-floating p-2" placeholder="종료시간" value="20:00" required="required" aria-label="종료시간"/></div>

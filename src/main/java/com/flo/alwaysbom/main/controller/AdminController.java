@@ -56,6 +56,12 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/admin/logout")
+    public String logoutProc(Model model) {
+        model.addAttribute("admin", null);
+        return "redirect:/admin/main";
+    }
+
 //    @RequestMapping(value = "/api/admin/configs", method = RequestMethod.PUT)
     @PostMapping("/api/admin/configs")
     @ResponseBody
