@@ -10,7 +10,7 @@
 <c:forEach var="order" items="${ordersList}" varStatus="status">
 <ul id="o${order.idx}" class="d-flex flex-column list-unstyled m-0 p-0">
     <li class="d-flex align-items-center border-bottom py-3 bg-light">
-        <div class="col-7 d-flex align-items-center">
+        <div class="col-9 d-flex align-items-center ps-5">
             주문번호 : ${order.idx}
             <c:if test="${order.status eq '입금대기'}">
                 <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" data-index="${status.index}" onclick="payConfirm(this, ${status.index})">입금확인</button>
@@ -22,20 +22,20 @@
                 <button data-order-idx="${order.idx}" type="button" class="btn btn-dark btn-sm" id="order-button" data-index="${status.index}" onclick="departDelivery(this, ${status.index})">배송출발</button>
             </c:if>
         </div>
-        <div class="col-5">
+        <div class="col-3">
             <span class="badge bg-secondary" id="order-date">주문일 : ${order.odate}</span>
         </div>
     </li>
     <c:forEach var="oitem" items="${ordersList.get(status.index).olist}" varStatus="nextStatus">
     <li class="d-flex border-bottom py-3">
-        <div style="background-color: white" class="col-7 d-flex">
+        <div style="background-color: white" class="col-9 d-flex ps-4">
             <div class="overflow-hidden">
                 <a href="#" title="${oitem.name}">
                     <!-- <img src="images/0_1.png" class="rounded float-start" alt="..."> -->
                     <img src="${oitem.image}" class="image_size">
                 </a>
             </div>
-            <div class="d-flex flex-column ps-3">
+            <div class="col-3 d-flex flex-column ps-3">
                 <span class="content_category"></span>
                 <span class="name">[${oitem.category}] ${oitem.name}</span>
                 <div>
@@ -62,8 +62,9 @@
             <div class="fst-italic">수령인 연락처 : ${order.receiverPhone}</div>
             <div>[수령 요청일] : ${oitem.requestDate}</div>
             <div>결제방법 : ${order.payType}</div>
-            <div class="fw-bold" >주문상태 :
-                <i id="status" data-index="${nextStatus.index}">${order.status}</i>
+            <div class="fw-bold" >
+                <h5><span class="badge bg-warning text-dark my-2" id="status" data-index="${status.index}">${order.status}</span></h5>
+<%--                <i id="status" data-index="${nextStatus.index}">${order.status}</i>--%>
             </div>
             <input type="hidden" id="orderStatus" value="${order.status}">
         </div>

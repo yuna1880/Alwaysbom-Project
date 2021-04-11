@@ -98,8 +98,12 @@
         </div>
 
         <!-- 무료배송 알림 -->
-        <div class="fd-announcement d-flex justify-content-start py-3 my-4">
+        <div class="fd-announcements d-flex justify-content-start pt-3">
             정기구독은 무조건, <span class="green-color fw-500 ps-1">무료배송!</span>
+
+        </div>
+        <div class="fd-announce d-flex justify-content-start pb-3 mb-3">
+            서울/경기/인천 일부지역은<span class="fw-500 ps-1 px-1" style="color: #97a5ff">새벽배송으로 신선하게</span>배송됩니다.
         </div>
 
         <!-- 구매옵션 -->
@@ -286,7 +290,7 @@
     </div>
 
     <!-- 상품설명 -->
-    <div id="detail-area" class="d-flex justify-content-center">
+    <div id="detail-area" class="d-flex justify-content-center text-center lh-lg">
         <div>${subsVo.content}</div>
     </div>
 
