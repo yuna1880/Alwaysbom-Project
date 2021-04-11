@@ -76,7 +76,6 @@ public class ReviewController {
         if (member == null) {
             // 없을 때 임시
             member = new MemberVO();
-            member.setId("ee@test.com");
         }
 
         List<ReviewDto> list = service.searchReview(opt, search, member.getId());
