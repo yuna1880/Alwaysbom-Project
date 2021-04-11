@@ -6,7 +6,7 @@
 
     <insert id="addque" parameterType="com.flo.alwaysbom.community.question.vo.QuestionVo">
         INSERT INTO MYQ (NAME, CONTENT, IMAGE, MEMBER_ID, EMAIL_SEND, QUESTION_DATE)
-        VALUES (#{name}, #{content}, #{image}, 'test', #{emailSend}, SYSDATE)
+        VALUES (#{name}, #{content}, #{image}, #{memberId}, #{emailSend}, SYSDATE)
     </insert>
 
     <select id="noAnswer" resultType="com.flo.alwaysbom.community.question.vo.QuestionVo" parameterType="string">

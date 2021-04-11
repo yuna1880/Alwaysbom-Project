@@ -57,4 +57,9 @@
         SET POINT = POINT + #{point}
         WHERE ID = #{memberId}
     </update>
+    <!-- 1vs1 문의 리스트-->
+    <select id="myQuestion" parameterType="string" resultType="com.flo.alwaysbom.community.question.vo.QuestionVo">
+        SELECT * FROM MYQ
+        WHERE MEMBER_ID = #{id}
+    </select>
 </mapper>

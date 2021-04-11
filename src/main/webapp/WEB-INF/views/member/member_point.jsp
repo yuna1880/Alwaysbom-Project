@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>마이포인트</title>
@@ -22,7 +23,7 @@
                     <div class="left">
                         <span class="h5">현재 사용 가능한 적립금</span>
                         <hr>
-                        <span class="h4"><b class="text-danger">${sessionScope.member.point}</b>원</span>
+                        <span class="h4"><b class="text-danger"><fmt:formatNumber value="${sessionScope.member.point}" pattern="#,###" /></b>원</span>
                     </div>
                     <div class="right">
                         <span>
@@ -64,7 +65,7 @@
                             <td>사용</td>
                         </c:if>
                         <td id="couponName${status.index}">${coupon.name}</td>
-                        <td>${coupon.point}</td>
+                        <td><fmt:formatNumber value="${coupon.point}" pattern="#,###" /></td>
                         <c:if test="${coupon.status eq '0'}">
                         <td>
                             <button type="button" class="btn btn-danger" onclick="useCoupon(this)">사용하기</button>
