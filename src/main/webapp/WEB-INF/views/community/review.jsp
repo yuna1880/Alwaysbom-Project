@@ -79,7 +79,7 @@
     <!-- 카테고리 탭 (라디오버튼) -->
     <div class="d-flex align-items-baseline review-category col-12 justify-content-around">
         <label>
-            <input type="radio" name="reviewCategory" class="d-none" checked="" onclick="switchCategory('#thisReview', '#bestReview')">
+            <input type="radio" name="reviewCategory" class="d-none" checked="" onclick="location.href='/community/goReview'">
             <span class="d-block text-center py-3 px-5 btn-rev">전체</span>
         </label>
         <label>
