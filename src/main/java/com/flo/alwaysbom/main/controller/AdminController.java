@@ -75,8 +75,6 @@ public class AdminController {
         session.removeAttribute("rsaWebKey");
         String id = decryptRsa(rsaWebKey, adminVo.getId());
         String password = decryptRsa(rsaWebKey, adminVo.getPassword());
-        System.out.println("id = " + id);
-        System.out.println("password = " + password);
 
         if (id.equals("admin") && password.equals("admin")) {
             adminVo = new AdminVo(id, password);
