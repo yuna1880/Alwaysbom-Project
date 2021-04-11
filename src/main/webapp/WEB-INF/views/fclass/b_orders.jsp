@@ -29,8 +29,12 @@
         </div>
         <div class="d-flex">
             <div class="input-group">
-                <input id="memberId" type="text" class="form-control" placeholder="회원명으로 조회">
-                <button class="btn btn-outline-secondary" type="button" onclick="searchBySearchOption()">검색</button>
+                <input id="memberId" type="text" class="form-control"
+                       onkeypress="if(event.keyCode === 13)searchBySearchOption()"
+                       placeholder="회원 아이디로 검색">
+                <button class="btn btn-outline-secondary" type="button"
+                        onclick="searchBySearchOption()">검색
+                </button>
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@
 <div id="container" class="mx-auto d-flex h-100 p-4 pt-5">
     <div class="col-8 h-100 d-flex flex-column px-4 grayBoard"> <%--border-warning border-end--%>
         <div class="w-100 d-flex justify-content-center align-items-center p-3 position-relative">
-            <div class="position-absolute top-0 start-0 bg-secondary text-white rounded-3 px-3">
+            <div class="position-absolute top-0 start-0 bg-light text-secondary rounded-3 px-3">
                 <span>${fclass.category}</span> /
                 <span>${fclass.name}</span> /
                 <span>${branch.name}</span>
