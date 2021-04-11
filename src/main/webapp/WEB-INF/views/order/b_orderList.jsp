@@ -9,7 +9,6 @@
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
-
 <div class="container">
     <div class="row">
         <div id="btnGroup" class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -48,6 +47,7 @@
         <%@ include file="b_orderListContent.jsp"%>
     </div>
 </div>
+<%@ include file="../main/b_footer.jspf"%>
 <script>
     //주문 불러오기
     document.querySelectorAll("#btnGroup input[type=radio]").forEach(function (input) {

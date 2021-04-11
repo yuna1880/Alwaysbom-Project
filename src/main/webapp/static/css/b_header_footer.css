@@ -41,7 +41,7 @@
 .logo {
     width: 155px;
     height: 67px;
-    background-color: #808080;
+    /*background-color: #808080;*/
     transform: translateY(2px);
 }
 .logo:hover {

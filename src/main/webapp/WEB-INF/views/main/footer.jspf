@@ -13,10 +13,10 @@
                     <span class="ps-3 pe-2 fs-4">1161-1031</span>
                     <span class="text-secondary" style="font-size: 10pt">(평일 10:00 - 13:00, 14:00 - 18:00 / 주말 & 공휴일 제외)</span>
                     <div class="px-3">
-                        <button class="btn btn-outline-secondary" style="border-radius: 30px">자주 묻는 질문</button>
+                        <button class="btn btn-outline-secondary" style="border-radius: 30px" onclick="location.href='/community/goFaq'">자주 묻는 질문</button>
                     </div>
                     <div>
-                        <button class="btn btn-outline-secondary" style="border-radius: 30px">1:1 문의하기</button>
+                        <button class="btn btn-outline-secondary" style="border-radius: 30px" onclick="location.href='/admin/community/question'">1:1 문의하기</button>
                     </div>
                 </div>
             </div>

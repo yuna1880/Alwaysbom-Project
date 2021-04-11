@@ -20,6 +20,7 @@
         SET     NAME = #{name},
                 SUBHEADER = #{subheader},
                 SUMMARY = #{summary},
+                PRICE = #{price},
                 IMAGE1 = #{image1},
                 IMAGE2 = #{image2},
                 IMAGE3 = #{image3},
