@@ -67,7 +67,7 @@
                         <fmt:formatNumber value="${subsVo.price}" pattern="#,###원"/> ~
                     </h2>
                     <div class="w-95">
-                        <h5 class="py-3 fw-lighter lh-lg">${subsVo.content}</h5>
+                        <h5 class="py-3 fw-lighter lh-lg">${subsVo.summary}</h5>
                     </div>
                     <h5 class="py-3"><span class="badge rounded-pill bg-light text-dark">무료배송</span></h5>
                 </div>
