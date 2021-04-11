@@ -48,16 +48,19 @@
                     </c:if>
 
                     <!-- 카드 결제시 -->
-                    <c:if test="${ordersVo.payType == '신용카드'}">
+                    <c:if test="${ordersVo.payType == '신용카드(직접입력)' || ordersVo.payType == '간편결제'}">
                         <dl class="bank_info">
                             <dt class="th">결제정보
                                 <span>결제가 정상적으로 완료되었습니다.</span>
                             </dt>
                             <dd class="td">
+                                <span class="line"><b class="prop">주문번호</b>
+                                    <span class="val">#${ordersVo.idx}</span>
+                                </span>
                                 <span class="line"><b class="prop">결제타입</b>
-                                        <span class="val">${ordersVo.payType}원</span></span>
+                                    <span class="val">${ordersVo.payType}</span></span>
                                 <span class="line"><b class="prop">결제금액</b>
-                                        <span class="val"><fmt:formatNumber value="${ordersVo.payTotal}" pattern="#,###"/>원</span></span>
+                                    <span class="val"><fmt:formatNumber value="${ordersVo.payTotal}" pattern="#,###"/>원</span></span>
                                 <span class="line"><b class="prop">결제날짜</b>
                                         <span class="val">${date}</span></span>
                             </dd>
