@@ -113,6 +113,9 @@ public class ReviewController {
             member = new MemberVO();
             member.setId("ee@test.com");
         }
+        if (category == null){
+            category = "";
+        }
         if(category != null || !(category.equals(""))){
             model.addAttribute("category", category);
         }
