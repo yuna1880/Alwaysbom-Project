@@ -68,7 +68,25 @@
     }
 </style>
 <script>
-    function showReviewModal(btn, category, itemIdx, orderIdx) {
+
+    <!-- 별 클릭시 1~5 체크 -->
+    let $stars = document.querySelectorAll("[name=starPoint]");
+    let $starIcons = document.querySelectorAll("[name=starPoint] + i");
+    for (const $star of $stars) {
+        $star.onchange = function(){
+            console.log(this.value);
+            const starPoint = parseInt(this.value);
+            $starIcons.forEach(($starIcon, index) =>{
+                let className = "fas fa-star";
+                if (starPoint <= index) {
+                    className = "far fa-star";
+                }
+                $starIcon.className = className;
+            })
+        }
+    }
+
+    function showReviewModal(btn, category, itemIdx, oitemIdx) {
         if (btn.id.length === 0) {
             throw new TypeError("버튼의 id가 존재하지 않습니다");
         } else if (document.querySelectorAll("#" + btn.id).length > 1) {
@@ -78,7 +96,7 @@
         const $reviewModal = document.querySelector("#writingReview");
         $reviewModal.dataset.category = category;
         $reviewModal.dataset.itemIdx = itemIdx;
-        $reviewModal.dataset.orderIdx = orderIdx;
+        $reviewModal.dataset.oitemIdx = oitemIdx;
         $reviewModal.dataset.target = btn.id;
         new bootstrap.Modal($reviewModal).show();
     }
@@ -90,7 +108,7 @@
 
         const category = $reviewModal.dataset.category;
         const itemIdx = $reviewModal.dataset.itemIdx;
-        const orderIdx = $reviewModal.dataset.orderIdx;
+        const oitemIdx = $reviewModal.dataset.oitemIdx;
 
         const star = document.querySelector("[name=starPoint]:checked").value;
         const name = document.querySelector("#review-title").value;
@@ -101,29 +119,33 @@
         if ($image.files[0]) {
             formData.append('imageFile', $image.files[0]);
         }
-        formData.append('content', document.querySelector("#review-content").innerText);
+        formData.append('content', document.querySelector("#review-content").value);
         formData.append('star', star);
 
         let url;
         switch (category) {
             case "정기구독": {
                 url = "/subs/" + itemIdx + "/reviews";
-                formData.append("oitemIdx", orderIdx);
+                formData.append("oitemIdx", oitemIdx);
+                formData.append("subsIdx", itemIdx);
                 break;
             }
             case "꽃다발": {
                 url = "/flower/" + itemIdx + "/reviews";
-                formData.append("oitemIdx", orderIdx);
+                formData.append("oitemIdx", oitemIdx);
+                formData.append("flowerIdx", itemIdx);
                 break;
             }
             case "소품샵": {
                 url = "/product/" + itemIdx + "/reviews";
-                formData.append("oitemIdx", orderIdx);
+                formData.append("oitemIdx", oitemIdx);
+                formData.append("productIdx", itemIdx);
                 break;
             }
             case "클래스": {
                 url = "/fclass/api/classList/" + itemIdx + "/reviews";
-                formData.append("oclassIdx", orderIdx);
+                formData.append("oclassIdx", oitemIdx);
+                formData.append("fclassIdx", itemIdx);
                 break;
             }
         }

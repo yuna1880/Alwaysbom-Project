@@ -47,7 +47,7 @@
             <c:if test="${order.status eq '결제완료' and order.reviewCheck eq 0}" >
                 <input type="hidden" value="${order.idx}" id="oclassIdx">
                 <input type="hidden" value="${order.fclassIdx}" id="fclassIdx">
-            <a class="btn btn-sm btn-light px-3 py-2" onclick="showReviewModal(${order.idx})">리뷰쓰기</a>
+            <a id="b${order.idx}" class="btn btn-sm btn-light px-3 py-2" onclick="showReviewModal(this, '클래스', ${order.fclassIdx}, ${order.idx})">리뷰쓰기</a>
             </c:if>
         </div>
     </li>
