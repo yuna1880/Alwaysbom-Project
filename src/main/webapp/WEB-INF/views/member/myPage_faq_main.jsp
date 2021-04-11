@@ -30,14 +30,7 @@
                             <button type="button" class="btn btn-outline-secondary" onclick="location.href='/question/create'">1:1 문의하기</button>
                         </div>
                         <div class="mx-5">
-                            <ul class="nav justify-content-around reviewBox">
-                                <li class="nav-item-3">
-                                    <a class="nav-link" id="${param.category}" href="#" onclick='goAnswer("")'>미답변</a>
-                                </li>
-                                <li class="nav-item-3">
-                                    <a class="nav-link" id="${param.category}" href="#" onclick='goAnswer("answer")'>답변</a>
-                                </li>
-                            </ul>
+
                             <div class="row row-cols-6 mx-auto bottom-line reBoard">
                                 <span class="text-center col-2 nopadding">번호</span>
                                 <span class="text-center col-2 nopadding">작성일</span>
@@ -46,24 +39,18 @@
                             </div>
 
                             <ul class="nav row table mx-auto">
-                                <c:forEach var="quList" items="${questlist}">
+                                <c:forEach var="quList" items="${quList}">
+<%--                                    <c:if test="${not empty quList.answer}">--%>
                                     <li>
-
                                         <div class="row row-cols-5 mx-auto bottom-line accoque reBoard">
                                             <span class="text-center col-2 nopadding">${quList.idx}</span>
                                             <span class="text-center col-2 nopadding">${quList.questionDate}</span>
                                             <span class="text-center col-5 nopadding">${quList.name}</span>
-                                            <c:if test="${empty quList.answer}">
                                                 <span class="text-center col-2 nopadding">미답변</span>
-                                            </c:if>
-                                            <c:if test="${not empty quList.answer}">
-                                                <span class="text-center col-2 nopadding">답변</span>
-                                            </c:if>
                                             <span class="text-center col-1 nopadding"><img src="/static/icons/up.svg"
                                                                                            class="rounded- mx-auto checkv" alt="V"
                                                                                            title="V"></span>
                                         </div>
-
                                         <div class="row bottom-line text-center toggleBtn disflex" style="display: none">
                                             <c:if test="${not empty quList.image}">
                                                 <div class="col">
@@ -82,51 +69,15 @@
                                 </span>
                                                 <span class="text-center col-2 nopadding">${quList.answerDate}</span>
                                                 <span class="text-center col-5 nopadding">${quList.answerTitle}</span>
-                                                <c:if test="${empty quList.answer}">
-                                                    <span class="text-center col-2 nopadding">미답변</span>
-                                                </c:if>
-                                                <c:if test="${not empty quList.answer}">
-                                                    <span class="text-center col-2 nopadding">답변완료</span>
-                                                </c:if>
+                                                <span class="text-center col-2 nopadding">미답변</span>
                                                 <span class="text-center col-1 nopadding"><img src="/static/icons/up.svg"
                                                                                                class="rounded- mx-auto checkv" alt="V"
                                                                                                title="V"></span>
                                             </div>
-                                            <form  method="get" class="form-floating bottom-line toggleBtn">
-                                                <div class="row d-flex mb-2">
-                                                    <c:if test="${not empty quList.answer}">
-                                                        <div class="col form-floating">
-                                                            <span>${quList.answer}</span>
-                                                        </div>
-                                                    </c:if>
-                                                    <div class="col justify-content-center">
-                                                        <div>
-                                                            <c:if test="${empty quList.answer}">
-
-                                                            </c:if>
-                                                            <c:if test="${not empty quList.answer}">
-                                                                <div class="mb-3">
-                                                                    <label for="title" class="form-label">제목</label>
-                                                                    <input id="title" type="text" name="answerTitle" class="form-control mb-1" placeholder="제목"
-                                                                           value="${quList.answerTitle}" style="width: 500px;">
-                                                                </div>
-                                                            </c:if>
-                                                        </div>
-                                                        <div>
-                                                            <label for="answer">Answer</label>
-                                                            <textarea class="form-control" placeholder="내용을 입력하세요" id="answer"
-                                                                      name="answer" style="height: 200px; width: 500px;">${quList.answer}
-                                                            </textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex justify-content-center">
-
-                                                </div>
-                                            </form>
 
                                         </div>
                                     </li>
+<%--                                </c:if>--%>
                                 </c:forEach>
                             </ul>
                         </div>

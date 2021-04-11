@@ -1,5 +1,6 @@
 package com.flo.alwaysbom.member.dao;
 
+import com.flo.alwaysbom.community.question.vo.QuestionVo;
 import com.flo.alwaysbom.coupon.vo.CouponVo;
 import com.flo.alwaysbom.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -67,5 +69,8 @@ public class MemberDAO{
         sessionTemplate.update("member.raisePoint", couponVO);
     }
 
+    public List<QuestionVo> myQuestion(String id) {
+        return sessionTemplate.selectList("member.myQuestion", id);
+    }
 
 }

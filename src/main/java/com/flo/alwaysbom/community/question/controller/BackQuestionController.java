@@ -51,11 +51,7 @@ public class BackQuestionController {
     @PostMapping("/admin/question/api/addAnswer")
     @ResponseBody
     public boolean addAnswer(@SessionAttribute(required = false) MemberVO member, QuestionVo vo){
-        if (member == null) {
-            // 없을 때 임시
-            member = new MemberVO();
-            member.setId("ee@test.com");
-        }
+
 
         servise.updateAnswer(vo);
         Integer mailCheck = servise.mailCheckIdx(vo.getIdx());
