@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -60,28 +61,34 @@ public class MemberController {
 
     //로그인(post)
     @PostMapping("/login")
-    public String loginProc(@RequestParam String id, @RequestParam String pw, Model model) throws Exception {
+    public String loginProc(@RequestParam String id, @RequestParam String pw, Model model, RedirectAttributes rttr) throws Exception {
         //System.out.println("아이디 : " + id + ", 패스워드 : " + pw);
 
         MemberVO member = new MemberVO();
         member.setId(id);
         member.setPw(pw);
         member = memberService.login(member);
-        List<CouponVo> coupons = couponService.findBySearchOption(CouponVo.builder().memberId(id).build());
 
-        int count = 0;
-        for (CouponVo coupon:coupons) {
-            if (coupon.getStatus() == 0) {
-                count++;
+        if (member == null) {
+            model.addAttribute("member", null);
+            rttr.addFlashAttribute("msg", false);
+        }else {
+            List<CouponVo> coupons = couponService.findBySearchOption(CouponVo.builder().memberId(id).build());
+
+            int count = 0;
+            for (CouponVo coupon : coupons) {
+                if (coupon.getStatus() == 0) {
+                    count++;
+                }
             }
-        }
-        //System.out.println(count);
+            //System.out.println(count);
 
-        model.addAttribute("coupons", coupons);
-        model.addAttribute("couponCount", count);
-        //System.out.println("coupons = " + coupons);
-        model.addAttribute("member", member);
-        return "redirect:/";
+            model.addAttribute("coupons", coupons);
+            model.addAttribute("couponCount", count);
+            //System.out.println("coupons = " + coupons);
+            model.addAttribute("member", member);
+        }
+            return "redirect:/";
     }
 
     //로그아웃
@@ -127,7 +134,7 @@ public class MemberController {
         return "member/myPage";
     }
 
-    //1:1문의 구현중->요기 하다 말았음
+    //1:1문의
     @GetMapping("/myPage_faq_main")
     public String myPage_faq_main(@SessionAttribute(required = false) MemberVO member, Model model) {
         //회원 로그인 정보 받아오기
@@ -141,12 +148,6 @@ public class MemberController {
         System.out.println("qList test = " + qlist);
         return "member/myPage_faq_main";
     }
-    
-//    //1:1문의(테스트전)
-//    @GetMapping("/myPage_faq_main")
-//    public String myPage_faq_main() {
-//        return "member/myPage_faq_main";
-//    }
 
     //카카오 회원가입
     @GetMapping("/kakao_join")
