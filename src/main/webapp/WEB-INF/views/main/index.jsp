@@ -7,7 +7,6 @@
     <%@ include file="import.jspf"%>
     <link rel="stylesheet" href="/static/css/item/list.css">
     <link rel="stylesheet" href="/static/css/main.css">
-
 </head>
 <body>
 <%@ include file="header.jspf"%>

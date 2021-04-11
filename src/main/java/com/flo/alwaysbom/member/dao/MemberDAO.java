@@ -49,7 +49,7 @@ public class MemberDAO{
 
     //회원 탈퇴
     public void deleteMember(MemberVO memberVO, HttpSession session) throws Exception {
-        sessionTemplate.delete("member.deleteMember", memberVO);
+        sessionTemplate.update("member.deleteMember", memberVO);
         session.invalidate();
     }
 
