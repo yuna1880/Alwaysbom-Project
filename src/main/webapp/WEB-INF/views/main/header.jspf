@@ -3,9 +3,9 @@
 <c:set var="forward" value='${requestScope["javax.servlet.forward.servlet_path"]}'/>
 <c:set var="typePath" value='${forward.substring(0, forward.indexOf("/", 1) > 0 ? forward.indexOf("/", 1) : forward.length())}'/>
 <style>
-    .modal-backdrop {
-        z-index: 0;
-    }
+    /*.modal-backdrop {*/
+    /*    z-index: 50;*/
+    /*}*/
 </style>
 <div class="d-flex justify-content-center">
     <div class="login-bar">
