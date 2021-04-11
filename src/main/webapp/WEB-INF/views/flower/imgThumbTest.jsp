@@ -76,7 +76,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                    <button type="button" class="btn btn-dark">리뷰 등록하기</button>
+                    <button type="button" class="btn btn-dark" onclick="closeModal()">리뷰 등록하기</button>
                 </div>
             </div>
         </div>
@@ -129,6 +129,12 @@
                 $starIcon.className = className;
             })
         }
+    }
+    function closeModal() {
+        console.log(33);
+        let myModalEl = document.querySelector('#writingReview');
+        let myModal = bootstrap.Modal.getInstance(myModalEl);
+        myModal.hide();
     }
 </script>
 </body>

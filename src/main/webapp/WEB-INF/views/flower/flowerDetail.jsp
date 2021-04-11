@@ -398,7 +398,7 @@
                 <span class="d-block text-center py-3 px-4 btn-rev">꽃다발 베스트 리뷰</span>
             </label>
             <label>
-                <input type="radio" name="reviewCategory" class="d-none" onclick="switchCategory('#bestReview', '#thisReview')">
+                <input type="radio" name="reviewCategory" class="d-none" onclick="switchCategory('#bestReview', '#thisReview')" id="thisReviewRadio">
                 <span class="d-block text-center py-3 px-4 btn-rev">이 상품의 리뷰</span>
             </label>
         </div>
@@ -960,13 +960,19 @@
             body: formData
         };
 
+        const $reviewModal = document.querySelector('#writingReview');
+        let reviewModal = bootstrap.Modal.getInstance($reviewModal);
+
         fetch("/flower/" + flowerIdx.toString() + "/reviews", options).then(response => {
             response.json().then(result => {
                 console.log(result);
                 const $newReview = makeReviewRow(result);
                 const $thisReviewBox = document.querySelector("#thisReviewBox");
                 $thisReviewBox.prepend($newReview);
-                location.reload();
+                reviewModal.hide();
+                animateScroll("#review-area");
+                switchCategory('#bestReview', '#thisReview');
+                document.getElementById('thisReviewRadio').checked = true;
             }).catch(err => {
                 console.log(err);
             })
@@ -983,11 +989,11 @@
         $accordionItem.appendChild($accordionHeader);
 
         // reviewList 영역에 들어갈 애들
-        const $reviewList = htmlToElement('<div class="reviewList review-row collapsed d-flex justify-content-between p-4 fs-5"' +
+        const $reviewList = htmlToElement('<div class="reviewList bb-1 review-row collapsed d-flex justify-content-between p-4 fs-5"' +
             ' data-bs-toggle="collapse" data-bs-target="#collapse' + idx + '"' +
             ' aria-expanded="false" aria-controls="collapse' + idx + '">');
 
-        const $starSpan = htmlToElement('<span class="col-2 fs-17 c-star ls-narrower d-flex align-items-center text-warning"></span>')
+        const $starSpan = htmlToElement('<span class="col-2 fs-17 c-star ls-narrower d-flex align-items-center"></span>')
         const star = rowObject.star;
         for (let i = 1; i <= 5; i++) {
             let className = "fas fa-star fs-6";
@@ -1011,16 +1017,15 @@
 
         let collapseHtml = '';
         collapseHtml += '<div id="collapse' + idx + '" class="accordion-collapse collapse border-0"' +
-            '     aria-labelledby="flush-heading' + idx + '" data-bs-parent="#bestReview" style="padding-left: 196px">';
-        collapseHtml += '   <div class="accordion-body px-5">';
+            '     aria-labelledby="flush-heading' + idx + '" data-bs-parent="#bestReview">';
+        collapseHtml += '   <div class="accordion-body bb-1">';
+        collapseHtml += '       <div class="col-5 d-flex flex-column ms-13">';
         if (rowObject.image) {
-            collapseHtml += '   <div>';
-            collapseHtml += '       <img src="' + rowObject.image + '" alt="사진" style="max-width: 50%;">';
-            collapseHtml += '   </div>';
+            collapseHtml += '       <img src="' + rowObject.image + '" alt="사진" class="col-9">';
         }
-        collapseHtml += '       <span>' + rowObject.content + '</span>';
+        collapseHtml += '           <div class="my-4">' + rowObject.content + '</div>';
+        collapseHtml += '       </div>';
         collapseHtml += '   </div>';
-        collapseHtml += '</div>';
         const $accordionCollapse = htmlToElement(collapseHtml);
 
         $accordionItem.appendChild($accordionCollapse);
