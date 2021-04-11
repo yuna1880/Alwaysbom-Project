@@ -44,12 +44,12 @@
 
                 <div>
                     <label for="startDate">startDate</label>
-                    <input type="text" placeholder="시작일을 정해주세요" id="startDate" name="startDate" class="form-control register-datepicker form-floating p-2 mb-4 text-secondary dataForm2" required="required" aria-label="시작일" value="${eventVo.startDate}"/>
+                    <input type="text" placeholder="시작일을 정해주세요" id="startDate" name="startDate" class="form-control datepicker form-floating p-2 mb-4 text-secondary dataForm2" required="required" aria-label="시작일" value="${eventVo.startDate}"/>
                 </div>
 
                 <div>
                     <label for="endDate">endDate</label>
-                    <input type="text" placeholder="종료일을 정해주세요" id="endDate" name="endDate" class="form-control register-datepicker form-floating p-2 mb-4 text-secondary dataForm2" required="required" aria-label="종료일" value="${eventVo.endDate}"/>
+                    <input type="text" placeholder="종료일을 정해주세요" id="endDate" name="endDate" class="form-control datepicker form-floating p-2 mb-4 text-secondary dataForm2" required="required" aria-label="종료일" value="${eventVo.endDate}"/>
                 </div>
             </div>
             <!-- 파일 -->
@@ -74,7 +74,6 @@
                     <div class="card-header mb-3">
                         <label for="file3">추가이미지</label>
                         <input type="file" name="file" class="form-control" id="file3" onchange="preview(this, 'img3')">
-                        <%--                        <label class="input-group-text" for="file3">File 3</label>--%>
                         <input type="hidden" name="image2" value="${eventVo.image2}">
                     </div>
                     <c:if test="${not empty eventVo.image2}">
@@ -109,7 +108,8 @@
 </script>
 <script>
       $(function (){
-        $('.register-datepicker').datepicker({
+        $('.datepicker').datepicker({
+            autoclose: true,
             format: 'yyyy-mm-dd',
             showOtherMonths: false,
             startDate: 'noBefore',
