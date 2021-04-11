@@ -263,12 +263,13 @@
     }
 
     function goLike(memberId, reviewIdx, bt) {
-        // console.log(bt.children(".fas"));
+        if(memberId == null || memberId == ''){
+            alert("로그인이 필요합니다.");
+            return;
+        }
         if($("this").children("button").hasClass("fas")){
-            alert("ddddddd");
         }
         if($("this").children("button").hasClass("far")){
-            alert("ddddddd");
         }
         if($(this).hasClass("toggleStyle")) {
             $(this).removeClass("toggleStyle");
