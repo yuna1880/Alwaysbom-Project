@@ -434,19 +434,21 @@
         const $options = document.querySelector('#itemSize').options;
         let isCategoryChecked = false;
         let isFsizeSelected = false;
+        let cateVase = document.querySelectorAll(".form-check-input")[0];
+        let cateGoods = document.querySelectorAll(".form-check-input")[1];
 
-        if ($inputs.cateVase1.checked || $inputs.cateGoods1.checked) {
+        if (cateVase.checked || cateGoods.checked) {
             isCategoryChecked = true;
         }
 
-        if ($inputs.cateVase1.checked) {
+        if (cateVase.checked) {
             for (let i = 0; i < $options.length; i++) {
                 if (i > 0 && $options[i].selected) {
                     isFsizeSelected = true;
                     break;
                 }
             }
-        } else if ($inputs.cateGoods1.checked) {
+        } else if (cateGoods.checked) {
             isFsizeSelected = true;
         }
 

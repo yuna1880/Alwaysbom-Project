@@ -305,7 +305,7 @@
 
         <!-- 상품설명 -->
         <div id="detail-area" class="overflow-auto d-flex justify-content-center mb-5">
-            <div class="mx-auto">${productVo.content}</div>
+            <div class="mx-auto text-center">${productVo.content}</div>
         </div>
 
         <!-- 리뷰게시판 -->
