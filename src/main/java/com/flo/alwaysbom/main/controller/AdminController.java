@@ -11,8 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -57,8 +59,8 @@ public class AdminController {
     }
 
     @GetMapping("/admin/logout")
-    public String logoutProc(Model model) {
-        model.addAttribute("admin", null);
+    public String logoutProc(SessionStatus sessionStatus) {
+        sessionStatus.setComplete();
         return "redirect:/admin/main";
     }
 
