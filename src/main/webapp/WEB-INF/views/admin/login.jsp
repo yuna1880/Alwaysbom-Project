@@ -13,16 +13,19 @@
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
-<div id="container" class="mx-auto d-flex flex-column">
-    <form action="/admin/login" method="post">
+<div id="container" class="mx-auto d-flex flex-column m-0 p-0">
+
+    <form action="/admin/login" method="post"
+          class="col-4 mx-auto my-auto border border-secondary bg-dark rounded-3 d-flex flex-column">
         <div class="p-3">
-            <input type="text" class="form-control" name="id" id="id">
+            <input type="text" class="form-control" name="id" id="id" placeholder="아이디">
         </div>
         <div class="p-3">
-            <input type="text" class="form-control" name="password" id="password">
+            <input type="text" class="form-control" name="password" id="password" placeholder="비밀번호">
         </div>
-        <div class="p-3">
-            <button type="submit" class="btn btn-primary">로그인</button>
+        <hr class="bg-primary p-0 m-0">
+        <div class="p-3 col-6 align-self-center">
+            <button type="submit" class="col-12 btn btn-primary">로그인</button>
         </div>
     </form>
 </div>
