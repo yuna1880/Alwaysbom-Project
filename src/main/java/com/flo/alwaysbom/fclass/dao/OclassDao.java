@@ -44,7 +44,6 @@ public class OclassDao {
 
     public void updateClassImg(String newImg, int idx) {
         OclassVo build = OclassVo.builder().fclassIdx(idx).fclassImage(newImg).build();
-        System.out.println("build = " + build);
         sqlSessionTemplate.update("oclass.updateClassImg", build);
     }
 

@@ -11,13 +11,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
 
-    public CommonExceptionHandler() {
-        System.out.println("여기인데요......");
-    }
-
     @ExceptionHandler
     public ModelAndView handleException(Exception e) {
-        System.out.println("저기요...");
         e.printStackTrace();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("exception", e);
