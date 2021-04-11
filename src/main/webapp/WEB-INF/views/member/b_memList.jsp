@@ -8,33 +8,31 @@
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
-<div id="container" class="mx-auto">
-        <table id="b_memList">
-            <thead>
+<div id="container" class="d-flex flex-column align-items-center mx-auto">
+    <table id="b_memList" class="table table-striped text-center mt-4">
+        <thead>
+        <tr>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>생일</th>
+            <th>성별</th>
+            <th>휴대폰번호</th>
+            <th>회원등급</th>
+            <th>포인트</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="mem" items="${list}">
             <tr>
-                <th>아이디</th>
-                <th>이름</th>
-                <th>생일</th>
-                <th>성별</th>
-                <th>휴대폰번호</th>
-                <th>회원등급</th>
-                <th>포인트</th>
-                <th>탈회여부</th>
+                <td>${mem.id }</td>
+                <td>${mem.name }</td>
+                <td>${mem.birth }</td>
+                <td>${mem.gender }</td>
+                <td>${mem.phone }</td>
+                <td>${mem.grade }</td>
+                <td>${mem.point }</td>
             </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${b_memList }">
-                <tr>
-                    <td>${b_memList.id }</td>
-                    <td>${b_memList.name }</td>
-                    <td>${b_memList.birth }</td>
-                    <td>${b_memList.gender }</td>
-                    <td>${b_memList.phone }</td>
-                    <td>${b_memList.grade }</td>
-                    <td>${b_memList.point }</td>
-                    <td>${b_memList.quit_status }</td>
-                </tr>
-            </c:forEach>
+        </c:forEach>
         </tbody>
     </table>
 </div>
