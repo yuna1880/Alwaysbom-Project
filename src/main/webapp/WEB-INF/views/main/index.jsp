@@ -165,7 +165,7 @@
                     <div class="position-absolute p-4 d-flex flex-column cursor-pointer"
                          onclick="location.href='/fclass/classList/${fclassBig.idx}'">
                         <span class="fs-5 fw-light text-white">2021년에도 새늘봄 클래스와 함께</span>
-                        <span class="fs-3 fw-bolder text-white">4월 플라워 클래스 > </span>
+                        <span class="fs-3 fw-bolder text-white">${fclassBig.name} > </span>
                     </div>
                     <a href="/fclass/classList/${fclassBig.idx}">
                         <img src="${fclassBig.image1}" alt="썸네일" class="w-100">
