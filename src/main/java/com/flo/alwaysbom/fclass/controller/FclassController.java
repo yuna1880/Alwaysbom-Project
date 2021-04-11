@@ -146,20 +146,9 @@ public class FclassController {
     @PostMapping ("/fclass/completePayment")
     public String completePayment(@SessionAttribute(required = false) MemberVO member, Integer scheduleIdx, OclassVo ovo, Model model) {
         // @RequestParam("pay-type") String payType, Integer payTotal, String payDate, Integer discountGrade, Integer discountPoint, Model model
-        System.out.println("ovo = " + ovo);
-
-        System.out.println("scheduleIdx = " + scheduleIdx);
         ScheduleVo svo = scheduleService.findByIdx(scheduleIdx);
-
-        System.out.println("fclassIdx = " + svo.getFclassIdx());
         FclassVo fvo = fclassService.findByIdx(svo.getFclassIdx());
-
-        System.out.println("branchIdx = " + svo.getBranchIdx());
         BranchVo bvo = branchService.findByIdx(svo.getBranchIdx());
-
-        System.out.println("svo = " + svo);
-        System.out.println("fvo = " + fvo);
-        System.out.println("bvo = " + bvo);
 
         ovo.setFclassName(fvo.getName());
         ovo.setBranchName(bvo.getName());
@@ -176,8 +165,6 @@ public class FclassController {
         }
         ovo.setFclassIdx(fvo.getIdx());
         ovo.setScheduleIdx(svo.getIdx());
-        System.out.println("ovo = " + ovo);
-        oclassService.addOclass(ovo, svo);
 
         if(svo.getTotalCount() < svo.getRegCount() + ovo.getRegCount() ) {
             throw new IllegalStateException("등록 인원수가 큽니다");
@@ -186,6 +173,7 @@ public class FclassController {
             svo.setRegCount(svo.getRegCount() + ovo.getRegCount());
         }*/
 
+        oclassService.addOclass(ovo, svo);
         scheduleService.updateSchedule(svo);
 
         model.addAttribute("order", ovo);
@@ -240,5 +228,14 @@ public class FclassController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @PostMapping("/fclass/api/searchSchedule")
+    @ResponseBody
+    public List<ScheduleVo> searchSchedule(@RequestBody ScheduleVo vo) {
+        System.out.println("searchSchedule : vo = " + vo);
+
+        return scheduleService.searchSchedule(vo);
+
     }
 }

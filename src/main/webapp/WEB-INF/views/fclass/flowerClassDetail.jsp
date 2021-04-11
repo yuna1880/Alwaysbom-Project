@@ -684,7 +684,7 @@
             }
         }
 
-        const response = await fetch("/admin/fclass/api/searchSchedule", option)
+        const response = await fetch("/fclass/api/searchSchedule", option)
         const result = await response.json();
         const $scheduleSelect = document.querySelector("#scheduleSelect");
         $scheduleSelect.innerHTML = "";
@@ -692,10 +692,12 @@
         result.forEach(function (schedule) {
             const $option = document.createElement("option");
             const remainCount = schedule.totalCount - schedule.regCount;
+            if (remainCount > 0) {
                 $option.dataset.remainCount = remainCount.toString(); //data-remain-count 속성의 값으로 들어갑니다
                 $option.value = schedule.idx;
                 $option.innerText = schedule.startTime + " ~ " + schedule.endTime + "(" + remainCount + "명 가능)";
                 $scheduleSelect.appendChild($option);
+            }
         })
 
         if (result.length) {
@@ -743,7 +745,7 @@
             }
         };
 
-        let response = await fetch("/admin/fclass/api/searchSchedule", option);
+        let response = await fetch("/fclass/api/searchSchedule", option);
         let result = await response.json();
 
         for (let scheduleVo of result) {
