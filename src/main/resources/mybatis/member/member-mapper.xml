@@ -34,7 +34,8 @@
 
     <!-- 회원 탈퇴 -->
     <delete id="deleteMember">
-        DELETE FROM MEMBER
+        UPDATE MEMBER
+        SET QUIT_STATUS = 1
         WHERE ID = #{id}
             AND PW = #{pw}
     </delete>
