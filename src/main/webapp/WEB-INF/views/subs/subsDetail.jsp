@@ -982,7 +982,8 @@
                 quantity: document.querySelector("[data-subs-quantity]").textContent,
                 reviewCheck: 0,
                 fsize: document.querySelector('#fsize').value,
-                osubsList: osubsList
+                osubsList: osubsList,
+                itemIdx: document.querySelector("#oitemIdx").value
             }
         ];
 

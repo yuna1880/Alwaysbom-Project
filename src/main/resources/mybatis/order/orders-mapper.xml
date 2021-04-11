@@ -29,7 +29,7 @@
     <insert id="insertOitem" parameterType="com.flo.alwaysbom.order.vo.OitemVo">
         INSERT INTO OITEM VALUES(NULL, #{ordersIdx}, #{letterContent}, #{name}, #{price},
                                  #{options}, #{image}, #{requestDate},
-                                 #{deliveryStartDate}, #{category}, #{reviewCheck}, #{quantity}, #{fsize}, #{reviewIdx})
+                                 #{deliveryStartDate}, #{category}, #{reviewCheck}, #{quantity}, #{fsize}, #{reviewIdx}, #{itemIdx})
         <selectKey keyProperty="idx" order="AFTER" resultType="int">
             select OITEM_SEQ.currval from dual
         </selectKey>
@@ -84,7 +84,6 @@
 
     <select id="findId" parameterType="String" resultMap="OrdersMap">
         SELECT * FROM ORDERS
-
         WHERE ORDERS.MEMBER_ID = #{id} AND ORDERS.STATUS = '배송완료'
         ORDER BY ORDERS.IDX DESC
     </select>
