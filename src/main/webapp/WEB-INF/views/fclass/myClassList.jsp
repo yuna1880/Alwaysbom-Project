@@ -37,52 +37,51 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <!-- 리뷰 제목-->
-                        <div class="mb-3">
-                            <label for="review-title" class="col-form-label">리뷰 제목</label>
-                            <input type="text" class="form-control" id="review-title">
+                    <!-- 리뷰 제목-->
+                    <div class="mb-3">
+                        <label for="review-title" class="col-form-label">리뷰 제목</label>
+                        <input type="text" class="form-control" id="review-title">
+                    </div>
+                    <!-- 사진 첨부 -->
+                    <div class="mb-3">
+                        <label for="review-file" class="col-form-label">사진 첨부</label>
+                        <input type="file" class="form-control text-secondary" id="review-file" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                    </div>
+                    <!-- 리뷰 내용 -->
+                    <div class="mb-3">
+                        <label for="review-content" class="col-form-label">내용</label>
+                        <textarea class="form-control" id="review-content" rows="5"></textarea>
+                    </div>
+                    <!-- 별점 선택하기 -->
+                    <div class="mb-3">
+                        <label for="review-star" class="col-form-label">별점</label>
+                        <div class="d-flex btn-group text-warning fs-2 ps-3 pb-1" role="group" id="review-star">
+                            <label class="btn-radio">
+                                <input type="radio" class="btn-check" name="starPoint" value="1" autocomplete="off">
+                                <i class="fas fa-star"></i>
+                            </label>
+                            <label class="btn-radio">
+                                <input type="radio" class="btn-check" name="starPoint" value="2" autocomplete="off">
+                                <i class="fas fa-star"></i>
+                            </label>
+                            <label class="btn-radio">
+                                <input type="radio" class="btn-check" name="starPoint" value="3" autocomplete="off">
+                                <i class="fas fa-star"></i>
+                            </label>
+                            <label class="btn-radio">
+                                <input type="radio" class="btn-check" name="starPoint" value="4" autocomplete="off">
+                                <i class="fas fa-star"></i>
+                            </label>
+                            <label class="btn-radio">
+                                <input type="radio" class="btn-check" name="starPoint" value="5" autocomplete="off" checked>
+                                <i class="fas fa-star"></i>
+                            </label>
                         </div>
-                        <!-- 사진 첨부 -->
-                        <div class="mb-3">
-                            <label for="review-file" class="col-form-label">사진 첨부</label>
-                            <input type="file" class="form-control text-secondary" id="review-file" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                        </div>
-                        <!-- 리뷰 내용 -->
-                        <div class="mb-3">
-                            <label for="review-content" class="col-form-label">내용</label>
-                            <textarea class="form-control" id="review-content" rows="5"></textarea>
-                        </div>
-                        <!-- 별점 선택하기 -->
-                        <div class="mb-3">
-                            <label for="review-star" class="col-form-label">별점</label>
-                            <div class="d-flex btn-group text-warning fs-2 ps-3 pb-1" role="group" id="review-star">
-                                <label class="btn-radio">
-                                    <input type="radio" class="btn-check" name="starPoint" value="1" autocomplete="off">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <label class="btn-radio">
-                                    <input type="radio" class="btn-check" name="starPoint" value="2" autocomplete="off">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <label class="btn-radio">
-                                    <input type="radio" class="btn-check" name="starPoint" value="3" autocomplete="off">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <label class="btn-radio">
-                                    <input type="radio" class="btn-check" name="starPoint" value="4" autocomplete="off">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <label class="btn-radio">
-                                    <input type="radio" class="btn-check" name="starPoint" value="5" autocomplete="off" checked>
-                                    <i class="fas fa-star"></i>
-                                </label>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dark fs-19" onclick="addReview()">리뷰 등록하기</button>
+                    <button id="addReviewBtn" type="button" class="btn btn-dark fs-19"
+                            onclick="addReview()" data-bs-dismiss="modal">리뷰 등록하기</button>
                     <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
                 </div>
             </div>
@@ -144,8 +143,67 @@
     /*console.log('동작좀 하면 안되니');*/
     searchByStatus("전체");
 
-    function addReview() {
+    <!-- 별 클릭시 1~5 체크 -->
+    let $stars = document.querySelectorAll("[name=starPoint]");
+    let $starIcons = document.querySelectorAll("[name=starPoint] + i");
+    for (const $star of $stars) {
+        $star.onchange = function(){
+            console.log(this.value);
+            const starPoint = parseInt(this.value);
+            $starIcons.forEach(($starIcon, index) =>{
+                let className = "fas fa-star";
+                if (starPoint <= index) {
+                    className = "far fa-star";
+                }
+                $starIcon.className = className;
+            })
+        }
+    }
 
+    /* 리뷰 모달 띄우기 */
+    function showReviewModal(oclassIdx) {
+        const modal = new bootstrap.Modal(document.querySelector("#writingReview"));
+        const $addReviewBtn = document.querySelector("#addReviewBtn");
+        $addReviewBtn.dataset.oclassIdx = oclassIdx; //data-oclass-idx 속성에 값이 들어감
+        modal.show();
+    }
+
+    /* 리뷰 등록하기 버튼 클릭 */
+    function addReview() {
+        const fclassIdx = parseInt(document.querySelector("#fclassIdx").value);
+        let star = document.querySelector("[name=starPoint]:checked").value;
+        let name = document.querySelector("#review-title").value;
+        let $image = document.querySelector("#review-file");
+        let oclassIdx = document.querySelector("#oclassIdx").value;
+
+        let formData = new FormData();
+        formData.append('name', name);
+        if ($image.files[0]) {
+            formData.append('imageFile', $image.files[0]);
+        }
+        formData.append('content', document.querySelector("#review-content").innerText);
+        formData.append('star', star);
+        formData.append('oclassIdx', oclassIdx);
+
+        let options = {
+            method: 'post',
+            body: formData
+        };
+
+        fetch("/fclass/api/classList/" + fclassIdx.toString() + "/reviews", options).then(response => {
+            response.json().then(result => {
+                console.log(result);
+                const $addReviewBtn = document.querySelector("#addReviewBtn");
+                const oclassIdx = $addReviewBtn.dataset.oclassIdx;
+                const $divArea = document.querySelector("#o" + oclassIdx);
+                $divArea.innerHTML = "";
+
+            }).catch(err => {
+                console.log(err);
+            })
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     async function searchByStatus(status) {
@@ -169,3 +227,12 @@
         /*$className.value = '';*/
     }
 </script>
+<style>
+    .btn-radio {
+        cursor: pointer;
+    }
+
+    .btn-radio:hover {
+        color: #ffcc3c;
+    }
+</style>

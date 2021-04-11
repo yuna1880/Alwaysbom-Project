@@ -194,7 +194,7 @@
             }
         };
 
-        let response = await fetch("/admin/fclass/api/searchSchedule", option);
+        let response = await fetch("/fclass/api/searchSchedule", option);
         let result = await response.json();
         console.log(result);
 
@@ -359,7 +359,7 @@
             }
         };
 
-        let response = await fetch("/admin/fclass/api/searchSchedule", option);
+        let response = await fetch("/fclass/api/searchSchedule", option);
         let result = await response.json();
         console.log(result);
 
