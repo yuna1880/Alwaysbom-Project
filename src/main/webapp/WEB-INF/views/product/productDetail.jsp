@@ -190,9 +190,35 @@
 
                 <!-- 장바구니/바로구매 버튼 -->
                 <div class="d-flex justify-content-center mt-5">
+                    <!-- 로그인 세션이 없을 때 장바구니를 클릭하면 -->
+                    <c:if test="${empty sessionScope.member}">
+                        <button type="button" class="btn sub-button fw-bold py-3 me-2"
+                                data-bs-toggle="modal" data-bs-target="#loginModal">장바구니</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel2" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="loginModalLabel2">새늘봄의 회원이신가요?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body fs-19 p-3 mb-5">
+                                        로그인 이후 이용 가능한 서비스입니다.<br>로그인 화면으로 이동하시려면 '이동'을 눌러주세요.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-dark fs-19" onclick="location.href='/login'">이동</button>
+                                        <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+                    <!-- 로그인 세션이 있을 때 장바구니를 클릭하면 -->
+                    <c:if test="${not empty sessionScope.member}">
                     <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
+                    </c:if>
 
-                    <%--memberId, category, productIdx, image, fsize 임의로 넣어주기--%>
+                <%--memberId, category, productIdx, image, fsize 임의로 넣어주기--%>
                     <c:if test="${not empty sessionScope.member}">
                         <input type="hidden" name="memberId" value="${sessionScope.member.id}">
                     </c:if>
@@ -203,8 +229,59 @@
                     <input type="hidden" name="productIdx" value="${productVo.idx}" id="productIdx">
                     <input type="hidden" name="image" value="${productVo.image1}">
                     <input type="hidden" id="fsize" name="fsize" value="${productVo.fsize}">
-                    <%----------------------------------------------------------------%>
+                <%----------------------------------------------------------------%>
+
+                    <!-- 로그인 세션이 없을 때 바로구매를 클릭하면 -->
+                    <c:if test="${empty sessionScope.member}">
+                        <button type="button" class="btn main-button fw-bold py-3" data-bs-toggle="modal"
+                                data-bs-target="#loginModal">바로구매</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel3" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="loginModalLabel3">새늘봄의 회원이신가요?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body fs-19 p-3 mb-5">
+                                        로그인 이후 이용 가능한 서비스입니다.<br>로그인 화면으로 이동하시려면 '이동'을 눌러주세요.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-dark fs-19" onclick="location.href='/login'">이동</button>
+                                        <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+                    <!-- 로그인 세션이 있을 때 바로구매를 클릭하면 -->
+                    <c:if test="${not empty sessionScope.member}">
                     <button type="button" class="btn main-button fw-bold py-3" onclick="goPay(this.form)">바로구매</button>
+                    </c:if>
+
+                    <!-- 수령일 미선택시 뜨는 Modal -->
+                    <div>
+                        <button type="button" class="visually-hidden btn main-button fw-bold py-3" data-bs-toggle="modal"
+                                data-bs-target="#chkModal" id="chkModalBtn"></button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="chkModal" tabindex="-1" aria-labelledby="chkModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="chkModalLabel">수령일을 선택해주세요.</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body fs-19 p-3 mb-5">
+                                        희망하는 수령일을 선택해주세요.<br>선택 후 결제 페이지로 이동할 수 있습니다.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div> <!-- 주문 정보 닫기 -->
@@ -680,6 +757,11 @@
         const $inputs = document.getElementsByTagName("input");
         const $productQuantity = document.querySelector("[data-product-quantity]");
 
+        if ($inputs.requestDate.value == "") {
+            document.getElementById("chkModalBtn").click();
+            return;
+        }
+
         const cartVo = {
             memberId: $inputs.memberId.value,
             category: $inputs.category.value,
@@ -709,6 +791,11 @@
     /* 바로구매 클릭 */
     function goPay(frm) {
         const $inputs = document.getElementsByTagName("input");
+
+        if ($inputs.requestDate.value == "") {
+            document.getElementById("chkModalBtn").click();
+            return;
+        }
 
         const oitemVoList = [
             {
