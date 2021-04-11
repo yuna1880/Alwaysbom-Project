@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="forward" value='${requestScope["javax.servlet.forward.servlet_path"]}'/>
 <c:set var="typePath" value='${forward.substring(0, forward.indexOf("/", 1) > 0 ? forward.indexOf("/", 1) : forward.length())}'/>
+<style>
+    .modal-backdrop {
+        z-index: 0;
+    }
+</style>
 <div class="d-flex justify-content-center">
     <div class="login-bar">
         <ul class="d-flex justify-content-end">
@@ -62,34 +67,90 @@
                 </li>
 
                 <li class="h-menu-icon ms-5">
-                    <a href="#">
-                        <c:choose>
-                            <c:when test="${sessionScope.member != null}">
-                            <a href="#">
-                                <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"
-                                     title="마이페이지" onclick="location.href='/myPage'" >
-                            </c:when>
-                            <c:otherwise>
-                                <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"
-                                     title="마이페이지" onclick="alert('로그인이 필요합니다.'); location.href='/login'" >
-                            </c:otherwise>
-                        </c:choose>
-                    </a>
+                    <!-- 로그인 세션이 없을 때 장바구니를 클릭하면 -->
+                    <c:if test="${empty sessionScope.member}">
+                        <!-- 클릭 버튼 -->
+                        <img src="/static/icons/user.svg" class="h-menu-svg" alt="user" title="마이페이지" data-bs-toggle="modal" data-bs-target="#loginModal">
+
+                        <!-- 로그인 유도 Modal 창 -->
+                        <div class="modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel2" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="loginModalLabel21">새늘봄의 회원이신가요?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body fs-19 p-3 mb-5">
+                                        로그인 이후 이용 가능한 서비스입니다.<br>로그인 화면으로 이동하시려면 '이동'을 눌러주세요.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-dark fs-19" onclick="location.href='/login'">이동</button>
+                                        <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+
+                    <!-- 로그인 세션이 있을 때 마이페이지를 클릭하면 (원래 짜놓은 로직대로 ~ )-->
+                    <c:if test="${not empty sessionScope.member}">
+                        <img src="/static/icons/user.svg" class="h-menu-svg" alt="user" title="마이페이지" onclick="location.href='/myPage'" >
+                    </c:if>
+                                                <%--                    <a href="#">--%>
+<%--                        <c:choose>--%>
+<%--                            <c:when test="${sessionScope.member != null}">--%>
+<%--                            <a href="#">--%>
+<%--                                <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"--%>
+<%--                                     title="마이페이지" onclick="location.href='/myPage'" >--%>
+<%--                            </c:when>--%>
+<%--                            <c:otherwise>--%>
+<%--                                <img src="/static/icons/user.svg" class="h-menu-svg" alt="user"--%>
+<%--                                     title="마이페이지" onclick="alert('로그인이 필요합니다.'); location.href='/login'" >--%>
+<%--                            </c:otherwise>--%>
+<%--                        </c:choose>--%>
+<%--                    </a>--%>
                 </li>
                 <li class="h-menu-icon">
-                    <a href="#">
-                        <c:choose>
-                        <c:when test="${sessionScope.member != null}">
-                        <a href="#">
-                            <img src="/static/icons/cart.svg" class="h-menu-svg" alt="cart"
-                                 title="장바구니" onclick="location.href='/cart/list'">
-                        </c:when>
-                        <c:otherwise>
-                            <img src="/static/icons/cart.svg" class="h-menu-svg" alt="cart"
-                                 title="장바구니" onclick="alert('로그인이 필요합니다.'); location.href='/login'" >
-                        </c:otherwise>
-                        </c:choose>
-                    </a>
+                    <!-- 로그인 세션이 없을 때 장바구니를 클릭하면 -->
+                    <c:if test="${empty sessionScope.member}">
+                        <!-- 클릭 버튼 -->
+                        <img src="/static/icons/cart.svg" class="h-menu-svg" alt="cart" title="장바구니" data-bs-toggle="modal" data-bs-target="#loginModal">
+
+                        <!-- 로그인 유도 Modal 창 -->
+                        <div class="modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel2" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="loginModalLabel20">새늘봄의 회원이신가요?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body fs-19 p-3 mb-5">
+                                        로그인 이후 이용 가능한 서비스입니다.<br>로그인 화면으로 이동하시려면 '이동'을 눌러주세요.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-dark fs-19" onclick="location.href='/login'">이동</button>
+                                        <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+
+                    <!-- 로그인 세션이 있을 때 장바구니를 클릭하면 (원래 짜놓은 로직대로 ~ )-->
+                    <c:if test="${not empty sessionScope.member}">
+                        <img src="/static/icons/cart.svg" class="h-menu-svg" alt="cart" title="장바구니" onclick="location.href='/cart/list'">
+                    </c:if>
+                            <%--                        <c:choose>--%>
+<%--                        <c:when test="${sessionScope.member != null}">--%>
+<%--                        <a href="#">--%>
+<%--                            <img src="/static/icons/cart.svg" class="h-menu-svg" alt="cart"--%>
+<%--                                 title="장바구니" onclick="location.href='/cart/list'">--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <img src="/static/icons/cart.svg" class="h-menu-svg" alt="cart"--%>
+<%--                                 title="장바구니" onclick="alert('로그인이 필요합니다.'); location.href='/login'" >--%>
+<%--                        </c:otherwise>--%>
+<%--                        </c:choose>--%>
                 </li>
             </ul>
         </div>
