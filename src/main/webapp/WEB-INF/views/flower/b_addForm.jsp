@@ -348,10 +348,14 @@
                 finalPrice.classList.add("text-danger", "description");
             }
             /*-- 추후 price 칸에 숫자만 입력할 수 있도록 조건 처리해야 함 --*/
+            else if (!parseInt(priceVal)) {
+                finalPriceVal = "상품 가격에 숫자만 입력해주세요";
+                finalPrice.classList.add("text-danger", "description");
+            }
             else {
                 finalPrice.classList.remove("text-danger", "description");
                 finalPriceVal =
-                    Math.floor((100 - Number(discountRateVal)) * 0.01 * Number(priceVal)) + " 원";
+                    Math.floor((100 - Number(discountRateVal)) * 0.01 * Number(priceVal)).toLocaleString('ko-KR') + " 원";
                 console.log("finalPriceVal : " + finalPriceVal);
             }
         }
@@ -384,11 +388,8 @@
         }
     }
 
-    /*  */
-
-
-    /* 폼데이터 전송후 창 이동 */
-    function goInsert(frm) {
+    /* 유효성 검사 */
+    function checkValidation() {
         const $inputs = document.getElementsByTagName("input");
         const $options = document.querySelector('#itemSize').options;
         let isSelected = false;
@@ -398,34 +399,56 @@
                 break;
             }
         }
-
+        let isValidate = true;
         if (!document.getElementById('file1').value) {
-            alert("대표썸네일 한 개는 무조건 들어가야");
+            alert("대표 이미지 하나는 필수로 업로드하셔야합니다.");
+            isValidate = false;
         }
         else if (!$inputs.name.value) {
-            alert("상품명 입력해주세요");
+            alert("상품명을 입력해주세요.");
+            isValidate = false;
         }
         else if (!$inputs.subheader.value) {
-            alert("한줄 설명을 작성해주세요");
+            alert("한줄 설명을 작성해주세요.");
+            isValidate = false;
         }
         else if (!isSelected) {
-            alert("사이즈 선택");
+            alert("꽃다발의 사이즈를 선택해주세요.");
+            isValidate = false;
         }
         else if (!$inputs.price.value) {
-            alert("가격 선택");
+            alert("상품의 가격을 입력해주세요.");
+            isValidate = false;
+        }
+        else if (!parseInt($inputs.price.value)) {
+            alert("가격에 숫자가 아닌 문자열이 섞여 있습니다.");
+            isValidate = false;
         }
         else if (!document.getElementById('content').nextElementSibling
             .innerText.trim().substring(9,9)) {
-            alert("content 입력");
+            alert("상품 상세 설명을 입력해주세요.");
+            isValidate = false;
         }
+        return isValidate;
+    }
 
-        // frm.action = "/admin/addFlower";
-        // frm.submit();
+    /* 폼데이터 전송후 창 이동 */
+    function goInsert(frm) {
+        if (checkValidation()) {
+            frm.action = "/admin/addFlower";
+            frm.submit();
+        } else {
+            return;
+        }
     }
 
     function goUpdate(frm) {
-        frm.action = "/admin/updateFlower";
-        frm.submit();
+        if (checkValidation()) {
+            frm.action = "/admin/updateFlower";
+            frm.submit();
+        } else {
+            return;
+        };
     }
 </script>
 <script src="/static/js/imageUploader.js"></script>
