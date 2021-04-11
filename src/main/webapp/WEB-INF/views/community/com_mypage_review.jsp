@@ -48,7 +48,7 @@
                                             <span class="pe-2"> 이름 : ${oitem.name}</span>
                                             <span class="pe-2"> 가격 : ${oitem.price}</span>
                                             <span class="pe-2"> 상품 : ${oitem.options}</span>
-                                            <span class="pe-2"> 주문날짜 : ${oitem.requestDate}</span>
+                                            <span class="dateCut"> 주문날짜 : ${oitem.requestDate}</span>
                                         </a>
                                     </div>
                                  </c:if>
@@ -107,8 +107,7 @@
                             + '<span class="pe-2"> 이름 :' + oli.name + '</span>'
                             + '<span class="pe-2"> 가격 :' + oli.price + '</span>'
                             + '<span class="pe-2"> 상품 :' + oli.options + '</span>'
-                            + '<span class=""> 주문날짜 : ' + oli.requestDate
-                                + '</span>'
+                            + '<span class="dateCut"> 주문날짜 : ' + new Date(oli.requestDate).toLocaleDateString() + '</span>'
                             + '</a></div>';
                         }
                     });
@@ -149,7 +148,7 @@
                         + '<span class="pe-2"> 지점 :' + oli.branchName + '</span>'
                         + '<span class="pe-2"> 가격 :' + oli.payTotal + '</span>'
                         + '<span class="pe-2"> 상품 :' + oli.fclassName + '</span>'
-                        + '<span class=""> 주문날짜 : ' + oli.payDate
+                        + '<span class="dateCut"> 주문날짜 : ' + oli.payDate
                         + '</span>'
                         + '</a></div>';
                 });

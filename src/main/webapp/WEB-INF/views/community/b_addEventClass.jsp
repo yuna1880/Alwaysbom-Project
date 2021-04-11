@@ -16,7 +16,7 @@
             <div class="col-4 pe-5 d-flex flex-column justify-content-center">
                 <div class="form-floating mb-4 text-secondary">
                     <input type="text" name="name" class="form-control text-secondary" id="name" placeholder="name">
-                    <label for="name">class name</label>
+                    <label for="name">Event name</label>
                 </div>
 
                 <div>

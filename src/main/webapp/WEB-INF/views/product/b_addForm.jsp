@@ -432,19 +432,25 @@
     function checkValidation(isInsert) {
         const $inputs = document.getElementsByTagName("input");
         const $options = document.querySelector('#itemSize').options;
-        let isSelected = false;
-        if (!document.querySelector("#itemSize").disabled) {
+        let isCategoryChecked = false;
+        let isFsizeSelected = false;
+
+        if ($inputs.cateVase1.checked || $inputs.cateGoods1.checked) {
+            isCategoryChecked = true;
+        }
+
+        if ($inputs.cateVase1.checked) {
             for (let i = 0; i < $options.length; i++) {
                 if (i > 0 && $options[i].selected) {
-                    isSelected = true;
+                    isFsizeSelected = true;
                     break;
                 }
             }
-        } else {
-            isSelected = true;
+        } else if ($inputs.cateGoods1.checked) {
+            isFsizeSelected = true;
         }
-        let isValidate = true;
 
+        let isValidate = true;
         if (isInsert) {
             if (!document.getElementById('file1').value) {
                 alert("대표 이미지 하나는 필수로 업로드하셔야합니다.");
@@ -459,7 +465,11 @@
             alert("한줄 설명을 작성해주세요.");
             isValidate = false;
         }
-        else if (!isSelected) {
+        else if (!isCategoryChecked) {
+            alert("카테고리를 지정해주세요.");
+            isValidate = false;
+        }
+        else if (!isFsizeSelected) {
             alert("꽃다발의 사이즈를 선택해주세요.");
             isValidate = false;
         }
@@ -469,6 +479,10 @@
         }
         else if (!parseInt($inputs.price.value)) {
             alert("가격에 숫자가 아닌 문자열이 섞여 있습니다.");
+            isValidate = false;
+        }
+        else if (!myEditor.getData()) {
+            alert("상품을 상세설명을 입력해주세요.");
             isValidate = false;
         }
         return isValidate;

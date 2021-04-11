@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -133,10 +134,10 @@
                     </li>
                     <li class="nav-item">
 <%--                            <a href="#" onclick='goAllList("best", "소품샵")'>소품샵</a>--%>
-                        <a href="#" onclick='goCateBest("소품")'>소품</a>
+                        <a href="#" onclick='goCateBest("소품샵")'>소품샵</a>
                     </li>
                     <!-- 검색 폼 영역 -->
-                    <form class="d-flex">
+                    <form id="review-form" class="d-flex" method="post">
                         <li id='liSearchOption' class="col list-group list-group-horizontal nav-item">
                             <div class="row">
                               <%--  <select id='selSearchOption' name="opt">
@@ -228,7 +229,8 @@
                                 </li>
                                 <li class="text-center"><span>${bestAllList.name}</span></li>
                                 <li class="text-center"><span>${bestAllList.regDate}</span></li>
-                                <li class="text-center"><span>${bestAllList.memberId}</span></li>
+                                <c:set var = "member_id" value = "${fn:substring(bestAllList.memberId, 0, 4)}" />
+                                <li class="text-center idCut"><span>${member_id}</span></li>
                                 <li class="text-center"><span>${bestAllList.likeCount}</span></li>
                             </button>
                         </ul>
@@ -294,6 +296,12 @@
     //
     // });
 
+    // $(function (){
+    //     let cutid = $('.idCut').text().substring(0,4);
+    //     console.log(cutid);
+    //     // $('.idCut').text() = string.substr(0,4);
+    //
+    // });
     function goUpdate(form, reviewIdx) {
        location.href = "/community/event/updateWrite?reviewIdx=" + reviewIdx;
     }
@@ -334,20 +342,24 @@
             ,reviewIdx: ${like.reviewIdx}
             ,memberId: "${like.memberId}"});
         </c:forEach>
-        for(let i=0;i<listList.length; i++){
-            console.log(listList[i].idx);
-            console.log(listList[i].memberId);
-            console.log(listList[i].reviewIdx);
-        }
+        // for(let i=0;i<listList.length; i++){
+        //     console.log(listList[i].idx);
+        //     console.log(listList[i].memberId);
+        //     console.log(listList[i].reviewIdx);
+        // }
         let formData = $(form).serialize();
+            // new FormData(document.querySelector('#review-form'));
+            // $(form).serialize();
         let id = '${member.id}';
         $.ajax({
-            url: '/admin/question/searchReview',
-            type: 'get',
+            url: '/question/searchReview',
+            type: 'post',
             dataType: 'json',
             data: formData,
-
+            // processData: false,
+            // contentType: false,
             success: function (result){
+                console.log(result);
                 let resultBar = "";
                 let ultable = "";
                 let dispHtml = "";
@@ -409,7 +421,7 @@
                     dispHtml += '</div></li>';
                     dispHtml +=   '<li class="text-center">' + this.name + '</li>'
                         + '<li class="text-center"><div>' + this.regDate + '</div></li>'
-                        + '<li class="text-center"><div>' +this.memberId + '</div></li>'
+                        + '<li class="text-center"><div>' + this.memberId.substring(0,4) + '</div></li>'
                         + '<li class="text-center"><div>' +  this.likeCount + '</div></li></<button>'
                         + '</ul>'
                         + '<div id="col' + this.idx + '" class="accordion-collapse collapse" aria-labelledby="head' + this.idx + '" data-bs-parent="#ulTable">'
@@ -579,7 +591,7 @@
 
                         dispHtml +=   '<li class="text-center">' + this.name + '</li>'
                             + '<li class="text-center"><div>' + this.regDate + '</div></li>'
-                            + '<li class="text-center"><div>' +this.memberId + '</div></li>'
+                            + '<li class="text-center"><div>' +this.memberId.substring(0,4) + '</div></li>'
                             + '<li class="text-center"><div>' +  this.likeCount + '</div></li></<button>'
                             + '</ul>'
                             + '<div id="col' + this.idx + '" class="accordion-collapse collapse" aria-labelledby="head' + this.idx + '" data-bs-parent="#ulTable">'
@@ -706,7 +718,7 @@
 
                     dispHtml +=   '<li class="text-center">' + this.name + '</li>'
                         + '<li class="text-center"><div>' + this.regDate + '</div></li>'
-                        + '<li class="text-center"><div>' +this.memberId + '</div></li>'
+                        + '<li class="text-center"><div>' +this.memberId.substring(0,4) + '</div></li>'
                         + '<li class="text-center"><div>' +  this.likeCount + '</div></li></<button>'
                         + '</ul>'
                         + '<div id="col' + this.idx + '" class="accordion-collapse collapse" aria-labelledby="head' + this.idx + '" data-bs-parent="#ulTable">'
