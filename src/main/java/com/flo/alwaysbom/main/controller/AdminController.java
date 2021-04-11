@@ -50,7 +50,7 @@ public class AdminController {
 
 
     @GetMapping("/admin/login")
-    public String goLogin(Model model) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public String goLogin(Model model, HttpSession session) throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
         generator.initialize(2048);
 
@@ -58,7 +58,7 @@ public class AdminController {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PublicKey publicKey = keyPair.getPublic();
         PrivateKey privateKey = keyPair.getPrivate();
-        model.addAttribute("rsaWebKey", privateKey);
+        session.setAttribute("rsaWebKey", privateKey);
         RSAPublicKeySpec publicSpec = keyFactory.getKeySpec(publicKey, RSAPublicKeySpec.class);
 
         String publicModulus = publicSpec.getModulus().toString(16);
@@ -70,10 +70,9 @@ public class AdminController {
     }
 
     @PostMapping("/admin/login")
-    public String loginProc(@SessionAttribute PrivateKey rsaWebKey, AdminVo adminVo, Model model) throws Exception {
-        System.out.println("rsaWebKey = " + rsaWebKey);
-        System.out.println("adminVo = " + adminVo);
-        model.addAttribute("rsaWebKey", null);
+    public String loginProc(AdminVo adminVo, Model model, HttpSession session) throws Exception {
+        PrivateKey rsaWebKey = (PrivateKey) session.getAttribute("rsaWebKey");
+        session.removeAttribute("rsaWebKey");
         String id = decryptRsa(rsaWebKey, adminVo.getId());
         String password = decryptRsa(rsaWebKey, adminVo.getPassword());
         System.out.println("id = " + id);
