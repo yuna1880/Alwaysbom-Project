@@ -70,26 +70,19 @@ public class MemberController {
         member.setPw(pw);
         member = memberService.login(member);
 
-        if (member == null) {
-            model.addAttribute("member", null);
-            rttr.addFlashAttribute("msg", false);
-        }else {
-            List<CouponVo> coupons = couponService.findBySearchOption(CouponVo.builder().memberId(id).build());
+        List<CouponVo> coupons = couponService.findBySearchOption(CouponVo.builder().memberId(id).build());
 
-            int count = 0;
-            for (CouponVo coupon : coupons) {
-                if (coupon.getStatus() == 0) {
-                    count++;
-                }
+        int count = 0;
+        for (CouponVo coupon : coupons) {
+            if (coupon.getStatus() == 0) {
+                count++;
             }
-            //System.out.println(count);
-
-            model.addAttribute("coupons", coupons);
-            model.addAttribute("couponCount", count);
-            //System.out.println("coupons = " + coupons);
-            model.addAttribute("member", member);
         }
-//            return "redirect:/";
+        model.addAttribute("coupons", coupons);
+        model.addAttribute("couponCount", count);
+        //System.out.println("coupons = " + coupons);
+        model.addAttribute("member", member);
+
         return member != null;
     }
 

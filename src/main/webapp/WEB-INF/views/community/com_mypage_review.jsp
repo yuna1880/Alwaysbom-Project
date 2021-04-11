@@ -9,7 +9,7 @@
 </head>
 <body>
 <%@ include file="../main/header.jspf" %>
-<div id="container" class="mx-auto d-flex flex-column h-100 user-select-none">
+<div id="container" class="mx-auto d-flex flex-column user-select-none">
     <%@ include file="../member/mypage_header.jspf" %>
     <div class="h-85 d-flex">
         <%@ include file="../member/mypage_menu.jspf" %>
@@ -32,17 +32,18 @@
                             <button type="button" class="btn btn-warning col-6 me-2" onclick="location.href='/community/com_mypage_review'">작성 가능한 후기</button>
                             <button type="button" class="btn btn-warning col-6 ms-2" onclick="goReview()">내가 작성한 후기</button>
                         </div>
-                        <div class="col-11 d-flex pb-3 justify-content-end border-bottom pt-2">
-                            <button type="button" class="btn btn-warning col-2" onclick="location.href='/question/create'">1:1 문의</button>
-                        </div>
+<%--                        <div class="col-11 d-flex pb-3 justify-content-end border-bottom pt-2">--%>
+<%--                            <button type="button" class="btn btn-warning col-2" onclick="location.href='/question/create'">1:1 문의</button>--%>
+<%--                        </div>--%>
 
                         <div class="col-11 h-100" id="orderList">
                             <%--내용 반복문--%>
                             <c:forEach var="order" items="${orderList}" varStatus="status">
                                 <c:forEach var="oitem" items="${orderList.get(status.index).olist}">
                                  <c:if test="${oitem.reviewCheck == 0}">
-                                    <div class="" id="bord-color">
-                                        <a href="javascript:void(0);" onClick="goWrite('${oitem.category}', '${oitem.name}', ${oitem.idx}); return false" class="d-flex justify-content-center pe-2">
+                                    <div class="bb-1 p-3" id="bord-color">
+                                        <a href="javascript:void(0);" onClick="goWrite('${oitem.category}', '${oitem.name}', ${oitem.idx}); return false"
+                                           class="d-flex justify-content-start ps-2">
                                             <span class="pe-2">${oitem.idx}</span>
                                             <span class="pe-2"> 이름 : ${oitem.name}</span>
                                             <span class="pe-2"> 가격 : ${oitem.price}</span>
@@ -100,13 +101,13 @@
                     $.each(this.olist, function (j, oli) {
                         console.log(this.name);
                         if(this.reviewCheck == 1){
-                            htmls += '<div class="" id="bord-color">'
-                            + '<a href="javascript:void(0);" onClick="updateWrite(`' + oli.category + '`, `' + oli.name + '`, `' + oli.idx + '`, `' + oli.reviewIdx + '`); return false" class="d-flex justify-content-center pe-2">'
+                            htmls += '<div class="bb-1 p-3" id="bord-color">'
+                            + '<a href="javascript:void(0);" onClick="updateWrite(`' + oli.category + '`, `' + oli.name + '`, `' + oli.idx + '`, `' + oli.reviewIdx + '`); return false" class="d-flex justify-content-start ps-2">'
                             + '<span class="pe-2">' + oli.idx + '</span>'
                             + '<span class="pe-2"> 이름 :' + oli.name + '</span>'
                             + '<span class="pe-2"> 가격 :' + oli.price + '</span>'
                             + '<span class="pe-2"> 상품 :' + oli.options + '</span>'
-                            + '<span class="pe-2"> 주문날짜 : ' + oli.requestDate
+                            + '<span class=""> 주문날짜 : ' + oli.requestDate
                                 + '</span>'
                             + '</a></div>';
                         }
@@ -138,9 +139,9 @@
             success: function (data){
                 let htmls = '';
                 $.each(data, function (j, oli) {
-                    htmls += '<div class="" id="bord-color">';
+                    htmls += '<div class="bb-1 p-3" id="bord-color">';
                     if(checkNum == 0) {
-                       htmls += '<a href="javascript:void(0);" onClick="classWrite(`클래스` ,`' + oli.fclassIdx + '`,`' + oli.idx + '`); return false" class="d-flex justify-content-center pe-2">';
+                       htmls += '<a href="javascript:void(0);" onClick="classWrite(`클래스` ,`' + oli.fclassIdx + '`,`' + oli.idx + '`); return false" class="d-flex justify-content-start ps-2">';
                     } else {
                         htmls += '<a href="javascript:void(0);" onClick="updateFclassWrite(`클래스` ,`' + oli.fclassIdx + '`,`' + oli.reviewIdx + '`,`' + oli.idx + '`); return false" class="d-flex justify-content-center pe-2">';
                     }
@@ -148,7 +149,7 @@
                         + '<span class="pe-2"> 지점 :' + oli.branchName + '</span>'
                         + '<span class="pe-2"> 가격 :' + oli.payTotal + '</span>'
                         + '<span class="pe-2"> 상품 :' + oli.fclassName + '</span>'
-                        + '<span class="pe-2"> 주문날짜 : ' + oli.payDate
+                        + '<span class=""> 주문날짜 : ' + oli.payDate
                         + '</span>'
                         + '</a></div>';
                 });
@@ -163,7 +164,13 @@
 </body>
 <style>
     #bord-color{
-        background-color: #808080;
+        background-color: #FFFFFF;
+    }
+    #bord-color a {
+        color: black;
+    }
+    #bord-color a:hover {
+        color: #fc7771;
     }
 </style>
 </html>
