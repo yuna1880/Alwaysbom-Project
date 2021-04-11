@@ -13,19 +13,23 @@
 <!-- 메인 슬라이드 이미지 -->
 <div id="mainSlide" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
+    <c:set var="index" value="0"/>
     <c:forEach var="images" items="${mainVo.images}" varStatus="status">
     <c:if test="${not empty images.path}">
-        <button type="button" data-bs-target="#mainSlide" data-bs-slide-to="${status.index}" class=${status.index == 0 ? "active" : ""}
-                aria-current=${status.index == 0 ? "true" : ""} aria-label="Slide ${status.index + 1}"></button>
+        <button type="button" data-bs-target="#mainSlide" data-bs-slide-to="${index}" class=${index == 0 ? "active" : ""}
+                aria-current=${index == 0 ? "true" : ""} aria-label="Slide ${index + 1}"></button>
+        <c:set var="index" value="${index + 1}"/>
     </c:if>
     </c:forEach>
     </div>
     <div class="carousel-inner">
+        <c:set var="index" value="0"/>
         <c:forEach var="images" items="${mainVo.images}" varStatus="status">
         <c:if test="${not empty images.path}">
-        <div class="carousel-item ${status.index == 0 ? "active" : ""}">
+        <div class="carousel-item ${index == 0 ? "active" : ""}">
             <a href="${images.link}"><img src="${images.path}" class="d-block w-100 main-img" alt="메인배너"></a>
         </div>
+        <c:set var="index" value="${index + 1}"/>
         </c:if>
         </c:forEach>
     </div>
