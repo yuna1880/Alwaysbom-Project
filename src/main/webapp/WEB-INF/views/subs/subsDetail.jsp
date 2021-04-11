@@ -106,7 +106,7 @@
             서울/경기/인천 일부지역은<span class="fw-500 ps-1 px-1" style="color: #97a5ff">새벽배송으로 신선하게</span>배송됩니다.
         </div>
 
-        <!-- 구매옵션 -->
+        <!-- 구매옵션. -->
         <div class="inputs-wrap mb-4">
             <!-- 수령일 선택 옵션 -->
             <div class="row mb-4">
