@@ -88,4 +88,10 @@
         WHERE IDX = #{oclassIdx}
     </update>
 
+    <update id="updatePoint" parameterType="map">
+        UPDATE MEMBER
+        SET POINT = POINT + #{point}
+        WHERE ID = #{memberId}
+    </update>
+
 </mapper>

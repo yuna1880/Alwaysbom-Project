@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -57,5 +59,12 @@ public class OclassDao {
 
     public void updateReviewCheck(FclassReviewForm newReview) {
         sqlSessionTemplate.update("oclass.updateReviewCheck", newReview);
+    }
+
+    public void updatePoint(String memberId, int point) {
+        HashMap<String, Object> paramMap = new HashMap<>();
+        paramMap.put("memberId", memberId);
+        paramMap.put("point", point);
+        sqlSessionTemplate.update("oclass.updatePoint", paramMap);
     }
 }
