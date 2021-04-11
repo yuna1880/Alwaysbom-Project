@@ -384,11 +384,45 @@
         }
     }
 
+    /*  */
+
+
     /* 폼데이터 전송후 창 이동 */
     function goInsert(frm) {
-        frm.action = "/admin/addFlower";
-        frm.submit();
+        const $inputs = document.getElementsByTagName("input");
+        const $options = document.querySelector('#itemSize').options;
+        let isSelected = false;
+        for (let i = 0; i < $options.length; i++) {
+            if (i > 0 && $options[i].selected) {
+                isSelected = true;
+                break;
+            }
+        }
+
+        if (!document.getElementById('file1').value) {
+            alert("대표썸네일 한 개는 무조건 들어가야");
+        }
+        else if (!$inputs.name.value) {
+            alert("상품명 입력해주세요");
+        }
+        else if (!$inputs.subheader.value) {
+            alert("한줄 설명을 작성해주세요");
+        }
+        else if (!isSelected) {
+            alert("사이즈 선택");
+        }
+        else if (!$inputs.price.value) {
+            alert("가격 선택");
+        }
+        else if (!document.getElementById('content').nextElementSibling
+            .innerText.trim().substring(9,9)) {
+            alert("content 입력");
+        }
+
+        // frm.action = "/admin/addFlower";
+        // frm.submit();
     }
+
     function goUpdate(frm) {
         frm.action = "/admin/updateFlower";
         frm.submit();

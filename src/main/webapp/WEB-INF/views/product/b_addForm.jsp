@@ -10,13 +10,14 @@
     <title>소품샵 상품 수정</title>
     </c:if>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="../../../static/css/item/b_addForm.css">
-    <script src="../../../static/ckeditor5-build-classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="/static/css/item/b_addForm.css">
+    <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
 <div id="container" class="mx-auto">
 <form method="post" enctype="multipart/form-data">
+
     <!-- 브레드크럼 (유저 이동경로) -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-xxl-5">
