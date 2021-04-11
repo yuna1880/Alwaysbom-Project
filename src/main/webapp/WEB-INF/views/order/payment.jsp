@@ -69,7 +69,7 @@
 
 <body>
 <%@ include file="../main/header.jspf" %>
-<div class="container">
+<div id=“container” class=“mx-auto”>
     <!-- 헤더 -->
     <div class="checkout_wrap">
         <div class="navi" tabindex="-1">

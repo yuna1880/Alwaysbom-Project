@@ -20,7 +20,6 @@
 <!-- 메인 컨테이너 -->
 <div id="container" class="mx-auto">
 <form method="post">
-
     <!-- 메뉴 경로 표시 -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-3">
@@ -109,7 +108,7 @@
                 <div class="col-3 fw-500 pt-1">수령일</div>
                 <div class="col-9">
                     <input type="text" name="requestDate" placeholder="수령일을 선택해주세요."
-                           class="datepicker col-12 p-2 ps-3 fs-6" autocomplete="off"/>
+                           class="datepicker col-12 p-2 ps-3 fs-6" id="requestDate" autocomplete="off"/>
                 </div>
             </div>
 
@@ -217,18 +216,55 @@
             </span>
         </div>
 
-            <!-- 장바구니/결제 버튼 -->
-            <div class="d-flex justify-content-center mt-5">
-                <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
+        <!-- 장바구니/결제 버튼 -->
+        <div class="d-flex justify-content-center mt-5">
 
-            <%--memberId, category, subsIdx, quantity, letter 임의로 넣어주기--%>
-                <input type="hidden" name="memberId" value="${empty member ? "test" : member.id}">
-                <input type="hidden" name="category" value="정기구독">
-                <input type="hidden" name="subsIdx" value="${subsVo.idx}" id="subsIdx">
+        <!-- 로그인 세션이 없을 때 장바구니를 클릭하면 -->
+        <c:if test="${empty sessionScope.member}">
+            <!-- 클릭 버튼 -->
+            <button type="button" class="btn sub-button fw-bold py-3 me-2" data-bs-toggle="modal" data-bs-target="#loginModal">장바구니</button>
 
-                <button type="button" class="btn main-button fw-bold py-3" onclick="goPay(this.form)">바로구매</button>
+            <!-- 로그인 유도 Modal 창 -->
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel2" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="loginModalLabel2">새늘봄의 회원이신가요?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body fs-19 p-3 mb-5">
+                            로그인 이후 이용 가능한 서비스입니다.<br>로그인 화면으로 이동하시려면 '이동'을 눌러주세요.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark fs-19" onclick="location.href='/login'">이동</button>
+                            <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </c:if>
 
+        <!-- 로그인 세션이 있을 때 장바구니를 클릭하면 (원래 짜놓은 로직대로 ~ )-->
+        <c:if test="${not empty sessionScope.member}">
+            <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
+        </c:if>
+
+        <%--memberId, category, subsIdx, quantity, letter 임의로 넣어주기--%>
+            <input type="hidden" name="memberId" value="${empty member ? "test" : member.id}">
+            <input type="hidden" name="category" value="정기구독">
+            <input type="hidden" name="subsIdx" value="${subsVo.idx}" id="subsIdx">
+
+            <!-- 로그인 세션이 없을 때 장바구니를 클릭하면 -->
+            <c:if test="${empty sessionScope.member}">
+                <!-- 클릭 버튼 -->
+                <button type="button" class="btn main-button fw-bold py-3" data-bs-toggle="modal" data-bs-target="#loginModal">바로구매</button>
+            </c:if>
+            <!-- 로그인 세션이 있을 때 장바구니를 클릭하면 (원래 짜놓은 로직대로 ~ )-->
+            <c:if test="${not empty sessionScope.member}">
+                <button type="button" class="btn main-button fw-bold py-3" onclick="goPay(this.form)">바로구매</button>
+            </c:if>
+
+        </div>
         </div> <!-- 주문 정보 닫기 -->
     </div> <!-- 상품 썸네일 & 주문 정보 닫기 -->
 
@@ -584,7 +620,6 @@
                     <u>남양주시</u><br>
                     진전읍, 진건읍, 와부읍, 별내면, 퇴계원면, 다산동(다산1~2동), 별내동, 평내동, 호평동, 금곡동, 이패동, 도농동, 지금동
                 </p>
-
                 <span class="fs-5 fw-500">2. 교환 및 환불 정책</span>
                 <p>
                     [결제 완료] 상태라면 언제든지 홈페이지 및 고객센터를 통해 해지 가능합니다. (마이페이지 > 주문내역)<br>
@@ -595,10 +630,9 @@
                 </p>
             </div>
         </div> <!-- 배송안내 닫기 -->
-    </div>
-</form>
+    </form>
 
-</div> <!-- #container 닫기 -->
+    </div> <!-- #container 닫기 -->
 
 <%@ include file="../main/footer.jspf"%>
 
@@ -824,6 +858,16 @@
 
     /* 장바구니 보내기 */
     async function addCart() {
+
+        if (document.querySelector('#requestDate').value == null || document.querySelector('#requestDate').value == '') {
+            alert("수령일을 선택해주세요.");
+            return false;
+        }
+        if (document.querySelector('#selectMonth').value == '구독 기간을 선택해주세요.') {
+            alert("구독기간을 선택해주세요.");
+            return false;
+        }
+
         const $inputs = document.getElementsByTagName("input");
         const $selectMonth = document.querySelector("#selectMonth");
         const $choices = document.querySelectorAll(".choice-price-box");
@@ -869,9 +913,12 @@
     /* 바로구매 클릭시 */
     function goPay(frm) {
 
-        if (${member.id eq null}) {
-            alert("로그인이 필요합니다.");
-            location.href = "/login";
+        if (document.querySelector('#requestDate').value == null || document.querySelector('#requestDate').value == '') {
+            alert("수령일을 선택해주세요.");
+            return false;
+        }
+        if (document.querySelector('#selectMonth').value == '구독 기간을 선택해주세요.') {
+            alert("구독기간을 선택해주세요.");
             return false;
         }
 
