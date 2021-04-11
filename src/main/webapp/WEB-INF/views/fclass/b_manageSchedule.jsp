@@ -16,15 +16,15 @@
 </head>
 <body>
 <%@ include file="../main/b_header.jspf" %>
-<div id="container" class="mx-auto d-flex h-100 p-4">
+<div id="container" class="mx-auto d-flex h-100 p-4 pt-5">
     <div class="col-8 h-100 d-flex flex-column px-4 grayBoard"> <%--border-warning border-end--%>
         <div class="w-100 d-flex justify-content-center align-items-center p-3 position-relative">
-            <div class="position-absolute top-0 start-0 bg-secondary text-white rounded-3 px-3">
+            <div class="position-absolute top-0 start-0 bg-light text-secondary rounded-3 px-3">
                 <span>${fclass.category}</span> /
                 <span>${fclass.name}</span> /
                 <span>${branch.name}</span>
             </div>
-            <span class="fs-2 fw-bold">클래스 조회</span>
+            <span class="fs-2 fw-bold pt-5">클래스 조회</span>
         </div>
         <div class="h-100 w-100 d-flex flex-column align-items-center">
             <div>
@@ -41,18 +41,20 @@
     </div>
     <div class="col-4 h-100 d-flex flex-column px-4">
         <div class="w-100 d-flex justify-content-center align-items-center p-3">
-            <span class="fs-2 fw-bold">수강등록</span>
+            <span class="fs-2 fw-bold pt-5">수강등록</span>
         </div>
         <div class="h-100 w-100 d-flex flex-column align-items-center">
             <div><input type="text" placeholder="등록할 수강일을 선택해주세요" id="classDate" class="bgColor register-datepicker form-floating p-2 mb-2 dataForm2" required="required" aria-label="수강일"/></div>
             <div class="mb-2"><input type="time" id="startTime" class="bgColor dataForm2 form-floating p-2" placeholder="시작시간" value="10:00" required="required" aria-label="시작시간"/></div>
             <div class="mb-2"><input type="time" id="endTime" class="bgColor dataForm2 form-floating p-2" placeholder="종료시간" value="20:00" required="required" aria-label="종료시간"/></div>
             <div class="mb-2"><input type="text" id="capacity" class="bgColor dataForm2 form-floating p-2" placeholder="수강정원" pattern="[0-9]+" onkeyup="this.reportValidity()" required="required" aria-label="수강정원"/></div>
-            <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-secondary w-50 m-2" onclick="addSchedule()">추가</button>
-                <button type="button" class="btn btn-dark w-50 m-2" onclick="goToList()">완료</button>
+            <div class="d-flex justify-content-between pb-5">
+                <button type="button" class="btn btn-dark w-100 m-2 px-5" onclick="addSchedule()">추가</button>
             </div>
         </div>
+            <div class="d-flex justify-content-end pb-5">
+                <button type="button" class="btn btn-secondary w-40 m-2 px-5" onclick="goToList()">나가기</button>
+            </div>
     </div>
 </div>
 <div class="modal fade" aria-hidden="true" id="modal" tabindex="-1">

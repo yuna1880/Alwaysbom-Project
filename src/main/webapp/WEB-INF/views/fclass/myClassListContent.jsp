@@ -13,7 +13,7 @@
         </div>
 
         <!-- 입금상태에 따른 안내문구 -->
-        <div class="d-flex flex-column justify-content-center align-items-baseline col-6">
+        <div class="col-6 d-flex flex-column justify-content-center align-items-baseline">
             <a href="/fclass/classList/${order.fclassIdx}" class="link-dark fs-6 text-decoration-none">${order.fclassName}</a>
             <div class="d-flex border-bottom border-1 border-warning col-12">
                 <span class="pe-2"><fmt:formatNumber value="${order.discountTotalPrice}" pattern="#,### 원"/></span>
@@ -32,7 +32,7 @@
         </div>
 
         <!-- 지점 및 수업일시 -->
-        <div class="flex-grow-1 d-flex justify-content-center">
+        <div class="d-flex justify-content-center" style="width: 23%;">
             <div class="d-flex flex-column">
                 <span>지점 | ${order.branchName}</span>
                 <span>수강시작일</span>
@@ -43,7 +43,7 @@
         </div>
 
         <!-- 리뷰링크 -->
-        <div class="d-flex justify-content-center align-items-center">
+        <div class="d-flex justify-content-center align-items-center" style="width: 10.33333333%">
             <c:if test="${order.status eq '결제완료'}" >
             <a class="btn btn-sm btn-light px-3 py-2" href="/community/goReview">리뷰쓰기</a>
             </c:if>

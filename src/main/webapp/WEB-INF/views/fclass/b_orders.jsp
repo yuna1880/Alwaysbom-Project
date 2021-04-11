@@ -7,7 +7,7 @@
 </head>
 <body>
 <%@ include file="../main/b_header.jspf" %>
-<div id="container" class="mx-auto">
+<div id="container" class="mx-auto pt-5">
     <div class="d-flex justify-content-center align-items-center pt-5">
         <span class="fs-2 fw-bold">클래스 등록 조회</span>
     </div>
@@ -29,8 +29,12 @@
         </div>
         <div class="d-flex">
             <div class="input-group">
-                <input id="memberId" type="text" class="form-control" placeholder="회원명으로 조회">
-                <button class="btn btn-outline-secondary" type="button" onclick="searchBySearchOption()">검색</button>
+                <input id="memberId" type="text" class="form-control"
+                       onkeypress="if(event.keyCode === 13)searchBySearchOption()"
+                       placeholder="회원 아이디로 검색">
+                <button class="btn btn-outline-secondary" type="button"
+                        onclick="searchBySearchOption()">검색
+                </button>
             </div>
         </div>
     </div>
