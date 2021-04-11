@@ -11,23 +11,24 @@
     <title>로그인</title>
     <%@ include file="../main/b_import.jspf"%>
 </head>
-<body>
-<%@ include file="../main/b_header.jspf"%>
-<div id="container" class="mx-auto d-flex flex-column m-0 p-0">
-    <form class="col-4 mx-auto my-auto border border-secondary bg-dark rounded-3 d-flex flex-column"
-          action="/admin/login" method="post">
-        <div class="p-3">
-            <input type="text" class="form-control" autocomplete="off" name="id" placeholder="아이디">
-        </div>
-        <div class="p-3">
-            <input type="password" class="form-control" autocomplete="off" name="password" placeholder="비밀번호">
-        </div>
-        <hr class="bg-primary p-0 m-0">
-        <div class="p-3 col-6 align-self-center">
-            <button type="submit" class="col-12 btn btn-primary">로그인</button>
-        </div>
-    </form>
+<body class="d-flex flex-column align-items-center justify-content-center bg-secondary">
+<div class="container d-flex flex-column justify-content-center align-items-center m-0 p-0 h-100">
+    <div class="my-auto col-sm-12 col-md-6 col-lg-4 d-flex flex-column ">
+        <div>관리자 페이지</div>
+        <form class="border border-secondary bg-dark rounded-3 d-flex flex-column"
+              action="/admin/login" method="post">
+            <div class="p-3">
+                <input type="text" class="form-control" autocomplete="off" name="id" placeholder="아이디">
+            </div>
+            <div class="p-3">
+                <input type="password" class="form-control" autocomplete="off" name="password" placeholder="비밀번호">
+            </div>
+            <hr class="bg-light px-3 m-0">
+            <div class="p-3">
+                <button type="submit" class="col-12 btn btn-primary">로그인</button>
+            </div>
+        </form>
+    </div>
 </div>
-<%@ include file="../main/b_footer.jspf"%>
 </body>
 </html>
