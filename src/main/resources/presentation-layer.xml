@@ -46,6 +46,7 @@
             <mvc:mapping path="/admin/**"/>
             <mvc:exclude-mapping path="/admin/login"/>
             <mvc:exclude-mapping path="/admin/**/api/**"/>
+            <mvc:exclude-mapping path="/admin/community/**"/>
             <ref bean="adminInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
