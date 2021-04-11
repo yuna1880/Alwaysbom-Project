@@ -61,10 +61,8 @@
                 })
             })
         } else {
-            alert("입력좀 해죠");
         }
     }
-
 
     Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");
     Kakao.isInitialized();
@@ -89,7 +87,6 @@
             }
         });
     }
-
     function checkVal(form) {
 
         let input_id = document.querySelector("#id_email");
