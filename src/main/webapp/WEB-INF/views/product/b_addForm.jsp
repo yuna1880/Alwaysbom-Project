@@ -10,13 +10,14 @@
     <title>소품샵 상품 수정</title>
     </c:if>
     <%@ include file="../main/b_import.jspf"%>
-    <link rel="stylesheet" href="../../../static/css/item/b_addForm.css">
-    <script src="../../../static/ckeditor5-build-classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="/static/css/item/b_addForm.css">
+    <script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
 <div id="container" class="mx-auto">
 <form method="post" enctype="multipart/form-data">
+
     <!-- 브레드크럼 (유저 이동경로) -->
     <nav id="bread-nav" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-xxl-5">
@@ -387,10 +388,14 @@
                 finalPrice.classList.add("text-danger", "description");
             }
             /*-- 추후 price 칸에 숫자만 입력할 수 있도록 조건 처리해야 함 --*/
+            else if (!parseInt(priceVal)) {
+                finalPriceVal = "상품 가격에 숫자만 입력해주세요";
+                finalPrice.classList.add("text-danger", "description");
+            }
             else {
                 finalPrice.classList.remove("text-danger", "description");
                 finalPriceVal =
-                    Math.floor((100 - Number(discountRateVal)) * 0.01 * Number(priceVal)) + " 원";
+                    Math.floor((100 - Number(discountRateVal)) * 0.01 * Number(priceVal)).toLocaleString('ko-KR') + " 원";
                 console.log("finalPriceVal : " + finalPriceVal);
             }
         }
@@ -423,17 +428,71 @@
         }
     }
 
+    /* 유효성 검사 */
+    function checkValidation(isInsert) {
+        const $inputs = document.getElementsByTagName("input");
+        const $options = document.querySelector('#itemSize').options;
+        let isSelected = false;
+        if (!document.querySelector("#itemSize").disabled) {
+            for (let i = 0; i < $options.length; i++) {
+                if (i > 0 && $options[i].selected) {
+                    isSelected = true;
+                    break;
+                }
+            }
+        } else {
+            isSelected = true;
+        }
+        let isValidate = true;
+
+        if (isInsert) {
+            if (!document.getElementById('file1').value) {
+                alert("대표 이미지 하나는 필수로 업로드하셔야합니다.");
+                isValidate = false;
+            }
+        }
+        if (!$inputs.name.value) {
+            alert("상품명을 입력해주세요.");
+            isValidate = false;
+        }
+        else if (!$inputs.subheader.value) {
+            alert("한줄 설명을 작성해주세요.");
+            isValidate = false;
+        }
+        else if (!isSelected) {
+            alert("꽃다발의 사이즈를 선택해주세요.");
+            isValidate = false;
+        }
+        else if (!$inputs.price.value) {
+            alert("상품의 가격을 입력해주세요.");
+            isValidate = false;
+        }
+        else if (!parseInt($inputs.price.value)) {
+            alert("가격에 숫자가 아닌 문자열이 섞여 있습니다.");
+            isValidate = false;
+        }
+        return isValidate;
+    }
+
     /* 폼데이터 전송후 창 이동 */
     function goInsert(frm) {
-        frm.action = "/admin/addProduct";
-        frm.submit();
+        if (checkValidation(true)) {
+            frm.action = "/admin/addProduct";
+            frm.submit();
+        } else {
+            return;
+        }
     }
     function goUpdate(frm) {
-        frm.action = "/admin/updateProduct";
-        frm.submit();
+        if (checkValidation(false)) {
+            frm.action = "/admin/updateProduct";
+            frm.submit();
+        } else {
+            return;
+        }
     }
 
 </script>
-<script src="../../../static/js/imageUploader.js"></script>
+<script src="/static/js/imageUploader.js"></script>
 </body>
 </html>

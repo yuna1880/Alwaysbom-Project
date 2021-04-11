@@ -63,3 +63,8 @@
 .slides img {
     width: 340px;
 }
+.branch-box {
+    border-radius: 12px;
+    width: 60px;
+    text-align: center;
+}

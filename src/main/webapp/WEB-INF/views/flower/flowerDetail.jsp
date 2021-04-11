@@ -209,7 +209,33 @@
 
             <!-- 장바구니/바로구매 버튼 -->
             <div class="d-flex justify-content-center mt-5">
+                <!-- 로그인 세션이 없을 때 장바구니를 클릭하면 -->
+                <c:if test="${empty sessionScope.member}">
+                <button type="button" class="btn sub-button fw-bold py-3 me-2"
+                        data-bs-toggle="modal" data-bs-target="#loginModal">장바구니</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel2" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="loginModalLabel2">새늘봄의 회원이신가요?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body fs-19 p-3 mb-5">
+                                    로그인 이후 이용 가능한 서비스입니다.<br>로그인 화면으로 이동하시려면 '이동'을 눌러주세요.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-dark fs-19" onclick="location.href='/login'">이동</button>
+                                    <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+                <!-- 로그인 세션이 있을 때 장바구니를 클릭하면 -->
+                <c:if test="${not empty sessionScope.member}">
                 <button type="button" class="btn sub-button fw-bold py-3 me-2" onclick="addCart()">장바구니</button>
+                </c:if>
 
             <%--memberId, category, flowerIdx, image, fsize 임의로 넣어주기--%>
                 <c:if test="${not empty sessionScope.member}">
@@ -223,7 +249,58 @@
                 <input type="hidden" name="image" value="${flowerVo.image1}">
                 <input type="hidden" id="fsize" name="fsize" value="${flowerVo.fsize}">
             <%----------------------------------------------------------------%>
+
+                <!-- 로그인 세션이 없을 때 바로구매를 클릭하면 -->
+                <c:if test="${empty sessionScope.member}">
+                    <button type="button" class="btn main-button fw-bold py-3" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">바로구매</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel3" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="loginModalLabel3">새늘봄의 회원이신가요?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body fs-19 p-3 mb-5">
+                                    로그인 이후 이용 가능한 서비스입니다.<br>로그인 화면으로 이동하시려면 '이동'을 눌러주세요.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-dark fs-19" onclick="location.href='/login'">이동</button>
+                                    <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+                <!-- 로그인 세션이 있을 때 바로구매를 클릭하면 -->
+                <c:if test="${not empty sessionScope.member}">
                 <button type="button" class="btn main-button fw-bold py-3" onclick="goPay(this.form)">바로구매</button>
+                </c:if>
+
+                <!-- 수령일 미선택시 뜨는 Modal -->
+                <div>
+                    <button type="button" class="visually-hidden btn main-button fw-bold py-3" data-bs-toggle="modal"
+                            data-bs-target="#chkModal" id="chkModalBtn"></button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="chkModal" tabindex="-1" aria-labelledby="chkModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="chkModalLabel">수령일을 선택해주세요.</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body fs-19 p-3 mb-5">
+                                    희망하는 수령일을 선택해주세요.<br>선택 후 결제 페이지로 이동할 수 있습니다.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div> <!-- 주문 정보 닫기 -->
@@ -398,7 +475,7 @@
                 <span class="d-block text-center py-3 px-4 btn-rev">꽃다발 베스트 리뷰</span>
             </label>
             <label>
-                <input type="radio" name="reviewCategory" class="d-none" onclick="switchCategory('#bestReview', '#thisReview')">
+                <input type="radio" name="reviewCategory" class="d-none" onclick="switchCategory('#bestReview', '#thisReview')" id="thisReviewRadio">
                 <span class="d-block text-center py-3 px-4 btn-rev">이 상품의 리뷰</span>
             </label>
         </div>
@@ -819,11 +896,21 @@
         configTotal();
     }
 
+    /* Modal 창 만들기 */
+    function makeModal(alertString) {
+
+    }
+
     /* 장바구니 보내기 */
     async function addCart() {
         const $inputs = document.getElementsByTagName("input");
         const $choices = document.querySelectorAll(".choice-price-box");
         const $flowerQuantity = document.querySelector("[data-flower-quantity]");
+
+        if ($inputs.requestDate.value == "") {
+            document.getElementById("chkModalBtn").click();
+            return;
+        }
 
         const choices = [...$choices].map((choice) => {
             return {
@@ -863,6 +950,11 @@
     function goPay(frm) {
         const $inputs = document.getElementsByTagName("input");
         const $choices = document.querySelectorAll(".choice-price-box");
+
+        if ($inputs.requestDate.value == "") {
+            document.getElementById("chkModalBtn").click();
+            return;
+        }
 
         const choices = [...$choices].map((choice) => {
             return {
@@ -960,13 +1052,19 @@
             body: formData
         };
 
+        const $reviewModal = document.querySelector('#writingReview');
+        let reviewModal = bootstrap.Modal.getInstance($reviewModal);
+
         fetch("/flower/" + flowerIdx.toString() + "/reviews", options).then(response => {
             response.json().then(result => {
                 console.log(result);
                 const $newReview = makeReviewRow(result);
                 const $thisReviewBox = document.querySelector("#thisReviewBox");
                 $thisReviewBox.prepend($newReview);
-                location.reload();
+                reviewModal.hide();
+                animateScroll("#review-area");
+                switchCategory('#bestReview', '#thisReview');
+                document.getElementById('thisReviewRadio').checked = true;
             }).catch(err => {
                 console.log(err);
             })
@@ -983,11 +1081,11 @@
         $accordionItem.appendChild($accordionHeader);
 
         // reviewList 영역에 들어갈 애들
-        const $reviewList = htmlToElement('<div class="reviewList review-row collapsed d-flex justify-content-between p-4 fs-5"' +
+        const $reviewList = htmlToElement('<div class="reviewList bb-1 review-row collapsed d-flex justify-content-between p-4 fs-5"' +
             ' data-bs-toggle="collapse" data-bs-target="#collapse' + idx + '"' +
             ' aria-expanded="false" aria-controls="collapse' + idx + '">');
 
-        const $starSpan = htmlToElement('<span class="col-2 fs-17 c-star ls-narrower d-flex align-items-center text-warning"></span>')
+        const $starSpan = htmlToElement('<span class="col-2 fs-17 c-star ls-narrower d-flex align-items-center"></span>')
         const star = rowObject.star;
         for (let i = 1; i <= 5; i++) {
             let className = "fas fa-star fs-6";
@@ -1011,16 +1109,15 @@
 
         let collapseHtml = '';
         collapseHtml += '<div id="collapse' + idx + '" class="accordion-collapse collapse border-0"' +
-            '     aria-labelledby="flush-heading' + idx + '" data-bs-parent="#bestReview" style="padding-left: 196px">';
-        collapseHtml += '   <div class="accordion-body px-5">';
+            '     aria-labelledby="flush-heading' + idx + '" data-bs-parent="#bestReview">';
+        collapseHtml += '   <div class="accordion-body bb-1">';
+        collapseHtml += '       <div class="col-5 d-flex flex-column ms-13">';
         if (rowObject.image) {
-            collapseHtml += '   <div>';
-            collapseHtml += '       <img src="' + rowObject.image + '" alt="사진" style="max-width: 50%;">';
-            collapseHtml += '   </div>';
+            collapseHtml += '       <img src="' + rowObject.image + '" alt="사진" class="col-9">';
         }
-        collapseHtml += '       <span>' + rowObject.content + '</span>';
+        collapseHtml += '           <div class="my-4">' + rowObject.content + '</div>';
+        collapseHtml += '       </div>';
         collapseHtml += '   </div>';
-        collapseHtml += '</div>';
         const $accordionCollapse = htmlToElement(collapseHtml);
 
         $accordionItem.appendChild($accordionCollapse);
