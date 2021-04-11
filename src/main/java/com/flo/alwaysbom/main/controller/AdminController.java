@@ -63,18 +63,19 @@ public class AdminController {
     }
 
     @PostMapping("/admin/login")
-    public String loginProc(AdminVo adminVo, Model model) {
+    @ResponseBody
+    public boolean loginProc(AdminVo adminVo, Model model) {
         try {
             if (adminVo.getId().equals("admin") && adminVo.getPassword().equals("tosmfqha1!")) {
                 model.addAttribute("admin", adminVo);
-                return "redirect:/admin/main";
+                return true;
             } else {
-                return "redirect:/admin/login";
+                return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/admin/login";
+        return false;
     }
 
     @GetMapping("/admin/logout")

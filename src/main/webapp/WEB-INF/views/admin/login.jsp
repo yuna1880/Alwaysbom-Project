@@ -21,14 +21,36 @@
                 <input type="text" class="form-control" autocomplete="off" name="id" placeholder="아이디">
             </div>
             <div class="p-3">
-                <input type="password" class="form-control" autocomplete="off" name="password" placeholder="비밀번호">
+                <input type="password" id="password" class="form-control" autocomplete="off" name="password" placeholder="비밀번호">
             </div>
             <hr class="bg-light px-3 m-0">
             <div class="p-3">
-                <button type="submit" class="col-12 btn btn-primary">로그인</button>
+                <button type="button" class="col-12 btn btn-primary" onclick="login(this.form)">로그인</button>
             </div>
         </form>
     </div>
 </div>
+<script>
+    document.querySelector("#password").addEventListener("keyup", (ev) => {
+        if(ev.keyCode === 13) {
+            login(ev.target.form);
+        }
+    })
+
+    function login(form) {
+        fetch("/admin/login", {
+            method: "post",
+            body: new FormData(form)
+        }).then(response => {
+            response.json().then(result => {
+                if (result) {
+                    location.href="/admin/main";
+                } else {
+                    alert("아이디, 비밀번호를 확인해주세요");
+                }
+            })
+        })
+    }
+</script>
 </body>
 </html>
