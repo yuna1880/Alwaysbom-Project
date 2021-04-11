@@ -126,11 +126,17 @@ public class MemberController {
         return "member/myPage";
     }
 
-    //1:1문의
+    //1:1문의 구현중
+//    @GetMapping("/myPage_faq_main")
+//    public String myPage_faq_main(@SessionAttribute(required = false) MemberVO member) {
+//        //회원 로그인 정보 받아오기
+//        return "member/myPage_faq_main";
+//    }
+    
+    //1:1문의(테스트전)
     @GetMapping("/myPage_faq_main")
-    public String myPage_faq_main(@SessionAttribute(required = false) MemberVO member) {
-        //회원 로그인 정보 받아오기
-        return "myPage_faq_main";
+    public String myPage_faq_main() {
+        return "member/myPage_faq_main";
     }
 
     //카카오 회원가입

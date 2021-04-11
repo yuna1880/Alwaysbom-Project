@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice("/")
+@ControllerAdvice
 public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
 
     public CommonExceptionHandler() {
