@@ -28,6 +28,67 @@
         </div>
     </div>
 
+    <!-- modal dialog (리뷰 쓰기 창) -->
+    <div class="modal fade " id="writingReview" tabindex="-1" aria-labelledby="writingReviewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="writingReviewLabel">리뷰 쓰기</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <!-- 리뷰 제목-->
+                        <div class="mb-3">
+                            <label for="review-title" class="col-form-label">리뷰 제목</label>
+                            <input type="text" class="form-control" id="review-title">
+                        </div>
+                        <!-- 사진 첨부 -->
+                        <div class="mb-3">
+                            <label for="review-file" class="col-form-label">사진 첨부</label>
+                            <input type="file" class="form-control text-secondary" id="review-file" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                        </div>
+                        <!-- 리뷰 내용 -->
+                        <div class="mb-3">
+                            <label for="review-content" class="col-form-label">내용</label>
+                            <textarea class="form-control" id="review-content" rows="5"></textarea>
+                        </div>
+                        <!-- 별점 선택하기 -->
+                        <div class="mb-3">
+                            <label for="review-star" class="col-form-label">별점</label>
+                            <div class="d-flex btn-group text-warning fs-2 ps-3 pb-1" role="group" id="review-star">
+                                <label class="btn-radio">
+                                    <input type="radio" class="btn-check" name="starPoint" value="1" autocomplete="off">
+                                    <i class="fas fa-star"></i>
+                                </label>
+                                <label class="btn-radio">
+                                    <input type="radio" class="btn-check" name="starPoint" value="2" autocomplete="off">
+                                    <i class="fas fa-star"></i>
+                                </label>
+                                <label class="btn-radio">
+                                    <input type="radio" class="btn-check" name="starPoint" value="3" autocomplete="off">
+                                    <i class="fas fa-star"></i>
+                                </label>
+                                <label class="btn-radio">
+                                    <input type="radio" class="btn-check" name="starPoint" value="4" autocomplete="off">
+                                    <i class="fas fa-star"></i>
+                                </label>
+                                <label class="btn-radio">
+                                    <input type="radio" class="btn-check" name="starPoint" value="5" autocomplete="off" checked>
+                                    <i class="fas fa-star"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark fs-19" onclick="addReview()">리뷰 등록하기</button>
+                    <button type="button" class="btn btn-secondary fs-19" data-bs-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- 내용 영역 --> <!--document.querySelector("#classUl").innerHTML = await response.text(); 이거 때문에 ul태그만 필요하고 나머지는 필요없어짐. -->
     <ul id="classUl" class="d-flex flex-column list-unstyled m-0 p-0 overflow-auto">
@@ -82,6 +143,10 @@
 <script id="innerScript" defer>
     /*console.log('동작좀 하면 안되니');*/
     searchByStatus("전체");
+
+    function addReview() {
+
+    }
 
     async function searchByStatus(status) {
         let response = await fetch("/api/fclass/orders?status=" + status);

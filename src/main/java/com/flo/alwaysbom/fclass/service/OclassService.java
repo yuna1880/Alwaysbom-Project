@@ -70,6 +70,12 @@ public class OclassService {
     public ReviewDto addReview(FclassReviewForm newReview) {
         oclassDao.addReview(newReview);
         oclassDao.updateReviewCheck(newReview);
+
+        int point = 300;
+        if (newReview.getImage() == null) {
+            point = 200;
+        }
+        oclassDao.updatePoint(newReview.getMemberId(), point); // 1. member Id, 2. point
         return reviewDao.findByIdx(newReview.getIdx());
     }
 }
