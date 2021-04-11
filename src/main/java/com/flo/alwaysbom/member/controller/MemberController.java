@@ -61,7 +61,8 @@ public class MemberController {
 
     //로그인(post)
     @PostMapping("/login")
-    public String loginProc(@RequestParam String id, @RequestParam String pw, Model model, RedirectAttributes rttr) throws Exception {
+    @ResponseBody
+    public boolean loginProc(@RequestParam String id, @RequestParam String pw, Model model, RedirectAttributes rttr) throws Exception {
         //System.out.println("아이디 : " + id + ", 패스워드 : " + pw);
 
         MemberVO member = new MemberVO();
@@ -88,7 +89,8 @@ public class MemberController {
             //System.out.println("coupons = " + coupons);
             model.addAttribute("member", member);
         }
-            return "redirect:/";
+//            return "redirect:/";
+        return member != null;
     }
 
     //로그아웃

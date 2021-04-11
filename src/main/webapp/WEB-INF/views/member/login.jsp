@@ -30,11 +30,11 @@
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto d-flex flex-column align-items-center">
-    <form role="form" action="/login" method="post" class="col-5 d-flex flex-column" onSubmit="return checkVal(this.form)">
+    <form role="form" action="/login" method="post" class="col-5 d-flex flex-column">
         <h5 class="page_title text-center p-2 mt-5 text-secondary m-0 p-4 border-bottom border-secondary">로그인</h5>
         <input type="email" name="id" class="py-3 mt-5 my-3" id="id_email" placeholder="아이디(이메일)" value>
         <input type="password" name="pw" class="mt-4 py-3 mb-3" id="pw" placeholder="비밀번호">
-        <button type="submit" class="mt-4 py-3 btn-warning mb-3 text-center" id="login-btn">로그인</button>
+        <button type="button" class="mt-4 py-3 btn-warning mb-3 text-center" id="login-btn" onclick="login(this.form)">로그인</button>
         <div class="d-flex justify-content-center">
             <a href="/find_id" class="p-2 text-decoration-none text-secondary">아이디 찾기</a>
             <a href="/find_pw" class="p-2 text-decoration-none text-secondary">비밀번호 찾기</a>
@@ -44,6 +44,28 @@
     </form>
 </div>
 <script>
+    function login(form) {
+        if (checkVal(form)) {
+            const option = {
+                method: 'post',
+                body: new FormData(form)
+            }
+
+            fetch("/login", option).then(response => {
+                response.json().then(result => {
+                    if (result) {
+                        location.href = "/";
+                    } else {
+                        alert("아이디 또는 비밀번호가 잘못되었습니다");
+                    }
+                })
+            })
+        } else {
+            alert("입력좀 해죠");
+        }
+    }
+
+
     Kakao.init("a7ed8ce3bc2337bb4281fa9fc4d51ddd");
     Kakao.isInitialized();
 
@@ -68,7 +90,7 @@
         });
     }
 
-    function checkVal() {
+    function checkVal(form) {
 
         let input_id = document.querySelector("#id_email");
         let input_pw = document.querySelector("#pw");
@@ -81,10 +103,7 @@
             alert("비밀번호를 입력해주세요.");
             return false;
         }
-        if (${msg == false}) {
-            alert("비밀번호를 입력해주세요.");
-            return false;
-        }
+        return true;
     }
 </script>
 <%@ include file="../main/footer.jspf"%>
