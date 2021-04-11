@@ -230,4 +230,27 @@ public class MemberController {
 
         return couponVo;
     }
+    //회원 목록
+    @GetMapping("/admin/b_memList")
+    public String b_memList(Model model) {
+        List<MemberVO> list = memberService.b_memList();
+        model.addAttribute("list", list);
+        System.out.println(list);
+        return "member/b_memList";
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
