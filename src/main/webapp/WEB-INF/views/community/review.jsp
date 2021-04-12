@@ -414,11 +414,11 @@
 
     function goSearch(form) {
         let listList = new Array();
-        <c:forEach items="${likeList}" var="like">
-        listList.push({idx: ${like.idx}
-            ,reviewIdx: ${like.reviewIdx}
-            ,memberId: "${like.memberId}"});
-        </c:forEach>
+<%--        <c:forEach items="${likeList}" var="like">--%>
+<%--        listList.push({idx: ${like.idx}--%>
+<%--            ,reviewIdx: ${like.reviewIdx}--%>
+<%--            ,memberId: "${like.memberId}"});--%>
+<%--        </c:forEach>--%>
         // for(let i=0;i<listList.length; i++){
         //     console.log(listList[i].idx);
         //     console.log(listList[i].memberId);
