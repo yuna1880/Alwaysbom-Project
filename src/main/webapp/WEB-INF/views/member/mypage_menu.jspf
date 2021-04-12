@@ -11,7 +11,7 @@
             <a href="/orders/subsList" class="link-secondary">정기 구독</a>
         </li>
         <li class="list-group-item">
-            <a href="" class="link-secondary" onclick="goMyClassList(event)">수강 내역</a>
+            <a href="/fclass/orders" class="link-secondary">수강 내역</a>
         </li>
         <li>
             <hr>

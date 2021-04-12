@@ -141,7 +141,7 @@ header {
 .menu-active {
     color: #ffc107 !important;
 }
-.menu-active a {
+.menu-active > a {
     /*font-weight: 500;*/
     color: #ffc107 !important;
 }
