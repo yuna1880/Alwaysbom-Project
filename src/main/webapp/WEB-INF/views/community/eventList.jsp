@@ -50,7 +50,7 @@
 <!-- 컨테이너 -->
 <div id="container" class="mx-auto">
     <div class="p-subtitle fs-4 d-flex align-items-center">
-        현제 진행중인 이벤트에요!
+        현재 진행중인 이벤트에요!
     </div>
     <div class="row row-cols-3">
         <c:forEach var="event" items="${eventList}">
