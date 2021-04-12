@@ -103,10 +103,10 @@
                         if(this.reviewCheck == 1){
                             htmls += '<div class="bb-1 p-3" id="bord-color">'
                             + '<a href="javascript:void(0);" onClick="updateWrite(`' + oli.category + '`, `' + oli.name + '`, `' + oli.idx + '`, `' + oli.reviewIdx + '`); return false" class="d-flex justify-content-start ps-2">'
-                            + '<span class="pe-2">' + oli.idx + '</span>'
-                            + '<span class="pe-2"> 이름 :' + oli.name + '</span>'
-                            + '<span class="pe-2"> 가격 :' + oli.price + '</span>'
-                            + '<span class="pe-2"> 상품 :' + oli.options + '</span>'
+                            + '<span class="link pe-2 text-dark">' + oli.idx + '</span>'
+                            + '<span class="link pe-2 text-dark"> 이름 :' + oli.name + '</span>'
+                            + '<span class="link pe-2 text-dark"> 가격 :' + oli.price + '</span>'
+                            + '<span class="link pe-2 text-dark"> 상품 :' + oli.options + '</span>'
                             + '<span class="dateCut"> 주문날짜 : ' + new Date(oli.requestDate).toLocaleDateString() + '</span>'
                             + '</a></div>';
                         }

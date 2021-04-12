@@ -12,6 +12,8 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         async function goFaqList(faqType) {
+            $(".cate").removeClass("bg-warning");
+            $(faqType).addClass("bg-warning");
                 let category = {
                     category : faqType.getAttribute("id")
             }
@@ -47,6 +49,8 @@
 
         $(function () {
             let startFaqType = document.querySelector("#FAQ");
+            $(".cate").removeClass("bg-warning");
+            $("#FAQ").addClass("bg-warning");
             goFaqList(startFaqType);
         });
     </script>
@@ -67,8 +71,8 @@
             <form method="post">
             <ul class="nav justify-content-around faqBox">
                 <c:forEach var="category" items="${category}">
-                    <li class="nav-item-3" id="${category}">
-                        <a class="nav-link" id="${category}" href="#" onclick="goFaqList(this)">${category}</a>
+                    <li class="nav-item-3 pt-2" id="list-${category}">
+                        <a class="cate nav-link mt-2 text-dark bg-warning" id="${category}" href="#" onclick="goFaqList(this)">${category}</a>
                     </li>
                 </c:forEach>
             </ul>
@@ -96,6 +100,8 @@
 <style>
     .listnone{
         list-style: none;
+        white-space: pre-wrap;
+        border-bottom: #3A3A3A 2px solid;
     }
 </style>
 <script>
