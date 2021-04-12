@@ -416,7 +416,7 @@ span.unknow_noti {
     .checkout_wrap {
         max-width: 1280px;
         padding: 0 10px;
-        padding-bottom: 110px;
+        /*padding-bottom: 110px;*/
         margin: 0 auto;
     }
 }

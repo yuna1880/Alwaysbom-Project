@@ -103,7 +103,17 @@
                     <div class="float-start">
                         <h4 class="tit">메시지카드</h4>
                     </div><br>
+                    <c:forEach var="oitem" items="${oitemList}" varStatus="status">
+                        <c:if test="${oitem.hasLetter eq false}">
+                    <div class="float-xl-none py-5 px-3">
+                        <p> 메세지 카드를 옵션을 선택하지 않았습니다.</p>
+                        <p> 메세지 카드를 원하지 않으시면<i class="text-warning px-2">다음 버튼</i>을 눌러 결제를 진행해주세요.</p>
+                        <p> 메세지 카드를 선택하고 싶으시면<i class="text-warning px-2">이전 페이지<i>를 눌러 카드 선택 옵션을 추가해주세요.</p>
+                    </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
+
 
                 <!-- letter 옵션 추가시, 그 개수만큼 생성해준다. -->
                 <c:forEach var="oitem" items="${oitemList}" varStatus="status">
@@ -152,17 +162,17 @@
                     </form>
                     </c:if>
                     </c:forEach>
-                        <!-- 버튼 -->
-                        <div class="float-end">
-                            <button type="button" class="btn btn-outline-secondary btn-lg"
-                                    onclick="history.back()">이전 화면으로</button>
-                            <!-- 여기서 받은 데이터를 submitForm() -->
-                            <button type="button" class="btn btn btn-secondary btn-lg" onclick="checkForm()">다음 단계로</button>
-                        </div>
-                        <br>
                         </div>
                     </div>
-    </div>
+                <!-- 버튼 -->
+                <div class="float-end">
+                    <button type="button" class="btn btn-outline-secondary btn-lg"
+                            onclick="history.back()">이전 화면으로</button>
+                    <!-- 여기서 받은 데이터를 submitForm() -->
+                    <button type="button" class="btn btn btn-secondary btn-lg" onclick="checkForm()">다음 단계로</button>
+                </div>
+                <br>
+            </div>
 <%@ include file="../main/footer.jspf"%>
 </body>
 </html>
