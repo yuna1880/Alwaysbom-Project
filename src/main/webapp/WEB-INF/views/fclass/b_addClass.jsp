@@ -23,7 +23,7 @@
                     <input type="radio" class="btn-check" name="category" value="플로리스트" id="btnradio2" autocomplete="off">
                     <label class="btn btn-outline-primary" for="btnradio2">플로리스트</label>
                 </div>
-                    <c:forEach var="branch" items="${classList.branchName}" varStatus="status">
+                    <c:forEach var="branch" items="${branchList}" varStatus="status">
                         <div class="form-check d-flex flex-wrap">
                             <input class="form-check-input" type="checkbox" value="${branch.idx}"
                                    name="branches" id="cb${status.index}">
