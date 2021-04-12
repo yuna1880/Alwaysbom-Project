@@ -30,9 +30,6 @@
             line-height:30px;
         }
 
-        #ulTable, #ulTablebar {margin-top:10px;}
-
-
         #ulTablebar > li:first-child > ul > li {
             background-color:black;
             font-weight:bold;
@@ -91,7 +88,36 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+        $(function (){
+            let cate = '${param.category}';
+            if(cate == '정기구독'){
+                document.querySelector("input[type=radio].subsCate").checked = true;
+                let checkedValue = document.querySelector('input[name="subsCate"]:checked').value;
+            }
+            if(cate == '꽃다발'){
+                document.querySelector("input[type=radio].flowerCate").checked = true;
+                let checkedValue = document.querySelector('input[name="flowerCate"]:checked').value;
+            }
+            if(cate == '클래스'){
+                document.querySelector("input[type=radio].fClassCate").checked = true;
+                let checkedValue = document.querySelector('input[name="fClassCate"]:checked').value;
+            }
+            if(cate == '소품샵'){
+                document.querySelector("input[type=radio].productCate").checked = true;
+                let checkedValue = document.querySelector('input[name="productCate"]:checked').value;
+            }
+            if(cate == ''){
+                document.querySelector("input[type=radio]").checked = true;
+                let checkedValue = document.querySelector('input[name="allReviewCate"]:checked').value;
+            }
 
+
+                // $("input:radio[name='allReviewCate']:radio[value='']").prop('checked', true);
+                // let checkedValue = document.querySelector('input[id="allReviewCate"]:checked').val;
+                // document.getElementsBy('allReviewCate').checked = true;
+            // document.querySelector("input[type=radio].star"+numStar).checked = true;
+            // let checkedValue = document.querySelector('input[name="comment"]:checked').value;
+        });
     </script>
 </head>
 <body>
@@ -144,23 +170,23 @@
     </div>
     <div class="d-flex align-items-baseline review-category col-12 justify-content-around mt-0">
         <label>
-            <input type="radio" name="reviewCategory" class="d-none" onclick="location.href='/community/goReview'">
+            <input type="radio" name="allReviewCate" class="d-none tabCategory allReviewCate" id="allReviewCate" onclick="location.href='/community/goReview'">
             <span class="d-block text-center py-3 px-5 btn-rev">전체</span>
         </label>
         <label>
-            <input type="radio" name="reviewCategory" class="d-none" onclick="goCateBest('정기구독')">
+            <input type="radio" name="subsCate" class="d-none tabCategory subsCate" id="subsCate" onclick="goCateBest('정기구독')">
             <span class="d-block text-center py-3 px-5 btn-rev">꽃 정기구독</span>
         </label>
         <label>
-            <input type="radio" name="reviewCategory" class="d-none" onclick="goCateBest('꽃다발')">
+            <input type="radio" name="flowerCate" class="d-none tabCategory flowerCate" id="flowerCate" onclick="goCateBest('꽃다발')">
             <span class="d-block text-center py-3 px-5 btn-rev">꽃다발</span>
         </label>
         <label>
-            <input type="radio" name="reviewCategory" class="d-none" onclick="goCateBest('클래스')">
+            <input type="radio" name="fClassCate" class="d-none tabCategory fClassCate" id="fClassCate" onclick="goCateBest('클래스')">
             <span class="d-block text-center py-3 px-5 btn-rev">클래스</span>
         </label>
         <label>
-            <input type="radio" name="reviewCategory" class="d-none" onclick="goCateBest('소품샵')">
+            <input type="radio" name="productCate" class="d-none tabCategory productCate" id="productCate" onclick="goCateBest('소품샵')">
             <span class="d-block text-center py-3 px-5 btn-rev">소품샵</span>
         </label>
     </div> <!-- 카테고리 탭 닫기 -->
@@ -204,10 +230,10 @@
 
                 </ul>--%>
                 <ul class="nav justify-content-around reviewBox col-12 pt-4" id="review-bar">
-                    <li class="nav-item-3 btn btn-outline-warning col-6 pe-1">
+                    <li id="best" class="nav-item-3 btn btn-warning btn-outline-warning col-6 pe-1">
                         <a class="nav-link text-dark" id="${param.category}" href="#" onclick='goBestList("best", "${param.category}")'>베스트 리뷰</a>
                     </li>
-                    <li class="nav-item-3 btn btn-outline-warning col-6 ps-1">
+                    <li id="all" class="nav-item-3 btn btn-outline-warning col-6 ps-1">
                         <a class="nav-link text-dark" id="${param.category}" href="#" onclick='goAllList("allList", "${param.category}")'>전체리뷰</a>
                     </li>
                 </ul>
@@ -294,7 +320,7 @@
                                 <div class="d-flex justify-content-center">
                                     <c:if test="${not empty bestAllList.image}">
                                         <div>
-                                            <img src="${bestAllList.image}" alt="사진">
+                                            <img src="${bestAllList.image}" alt="사진" style="max-width: 450px">
                                         </div>
                                     </c:if>
                                 </div>
@@ -531,6 +557,8 @@
     }
 
     function goAllList(tab, paramType) {
+        $("#all").addClass('btn-warning');
+        $("#best").removeClass('btn-warning')
         $('.allBoxes').remove();
         $("#searchMoreNotify").css("display", "block");
         let startIndex = 1;	// 인덱스 초기값
@@ -716,7 +744,8 @@
 
 
     function goBestList(tab, paramType) {
-
+        $("#best").addClass('btn-warning');
+        $("#all").removeClass('btn-warning')
         // for(let i=0;i<listList.length; i++){
         //     console.log(listList[i].idx);
         //     console.log(listList[i].memberId);
