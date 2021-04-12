@@ -88,28 +88,32 @@ public class AdminController {
     @PostMapping("/api/admin/configs")
     @ResponseBody
     public MainVo updateConfig(List<MultipartFile> image, MainVo mainVo, String[] link, String[] deleted) throws IOException {
-        List<MainImage> list = new ArrayList<>();
-        MainVo mainConfig = mainService.getConfig();
-        List<MainImage> oldImages = mainConfig.getImages();
-        for (int i = 0; i < image.size(); i++) {
-            MultipartFile eachImage = image.get(i);
-            String eachDeleted = deleted[i];
-            String eachPath = null;
-            if (eachDeleted.equals("true")) {
-                fileHandler.deleteFile(oldImages.get(i).getPath());
-            } else {
-                eachPath = fileHandler.uploadFile(eachImage, oldImages.get(i).getPath(), "/admin/main");
+        try {
+            List<MainImage> list = new ArrayList<>();
+            MainVo mainConfig = mainService.getConfig();
+            List<MainImage> oldImages = mainConfig.getImages();
+            for (int i = 0; i < image.size(); i++) {
+                MultipartFile eachImage = image.get(i);
+                String eachDeleted = deleted[i];
+                String eachPath = null;
+                if (eachDeleted.equals("true")) {
+                    fileHandler.deleteFile(oldImages.get(i).getPath());
+                } else {
+                    eachPath = fileHandler.uploadFile(eachImage, oldImages.get(i).getPath(), "/admin/main");
+                }
+                String eachLink = link[i];
+
+                list.add(new MainImage(i + 1, eachPath, eachLink));
             }
-            String eachLink = link[i];
 
-            list.add(new MainImage(i + 1, eachPath, eachLink));
+            mainVo.setImages(list);
+            System.out.println("mainVo = " + mainVo);
+
+            mainService.updateConfig(mainVo);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        mainVo.setImages(list);
-        System.out.println("mainVo = " + mainVo);
-
-        mainService.updateConfig(mainVo);
-
         return mainVo;
     }
 }
