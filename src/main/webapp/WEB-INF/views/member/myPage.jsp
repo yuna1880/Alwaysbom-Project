@@ -19,7 +19,7 @@
                             님, 환영합니다. 언제나 늘 새로운 꽃이 가득한 새늘봄입니다-
                         </div>
                         <hr class="hr1"/>
-                        <img src="/static/image/mypageFlower.jpg" alt="메인페이지꽃" class="w-100">
+                        <img src="/static/image/mypage_pic.jpg" alt="메인페이지꽃" style="height: 500px;" class="col-12">
                     </div>
                 </div>
             </div>
@@ -39,6 +39,13 @@
         let $script = document.createElement("script");
         $script.appendChild(document.createTextNode($innerScript.innerHTML));
         $innerScript.replaceWith($script);
+
+        // 리뷰 폼
+        let $innerScriptReviewForm = $contentPane.querySelector(".inner-script");
+
+        let $scriptReview = document.createElement("script");
+        $scriptReview.appendChild(document.createTextNode($innerScriptReviewForm.innerHTML));
+        $innerScriptReviewForm.replaceWith($scriptReview);
     }
 </script>
 </body>

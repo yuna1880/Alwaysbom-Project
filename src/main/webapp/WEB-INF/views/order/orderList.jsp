@@ -87,7 +87,7 @@
                                                 <div>주문상태 <i class="fas fa-sort-down fs-2"></i></div>
                                                 <span class="badge bg-warning text-dark ms-2 my-2" id="status" data-index="${status.index}">${order.status}</span>
                                             </div>
-                                            <c:if test="${order.status eq '배송완료'}">
+                                            <c:if test="${order.status eq '배송완료' and oitem.reviewCheck eq 0}">
                                                 <div><button id="b${oitem.idx}" type="button" class="btn btn-secondary btn-sm" onclick="showReviewModal(this, '${oitem.category}', ${oitem.itemIdx}, ${oitem.idx})">리뷰작성</button></div>
                                             </c:if>
                                         </div>
