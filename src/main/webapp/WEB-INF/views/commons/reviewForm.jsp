@@ -67,8 +67,7 @@
         color: #ffcc3c;
     }
 </style>
-<script>
-
+<script class="inner-script">
     <!-- 별 클릭시 1~5 체크 -->
     let $stars = document.querySelectorAll("[name=starPoint]");
     let $starIcons = document.querySelectorAll("[name=starPoint] + i");
@@ -94,6 +93,12 @@
         }
 
         const $reviewModal = document.querySelector("#writingReview");
+
+        $reviewModal.querySelector("#review-title").value = "";
+        $reviewModal.querySelector("#review-file").value = "";
+        $reviewModal.querySelector("#review-content").value = "";
+
+
         $reviewModal.dataset.category = category;
         $reviewModal.dataset.itemIdx = itemIdx;
         $reviewModal.dataset.oitemIdx = oitemIdx;

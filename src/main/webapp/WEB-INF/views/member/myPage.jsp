@@ -39,6 +39,13 @@
         let $script = document.createElement("script");
         $script.appendChild(document.createTextNode($innerScript.innerHTML));
         $innerScript.replaceWith($script);
+
+        // 리뷰 폼
+        let $innerScriptReviewForm = $contentPane.querySelector(".inner-script");
+
+        let $scriptReview = document.createElement("script");
+        $scriptReview.appendChild(document.createTextNode($innerScriptReviewForm.innerHTML));
+        $innerScriptReviewForm.replaceWith($scriptReview);
     }
 </script>
 </body>
