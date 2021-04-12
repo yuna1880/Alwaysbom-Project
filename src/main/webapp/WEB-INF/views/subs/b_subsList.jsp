@@ -29,27 +29,8 @@
                 </c:if>
                 <c:if test="${not empty subsVo}">
                 <div class="order-${status.index % 2} thumbnails-wrap col-6 position-relative d-flex justify-content-end">
-                    <button type="button" class="btn-close-style" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop">삭제</button>
+                    <button type="button" class="btn-close-style" onclick="showDeleteModal(${subsVo.idx})">삭제</button>
                     <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">정말 삭제하시겠습니까?</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    게시물 삭제를 원하시면 '삭제' 버튼을 눌러주세요.
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" onclick="deleteItem(this.form)">삭제</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- Modal 끝 -->
-                    <input type="hidden" name="idx" value="${subsVo.idx}">
                     <div class="overflow-hidden">
                         <div class="flex-row thumbnails d-flex justify-content-center scale-up">
                             <!-- 이미지 클릭시, 수정 페이지로 이동 -->
@@ -77,8 +58,34 @@
     </div>
     </form>
 </div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">정말 삭제하시겠습니까?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                게시물 삭제를 원하시면 '삭제' 버튼을 눌러주세요.
+            </div>
+            <form class="modal-footer">
+                <input type="hidden" name="idx" id="idx">
+                <button type="button" class="btn btn-danger" onclick="deleteItem(this.form)">삭제</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </form>
+        </div>
+    </div>
+</div> <!-- Modal 끝 -->
+
 <%@ include file="../main/b_footer.jspf"%>
 <script>
+
+    function showDeleteModal(idx) {
+        document.querySelector("#idx").value = idx;
+        new bootstrap.Modal(document.querySelector("#staticBackdrop")).show();
+    }
+
     function deleteItem(frm) {
         frm.action = "/admin/deleteSubs";
         frm.submit();
