@@ -10,6 +10,8 @@
     <%@ include file="../main/import.jspf" %>
     <script>
         async function goFaqList(faqType) {
+            $(".cate").removeClass("btn-dark");
+            $(faqType).addClass("btn-dark");
             let category = {
                 category : faqType.getAttribute("id")
             }
@@ -27,7 +29,7 @@
             for (let data of result) {
                 dispHtml += '<div class="accordion-item">';
                 dispHtml += '<h3 class="accordion-header" id="flushHead'+ data.idx +'">';
-                dispHtml += '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flushColl'+ data.idx +'" aria-expanded="false" aria-controls="flushColl'+ data.idx +'">';
+                dispHtml += '<button class="accordion-button collapsed btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#flushColl'+ data.idx +'" aria-expanded="false" aria-controls="flushColl'+ data.idx +'">';
                 dispHtml += data.question;
                 dispHtml += '</button>';
                 dispHtml += '</h3>'
@@ -72,7 +74,10 @@
         }
 
         $(function () {
+
             let startFaqType = document.querySelector("#FAQ");
+            $(".cate").removeClass("btn-dark");
+            $("#FAQ").addClass("btn-dark");
             goFaqList(startFaqType);
         });
     </script>
@@ -83,18 +88,27 @@
 <%@ include file="../main/header.jspf" %>
 <div class="d-flex justify-content-center">
     <div id="container">
-        <div>
+        <div class="py-3">
                 <h2 class="mx-auto d-inline-block col-9">자주 묻는 질문</h2>
-                <a href="/myPage_faq_main" class="mx-auto d-inline-block col-2 btn btn-dark">1:1 문의하기</a><%--로그인 처리--%>
+                <a href="/myPage_faq_main" class="mx-auto d-inline-block col-2 btn btn-secondary">1:1 문의하기</a><%--로그인 처리--%>
         </div>
         <div>
-            <ul class="nav justify-content-around faqBox">
+
+            <div class="d-flex align-items-baseline review-category col-12 justify-content-around mt-0 pt-0 pb-3">
+                <c:forEach var="category" items="${category}">
+                    <label class="" id="list-${category}">
+                        <a class="d-block text-center btn btn-dark py-2 px-5 btn-rev cate" id="${category}" href="#" onclick="goFaqList(this)">${category}</a>
+                    </label>
+
+                </c:forEach>
+            </div>
+     <%--       <ul class="nav justify-content-around faqBox">
                 <c:forEach var="category" items="${category}">
                     <li class="nav-item-3" id="${category}">
                         <a class="nav-link" id="${category}" href="#" onclick="goFaqList(this)">${category}</a>
                     </li>
                 </c:forEach>
-            </ul>
+            </ul>--%>
             <%--            <div>
                             <ul id="faqList">
                             </ul>
