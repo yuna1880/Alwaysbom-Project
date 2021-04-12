@@ -52,8 +52,8 @@
                                         <option value="/subs" ${image.link eq "/subs" ? "selected" : ""}>정기구독</option>
                                         <option value="/flower" ${image.link eq "/flower" ? "selected" : ""}>꽃다발</option>
                                         <option value="/product" ${image.link eq "/product" ? "selected" : ""}>소품샵</option>
-                                        <option value="/fclass" ${image.link eq "/fclass" ? "selected" : ""}>클래스</option>
-                                        <option value="/community" ${image.link eq "/community" ? "selected" : ""}>커뮤니티</option>
+                                        <option value="/fclass/classList" ${image.link eq "/fclass/classList" ? "selected" : ""}>클래스</option>
+                                        <option value="/community/event/eventlist" ${image.link eq "/community/event/eventlist" ? "selected" : ""}>커뮤니티</option>
                                     </select>
                                     <button type="button" class="btn btn-warning btn-sm me-2"
                                             onclick="clickFileButton(${status.index})">수정</button>
