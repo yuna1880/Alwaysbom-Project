@@ -63,19 +63,6 @@
 </div>
 <%@ include file="../main/footer.jspf" %>
 <script>
-    async function goMyClassList(e) {
-        e.preventDefault();
-        let $contentPane = document.querySelector("#contentPane");
-
-        let response = await fetch("/fclass/orders");
-        $contentPane.innerHTML = await response.text();
-        let $innerScript = $contentPane.querySelector("#innerScript");
-
-        let $script = document.createElement("script");
-        $script.appendChild(document.createTextNode($innerScript.innerHTML));
-        $innerScript.replaceWith($script);
-    }
-
     function goWrite(category, name, idx){
         console.log(category + idx  + name);
         location.href = "/community/event/reviewWrite?category=" + category + "&idx=" + idx + "&name=" + name;
