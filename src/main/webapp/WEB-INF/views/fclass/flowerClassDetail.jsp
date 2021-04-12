@@ -242,9 +242,10 @@
     </div>
 
     <!-- 상품설명 -->
-    <div id="detail-area" class="mb-5 d-flex flex-column">
-        <div class="d-flex flex-column align-items-center">${fclassVo.content}</div>
-
+    <div class="d-flex flex-column">
+        <div id="detail-area" class="mb-5 d-flex justify-content-center mb-5">
+            <div class="mx-auto text-center">${fclassVo.content}</div>
+        </div>
         <!-- 지점지도 -->
         <div class="d-flex flex-column align-items-center">
             <span class="fs-4 fw-500 p-5">- 지점안내 -</span>
