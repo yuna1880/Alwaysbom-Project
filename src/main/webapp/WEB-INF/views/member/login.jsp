@@ -81,7 +81,7 @@
                         var kakao_name = kakao_account.profile.nickname;
                         var kakao_gender = kakao_account.gender;
 
-                        window.location.href="http://localhost:8070/member_join?kakao_id=" + kakao_id + "&kakao_name=" + kakao_name +"&kakao_gender=" + kakao_gender;
+                        location.href="/member_join?kakao_id=" + kakao_id + "&kakao_name=" + kakao_name +"&kakao_gender=" + kakao_gender;
                     }
                 });
             }
