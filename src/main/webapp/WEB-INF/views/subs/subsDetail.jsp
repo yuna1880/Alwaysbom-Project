@@ -983,7 +983,7 @@
                 reviewCheck: 0,
                 fsize: document.querySelector('#fsize').value,
                 osubsList: osubsList,
-                itemIdx: document.querySelector("#oitemIdx").value
+                itemIdx: document.querySelector("#subsIdx").value
             }
         ];
 
