@@ -9,8 +9,8 @@
 </head>
 <body>
 <%@ include file="../main/b_header.jspf"%>
-<div class="container">
-    <div class="row">
+<div id="container">
+    <div class="col-12 pt-5 d-flex flex-column">
         <div id="btnGroup" class="btn-group" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked value="입금대기">
             <label class="btn btn-outline-primary" for="btnradio1">입금 대기
