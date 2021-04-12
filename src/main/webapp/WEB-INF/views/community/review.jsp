@@ -337,7 +337,7 @@
                                         </c:if>
                                     </div>
                                 <div class="d-flex justify-content-center">
-                                    <c:if test="${member.id == bestAllList.memberId || member.id == 'xzllxz456@naver.com'}">
+                                    <c:if test="${member.id == bestAllList.memberId || member.id == 'admin' || admin.id == 'admin'}">
                                             <button type="button" class="btn btn-secondary mx-2"
                                                     onclick="goUpdate(this.form, ${bestAllList.idx})">수정
                                             </button>
@@ -428,6 +428,7 @@
             // new FormData(document.querySelector('#review-form'));
             // $(form).serialize();
         let id = '${member.id}';
+        let adminId = '${admin.id}';
         $.ajax({
             url: '/question/searchReview',
             type: 'post',
@@ -536,7 +537,7 @@
                     }
                     dispHtml += '</div>'
                         + '<div class="d-flex justify-content-center">';
-                    if(this.memberId == id || id == 'xzllxz456@naver.com'){
+                    if(this.memberId == id || adminId == 'admin'){
                         dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
                             + 'onclick="goUpdate(this.form,' + this.idx + ')">수정'
                             + '</button>'
@@ -616,6 +617,7 @@
             // _endIndex = index+searchStep-1;	// endIndex설정
             // $(".accordion_count").css("display", "none");
             let id = '${member.id}';
+            let adminId = '${admin.id}';
             console.log(index + "index");
             console.log(searchStep + "search")
             console.log(_endIndex + "_endIndex");
@@ -711,7 +713,7 @@
                         }
                         dispHtml += '</div>'
                             + '<div class="d-flex justify-content-center">';
-                        if(this.memberId == id || id == 'xzllxz456@naver.com'){
+                        if(this.memberId == id || adminId == 'admin'){
                             dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
                                 + 'onclick="goUpdate(this.form,' + this.idx + ')">수정'
                                 + '</button>'
@@ -753,6 +755,7 @@
         // }
         $("#searchMoreNotify").css("display", "none");
         let id = '${member.id}';
+        let adminId = '${admin.id}';
         let dataParam = {
             category : paramType
         };
@@ -842,7 +845,7 @@
                     }
                     dispHtml += '</div>'
                         + '<div class="d-flex justify-content-center">';
-                    if(this.memberId == id || id == 'xzllxz456@naver.com'){
+                    if(this.memberId == id || adminId == 'admin'){
                         dispHtml += '<button type="button" class="btn btn-secondary mx-2"'
                             + 'onclick="goUpdate(this.form,' + this.idx + ')">수정'
                             + '</button>'
