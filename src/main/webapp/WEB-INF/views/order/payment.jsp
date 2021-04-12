@@ -14,7 +14,6 @@
     <script>
         //결제 -> 결제완료
         function payment(frm) {
-            alert("결제시작");
 
             let totalPrice = document.querySelector("#finalPrice").value;
 
@@ -37,7 +36,7 @@
                 }, function (rsp) { // callback
                     if (rsp.success) {
                         // 결제 성공 시 로직,
-                        alert("결제 성공!");
+                        alert("결제가 완료되었습니다.");
                         document.frm.submit();
 
                         jQuery.ajax({
@@ -53,7 +52,7 @@
                         })
                     } else {
                         // 결제 실패 시 로직,
-                        alert("실패!" + rsp.error_msg);
+                        alert("결제가 실패하였습니다." + rsp.error_msg);
                         return false;
                     }
                 });

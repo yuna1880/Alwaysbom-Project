@@ -808,7 +808,7 @@
                 quantity: document.querySelector("[data-product-quantity]").textContent,
                 reviewCheck: 0,
                 fsize: document.querySelector("#fsize").value,
-                itemIdx: document.querySelector("#oitemIdx").value
+                itemIdx: document.querySelector("#productIdx").value
             }
         ];
 

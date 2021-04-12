@@ -87,7 +87,7 @@
                                                 <div>주문상태 <i class="fas fa-sort-down fs-2"></i></div>
                                                 <span class="badge bg-warning text-dark ms-2 my-2" id="status" data-index="${status.index}">${order.status}</span>
                                             </div>
-                                            <c:if test="${order.status eq '배송완료'}">
+                                            <c:if test="${order.status eq '배송완료' and oitem.reviewCheck eq 0}">
                                                 <div><button id="b${oitem.idx}" type="button" class="btn btn-secondary btn-sm" onclick="showReviewModal(this, '${oitem.category}', ${oitem.itemIdx}, ${oitem.idx})">리뷰작성</button></div>
                                             </c:if>
                                         </div>
@@ -161,21 +161,6 @@
             });
         });
     }
-
-    //수강 내역
-    async function goMyClassList(e) {
-        e.preventDefault();
-        let $contentPane = document.querySelector("#contentPane");
-
-        let response = await fetch("/fclass/orders");
-        $contentPane.innerHTML = await response.text();
-        let $innerScript = $contentPane.querySelector("#innerScript");
-
-        let $script = document.createElement("script");
-        $script.appendChild(document.createTextNode($innerScript.innerHTML));
-        $innerScript.replaceWith($script);
-    }
-
 </script>
 <%@ include file="../main/footer.jspf" %>
 </body>
