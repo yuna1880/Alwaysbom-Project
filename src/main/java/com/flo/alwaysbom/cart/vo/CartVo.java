@@ -174,4 +174,20 @@ public class CartVo {
         }
         return fsize;
     }
+
+    public Integer getItemIdx() {
+        int itemIdx = 0;
+        try {
+            if ("정기구독".equals(category)) {
+                itemIdx = subsVo.getIdx();
+            } else if ("꽃다발".equals(category)) {
+                itemIdx = flowerVo.getIdx();
+            } else if ("소품샵".equals(category)) {
+                itemIdx = productVo.getIdx();
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Item Final Price : 상품 카테고리에 해당하는 vo가 존재하지 않습니다");
+        }
+        return itemIdx;
+    }
 }

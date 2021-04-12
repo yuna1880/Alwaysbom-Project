@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPublicKeySpec;
@@ -28,7 +25,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@SessionAttributes({"admin", "rsaWebKey"})
+@SessionAttributes({"admin"})
 public class AdminController {
 
     private final MainService mainService;
@@ -41,10 +38,6 @@ public class AdminController {
         MainVo mainConfig = mainService.getConfig();
         model.addAttribute("classes", classes);
         model.addAttribute("mainConfig", mainConfig);
-
-//        System.out.println("mainConfig = " + mainConfig);
-//        System.out.println("classes = " + classes);
-
         return "main/b_index";
     }
 
@@ -70,19 +63,19 @@ public class AdminController {
     }
 
     @PostMapping("/admin/login")
-    public String loginProc(AdminVo adminVo, Model model, HttpSession session) throws Exception {
-        PrivateKey rsaWebKey = (PrivateKey) session.getAttribute("rsaWebKey");
-        session.removeAttribute("rsaWebKey");
-        String id = decryptRsa(rsaWebKey, adminVo.getId());
-        String password = decryptRsa(rsaWebKey, adminVo.getPassword());
-
-        if (id.equals("admin") && password.equals("admin")) {
-            adminVo = new AdminVo(id, password);
-            model.addAttribute("admin", adminVo);
-            return "redirect:/admin/main";
-        } else {
-            return "redirect:/admin/login";
+    @ResponseBody
+    public boolean loginProc(AdminVo adminVo, Model model) {
+        try {
+            if (adminVo.getId().equals("admin") && adminVo.getPassword().equals("tosmfqha1!")) {
+                model.addAttribute("admin", adminVo);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     @GetMapping("/admin/logout")
@@ -95,7 +88,6 @@ public class AdminController {
     @PostMapping("/api/admin/configs")
     @ResponseBody
     public MainVo updateConfig(List<MultipartFile> image, MainVo mainVo, String[] link, String[] deleted) throws IOException {
-        System.out.println("AdminController.updateConfig");
         List<MainImage> list = new ArrayList<>();
         MainVo mainConfig = mainService.getConfig();
         List<MainImage> oldImages = mainConfig.getImages();
@@ -119,27 +111,5 @@ public class AdminController {
         mainService.updateConfig(mainVo);
 
         return mainVo;
-    }
-
-    private String decryptRsa(PrivateKey privateKey, String securedValue) throws Exception {
-        System.out.println("will decrypt : " + securedValue);
-        Cipher cipher = Cipher.getInstance("RSA");
-        byte[] encryptedBytes = hexToByteArray(securedValue);
-        cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-        return new String(decryptedBytes, StandardCharsets.UTF_8);
-    }
-
-    private static byte[] hexToByteArray(String hex) {
-        if (hex == null || hex.length() % 2 != 0) {
-            return new byte[]{};
-        }
-
-        byte[] bytes = new byte[hex.length() / 2];
-        for (int i = 0; i < hex.length(); i += 2) {
-            byte value = (byte)Integer.parseInt(hex.substring(i, i + 2), 16);
-            bytes[(int) Math.floor(i / 2.0)] = value;
-        }
-        return bytes;
     }
 }

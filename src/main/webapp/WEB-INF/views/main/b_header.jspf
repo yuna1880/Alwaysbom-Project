@@ -25,6 +25,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="member">
                             <li><a class="dropdown-item" href="/admin/coupon">쿠폰</a></li>
+                            <li><a class="dropdown-item" href="/admin/b_memList">회원목록</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

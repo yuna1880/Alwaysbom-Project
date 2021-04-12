@@ -18,11 +18,8 @@
 
             let totalPrice = document.querySelector("#finalPrice").value;
 
-            if (document.frm.payType.value === "카카오페이") {
-                alert("kakao Pay");
-            }
             if (document.frm.payType.value === "간편결제") {
-                alert("신용카드 테스트중" + "<c:out value='${orderPrice.finalPrice}'/>" + "원" );
+                alert("간편결제" + "<c:out value='${orderPrice.finalPrice}'/>" + "원" );
 
                 IMP.init('imp49204009');
 
@@ -250,9 +247,9 @@
                                            autocomplete="off" checked>
                                     <label class="btn btn-outline-primary" for="btnradio1" onclick="creditCard()">간편결제</label>
 
-                                    <input type="radio" class="btn-check" name="payType" id="btnradio2" value="신용카드(직접입력)"
+                                    <input type="radio" class="btn-check" name="payType" id="btnradio2" value="신용카드"
                                            autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="btnradio2" onclick="creditCardInput()">신용카드(직접입력)</label>
+                                    <label class="btn btn-outline-primary" for="btnradio2" onclick="creditCardInput()">신용카드</label>
 
                                     <input type="radio" class="btn-check" name="payType" id="btnradio3" value="무통장입금"
                                            autocomplete="off">

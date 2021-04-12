@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
@@ -88,13 +89,8 @@ public class MemberController {
 
     //로그아웃
     @RequestMapping("/logout")
-    public String logout(HttpSession session, Model model) {
-        //System.out.println("before_logout_memberVO = " + model);
-        //1.세션 초기화(세션 객체 종료)
-        session.invalidate();
-        model.addAttribute("member", null);
-
-        //System.out.println("after_logout_memberVO = " + model);
+    public String logout(SessionStatus sessionStatus) {
+        sessionStatus.setComplete();
         return "member/login";
     }
 
@@ -230,4 +226,27 @@ public class MemberController {
 
         return couponVo;
     }
+    //회원 목록
+    @GetMapping("/admin/b_memList")
+    public String b_memList(Model model) {
+        List<MemberVO> list = memberService.b_memList();
+        model.addAttribute("list", list);
+        System.out.println(list);
+        return "member/b_memList";
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -37,6 +37,7 @@ public class CartApi {
                 .osubsList(cartVo.getOsubsList())
                 .cartIdx(cartVo.getIdx())
                 .fsize(cartVo.getFsize())
+                .itemIdx(cartVo.getItemIdx())
                 .build()).collect(Collectors.toList());
     }
 

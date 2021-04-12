@@ -27,6 +27,7 @@ public class MainController {
     @GetMapping("/")
     public String main(Model model) {
         MainVo mainVo = mainService.getConfig();
+        System.out.println("mainVo = " + mainVo);
         List<SubsVo> subsList = subsService.findAll();
         List<FlowerVo> flowerList = flowerService.findRecent4();
         FclassVo fclassBig = fclassService.findByIdx(mainVo.getFclassIdxBig());

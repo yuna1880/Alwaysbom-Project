@@ -324,7 +324,7 @@
 
     <!-- 상품설명 -->
     <div id="detail-area" class="overflow-auto d-flex justify-content-center mb-5">
-        <div class="mx-auto">${flowerVo.content}</div>
+        <div class="mx-auto text-center">${flowerVo.content}</div>
     </div>
 
     <!-- 리뷰게시판 -->
@@ -981,7 +981,8 @@
                 category: $inputs.category.value,
                 quantity: document.querySelector("[data-flower-quantity]").textContent,
                 reviewCheck: 0,
-                fsize: document.querySelector("#fsize").value
+                fsize: document.querySelector("#fsize").value,
+                itemIdx: document.querySelector("#oitemIdx").value
             }
         ];
 
