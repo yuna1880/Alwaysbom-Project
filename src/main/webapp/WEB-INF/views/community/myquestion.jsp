@@ -68,13 +68,7 @@
 </body>
 <script>
 
-<<<<<<< HEAD
-=======
-    // JSON.stringify(obj)  =>  {"a":"hi", "b":,"hello"}
-    // new URLSearchParams(obj) => a=hi&b=hello
-    // import {al} from "../../../static/chartjs/dist/chunks/helpers.segment";
 
->>>>>>> 4465e0ce66eb1bcceb14558a4a99787b3bcf862a
     function questionUpload() {
         let formData = new FormData(document.querySelector("#question-form"));
             // $("#question-form").serialize();

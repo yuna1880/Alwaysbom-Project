@@ -34,7 +34,7 @@
 
 
         #ulTablebar > li:first-child > ul > li {
-            background-color:#c9c9c9;
+            background-color:black;
             font-weight:bold;
             text-align:center;
         }
@@ -51,15 +51,39 @@
         #ulTable > li > ul > button > li, #ulTablebar > li > ul > li {
             float:left;
             font-size:10pt;
-            border-bottom:1px solid silver;
+            border-bottom:2px solid silver;
             vertical-align:baseline;
         }
 
-        #ulTable > li > ul > button > li:first-child, #ulTablebar > li > ul > li:first-child               {width:10%;} /*No 열 크기*/
-        #ulTable > li > ul > button > li:first-child +li, #ulTablebar > li > ul > li:first-child +li           {width:40%;} /*제목 열 크기*/
-        #ulTable > li > ul > button > li:first-child +li+li, #ulTablebar > li > ul > li:first-child +li+li        {width:20%;} /*작성일 열 크기*/
-        #ulTable > li > ul > button > li:first-child +li+li+li, #ulTablebar > li > ul > li:first-child +li+li+li     {width:20%;} /*작성자 열 크기*/
-        #ulTable > li > ul > button > li:first-child +li+li+li+li, #ulTablebar > li > ul > li:first-child +li+li+li+li{width:10%;} /*조회수 열 크기*/
+        .titleBtn {
+            border: 1px solid #939393;
+            background-color: black;
+            border-radius: 0;
+            padding: 10px 0 10px 0;
+        }
+        .titleBtn:hover {
+            background-color: #323232;
+            text-decoration-color: black;
+        }
+        .reviewCategory radio {
+            background-color: #dbd8d8; !important;
+        }
+
+
+        #ulTable > li > ul > button > li:first-child, #ulTablebar > li > ul > li:first-child              /* {width:10%; height: 40px;}*/ /*No 열 크기*/
+        #ulTable > li > ul > button > li:first-child +li, #ulTablebar > li > ul > li:first-child +li           /*{width:40%; height: 40px;}*/ /*제목 열 크기*/
+        #ulTable > li > ul > button > li:first-child +li+li, #ulTablebar > li > ul > li:first-child +li+li       /* {width:20%; height: 40px;}*/ /*작성일 열 크기*/
+        #ulTable > li > ul > button > li:first-child +li+li+li, #ulTablebar > li > ul > li:first-child +li+li+li     /*{width:20%; height: 40px;}*/ /*작성자 열 크기*/
+        #ulTable > li > ul > button > li:first-child +li+li+li+li, #ulTablebar > li > ul > li:first-child +li+li+li+li/*{width:10%; height: 40px;}*/ /*조회수 열 크기*/
+
+       /* #ulTable > li > ul > button > li:first-child               {width:10%; height: 40px; background-color: whitesmoke;} !*No 열 크기*!
+        #ulTable > li > ul > button > li:first-child +li           {width:40%; height: 40px; background-color: whitesmoke;} !*제목 열 크기*!
+        #ulTable > li > ul > button > li:first-child +li+li        {width:20%; height: 40px; background-color: whitesmoke;} !*작성일 열 크기*!
+        #ulTable > li > ul > button > li:first-child +li+li+li     {width:20%; height: 40px; background-color: whitesmoke;} !*작성자 열 크기*!
+        #ulTable > li > ul > button > li:first-child +li+li+li+li  {width:10%; height: 40px; background-color: whitesmoke;} *//*조회수 열 크기*/
+  /*      .accordion-button{
+            color: whitesmoke;
+        }*/
         .headacco {
             padding: 0px;
         }
@@ -73,12 +97,12 @@
 <body>
 <%@ include file="../main/header.jspf" %>
 <div id="container" class="mx-auto">
-    <div class="fs-2 mt-5 mb-3">
+<%--    <div class="fs-2 mt-5 mb-3">
         리뷰게시판
-    </div>
+    </div>--%>
 
     <!-- 카테고리 탭 (라디오버튼) -->
-    <div class="d-flex align-items-baseline review-category col-12 justify-content-around">
+<%--    <div class="d-flex align-items-baseline review-category col-12 justify-content-around">
         <label>
             <input type="radio" name="reviewCategory" class="d-none" checked="" onclick="location.href='/community/goReview'">
             <span class="d-block text-center py-3 px-5 btn-rev">전체</span>
@@ -95,6 +119,50 @@
             <input type="radio" name="reviewCategory" class="d-none" onclick="switchCategory('#bestReview', '#thisReview')">
             <span class="d-block text-center py-3 px-5 btn-rev">소품샵</span>
         </label>
+    </div> --%><!-- 카테고리 탭 닫기 -->
+    <!-- 검색 폼 영역 -->
+    <div class="nav">
+    <div class="col d-flex col-8 fs-2 mt-5 mb-3">
+        리뷰게시판
+    </div>
+
+    <div class="col d-flex justify-content-end">
+
+        <form id="review-form" class="d-flex" method="post">
+            <ul>
+                <li id='liSearchOption' class="col list-group list-group-horizontal nav-item pt-5">
+                    <div class="row mx-3">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="search">
+                    </div>
+                    <div class="">
+                        <button class="btn btn-outline-dark" type="button" onclick="goSearch(this.form)">검색</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+    </div>
+    <div class="d-flex align-items-baseline review-category col-12 justify-content-around mt-0">
+        <label>
+            <input type="radio" name="reviewCategory" class="d-none" onclick="location.href='/community/goReview'">
+            <span class="d-block text-center py-3 px-5 btn-rev">전체</span>
+        </label>
+        <label>
+            <input type="radio" name="reviewCategory" class="d-none" onclick="goCateBest('정기구독')">
+            <span class="d-block text-center py-3 px-5 btn-rev">꽃 정기구독</span>
+        </label>
+        <label>
+            <input type="radio" name="reviewCategory" class="d-none" onclick="goCateBest('꽃다발')">
+            <span class="d-block text-center py-3 px-5 btn-rev">꽃다발</span>
+        </label>
+        <label>
+            <input type="radio" name="reviewCategory" class="d-none" onclick="goCateBest('클래스')">
+            <span class="d-block text-center py-3 px-5 btn-rev">클래스</span>
+        </label>
+        <label>
+            <input type="radio" name="reviewCategory" class="d-none" onclick="goCateBest('소품샵')">
+            <span class="d-block text-center py-3 px-5 btn-rev">소품샵</span>
+        </label>
     </div> <!-- 카테고리 탭 닫기 -->
 
 
@@ -104,84 +172,66 @@
 
 
 
-
-
-
     <!----------------동호 작업분----------------------->
-    <div id="mainWrapper">
+    <div id="mainWrapper" class="pt-2">
        <ul>
             <!-- 게시판 제목 -->
-            <li>리뷰 게시판</li>
-            <!-- 게시판 목록  -->
-            <li>
+<%--            <li>리뷰 게시판</li>--%>
+<%--            <!-- 게시판 목록  -->--%>
+<%--            <li>--%>
 
                 <%--전체 정기구독 꽃다발 --- 탭 --%>
-                <ul class="nav nav-pills nav-justified">
-                    <li class="nav-item">
-                        <a href="/community/goReview">전체</a>
+               <%-- <ul class="nav nav-pills nav-justified">
+                    <li class="nav-item align-items-baseline review-category justify-content-around">
+                        <a class="btn-rev" href="/community/goReview">전체</a>
                     </li>
-                    <li class="nav-item">
-<%--                            <a href="#" onclick='goAllList("best", "정기구독")'>정기구독</a>--%>
-                        <a href="#" onclick='goCateBest("정기구독")'>정기구독</a>
+                    <li class="nav-item align-items-baseline review-category justify-content-around">
+&lt;%&ndash;                            <a href="#" onclick='goAllList("best", "정기구독")'>정기구독</a>&ndash;%&gt;
+                        <a class="btn-rev" href="#" onclick='goCateBest("정기구독")'>정기구독</a>
                     </li>
-                    <li class="nav-item">
-<%--                            <a href="#" onclick='goAllList("best", "꽃다발")'>꽃다발</a>--%>
-                        <a href="#" onclick='goCateBest("꽃다발")'>꽃다발</a>
+                    <li class="nav-item align-items-baseline review-category justify-content-around">
+&lt;%&ndash;                            <a href="#" onclick='goAllList("best", "꽃다발")'>꽃다발</a>&ndash;%&gt;
+                        <a class="btn-rev" href="#" onclick='goCateBest("꽃다발")'>꽃다발</a>
                     </li>
-                    <li class="nav-item">
-<%--                            <a href="#" onclick='goAllList("best", "클래스")'>클래스</a>--%>
-                        <a href="#" onclick='goCateBest("클래스")'>클래스</a>
+                    <li class="nav-item align-items-baseline review-category justify-content-around">
+&lt;%&ndash;                            <a href="#" onclick='goAllList("best", "클래스")'>클래스</a>&ndash;%&gt;
+                        <a class="btn-rev" href="#" onclick='goCateBest("클래스")'>클래스</a>
                     </li>
-                    <li class="nav-item">
-<%--                            <a href="#" onclick='goAllList("best", "소품샵")'>소품샵</a>--%>
-                        <a href="#" onclick='goCateBest("소품샵")'>소품샵</a>
+                    <li class="nav-item align-items-baseline review-category justify-content-around">
+&lt;%&ndash;                            <a href="#" onclick='goAllList("best", "소품샵")'>소품샵</a>&ndash;%&gt;
+                        <a class="btn-rev" href="#" onclick='goCateBest("소품샵")'>소품샵</a>
                     </li>
-                    <!-- 검색 폼 영역 -->
-                    <form id="review-form" class="d-flex" method="post">
-                        <li id='liSearchOption' class="col list-group list-group-horizontal nav-item">
-                            <div class="row">
-                              <%--  <select id='selSearchOption' name="opt">
-                                    <option value='S'>전체</option>
-                                </select>--%>
-<%--                                    <input id='txtKeyWord' type="text" name="searchtxt" value=""/>
-                                <input type='button' value='검색'/>--%>
-                            </div>
-                            <div class="row mx-3">
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="search">
-                            </div>
-                            <div class="row">
-                                <button class="btn btn-outline-success" type="button" onclick="goSearch(this.form)">검색</button>
-                            </div>
-                        </li>
-                    </form>
-                </ul>
-                <ul class="nav justify-content-around reviewBox" id="review-bar">
-                    <li class="nav-item-3">
-                        <a class="nav-link" id="${param.category}" href="#" onclick='goBestList("best", "${param.category}")'>베스트 리뷰</a>
+
+                </ul>--%>
+                <ul class="nav justify-content-around reviewBox col-12 pt-4" id="review-bar">
+                    <li class="nav-item-3 btn btn-outline-warning col-6 pe-1">
+                        <a class="nav-link text-dark" id="${param.category}" href="#" onclick='goBestList("best", "${param.category}")'>베스트 리뷰</a>
                     </li>
-                    <li class="nav-item-3">
-                        <a class="nav-link" id="${param.category}" href="#" onclick='goAllList("allList", "${param.category}")'>전체리뷰</a>
+                    <li class="nav-item-3 btn btn-outline-warning col-6 ps-1">
+                        <a class="nav-link text-dark" id="${param.category}" href="#" onclick='goAllList("allList", "${param.category}")'>전체리뷰</a>
                     </li>
                 </ul>
-                <ul id ="ulTablebar">
+           <div class="pt-3">
+                <span id ="ulTablebar">
                     <li>
-                        <ul>
-                            <li>별점</li>
-                            <li>제목</li>
-                            <li>작성일</li>
-                            <li>작성자</li>
-                            <li>좋아요</li>
+                        <ul class="d-flex col-12 text-center px-0 ps-0">
+                                    <li class="col-2 btn titleBtn text-light">별점</li>
+                                    <li class="col-4 btn titleBtn text-light">제목</li>
+                                    <li class="col-2 btn titleBtn text-light">작성일</li>
+                                    <li class="col-2 btn titleBtn text-light">작성자</li>
+                                    <li class="col-2 btn titleBtn text-light">좋아요</li>
                         </ul>
                     </li>
-                </ul>
+                </span>
+           </div>
                     <!-- 게시물이 출력될 영역 -->
-                <ul id="ulTable" class="accordion">
+                <div id="ulTable" class="accordion accordion-flush">
                     <c:forEach var="bestAllList" items="${bestRList}">
-                    <li class='allBoxes accordion-item'>
-                        <ul id="head${bestAllList.idx}" class="accordion-header headacco">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#col${bestAllList.idx}" aria-expanded="false" aria-controls="col${bestAllList.idx}">
-                                <li class="text-center">
-                                    <div>
+                    <span class='allBoxes accordion-item'>
+                        <ul id="head${bestAllList.idx}" class="accordion-header headacco col-12 text-center ps-0 pe-1">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#col${bestAllList.idx}" aria-expanded="false" aria-controls="col${bestAllList.idx}">
+                                <li class="justify-content-center col-2">
+                                    <div class="my-auto">
                                         <c:if test="${bestAllList.star eq 5}">
                                             <i class="fas fa-star text-warning"></i>
                                             <i class="fas fa-star text-warning"></i>
@@ -227,13 +277,14 @@
                                         </c:if>
                                     </div>
                                 </li>
-                                <li class="text-center"><span>${bestAllList.name}</span></li>
-                                <li class="text-center"><span>${bestAllList.regDate}</span></li>
+                                <li class="d-flex justify-content-center col-4"><span class="d-flex my-auto">${bestAllList.name}</span></li>
+                                <li class="d-flex justify-content-center col-2"><span class="d-flex my-auto">${bestAllList.regDate}</span></li>
                                 <c:set var = "member_id" value = "${fn:substring(bestAllList.memberId, 0, 4)}" />
-                                <li class="text-center idCut"><span>${member_id}</span></li>
-                                <li class="text-center"><span>${bestAllList.likeCount}</span></li>
+                                <li class="d-flex justify-content-center idCut col-2"><span class="d-flex my-auto">${member_id}***</span></li>
+                                <li class="d-flex justify-content-center col-2"><span class="d-flex my-auto">${bestAllList.likeCount}</span></li>
                             </button>
                         </ul>
+
                         <div id="col${bestAllList.idx}" class="accordion-collapse collapse" aria-labelledby="head${bestAllList.idx}" data-bs-parent="#ulTable">
                             <div class="accordion-body">
                                 <div class="d-flex justify-content-center">
@@ -271,9 +322,9 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </span>
                     </c:forEach>
-                </ul>
+                </div>
             </li>
             <li>
             </li>
@@ -363,17 +414,29 @@
                 let resultBar = "";
                 let ultable = "";
                 let dispHtml = "";
-                resultBar += '<li class="nav-item">'
-                    + '<span class="nav-link">검색결과</span>'
-                    + '</li>'
+                resultBar += '<li class="nav-item-3 btn btn-outline-warning col-6 pe-1">'
+                    + '<span class="nav-link text-dark">검색결과</span>'
+                    + '</li>';
 
-                ultable += '<li> <ul> <li>별점</li> <li>제목</li> <li>작성일</li> <li>작성자</li> <li>좋아요</li> </ul> </li>';
-
+                ultable += '<div class="pt-3">'
+                + '<span id="ulTablebar">'
+                + '<ul class="d-flex col-12 text-center px-0">'
+                + '<li class="col-2 btn titleBtn text-light">별점</li>'
+                + '<li class="col-4 btn titleBtn text-light">제목</li>'
+                + '<li class="col-2 btn titleBtn text-light">작성일</li>'
+                + '<li class="col-2 btn titleBtn text-light">작성자</li>'
+                + '<li class="col-2 btn titleBtn text-light">좋아요</li>'
+                + '</ul></span></div>';
+                 // '<li> <ul> <li>별점</li> <li>제목</li> <li>작성일</li> <li>작성자</li> <li>좋아요</li> </ul> </li>';
+                if(result.length < 1){
+                    dispHtml += '<div class="col fs-2 mt-5 mb-3 text-center">검색결과가 없습니다.</div>';
+                }
                 $.each(result, function (i, item) {
-                    dispHtml += '<li class="allBoxes accordion-item">';
-                    dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco">';
-                    dispHtml += '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
-                    dispHtml +=   '<li class="text-center"><div>';
+                    dispHtml += '<span class="allBoxes accordion-item">';
+                    dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco col-12 text-center ps-0 pe-1">';
+                    dispHtml += '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
+                    dispHtml +=   '<li class="justify-content-center col-2"><div class="my-auto">';
+
                     if(this.star == 5){
                         dispHtml += '<i class="fas fa-star text-warning"></i>'
                             + '<i class="fas fa-star text-warning"></i>'
@@ -417,19 +480,21 @@
                             + '<i class="far fa-star text-warning"></i>';
                     }
 
-
                     dispHtml += '</div></li>';
-                    dispHtml +=   '<li class="text-center">' + this.name + '</li>'
-                        + '<li class="text-center"><div>' + this.regDate + '</div></li>'
-                        + '<li class="text-center"><div>' + this.memberId.substring(0,4) + '</div></li>'
-                        + '<li class="text-center"><div>' +  this.likeCount + '</div></li></<button>'
+
+                    dispHtml +=   '<li class="d-flex justify-content-center col-4"><span class="d-flex my-auto"><span class="d-flex my-auto">' + this.name + '</span></li>'
+                        + '<li class="d-flex justify-content-center col-2"><span class="d-flex my-auto">' + this.regDate + '</span></li>'
+                        + '<li class="d-flex justify-content-center idCut col-2"><span class="d-flex my-auto">' +this.memberId.substring(0,4) + '***</span></li>'
+                        + '<li class="d-flex justify-content-center col-2"><span class="d-flex my-auto">' +  this.likeCount + '</span></li></<button>'
                         + '</ul>'
+
                         + '<div id="col' + this.idx + '" class="accordion-collapse collapse" aria-labelledby="head' + this.idx + '" data-bs-parent="#ulTable">'
                         + '<div class="accordion-body">'
-                        + '<div>'
-                        +   '<p>' + this.content + '</p>'
+                        + '<div class="d-flex justify-content-center">'
+                        +   '<p>' + item.content + '</p>'
                         + '</div>'
-                        + '<div>';
+
+                        + '<div class="d-flex justify-content-center">';
                     if(this.image != null) {
                         dispHtml += '<div>'
                             + '<img src="' + this.image + '" alt="사진">'
@@ -540,10 +605,11 @@
                     console.dir(result);
                     let dispHtml = "";
                     $.each(result, function (i, item) {
-                        dispHtml += '<li class="allBoxes accordion-item">';
-                        dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco">';
-                        dispHtml += '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
-                        dispHtml +=   '<li class="text-center"><div>';
+                        dispHtml += '<span class="allBoxes accordion-item">';
+                        dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco col-12 text-center ps-0 pe-1">';
+                        dispHtml += '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
+                        dispHtml +=   '<li class="justify-content-center col-2"><div class="my-auto">';
+
                         if(this.star == 5){
                             dispHtml += '<i class="fas fa-star text-warning"></i>'
                                 + '<i class="fas fa-star text-warning"></i>'
@@ -589,17 +655,19 @@
 
                         dispHtml += '</div></li>';
 
-                        dispHtml +=   '<li class="text-center">' + this.name + '</li>'
-                            + '<li class="text-center"><div>' + this.regDate + '</div></li>'
-                            + '<li class="text-center"><div>' +this.memberId.substring(0,4) + '</div></li>'
-                            + '<li class="text-center"><div>' +  this.likeCount + '</div></li></<button>'
+                        dispHtml +=   '<li class="d-flex justify-content-center col-4"><span class="d-flex my-auto"><span class="d-flex my-auto">' + this.name + '</span></li>'
+                            + '<li class="d-flex justify-content-center col-2"><span class="d-flex my-auto">' + this.regDate + '</span></li>'
+                            + '<li class="d-flex justify-content-center idCut col-2"><span class="d-flex my-auto">' +this.memberId.substring(0,4) + '***</span></li>'
+                            + '<li class="d-flex justify-content-center col-2"><span class="d-flex my-auto">' +  this.likeCount + '</span></li></<button>'
                             + '</ul>'
+
                             + '<div id="col' + this.idx + '" class="accordion-collapse collapse" aria-labelledby="head' + this.idx + '" data-bs-parent="#ulTable">'
                             + '<div class="accordion-body">'
-                            + '<div>'
-                            +   '<p>' + this.content + '</p>'
+                            + '<div class="d-flex justify-content-center">'
+                            +   '<p>' + item.content + '</p>'
                             + '</div>'
-                            + '<div>';
+
+                            + '<div class="d-flex justify-content-center">';
                         if(this.image != null) {
                             dispHtml += '<div>'
                                 + '<img src="' + this.image + '" alt="사진">'
@@ -667,10 +735,11 @@
             success: function (result) {
                let dispHtml = "";
                 $.each(result, function (i, item) {
-                    dispHtml += '<li class="allBoxes accordion-item">';
-                    dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco">';
-                    dispHtml += '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
-                    dispHtml +=   '<li class="text-center"><div>';
+                    dispHtml += '<span class="allBoxes accordion-item">';
+                    dispHtml +=   '<ul id="head' + this.idx + '" class="accordion-header headacco col-12 text-center ps-0 pe-1">';
+                    dispHtml += '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#col' + this.idx + '" aria-expanded="false" aria-controls="col' + this.idx + '">'
+                    dispHtml +=   '<li class="justify-content-center col-2"><div class="my-auto">';
+
                     if(this.star == 5){
                         dispHtml += '<i class="fas fa-star text-warning"></i>'
                             + '<i class="fas fa-star text-warning"></i>'
@@ -716,17 +785,19 @@
 
                     dispHtml += '</div></li>';
 
-                    dispHtml +=   '<li class="text-center">' + this.name + '</li>'
-                        + '<li class="text-center"><div>' + this.regDate + '</div></li>'
-                        + '<li class="text-center"><div>' +this.memberId.substring(0,4) + '</div></li>'
-                        + '<li class="text-center"><div>' +  this.likeCount + '</div></li></<button>'
+                    dispHtml +=   '<li class="d-flex justify-content-center col-4"><span class="d-flex my-auto"><span class="d-flex my-auto">' + this.name + '</span></li>'
+                        + '<li class="d-flex justify-content-center col-2"><span class="d-flex my-auto">' + this.regDate + '</span></li>'
+                        + '<li class="d-flex justify-content-center idCut col-2"><span class="d-flex my-auto">' +this.memberId.substring(0,4) + '***</span></li>'
+                        + '<li class="d-flex justify-content-center col-2"><span class="d-flex my-auto">' +  this.likeCount + '</span></li></<button>'
                         + '</ul>'
+
                         + '<div id="col' + this.idx + '" class="accordion-collapse collapse" aria-labelledby="head' + this.idx + '" data-bs-parent="#ulTable">'
                         + '<div class="accordion-body">'
-                        + '<div>'
+                        + '<div class="d-flex justify-content-center">'
                         +   '<p>' + item.content + '</p>'
                         + '</div>'
-                        + '<div>';
+
+                        + '<div class="d-flex justify-content-center">';
                     if(this.image != null) {
                         dispHtml += '<div>'
                             + '<img src="' + this.image + '" alt="사진">'
@@ -752,17 +823,15 @@
                     }
                     dispHtml += '</div>';
 
-                    dispHtml += "</div></div></li>";
+                    dispHtml += "</div></div></span>";
                 });
                 $("#ulTable").html(dispHtml);
             }
         });
     }
-
     function goDelete(idx) {
         location.href="/community/category/deleteReview?idx=" + idx;
     }
-
 </script>
 
 </html>
