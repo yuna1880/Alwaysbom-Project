@@ -51,7 +51,7 @@
                     </c:if>
 
                     <!-- 카드 결제시 -->
-                    <c:if test="${ordersVo.payType == '신용카드(직접입력)' || ordersVo.payType == '간편결제'}">
+                    <c:if test="${ordersVo.payType == '신용카드' || ordersVo.payType == '간편결제'}">
                         <dl class="bank_info">
                             <dt class="th">결제정보
                                 <span>결제가 정상적으로 완료되었습니다.</span>
