@@ -36,7 +36,28 @@
     </style>
     <script>
 
+
+
         $(function () {
+            let answer = '${param.answer}';
+            console.log(answer);
+            if(answer == '' || answer == null){
+                $("#goAnswer").removeClass("btn-dark");
+                $("#goAnswer").removeClass("btn-light");
+                $("#noAnswer").removeClass("btn-dark");
+                $("#noAnswer").removeClass("btn-light");
+
+                $("#noAnswer").addClass("btn-dark");
+                $("#goAnswer").addClass("btn-light");
+            }
+            if(answer == 'answer'){
+                $("#goAnswer").removeClass("btn-dark");
+                $("#goAnswer").removeClass("btn-light");
+                $("#noAnswer").removeClass("btn-dark");
+                $("#noAnswer").removeClass("btn-light");
+                $("#noAnswer").addClass("btn-light");
+                $("#goAnswer").addClass("btn-dark");
+            }
 
             if(${param.answer != 'answer'}){
                 let angle = 0;
@@ -63,42 +84,49 @@
             });
         });
 
+
+
     </script>
 </head>
 <body>
 <%@ include file="../main/b_header.jspf" %>
 <div class="d-flex justify-content-center">
-    <div id="container">
+    <div id="container" class="mx-auto">
         <h2>1:1 관리자 문의 게시판 입니다.</h2>
         <div class="mx-5">
-            <ul class="nav justify-content-around reviewBox">
-                <li class="nav-item-3">
-                    <a class="nav-link" id="${param.category}" href="#" onclick='goAnswer("")'>미답변</a>
+            <ul class="nav justify-content-around reviewBox col-12 py-3">
+                <li class="nav-item-3 col-6 px-2">
+                    <a class="nav-link btn btn-dark" id="noAnswer" href="#" onclick='goAnswer("")'>미답변</a>
                 </li>
-                <li class="nav-item-3">
-                    <a class="nav-link" id="${param.category}" href="#" onclick='goAnswer("answer")'>답변</a>
+                <li class="nav-item-3 col-6 px-2">
+                    <a class="nav-link btn btn-dark" id="goAnswer" href="#" onclick='goAnswer("answer")'>답변</a>
                 </li>
             </ul>
-            <div class="row row-cols-6 mx-auto bottom-line reBoard">
-                <span class="text-center col-2 nopadding">번호</span>
-                <span class="text-center col-2 nopadding">작성일</span>
-                <span class="text-center col-5 nopadding">제목</span>
-                <span class="text-center col-3 nopadding">상태</span>
-            </div>
+
 
             <ul class="nav row table mx-auto">
+                <li>
+                    <div class="row row-cols-5 mx-auto bottom-line accoque reBoard nopadding">
+                        <span class="text-center col-2 nopadding">번호</span>
+                        <span class="text-center col-2 nopadding">작성일</span>
+                        <span class="text-center col-5 nopadding">제목</span>
+                        <span class="text-center col-2 nopadding">상태</span>
+                        <span class="text-center col-1 nopadding"></span>
+                    </div>
+
+                </li>
                 <c:forEach var="quList" items="${questlist}">
                     <li>
 
-                        <div class="row row-cols-5 mx-auto bottom-line accoque reBoard">
+                        <div class="row row-cols-5 mx-auto bottom-line accoque reBoard nopadding">
                             <span class="text-center col-2 nopadding">${quList.idx}</span>
                             <span class="text-center col-2 nopadding">${quList.questionDate}</span>
                             <span class="text-center col-5 nopadding">${quList.name}</span>
                             <c:if test="${empty quList.answer}">
-                                <span class="text-center col-2 nopadding">미답변</span>
+                                <span class="text-center col-2 nopadding">${quList.memberId}</span>
                             </c:if>
                             <c:if test="${not empty quList.answer}">
-                                <span class="text-center col-2 nopadding">답변</span>
+                                <span class="text-center col-2 nopadding">${quList.memberId}</span>
                             </c:if>
                             <span class="text-center col-1 nopadding"><img src="/static/icons/up.svg"
                                                                            class="rounded- mx-auto checkv" alt="V"
@@ -194,7 +222,11 @@
 </body>
 
 <script>
+
+
     function goAnswer(answer) {
+
+
         location.href="/admin/community/question?answer="+answer;
     }
 
