@@ -129,13 +129,13 @@
                     if(checkNum == 0) {
                        htmls += '<a href="javascript:void(0);" onClick="classWrite(`클래스` ,`' + oli.fclassIdx + '`,`' + oli.idx + '`); return false" class="d-flex justify-content-start ps-2">';
                     } else {
-                        htmls += '<a href="javascript:void(0);" onClick="updateFclassWrite(`클래스` ,`' + oli.fclassIdx + '`,`' + oli.reviewIdx + '`,`' + oli.idx + '`); return false" class="d-flex justify-content-center pe-2">';
+                        htmls += '<a href="javascript:void(0);" onClick="updateFclassWrite(`클래스` ,`' + oli.fclassIdx + '`,`' + oli.reviewIdx + '`,`' + oli.idx + '`); return false" class="d-flex justify-content-start ps-2">';
                     }
                         htmls += '<span class="pe-2">' + oli.idx + '</span>'
                         + '<span class="pe-2"> 지점 :' + oli.branchName + '</span>'
                         + '<span class="pe-2"> 가격 :' + oli.payTotal + '</span>'
                         + '<span class="pe-2"> 상품 :' + oli.fclassName + '</span>'
-                        + '<span class="dateCut"> 주문날짜 : ' + oli.payDate
+                        + '<span class="dateCut"> 주문날짜 : ' +  new Date(oli.payDate).toLocaleDateString()
                         + '</span>'
                         + '</a></div>';
                 });
