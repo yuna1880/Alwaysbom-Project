@@ -12,8 +12,8 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         async function goFaqList(faqType) {
-            $(".cate").removeClass("bg-warning");
-            $(faqType).addClass("bg-warning");
+            $(".cate").removeClass("btn-dark");
+            $(faqType).addClass("btn-dark");
                 let category = {
                     category : faqType.getAttribute("id")
             }
@@ -49,8 +49,8 @@
 
         $(function () {
             let startFaqType = document.querySelector("#FAQ");
-            $(".cate").removeClass("bg-warning");
-            $("#FAQ").addClass("bg-warning");
+            $(".cate").removeClass("btn-dark");
+            $("#FAQ").addClass("btn-dark");
             goFaqList(startFaqType);
         });
     </script>
@@ -69,13 +69,23 @@
         <h2>자주 묻는 질문</h2>
         <div>
             <form method="post">
-            <ul class="nav justify-content-around faqBox">
+                <div class="d-flex align-items-baseline review-category col-12 justify-content-around mt-0">
                 <c:forEach var="category" items="${category}">
-                    <li class="nav-item-3 pt-2" id="list-${category}">
-                        <a class="cate nav-link mt-2 text-dark bg-warning" id="${category}" href="#" onclick="goFaqList(this)">${category}</a>
+                    <label class="" id="list-${category}">
+                        <a class="d-block text-center btn btn-dark py-3 px-5 btn-rev cate" id="${category}" href="#" onclick="goFaqList(this)">${category}</a>
+                    </label>
+
+                </c:forEach>
+                </div>
+
+
+         <%--   <ul class="nav col-12 justify-content-xl-around faqBox">
+                <c:forEach var="category" items="${category}">
+                    <li class="nav-item pe-auto pt-2" id="list-${category}">
+                        <a class="cate nav-link mt-2 text-dark bg-dark" id="${category}" href="#" onclick="goFaqList(this)">${category}</a>
                     </li>
                 </c:forEach>
-            </ul>
+            </ul>--%>
                 <div class="accordion accordion-flush" id="accordionFlushExample">
 
                 </div>

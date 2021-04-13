@@ -82,6 +82,7 @@
         let eidx = {
             "idx": eid
         }
+        let adminId = '${admin.id}'
         $.ajax({
             url: '/api/community/eco/ecommentList',
             data: eidx,
@@ -100,9 +101,9 @@
                         + '</span>'
                         + ' <p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">'
                         + '<span class="d-block">'
-                        + '<strong class="text-gray-dark">' + this.memberId + '</strong>'
+                        + '<strong class="text-gray-dark">' + this.memberId.substring(0,4) + '***</strong>'
                         + '<span id="eco-span" class="eco-span">';
-                        if(memid == this.memberId){
+                        if(memid == this.memberId || adminId == 'admin'){
                         htmls += '<button type="button" class="px-2 btn btn-sm btn-light" onclick="fn_editReply(`' + this.idx +'`, `' + this.memberId + '`, `' + this.content + '`)">수정</button>'
                         + '<button type="button" class="px-2 btn btn-sm btn-warning" onclick="fn_deleteReply(`' + this.idx + '`)" >삭제</button>';
                         }
