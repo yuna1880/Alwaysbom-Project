@@ -36,7 +36,8 @@
     <!-- 회원 탈퇴 -->
     <delete id="deleteMember">
         UPDATE MEMBER
-        SET QUIT_STATUS = 1
+        SET QUIT_STATUS = 1,
+            POINT = 0
         WHERE ID = #{id}
             AND PW = #{pw}
     </delete>
