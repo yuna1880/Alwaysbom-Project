@@ -13,37 +13,33 @@
 
 ![Uploading Screenshot 2021-04-19 at 10.41.35 pm.png…](https://user-images.githubusercontent.com/72509037/115247025-60a11080-a161-11eb-9203-6dfb7186d2fd.png)
 (권유나, 신동호, 윤민호, 이다솜, 이담영, 임하나 총 6명)
-
+---
 ### 💡 기획 의도
-
 ---
 
 ![Uploading Screenshot 2021-04-19 at 10.41.50 pm.png…](https://user-images.githubusercontent.com/72509037/115247384-b675b880-a161-11eb-9523-fd553215125b.png)
 ![Uploading Screenshot 2021-04-19 at 10.41.58 pm.png…](https://user-images.githubusercontent.com/72509037/115247465-c5f50180-a161-11eb-8af0-71d4d9e16134.png)
 
-
+---
 ### 💡 프로젝트 목표
-
 ---
 
 ![Uploading Screenshot 2021-04-19 at 10.42.09 pm.png…](https://user-images.githubusercontent.com/72509037/115247600-e3c26680-a161-11eb-9c47-f02c4b745d9d.png)
 ![Uploading Screenshot 2021-04-19 at 10.42.30 pm.png…](https://user-images.githubusercontent.com/72509037/115248104-592e3700-a162-11eb-9bb9-8d97204bafb0.png)
 
-
+---
 ### 💡 프로젝트 개발환경 및 협업도구
-
 ---
 
 ![Uploading Screenshot 2021-04-19 at 10.42.16 pm.png…](https://user-images.githubusercontent.com/72509037/115247876-25eba800-a162-11eb-9870-dedf8e29070d.png)
 
-
+---
 ### 💡 메인 화면 
-
 ---
 
 ![screencapture-localhost-8065-2021-04-19-22_56_47](https://user-images.githubusercontent.com/72509037/115248433-a6120d80-a162-11eb-9a7b-d39db90c02bd.png)
 
-
+---
 ### 💡 내가 구현한 기능 소개 (권유나)
 ---
 
@@ -54,7 +50,7 @@
 **`백오피스`** → **`정기구독 관리(상품CRUD)`** **`상품주문 관리`**
 
 
-
+---
 ### 📃 꽃 정기구독
 ---
 
@@ -63,6 +59,7 @@ javascript를 이용한 상단의 버튼을 누르면 페이지 이동 없이 �
 ![Uploading Screenshot 2021-04-19 at 10.17.41 pm.png…](https://user-images.githubusercontent.com/72509037/115249859-ff2e7100-a163-11eb-8fdc-8045bf6f9b68.png)
 메인 페이지 구현 및 이용방법 컴포넌트 디자인 구현
 
+---
 ### 📃 정기구독 상세페이지 구현
 ---
 
@@ -72,7 +69,7 @@ javascript를 이용한 상단의 버튼을 누르면 페이지 이동 없이 �
 <img width="332" alt="Screenshot 2021-04-19 at 10 18 32 pm" src="https://user-images.githubusercontent.com/72509037/115250371-749a4180-a164-11eb-86b8-d01d132d02bf.png">
 Date Picker 를 통한 날짜 선택 구현.
 
-
+---
 ### 📃 주문 & 결제 구현
 ---
 
@@ -110,7 +107,7 @@ Date Picker 를 통한 날짜 선택 구현.
 
 **`i'mport 결제 API`** -> KG inicis Pay를 이용해서 결제 API 연동 및 구현.
 
-
+---
 ### 📃 주문 조회
 ---
 <img width="613" alt="Screenshot 2021-04-19 at 10 23 22 pm" src="https://user-images.githubusercontent.com/72509037/115256439-2daf4a80-a16a-11eb-855f-04b3cc5e061d.png">
@@ -118,6 +115,7 @@ Date Picker 를 통한 날짜 선택 구현.
 **`주문상태`** -> **`입금대기`** **`취소요청`** **`취소완료`** **`결제완료`** **`배송중`** **`배송완료`**
 **`사용자`** -> 마이페이지에서 취소요청 및 구매확정 (배송중 -> 배송완료) 로 상태 변경 가능.
 
+---
 ### 📃 관리자 페이지 주문관리
 ---
 
