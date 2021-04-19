@@ -103,7 +103,7 @@ Date Picker 를 통한 날짜 선택 구현.
 **`포인트 사용`** -> 해당 회원이 보유하고있는 포인트보다 높은 금액을 입력하면 ‘사용가능하 포인트는 000원 입니다.’
 라고 알림이 뜨고 다시 입력할 수 있도록 구현. 알맞은 값을 입력 하면 적용 및 총 금액 자동 계산.
 
-**`i'mport 결제 API`** -> KG inicis Pay를 이용해서 결제 API 연동 및 구현.
+**`결제 API`** -> KG inicis Pay를 이용해서 결제 API 연동 및 구현.
 
 ---
 ### 📃 주문 조회
@@ -111,7 +111,7 @@ Date Picker 를 통한 날짜 선택 구현.
 <img width="613" alt="Screenshot 2021-04-19 at 10 23 22 pm" src="https://user-images.githubusercontent.com/72509037/115256439-2daf4a80-a16a-11eb-855f-04b3cc5e061d.png">
 
 해당 아이디로 결제한 주문 내역 조회 가능
-**`주문상태`** -> **`입금대기`** **`취소요청`** **`취소완료`** **`결제완료`** **`배송중`** **`배송완료`**
+**`주문상태`** -> **`입금대기`** **`취소요청`** **`취소완료`** **`결제완료`** **`배송중`** **`배송완료`** (총 6가지)
 
 <img width="490" alt="Screenshot 2021-04-19 at 10 23 39 pm" src="https://user-images.githubusercontent.com/72509037/115257945-8501ea80-a16b-11eb-9ac4-aeef35e87803.png">
 <img width="450" alt="Screenshot 2021-04-19 at 10 23 31 pm" src="https://user-images.githubusercontent.com/72509037/115258000-921ed980-a16b-11eb-9cbf-9f7c2794df00.png">
@@ -124,10 +124,20 @@ Date Picker 를 통한 날짜 선택 구현.
 
 <img width="627" alt="Screenshot 2021-04-19 at 10 24 29 pm" src="https://user-images.githubusercontent.com/72509037/115258094-a531a980-a16b-11eb-874d-ed63d30e81b1.png">
 
+**`리뷰작성`** 시, 해당 상품의 idx 를 통해 해당 상품에 대한 리뷰로 저장.
+
 
 ---
 ### 📃 관리자 페이지 주문관리
 ---
+
+<img width="1190" alt="Screenshot 2021-04-19 at 11 56 52 pm" src="https://user-images.githubusercontent.com/72509037/115258841-4fa9cc80-a16c-11eb-8aa7-640bdb2ecb8c.png">
+<img width="1187" alt="Screenshot 2021-04-19 at 11 57 13 pm" src="https://user-images.githubusercontent.com/72509037/115258856-533d5380-a16c-11eb-9ad1-348b97a36a65.png">
+
+**`관리자 주문관리`** -> 페이지 이동 없이 한 페이지에서 6가지의 모든 주문상태를 조회 가능
+**`관리자`** 는 (취소요청 -> 취소완료)  , (결제완료 -> 배송중) 상태값 변경 가능하도록 구현.
+**`주문 상태에 따른 총 숫자`** -> 총 갯수 옆에 숫자로 표기 (주문 상태 변경시 동적으로 변경)
+
 
 
 
