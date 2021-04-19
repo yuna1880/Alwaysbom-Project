@@ -78,8 +78,6 @@ Date Picker 를 통한 날짜 선택 구현.
 **`주문`** → 상품 상세페이지에서 '편지추가' 옵션 선택시, 주문 페이지 이동 전 선택한 상품수만큼 편지 생성.
             Javascript로 편지 입력할때마다 실시간 글자수 카운트 및 미리보기 가능하도록 구현.
             
-<img width="934" alt="Screenshot 2021-04-19 at 10 21 17 pm" src="https://user-images.githubusercontent.com/72509037/115252169-3271ff80-a166-11eb-9068-c333220c9203.png">
-<img width="633" alt="Screenshot 2021-04-19 at 10 21 47 pm" src="https://user-images.githubusercontent.com/72509037/115252175-33a32c80-a166-11eb-9f73-8cffcd4557c4.png">
 <img width="633" alt="Screenshot 2021-04-19 at 10 21 47 pm" src="https://user-images.githubusercontent.com/72509037/115255617-6864b300-a169-11eb-88ed-00b88c7a5c51.png">
 
 
@@ -111,12 +109,25 @@ Date Picker 를 통한 날짜 선택 구현.
 ### 📃 주문 조회
 ---
 <img width="613" alt="Screenshot 2021-04-19 at 10 23 22 pm" src="https://user-images.githubusercontent.com/72509037/115256439-2daf4a80-a16a-11eb-855f-04b3cc5e061d.png">
+
 해당 아이디로 결제한 주문 내역 조회 가능
 **`주문상태`** -> **`입금대기`** **`취소요청`** **`취소완료`** **`결제완료`** **`배송중`** **`배송완료`**
+
+<img width="490" alt="Screenshot 2021-04-19 at 10 23 39 pm" src="https://user-images.githubusercontent.com/72509037/115257945-8501ea80-a16b-11eb-9ac4-aeef35e87803.png">
+<img width="450" alt="Screenshot 2021-04-19 at 10 23 31 pm" src="https://user-images.githubusercontent.com/72509037/115258000-921ed980-a16b-11eb-9cbf-9f7c2794df00.png">
+
 **`사용자`** -> 마이페이지에서 취소요청 및 구매확정 (배송중 -> 배송완료) 로 상태 변경 가능.
+
+<img width="478" alt="Screenshot 2021-04-19 at 10 24 00 pm" src="https://user-images.githubusercontent.com/72509037/115258234-c4c8d200-a16b-11eb-940e-5b3a31b2a8a3.png">
+
+**`배송완료`** 상태에서만 해당 상품에 대한 리뷰 작성 버튼이 생성되도록 구현.
+
+<img width="627" alt="Screenshot 2021-04-19 at 10 24 29 pm" src="https://user-images.githubusercontent.com/72509037/115258094-a531a980-a16b-11eb-874d-ed63d30e81b1.png">
+
 
 ---
 ### 📃 관리자 페이지 주문관리
 ---
+
 
 
