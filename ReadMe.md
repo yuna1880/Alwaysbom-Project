@@ -70,6 +70,7 @@ javascript를 이용한 상단의 버튼을 누르면 페이지 이동 없이 �
 ---
 
 <img width="630" alt="Screenshot 2021-04-19 at 10 18 55 pm" src="https://user-images.githubusercontent.com/72509037/115250366-73691480-a164-11eb-9786-7028baeb0e08.png">
+
 **`정기구독 상세페이지`** → 상품 선택 후, 날짜, 수량, 옵션 선택에 따라 박스 생성 및 합계금액 계산되도록 구현.
 <img width="332" alt="Screenshot 2021-04-19 at 10 18 32 pm" src="https://user-images.githubusercontent.com/72509037/115250371-749a4180-a164-11eb-86b8-d01d132d02bf.png">
 Date Picker 를 통한 날짜 선택 구현.
