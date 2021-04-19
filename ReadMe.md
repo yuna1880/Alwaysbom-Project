@@ -3,9 +3,9 @@
 
 [👉🏻 Click Here 👈🏻](http://alwaysbom.xyz/) Portfoilo Website
 
-📊 프로젝트 일정
+###### 📊 프로젝트 일정
 ---
-(2021.03.11 - 4.13)
+###### (2021.03.11 - 4.13)
 
 
 
@@ -47,7 +47,7 @@
 ![screencapture-localhost-8065-2021-04-19-22_56_47](https://user-images.githubusercontent.com/72509037/115248433-a6120d80-a162-11eb-9a7b-d39db90c02bd.png)
 
 
-### 💡 내가 구현한 기능 소개
+### 💡 내가 구현한 기능 소개 (권유나)
 ---
 
 ![Uploading Screenshot 2021-04-19 at 10.42.46 pm.png…](https://user-images.githubusercontent.com/72509037/115248153-68ad8000-a162-11eb-9769-e504239fc48d.png)
@@ -58,17 +58,29 @@
 
 
 
-### 📃 정기구독 메인 페이지 구현 + 이용방법 컴포넌트 디자인
+### 📃 정기구독 메인 페이지 구현 + 이용방법 컴포넌트 디자인 구현
 ---
 ![screencapture-localhost-8065-subs-2021-04-19-22_17_11](https://user-images.githubusercontent.com/72509037/115249746-e1610c00-a163-11eb-900f-75111802cabb.png)
+javascript를 이용한 상단의 버튼을 누르면 페이지 이동 없이 화면이 변경되도록 처리.
 ![Uploading Screenshot 2021-04-19 at 10.17.41 pm.png…](https://user-images.githubusercontent.com/72509037/115249859-ff2e7100-a163-11eb-8fdc-8045bf6f9b68.png)
 
-### 📃 정기구독 메인 페이지 구현 + 이용방법 컴포넌트 디자인
+
+### 📃 정기구독 상세페이지 구현
 ---
 
 <img width="630" alt="Screenshot 2021-04-19 at 10 18 55 pm" src="https://user-images.githubusercontent.com/72509037/115250366-73691480-a164-11eb-9786-7028baeb0e08.png">
 **`정기구독 상세페이지`** → 상품 선택 후, 날짜, 수량, 옵션 선택에 따라 박스 생성 및 합계금액 계산되도록 구현.
 <img width="332" alt="Screenshot 2021-04-19 at 10 18 32 pm" src="https://user-images.githubusercontent.com/72509037/115250371-749a4180-a164-11eb-86b8-d01d132d02bf.png">
 Date Picker 를 통한 날짜 선택 구현.
+
+
+### 📃 주문 & 결제 구현
+---
+
+<img width="620" alt="Screenshot 2021-04-19 at 10 20 02 pm" src="https://user-images.githubusercontent.com/72509037/115251509-97792580-a165-11eb-91b6-c9a9194ba6f2.png">
+**`주문`** → 상품 상세페이지에서 '편지추가' 옵셔 선택시, 편지 옵션을 선택하 수 만큼 편지 생성.
+            Javascript로 편지 입력할때마다 실시간 글자수 카운트 및 미리보기 가능하도록 구현.
+            
+          
 
 
