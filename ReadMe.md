@@ -80,7 +80,7 @@
 <img width="620" alt="Screenshot 2021-04-19 at 10 20 02 pm" src="https://user-images.githubusercontent.com/72509037/115251509-97792580-a165-11eb-91b6-c9a9194ba6f2.png">
 
 - **`주문`** → 상품 상세페이지에서 '편지추가' 옵션 선택시, 주문 페이지 이동 전 선택한 상품수만큼 편지 생성.
-            - Javascript로 편지 입력할때마다 실시간 글자수 카운트 및 미리보기 가능하도록 구현.
+- Javascript로 편지 입력할때마다 실시간 글자수 카운트 및 미리보기 가능하도록 구현.
             
 <img width="633" alt="Screenshot 2021-04-19 at 10 21 47 pm" src="https://user-images.githubusercontent.com/72509037/115255617-6864b300-a169-11eb-88ed-00b88c7a5c51.png">
 
@@ -90,8 +90,8 @@
 <img width="447" alt="Screenshot 2021-04-19 at 11 27 39 pm" src="https://user-images.githubusercontent.com/72509037/115253143-0efb8480-a167-11eb-9b25-4c7a1ca98bac.png">
 <img width="713" alt="Screenshot 2021-04-19 at 11 28 45 pm" src="https://user-images.githubusercontent.com/72509037/115253145-102cb180-a167-11eb-9f13-9bee6671c0e8.png">
 
-- **`배송지 저장`** 버튼 클릭시, 현재 페이지에서 입력한 주소가 결제 완료 시점에서 DB에 저장되어 다음 결제시 사용 가능하도록 구현.
-(다음 결제시 저장된 최근 배송지 확인 가능)
+- **`배송지 저장`** 버튼 클릭시, 입력한 주소가 결제 완료 시점에서 DB에 저장되어 다음 구매시 사용 가능하도록 구현.
+- (다음 결제시 저장된 최근 배송지 확인 가능)
 
 
 <img width="661" alt="Screenshot 2021-04-19 at 10 22 09 pm" src="https://user-images.githubusercontent.com/72509037/115255698-7b778300-a169-11eb-834b-bc0b0c81a01d.png">
