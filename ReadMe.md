@@ -58,12 +58,13 @@
 
 
 
-### 📃 정기구독 메인 페이지 구현 + 이용방법 컴포넌트 디자인 구현
+### 📃 꽃 정기구독
 ---
+
 ![screencapture-localhost-8065-subs-2021-04-19-22_17_11](https://user-images.githubusercontent.com/72509037/115249746-e1610c00-a163-11eb-900f-75111802cabb.png)
 javascript를 이용한 상단의 버튼을 누르면 페이지 이동 없이 화면이 변경되도록 처리.
 ![Uploading Screenshot 2021-04-19 at 10.17.41 pm.png…](https://user-images.githubusercontent.com/72509037/115249859-ff2e7100-a163-11eb-8fdc-8045bf6f9b68.png)
-
+메인 페이지 구현 및 이용방법 컴포넌트 디자인 구현
 
 ### 📃 정기구독 상세페이지 구현
 ---
@@ -78,9 +79,17 @@ Date Picker 를 통한 날짜 선택 구현.
 ---
 
 <img width="620" alt="Screenshot 2021-04-19 at 10 20 02 pm" src="https://user-images.githubusercontent.com/72509037/115251509-97792580-a165-11eb-91b6-c9a9194ba6f2.png">
-**`주문`** → 상품 상세페이지에서 '편지추가' 옵셔 선택시, 편지 옵션을 선택하 수 만큼 편지 생성.
+**`주문`** → 상품 상세페이지에서 '편지추가' 옵션 선택시, 주문 페이지 이동 전 선택한 상품수만큼 편지 생성.
             Javascript로 편지 입력할때마다 실시간 글자수 카운트 및 미리보기 가능하도록 구현.
             
-          
+<img width="934" alt="Screenshot 2021-04-19 at 10 21 17 pm" src="https://user-images.githubusercontent.com/72509037/115252169-3271ff80-a166-11eb-9068-c333220c9203.png">
+<img width="633" alt="Screenshot 2021-04-19 at 10 21 47 pm" src="https://user-images.githubusercontent.com/72509037/115252175-33a32c80-a166-11eb-9f73-8cffcd4557c4.png">
+
+**`배송지 입력`** → **`Daum 주소 API`** 를 이용한 주소 검색 및 이용 가능.
+
+<img width="447" alt="Screenshot 2021-04-19 at 11 27 39 pm" src="https://user-images.githubusercontent.com/72509037/115253143-0efb8480-a167-11eb-9b25-4c7a1ca98bac.png">
+<img width="713" alt="Screenshot 2021-04-19 at 11 28 45 pm" src="https://user-images.githubusercontent.com/72509037/115253145-102cb180-a167-11eb-9f13-9bee6671c0e8.png">
+
+배송지 저장 버튼 클릭시, 결제한 시점 이후로 배송지 저장되도록 구현. (다음 결제시 저장된 최근 배송지 확인 가능)
 
 
