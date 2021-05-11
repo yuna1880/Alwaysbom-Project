@@ -1,10 +1,8 @@
 ## Flower Subscription & Shopping mall Website Project (Team)
 ##### Spring Framework 를 이용한 '새늘봄' 꽃 정기구독 사이트 (정기구독 & 꽃다발 쇼핑 & 플라워 클래스 구현)
 ###### 📊 프로젝트 일정 (2021.03.11 - 4.13)
-###### [👉🏻 Click Here 👈🏻](http://alwaysbom.xyz/) Portfolio Website
+###### [👉🏻 Portfolio Website 👈🏻](http://alwaysbom.xyz/)
 ---
-
-
 
 
 ### 💡 팀 프로젝트 팀원 소개 
@@ -24,8 +22,7 @@
 ### 💡 프로젝트 목표
 ---
 
-![Uploading Screenshot 2021-04-19 at 10.42.09 pm.png…](https://user-images.githubusercontent.com/72509037/115247600-e3c26680-a161-11eb-9c47-f02c4b745d9d.png)
-![Uploading Screenshot 2021-04-19 at 10.42.30 pm.png…](https://user-images.githubusercontent.com/72509037/115248104-592e3700-a162-11eb-9bb9-8d97204bafb0.png)
+![1](https://user-images.githubusercontent.com/72509037/117850634-7321ec00-b2c0-11eb-9598-1217f7f139cf.jpg)
 
 ---
 ### 💡 프로젝트 개발환경 및 협업도구
