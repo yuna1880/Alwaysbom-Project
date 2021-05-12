@@ -33,7 +33,7 @@
 ### 💡 메인 화면 
 ---
 
-![screencapture-localhost-8065-2021-04-19-22_56_47](https://user-images.githubusercontent.com/72509037/115248433-a6120d80-a162-11eb-9a7b-d39db90c02bd.png)
+![노션1](https://user-images.githubusercontent.com/72509037/117918444-f88bb780-b325-11eb-8c53-ff4e8e1badde.jpg)
 
 ---
 ### 💡 내가 구현한 기능 소개 (권유나)
@@ -62,78 +62,66 @@
 ### 📃 정기구독 상세페이지 구현
 ---
 
-<img width="630" alt="Screenshot 2021-04-19 at 10 18 55 pm" src="https://user-images.githubusercontent.com/72509037/115250366-73691480-a164-11eb-9786-7028baeb0e08.png">
+![상세페이지](https://user-images.githubusercontent.com/72509037/117916893-ff64fb00-b322-11eb-9e1b-7f4863303fd9.jpg)
 
 - **`정기구독 상세페이지`** → 상품 선택 후, 날짜, 수량, 옵션 선택에 따라 박스 생성 및 합계금액 계산되도록 구현.
+- Date Picker 를 통한 날짜 선택 구현. (날짜는 2주 단위로 선택 가능)
 
-<img width="332" alt="Screenshot 2021-04-19 at 10 18 32 pm" src="https://user-images.githubusercontent.com/72509037/115250371-749a4180-a164-11eb-86b8-d01d132d02bf.png">
-- Date Picker 를 통한 날짜 선택 구현.
+
+---
+### 📃 정기구독 상품 등록 (관리자)
+---
+
+
+
 
 ---
 ### 📃 주문 & 결제 구현
 ---
 
-<img width="620" alt="Screenshot 2021-04-19 at 10 20 02 pm" src="https://user-images.githubusercontent.com/72509037/115251509-97792580-a165-11eb-91b6-c9a9194ba6f2.png">
-
+![5](https://user-images.githubusercontent.com/72509037/117918226-a054b580-b325-11eb-97d5-bb4a0129c47e.jpg)
 - **`주문`** → 상품 상세페이지에서 '편지추가' 옵션 선택시, 주문 페이지 이동 전 선택한 상품수만큼 편지 생성.
 - Javascript로 편지 입력할때마다 실시간 글자수 카운트 및 미리보기 가능하도록 구현.
-            
-<img width="633" alt="Screenshot 2021-04-19 at 10 21 47 pm" src="https://user-images.githubusercontent.com/72509037/115255617-6864b300-a169-11eb-88ed-00b88c7a5c51.png">
-
-
 - **`배송지 입력`** → **`Daum 주소 API`** 를 이용한 주소 검색 및 이용 가능.
 
-<img width="447" alt="Screenshot 2021-04-19 at 11 27 39 pm" src="https://user-images.githubusercontent.com/72509037/115253143-0efb8480-a167-11eb-9b25-4c7a1ca98bac.png">
-<img width="713" alt="Screenshot 2021-04-19 at 11 28 45 pm" src="https://user-images.githubusercontent.com/72509037/115253145-102cb180-a167-11eb-9f13-9bee6671c0e8.png">
-
+![5 copy](https://user-images.githubusercontent.com/72509037/117918267-b5314900-b325-11eb-822d-e604f924c5ac.jpg)
 - **`배송지 저장`** 버튼 클릭시, 입력한 주소가 결제 완료 시점에서 DB에 저장되어 다음 구매시 사용 가능하도록 구현.
 - (다음 결제시 저장된 최근 배송지 확인 가능)
 
 
-<img width="661" alt="Screenshot 2021-04-19 at 10 22 09 pm" src="https://user-images.githubusercontent.com/72509037/115255698-7b778300-a169-11eb-834b-bc0b0c81a01d.png">
-
+![6](https://user-images.githubusercontent.com/72509037/117918879-e9f1d000-b326-11eb-89ba-d4e805089931.jpg)
 - **`결제 페이지`** -> 결제 전 고객이 마지막으로 확인하는 페이지. 
 - 수령일, 구독 기간, 등 상세 정보 및 가격 확인 후 결제 전 총 금액을 확인 가능하도록 구현.
-
-<img width="653" alt="Screenshot 2021-04-19 at 10 22 33 pm" src="https://user-images.githubusercontent.com/72509037/115255702-7ca8b000-a169-11eb-9c53-25277d4ed343.png">
-
 - **`등급 할인`** -> 현재 아이디의 등급은 ‘자스민’ 등급, 총 금액의 2%가 자동 할인 적용.
 - 정책상 3만원 이상의 상품 주문시 -> **`무료배송`**
-
 - **`포인트 사용`** -> 해당 회원이 보유하고 있는 포인트보다 높은 금액을 입력시‘사용가능한 포인트는 00원 입니다.’
 - 알림 메세지가 뜨고 다시 입력할 수 있도록 구현. 알맞은 값을 입력시 포인트 적용 및 총 금액 자동 계산.
 
-- **`결제 API`** -> KG inicis Pay를 이용해서 결제 API 연동 및 구현.
+
+<img width="1091" alt="결제" src="https://user-images.githubusercontent.com/72509037/117920735-62a65b80-b32a-11eb-942e-9617414b1e7c.png">
+
+- **`결제 API`** -> I'mport [KG inicis Pay] 를 이용해서 결제 API 연동 및 구현.
+- (현재 포트폴리오용 사이트여서, 실제 결제되는 것을 방지하기 위해 결제로 넘어갈 시, 1원으로 설정)
 
 ---
 ### 📃 주문 조회
 ---
-<img width="613" alt="Screenshot 2021-04-19 at 10 23 22 pm" src="https://user-images.githubusercontent.com/72509037/115256439-2daf4a80-a16a-11eb-855f-04b3cc5e061d.png">
 
-- 해당 아이디로 결제한 주문 내역 조회 가능
-- **`주문상태`** -> **`입금대기`** **`취소요청`** **`취소완료`** **`결제완료`** **`배송중`** **`배송완료`** (총 6가지)
-
-<img width="490" alt="Screenshot 2021-04-19 at 10 23 39 pm" src="https://user-images.githubusercontent.com/72509037/115257945-8501ea80-a16b-11eb-9ac4-aeef35e87803.png">
-<img width="450" alt="Screenshot 2021-04-19 at 10 23 31 pm" src="https://user-images.githubusercontent.com/72509037/115258000-921ed980-a16b-11eb-9cbf-9f7c2794df00.png">
-
+![7](https://user-images.githubusercontent.com/72509037/117921844-6804a580-b32c-11eb-88f2-51f84a735331.jpg)
+- 해당 아이디로 결제한 주문 내역 조회 가능. **`주문상태`** -> **`입금대기`** **`취소요청`** **`취소완료`** **`결제완료`** **`배송중`** **`배송완료`** (총 6가지)
 - **`사용자`** -> 마이페이지에서 취소요청 및 구매확정 (배송중 -> 배송완료) 로 상태 변경 가능.
+- 주문 취소시, 관리자의 승인 후 취소 완료 처리.
 
-<img width="478" alt="Screenshot 2021-04-19 at 10 24 00 pm" src="https://user-images.githubusercontent.com/72509037/115258234-c4c8d200-a16b-11eb-940e-5b3a31b2a8a3.png">
 
+![8](https://user-images.githubusercontent.com/72509037/117923201-9a170700-b32e-11eb-90a7-dca3094c15a4.jpg)
 - **`배송완료`** 상태에서만 해당 상품에 대한 리뷰 작성 버튼이 생성되도록 구현.
-
-<img width="627" alt="Screenshot 2021-04-19 at 10 24 29 pm" src="https://user-images.githubusercontent.com/72509037/115258094-a531a980-a16b-11eb-874d-ed63d30e81b1.png">
-
 - **`리뷰작성`** 시, 해당 상품의 idx 를 통해 해당 상품에 대한 리뷰로 저장.
 
-
 ---
-### 📃 관리자 페이지 주문관리
+### 📃 주문관리 (관리자)
 ---
 
-<img width="1190" alt="Screenshot 2021-04-19 at 11 56 52 pm" src="https://user-images.githubusercontent.com/72509037/115258841-4fa9cc80-a16c-11eb-8aa7-640bdb2ecb8c.png">
-<img width="1187" alt="Screenshot 2021-04-19 at 11 57 13 pm" src="https://user-images.githubusercontent.com/72509037/115258856-533d5380-a16c-11eb-9ad1-348b97a36a65.png">
-
+![10](https://user-images.githubusercontent.com/72509037/117923916-db5be680-b32f-11eb-9341-93f6df3b5886.jpg)
 - **`관리자 주문관리`** -> 페이지 이동 없이 한 페이지에서 6가지의 모든 주문상태를 조회 가능
 - **`관리자`** 는 (취소요청 -> 취소완료)  , (결제완료 -> 배송중) 상태값 변경 가능하도록 구현.
 - **`주문 상태에 따른 총 숫자`** -> 총 갯수 옆에 숫자로 표기 (주문 상태 변경시 동적으로 변경)
